@@ -1,0 +1,280 @@
+"use client";
+
+import { useEffect } from "react";
+import Lenis from "lenis";
+import { buildGlobalPath } from "@/lib/hiker-path";
+
+/**
+ * Runtime — client-side behavior for the entire homepage.
+ *
+ * - Lenis smooth scroll (tuned heavy, not glassy)
+ * - Time-of-day hue filter on hero topo (London-local clock)
+ * - Global hiker overlay injected body-level, lerp'd RAF tick
+ * - Section + per-entry IntersectionObservers for reveals
+ *
+ * Runs once on mount. Cleans up on unmount.
+ */
+export default function Runtime() {
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+
+    const prefersReducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches;
+
+    // ========== TIME-OF-DAY HUE ON TOPO ==========
+    try {
+      const nowLondon = new Date(
+        new Date().toLocaleString("en-US", { timeZone: "Europe/London" })
+      );
+      const h = nowLondon.getHours() + nowLondon.getMinutes() / 60;
+      const phase = 0.5 * (1 - Math.cos((2 * Math.PI * (h - 4)) / 24));
+      let hue: number;
+      if (h >= 17 && h <= 21) {
+        hue = 18 * (1 - Math.abs(h - 19) / 2.5);
+      } else if (h < 6 || h >= 22) {
+        hue = -20;
+      } else {
+        hue = -10 + 10 * phase;
+      }
+      const bright = 0.4 + 0.25 * phase;
+      const sep = 0.04 + 0.08 * phase;
+      const root = document.documentElement;
+      root.style.setProperty("--rb-topo-hue", hue.toFixed(1) + "deg");
+      root.style.setProperty("--rb-topo-bright", bright.toFixed(2));
+      root.style.setProperty("--rb-topo-sep", sep.toFixed(2));
+    } catch { /* defaults stay */ }
+
+    // ========== LENIS ==========
+    let lenis: Lenis | null = null;
+    let lenisRaf = 0;
+    if (!prefersReducedMotion) {
+      lenis = new Lenis({
+        duration: 1.35,
+        easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -11 * t)),
+        smoothWheel: true,
+      });
+      const raf = (time: number) => {
+        lenis?.raf(time);
+        lenisRaf = requestAnimationFrame(raf);
+      };
+      lenisRaf = requestAnimationFrame(raf);
+    }
+
+    // ========== GLOBAL HIKER OVERLAY ==========
+    const SVG_NS = "http://www.w3.org/2000/svg";
+    const overlay = document.createElementNS(SVG_NS, "svg");
+    overlay.setAttribute("id", "rb-hiker-overlay");
+    overlay.setAttribute("aria-hidden", "true");
+    overlay.style.cssText = [
+      "position:fixed",
+      "inset:0",
+      "width:100vw",
+      "height:100vh",
+      "pointer-events:none",
+      "z-index:10",
+      "opacity:0",
+      "transition:opacity 900ms var(--rb-ease)",
+    ].join(";");
+    overlay.innerHTML = `
+      <defs>
+        <filter id="rb-g-trail" x="-50%" y="-50%" width="200%" height="200%">
+          <feGaussianBlur stdDeviation="1.6" result="b"/>
+          <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+        <filter id="rb-g-fresh" x="-100%" y="-100%" width="300%" height="300%">
+          <feGaussianBlur stdDeviation="2.2" result="b1"/>
+          <feGaussianBlur stdDeviation="6" result="b2"/>
+          <feMerge><feMergeNode in="b2"/><feMergeNode in="b1"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+        <radialGradient id="rb-g-core" cx="50%" cy="50%" r="50%">
+          <stop offset="0%"  stop-color="#FFFFFF" stop-opacity="1"/>
+          <stop offset="55%" stop-color="#F5F1EA" stop-opacity="1"/>
+          <stop offset="100%" stop-color="#E8DFD4" stop-opacity="0.92"/>
+        </radialGradient>
+      </defs>
+      <path id="rb-g-guide" fill="none" stroke="rgba(245,241,234,0.09)" stroke-width="1" stroke-dasharray="1.5 4" stroke-linecap="round"/>
+      <path id="rb-g-lit"   fill="none" stroke="rgba(184,174,219,0.32)" stroke-width="1.2" stroke-linecap="round" style="filter:url(#rb-g-trail)"/>
+      <path id="rb-g-fresh-path" fill="none" stroke="rgba(245,241,234,0.78)" stroke-width="1.7" stroke-linecap="round" style="filter:url(#rb-g-fresh)"/>
+      <g id="rb-g-dot" style="filter:drop-shadow(0 0 8px rgba(255,255,255,0.95)) drop-shadow(0 0 20px rgba(184,174,219,0.9)) drop-shadow(0 0 40px rgba(139,125,216,0.6))">
+        <circle r="30" fill="rgba(139,125,216,0.08)" style="transform-origin:center;transform-box:fill-box;animation:rbHaloOuter 2.6s ease-in-out 0.3s infinite"/>
+        <circle r="16" fill="rgba(184,174,219,0.22)" style="transform-origin:center;transform-box:fill-box;animation:rbHaloInner 1.8s ease-in-out infinite"/>
+        <circle r="5"  fill="url(#rb-g-core)" style="transform-origin:center;transform-box:fill-box;animation:rbCoreIn 1400ms var(--rb-ease) 0ms both"/>
+        <circle r="1.4" fill="#FFFFFF" style="transform-origin:center;transform-box:fill-box;animation:rbGlintPulse 2.8s ease-in-out infinite"/>
+      </g>`;
+    document.body.appendChild(overlay);
+
+    const style = document.createElement("style");
+    style.id = "rb-hiker-style";
+    style.textContent = `
+      html { scroll-behavior: auto !important; }
+      @media (max-width: 820px) { #rb-hiker-overlay { display: none; } }
+      @media (prefers-reduced-motion: reduce) {
+        #rb-hiker-overlay #rb-g-dot circle { animation: none !important; }
+        #rb-hiker-overlay { transition: opacity 250ms linear; }
+      }`;
+    document.head.appendChild(style);
+
+    const gGuide = overlay.querySelector<SVGPathElement>("#rb-g-guide")!;
+    const gLit   = overlay.querySelector<SVGPathElement>("#rb-g-lit")!;
+    const gFresh = overlay.querySelector<SVGPathElement>("#rb-g-fresh-path")!;
+    const gDot   = overlay.querySelector<SVGGElement>("#rb-g-dot")!;
+    const FRESH_FRACTION = 0.08;
+    let vw = 0, vh = 0, totalLen = 0;
+    let targetP = 0, currentP = 0;
+    const BASE_LERP = 0.14;
+
+    function layoutGlobal() {
+      vw = window.innerWidth;
+      vh = window.innerHeight;
+      if (vw <= 820) return;
+      const d = buildGlobalPath(vw, vh);
+      gGuide.setAttribute("d", d);
+      gLit.setAttribute("d", d);
+      gFresh.setAttribute("d", d);
+      totalLen = gLit.getTotalLength();
+      if (totalLen <= 0) return;
+      gLit.style.strokeDasharray = String(totalLen);
+      gLit.style.strokeDashoffset = String(totalLen);
+      gFresh.style.strokeDasharray = `0 ${totalLen} 0 0`;
+      gFresh.style.strokeDashoffset = "0";
+      const p = getContentProgress();
+      currentP = p;
+      targetP = p;
+      setGlobal(p);
+    }
+
+    function setGlobal(progress: number) {
+      if (totalLen <= 0) return;
+      const walked = totalLen * progress;
+      const pt = gLit.getPointAtLength(walked);
+      gDot.setAttribute(
+        "transform",
+        `translate(${pt.x.toFixed(2)}, ${pt.y.toFixed(2)})`
+      );
+      gLit.style.strokeDashoffset = String(totalLen - walked);
+      const freshLen = Math.min(walked, totalLen * FRESH_FRACTION);
+      const behind = Math.max(0, walked - freshLen);
+      const ahead  = Math.max(0, totalLen - walked);
+      gFresh.style.strokeDasharray =
+        `0 ${behind.toFixed(2)} ${freshLen.toFixed(2)} ${ahead.toFixed(2)}`;
+    }
+
+    function getHeroEnd(): number {
+      const wrap = document.querySelector<HTMLElement>(".rb-hero-wrap");
+      if (!wrap) return 0;
+      const r = wrap.getBoundingClientRect();
+      return window.scrollY + r.top + r.height - window.innerHeight;
+    }
+
+    function getContentProgress(): number {
+      const heroEnd = getHeroEnd();
+      const docMax = Math.max(
+        1,
+        document.documentElement.scrollHeight - window.innerHeight
+      );
+      const contentRange = Math.max(1, docMax - heroEnd);
+      const sy = window.scrollY - heroEnd;
+      return Math.max(0, Math.min(1, sy / contentRange));
+    }
+
+    // Scroll-based show/hide of the global overlay (hide during hero)
+    function updateOverlayVisibility() {
+      const heroEnd = getHeroEnd();
+      const inHero = window.scrollY < heroEnd - 40;
+      overlay.style.opacity = inHero ? "0" : "1";
+    }
+
+    let rafId = 0;
+    function tick() {
+      if (vw > 820 && totalLen > 0) {
+        targetP = getContentProgress();
+        if (prefersReducedMotion) {
+          currentP = targetP;
+        } else {
+          const d = targetP - currentP;
+          const absD = Math.abs(d);
+          const eff = absD < 0.01 ? Math.min(0.28, BASE_LERP + 0.12) : BASE_LERP;
+          currentP += d * eff;
+        }
+        setGlobal(currentP);
+        updateOverlayVisibility();
+      }
+      rafId = requestAnimationFrame(tick);
+    }
+
+    // ========== REVEAL OBSERVERS ==========
+    const sections = document.querySelectorAll<HTMLElement>("[data-rb-sec]");
+    const entries = document.querySelectorAll<HTMLElement>(
+      ".rb-entry, .rb-founder"
+    );
+    const observers: IntersectionObserver[] = [];
+
+    if ("IntersectionObserver" in window) {
+      const ioSec = new IntersectionObserver(
+        (evts) => {
+          evts.forEach((e) => {
+            if (e.isIntersecting) {
+              e.target.classList.add("rb-in");
+              ioSec.unobserve(e.target);
+            }
+          });
+        },
+        { threshold: 0.15, rootMargin: "0px 0px -10% 0px" }
+      );
+      sections.forEach((s) => ioSec.observe(s));
+      observers.push(ioSec);
+
+      const ioEntry = new IntersectionObserver(
+        (evts) => {
+          evts.forEach((e) => {
+            if (e.isIntersecting) {
+              e.target.classList.add("rb-entry-in");
+              ioEntry.unobserve(e.target);
+            }
+          });
+        },
+        { threshold: 0.1, rootMargin: "0px 0px -22% 0px" }
+      );
+      entries.forEach((el) => ioEntry.observe(el));
+      observers.push(ioEntry);
+    } else {
+      sections.forEach((s) => s.classList.add("rb-in"));
+      entries.forEach((el) => el.classList.add("rb-entry-in"));
+    }
+
+    // ========== SAFETY FAILSAFE ==========
+    // After 3 seconds, force-reveal anything still hidden so the page is
+    // never invisible if observers/JS misfire.
+    const failsafe = window.setTimeout(() => {
+      sections.forEach((s) => s.classList.add("rb-in"));
+      entries.forEach((el) => el.classList.add("rb-entry-in"));
+    }, 3000);
+
+    // ========== BOOT ==========
+    layoutGlobal();
+    rafId = requestAnimationFrame(tick);
+
+    const onResize = () => {
+      clearTimeout((window as unknown as { _rb_resizeT?: number })._rb_resizeT);
+      (window as unknown as { _rb_resizeT?: number })._rb_resizeT = window.setTimeout(
+        layoutGlobal,
+        80
+      );
+    };
+    window.addEventListener("resize", onResize);
+
+    return () => {
+      cancelAnimationFrame(rafId);
+      cancelAnimationFrame(lenisRaf);
+      clearTimeout(failsafe);
+      window.removeEventListener("resize", onResize);
+      observers.forEach((o) => o.disconnect());
+      overlay.remove();
+      style.remove();
+      lenis?.destroy();
+    };
+  }, []);
+
+  return null;
+}
