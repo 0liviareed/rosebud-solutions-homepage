@@ -39,15 +39,30 @@ export default function Home() {
               <span className="rb-num">I</span>Built in rooms like these
             </p>
             <div className="rb-credentials-line" data-rb-fade="1">
-              <span className="rb-logo">C-Suite Network</span>
+              <span className="rb-logo">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src="https://cdn.prod.website-files.com/68c850ffb6742cb4ace5211c/699f346d2b4a5acddf7b7436_FSCA.avif" alt="FSCA" loading="lazy" decoding="async" />
+              </span>
               <span className="rb-sep" />
-              <span className="rb-logo">DSOA</span>
+              <span className="rb-logo">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src="https://cdn.prod.website-files.com/68c850ffb6742cb4ace5211c/699f346bae59ff807b9a5ac5_ASIC.avif" alt="ASIC" loading="lazy" decoding="async" />
+              </span>
               <span className="rb-sep" />
-              <span className="rb-logo">Agency Mavericks</span>
+              <span className="rb-logo">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src="https://cdn.prod.website-files.com/68c850ffb6742cb4ace5211c/699f346a9b7307d9f51b022e_5.avif" alt="Regulator" loading="lazy" decoding="async" />
+              </span>
               <span className="rb-sep" />
-              <span className="rb-logo">Cardone Ventures</span>
+              <span className="rb-logo">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src="https://cdn.prod.website-files.com/68c850ffb6742cb4ace5211c/699f34783fdf19aad5d31024_VFSC.avif" alt="VFSC" loading="lazy" decoding="async" />
+              </span>
               <span className="rb-sep" />
-              <span className="rb-logo">Daxko</span>
+              <span className="rb-logo">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src="https://cdn.prod.website-files.com/68c850ffb6742cb4ace5211c/699f346f9c3537e27b103066_4.avif" alt="Regulator" loading="lazy" decoding="async" />
+              </span>
             </div>
           </div>
         </section>
@@ -155,7 +170,7 @@ export default function Home() {
               </div>
               <div className="rb-entry rb-entry-labeled">
                 <span className="rb-label">Typical system</span>
-                <p className="rb-value">1,000 leads per batch &middot; 30 emails per day &middot; 7&ndash;10 day deployment</p>
+                <p className="rb-value">1,000 leads per batch &middot; 30 emails per day &middot; 5 week deployment</p>
               </div>
               <div className="rb-entry rb-entry-labeled">
                 <span className="rb-label">Lead scoring</span>
@@ -206,7 +221,7 @@ export default function Home() {
               <div className="rb-entry rb-entry-numbered" tabIndex={0}>
                 <span className="rb-num-big">01</span>
                 <div className="rb-body-stack">
-                  <span className="rb-label">Phase One &middot; 7&ndash;10 days</span>
+                  <span className="rb-label">Phase One &middot; 5 weeks</span>
                   <h3 className="rb-statement">The Lead <em>Engine.</em></h3>
                   <p className="rb-body-copy">
                     We find them, score them, route them. Every lead lands in
@@ -302,7 +317,10 @@ export default function Home() {
 
             <div data-rb-fade="3">
               <article className="rb-founder" tabIndex={0}>
-                <div className="rb-founder-image" aria-hidden="true" />
+                <div className="rb-founder-image" aria-hidden="true">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src="https://cdn.prod.website-files.com/68c850ffb6742cb4ace5211c/695e6ab65c5d3e60230ce3cd_6F48C0E8-F97B-4C36-950F-4CEDF3C8FEFD.avif" alt="Anselm Jr. Okojie" loading="lazy" decoding="async" />
+                </div>
                 <div className="rb-founder-info">
                   <span className="rb-founder-role">Founder &amp; CEO</span>
                   <h3 className="rb-founder-name">Anselm Jr. Okojie</h3>
@@ -317,7 +335,10 @@ export default function Home() {
                 </div>
               </article>
               <article className="rb-founder rb-founder-2" tabIndex={0}>
-                <div className="rb-founder-image" aria-hidden="true" />
+                <div className="rb-founder-image" aria-hidden="true">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src="https://cdn.prod.website-files.com/68c850ffb6742cb4ace5211c/695e6cd4f4ae02d41a03a510_D83AC58F-AD6A-4138-9A65-E046DDCFF322.avif" alt="Sajni Okojie" loading="lazy" decoding="async" />
+                </div>
                 <div className="rb-founder-info">
                   <span className="rb-founder-role">Co-founder &amp; COO</span>
                   <h3 className="rb-founder-name">Sajni Okojie</h3>
