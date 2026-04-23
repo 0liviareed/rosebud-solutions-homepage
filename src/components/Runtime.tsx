@@ -116,6 +116,16 @@ export default function Runtime() {
     label.textContent = "follow me.";
     document.body.appendChild(label);
 
+    // Page progress hairline — 1px bone line on the right edge.
+    // Fills from 0 → 1 as the whole document is scrolled, so the
+    // hiker's descent is mirrored by a quiet filling line alongside it.
+    const progress = document.createElement("div");
+    progress.className = "rb-progress";
+    progress.setAttribute("aria-hidden", "true");
+    document.body.appendChild(progress);
+    // Reveal after initial paint so the fill doesn't flash
+    window.setTimeout(() => progress.classList.add("rb-progress-ready"), 300);
+
     const style = document.createElement("style");
     style.id = "rb-hiker-style";
     style.textContent = `
@@ -328,6 +338,16 @@ export default function Runtime() {
         setGlobal(currentP);
         updateOverlayVisibility();
       }
+
+      // Page progress hairline — fills against the full document scroll,
+      // so the hero's scroll contributes too (unlike content progress).
+      const docMax = Math.max(
+        1,
+        document.documentElement.scrollHeight - window.innerHeight
+      );
+      const docProg = Math.max(0, Math.min(1, window.scrollY / docMax));
+      progress.style.setProperty("--rb-prog", docProg.toFixed(4));
+
       rafId = requestAnimationFrame(tick);
     }
 
@@ -367,24 +387,37 @@ export default function Runtime() {
       entries.forEach((el) => ioEntry.observe(el));
       observers.push(ioEntry);
 
-      /* Arrival pulse — fires once when the section reaches the
-         upper-middle reading zone (after the initial reveal).
-         Brightens the eyebrow for 1400ms with expanded tracking,
-         so the page acknowledges where you are. */
+      /* Arrival pulse — fires once per section when it reaches the
+         upper-middle reading zone. The eyebrow blooms, then the
+         section's numbered entries cascade with their own pulse
+         (140ms apart) so the reader's eye is walked down the section. */
       const ioArrive = new IntersectionObserver(
         (evts) => {
           evts.forEach((e) => {
             if (!e.isIntersecting) return;
-            const eyebrow = e.target.querySelector<HTMLElement>(".rb-eyebrow");
-            if (!eyebrow) return;
-            eyebrow.classList.remove("rb-eyebrow-arrive");
-            // Force reflow so the animation can re-trigger if re-observed
-            void eyebrow.offsetWidth;
-            eyebrow.classList.add("rb-eyebrow-arrive");
-            window.setTimeout(() => {
+            const section = e.target as HTMLElement;
+            const eyebrow = section.querySelector<HTMLElement>(".rb-eyebrow");
+            if (eyebrow) {
               eyebrow.classList.remove("rb-eyebrow-arrive");
-            }, 1500);
-            ioArrive.unobserve(e.target);
+              void eyebrow.offsetWidth;
+              eyebrow.classList.add("rb-eyebrow-arrive");
+              window.setTimeout(() => {
+                eyebrow.classList.remove("rb-eyebrow-arrive");
+              }, 1500);
+            }
+            // Numeral pulse cascade — each big numeral pulses in sequence
+            const nums = section.querySelectorAll<HTMLElement>(".rb-num-big");
+            nums.forEach((num, i) => {
+              window.setTimeout(() => {
+                num.classList.remove("rb-num-pulse");
+                void num.offsetWidth;
+                num.classList.add("rb-num-pulse");
+                window.setTimeout(() => {
+                  num.classList.remove("rb-num-pulse");
+                }, 1000);
+              }, 400 + i * 140);
+            });
+            ioArrive.unobserve(section);
           });
         },
         { threshold: 0, rootMargin: "-35% 0px -50% 0px" }
@@ -426,6 +459,7 @@ export default function Runtime() {
       observers.forEach((o) => o.disconnect());
       overlay.remove();
       label.remove();
+      progress.remove();
       style.remove();
       lenis?.destroy();
     };
