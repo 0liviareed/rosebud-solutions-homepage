@@ -130,10 +130,16 @@ export default function Hero() {
     let currentP = 0;
     const HERO_LERP = 0.14;
 
+    // Capture non-null refs so TS narrowing persists inside the RAF closure
+    const heroWrap = wrap;
+    const heroLitEl = lit;
+    const heroDotEl = dot;
+    const heroHikerEl = hikerWrap;
+
     function heroTick() {
-      const rect = wrap.getBoundingClientRect();
+      const rect = heroWrap.getBoundingClientRect();
       const wrapTop = window.scrollY + rect.top;
-      const range = wrap.offsetHeight - window.innerHeight;
+      const range = heroWrap.offsetHeight - window.innerHeight;
       if (range > 0) {
         const scrolled = window.scrollY - wrapTop;
         targetP = Math.max(0, Math.min(1, scrolled / range));
@@ -147,11 +153,10 @@ export default function Hero() {
         currentP += d * eff;
       }
       const walked = pathLen * currentP;
-      const pt = lit.getPointAtLength(walked);
-      dot.setAttribute("transform", `translate(${pt.x}, ${pt.y})`);
-      lit.style.strokeDashoffset = String(pathLen - walked);
-      // Cross-fade to global hiker in the final 8% of the pin
-      hikerWrap.style.opacity = currentP > 0.92 ? "0" : "1";
+      const pt = heroLitEl.getPointAtLength(walked);
+      heroDotEl.setAttribute("transform", `translate(${pt.x}, ${pt.y})`);
+      heroLitEl.style.strokeDashoffset = String(pathLen - walked);
+      heroHikerEl.style.opacity = currentP > 0.92 ? "0" : "1";
       rafId = requestAnimationFrame(heroTick);
     }
     rafId = requestAnimationFrame(heroTick);
