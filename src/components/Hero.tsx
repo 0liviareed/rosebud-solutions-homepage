@@ -27,6 +27,23 @@ export default function Hero() {
     const hikerWrap = heroHikerRef.current;
     if (!wrap || !lit || !dot || !hikerWrap) return;
 
+    // Responsive preserveAspectRatio: on portrait/narrow viewports,
+    // 'slice' with the 1920x1080 viewBox crops most of the horizontal
+    // sweep path. Switching to 'none' stretches the path into portrait,
+    // which turns the horizontal traverse into a dramatic vertical
+    // descent — the hiker stays fully visible through the whole hero.
+    const heroSvg = hikerWrap.querySelector("svg");
+    function updatePreserve() {
+      if (!heroSvg) return;
+      const narrow = window.innerWidth <= 820;
+      heroSvg.setAttribute(
+        "preserveAspectRatio",
+        narrow ? "none" : "xMidYMid slice"
+      );
+    }
+    updatePreserve();
+    window.addEventListener("resize", updatePreserve);
+
     const pathLen = lit.getTotalLength();
     lit.style.strokeDasharray = String(pathLen);
     lit.style.strokeDashoffset = String(pathLen);
@@ -127,6 +144,7 @@ export default function Hero() {
     return () => {
       triggers.forEach((t) => t.kill());
       tweens.forEach((t) => t.kill());
+      window.removeEventListener("resize", updatePreserve);
     };
   }, []);
 

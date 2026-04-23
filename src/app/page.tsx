@@ -24,64 +24,7 @@ export default function Home() {
       <Hero />
 
       <main className="rb-content">
-        {/* ===================== I — CREDENTIALS ===================== */}
-        <section
-          className="rb-sec rb-sec-credentials"
-          data-rb-sec
-          aria-label="Credentials"
-        >
-          <div className="rb-topo rb-topo-1" aria-hidden="true">
-            <svg viewBox="0 0 600 340" preserveAspectRatio="none">
-              <path className="rb-bright" d="M -10 40 Q 110 26 220 42 T 440 34 T 640 42" />
-              <path d="M -10 62 Q 112 46 222 64 T 442 54 T 640 62" />
-              <path d="M -10 86 Q 114 66 224 88 T 444 76 T 640 84" />
-              <path className="rb-bright" d="M -10 112 Q 116 90 226 114 T 446 100 T 640 110" />
-              <path d="M -10 138 Q 118 114 228 142 T 448 126 T 640 136" />
-              <path d="M -10 166 Q 120 140 230 170 T 450 154 T 640 164" />
-              <path className="rb-bright" d="M -10 196 Q 122 168 232 200 T 452 184 T 640 194" />
-              <path d="M -10 226 Q 124 198 234 232 T 454 214 T 640 224" />
-              <path d="M -10 256 Q 126 226 236 264 T 456 246 T 640 254" />
-              <path d="M -10 288 Q 128 256 238 296 T 458 278 T 640 286" />
-            </svg>
-          </div>
-          <div className="rb-wrap">
-            <p
-              className="rb-eyebrow"
-              data-rb-fade="0"
-              style={{ display: "flex", justifyContent: "center" }}
-            >
-              <span className="rb-num">I</span>Built in rooms like these
-            </p>
-            <div
-              className="rb-credentials-line"
-              data-rb-fade="1"
-              aria-label="Partner credentials"
-            >
-              <span className="rb-logo">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src="https://cdn.prod.website-files.com/68c850ffb6742cb4ace5211c/699f346d2b4a5acddf7b7436_FSCA.avif" alt="" loading="lazy" decoding="async" />
-              </span>
-              <span className="rb-logo">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src="https://cdn.prod.website-files.com/68c850ffb6742cb4ace5211c/699f346bae59ff807b9a5ac5_ASIC.avif" alt="" loading="lazy" decoding="async" />
-              </span>
-              <span className="rb-logo">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src="https://cdn.prod.website-files.com/68c850ffb6742cb4ace5211c/699f346a9b7307d9f51b022e_5.avif" alt="" loading="lazy" decoding="async" />
-              </span>
-              <span className="rb-logo">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src="https://cdn.prod.website-files.com/68c850ffb6742cb4ace5211c/699f34783fdf19aad5d31024_VFSC.avif" alt="" loading="lazy" decoding="async" />
-              </span>
-              <span className="rb-logo">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src="https://cdn.prod.website-files.com/68c850ffb6742cb4ace5211c/699f346f9c3537e27b103066_4.avif" alt="" loading="lazy" decoding="async" />
-              </span>
-            </div>
-          </div>
-        </section>
-
-        {/* ===================== II — DIGITAL TEAM ===================== */}
+        {/* ===================== I — DIGITAL TEAM ===================== */}
         <section className="rb-sec" data-rb-sec aria-label="Your Digital Team">
           <div className="rb-topo rb-topo-2" aria-hidden="true">
             <svg viewBox="0 0 420 320" preserveAspectRatio="none">
@@ -98,7 +41,7 @@ export default function Home() {
           <div className="rb-wrap">
             <div className="rb-head">
               <p className="rb-eyebrow" data-rb-fade="0">
-                <span className="rb-num">II</span>What you actually get
+                <span className="rb-num">I</span>What you actually get
               </p>
               <h2 className="rb-h2" data-rb-fade="1">
                 Inside your digital <em>team.</em>
@@ -199,12 +142,12 @@ export default function Home() {
           </div>
         </section>
 
-        {/* ===================== III — VOICES ===================== */}
+        {/* ===================== II — VOICES ===================== */}
         <section className="rb-sec rb-sec-voices" data-rb-sec aria-label="Voices">
           <div className="rb-wrap">
             <div className="rb-head" style={{ marginBottom: "clamp(2rem, 4vw, 3.5rem)" }}>
               <p className="rb-eyebrow" data-rb-fade="0">
-                <span className="rb-num">III</span>Voices
+                <span className="rb-num">II</span>Voices
               </p>
             </div>
             <div data-rb-fade="1">
@@ -213,7 +156,7 @@ export default function Home() {
           </div>
         </section>
 
-        {/* ===================== IV — RECEIPTS ===================== */}
+        {/* ===================== III — RECEIPTS ===================== */}
         <section className="rb-sec" data-rb-sec aria-label="The Receipts">
           <div className="rb-topo rb-topo-3" aria-hidden="true">
             <svg viewBox="0 0 460 300" preserveAspectRatio="none">
@@ -232,7 +175,7 @@ export default function Home() {
           <div className="rb-wrap">
             <div className="rb-head">
               <p className="rb-eyebrow rb-purple" data-rb-fade="0">
-                <span className="rb-num">IV</span>The receipts
+                <span className="rb-num">III</span>The receipts
               </p>
               <h2 className="rb-h2" data-rb-fade="1">
                 What we actually <em>build.</em>
@@ -259,7 +202,7 @@ export default function Home() {
           </div>
         </section>
 
-        {/* ===================== V — METHOD ===================== */}
+        {/* ===================== IV — METHOD ===================== */}
         <section className="rb-sec rb-sec-method" data-rb-sec aria-label="Method">
           <div className="rb-topo rb-topo-4" aria-hidden="true">
             <svg viewBox="0 0 480 340" preserveAspectRatio="none">
@@ -286,7 +229,7 @@ export default function Home() {
           <div className="rb-wrap">
             <div className="rb-head">
               <p className="rb-eyebrow" data-rb-fade="0">
-                <span className="rb-num">V</span>How we work
+                <span className="rb-num">IV</span>How we work
               </p>
               <h2 className="rb-h2" data-rb-fade="1">
                 Three phases. Built to run <em>without you.</em>
@@ -335,7 +278,7 @@ export default function Home() {
           </div>
         </section>
 
-        {/* ===================== VI — CALCULATOR ===================== */}
+        {/* ===================== V — CALCULATOR ===================== */}
         <section
           className="rb-sec"
           data-rb-sec
@@ -356,7 +299,7 @@ export default function Home() {
           <div className="rb-wrap">
             <div className="rb-head">
               <p className="rb-eyebrow" data-rb-fade="0">
-                <span className="rb-num">VI</span>Efficiency impact calculator
+                <span className="rb-num">V</span>Efficiency impact calculator
               </p>
               <h2 className="rb-h2" data-rb-fade="1">
                 The Cost of <em>Manual.</em>
@@ -371,7 +314,7 @@ export default function Home() {
           </div>
         </section>
 
-        {/* ===================== VII — ABOUT ===================== */}
+        {/* ===================== VI — ABOUT ===================== */}
         <section className="rb-sec" data-rb-sec aria-label="About">
           <div className="rb-topo rb-topo-6" aria-hidden="true">
             <svg viewBox="0 0 360 260" preserveAspectRatio="none">
@@ -385,7 +328,7 @@ export default function Home() {
           <div className="rb-wrap">
             <div className="rb-head">
               <p className="rb-eyebrow" data-rb-fade="0">
-                <span className="rb-num">VII</span>About
+                <span className="rb-num">VI</span>About
               </p>
               <h2 className="rb-h2" data-rb-fade="1">
                 The minds behind <em>Rosebud Solutions.</em>
@@ -429,7 +372,7 @@ export default function Home() {
           </div>
         </section>
 
-        {/* ===================== VIII — BOOK ===================== */}
+        {/* ===================== VII — BOOK ===================== */}
         <section
           id="rb-book"
           className="rb-sec"
@@ -450,7 +393,7 @@ export default function Home() {
           <div className="rb-wrap">
             <div className="rb-head">
               <p className="rb-eyebrow" data-rb-fade="0">
-                <span className="rb-num">VIII</span>Book a consultation
+                <span className="rb-num">VII</span>Book a consultation
               </p>
               <h2 className="rb-h2" data-rb-fade="1">
                 Find out what&apos;s costing you <em>the most time.</em>
@@ -469,15 +412,6 @@ export default function Home() {
           </div>
         </section>
 
-        <footer className="rb-colophon" aria-label="Colophon">
-          <span className="rb-colo-mark">— Rosebud Solutions</span>
-          <span className="rb-colo-rule" aria-hidden="true" />
-          <span className="rb-colo-meta">
-            Set in Cormorant Garamond &amp; DM Sans
-            <span className="rb-colo-dot" aria-hidden="true">·</span>
-            Made in London
-          </span>
-        </footer>
       </main>
     </>
   );
