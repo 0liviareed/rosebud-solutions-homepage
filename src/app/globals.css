@@ -3083,3 +3083,123 @@ button { font: inherit; color: inherit; }
     padding-left: clamp(1rem, 2vw, 1.5rem);
   }
 }
+
+/* =============================================================
+   GLOBAL FOOTER
+   Quiet register — bone-dim text, hairline dividers. The legal
+   disclaimer is meant to be readable but not shout; tight line-height
+   and a centered 72-char column keeps it calm.
+   ============================================================= */
+.rb-footer {
+  position: relative;
+  margin-top: clamp(4rem, 8vw, 7rem);
+  padding: clamp(3rem, 6vw, 5rem) clamp(1.5rem, 5vw, 3rem)
+           clamp(2rem, 4vw, 3rem);
+  background: var(--rb-bg-deep);
+  color: var(--rb-bone-dim);
+  z-index: 2;
+}
+.rb-footer-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.rb-footer-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  padding-bottom: clamp(2rem, 4vw, 3rem);
+}
+
+.rb-footer-logo {
+  display: inline-flex;
+  align-items: center;
+  opacity: 0.85;
+  transition: opacity 450ms var(--rb-ease);
+}
+.rb-footer-logo:hover,
+.rb-footer-logo:focus-visible {
+  opacity: 1;
+  outline: none;
+}
+.rb-footer-logo img {
+  width: clamp(32px, 4vw, 40px);
+  height: auto;
+  display: block;
+}
+
+.rb-footer-social {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: inline-flex;
+  gap: clamp(0.75rem, 1.5vw, 1.1rem);
+}
+.rb-footer-social-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid var(--rb-bone-hair);
+  color: var(--rb-bone-dim);
+  transition: color 450ms var(--rb-ease),
+              border-color 450ms var(--rb-ease),
+              background 450ms var(--rb-ease),
+              box-shadow 500ms var(--rb-ease);
+}
+.rb-footer-social-link:hover,
+.rb-footer-social-link:focus-visible {
+  color: var(--rb-bone);
+  border-color: var(--rb-purple);
+  background: rgba(139, 125, 216, 0.08);
+  box-shadow: 0 0 0 3px rgba(139, 125, 216, 0.08),
+              0 0 18px rgba(139, 125, 216, 0.25);
+  outline: none;
+}
+.rb-footer-social-link svg { display: block; }
+
+.rb-footer-divider {
+  height: 1px;
+  background: var(--rb-bone-hair);
+  width: 100%;
+}
+
+.rb-footer-disclaimer {
+  padding: clamp(2rem, 4vw, 3rem) 0;
+  max-width: 72ch;
+  margin: 0 auto;
+}
+.rb-footer-disclaimer p {
+  font-family: var(--font-dm-sans), sans-serif;
+  font-weight: 400;
+  font-size: clamp(11px, 0.78vw, 12px);
+  line-height: 1.75;
+  color: var(--rb-bone-dim);
+  margin: 0 0 clamp(0.85rem, 1.5vw, 1.15rem);
+  letter-spacing: 0.005em;
+}
+.rb-footer-disclaimer p:last-child { margin-bottom: 0; }
+
+.rb-footer-copyright {
+  font-family: var(--font-dm-sans), sans-serif;
+  font-weight: 500;
+  font-size: 10.5px;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: var(--rb-bone-faint);
+  margin: clamp(1.75rem, 3vw, 2.25rem) 0 0;
+  text-align: center;
+}
+
+@media (max-width: 560px) {
+  .rb-footer-top {
+    flex-direction: column;
+    gap: 1.5rem;
+    align-items: flex-start;
+  }
+  .rb-footer-social { align-self: flex-start; }
+  .rb-footer-social-link { width: 38px; height: 38px; }
+}

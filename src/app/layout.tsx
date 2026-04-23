@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Cormorant_Garamond, DM_Sans } from "next/font/google";
 import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 import Runtime from "@/components/Runtime";
 import FloatingPaths from "@/components/FloatingPaths";
 import "./globals.css";
@@ -50,6 +51,7 @@ export default function RootLayout({
         <FloatingPaths id="rb-atmo-2" position={-0.6} />
         <FloatingPaths id="rb-atmo-3" position={1.8} />
         {children}
+        <Footer />
       </body>
     </html>
   );
