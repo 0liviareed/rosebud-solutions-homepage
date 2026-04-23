@@ -100,30 +100,42 @@ export default function Header() {
               aria-hidden={!menuOpen}
             >
               <div className="rb-nav-group">
-                <span className="rb-nav-group-label">Industries</span>
+                <span className="rb-nav-group-label">
+                  <span className="rb-nav-group-count" aria-hidden="true">I–III</span>
+                  <span>Industries</span>
+                </span>
+
                 <Link
                   href="/industries/recruitment"
                   className="rb-nav-link"
                   role="menuitem"
                   onClick={() => setMenuOpen(false)}
                 >
-                  Recruitment
+                  <span className="rb-nav-link-title">Recruitment</span>
+                  <span className="rb-nav-link-desc">Sourcing. Screening. Scheduling.</span>
+                  <span className="rb-nav-link-arrow" aria-hidden="true">→</span>
                 </Link>
+
                 <Link
                   href="/industries/insurance"
                   className="rb-nav-link"
                   role="menuitem"
                   onClick={() => setMenuOpen(false)}
                 >
-                  Insurance
+                  <span className="rb-nav-link-title">Insurance</span>
+                  <span className="rb-nav-link-desc">Quotes. Claims. Renewals.</span>
+                  <span className="rb-nav-link-arrow" aria-hidden="true">→</span>
                 </Link>
+
                 <Link
                   href="/industries/healthcare"
                   className="rb-nav-link"
                   role="menuitem"
                   onClick={() => setMenuOpen(false)}
                 >
-                  Healthcare
+                  <span className="rb-nav-link-title">Healthcare</span>
+                  <span className="rb-nav-link-desc">Intake. Scheduling. Follow-up.</span>
+                  <span className="rb-nav-link-arrow" aria-hidden="true">→</span>
                 </Link>
               </div>
             </div>
