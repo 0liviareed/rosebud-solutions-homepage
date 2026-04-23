@@ -3,6 +3,7 @@ import RecruitmentFAQ from "@/components/RecruitmentFAQ";
 import SevenStepTimeline from "@/components/SevenStepTimeline";
 import Voices from "@/components/Voices";
 import { VOICES } from "@/components/voices-data";
+import BookDemoCTA from "@/components/BookDemoCTA";
 
 // Reorder so recruitment-adjacent quotes (pipeline scoring, chasing deals,
 // fast build time) lead — the general operational ones follow.
@@ -361,16 +362,8 @@ export default function RecruitmentPage() {
               We build it. We run it. You own it. No lock-in. Cancel any time.
             </p>
 
-            <div className="rb-book-cta-wrap" data-rb-fade="3">
-              <a
-                href="https://cal.eu/rosebudsolutions/30min"
-                className="rb-book-cta"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <span>Request a demo</span>
-                <span className="rb-book-cta-arrow" aria-hidden="true">→</span>
-              </a>
+            <div data-rb-fade="3">
+              <BookDemoCTA href="https://cal.eu/rosebudsolutions/30min" />
             </div>
           </div>
         </section>

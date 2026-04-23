@@ -1021,50 +1021,215 @@ button { font: inherit; color: inherit; }
    `Team.`, `Manual.`). Bone color, visible purple hairline beneath at
    rest so it reads as actionable. On hover the hairline thickens and
    shifts purple-core, the arrow slides, and color warms to white. */
-.rb-book-cta-wrap {
+/* ========== Book-a-demo CTA — pedestal + magnet + drawn arrow ==========
+   The most important element on every industry page. Three layers of
+   ambient presence (radial glow, halo, shimmer) frame an editorial italic
+   link that breathes and magnetically drifts toward the cursor. The arrow
+   draws itself forward on hover — the reader sees the word, the motion,
+   the pull. Clean fall-back on touch: glow + underline sweep, no magnet. */
+
+.rb-book-stage {
+  position: relative;
   display: flex;
-  justify-content: center;
-  margin-top: clamp(3.25rem, 6vw, 5rem);
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(1.75rem, 3vw, 2.5rem);
+  padding: clamp(3rem, 6vw, 5rem) 0 clamp(2rem, 4vw, 3rem);
+  margin-top: clamp(2rem, 4vw, 3rem);
+  isolation: isolate;
 }
+
+/* Breathing radial glow — primary pedestal. Blurred, slow pulse. */
+.rb-book-glow {
+  position: absolute;
+  inset: 50% 0 0;
+  transform: translateY(-50%);
+  height: clamp(14rem, 30vw, 22rem);
+  background: radial-gradient(
+    ellipse 44% 60% at 50% 50%,
+    rgba(139, 125, 216, 0.22) 0%,
+    rgba(139, 125, 216, 0.1) 30%,
+    rgba(139, 125, 216, 0.03) 55%,
+    transparent 75%
+  );
+  filter: blur(24px);
+  pointer-events: none;
+  z-index: -1;
+  animation: rbBookGlowBreathe 5.5s ease-in-out infinite;
+  transition: filter 800ms var(--rb-ease),
+              opacity 800ms var(--rb-ease);
+}
+.rb-book-glow-halo {
+  height: clamp(10rem, 22vw, 16rem);
+  background: radial-gradient(
+    ellipse 28% 50% at 50% 50%,
+    rgba(184, 174, 219, 0.32) 0%,
+    rgba(139, 125, 216, 0.12) 40%,
+    transparent 70%
+  );
+  filter: blur(14px);
+  animation-duration: 4.2s;
+  animation-delay: -1.2s;
+}
+.rb-book-stage:hover .rb-book-glow {
+  filter: blur(30px);
+}
+.rb-book-stage:hover .rb-book-glow-halo {
+  filter: blur(18px);
+}
+@keyframes rbBookGlowBreathe {
+  0%, 100% { transform: translateY(-50%) scale(0.94); opacity: 0.55; }
+  50%      { transform: translateY(-50%) scale(1.04); opacity: 0.85; }
+}
+
+/* Magnet — invisible catch area wider than the link itself. Mouse moving
+   within this zone drags the link toward the cursor with damping. */
+.rb-book-magnet {
+  display: inline-block;
+  padding: clamp(2rem, 5vw, 3.5rem) clamp(3rem, 7vw, 5rem);
+  position: relative;
+}
+
+/* Link itself — editorial italic, oversized, stays composed. */
 .rb-book-cta {
+  position: relative;
   display: inline-flex;
   align-items: baseline;
-  gap: 0.75rem;
+  gap: clamp(0.85rem, 1.5vw, 1.15rem);
   font-family: var(--font-cormorant), serif;
   font-style: italic;
   font-weight: 400;
-  font-size: clamp(1.4rem, 2.2vw, 1.9rem);
-  line-height: 1.2;
-  letter-spacing: -0.005em;
+  font-size: clamp(1.75rem, 3.2vw, 2.75rem);
+  line-height: 1.15;
+  letter-spacing: -0.01em;
   color: var(--rb-bone);
-  padding: 0.35rem 0.15rem 0.65rem;
-  border-bottom: 1px solid rgba(139, 125, 216, 0.45);
+  padding: 0.35rem 0.25rem 0.9rem;
+  text-decoration: none;
   cursor: pointer;
-  transition: color 450ms var(--rb-ease),
-              border-bottom-color 450ms var(--rb-ease),
-              border-bottom-width 450ms var(--rb-ease);
+  transition: color 500ms var(--rb-ease),
+              transform 650ms cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform;
 }
+.rb-book-cta-label {
+  position: relative;
+  z-index: 1;
+}
+
+/* Drawn-line arrow — shaft grows from a stub to full length, head slides. */
 .rb-book-cta-arrow {
-  font-family: var(--font-cormorant), serif;
-  font-style: italic;
-  font-size: 1em;
+  display: inline-flex;
+  align-items: center;
   color: var(--rb-purple);
-  transition: transform 400ms var(--rb-ease),
-              color 400ms var(--rb-ease);
+  transform: translateY(-0.25em);
+  transition: color 500ms var(--rb-ease);
 }
+.rb-book-cta-arrow svg { display: block; overflow: visible; }
+.rb-book-cta-shaft {
+  stroke-dasharray: 32;
+  stroke-dashoffset: 24;
+  transition: stroke-dashoffset 700ms var(--rb-ease);
+}
+.rb-book-cta-head {
+  transition: transform 650ms var(--rb-ease);
+  transform-origin: center;
+}
+
+/* Hairline underline beneath the whole link. Acts as the shimmer track. */
+.rb-book-cta-underline {
+  position: absolute;
+  left: 0.25rem;
+  right: 0.25rem;
+  bottom: 0.25rem;
+  height: 1px;
+  background: linear-gradient(90deg,
+    transparent 0%,
+    rgba(139, 125, 216, 0.5) 18%,
+    rgba(139, 125, 216, 0.55) 82%,
+    transparent 100%);
+  transition: background 600ms var(--rb-ease),
+              height 400ms var(--rb-ease);
+}
+.rb-book-cta-underline::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.85) 50%,
+    transparent 100%);
+  transform: translateX(-100%);
+  transition: transform 950ms var(--rb-ease);
+}
+
+/* Hover / focus treatment — arrow extends, head slides, shimmer sweeps,
+   underline warms from purple to bright purple-core, glow intensifies. */
 .rb-book-cta:hover,
 .rb-book-cta:focus-visible {
   color: #FFFFFF;
-  border-bottom-color: var(--rb-purple-core);
   outline: none;
+}
+.rb-book-cta:hover .rb-book-cta-shaft,
+.rb-book-cta:focus-visible .rb-book-cta-shaft {
+  stroke-dashoffset: 0;
+}
+.rb-book-cta:hover .rb-book-cta-head,
+.rb-book-cta:focus-visible .rb-book-cta-head {
+  transform: translateX(6px);
 }
 .rb-book-cta:hover .rb-book-cta-arrow,
 .rb-book-cta:focus-visible .rb-book-cta-arrow {
-  transform: translateX(6px);
   color: #FFFFFF;
 }
+.rb-book-cta:hover .rb-book-cta-underline,
+.rb-book-cta:focus-visible .rb-book-cta-underline {
+  height: 2px;
+  background: linear-gradient(90deg,
+    transparent 0%,
+    var(--rb-purple-core) 18%,
+    var(--rb-purple-core) 82%,
+    transparent 100%);
+}
+.rb-book-cta:hover .rb-book-cta-underline::before,
+.rb-book-cta:focus-visible .rb-book-cta-underline::before {
+  transform: translateX(100%);
+}
+
+/* Micro-caption beneath — quiet data point, reinforces the low-friction
+   nature of the demo at the last possible beat. */
+.rb-book-meta {
+  font-family: var(--font-dm-sans), sans-serif;
+  font-weight: 500;
+  font-size: 10.5px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--rb-bone-dim);
+  margin: 0;
+  text-align: center;
+  transition: color 500ms var(--rb-ease);
+}
+.rb-book-stage:hover .rb-book-meta {
+  color: var(--rb-bone);
+}
+
 @media (max-width: 560px) {
-  .rb-book-cta { font-size: 1.3rem; }
+  .rb-book-cta {
+    font-size: 1.5rem;
+    gap: 0.65rem;
+  }
+  .rb-book-magnet {
+    padding: 1.25rem 1rem;
+  }
+  .rb-book-stage {
+    padding: clamp(2rem, 5vw, 3rem) 0 clamp(1.5rem, 3vw, 2rem);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rb-book-glow { animation: none; }
+  .rb-book-cta, .rb-book-cta-shaft, .rb-book-cta-head,
+  .rb-book-cta-underline::before {
+    transition-duration: 200ms;
+  }
 }
 
 /* ========== Section III — Voices (client quote slider) ==========
