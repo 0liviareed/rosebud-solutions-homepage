@@ -348,10 +348,12 @@ button { font: inherit; color: inherit; }
      edge (path margin 22-34px, amp up to 18px — clearance ~40px). */
   .rb-wrap { padding-right: 40px; }
   .rb-topo-5, .rb-topo-2 { display: none; }
-  /* Hero-local hiker stays visible on mobile. The SVG's preserveAspectRatio
-     is flipped to 'none' at runtime (Hero.tsx) so the landscape 1920×1080
-     viewBox stretches into portrait, turning the horizontal sweep into
-     a dramatic vertical descent as the user scrolls the 400vh pin. */
+  /* Hero-local horizontal sweep hidden on portrait — the 1920×1080
+     viewBox can't frame cleanly in portrait (stretching distorts
+     curves, letterboxing shrinks them). Mobile hero instead relies
+     on the global vertical hiker (right edge, RAF + lerp) plus the
+     boosted topo parallax for visible scroll-driven motion. */
+  .rb-hero-hiker { display: none; }
 }
 @media (max-width: 480px) {
   .rb-sec { padding: 4rem 1.25rem; }

@@ -27,22 +27,11 @@ export default function Hero() {
     const hikerWrap = heroHikerRef.current;
     if (!wrap || !lit || !dot || !hikerWrap) return;
 
-    // Responsive preserveAspectRatio: on portrait/narrow viewports,
-    // 'slice' with the 1920x1080 viewBox crops most of the horizontal
-    // sweep path. Switching to 'none' stretches the path into portrait,
-    // which turns the horizontal traverse into a dramatic vertical
-    // descent — the hiker stays fully visible through the whole hero.
-    const heroSvg = hikerWrap.querySelector("svg");
-    function updatePreserve() {
-      if (!heroSvg) return;
-      const narrow = window.innerWidth <= 820;
-      heroSvg.setAttribute(
-        "preserveAspectRatio",
-        narrow ? "none" : "xMidYMid slice"
-      );
-    }
-    updatePreserve();
-    window.addEventListener("resize", updatePreserve);
+    // Hero-local SVG stays at default preserveAspectRatio='xMidYMid slice'.
+    // It's hidden via CSS below 820px — the 1920×1080 horizontal viewBox
+    // can't frame cleanly in portrait (stretching it distorts curves,
+    // letterboxing looks small). Mobile hero relies on topo parallax
+    // and the global hiker for scroll-driven motion.
 
     const pathLen = lit.getTotalLength();
     lit.style.strokeDasharray = String(pathLen);
@@ -61,12 +50,15 @@ export default function Hero() {
     const cue = wrap.querySelector<HTMLElement>(".rb-hero-scroll-cue");
 
     if (!prefersReducedMotion) {
-      // Parallax
+      // Topo parallax — amplitude bumped so the motion is clearly
+      // visible on mobile too. On mobile this is the primary
+      // scroll-driven animation during the hero (the local hiker
+      // is hidden, global hiker runs at the right edge).
       if (topo)
         tweens.push(
           gsap.to(topo, {
-            y: -90,
-            scale: 1.08,
+            y: -150,
+            scale: 1.14,
             ease: "none",
             scrollTrigger: {
               trigger: wrap,
@@ -165,7 +157,6 @@ export default function Hero() {
       triggers.forEach((t) => t.kill());
       tweens.forEach((t) => t.kill());
       cancelAnimationFrame(rafId);
-      window.removeEventListener("resize", updatePreserve);
     };
   }, []);
 
