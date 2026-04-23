@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { usePathname } from "next/navigation";
 import Lenis from "lenis";
 import { buildGlobalPath } from "@/lib/hiker-path";
@@ -17,6 +17,13 @@ import { buildGlobalPath } from "@/lib/hiker-path";
  */
 export default function Runtime() {
   const pathname = usePathname();
+
+  /* Shared flag: true while the booking section (#rb-book) is in view.
+     Drives the "here." phrase so it fires at the Cal embed / demo
+     pedestal regardless of scroll progress percentages. Set by the
+     per-route IntersectionObserver below, read by the phrase picker
+     in the mount-once tick loop. */
+  const bookInViewRef = useRef(false);
 
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -219,10 +226,13 @@ export default function Runtime() {
     // First phrase is directive (invites scroll), second confirms the
     // motion, third arrives. Keeps the editorial voice but reads as an
     // instruction the moment the hiker enters the content.
+    // Phrases 0 + 1 are progress-band driven; phrase 2 ("here.") is
+    // gated by bookInViewRef — it fires the moment the #rb-book section
+    // is prominently in view, independent of page length.
     const PHRASES = [
-      { text: "scroll to follow.",  from: 0.02, to: 0.42 },
-      { text: "keep scrolling.",    from: 0.42, to: 0.78 },
-      { text: "here.",              from: 0.78, to: 0.94 },
+      { text: "scroll to follow.",  from: 0.02, to: 0.52 },
+      { text: "keep scrolling.",    from: 0.52, to: 0.99 },
+      { text: "here.",              from: 0,    to: 1    }, // gated externally
     ];
     let currentPhraseIdx = -1;
     let phraseTransitioning = false;
@@ -310,10 +320,17 @@ export default function Runtime() {
       const p = getContentProgress();
       let targetIdx = -1;
       if (!inHero) {
-        for (let i = 0; i < PHRASES.length; i++) {
-          if (p >= PHRASES[i].from && p <= PHRASES[i].to) {
-            targetIdx = i;
-            break;
+        // "here." wins whenever the booking section is on-screen —
+        // regardless of scroll progress. Otherwise fall back to the
+        // progress-band driven phrases for the two earlier beats.
+        if (bookInViewRef.current) {
+          targetIdx = 2;
+        } else {
+          for (let i = 0; i < 2; i++) {
+            if (p >= PHRASES[i].from && p <= PHRASES[i].to) {
+              targetIdx = i;
+              break;
+            }
           }
         }
       }
@@ -531,6 +548,27 @@ export default function Runtime() {
       );
       sections.forEach((s) => ioArrive.observe(s));
       observers.push(ioArrive);
+
+      /* Booking-section observer — drives the "here." phrase on both
+         desktop and mobile. Fires when #rb-book is prominently on
+         screen (cal embed on the homepage; BookDemoCTA pedestal on the
+         industry pages). rootMargin trims the top + bottom so the
+         phrase doesn't flicker on the edges of view. */
+      const bookEl = document.getElementById("rb-book");
+      if (bookEl) {
+        const ioBook = new IntersectionObserver(
+          (evts) => {
+            evts.forEach((e) => {
+              bookInViewRef.current = e.isIntersecting;
+            });
+          },
+          { rootMargin: "-18% 0px -18% 0px", threshold: 0 }
+        );
+        ioBook.observe(bookEl);
+        observers.push(ioBook);
+      } else {
+        bookInViewRef.current = false;
+      }
     } else {
       sections.forEach((s) => s.classList.add("rb-in"));
       entries.forEach((el) => el.classList.add("rb-entry-in"));
