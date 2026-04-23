@@ -437,38 +437,14 @@ export default function Home() {
               </p>
             </div>
 
-            <div
-              data-rb-fade="3"
-              style={{ maxWidth: "640px", margin: "0 auto" }}
-            >
-              <div className="rb-entry rb-entry-labeled">
-                <span className="rb-label">What to expect</span>
-                <p className="rb-value-sans">
-                  We find where your business leaks time. You leave with a
-                  clear picture of what to automate first.
-                </p>
-              </div>
-              <div className="rb-entry rb-entry-labeled">
-                <span className="rb-label">Duration</span>
-                <p className="rb-value-sans">
-                  30 minutes. Zoom. No prep needed.
-                </p>
-              </div>
-            </div>
-
-            <p className="rb-reassure" data-rb-fade="4">
-              You own every system we build. No lock-in. Cancel any time.
-            </p>
-
-            <div className="rb-cta-wrap" data-rb-fade="4">
-              <a
-                href="https://cal.eu/rosebudsolutions/30min"
-                className="rb-cta"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Book a consultation
-              </a>
+            <div className="rb-book-meta" data-rb-fade="3">
+              <p className="rb-book-meta-line">
+                30 min <span className="rb-dot">·</span> Zoom{" "}
+                <span className="rb-dot">·</span> No prep needed
+              </p>
+              <p className="rb-book-meta-quote">
+                You own every system we build. No lock-in. Cancel any time.
+              </p>
             </div>
 
             <div className="rb-cal-wrap" data-rb-fade="4">

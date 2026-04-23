@@ -789,20 +789,55 @@ button { font: inherit; color: inherit; }
 }
 .rb-founder-2 .rb-founder-bio { margin-left: auto; }
 
-/* ========== Section VII — Book (Cal.com) ========== */
+/* ========== Section VII — Book (Cal.com) ==========
+   Consolidated layout: heading block → compact two-line meta strip
+   → calendar. No trust cards, no CTA button (the inline calendar is
+   the action), no hairline separator. */
+.rb-book-meta {
+  max-width: 40rem;
+  margin: clamp(2rem, 4vw, 3rem) auto clamp(2.5rem, 5vw, 4rem);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.rb-book-meta-line {
+  font-family: var(--font-dm-sans), sans-serif;
+  font-weight: 500;
+  font-size: 11px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--rb-bone-dim);
+  margin: 0;
+}
+.rb-book-meta-line .rb-dot {
+  color: var(--rb-purple);
+  font-family: var(--font-cormorant), serif;
+  font-style: italic;
+  font-size: 14px;
+  letter-spacing: 0;
+  margin: 0 0.3em;
+  opacity: 0.7;
+}
+.rb-book-meta-quote {
+  font-family: var(--font-cormorant), serif;
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(1rem, 1.3vw, 1.2rem);
+  line-height: 1.5;
+  color: var(--rb-bone-dim);
+  margin: 0;
+}
 .rb-cal-wrap {
-  margin: clamp(3rem, 6vw, 5rem) auto 0;
+  margin: 0 auto;
   max-width: 900px;
 }
-.rb-cal-wrap::before {
-  content: '';
-  display: block;
-  width: 48px;
-  height: 1px;
-  background: var(--rb-bone-faint);
-  margin: 0 auto 2.5rem;
-}
 .rb-cal-inline { width: 100%; min-height: 620px; }
+
+@media (max-width: 560px) {
+  .rb-book-meta-line { font-size: 10px; letter-spacing: 0.22em; }
+  .rb-book-meta-quote { font-size: 0.95rem; }
+}
 
 /* Page-end mark */
 .rb-end {
@@ -1109,49 +1144,5 @@ button { font: inherit; color: inherit; }
   color: var(--rb-bone-dim);
 }
 
-/* Reassurance line + primary CTA (Section VII — Book) */
-.rb-reassure {
-  max-width: 34rem;
-  margin: clamp(2.75rem, 5vw, 4rem) auto clamp(1.5rem, 3vw, 2.5rem);
-  text-align: center;
-  font-family: var(--font-cormorant), serif;
-  font-style: italic;
-  font-weight: 400;
-  font-size: clamp(1rem, 1.25vw, 1.15rem);
-  line-height: 1.5;
-  color: var(--rb-bone-dim);
-}
-.rb-cta-wrap { display: flex; justify-content: center; margin-bottom: clamp(2rem, 4vw, 3rem); }
-.rb-cta {
-  display: inline-flex;
-  align-items: baseline;
-  gap: 0.7rem;
-  font-family: var(--font-dm-sans), sans-serif;
-  font-weight: 500;
-  font-size: 12px;
-  letter-spacing: 0.26em;
-  text-transform: uppercase;
-  color: var(--rb-bone);
-  padding: 1rem 2rem;
-  border: 1px solid rgba(245, 241, 234, 0.18);
-  border-radius: 2px;
-  background: transparent;
-  transition: border-color 450ms var(--rb-ease),
-              color 450ms var(--rb-ease),
-              background 450ms var(--rb-ease),
-              letter-spacing 450ms var(--rb-ease);
-}
-.rb-cta::after {
-  content: '→';
-  font-family: var(--font-cormorant), serif;
-  font-style: italic;
-  font-size: 15px;
-  transition: transform 400ms var(--rb-ease);
-}
-.rb-cta:hover, .rb-cta:focus-visible {
-  border-color: var(--rb-purple);
-  color: var(--rb-purple);
-  letter-spacing: 0.30em;
-  outline: none;
-}
-.rb-cta:hover::after, .rb-cta:focus-visible::after { transform: translateX(4px); }
+/* (Previous .rb-reassure / .rb-cta classes removed — Book section now
+   consolidates everything into .rb-book-meta + the inline calendar.) */
