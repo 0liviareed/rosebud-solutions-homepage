@@ -63,12 +63,6 @@ export default function InsurancePage() {
             Half the week your team doesn&apos;t write.{" "}
             <em>That&apos;s the half we run.</em>
           </h1>
-          <p className="rb-page-hero-sub">
-            Your licensed advisors spend as much time on documentation, data
-            entry, and follow-up as they do on writing business. We build the
-            system that takes the admin half off their desk, so the writing
-            half gets its hours back.
-          </p>
           <p className="rb-page-hero-caption">
             5-week build. We run it. Your advisors do the work only they can do.
           </p>
@@ -86,9 +80,15 @@ export default function InsurancePage() {
               <h2 className="rb-h2" data-rb-fade="1">
                 Where the <em>hours go.</em>
               </h2>
+              <p className="rb-sub" data-rb-fade="2">
+                Your licensed advisors spend as much time on documentation,
+                data entry, and follow-up as they do on writing business. We
+                build the system that takes the admin half off their desk, so
+                the writing half gets its hours back.
+              </p>
             </div>
 
-            <div data-rb-fade="2">
+            <div data-rb-fade="3">
               <SevenStepTimeline steps={INSURANCE_STEPS} />
             </div>
 
