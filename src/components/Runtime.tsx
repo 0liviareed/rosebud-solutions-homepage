@@ -155,17 +155,32 @@ export default function Runtime() {
     const gLit   = overlay.querySelector<SVGPathElement>("#rb-g-lit")!;
     const gFresh = overlay.querySelector<SVGPathElement>("#rb-g-fresh-path")!;
     const gDot   = overlay.querySelector<SVGGElement>("#rb-g-dot")!;
-    const FRESH_FRACTION = 0.08;
     let vw = 0, vh = 0, totalLen = 0;
     let targetP = 0, currentP = 0;
     const BASE_LERP = 0.14;
 
+    // Fresh-tracks fraction varies with scroll velocity.
+    // At rest: 0.04 (tight, composed). Fast scroll: up to 0.16 (elongated).
+    // Eases the hiker toward/away from effort.
+    let freshFraction = 0.04;
+
     // Label tracks the hiker's screen position with a slower lerp
     // (0.065 vs hiker's 0.14) — the lag *is* the "following" feel.
     let labelX = 0, labelY = 0;
-    const LABEL_OFFSET_X = -82; // to the left of the hiker
-    const LABEL_OFFSET_Y = 2;   // vertically centred
+    const LABEL_OFFSET_X = -82;
+    const LABEL_OFFSET_Y = 2;
     const LABEL_LERP = 0.065;
+
+    // Voice moments — phrases the hiker says as you descend.
+    // Progress bands are based on content scroll (0..1, post-hero).
+    const PHRASES = [
+      { text: "follow me.",  from: 0.05, to: 0.42 },
+      { text: "keep going.", from: 0.42, to: 0.78 },
+      { text: "here.",       from: 0.78, to: 0.94 },
+    ];
+    let currentPhraseIdx = -1;
+    let phraseTransitioning = false;
+    let phraseTimeout = 0;
 
     function layoutGlobal() {
       vw = window.innerWidth;
@@ -196,7 +211,7 @@ export default function Runtime() {
         `translate(${pt.x.toFixed(2)}, ${pt.y.toFixed(2)})`
       );
       gLit.style.strokeDashoffset = String(totalLen - walked);
-      const freshLen = Math.min(walked, totalLen * FRESH_FRACTION);
+      const freshLen = Math.min(walked, totalLen * freshFraction);
       const behind = Math.max(0, walked - freshLen);
       const ahead  = Math.max(0, totalLen - walked);
       gFresh.style.strokeDasharray =
@@ -229,23 +244,78 @@ export default function Runtime() {
       return Math.max(0, Math.min(1, sy / contentRange));
     }
 
-    // Scroll-based show/hide of the global overlay (hide during hero)
-    // and gating for the trailing label.
+    // Scroll-based show/hide of the global overlay + voice moments.
+    // Label cycles through PHRASES with a crossfade on threshold crossing.
     function updateOverlayVisibility() {
       const heroEnd = getHeroEnd();
       const inHero = window.scrollY < heroEnd - 40;
       overlay.style.opacity = inHero ? "0" : "1";
 
-      // Label appears once we're past hero and ~5% into the content
-      // descent; fades out near the end (last 8%).
       const p = getContentProgress();
-      const shouldShow = !inHero && p > 0.05 && p < 0.92;
-      label.classList.toggle("rb-label-visible", shouldShow);
+      let targetIdx = -1;
+      if (!inHero) {
+        for (let i = 0; i < PHRASES.length; i++) {
+          if (p >= PHRASES[i].from && p <= PHRASES[i].to) {
+            targetIdx = i;
+            break;
+          }
+        }
+      }
+
+      if (targetIdx === currentPhraseIdx || phraseTransitioning) return;
+
+      if (targetIdx < 0) {
+        // Hide — fade out, stay gone
+        label.classList.remove("rb-label-visible");
+        phraseTransitioning = true;
+        phraseTimeout = window.setTimeout(() => {
+          phraseTransitioning = false;
+          currentPhraseIdx = -1;
+        }, 1400);
+      } else if (currentPhraseIdx < 0) {
+        // Appear fresh — swap text first, then fade in
+        label.textContent = PHRASES[targetIdx].text;
+        requestAnimationFrame(() => {
+          label.classList.add("rb-label-visible");
+        });
+        currentPhraseIdx = targetIdx;
+      } else {
+        // Phrase change — fade out, swap, fade back in
+        phraseTransitioning = true;
+        label.classList.remove("rb-label-visible");
+        phraseTimeout = window.setTimeout(() => {
+          label.textContent = PHRASES[targetIdx].text;
+          requestAnimationFrame(() => {
+            label.classList.add("rb-label-visible");
+          });
+          currentPhraseIdx = targetIdx;
+          phraseTransitioning = false;
+        }, 1400);
+      }
     }
 
     let rafId = 0;
+    let lastScrollY = typeof window !== "undefined" ? window.scrollY : 0;
+    let scrollVelocity = 0;
+    const FRESH_MIN = 0.04;
+    const FRESH_MAX = 0.16;
+
     function tick() {
       if (vw > 820 && totalLen > 0) {
+        // Scroll velocity → fresh-tracks length. Smoothed so the trail
+        // doesn't pop; decays to FRESH_MIN when scrolling stops.
+        const sy = window.scrollY;
+        const instantVel = Math.abs(sy - lastScrollY);
+        lastScrollY = sy;
+        scrollVelocity += (instantVel - scrollVelocity) * 0.18;
+        const velNorm = Math.min(1, scrollVelocity / 45);
+        const targetFresh = FRESH_MIN + (FRESH_MAX - FRESH_MIN) * velNorm;
+        freshFraction += (targetFresh - freshFraction) * 0.12;
+
+        // Fresh-tracks stroke width also responds to velocity — brighter
+        // and bolder under motion, quiet and thin at rest.
+        gFresh.style.strokeWidth = String(1.35 + velNorm * 0.9);
+
         targetP = getContentProgress();
         if (prefersReducedMotion) {
           currentP = targetP;
@@ -326,6 +396,7 @@ export default function Runtime() {
       cancelAnimationFrame(rafId);
       cancelAnimationFrame(lenisRaf);
       clearTimeout(failsafe);
+      clearTimeout(phraseTimeout);
       window.removeEventListener("resize", onResize);
       observers.forEach((o) => o.disconnect());
       overlay.remove();
