@@ -163,10 +163,28 @@ export default function Runtime() {
         0%, 100% { filter: brightness(1); }
         50%      { filter: brightness(1.25); }
       }
-      /* Label hidden on narrow screens — hiker alone reads; the
-         Cormorant italic label would crowd content on portrait. */
+      /* Mobile: label is decoupled from the dot-tracking transform and
+         pinned to the bottom-right of the viewport — near where the
+         mobile global hiker path descends. Smaller register, right-
+         aligned, slightly quieter glow so it doesn't crowd content.
+         !important is needed to beat the inline transform/top/left the
+         RAF loop writes for desktop tracking; the JS also guards but
+         this is a belt-and-braces override. */
       @media (max-width: 820px) {
-        #rb-hiker-label { display: none; }
+        #rb-hiker-label {
+          top: auto !important;
+          left: auto !important;
+          right: clamp(14px, 4vw, 22px);
+          bottom: clamp(20px, 4.5vw, 34px);
+          transform: none !important;
+          font-size: clamp(14px, 3.6vw, 17px);
+          font-weight: 400;
+          text-align: right;
+          color: rgba(245, 241, 234, 0.78);
+          text-shadow:
+            0 0 10px rgba(184, 174, 219, 0.6),
+            0 0 20px rgba(139, 125, 216, 0.35);
+        }
       }
       @media (prefers-reduced-motion: reduce) {
         #rb-hiker-overlay #rb-g-dot circle { animation: none !important; }
@@ -246,11 +264,15 @@ export default function Runtime() {
 
       // Update trailing label position with its own slower lerp —
       // the label "follows" the hiker with visible lag.
-      const targetLx = pt.x + LABEL_OFFSET_X;
-      const targetLy = pt.y + LABEL_OFFSET_Y;
-      labelX += (targetLx - labelX) * LABEL_LERP;
-      labelY += (targetLy - labelY) * LABEL_LERP;
-      label.style.transform = `translate(${labelX.toFixed(2)}px, ${labelY.toFixed(2)}px)`;
+      // On mobile the label is pinned to the viewport corner via CSS,
+      // so skip the dot-tracking transform entirely.
+      if (vw > 820) {
+        const targetLx = pt.x + LABEL_OFFSET_X;
+        const targetLy = pt.y + LABEL_OFFSET_Y;
+        labelX += (targetLx - labelX) * LABEL_LERP;
+        labelY += (targetLy - labelY) * LABEL_LERP;
+        label.style.transform = `translate(${labelX.toFixed(2)}px, ${labelY.toFixed(2)}px)`;
+      }
     }
 
     function getHeroEnd(): number {
