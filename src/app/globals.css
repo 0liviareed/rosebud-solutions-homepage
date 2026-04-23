@@ -608,6 +608,25 @@ button { font: inherit; color: inherit; }
   .rb-hero-caption { font-size: 9px; letter-spacing: 0.22em; }
   .rb-hero-contours { opacity: 0.6; }
   .rb-hero-topo-mid, .rb-hero-topo-far { display: none; }
+
+  /* Mobile scroll-jank fixes for the hero-local hiker.
+     - feGaussianBlur on the lit path is the primary cause of stutter:
+       re-stroking a filtered SVG path every frame forces the GPU to
+       re-rasterise a 2D blur per frame. The gradient stroke + glow on
+       the dot read fine without it.
+     - Triple drop-shadow on the dot stacks three Gaussian blurs per
+       paint. Collapse to a single light halo.
+     - feTurbulence in .rb-hero-grain is recomputed on every paint and
+       measurably drags scroll FPS on mid-range Android. Hide on mobile.
+  */
+  .rb-hero-lit {
+    filter: none;
+    stroke-width: 2;
+  }
+  .rb-hero-dot {
+    filter: drop-shadow(0 0 14px rgba(184, 174, 219, 0.9));
+  }
+  .rb-hero-grain { display: none; }
 }
 @media (prefers-reduced-motion: reduce) {
   .rb-hero-topo, .rb-hero-topo-mid, .rb-hero-topo-far {

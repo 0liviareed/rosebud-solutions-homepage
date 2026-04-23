@@ -136,11 +136,14 @@ export default function Hero() {
     }
 
     // Hero hiker — driven by the same RAF + lerp pattern as the global
-    // hiker below. Reading window.scrollY directly (which Lenis is
-    // already smoothing) and lerping a local progress value matches the
+    // hiker. Reading window.scrollY directly (Lenis is already smoothing
+    // scroll position) and lerping a local progress value matches the
     // silky feel of the vertical descent. ScrollTrigger's `scrub` adds
-    // its OWN smoothing on top of Lenis, which reads as laggy on mobile
-    // where the stretched path amplifies any delay.
+    // its OWN smoothing on top of Lenis, which reads as laggy on mobile.
+    //
+    // Perf: wrapTop and range are cached and only recomputed on resize.
+    // Calling getBoundingClientRect + offsetHeight every RAF frame forces
+    // a synchronous layout flush, which visibly jitters mobile scroll.
     let rafId = 0;
     let targetP = 0;
     let currentP = 0;
@@ -152,10 +155,32 @@ export default function Hero() {
     const heroDotEl = dot;
     const heroHikerEl = hikerWrap;
 
-    function heroTick() {
+    let wrapTop = 0;
+    let range = 0;
+    let hikerHidden = false;
+
+    function measureHero() {
       const rect = heroWrap.getBoundingClientRect();
-      const wrapTop = window.scrollY + rect.top;
-      const range = heroWrap.offsetHeight - window.innerHeight;
+      wrapTop = window.scrollY + rect.top;
+      range = Math.max(0, heroWrap.offsetHeight - window.innerHeight);
+    }
+    measureHero();
+
+    const onHeroResize = () => measureHero();
+    window.addEventListener("resize", onHeroResize);
+    window.addEventListener("orientationchange", onHeroResize);
+
+    // Re-measure after the path swap too (viewBox change doesn't affect
+    // layout, but keeping this keeps the pattern safe if it ever does).
+    const origApplyPath = applyPath;
+    const wrappedApplyPath = () => {
+      origApplyPath();
+      measureHero();
+    };
+    mql.removeEventListener("change", applyPath);
+    mql.addEventListener("change", wrappedApplyPath);
+
+    function heroTick() {
       if (range > 0) {
         const scrolled = window.scrollY - wrapTop;
         targetP = Math.max(0, Math.min(1, scrolled / range));
@@ -172,7 +197,11 @@ export default function Hero() {
       const pt = heroLitEl.getPointAtLength(walked);
       heroDotEl.setAttribute("transform", `translate(${pt.x}, ${pt.y})`);
       heroLitEl.style.strokeDashoffset = String(pathLen - walked);
-      heroHikerEl.style.opacity = currentP > 0.92 ? "0" : "1";
+      const shouldHide = currentP > 0.92;
+      if (shouldHide !== hikerHidden) {
+        heroHikerEl.style.opacity = shouldHide ? "0" : "1";
+        hikerHidden = shouldHide;
+      }
       rafId = requestAnimationFrame(heroTick);
     }
     rafId = requestAnimationFrame(heroTick);
@@ -181,7 +210,9 @@ export default function Hero() {
       triggers.forEach((t) => t.kill());
       tweens.forEach((t) => t.kill());
       cancelAnimationFrame(rafId);
-      mql.removeEventListener("change", applyPath);
+      window.removeEventListener("resize", onHeroResize);
+      window.removeEventListener("orientationchange", onHeroResize);
+      mql.removeEventListener("change", wrappedApplyPath);
     };
   }, []);
 
