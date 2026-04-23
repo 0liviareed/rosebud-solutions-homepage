@@ -11,7 +11,7 @@ export default function InsurancePage() {
     <main className="rb-industry-page">
       <div className="rb-industry-inner">
         <p className="rb-industry-eyebrow">
-          <span className="rb-num">II</span>Industries
+          <span className="rb-num">II</span>By Industry
         </p>
         <h1 className="rb-industry-h1">
           Insurance<em>.</em>

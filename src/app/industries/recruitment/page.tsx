@@ -11,7 +11,7 @@ export default function RecruitmentPage() {
     <main className="rb-industry-page">
       <div className="rb-industry-inner">
         <p className="rb-industry-eyebrow">
-          <span className="rb-num">I</span>Industries
+          <span className="rb-num">I</span>By Industry
         </p>
         <h1 className="rb-industry-h1">
           Recruitment<em>.</em>
