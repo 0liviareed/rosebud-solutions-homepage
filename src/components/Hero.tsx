@@ -39,8 +39,6 @@ export default function Hero() {
     const tweens: gsap.core.Tween[] = [];
 
     const topo = wrap.querySelector<HTMLElement>(".rb-hero-topo");
-    const topoMid = wrap.querySelector<HTMLElement>(".rb-hero-topo-mid");
-    const topoFar = wrap.querySelector<HTMLElement>(".rb-hero-topo-far");
     const contours = wrap.querySelector<HTMLElement>(".rb-hero-contours");
     const stack = wrap.querySelector<HTMLElement>(".rb-hero-stack");
     const cue = wrap.querySelector<HTMLElement>(".rb-hero-scroll-cue");
@@ -52,32 +50,6 @@ export default function Hero() {
           gsap.to(topo, {
             y: -90,
             scale: 1.08,
-            ease: "none",
-            scrollTrigger: {
-              trigger: wrap,
-              start: "top top",
-              end: "bottom bottom",
-              scrub: 0.8,
-            },
-          })
-        );
-      if (topoMid)
-        tweens.push(
-          gsap.to(topoMid, {
-            y: -60,
-            ease: "none",
-            scrollTrigger: {
-              trigger: wrap,
-              start: "top top",
-              end: "bottom bottom",
-              scrub: 0.8,
-            },
-          })
-        );
-      if (topoFar)
-        tweens.push(
-          gsap.to(topoFar, {
-            y: -25,
             ease: "none",
             scrollTrigger: {
               trigger: wrap,
@@ -165,9 +137,10 @@ export default function Hero() {
       aria-label="Rosebud Solutions — introduction"
     >
       <div className="rb-hero-pin">
-        {/* Parallax topographic layers: far → mid → foreground raster */}
-        <div className="rb-hero-topo-far" aria-hidden="true" />
-        <div className="rb-hero-topo-mid" aria-hidden="true" />
+        {/* Single raster topo layer. Mid/far parallax removed — the
+            global FloatingPaths layer carries that atmospheric role now
+            across the whole page, so duplicating it here created visual
+            noise. Contour overlay below still draws in over the raster. */}
         <div className="rb-hero-topo" aria-hidden="true">
           <Image
             src="/topo.jpg"

@@ -51,7 +51,7 @@ export default function FloatingPaths({
               pathOffset: [0, 1, 0],
             }}
             transition={{
-              duration: 32 + Math.random() * 14,
+              duration: 42 + Math.random() * 18,
               repeat: Infinity,
               ease: "linear",
             }}

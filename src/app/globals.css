@@ -82,7 +82,8 @@ button { font: inherit; color: inherit; }
 /* ========== Section armature ========== */
 .rb-sec { position: relative; padding: clamp(6rem, 11vw, 11rem) clamp(1.5rem, 5vw, 3rem); }
 .rb-sec-tight { padding: clamp(4rem, 7vw, 6.5rem) clamp(1.5rem, 5vw, 3rem); }
-.rb-sec + .rb-sec { border-top: 1px solid var(--rb-bone-hair); }
+/* No hairline between sections — padding is the divider, and the
+   floating-paths layer carries the atmospheric continuity. */
 
 .rb-wrap {
   max-width: 1040px;
@@ -244,7 +245,9 @@ button { font: inherit; color: inherit; }
 }
 .rb-entry-labeled:hover .rb-label { color: var(--rb-purple); }
 
-/* ========== Topographic motifs ========== */
+/* ========== Topographic motifs (disabled — floating paths replaces
+   the atmospheric role; keeping markup as no-op for future re-enable) */
+.rb-topo, .rb-topo-base { display: none !important; }
 .rb-topo {
   position: absolute;
   pointer-events: none;
@@ -822,21 +825,17 @@ button { font: inherit; color: inherit; }
   color: var(--rb-bone);
   opacity: 0.38;
   mix-blend-mode: screen;
-  /* Elliptical mask centred on the reading column. Smooth radial fade
-     with no hard stops — no visible gradient bands. Center drops to
-     ~30% of full intensity; edges/corners stay at 100%. */
+  /* Two-stop radial mask — no hard transitions. The center sits at
+     ~38% intensity, the edges at 100%, and everything in between
+     interpolates smoothly so there's no visible gradient line. */
   -webkit-mask-image: radial-gradient(
-    ellipse 62% 95% at 50% 50%,
-    rgba(0, 0, 0, 0.32) 0%,
-    rgba(0, 0, 0, 0.45) 40%,
-    rgba(0, 0, 0, 0.78) 72%,
+    ellipse 68% 100% at 50% 50%,
+    rgba(0, 0, 0, 0.38) 0%,
     black 100%
   );
   mask-image: radial-gradient(
-    ellipse 62% 95% at 50% 50%,
-    rgba(0, 0, 0, 0.32) 0%,
-    rgba(0, 0, 0, 0.45) 40%,
-    rgba(0, 0, 0, 0.78) 72%,
+    ellipse 68% 100% at 50% 50%,
+    rgba(0, 0, 0, 0.38) 0%,
     black 100%
   );
 }
