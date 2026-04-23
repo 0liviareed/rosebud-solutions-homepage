@@ -3,10 +3,13 @@
 import Lenis from "lenis";
 
 /**
- * BookCTA — an editorial link that smooth-scrolls to the booking
+ * BookCTA — inline editorial link that smooth-scrolls to the booking
  * calendar (#rb-book). Uses the global Lenis instance exposed by
  * Runtime so smoothing matches the rest of the page; falls back to
  * scrollIntoView if Lenis isn't available (reduced-motion users).
+ *
+ * Visual family with BookDemoCTA: same drawn-arrow, same underline
+ * logic — scaled down for mid-page moments rather than pedestal.
  */
 export default function BookCTA({
   label = "Book a call",
@@ -26,14 +29,35 @@ export default function BookCTA({
   }
 
   return (
-    <div className="rb-book-cta-wrap">
+    <div className="rb-book-link-wrap">
       <a
         href="#rb-book"
-        className="rb-book-cta"
+        className="rb-book-link"
         onClick={handleClick}
       >
-        <span>{label}</span>
-        <span className="rb-book-cta-arrow" aria-hidden="true">→</span>
+        <span className="rb-book-link-label">{label}</span>
+        <span className="rb-book-link-arrow" aria-hidden="true">
+          <svg viewBox="0 0 36 12" width="36" height="12">
+            <path
+              className="rb-book-link-shaft"
+              d="M0 6 L28 6"
+              stroke="currentColor"
+              strokeWidth="1.3"
+              strokeLinecap="round"
+              fill="none"
+            />
+            <path
+              className="rb-book-link-head"
+              d="M22 1.5 L28 6 L22 10.5"
+              stroke="currentColor"
+              strokeWidth="1.3"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              fill="none"
+            />
+          </svg>
+        </span>
+        <span className="rb-book-link-underline" aria-hidden="true" />
       </a>
     </div>
   );

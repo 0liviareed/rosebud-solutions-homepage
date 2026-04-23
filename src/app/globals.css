@@ -1021,6 +1021,86 @@ button { font: inherit; color: inherit; }
    `Team.`, `Manual.`). Bone color, visible purple hairline beneath at
    rest so it reads as actionable. On hover the hairline thickens and
    shifts purple-core, the arrow slides, and color warms to white. */
+/* ========== Inline book-a-demo link (BookCTA) ==========
+   Mid-page text link, smooth-scrolls to #rb-book. Visual family with
+   the pedestal CTA — same drawn arrow, same underline logic — at a
+   smaller size so it reads as an editorial footnote inviting the next
+   beat, not a competing pedestal. */
+.rb-book-link-wrap {
+  display: flex;
+  justify-content: center;
+  margin: clamp(2.5rem, 5vw, 4rem) 0 clamp(1rem, 2vw, 1.5rem);
+}
+.rb-book-link {
+  position: relative;
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.85rem;
+  font-family: var(--font-cormorant), serif;
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(1.25rem, 2vw, 1.65rem);
+  line-height: 1.2;
+  letter-spacing: -0.005em;
+  color: var(--rb-bone);
+  padding: 0.35rem 0.2rem 0.7rem;
+  text-decoration: none;
+  cursor: pointer;
+  transition: color 450ms var(--rb-ease);
+}
+.rb-book-link-label { position: relative; z-index: 1; }
+.rb-book-link-arrow {
+  display: inline-flex;
+  align-items: center;
+  color: var(--rb-purple);
+  transform: translateY(-0.22em);
+  transition: color 450ms var(--rb-ease);
+}
+.rb-book-link-arrow svg { display: block; overflow: visible; }
+.rb-book-link-shaft {
+  stroke-dasharray: 28;
+  stroke-dashoffset: 20;
+  transition: stroke-dashoffset 600ms var(--rb-ease);
+}
+.rb-book-link-head {
+  transition: transform 500ms var(--rb-ease);
+}
+.rb-book-link-underline {
+  position: absolute;
+  left: 0.2rem;
+  right: 0.2rem;
+  bottom: 0.3rem;
+  height: 1px;
+  background: rgba(139, 125, 216, 0.5);
+  transition: background 450ms var(--rb-ease),
+              height 400ms var(--rb-ease);
+}
+.rb-book-link:hover,
+.rb-book-link:focus-visible {
+  color: #FFFFFF;
+  outline: none;
+}
+.rb-book-link:hover .rb-book-link-shaft,
+.rb-book-link:focus-visible .rb-book-link-shaft {
+  stroke-dashoffset: 0;
+}
+.rb-book-link:hover .rb-book-link-head,
+.rb-book-link:focus-visible .rb-book-link-head {
+  transform: translateX(5px);
+}
+.rb-book-link:hover .rb-book-link-arrow,
+.rb-book-link:focus-visible .rb-book-link-arrow {
+  color: #FFFFFF;
+}
+.rb-book-link:hover .rb-book-link-underline,
+.rb-book-link:focus-visible .rb-book-link-underline {
+  height: 2px;
+  background: var(--rb-purple-core);
+}
+@media (max-width: 560px) {
+  .rb-book-link { font-size: 1.15rem; }
+}
+
 /* ========== Book-a-demo CTA — pedestal + magnet + drawn arrow ==========
    The most important element on every industry page. Three layers of
    ambient presence (radial glow, halo, shimmer) frame an editorial italic

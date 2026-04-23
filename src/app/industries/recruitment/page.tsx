@@ -4,6 +4,7 @@ import SevenStepTimeline from "@/components/SevenStepTimeline";
 import Voices from "@/components/Voices";
 import { VOICES } from "@/components/voices-data";
 import BookDemoCTA from "@/components/BookDemoCTA";
+import BookCTA from "@/components/BookCTA";
 
 // Reorder so recruitment-adjacent quotes (pipeline scoring, chasing deals,
 // fast build time) lead — the general operational ones follow.
@@ -61,6 +62,10 @@ export default function RecruitmentPage() {
             <p className="rb-aftertext rb-aftertext-bridge" data-rb-fade="3">
               What if six of those seven steps ran without them?
             </p>
+
+            <div data-rb-fade="3">
+              <BookCTA label="See what runs itself" />
+            </div>
           </div>
         </section>
 
@@ -262,6 +267,10 @@ export default function RecruitmentPage() {
                   </ul>
                 </div>
               </div>
+            </div>
+
+            <div data-rb-fade="3">
+              <BookCTA label="See how this runs for my desks" />
             </div>
           </div>
         </section>
