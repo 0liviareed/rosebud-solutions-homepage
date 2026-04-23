@@ -790,31 +790,14 @@ button { font: inherit; color: inherit; }
 .rb-founder-2 .rb-founder-bio { margin-left: auto; }
 
 /* ========== Section VII — Book (Cal.com) ==========
-   Lean three-beat structure: heading block → single italic reassurance
-   line → Cal.com embed. The practical details (30m / Zoom /
-   Europe/London) are shown by the embed itself, so we don't restate
-   them on the page. What the page uniquely contributes is the
-   reassurance about ownership — Rosebud voice that Cal.com can't. */
-.rb-book-meta-quote {
-  font-family: var(--font-cormorant), serif;
-  font-style: italic;
-  font-weight: 400;
-  font-size: clamp(1.05rem, 1.4vw, 1.3rem);
-  line-height: 1.5;
-  color: var(--rb-bone-dim);
-  margin: clamp(2rem, 4vw, 3rem) auto clamp(3rem, 6vw, 4.5rem);
-  text-align: center;
-  max-width: 38rem;
-}
+   Two-beat structure: heading block → Cal.com embed. The sub copy
+   sets the voice; the embed does the rest (duration, format,
+   timezone, and the actual booking). Nothing redundant between. */
 .rb-cal-wrap {
-  margin: 0 auto;
+  margin: clamp(1rem, 2vw, 2rem) auto 0;
   max-width: 900px;
 }
 .rb-cal-inline { width: 100%; min-height: 620px; }
-
-@media (max-width: 560px) {
-  .rb-book-meta-quote { font-size: 1rem; }
-}
 
 /* Page-end mark */
 .rb-end {

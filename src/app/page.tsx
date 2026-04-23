@@ -437,11 +437,7 @@ export default function Home() {
               </p>
             </div>
 
-            <p className="rb-book-meta-quote" data-rb-fade="3">
-              You own every system we build. No lock-in. Cancel any time.
-            </p>
-
-            <div className="rb-cal-wrap" data-rb-fade="4">
+            <div className="rb-cal-wrap" data-rb-fade="3">
               <CalEmbed />
             </div>
           </div>
