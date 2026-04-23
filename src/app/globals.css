@@ -790,43 +790,21 @@ button { font: inherit; color: inherit; }
 .rb-founder-2 .rb-founder-bio { margin-left: auto; }
 
 /* ========== Section VII — Book (Cal.com) ==========
-   Consolidated layout: heading block → compact two-line meta strip
-   → calendar. No trust cards, no CTA button (the inline calendar is
-   the action), no hairline separator. */
-.rb-book-meta {
-  max-width: 40rem;
-  margin: clamp(2rem, 4vw, 3rem) auto clamp(2.5rem, 5vw, 4rem);
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-.rb-book-meta-line {
-  font-family: var(--font-dm-sans), sans-serif;
-  font-weight: 500;
-  font-size: 11px;
-  letter-spacing: 0.28em;
-  text-transform: uppercase;
-  color: var(--rb-bone-dim);
-  margin: 0;
-}
-.rb-book-meta-line .rb-dot {
-  color: var(--rb-purple);
-  font-family: var(--font-cormorant), serif;
-  font-style: italic;
-  font-size: 14px;
-  letter-spacing: 0;
-  margin: 0 0.3em;
-  opacity: 0.7;
-}
+   Lean three-beat structure: heading block → single italic reassurance
+   line → Cal.com embed. The practical details (30m / Zoom /
+   Europe/London) are shown by the embed itself, so we don't restate
+   them on the page. What the page uniquely contributes is the
+   reassurance about ownership — Rosebud voice that Cal.com can't. */
 .rb-book-meta-quote {
   font-family: var(--font-cormorant), serif;
   font-style: italic;
   font-weight: 400;
-  font-size: clamp(1rem, 1.3vw, 1.2rem);
+  font-size: clamp(1.05rem, 1.4vw, 1.3rem);
   line-height: 1.5;
   color: var(--rb-bone-dim);
-  margin: 0;
+  margin: clamp(2rem, 4vw, 3rem) auto clamp(3rem, 6vw, 4.5rem);
+  text-align: center;
+  max-width: 38rem;
 }
 .rb-cal-wrap {
   margin: 0 auto;
@@ -835,8 +813,7 @@ button { font: inherit; color: inherit; }
 .rb-cal-inline { width: 100%; min-height: 620px; }
 
 @media (max-width: 560px) {
-  .rb-book-meta-line { font-size: 10px; letter-spacing: 0.22em; }
-  .rb-book-meta-quote { font-size: 0.95rem; }
+  .rb-book-meta-quote { font-size: 1rem; }
 }
 
 /* Page-end mark */

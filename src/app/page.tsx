@@ -437,15 +437,9 @@ export default function Home() {
               </p>
             </div>
 
-            <div className="rb-book-meta" data-rb-fade="3">
-              <p className="rb-book-meta-line">
-                30 min <span className="rb-dot">·</span> Zoom{" "}
-                <span className="rb-dot">·</span> No prep needed
-              </p>
-              <p className="rb-book-meta-quote">
-                You own every system we build. No lock-in. Cancel any time.
-              </p>
-            </div>
+            <p className="rb-book-meta-quote" data-rb-fade="3">
+              You own every system we build. No lock-in. Cancel any time.
+            </p>
 
             <div className="rb-cal-wrap" data-rb-fade="4">
               <CalEmbed />
