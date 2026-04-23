@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
+import { usePathname } from "next/navigation";
 import Lenis from "lenis";
 import { buildGlobalPath } from "@/lib/hiker-path";
 
@@ -15,6 +16,8 @@ import { buildGlobalPath } from "@/lib/hiker-path";
  * Runs once on mount. Cleans up on unmount.
  */
 export default function Runtime() {
+  const pathname = usePathname();
+
   useEffect(() => {
     if (typeof window === "undefined") return;
 
@@ -387,7 +390,48 @@ export default function Runtime() {
       rafId = requestAnimationFrame(tick);
     }
 
-    // ========== REVEAL OBSERVERS ==========
+    // ========== BOOT ==========
+    layoutGlobal();
+    rafId = requestAnimationFrame(tick);
+
+    const onResize = () => {
+      clearTimeout((window as unknown as { _rb_resizeT?: number })._rb_resizeT);
+      (window as unknown as { _rb_resizeT?: number })._rb_resizeT = window.setTimeout(
+        layoutGlobal,
+        80
+      );
+    };
+    window.addEventListener("resize", onResize);
+
+    // Expose layoutGlobal so the per-route effect can re-measure
+    // the hiker path when the page geometry changes (new hero, new
+    // content length on client-side navigation).
+    (window as unknown as { __rbRelayout?: () => void }).__rbRelayout =
+      layoutGlobal;
+
+    return () => {
+      cancelAnimationFrame(rafId);
+      cancelAnimationFrame(lenisRaf);
+      clearTimeout(phraseTimeout);
+      window.removeEventListener("resize", onResize);
+      overlay.remove();
+      label.remove();
+      progress.remove();
+      style.remove();
+      lenis?.destroy();
+      delete (window as unknown as { __rbRelayout?: () => void }).__rbRelayout;
+    };
+  }, []);
+
+  /* ===================== REVEAL OBSERVERS (per route) =====================
+     Runs on mount AND on every client-side navigation. Without this split,
+     the first Runtime mount's observers only ever saw the first page's
+     sections — subsequent pages rendered with data-rb-fade stuck at
+     opacity:0 because their [data-rb-sec] parents never got .rb-in.
+  */
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+
     const sections = document.querySelectorAll<HTMLElement>("[data-rb-sec]");
     const entries = document.querySelectorAll<HTMLElement>(
       ".rb-entry, .rb-founder"
@@ -423,10 +467,6 @@ export default function Runtime() {
       entries.forEach((el) => ioEntry.observe(el));
       observers.push(ioEntry);
 
-      /* Arrival pulse — fires once per section when it reaches the
-         upper-middle reading zone. The eyebrow blooms, then the
-         section's numbered entries cascade with their own pulse
-         (140ms apart) so the reader's eye is walked down the section. */
       const ioArrive = new IntersectionObserver(
         (evts) => {
           evts.forEach((e) => {
@@ -441,7 +481,6 @@ export default function Runtime() {
                 eyebrow.classList.remove("rb-eyebrow-arrive");
               }, 1500);
             }
-            // Numeral pulse cascade — each big numeral pulses in sequence
             const nums = section.querySelectorAll<HTMLElement>(".rb-num-big");
             nums.forEach((num, i) => {
               window.setTimeout(() => {
@@ -465,41 +504,21 @@ export default function Runtime() {
       entries.forEach((el) => el.classList.add("rb-entry-in"));
     }
 
-    // ========== SAFETY FAILSAFE ==========
-    // After 3 seconds, force-reveal anything still hidden so the page is
-    // never invisible if observers/JS misfire.
+    // Failsafe: after 3s force-reveal anything still hidden.
     const failsafe = window.setTimeout(() => {
       sections.forEach((s) => s.classList.add("rb-in"));
       entries.forEach((el) => el.classList.add("rb-entry-in"));
     }, 3000);
 
-    // ========== BOOT ==========
-    layoutGlobal();
-    rafId = requestAnimationFrame(tick);
-
-    const onResize = () => {
-      clearTimeout((window as unknown as { _rb_resizeT?: number })._rb_resizeT);
-      (window as unknown as { _rb_resizeT?: number })._rb_resizeT = window.setTimeout(
-        layoutGlobal,
-        80
-      );
-    };
-    window.addEventListener("resize", onResize);
+    // Re-measure hiker path for this page's geometry (hero presence,
+    // content length). The boot effect exposed __rbRelayout.
+    (window as unknown as { __rbRelayout?: () => void }).__rbRelayout?.();
 
     return () => {
-      cancelAnimationFrame(rafId);
-      cancelAnimationFrame(lenisRaf);
       clearTimeout(failsafe);
-      clearTimeout(phraseTimeout);
-      window.removeEventListener("resize", onResize);
       observers.forEach((o) => o.disconnect());
-      overlay.remove();
-      label.remove();
-      progress.remove();
-      style.remove();
-      lenis?.destroy();
     };
-  }, []);
+  }, [pathname]);
 
   return null;
 }

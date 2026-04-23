@@ -1,6 +1,12 @@
 import type { Metadata } from "next";
 import RecruitmentFAQ from "@/components/RecruitmentFAQ";
 import SevenStepTimeline from "@/components/SevenStepTimeline";
+import Voices from "@/components/Voices";
+import { VOICES } from "@/components/voices-data";
+
+// Reorder so recruitment-adjacent quotes (pipeline scoring, chasing deals,
+// fast build time) lead — the general operational ones follow.
+const RECRUITMENT_VOICES = [2, 0, 5, 3, 6, 1, 4, 7].map((i) => VOICES[i]);
 
 export const metadata: Metadata = {
   title: "Recruitment · Rosebud Solutions",
@@ -130,6 +136,20 @@ export default function RecruitmentPage() {
               Pricing shared on the demo call — scoped to the volume and
               seniority of the roles you hire for.
             </p>
+          </div>
+        </section>
+
+        {/* ===================== VOICES — between II & III ===================== */}
+        <section className="rb-sec" data-rb-sec aria-label="Voices">
+          <div className="rb-wrap">
+            <div className="rb-head">
+              <p className="rb-eyebrow" data-rb-fade="0">
+                <span className="rb-num">II&middot;V</span>Voices
+              </p>
+            </div>
+            <div data-rb-fade="1">
+              <Voices voices={RECRUITMENT_VOICES} />
+            </div>
           </div>
         </section>
 
