@@ -1036,3 +1036,83 @@ button { font: inherit; color: inherit; }
 @media (max-width: 820px) {
   .rb-progress { right: 6px; }
 }
+
+/* ========== Cards with body + italic closer (Digital Team) ==========
+   Each entry now carries a descriptive body paragraph followed by an
+   italic pull-quote closer. The closer acts as the "so what" line. */
+.rb-closer {
+  font-family: var(--font-cormorant), serif;
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(1.2rem, 1.85vw, 1.55rem);
+  line-height: 1.35;
+  letter-spacing: -0.005em;
+  color: var(--rb-bone);
+  margin: 0.35rem 0 0;
+  max-width: 42ch;
+  transition: text-shadow 500ms var(--rb-ease);
+}
+.rb-entry-numbered:hover .rb-closer,
+.rb-entry-numbered:focus-within .rb-closer {
+  text-shadow: 0 0 22px rgba(139, 125, 216, 0.32);
+}
+
+/* Closing line beneath the Digital Team grid — centered italic */
+.rb-dt-closing {
+  max-width: 42rem;
+  margin: clamp(3rem, 5vw, 4.5rem) auto 0;
+  text-align: center;
+  font-family: var(--font-cormorant), serif;
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(1.05rem, 1.35vw, 1.2rem);
+  line-height: 1.45;
+  color: var(--rb-bone-dim);
+}
+
+/* Reassurance line + primary CTA (Section VII — Book) */
+.rb-reassure {
+  max-width: 34rem;
+  margin: clamp(2.75rem, 5vw, 4rem) auto clamp(1.5rem, 3vw, 2.5rem);
+  text-align: center;
+  font-family: var(--font-cormorant), serif;
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(1rem, 1.25vw, 1.15rem);
+  line-height: 1.5;
+  color: var(--rb-bone-dim);
+}
+.rb-cta-wrap { display: flex; justify-content: center; margin-bottom: clamp(2rem, 4vw, 3rem); }
+.rb-cta {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.7rem;
+  font-family: var(--font-dm-sans), sans-serif;
+  font-weight: 500;
+  font-size: 12px;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: var(--rb-bone);
+  padding: 1rem 2rem;
+  border: 1px solid rgba(245, 241, 234, 0.18);
+  border-radius: 2px;
+  background: transparent;
+  transition: border-color 450ms var(--rb-ease),
+              color 450ms var(--rb-ease),
+              background 450ms var(--rb-ease),
+              letter-spacing 450ms var(--rb-ease);
+}
+.rb-cta::after {
+  content: '→';
+  font-family: var(--font-cormorant), serif;
+  font-style: italic;
+  font-size: 15px;
+  transition: transform 400ms var(--rb-ease);
+}
+.rb-cta:hover, .rb-cta:focus-visible {
+  border-color: var(--rb-purple);
+  color: var(--rb-purple);
+  letter-spacing: 0.30em;
+  outline: none;
+}
+.rb-cta:hover::after, .rb-cta:focus-visible::after { transform: translateX(4px); }

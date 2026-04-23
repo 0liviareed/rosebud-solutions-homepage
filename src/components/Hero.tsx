@@ -239,7 +239,7 @@ export default function Hero() {
             </h1>
             <p className="rb-hero-sub">That needs to change.</p>
             <p className="rb-hero-caption">
-              Your digital team goes live in 5 weeks
+              Your digital team. Live in 5 weeks. Running for years.
             </p>
           </div>
         </div>

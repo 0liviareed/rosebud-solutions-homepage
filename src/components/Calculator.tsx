@@ -153,8 +153,8 @@ export default function Calculator() {
       </div>
 
       <p className="rb-calc-foot">
-        Figures based on typical deployments: 1,000 leads per batch, 30 outreach
-        emails per day. Actual savings vary by industry and location.
+        Based on typical client deployments across our target industries.
+        Figures are directional.
       </p>
     </div>
   );

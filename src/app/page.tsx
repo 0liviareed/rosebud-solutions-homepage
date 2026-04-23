@@ -90,13 +90,14 @@ export default function Home() {
           <div className="rb-wrap">
             <div className="rb-head">
               <p className="rb-eyebrow" data-rb-fade="0">
-                <span className="rb-num">II</span>Rosebud Solutions&apos; key features
+                <span className="rb-num">II</span>What you actually get
               </p>
               <h2 className="rb-h2" data-rb-fade="1">
-                Your Digital <em>Team.</em>
+                Inside your digital <em>team.</em>
               </h2>
               <p className="rb-sub" data-rb-fade="2">
-                Deployed to handle the work your team shouldn&apos;t be spending time on.
+                Five roles, deployed in 5 weeks. Each one handles work that used
+                to run on your personal effort.
               </p>
             </div>
 
@@ -105,38 +106,86 @@ export default function Home() {
                 <span className="rb-num-big">01</span>
                 <div className="rb-body-stack">
                   <span className="rb-label">Receptionist &amp; Appointment Setter</span>
-                  <h3 className="rb-statement">Stop being the first person every enquiry has to reach.</h3>
+                  <p className="rb-body-copy">
+                    Takes first contact from every channel — calls, emails, web
+                    forms, DMs. Qualifies enquiries against your criteria, books
+                    them directly into your calendar, and routes anything
+                    high-value to you for review.
+                  </p>
+                  <p className="rb-closer">
+                    You stop being the first person every enquiry has to reach.
+                  </p>
                 </div>
               </div>
               <div className="rb-entry rb-entry-numbered" tabIndex={0}>
                 <span className="rb-num-big">02</span>
                 <div className="rb-body-stack">
-                  <span className="rb-label">Lead Management &amp; Qualification</span>
-                  <h3 className="rb-statement">Know which leads are worth your time before you pick up the phone.</h3>
+                  <span className="rb-label">Lead Engine</span>
+                  <p className="rb-body-copy">
+                    Scrapes qualified leads from Google Maps and LinkedIn using
+                    your target keywords, at the volume your pipeline can
+                    actually handle. Cleans, validates, and scores each one on a
+                    0&ndash;100 scale. Routes Hot, Warm, and Nurture tiers to
+                    the right sequences.
+                  </p>
+                  <p className="rb-closer">
+                    You stop guessing which leads are worth your time.
+                  </p>
                 </div>
               </div>
               <div className="rb-entry rb-entry-numbered" tabIndex={0}>
                 <span className="rb-num-big">03</span>
                 <div className="rb-body-stack">
-                  <span className="rb-label">Omnichannel Communications</span>
-                  <h3 className="rb-statement">One consistent voice across every channel. Without you managing it.</h3>
+                  <span className="rb-label">Omnichannel Voice</span>
+                  <p className="rb-body-copy">
+                    Personalised email outreach at scale, SMS follow-up, and a
+                    voice agent that calls unresponsive leads on day 8. One
+                    consistent tone across every channel. Your brand, without
+                    you managing it.
+                  </p>
+                  <p className="rb-closer">
+                    You stop being the bottleneck in your own pipeline.
+                  </p>
                 </div>
               </div>
               <div className="rb-entry rb-entry-numbered" tabIndex={0}>
                 <span className="rb-num-big">04</span>
                 <div className="rb-body-stack">
-                  <span className="rb-label">Client Engagement &amp; Follow-up</span>
-                  <h3 className="rb-statement">Every follow-up sent. Every reminder delivered. None of it done by <em>you</em>.</h3>
+                  <span className="rb-label">Client Engagement &amp; Follow-Up</span>
+                  <p className="rb-body-copy">
+                    Three-stage follow-up sequences on every enquiry, every
+                    quote, every open opportunity. Reminders, chase-ups,
+                    reactivation touches — all sent on schedule, all tracked,
+                    all logged back to your CRM. Invoicing via Stripe when a
+                    deal closes. Nothing gets dropped because you were busy.
+                  </p>
+                  <p className="rb-closer">
+                    You stop losing deals to your own inbox.
+                  </p>
                 </div>
               </div>
               <div className="rb-entry rb-entry-numbered" tabIndex={0}>
                 <span className="rb-num-big">05</span>
                 <div className="rb-body-stack">
-                  <span className="rb-label">Operations &amp; Insights</span>
-                  <h3 className="rb-statement">No more Sunday night reporting. It&apos;s already done.</h3>
+                  <span className="rb-label">Operations Dashboard</span>
+                  <p className="rb-body-copy">
+                    Live view of your pipeline: leads scraped, scored, assigned,
+                    responded. Conversion rates by source. Salesperson
+                    performance. Revenue pipeline vs. closed. Daily summary to
+                    your email or Slack with the numbers that matter and what to
+                    act on next.
+                  </p>
+                  <p className="rb-closer">
+                    You stop building reports on Sundays.
+                  </p>
                 </div>
               </div>
             </div>
+
+            <p className="rb-dt-closing">
+              All five roles deploy as one connected system. You don&apos;t add
+              them one at a time — they go live together at the end of week 5.
+            </p>
           </div>
         </section>
 
@@ -176,7 +225,7 @@ export default function Home() {
               </div>
               <div className="rb-entry rb-entry-labeled">
                 <span className="rb-label">Typical system</span>
-                <p className="rb-value">1,000 leads per batch &middot; 30 emails per day &middot; 5 week deployment</p>
+                <p className="rb-value">Custom-scoped to your pipeline &middot; Multi-channel outreach &middot; 5-week deployment</p>
               </div>
               <div className="rb-entry rb-entry-labeled">
                 <span className="rb-label">Lead scoring</span>
@@ -227,7 +276,7 @@ export default function Home() {
               <div className="rb-entry rb-entry-numbered" tabIndex={0}>
                 <span className="rb-num-big">I</span>
                 <div className="rb-body-stack">
-                  <span className="rb-label">Phase One &middot; 5 weeks</span>
+                  <span className="rb-label">Phase One &middot; 5 weeks to live</span>
                   <h3 className="rb-statement">The Lead <em>Engine.</em></h3>
                   <p className="rb-body-copy">
                     We find them, score them, route them. Every lead lands in
@@ -289,8 +338,7 @@ export default function Home() {
                 The Cost of <em>Manual.</em>
               </h2>
               <p className="rb-sub" data-rb-fade="2">
-                See what manual work is really costing your business each year,
-                based on your industry and location.
+                See what manual work is costing you each year.
               </p>
             </div>
             <Calculator />
@@ -328,15 +376,11 @@ export default function Home() {
                   <img src="https://cdn.prod.website-files.com/68c850ffb6742cb4ace5211c/695e6ab65c5d3e60230ce3cd_6F48C0E8-F97B-4C36-950F-4CEDF3C8FEFD.avif" alt="Anselm Jr. Okojie" loading="lazy" decoding="async" />
                 </div>
                 <div className="rb-founder-info">
-                  <span className="rb-founder-role">Founder &amp; CEO</span>
+                  <span className="rb-founder-role">Co-founder &amp; CEO</span>
                   <h3 className="rb-founder-name">Anselm Jr. Okojie</h3>
                   <p className="rb-founder-bio">
-                    Systems operator with a background in systematic FX
-                    execution, now leading the design and deployment of AI
-                    automation and voice systems for business operations.
-                    Founder of Rosebud Capital Solutions, responsible for the
-                    architecture of its AI automation frameworks, execution
-                    logic, and automation governance layer.
+                    Systems operator and strategist. Builds the architecture
+                    that turns businesses from founder-dependent to self-running.
                   </p>
                 </div>
               </article>
@@ -349,11 +393,9 @@ export default function Home() {
                   <span className="rb-founder-role">Co-founder &amp; COO</span>
                   <h3 className="rb-founder-name">Sajni Okojie</h3>
                   <p className="rb-founder-bio">
-                    Senior operator with a corporate background at Ralph
-                    Lauren, delivering £36m in direct commercial impact and
-                    leading large-scale technology initiatives. Oversees
-                    AI-enabled operations, governance, and commercial
-                    infrastructure to support disciplined, scalable growth.
+                    Three years at Ralph Lauren leading a £36m hospitality
+                    portfolio before Rosebud. Owns delivery, client success,
+                    and the client experience end-to-end.
                   </p>
                 </div>
               </article>
@@ -406,6 +448,21 @@ export default function Home() {
                   30 minutes. Zoom. No prep needed.
                 </p>
               </div>
+            </div>
+
+            <p className="rb-reassure" data-rb-fade="4">
+              You own every system we build. No lock-in. Cancel any time.
+            </p>
+
+            <div className="rb-cta-wrap" data-rb-fade="4">
+              <a
+                href="https://cal.eu/rosebudsolutions/30min"
+                className="rb-cta"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Book a consultation
+              </a>
             </div>
 
             <div className="rb-cal-wrap" data-rb-fade="4">
