@@ -56,6 +56,71 @@ export default function Footer() {
           </ul>
         </div>
 
+        <div className="rb-footer-meta">
+          <div className="rb-footer-col">
+            <p className="rb-footer-eyebrow">Contact</p>
+            <ul className="rb-footer-links">
+              <li>
+                <a
+                  href="mailto:contact@rosebud.global"
+                  className="rb-footer-link rb-footer-link-editorial"
+                >
+                  <span>contact@rosebud.global</span>
+                  <span className="rb-footer-link-underline" aria-hidden="true" />
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://cal.eu/rosebudsolutions/30min"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="rb-footer-link rb-footer-link-editorial"
+                >
+                  <span>Book a consultation</span>
+                  <span className="rb-footer-link-arrow" aria-hidden="true">
+                    <svg viewBox="0 0 32 12" width="32" height="12">
+                      <path
+                        className="rb-footer-link-shaft"
+                        d="M0 6 L22 6"
+                        stroke="currentColor"
+                        strokeWidth="1.3"
+                        strokeLinecap="round"
+                        fill="none"
+                      />
+                      <path
+                        className="rb-footer-link-head"
+                        d="M17 1.5 L22 6 L17 10.5"
+                        stroke="currentColor"
+                        strokeWidth="1.3"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        fill="none"
+                      />
+                    </svg>
+                  </span>
+                  <span className="rb-footer-link-underline" aria-hidden="true" />
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          <div className="rb-footer-col">
+            <p className="rb-footer-eyebrow">Legal</p>
+            <ul className="rb-footer-links">
+              <li>
+                <Link href="/privacy" className="rb-footer-link">
+                  Privacy Policy
+                </Link>
+              </li>
+              <li>
+                <Link href="/terms" className="rb-footer-link">
+                  Terms of Service
+                </Link>
+              </li>
+            </ul>
+          </div>
+        </div>
+
         <div className="rb-footer-divider" aria-hidden="true" />
 
         <div className="rb-footer-disclaimer">

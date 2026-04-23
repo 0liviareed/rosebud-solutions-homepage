@@ -3167,6 +3167,125 @@ button { font: inherit; color: inherit; }
   width: 100%;
 }
 
+/* Contact + Legal meta block — two-column grid between the top row
+   and the disclaimer. Collapses to single column below 640px. */
+.rb-footer-meta {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(2rem, 5vw, 4rem);
+  padding-bottom: clamp(2.5rem, 5vw, 4rem);
+  max-width: 42rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+.rb-footer-col {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(1rem, 2vw, 1.25rem);
+}
+.rb-footer-eyebrow {
+  font-family: var(--font-dm-sans), sans-serif;
+  font-weight: 500;
+  font-size: 10.5px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--rb-bone-dim);
+  margin: 0;
+}
+.rb-footer-links {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+}
+.rb-footer-link {
+  font-family: var(--font-dm-sans), sans-serif;
+  font-size: 0.95rem;
+  line-height: 1.4;
+  color: var(--rb-bone);
+  text-decoration: none;
+  transition: color 400ms var(--rb-ease);
+  display: inline-block;
+  align-self: flex-start;
+}
+.rb-footer-link:hover,
+.rb-footer-link:focus-visible {
+  color: var(--rb-purple);
+  outline: none;
+}
+
+/* Editorial variant — italic Cormorant, drawn arrow family, purple
+   hairline underline. Used for the two primary invitations (email +
+   book a consultation). */
+.rb-footer-link-editorial {
+  position: relative;
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.7rem;
+  font-family: var(--font-cormorant), serif;
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(1.1rem, 1.5vw, 1.25rem);
+  line-height: 1.25;
+  letter-spacing: -0.005em;
+  color: var(--rb-bone);
+  padding: 0.2rem 0.15rem 0.55rem;
+}
+.rb-footer-link-arrow {
+  display: inline-flex;
+  align-items: center;
+  color: var(--rb-purple);
+  transform: translateY(-0.2em);
+  transition: color 400ms var(--rb-ease);
+}
+.rb-footer-link-arrow svg { display: block; overflow: visible; }
+.rb-footer-link-shaft {
+  stroke-dasharray: 24;
+  stroke-dashoffset: 18;
+  transition: stroke-dashoffset 550ms var(--rb-ease);
+}
+.rb-footer-link-head {
+  transition: transform 500ms var(--rb-ease);
+}
+.rb-footer-link-underline {
+  position: absolute;
+  left: 0.15rem;
+  right: 0.15rem;
+  bottom: 0.1rem;
+  height: 1px;
+  background: rgba(139, 125, 216, 0.5);
+  transition: background 450ms var(--rb-ease),
+              height 350ms var(--rb-ease);
+}
+.rb-footer-link-editorial:hover,
+.rb-footer-link-editorial:focus-visible {
+  color: #FFFFFF;
+  outline: none;
+}
+.rb-footer-link-editorial:hover .rb-footer-link-shaft,
+.rb-footer-link-editorial:focus-visible .rb-footer-link-shaft {
+  stroke-dashoffset: 0;
+}
+.rb-footer-link-editorial:hover .rb-footer-link-head,
+.rb-footer-link-editorial:focus-visible .rb-footer-link-head {
+  transform: translateX(4px);
+}
+.rb-footer-link-editorial:hover .rb-footer-link-arrow,
+.rb-footer-link-editorial:focus-visible .rb-footer-link-arrow {
+  color: #FFFFFF;
+}
+.rb-footer-link-editorial:hover .rb-footer-link-underline,
+.rb-footer-link-editorial:focus-visible .rb-footer-link-underline {
+  height: 2px;
+  background: var(--rb-purple-core);
+}
+
+@media (max-width: 640px) {
+  .rb-footer-meta { grid-template-columns: 1fr; gap: 2.25rem; }
+}
+
 .rb-footer-disclaimer {
   padding: clamp(2rem, 4vw, 3rem) 0;
   max-width: 72ch;
