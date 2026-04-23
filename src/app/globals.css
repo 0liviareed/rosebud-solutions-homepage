@@ -172,25 +172,31 @@ button { font: inherit; color: inherit; }
 /* ========== Entry types ========== */
 .rb-entry-numbered {
   display: grid;
-  grid-template-columns: minmax(3.5rem, 6rem) 1fr;
-  gap: clamp(1.25rem, 4vw, 3rem);
-  padding: clamp(1.75rem, 3.5vw, 2.75rem) 0;
+  grid-template-columns: minmax(5rem, 8rem) 1fr;
+  gap: clamp(2rem, 5vw, 4rem);
+  padding: clamp(2.5rem, 4.5vw, 4rem) 0;
   align-items: baseline;
 }
 .rb-entry + .rb-entry { border-top: 1px solid var(--rb-bone-hair); }
+
+/* Alternating subtle offset on desktop: even entries indent 2rem to
+   create a soft zig-zag down the list without breaking the grid. */
+@media (min-width: 961px) {
+  .rb-entry-numbered:nth-of-type(even) { padding-left: 2rem; }
+}
 
 .rb-num-big {
   font-family: var(--font-cormorant), serif;
   font-style: italic;
   font-weight: 400;
-  font-size: clamp(1.75rem, 3.2vw, 2.6rem);
-  line-height: 1;
+  font-size: clamp(2.75rem, 4.8vw, 4.75rem);
+  line-height: 0.95;
   color: var(--rb-purple);
-  letter-spacing: -0.01em;
+  letter-spacing: -0.015em;
   align-self: start;
-  padding-top: 0.3em;
+  padding-top: 0.08em;
 }
-.rb-body-stack { display: flex; flex-direction: column; gap: 0.9rem; }
+.rb-body-stack { display: flex; flex-direction: column; gap: 1.15rem; }
 
 .rb-label {
   font-family: var(--font-dm-sans), sans-serif;
@@ -229,7 +235,7 @@ button { font: inherit; color: inherit; }
   font-size: 0.9375rem;
   line-height: 1.6;
   color: rgba(245, 241, 234, 0.72);
-  max-width: 44ch;
+  max-width: 52ch;
   margin: 0;
 }
 .rb-timing {
@@ -313,8 +319,26 @@ button { font: inherit; color: inherit; }
 }
 
 @media (max-width: 960px) {
-  .rb-entry-numbered { grid-template-columns: 1fr; gap: 0.6rem; }
-  .rb-num-big { font-size: 1.6rem; padding-top: 0; }
+  .rb-entry-numbered {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+    padding: 2.5rem 0;
+  }
+  .rb-num-big {
+    font-size: 2rem;
+    padding-top: 0;
+    line-height: 1;
+  }
+  .rb-body-stack { gap: 0.85rem; }
+  /* Even-entry offset is desktop-only; clear on narrower viewports */
+  .rb-entry-numbered:nth-of-type(even) { padding-left: 0; }
+
+  .rb-closer {
+    padding-left: 0.85rem;
+    font-size: 1.1rem;
+    line-height: 1.38;
+  }
+
   .rb-entry-labeled { grid-template-columns: 1fr; gap: 0.6rem; }
   .rb-entry-labeled .rb-label { padding-top: 0; }
 }
@@ -1048,23 +1072,28 @@ button { font: inherit; color: inherit; }
 }
 
 /* ========== Cards with body + italic closer (Digital Team) ==========
-   Each entry now carries a descriptive body paragraph followed by an
-   italic pull-quote closer. The closer acts as the "so what" line. */
+   Each entry carries a descriptive body paragraph followed by an
+   italic pull-quote closer. The closer has a 1px purple left-rule
+   with small indent — marks it as emphasis without a container. */
 .rb-closer {
   font-family: var(--font-cormorant), serif;
   font-style: italic;
   font-weight: 400;
   font-size: clamp(1.2rem, 1.85vw, 1.55rem);
-  line-height: 1.35;
+  line-height: 1.4;
   letter-spacing: -0.005em;
   color: var(--rb-bone);
-  margin: 0.35rem 0 0;
-  max-width: 42ch;
-  transition: text-shadow 500ms var(--rb-ease);
+  margin: 0.55rem 0 0;
+  max-width: 46ch;
+  padding-left: 1.1rem;
+  border-left: 1px solid rgba(139, 125, 216, 0.45);
+  transition: text-shadow 500ms var(--rb-ease),
+              border-color 500ms var(--rb-ease);
 }
 .rb-entry-numbered:hover .rb-closer,
 .rb-entry-numbered:focus-within .rb-closer {
   text-shadow: 0 0 22px rgba(139, 125, 216, 0.32);
+  border-left-color: var(--rb-purple);
 }
 
 /* Closing line beneath the Digital Team grid — centered italic */
