@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const DATA: Record<
   string,
@@ -20,10 +20,13 @@ const easeOutCubic = (t: number) => 1 - Math.pow(1 - t, 3);
 export default function Calculator() {
   const [industry, setIndustry] = useState("b2b");
   const [location, setLocation] = useState("uk");
-  const [hours, setHours] = useState(720);
-  const [money, setMoney] = useState(8314);
+  // Starts at 0 so the first reveal is a count-up rather than a static print.
+  const [hours, setHours] = useState(0);
+  const [money, setMoney] = useState(0);
   const [pulse, setPulse] = useState(false);
-  const currentRef = useRef({ hours: 720, money: 8314 });
+  const currentRef = useRef({ hours: 0, money: 0 });
+  const containerRef = useRef<HTMLDivElement | null>(null);
+  const hasAnimatedRef = useRef(false);
 
   const currency = DATA[industry][location][2];
 
@@ -54,8 +57,36 @@ export default function Calculator() {
     window.setTimeout(() => setPulse(false), 1100);
   };
 
+  // On first viewport entry, count the figures up from zero.
+  // Replaces the static initial print with a considered reveal moment.
+  useEffect(() => {
+    const el = containerRef.current;
+    if (!el || hasAnimatedRef.current) return;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting && !hasAnimatedRef.current) {
+            hasAnimatedRef.current = true;
+            const [h, m] = DATA[industry][location];
+            setPulse(true);
+            animate(0, h, 1300, setHours);
+            animate(0, m, 1400, setMoney);
+            currentRef.current = { hours: h, money: m };
+            window.setTimeout(() => setPulse(false), 1600);
+            observer.disconnect();
+          }
+        });
+      },
+      { threshold: 0.35 }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
     <div
+      ref={containerRef}
       className="rb-calc"
       data-rb-fade="3"
       role="region"

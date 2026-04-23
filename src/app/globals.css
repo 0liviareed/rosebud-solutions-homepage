@@ -634,7 +634,11 @@ button { font: inherit; color: inherit; }
   line-height: 0.95;
   letter-spacing: -0.02em;
   color: var(--rb-bone);
-  font-variant-numeric: tabular-nums;
+  /* Old-style numerals — the figures Cormorant was designed for.
+     Ascending and descending strokes vary per digit, so numbers read
+     like a book, not a dashboard. Tabular keeps them vertically aligned. */
+  font-variant-numeric: oldstyle-nums tabular-nums;
+  font-feature-settings: "onum" 1, "tnum" 1;
   transition: text-shadow 400ms var(--rb-ease);
 }
 .rb-calc-num.rb-pulse { text-shadow: 0 0 28px rgba(184, 174, 219, 0.5); }
@@ -851,4 +855,54 @@ button { font: inherit; color: inherit; }
 @media (prefers-reduced-motion: reduce) {
   .rb-floating-paths { opacity: 0.18; }
   .rb-floating-paths__svg path { animation: none !important; }
+}
+
+/* ========== Colophon — editorial page-end signature ========== */
+.rb-colophon {
+  padding: clamp(5rem, 9vw, 8rem) 2rem clamp(4rem, 7vw, 6rem);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.25rem;
+  text-align: center;
+  position: relative;
+  z-index: 2;
+}
+.rb-colo-mark {
+  font-family: var(--font-cormorant), serif;
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(1rem, 1.2vw, 1.15rem);
+  color: rgba(245, 241, 234, 0.52);
+  letter-spacing: 0.02em;
+}
+.rb-colo-rule {
+  display: block;
+  width: 32px;
+  height: 1px;
+  background: rgba(245, 241, 234, 0.12);
+}
+.rb-colo-meta {
+  font-family: var(--font-dm-sans), sans-serif;
+  font-weight: 500;
+  font-size: 10px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: rgba(245, 241, 234, 0.32);
+  display: inline-flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.85em;
+}
+.rb-colo-dot {
+  font-family: var(--font-cormorant), serif;
+  font-style: italic;
+  color: var(--rb-purple);
+  opacity: 0.55;
+  font-size: 14px;
+  letter-spacing: 0;
+}
+@media (max-width: 560px) {
+  .rb-colo-meta { font-size: 9px; letter-spacing: 0.22em; gap: 0.6em; }
 }

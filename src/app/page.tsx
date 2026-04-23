@@ -414,9 +414,15 @@ export default function Home() {
           </div>
         </section>
 
-        <div className="rb-end" aria-hidden="true">
-          <span className="rb-end-mark">— Rosebud Solutions</span>
-        </div>
+        <footer className="rb-colophon" aria-label="Colophon">
+          <span className="rb-colo-mark">— Rosebud Solutions</span>
+          <span className="rb-colo-rule" aria-hidden="true" />
+          <span className="rb-colo-meta">
+            Set in Cormorant Garamond &amp; DM Sans
+            <span className="rb-colo-dot" aria-hidden="true">·</span>
+            Made in London
+          </span>
+        </footer>
       </main>
     </>
   );
