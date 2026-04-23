@@ -1158,3 +1158,114 @@ button { font: inherit; color: inherit; }
 @media (max-width: 560px) {
   .rb-book-cta { font-size: 1.3rem; }
 }
+
+/* ========== Section III — Voices (client quote slider) ==========
+   Auto-advancing, pause on hover/focus, AnimatePresence crossfade.
+   Quote in large Cormorant italic (the voice register), attribution
+   stacked below with uppercase DM Sans name + italic Cormorant role.
+   Dots at the bottom for click-to-jump navigation. */
+.rb-voices {
+  max-width: 48rem;
+  margin: 0 auto;
+  min-height: 280px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2.75rem;
+  outline: none;
+  position: relative;
+}
+.rb-voice {
+  width: 100%;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 1.85rem;
+  align-items: center;
+}
+.rb-voice-quote {
+  font-family: var(--font-cormorant), serif;
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(1.3rem, 2.15vw, 1.85rem);
+  line-height: 1.4;
+  letter-spacing: -0.005em;
+  color: var(--rb-bone);
+  margin: 0;
+  max-width: 42ch;
+  text-wrap: balance;
+}
+.rb-voice-quote::before {
+  content: '\201C';
+  font-family: var(--font-cormorant), serif;
+  font-style: italic;
+  font-weight: 500;
+  color: var(--rb-purple);
+  margin-right: 0.05em;
+  font-size: 1em;
+  opacity: 0.65;
+}
+.rb-voice-quote::after {
+  content: '\201D';
+  font-family: var(--font-cormorant), serif;
+  font-style: italic;
+  font-weight: 500;
+  color: var(--rb-purple);
+  margin-left: 0.05em;
+  font-size: 1em;
+  opacity: 0.65;
+}
+.rb-voice-cite {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.35rem;
+  margin: 0;
+}
+.rb-voice-name {
+  font-family: var(--font-dm-sans), sans-serif;
+  font-weight: 500;
+  font-size: 11px;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: var(--rb-bone-dim);
+}
+.rb-voice-role {
+  font-family: var(--font-cormorant), serif;
+  font-style: italic;
+  font-weight: 400;
+  font-size: 0.95rem;
+  letter-spacing: 0.01em;
+  color: var(--rb-bone-dim);
+}
+.rb-voice-dots {
+  display: flex;
+  gap: 0.75rem;
+  justify-content: center;
+  align-items: center;
+}
+.rb-voice-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  border: none;
+  background: var(--rb-bone-faint);
+  cursor: pointer;
+  padding: 0;
+  transition: background 450ms var(--rb-ease),
+              transform 450ms var(--rb-ease);
+}
+.rb-voice-dot:hover { background: var(--rb-bone-dim); }
+.rb-voice-dot:focus-visible {
+  outline: 1px solid var(--rb-purple);
+  outline-offset: 3px;
+}
+.rb-voice-dot-active {
+  background: var(--rb-purple);
+  transform: scale(1.35);
+}
+@media (max-width: 560px) {
+  .rb-voices { min-height: 320px; gap: 2.25rem; }
+  .rb-voice-quote { font-size: 1.15rem; max-width: 32ch; }
+  .rb-voice-dots { gap: 0.55rem; }
+}

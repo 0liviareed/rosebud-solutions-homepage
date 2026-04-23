@@ -4,6 +4,7 @@ import Calculator from "@/components/Calculator";
 import CalEmbed from "@/components/CalEmbed";
 import FloatingPaths from "@/components/FloatingPaths";
 import BookCTA from "@/components/BookCTA";
+import Voices from "@/components/Voices";
 
 export default function Home() {
   return (
@@ -198,7 +199,21 @@ export default function Home() {
           </div>
         </section>
 
-        {/* ===================== III — RECEIPTS ===================== */}
+        {/* ===================== III — VOICES ===================== */}
+        <section className="rb-sec rb-sec-voices" data-rb-sec aria-label="Voices">
+          <div className="rb-wrap">
+            <div className="rb-head" style={{ marginBottom: "clamp(2rem, 4vw, 3.5rem)" }}>
+              <p className="rb-eyebrow" data-rb-fade="0">
+                <span className="rb-num">III</span>Voices
+              </p>
+            </div>
+            <div data-rb-fade="1">
+              <Voices />
+            </div>
+          </div>
+        </section>
+
+        {/* ===================== IV — RECEIPTS ===================== */}
         <section className="rb-sec" data-rb-sec aria-label="The Receipts">
           <div className="rb-topo rb-topo-3" aria-hidden="true">
             <svg viewBox="0 0 460 300" preserveAspectRatio="none">
@@ -217,7 +232,7 @@ export default function Home() {
           <div className="rb-wrap">
             <div className="rb-head">
               <p className="rb-eyebrow rb-purple" data-rb-fade="0">
-                <span className="rb-num">III</span>The receipts
+                <span className="rb-num">IV</span>The receipts
               </p>
               <h2 className="rb-h2" data-rb-fade="1">
                 What we actually <em>build.</em>
@@ -244,7 +259,7 @@ export default function Home() {
           </div>
         </section>
 
-        {/* ===================== IV — METHOD ===================== */}
+        {/* ===================== V — METHOD ===================== */}
         <section className="rb-sec rb-sec-method" data-rb-sec aria-label="Method">
           <div className="rb-topo rb-topo-4" aria-hidden="true">
             <svg viewBox="0 0 480 340" preserveAspectRatio="none">
@@ -271,7 +286,7 @@ export default function Home() {
           <div className="rb-wrap">
             <div className="rb-head">
               <p className="rb-eyebrow" data-rb-fade="0">
-                <span className="rb-num">IV</span>How we work
+                <span className="rb-num">V</span>How we work
               </p>
               <h2 className="rb-h2" data-rb-fade="1">
                 Three phases. Built to run <em>without you.</em>
@@ -320,7 +335,7 @@ export default function Home() {
           </div>
         </section>
 
-        {/* ===================== V — CALCULATOR ===================== */}
+        {/* ===================== VI — CALCULATOR ===================== */}
         <section
           className="rb-sec"
           data-rb-sec
@@ -341,7 +356,7 @@ export default function Home() {
           <div className="rb-wrap">
             <div className="rb-head">
               <p className="rb-eyebrow" data-rb-fade="0">
-                <span className="rb-num">V</span>Efficiency impact calculator
+                <span className="rb-num">VI</span>Efficiency impact calculator
               </p>
               <h2 className="rb-h2" data-rb-fade="1">
                 The Cost of <em>Manual.</em>
@@ -356,7 +371,7 @@ export default function Home() {
           </div>
         </section>
 
-        {/* ===================== VI — ABOUT ===================== */}
+        {/* ===================== VII — ABOUT ===================== */}
         <section className="rb-sec" data-rb-sec aria-label="About">
           <div className="rb-topo rb-topo-6" aria-hidden="true">
             <svg viewBox="0 0 360 260" preserveAspectRatio="none">
@@ -370,7 +385,7 @@ export default function Home() {
           <div className="rb-wrap">
             <div className="rb-head">
               <p className="rb-eyebrow" data-rb-fade="0">
-                <span className="rb-num">VI</span>About
+                <span className="rb-num">VII</span>About
               </p>
               <h2 className="rb-h2" data-rb-fade="1">
                 The minds behind <em>Rosebud Solutions.</em>
@@ -414,7 +429,7 @@ export default function Home() {
           </div>
         </section>
 
-        {/* ===================== VII — BOOK ===================== */}
+        {/* ===================== VIII — BOOK ===================== */}
         <section
           id="rb-book"
           className="rb-sec"
@@ -435,7 +450,7 @@ export default function Home() {
           <div className="rb-wrap">
             <div className="rb-head">
               <p className="rb-eyebrow" data-rb-fade="0">
-                <span className="rb-num">VII</span>Book a consultation
+                <span className="rb-num">VIII</span>Book a consultation
               </p>
               <h2 className="rb-h2" data-rb-fade="1">
                 Find out what&apos;s costing you <em>the most time.</em>
