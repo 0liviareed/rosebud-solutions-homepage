@@ -1229,3 +1229,252 @@ button { font: inherit; color: inherit; }
   .rb-voice-dots { gap: 0.55rem; }
   .rb-voice-counter { font-size: 9.5px; letter-spacing: 0.26em; }
 }
+
+/* =============================================================
+   Navigation — sticky, transparent over hero, blurred below
+   ============================================================= */
+.rb-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  height: 68px;
+  display: flex;
+  align-items: center;
+  background: transparent;
+  transition: background 500ms var(--rb-ease),
+              backdrop-filter 500ms var(--rb-ease),
+              border-bottom-color 500ms var(--rb-ease);
+  border-bottom: 1px solid transparent;
+}
+.rb-nav-scrolled {
+  background: rgba(0, 0, 0, 0.62);
+  backdrop-filter: blur(18px) saturate(120%);
+  -webkit-backdrop-filter: blur(18px) saturate(120%);
+  border-bottom-color: rgba(245, 241, 234, 0.06);
+}
+.rb-nav-inner {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 clamp(1.25rem, 4vw, 2.5rem);
+  gap: 1.5rem;
+}
+
+/* Logo — the horizontal wordmark is black in the source file, so we
+   invert it for the dark background and pull brightness down slightly
+   to render as bone instead of pure white. */
+.rb-nav-logo {
+  display: inline-flex;
+  align-items: center;
+  height: 32px;
+  flex-shrink: 0;
+}
+.rb-nav-logo img {
+  display: block;
+  height: 100%;
+  width: auto;
+  filter: invert(1) brightness(0.96);
+  transition: opacity 350ms var(--rb-ease);
+}
+.rb-nav-logo:hover img,
+.rb-nav-logo:focus-visible img {
+  opacity: 0.78;
+}
+
+/* Menu + trigger */
+.rb-nav-menu {
+  display: flex;
+  align-items: center;
+  gap: 1.75rem;
+}
+.rb-nav-item {
+  position: relative;
+}
+.rb-nav-trigger {
+  background: transparent;
+  border: 0;
+  padding: 0.7rem 0.1rem;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-family: var(--font-dm-sans), sans-serif;
+  font-weight: 500;
+  font-size: 11.5px;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--rb-bone-dim);
+  transition: color 400ms var(--rb-ease),
+              letter-spacing 400ms var(--rb-ease);
+}
+.rb-nav-trigger:hover,
+.rb-nav-trigger:focus-visible,
+.rb-nav-item-open .rb-nav-trigger {
+  color: var(--rb-bone);
+  letter-spacing: 0.27em;
+  outline: none;
+}
+.rb-nav-chevron {
+  font-family: var(--font-cormorant), serif;
+  font-style: italic;
+  font-size: 16px;
+  color: var(--rb-purple);
+  line-height: 1;
+  transform: translateY(-2px);
+  transition: transform 350ms var(--rb-ease);
+}
+.rb-nav-item-open .rb-nav-chevron {
+  transform: translateY(0) rotate(180deg);
+}
+
+/* Dropdown — opens beneath the trigger, blurred dark card with
+   purple-tinted hairline border. Editorial group label above links. */
+.rb-nav-dropdown {
+  position: absolute;
+  top: calc(100% + 0.5rem);
+  right: 0;
+  min-width: 14rem;
+  padding: 1.25rem 1.5rem;
+  background: rgba(0, 0, 0, 0.88);
+  backdrop-filter: blur(18px) saturate(120%);
+  -webkit-backdrop-filter: blur(18px) saturate(120%);
+  border: 1px solid rgba(245, 241, 234, 0.08);
+  border-radius: 6px;
+  box-shadow: 0 18px 40px -12px rgba(0, 0, 0, 0.7),
+              0 0 0 1px rgba(139, 125, 216, 0.08);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-6px);
+  transition: opacity 350ms var(--rb-ease),
+              transform 350ms var(--rb-ease),
+              visibility 0s linear 350ms;
+}
+.rb-nav-item-open .rb-nav-dropdown {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+  transition: opacity 350ms var(--rb-ease),
+              transform 350ms var(--rb-ease),
+              visibility 0s linear 0s;
+}
+.rb-nav-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+.rb-nav-group-label {
+  font-family: var(--font-cormorant), serif;
+  font-style: italic;
+  font-weight: 400;
+  font-size: 0.85rem;
+  color: var(--rb-purple);
+  letter-spacing: 0.02em;
+  margin-bottom: 0.65rem;
+  padding-bottom: 0.65rem;
+  border-bottom: 1px solid rgba(245, 241, 234, 0.06);
+}
+.rb-nav-link {
+  font-family: var(--font-dm-sans), sans-serif;
+  font-weight: 400;
+  font-size: 0.9375rem;
+  letter-spacing: 0.01em;
+  color: var(--rb-bone);
+  padding: 0.55rem 0;
+  display: block;
+  transition: color 350ms var(--rb-ease), padding-left 350ms var(--rb-ease);
+}
+.rb-nav-link:hover,
+.rb-nav-link:focus-visible {
+  color: var(--rb-purple);
+  padding-left: 0.3rem;
+  outline: none;
+}
+
+@media (max-width: 560px) {
+  .rb-nav { height: 60px; }
+  .rb-nav-inner { padding: 0 1rem; gap: 1rem; }
+  .rb-nav-logo { height: 26px; }
+  .rb-nav-trigger { font-size: 10.5px; letter-spacing: 0.22em; }
+  .rb-nav-dropdown {
+    right: -0.5rem;
+    min-width: 12rem;
+    padding: 1rem 1.25rem;
+  }
+}
+
+/* Industry page — minimal layout for placeholder content */
+.rb-industry-page {
+  min-height: 100vh;
+  padding: clamp(9rem, 16vw, 14rem) clamp(1.5rem, 5vw, 3rem) clamp(6rem, 11vw, 10rem);
+  position: relative;
+  background: var(--rb-bg-deep);
+}
+.rb-industry-inner {
+  max-width: 960px;
+  margin: 0 auto;
+  text-align: center;
+}
+.rb-industry-eyebrow {
+  font-family: var(--font-dm-sans), sans-serif;
+  font-weight: 500;
+  font-size: 11px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--rb-bone-dim);
+  margin: 0 0 1.5rem;
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.85em;
+}
+.rb-industry-eyebrow .rb-num {
+  font-family: var(--font-cormorant), serif;
+  font-style: italic;
+  font-weight: 500;
+  font-size: 13px;
+  letter-spacing: 0.04em;
+  color: var(--rb-purple);
+  text-transform: none;
+  position: relative;
+  padding-right: 0.85em;
+}
+.rb-industry-eyebrow .rb-num::after {
+  content: '·';
+  position: absolute;
+  right: 0;
+  color: var(--rb-bone-faint);
+}
+.rb-industry-h1 {
+  font-family: var(--font-cormorant), serif;
+  font-weight: 400;
+  font-size: clamp(3rem, 7vw, 5.5rem);
+  line-height: 1.02;
+  letter-spacing: -0.015em;
+  color: var(--rb-bone);
+  margin: 0 0 1.75rem;
+}
+.rb-industry-h1 em {
+  font-style: italic;
+  font-weight: 400;
+  color: var(--rb-purple);
+}
+.rb-industry-sub {
+  font-family: var(--font-dm-sans), sans-serif;
+  font-size: clamp(1rem, 1.2vw, 1.125rem);
+  line-height: 1.55;
+  color: var(--rb-bone-dim);
+  max-width: 36rem;
+  margin: 0 auto;
+}
+.rb-industry-note {
+  font-family: var(--font-cormorant), serif;
+  font-style: italic;
+  font-weight: 400;
+  font-size: 1rem;
+  color: rgba(245, 241, 234, 0.35);
+  margin: clamp(2.5rem, 5vw, 3.5rem) auto 0;
+  text-align: center;
+  letter-spacing: 0.02em;
+}
