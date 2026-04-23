@@ -316,6 +316,16 @@ export default function Runtime() {
     const FRESH_MIN = 0.04;
     const FRESH_MAX = 0.16;
 
+    // Atmosphere layers — each has a scroll-progress center and width.
+    // Opacity is a tent function: peak at center, linear fade to zero
+    // at distance == width. Three layers with differing 'position'
+    // prop values give the flow direction a slow evolution.
+    const ATMO_LAYERS: { el: HTMLElement | null; center: number; width: number; peak: number }[] = [
+      { el: document.getElementById("rb-atmo-1"), center: 0.15, width: 0.45, peak: 0.50 },
+      { el: document.getElementById("rb-atmo-2"), center: 0.50, width: 0.45, peak: 0.50 },
+      { el: document.getElementById("rb-atmo-3"), center: 0.85, width: 0.45, peak: 0.50 },
+    ];
+
     function tick() {
       if (totalLen > 0) {
         // Scroll velocity → fresh-tracks length. Smoothed so the trail
@@ -353,6 +363,21 @@ export default function Runtime() {
       );
       const docProg = Math.max(0, Math.min(1, window.scrollY / docMax));
       progress.style.setProperty("--rb-prog", docProg.toFixed(4));
+
+      // Atmosphere layer cross-fade — each layer's opacity is a tent
+      // function of its distance from its center. Total visible
+      // atmosphere stays ≈ constant; character of the flow evolves.
+      // Reduced motion: skip updates so CSS static value stands.
+      if (!prefersReducedMotion) {
+        const viewportScale = vw <= 820 ? 0.55 : 1;
+        for (let i = 0; i < ATMO_LAYERS.length; i++) {
+          const layer = ATMO_LAYERS[i];
+          if (!layer.el) continue;
+          const distance = Math.abs(docProg - layer.center);
+          const t = Math.max(0, 1 - distance / layer.width);
+          layer.el.style.opacity = (t * layer.peak * viewportScale).toFixed(3);
+        }
+      }
 
       rafId = requestAnimationFrame(tick);
     }

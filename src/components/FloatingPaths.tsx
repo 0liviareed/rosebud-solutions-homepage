@@ -16,9 +16,11 @@ import { motion } from "motion/react";
 export default function FloatingPaths({
   position = 1,
   className = "",
+  id,
 }: {
   position?: number;
   className?: string;
+  id?: string;
 }) {
   const paths = Array.from({ length: 36 }, (_, i) => ({
     id: i,
@@ -28,6 +30,7 @@ export default function FloatingPaths({
 
   return (
     <div
+      id={id}
       className={`rb-floating-paths ${className}`}
       aria-hidden="true"
     >
