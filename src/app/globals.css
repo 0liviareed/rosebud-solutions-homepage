@@ -457,6 +457,29 @@ button { font: inherit; color: inherit; }
 
 .rb-hero-stack { max-width: 64ch; transform: translateY(8px); }
 
+/* Hero eyebrow — "Rosebud Solutions" above the headline. Establishes
+   context before "Your business runs on you." begins. Reveals early
+   (250ms) so it's settled by the time the first line rises at 450ms. */
+.rb-hero-eyebrow {
+  font-family: var(--font-dm-sans), sans-serif;
+  font-weight: 500;
+  font-size: 11px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--rb-bone-dim);
+  margin: 0 0 clamp(1.5rem, 3vw, 2.25rem);
+  opacity: 0;
+  animation: rbFade 900ms var(--rb-ease) 250ms forwards;
+}
+@media (max-width: 560px) {
+  .rb-hero-eyebrow { font-size: 10px; letter-spacing: 0.26em; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .rb-hero-eyebrow {
+    animation: rbFade 250ms linear forwards !important;
+  }
+}
+
 .rb-hero-h1 {
   font-family: var(--font-cormorant), serif;
   font-weight: 400;

@@ -298,6 +298,7 @@ export default function Hero() {
 
         <div className="rb-hero-inner">
           <div className="rb-hero-stack">
+            <p className="rb-hero-eyebrow">Rosebud Solutions</p>
             <h1 className="rb-hero-h1">
               <span className="rb-l1">Your business runs</span>
               <br />
