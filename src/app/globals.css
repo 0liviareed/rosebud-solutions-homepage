@@ -1108,48 +1108,53 @@ button { font: inherit; color: inherit; }
    consolidates everything into .rb-book-meta + the inline calendar.) */
 
 /* ========== In-page booking CTA — smooth-scrolls to #rb-book ==========
-   Editorial link, not a button. DM Sans uppercase with a Cormorant
-   italic arrow that slides on hover. Centred in its wrap, vertical
-   margin tuned to land clearly after a section's content. */
+   Editorial invitation, not a button. Cormorant italic — same
+   typographic register as the italic voice anchors elsewhere (`you.`,
+   `Team.`, `Manual.`). Bone color, visible purple hairline beneath at
+   rest so it reads as actionable. On hover the hairline thickens and
+   shifts purple-core, the arrow slides, and color warms to white. */
 .rb-book-cta-wrap {
   display: flex;
   justify-content: center;
-  margin-top: clamp(3rem, 5.5vw, 4.75rem);
+  margin-top: clamp(3.25rem, 6vw, 5rem);
 }
 .rb-book-cta {
   display: inline-flex;
   align-items: baseline;
-  gap: 0.85rem;
-  font-family: var(--font-dm-sans), sans-serif;
-  font-weight: 500;
-  font-size: 11.5px;
-  letter-spacing: 0.26em;
-  text-transform: uppercase;
-  color: var(--rb-bone-dim);
-  padding: 0.7rem 0.1rem 0.8rem;
-  border-bottom: 1px solid transparent;
+  gap: 0.75rem;
+  font-family: var(--font-cormorant), serif;
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(1.4rem, 2.2vw, 1.9rem);
+  line-height: 1.2;
+  letter-spacing: -0.005em;
+  color: var(--rb-bone);
+  padding: 0.35rem 0.15rem 0.65rem;
+  border-bottom: 1px solid rgba(139, 125, 216, 0.45);
   cursor: pointer;
   transition: color 450ms var(--rb-ease),
-              letter-spacing 450ms var(--rb-ease),
-              border-color 450ms var(--rb-ease);
+              border-bottom-color 450ms var(--rb-ease),
+              border-bottom-width 450ms var(--rb-ease);
 }
 .rb-book-cta-arrow {
   font-family: var(--font-cormorant), serif;
   font-style: italic;
-  font-size: 15px;
+  font-size: 1em;
   color: var(--rb-purple);
   transition: transform 400ms var(--rb-ease),
               color 400ms var(--rb-ease);
 }
 .rb-book-cta:hover,
 .rb-book-cta:focus-visible {
-  color: var(--rb-bone);
-  letter-spacing: 0.30em;
-  border-bottom-color: rgba(139, 125, 216, 0.45);
+  color: #FFFFFF;
+  border-bottom-color: var(--rb-purple-core);
   outline: none;
 }
 .rb-book-cta:hover .rb-book-cta-arrow,
 .rb-book-cta:focus-visible .rb-book-cta-arrow {
-  transform: translateX(5px);
+  transform: translateX(6px);
   color: #FFFFFF;
+}
+@media (max-width: 560px) {
+  .rb-book-cta { font-size: 1.3rem; }
 }

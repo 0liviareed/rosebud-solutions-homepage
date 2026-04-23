@@ -194,7 +194,7 @@ export default function Home() {
               them one at a time — they go live together at the end of week 5.
             </p>
 
-            <BookCTA label="Book a call" />
+            <BookCTA label="See yours in 5 weeks" />
           </div>
         </section>
 
@@ -352,7 +352,7 @@ export default function Home() {
             </div>
             <Calculator />
 
-            <BookCTA label="Book a call" />
+            <BookCTA label="Book your time back" />
           </div>
         </section>
 
