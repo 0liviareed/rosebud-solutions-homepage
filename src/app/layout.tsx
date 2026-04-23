@@ -18,13 +18,20 @@ const dmSans = DM_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "Rosebud Solutions",
+  title: "Rosebud Solutions | Scale Faster with AI Automation",
   description:
-    "Your business runs on you. That needs to change. We build the AI infrastructure that handles the work your team shouldn't be spending time on.",
+    "Rosebud Solutions helps consumers and businesses scale using AI automation — without increasing headcount.",
   openGraph: {
-    title: "Rosebud Solutions",
-    description: "Your business runs on you. That needs to change.",
+    title: "Rosebud Solutions | Scale Faster with AI Automation",
+    description:
+      "Rosebud Solutions helps consumers and businesses scale using AI automation — without increasing headcount.",
     type: "website",
+  },
+  twitter: {
+    card: "summary",
+    title: "Rosebud Solutions | Scale Faster with AI Automation",
+    description:
+      "Rosebud Solutions helps consumers and businesses scale using AI automation — without increasing headcount.",
   },
 };
 
