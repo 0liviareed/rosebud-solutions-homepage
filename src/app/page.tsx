@@ -3,6 +3,7 @@ import Hero from "@/components/Hero";
 import Calculator from "@/components/Calculator";
 import CalEmbed from "@/components/CalEmbed";
 import FloatingPaths from "@/components/FloatingPaths";
+import BookCTA from "@/components/BookCTA";
 
 export default function Home() {
   return (
@@ -192,6 +193,8 @@ export default function Home() {
               All five roles deploy as one connected system. You don&apos;t add
               them one at a time — they go live together at the end of week 5.
             </p>
+
+            <BookCTA label="Book a call" />
           </div>
         </section>
 
@@ -348,6 +351,8 @@ export default function Home() {
               </p>
             </div>
             <Calculator />
+
+            <BookCTA label="Book a call" />
           </div>
         </section>
 
@@ -410,7 +415,13 @@ export default function Home() {
         </section>
 
         {/* ===================== VII — BOOK ===================== */}
-        <section className="rb-sec" data-rb-sec aria-label="Book a consultation">
+        <section
+          id="rb-book"
+          className="rb-sec"
+          data-rb-sec
+          aria-label="Book a consultation"
+          style={{ scrollMarginTop: "40px" }}
+        >
           <div className="rb-topo rb-topo-7" aria-hidden="true">
             <svg viewBox="0 0 420 240" preserveAspectRatio="none">
               <path className="rb-bright" d="M 0 120 C 100 108, 220 134, 420 114" />

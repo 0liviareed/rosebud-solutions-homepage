@@ -60,6 +60,9 @@ export default function Runtime() {
       };
       lenisRaf = requestAnimationFrame(raf);
     }
+    // Expose on window so CTA components can trigger smooth anchor
+    // scrolls without being coupled to this component's useEffect.
+    (window as unknown as { __rbLenis?: Lenis | null }).__rbLenis = lenis;
 
     // ========== GLOBAL HIKER OVERLAY ==========
     const SVG_NS = "http://www.w3.org/2000/svg";
