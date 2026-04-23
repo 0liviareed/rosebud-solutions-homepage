@@ -3167,17 +3167,19 @@ button { font: inherit; color: inherit; }
   width: 100%;
 }
 
-/* Contact + Legal meta block — two-column grid between the top row
-   and the disclaimer. Collapses to single column below 640px. */
+/* Contact + Legal meta block — flush to the same 1280px edges as the
+   logo/social row above: Contact sits under the logo (flush-left),
+   Legal sits under the socials (flush-right). Collapses to stacked
+   single column below 640px. */
 .rb-footer-meta {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
   gap: clamp(2rem, 5vw, 4rem);
   padding-bottom: clamp(2.5rem, 5vw, 4rem);
-  max-width: 42rem;
-  margin-left: auto;
-  margin-right: auto;
 }
+.rb-footer-col:last-child { align-items: flex-end; text-align: right; }
+.rb-footer-col:last-child .rb-footer-link { align-self: flex-end; }
 .rb-footer-col {
   display: flex;
   flex-direction: column;
@@ -3283,13 +3285,15 @@ button { font: inherit; color: inherit; }
 }
 
 @media (max-width: 640px) {
-  .rb-footer-meta { grid-template-columns: 1fr; gap: 2.25rem; }
+  .rb-footer-meta { flex-direction: column; gap: 2.25rem; }
+  .rb-footer-col:last-child { align-items: flex-start; text-align: left; }
+  .rb-footer-col:last-child .rb-footer-link { align-self: flex-start; }
 }
 
 .rb-footer-disclaimer {
   padding: clamp(2rem, 4vw, 3rem) 0;
   max-width: 72ch;
-  margin: 0 auto;
+  margin: 0;
 }
 .rb-footer-disclaimer p {
   font-family: var(--font-dm-sans), sans-serif;
