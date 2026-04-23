@@ -9,7 +9,9 @@ import {
   type TouchEvent as ReactTouchEvent,
 } from "react";
 
-const STEPS: [string, string][] = [
+export type TimelineStep = readonly [title: string, body: string];
+
+const RECRUITMENT_STEPS: TimelineStep[] = [
   ["JD lands on your desk", "Every role. Same format. Same clock starts ticking."],
   ["Post to your CRM", "Synced to free job boards. Same templates, same noise."],
   ["LinkedIn when the boards fail", "Which is every time. Manual search. Manual outreach."],
@@ -19,7 +21,10 @@ const STEPS: [string, string][] = [
   ["Wrong hire. Start again.", "Three months, burnt. The loop resets."],
 ];
 
-export default function SevenStepTimeline() {
+export default function SevenStepTimeline({
+  steps = RECRUITMENT_STEPS,
+}: { steps?: readonly TimelineStep[] } = {}) {
+  const STEPS = steps;
   const [active, setActive] = useState(0);
   const rootRef = useRef<HTMLDivElement | null>(null);
   const touchStartX = useRef<number | null>(null);
