@@ -248,11 +248,20 @@ export default function Runtime() {
     }
 
     function getContentProgress(): number {
-      const heroEnd = getHeroEnd();
       const docMax = Math.max(
         1,
         document.documentElement.scrollHeight - window.innerHeight
       );
+      // Mobile: the hero-local hiker is hidden, so the global hiker
+      // needs to advance across the WHOLE document (hero + content).
+      // Progress at scrollY=0 starts the hiker at path-y = -24 (above
+      // viewport) — it descends into view as the user scrolls hero.
+      if (vw <= 820) {
+        return Math.max(0, Math.min(1, window.scrollY / docMax));
+      }
+      // Desktop: content-only. Hero-local handles hero; global takes
+      // over after hero, starting fresh at the top of its path.
+      const heroEnd = getHeroEnd();
       const contentRange = Math.max(1, docMax - heroEnd);
       const sy = window.scrollY - heroEnd;
       return Math.max(0, Math.min(1, sy / contentRange));
