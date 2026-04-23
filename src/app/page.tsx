@@ -1,26 +1,14 @@
-import Runtime from "@/components/Runtime";
 import Hero from "@/components/Hero";
 import Calculator from "@/components/Calculator";
 import CalEmbed from "@/components/CalEmbed";
-import FloatingPaths from "@/components/FloatingPaths";
 import BookCTA from "@/components/BookCTA";
 import Voices from "@/components/Voices";
 
 export default function Home() {
   return (
     <>
-      <Runtime />
-      {/* Three atmosphere layers, each with a distinct position value so
-          the flow direction shifts as you descend. Opacity is driven by
-          the Runtime scroll tick as tent functions around these centers:
-           A (1.2)  peaks ~15%  — hero + credentials
-           B (-0.6) peaks ~50%  — opposing through middle sections
-           C (1.8)  peaks ~85%  — stronger slant into the final third
-          Cross-fades so the total atmosphere stays roughly constant
-          while the character of the wave evolves. */}
-      <FloatingPaths id="rb-atmo-1" position={1.2} />
-      <FloatingPaths id="rb-atmo-2" position={-0.6} />
-      <FloatingPaths id="rb-atmo-3" position={1.8} />
+      {/* Runtime + FloatingPaths now live in layout.tsx so every page
+          inherits the global hiker + atmospheric layer. */}
       <Hero />
 
       <main className="rb-content">

@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Cormorant_Garamond, DM_Sans } from "next/font/google";
 import Header from "@/components/Header";
+import Runtime from "@/components/Runtime";
+import FloatingPaths from "@/components/FloatingPaths";
 import "./globals.css";
 
 const cormorant = Cormorant_Garamond({
@@ -43,6 +45,10 @@ export default function RootLayout({
     <html lang="en" className={`${cormorant.variable} ${dmSans.variable}`}>
       <body>
         <Header />
+        <Runtime />
+        <FloatingPaths id="rb-atmo-1" position={1.2} />
+        <FloatingPaths id="rb-atmo-2" position={-0.6} />
+        <FloatingPaths id="rb-atmo-3" position={1.8} />
         {children}
       </body>
     </html>
