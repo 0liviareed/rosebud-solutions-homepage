@@ -2,11 +2,17 @@ import Runtime from "@/components/Runtime";
 import Hero from "@/components/Hero";
 import Calculator from "@/components/Calculator";
 import CalEmbed from "@/components/CalEmbed";
+import FloatingPaths from "@/components/FloatingPaths";
 
 export default function Home() {
   return (
     <>
       <Runtime />
+      {/* Two opposing FloatingPaths give the atmospheric layer more depth
+          (positive drifts up-right, negative drifts up-left). Fixed to
+          viewport — persists through the whole scroll. */}
+      <FloatingPaths position={1} />
+      <FloatingPaths position={-1} />
       <Hero />
 
       <main className="rb-content">
