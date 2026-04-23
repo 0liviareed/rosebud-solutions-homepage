@@ -49,17 +49,22 @@ export const HERO_PATH_D = [
 export const HERO_VIEWBOX_DESKTOP = "0 0 1920 1080";
 
 /**
- * Hero-local sweep — mobile (portrait 400×720). Same horizontal-
- * journey character as desktop, re-composed for portrait aspect ratio.
- * Four Bézier segments: enters top-right, sweeps left through the
- * upper third, descends the left margin, returns across the middle-
- * right, exits bottom-left.
+ * Hero-local sweep — mobile (portrait 400×720). Three-segment S-curve
+ * with perfectly G1-continuous joints: at each joint the incoming and
+ * outgoing Bézier handles are collinear and equal length, so the path
+ * has no direction-change kinks. The hiker's progress along it feels
+ * smooth end-to-end, matching the polish of the desktop variant.
+ *
+ * Enters top-right, sweeps down-left through the upper third, bows
+ * out across the middle-left, returns across to bottom-right.
+ *
+ * Joint at (240, 240): handles (340, 160) → (140, 320). Mirrored.
+ * Joint at (100, 520): handles (60, 400) → (140, 640). Mirrored.
  */
 export const HERO_PATH_MOBILE_D = [
   "M 370 -30",
-  "C 390 100, 360 180, 240 240",
-  "C 120 300, 60 380, 100 480",
-  "C 140 560, 280 600, 360 660",
-  "C 400 720, 300 820, 100 820",
+  "C 380 80, 340 160, 240 240",
+  "C 140 320, 60 400, 100 520",
+  "C 140 640, 280 680, 380 720",
 ].join(" ");
 export const HERO_VIEWBOX_MOBILE = "0 0 400 720";
