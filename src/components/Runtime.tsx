@@ -366,6 +366,31 @@ export default function Runtime() {
       );
       entries.forEach((el) => ioEntry.observe(el));
       observers.push(ioEntry);
+
+      /* Arrival pulse — fires once when the section reaches the
+         upper-middle reading zone (after the initial reveal).
+         Brightens the eyebrow for 1400ms with expanded tracking,
+         so the page acknowledges where you are. */
+      const ioArrive = new IntersectionObserver(
+        (evts) => {
+          evts.forEach((e) => {
+            if (!e.isIntersecting) return;
+            const eyebrow = e.target.querySelector<HTMLElement>(".rb-eyebrow");
+            if (!eyebrow) return;
+            eyebrow.classList.remove("rb-eyebrow-arrive");
+            // Force reflow so the animation can re-trigger if re-observed
+            void eyebrow.offsetWidth;
+            eyebrow.classList.add("rb-eyebrow-arrive");
+            window.setTimeout(() => {
+              eyebrow.classList.remove("rb-eyebrow-arrive");
+            }, 1500);
+            ioArrive.unobserve(e.target);
+          });
+        },
+        { threshold: 0, rootMargin: "-35% 0px -50% 0px" }
+      );
+      sections.forEach((s) => ioArrive.observe(s));
+      observers.push(ioArrive);
     } else {
       sections.forEach((s) => s.classList.add("rb-in"));
       entries.forEach((el) => el.classList.add("rb-entry-in"));

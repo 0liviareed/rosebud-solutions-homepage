@@ -187,7 +187,7 @@ export default function Home() {
         </section>
 
         {/* ===================== IV — METHOD ===================== */}
-        <section className="rb-sec" data-rb-sec aria-label="Method">
+        <section className="rb-sec rb-sec-method" data-rb-sec aria-label="Method">
           <div className="rb-topo rb-topo-4" aria-hidden="true">
             <svg viewBox="0 0 480 340" preserveAspectRatio="none">
               <g>
@@ -225,7 +225,7 @@ export default function Home() {
 
             <div data-rb-fade="3">
               <div className="rb-entry rb-entry-numbered" tabIndex={0}>
-                <span className="rb-num-big">01</span>
+                <span className="rb-num-big">I</span>
                 <div className="rb-body-stack">
                   <span className="rb-label">Phase One &middot; 5 weeks</span>
                   <h3 className="rb-statement">The Lead <em>Engine.</em></h3>
@@ -237,7 +237,7 @@ export default function Home() {
                 </div>
               </div>
               <div className="rb-entry rb-entry-numbered" tabIndex={0}>
-                <span className="rb-num-big">02</span>
+                <span className="rb-num-big">II</span>
                 <div className="rb-body-stack">
                   <span className="rb-label">Phase Two</span>
                   <h3 className="rb-statement">The Voice <em>Layer.</em></h3>
@@ -248,7 +248,7 @@ export default function Home() {
                 </div>
               </div>
               <div className="rb-entry rb-entry-numbered" tabIndex={0}>
-                <span className="rb-num-big">03</span>
+                <span className="rb-num-big">III</span>
                 <div className="rb-body-stack">
                   <span className="rb-label">Phase Three</span>
                   <h3 className="rb-statement">The Insight <em>Layer.</em></h3>

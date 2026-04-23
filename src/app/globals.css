@@ -57,6 +57,29 @@ button { font: inherit; color: inherit; }
 @keyframes rbCoreIn   { from { opacity: 0; transform: scale(0.4); } to { opacity: 1; transform: scale(1); } }
 @keyframes rbGlintPulse { 0%, 100% { opacity: 0.85; } 50% { opacity: 1; } }
 
+/* Arrival pulse on eyebrows: a single 1400ms bloom to full bone color
+   + opened tracking, triggered when a section reaches the reading zone. */
+@keyframes rbEyebrowArrive {
+  0%, 100% { color: var(--rb-bone-dim); letter-spacing: 0.28em; }
+  38%      { color: var(--rb-bone);     letter-spacing: 0.33em; }
+}
+@keyframes rbEyebrowArrivePurple {
+  0%, 100% { color: var(--rb-purple); letter-spacing: 0.28em; }
+  38%      { color: #FFFFFF;          letter-spacing: 0.33em; }
+}
+.rb-eyebrow.rb-eyebrow-arrive {
+  animation: rbEyebrowArrive 1400ms var(--rb-ease);
+}
+.rb-eyebrow.rb-purple.rb-eyebrow-arrive {
+  animation: rbEyebrowArrivePurple 1400ms var(--rb-ease);
+}
+
+/* Hero "you." rise: scale-in from 0.94 adds weight to the thesis word. */
+@keyframes rbRiseThesis {
+  from { opacity: 0; transform: translateY(32px) scale(0.94); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
 /* ========== Reveal machinery ========== */
 [data-rb-fade] {
   opacity: 0;
@@ -419,7 +442,13 @@ button { font: inherit; color: inherit; }
 .rb-hero-h1 em { font-style: italic; font-weight: 400; color: var(--rb-purple); }
 .rb-hero-h1 .rb-l1 { animation-delay: 450ms; }
 .rb-hero-h1 .rb-l2a { animation-delay: 720ms; }
-.rb-hero-h1 .rb-l2b { animation-delay: 900ms; }
+/* Thesis word: larger, later, with a scale-in reveal. The pause after
+   "on" and the extra weight make "you." land as the anchor it is. */
+.rb-hero-h1 .rb-l2b {
+  animation: rbRiseThesis 1600ms var(--rb-ease) 1200ms forwards;
+  font-size: 1.08em;
+  transform-origin: left bottom;
+}
 
 .rb-hero-sub {
   font-family: var(--font-cormorant), serif;
@@ -429,7 +458,9 @@ button { font: inherit; color: inherit; }
   color: var(--rb-bone-dim);
   margin: 1.5rem 0 0;
   opacity: 0;
-  animation: rbFade 900ms var(--rb-ease) 1150ms forwards;
+  /* Delayed to 2100ms so "That needs to change." responds to "you."
+     while it's still mid-arrival — conversation, not queue. */
+  animation: rbFade 900ms var(--rb-ease) 2100ms forwards;
   letter-spacing: 0.01em;
 }
 
@@ -442,7 +473,7 @@ button { font: inherit; color: inherit; }
   color: rgba(245, 241, 234, 0.4);
   margin: clamp(2.75rem, 5vw, 3.75rem) 0 0;
   opacity: 0;
-  animation: rbFade 700ms var(--rb-ease) 1480ms forwards;
+  animation: rbFade 700ms var(--rb-ease) 2550ms forwards;
 }
 
 .rb-hero-scroll-cue {
@@ -905,4 +936,19 @@ button { font: inherit; color: inherit; }
 }
 @media (max-width: 560px) {
   .rb-colo-meta { font-size: 9px; letter-spacing: 0.22em; gap: 0.6em; }
+}
+
+/* ========== Method section — Roman numeral phase markers ==========
+   The three phases within section IV get Roman markers (I, II, III)
+   instead of the Arabic 01-05 used in Digital Team. Creates visual
+   rhyme with the eyebrow numerals on other sections, and signals
+   that this is a considered progression, not just a list. */
+.rb-sec-method .rb-num-big {
+  font-size: clamp(2.5rem, 4.5vw, 4.25rem);
+  letter-spacing: 0.02em;
+  padding-top: 0.08em;
+  font-feature-settings: "onum" 1;
+}
+@media (max-width: 960px) {
+  .rb-sec-method .rb-num-big { font-size: 2rem; padding-top: 0; }
 }
