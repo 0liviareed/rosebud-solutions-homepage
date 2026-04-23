@@ -18,7 +18,7 @@ export default function Home() {
       <main className="rb-content">
         {/* ===================== I — CREDENTIALS ===================== */}
         <section
-          className="rb-sec rb-sec-tight"
+          className="rb-sec rb-sec-credentials"
           data-rb-sec
           aria-label="Credentials"
         >
@@ -53,22 +53,18 @@ export default function Home() {
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img src="https://cdn.prod.website-files.com/68c850ffb6742cb4ace5211c/699f346d2b4a5acddf7b7436_FSCA.avif" alt="" loading="lazy" decoding="async" />
               </span>
-              <span className="rb-sep" />
               <span className="rb-logo">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img src="https://cdn.prod.website-files.com/68c850ffb6742cb4ace5211c/699f346bae59ff807b9a5ac5_ASIC.avif" alt="" loading="lazy" decoding="async" />
               </span>
-              <span className="rb-sep" />
               <span className="rb-logo">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img src="https://cdn.prod.website-files.com/68c850ffb6742cb4ace5211c/699f346a9b7307d9f51b022e_5.avif" alt="" loading="lazy" decoding="async" />
               </span>
-              <span className="rb-sep" />
               <span className="rb-logo">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img src="https://cdn.prod.website-files.com/68c850ffb6742cb4ace5211c/699f34783fdf19aad5d31024_VFSC.avif" alt="" loading="lazy" decoding="async" />
               </span>
-              <span className="rb-sep" />
               <span className="rb-logo">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img src="https://cdn.prod.website-files.com/68c850ffb6742cb4ace5211c/699f346f9c3537e27b103066_4.avif" alt="" loading="lazy" decoding="async" />
