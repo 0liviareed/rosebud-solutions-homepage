@@ -2355,3 +2355,343 @@ button { font: inherit; color: inherit; }
     gap: 1.75rem;
   }
 }
+
+/* =============================================================
+   SEVEN-STEP INTERACTIVE TIMELINE
+   ============================================================= */
+.rb-timeline {
+  position: relative;
+  list-style: none;
+  padding: 0 0 0 clamp(2.75rem, 6vw, 4.25rem);
+  margin: 0 auto;
+  max-width: 52rem;
+}
+.rb-timeline-rail {
+  position: absolute;
+  left: clamp(0.75rem, 1.6vw, 1.25rem);
+  top: clamp(2rem, 4vw, 2.6rem);
+  bottom: clamp(2rem, 4vw, 2.6rem);
+  width: 1px;
+  background: linear-gradient(180deg,
+    transparent 0%,
+    var(--rb-bone-hair) 8%,
+    var(--rb-bone-hair) 92%,
+    transparent 100%);
+  pointer-events: none;
+}
+.rb-timeline-fill {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 1px;
+  height: var(--rb-tl-progress, 0%);
+  background: linear-gradient(180deg,
+    rgba(139, 125, 216, 0) 0%,
+    var(--rb-purple-core) 30%,
+    var(--rb-purple) 100%);
+  box-shadow: 0 0 12px rgba(139, 125, 216, 0.45);
+  transition: height 1100ms var(--rb-ease);
+}
+.rb-tl-step {
+  position: relative;
+  display: grid;
+  grid-template-columns: clamp(2.6rem, 4.5vw, 3.4rem) 1fr auto;
+  column-gap: clamp(1rem, 2vw, 1.5rem);
+  align-items: baseline;
+  padding: clamp(1.4rem, 3vw, 2.1rem) 0;
+  border-top: 1px solid var(--rb-bone-hair);
+  opacity: 0.35;
+  transition: opacity 800ms var(--rb-ease),
+              transform 800ms var(--rb-ease);
+  transform: translateY(4px);
+}
+.rb-tl-step:first-child { border-top: 0; }
+.rb-tl-step-active {
+  opacity: 1;
+  transform: translateY(0);
+}
+.rb-tl-node {
+  position: absolute;
+  left: clamp(0.75rem, 1.6vw, 1.25rem);
+  top: calc(clamp(1.4rem, 3vw, 2.1rem) + 0.55em);
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  border: 1px solid var(--rb-bone-faint);
+  background: var(--rb-bg-deep);
+  transform: translate(-5px, -5px);
+  transition: background 700ms var(--rb-ease),
+              border-color 700ms var(--rb-ease),
+              box-shadow 800ms var(--rb-ease),
+              transform 700ms var(--rb-ease);
+}
+.rb-tl-step-active .rb-tl-node {
+  background: var(--rb-purple-core);
+  border-color: var(--rb-purple);
+  box-shadow: 0 0 0 4px rgba(139, 125, 216, 0.14),
+              0 0 22px rgba(139, 125, 216, 0.45);
+}
+.rb-tl-num {
+  font-family: var(--font-cormorant), serif;
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(1.45rem, 2.6vw, 2rem);
+  line-height: 1;
+  color: var(--rb-bone-faint);
+  letter-spacing: 0.02em;
+  transition: color 700ms var(--rb-ease),
+              text-shadow 800ms var(--rb-ease);
+}
+.rb-tl-step-active .rb-tl-num {
+  color: var(--rb-purple);
+  text-shadow: 0 0 18px rgba(139, 125, 216, 0.35);
+}
+.rb-tl-text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  min-width: 0;
+}
+.rb-tl-title {
+  font-family: var(--font-cormorant), serif;
+  font-weight: 400;
+  font-size: clamp(1.15rem, 1.9vw, 1.55rem);
+  line-height: 1.3;
+  color: var(--rb-bone);
+  letter-spacing: -0.005em;
+  transition: color 700ms var(--rb-ease);
+}
+.rb-tl-body {
+  font-family: var(--font-dm-sans), sans-serif;
+  font-size: clamp(0.88rem, 1.1vw, 0.98rem);
+  line-height: 1.55;
+  color: var(--rb-bone-dim);
+  max-width: 38ch;
+}
+.rb-tl-tick {
+  font-family: var(--font-cormorant), serif;
+  font-style: italic;
+  font-size: clamp(1.05rem, 1.5vw, 1.3rem);
+  color: var(--rb-bone-faint);
+  line-height: 1;
+  padding-left: 0.5rem;
+  transition: color 700ms var(--rb-ease),
+              transform 700ms var(--rb-ease);
+}
+.rb-tl-step-active .rb-tl-tick {
+  color: var(--rb-purple);
+  transform: translateX(4px);
+}
+
+@media (max-width: 760px) {
+  .rb-timeline { padding-left: 2rem; }
+  .rb-timeline-rail { left: 0.55rem; }
+  .rb-tl-node { left: 0.55rem; }
+  .rb-tl-step {
+    grid-template-columns: 2.4rem 1fr;
+    column-gap: 0.75rem;
+  }
+  .rb-tl-tick { display: none; }
+  .rb-tl-body { font-size: 0.88rem; }
+}
+
+/* =============================================================
+   COMPARISON — visual marks + row hover activation
+   ============================================================= */
+.rb-compare-cell {
+  display: flex;
+  align-items: baseline;
+  gap: 0.85rem;
+  transition: color 450ms var(--rb-ease);
+}
+.rb-compare-mark {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 1px solid currentColor;
+  transform: translateY(0.15em);
+  transition: background 450ms var(--rb-ease),
+              color 450ms var(--rb-ease),
+              box-shadow 500ms var(--rb-ease);
+}
+.rb-compare-mark svg {
+  display: block;
+  overflow: visible;
+}
+.rb-compare-mark-x {
+  color: rgba(245, 241, 234, 0.32);
+}
+.rb-compare-mark-check {
+  color: var(--rb-purple);
+}
+.rb-compare-row {
+  transition: opacity 400ms var(--rb-ease);
+}
+.rb-compare-row:hover .rb-compare-cell-manual,
+.rb-compare-row:focus-within .rb-compare-cell-manual {
+  color: rgba(245, 241, 234, 0.35);
+}
+.rb-compare-row:hover .rb-compare-cell-rosebud,
+.rb-compare-row:focus-within .rb-compare-cell-rosebud {
+  color: var(--rb-bone);
+}
+.rb-compare-row:hover .rb-compare-mark-check,
+.rb-compare-row:focus-within .rb-compare-mark-check {
+  background: rgba(139, 125, 216, 0.15);
+  box-shadow: 0 0 0 3px rgba(139, 125, 216, 0.1),
+              0 0 16px rgba(139, 125, 216, 0.3);
+}
+
+@media (max-width: 760px) {
+  .rb-compare-mark { width: 16px; height: 16px; }
+}
+
+/* =============================================================
+   FILTER COLS — tick / cross heads + card treatment
+   ============================================================= */
+.rb-filter-col {
+  position: relative;
+  padding: clamp(2rem, 4vw, 2.75rem) clamp(1.25rem, 2.5vw, 1.75rem);
+  border: 1px solid var(--rb-bone-hair);
+  border-radius: 2px;
+  background: linear-gradient(180deg,
+    rgba(245, 241, 234, 0.018) 0%,
+    rgba(245, 241, 234, 0) 100%);
+  transition: border-color 500ms var(--rb-ease),
+              background 500ms var(--rb-ease),
+              transform 500ms var(--rb-ease);
+}
+.rb-filter-col-yes {
+  border-top-color: var(--rb-purple);
+}
+.rb-filter-col:hover {
+  transform: translateY(-2px);
+}
+.rb-filter-col-yes:hover {
+  border-color: rgba(139, 125, 216, 0.35);
+  background: linear-gradient(180deg,
+    rgba(139, 125, 216, 0.05) 0%,
+    rgba(139, 125, 216, 0) 100%);
+}
+.rb-filter-col-no:hover {
+  border-color: rgba(245, 241, 234, 0.18);
+}
+.rb-filter-head {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.35rem;
+}
+.rb-filter-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 1px solid currentColor;
+  flex-shrink: 0;
+}
+.rb-filter-col-yes .rb-filter-icon {
+  color: var(--rb-purple);
+  background: rgba(139, 125, 216, 0.1);
+}
+.rb-filter-col-no .rb-filter-icon {
+  color: rgba(245, 241, 234, 0.32);
+}
+.rb-filter-icon svg { display: block; overflow: visible; }
+
+/* =============================================================
+   DEMO CARDS — elevated card treatment
+   ============================================================= */
+.rb-demo-card {
+  padding: clamp(1.5rem, 2.8vw, 2rem) clamp(1.5rem, 2.5vw, 1.75rem);
+  border: 1px solid var(--rb-bone-hair);
+  border-radius: 2px;
+  background: linear-gradient(180deg,
+    rgba(245, 241, 234, 0.02) 0%,
+    rgba(245, 241, 234, 0) 100%);
+  transition: border-color 500ms var(--rb-ease),
+              background 500ms var(--rb-ease),
+              transform 500ms var(--rb-ease);
+}
+.rb-demo-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(139, 125, 216, 0.3);
+  background: linear-gradient(180deg,
+    rgba(139, 125, 216, 0.04) 0%,
+    rgba(139, 125, 216, 0) 100%);
+}
+
+/* =============================================================
+   PAGE HERO — subtle underline sweep under the italic word
+   ============================================================= */
+.rb-page-hero-h1 em {
+  position: relative;
+  display: inline-block;
+}
+.rb-page-hero-h1 em::after {
+  content: '';
+  position: absolute;
+  left: 0.05em;
+  right: 0.12em;
+  bottom: 0.05em;
+  height: 1px;
+  background: linear-gradient(90deg,
+    rgba(139, 125, 216, 0) 0%,
+    var(--rb-purple) 35%,
+    var(--rb-purple) 65%,
+    rgba(139, 125, 216, 0) 100%);
+  transform: scaleX(0);
+  transform-origin: left center;
+  animation: rbHeroUnderline 1600ms var(--rb-ease) 400ms forwards;
+  opacity: 0.65;
+}
+@keyframes rbHeroUnderline {
+  0%   { transform: scaleX(0);  opacity: 0; }
+  50%  { transform: scaleX(1);  opacity: 0.9; }
+  100% { transform: scaleX(1);  opacity: 0.65; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .rb-page-hero-h1 em::after { animation: none; transform: scaleX(1); }
+  .rb-tl-step { opacity: 1; transform: none; }
+  .rb-timeline-fill { transition: none; }
+}
+
+/* =============================================================
+   WHAT'S INCLUDED — accent rail on hover
+   ============================================================= */
+.rb-entry-numbered {
+  position: relative;
+  transition: padding-left 500ms var(--rb-ease);
+}
+.rb-entry-numbered::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 0;
+  height: 1px;
+  background: var(--rb-purple);
+  transform: translateY(-50%);
+  transition: width 500ms var(--rb-ease);
+  pointer-events: none;
+}
+.rb-entry-numbered:hover::before,
+.rb-entry-numbered:focus-within::before {
+  width: clamp(1rem, 2vw, 1.5rem);
+}
+.rb-entry-numbered:hover,
+.rb-entry-numbered:focus-within {
+  padding-left: clamp(1.4rem, 3vw, 2.25rem);
+}
+@media (max-width: 760px) {
+  .rb-entry-numbered:hover,
+  .rb-entry-numbered:focus-within {
+    padding-left: clamp(1rem, 2vw, 1.5rem);
+  }
+}

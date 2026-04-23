@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import RecruitmentFAQ from "@/components/RecruitmentFAQ";
+import SevenStepTimeline from "@/components/SevenStepTimeline";
 
 export const metadata: Metadata = {
   title: "Recruitment · Rosebud Solutions",
@@ -42,45 +43,9 @@ export default function RecruitmentPage() {
               </h2>
             </div>
 
-            <ol className="rb-step-list" data-rb-fade="2">
-              <li className="rb-step">
-                <span className="rb-step-num">01</span>
-                <span className="rb-step-body">JD lands on your desk</span>
-              </li>
-              <li className="rb-step">
-                <span className="rb-step-num">02</span>
-                <span className="rb-step-body">
-                  Post to your CRM — synced to free job boards
-                </span>
-              </li>
-              <li className="rb-step">
-                <span className="rb-step-num">03</span>
-                <span className="rb-step-body">
-                  LinkedIn when the boards fail
-                </span>
-              </li>
-              <li className="rb-step">
-                <span className="rb-step-num">04</span>
-                <span className="rb-step-body">
-                  High volume. Low quality. 100 applications. Three worth
-                  reading.
-                </span>
-              </li>
-              <li className="rb-step">
-                <span className="rb-step-num">05</span>
-                <span className="rb-step-body">Every CV. Manual. One by one.</span>
-              </li>
-              <li className="rb-step">
-                <span className="rb-step-num">06</span>
-                <span className="rb-step-body">
-                  Tag candidates. Shortlist. Directors. Interviews.
-                </span>
-              </li>
-              <li className="rb-step">
-                <span className="rb-step-num">07</span>
-                <span className="rb-step-body">Wrong hire. Start again.</span>
-              </li>
-            </ol>
+            <div data-rb-fade="2">
+              <SevenStepTimeline />
+            </div>
 
             <p className="rb-aftertext" data-rb-fade="3">
               Every pound fixing a bad hire is a pound not going into
@@ -226,10 +191,20 @@ export default function RecruitmentPage() {
               ].map(([manual, rosebud], i) => (
                 <div key={i} className="rb-compare-row">
                   <span className="rb-compare-cell rb-compare-cell-manual">
-                    {manual}
+                    <span className="rb-compare-mark rb-compare-mark-x" aria-hidden="true">
+                      <svg viewBox="0 0 12 12" width="10" height="10">
+                        <path d="M2.5 2.5 L9.5 9.5 M9.5 2.5 L2.5 9.5" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" />
+                      </svg>
+                    </span>
+                    <span>{manual}</span>
                   </span>
                   <span className="rb-compare-cell rb-compare-cell-rosebud">
-                    {rosebud}
+                    <span className="rb-compare-mark rb-compare-mark-check" aria-hidden="true">
+                      <svg viewBox="0 0 12 12" width="11" height="11">
+                        <path d="M2.25 6.25 L5 9 L9.75 3.25" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+                      </svg>
+                    </span>
+                    <span>{rosebud}</span>
                   </span>
                 </div>
               ))}
@@ -284,7 +259,14 @@ export default function RecruitmentPage() {
 
             <div className="rb-filter-cols" data-rb-fade="2">
               <div className="rb-filter-col rb-filter-col-yes">
-                <span className="rb-label">This works for you if</span>
+                <span className="rb-filter-head">
+                  <span className="rb-filter-icon" aria-hidden="true">
+                    <svg viewBox="0 0 16 16" width="14" height="14">
+                      <path d="M3 8.5 L6.5 12 L13 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+                    </svg>
+                  </span>
+                  <span className="rb-label">This works for you if</span>
+                </span>
                 <ul className="rb-filter-list">
                   <li>You&apos;re running multiple live briefs at once</li>
                   <li>Your biggest bottleneck is CV volume, not client volume</li>
@@ -294,7 +276,14 @@ export default function RecruitmentPage() {
                 </ul>
               </div>
               <div className="rb-filter-col rb-filter-col-no">
-                <span className="rb-label">This isn&apos;t for you if</span>
+                <span className="rb-filter-head">
+                  <span className="rb-filter-icon" aria-hidden="true">
+                    <svg viewBox="0 0 16 16" width="14" height="14">
+                      <path d="M4 4 L12 12 M12 4 L4 12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+                    </svg>
+                  </span>
+                  <span className="rb-label">This isn&apos;t for you if</span>
+                </span>
                 <ul className="rb-filter-list">
                   <li>You hire purely through word-of-mouth and relationships</li>
                   <li>
