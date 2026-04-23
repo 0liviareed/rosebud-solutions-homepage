@@ -248,36 +248,29 @@ export default function Runtime() {
     }
 
     function getContentProgress(): number {
+      // Content-only on all viewports — the hero-local hiker handles
+      // the hero portion on both desktop and mobile (each with its
+      // own viewBox + path), so the global hiker always starts fresh
+      // at content entry.
+      const heroEnd = getHeroEnd();
       const docMax = Math.max(
         1,
         document.documentElement.scrollHeight - window.innerHeight
       );
-      // Mobile: the hero-local hiker is hidden, so the global hiker
-      // needs to advance across the WHOLE document (hero + content).
-      // Progress at scrollY=0 starts the hiker at path-y = -24 (above
-      // viewport) — it descends into view as the user scrolls hero.
-      if (vw <= 820) {
-        return Math.max(0, Math.min(1, window.scrollY / docMax));
-      }
-      // Desktop: content-only. Hero-local handles hero; global takes
-      // over after hero, starting fresh at the top of its path.
-      const heroEnd = getHeroEnd();
       const contentRange = Math.max(1, docMax - heroEnd);
       const sy = window.scrollY - heroEnd;
       return Math.max(0, Math.min(1, sy / contentRange));
     }
 
     // Scroll-based show/hide of the global overlay + voice moments.
-    // Label cycles through PHRASES with a crossfade on threshold crossing.
-    //
-    // Narrow viewports (≤820px): the hero-local horizontal sweep is
-    // hidden (its 1920×1080 viewBox doesn't fit portrait aspect ratio),
-    // so the global hiker stays visible for the whole page.
+    // Global hiker is hidden during the hero on all viewports — the
+    // hero-local hiker (desktop and mobile variants) handles that
+    // portion. Cross-fade happens at hero end via the hero-local's
+    // opacity fall-off at progress > 0.92.
     function updateOverlayVisibility() {
       const heroEnd = getHeroEnd();
       const inHero = window.scrollY < heroEnd - 40;
-      const narrow = vw <= 820;
-      overlay.style.opacity = narrow ? "1" : (inHero ? "0" : "1");
+      overlay.style.opacity = inHero ? "0" : "1";
 
       const p = getContentProgress();
       let targetIdx = -1;

@@ -1,20 +1,42 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
-import { HERO_PATH_D } from "@/lib/hiker-path";
+import {
+  HERO_PATH_D,
+  HERO_VIEWBOX_DESKTOP,
+  HERO_PATH_MOBILE_D,
+  HERO_VIEWBOX_MOBILE,
+} from "@/lib/hiker-path";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
 }
 
+const MOBILE_BREAKPOINT = 820;
+
 export default function Hero() {
   const wrapRef = useRef<HTMLElement | null>(null);
   const heroLitRef = useRef<SVGPathElement | null>(null);
+  const heroGuideRef = useRef<SVGPathElement | null>(null);
   const heroDotRef = useRef<SVGGElement | null>(null);
   const heroHikerRef = useRef<HTMLDivElement | null>(null);
+
+  // Viewport mode — re-run setup effect when crossing the breakpoint
+  // so path + viewBox + waypoints swap to mobile/desktop variants.
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth <= MOBILE_BREAKPOINT);
+    check();
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
+  }, []);
+
+  const viewBox = isMobile ? HERO_VIEWBOX_MOBILE : HERO_VIEWBOX_DESKTOP;
+  const pathD = isMobile ? HERO_PATH_MOBILE_D : HERO_PATH_D;
 
   useEffect(() => {
     const prefersReducedMotion = window.matchMedia(
@@ -27,12 +49,8 @@ export default function Hero() {
     const hikerWrap = heroHikerRef.current;
     if (!wrap || !lit || !dot || !hikerWrap) return;
 
-    // Hero-local SVG stays at default preserveAspectRatio='xMidYMid slice'.
-    // It's hidden via CSS below 820px — the 1920×1080 horizontal viewBox
-    // can't frame cleanly in portrait (stretching it distorts curves,
-    // letterboxing looks small). Mobile hero relies on topo parallax
-    // and the global hiker for scroll-driven motion.
-
+    // Path & pathLen — measured from the currently-rendered path
+    // attribute, so the effect re-runs when isMobile toggles.
     const pathLen = lit.getTotalLength();
     lit.style.strokeDasharray = String(pathLen);
     lit.style.strokeDashoffset = String(pathLen);
@@ -158,7 +176,7 @@ export default function Hero() {
       tweens.forEach((t) => t.kill());
       cancelAnimationFrame(rafId);
     };
-  }, []);
+  }, [isMobile]);
 
   return (
     <section
@@ -212,9 +230,13 @@ export default function Hero() {
 
         <div className="rb-hero-vignette" aria-hidden="true" />
 
-        {/* Hero-local hiker: horizontal sweep across the banner */}
+        {/* Hero-local hiker — horizontal sweep. Desktop uses a 1920×1080
+            landscape viewBox with a wide sweep path; mobile switches to
+            a 400×720 portrait viewBox with a path that carries the same
+            journey character in the narrower frame. Swap is driven by
+            isMobile state; re-measured on each useEffect re-run. */}
         <div className="rb-hero-hiker" aria-hidden="true" ref={heroHikerRef}>
-          <svg viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid slice">
+          <svg viewBox={viewBox} preserveAspectRatio="xMidYMid slice">
             <defs>
               <linearGradient id="rb-hero-trail-grad" x1="0" y1="0" x2="1" y2="0" gradientUnits="userSpaceOnUse">
                 <stop offset="0%" stopColor="rgba(139,125,216,0)" />
@@ -233,22 +255,26 @@ export default function Hero() {
               </filter>
             </defs>
 
-            <path id="rb-hero-path" className="rb-hero-guide" d={HERO_PATH_D} />
-            <path ref={heroLitRef} id="rb-hero-path-lit" className="rb-hero-lit" d={HERO_PATH_D} />
+            <path ref={heroGuideRef} id="rb-hero-path" className="rb-hero-guide" d={pathD} />
+            <path ref={heroLitRef} id="rb-hero-path-lit" className="rb-hero-lit" d={pathD} />
 
-            {/* Three waypoints along the path */}
-            <g className="rb-hero-wp rb-hero-wp-1">
-              <circle cx={1500} cy={500} r={22} fill="none" stroke="rgba(184,174,219,0.35)" strokeWidth={1} />
-              <circle cx={1500} cy={500} r={3} fill="rgba(184,174,219,0.9)" />
-            </g>
-            <g className="rb-hero-wp rb-hero-wp-2">
-              <circle cx={700} cy={750} r={22} fill="none" stroke="rgba(184,174,219,0.35)" strokeWidth={1} />
-              <circle cx={700} cy={750} r={3} fill="rgba(184,174,219,0.9)" />
-            </g>
-            <g className="rb-hero-wp rb-hero-wp-3">
-              <circle cx={180} cy={360} r={22} fill="none" stroke="rgba(184,174,219,0.35)" strokeWidth={1} />
-              <circle cx={180} cy={360} r={3} fill="rgba(184,174,219,0.9)" />
-            </g>
+            {/* Desktop-only waypoints — coordinates tied to 1920×1080 viewBox */}
+            {!isMobile && (
+              <>
+                <g className="rb-hero-wp rb-hero-wp-1">
+                  <circle cx={1500} cy={500} r={22} fill="none" stroke="rgba(184,174,219,0.35)" strokeWidth={1} />
+                  <circle cx={1500} cy={500} r={3} fill="rgba(184,174,219,0.9)" />
+                </g>
+                <g className="rb-hero-wp rb-hero-wp-2">
+                  <circle cx={700} cy={750} r={22} fill="none" stroke="rgba(184,174,219,0.35)" strokeWidth={1} />
+                  <circle cx={700} cy={750} r={3} fill="rgba(184,174,219,0.9)" />
+                </g>
+                <g className="rb-hero-wp rb-hero-wp-3">
+                  <circle cx={180} cy={360} r={22} fill="none" stroke="rgba(184,174,219,0.35)" strokeWidth={1} />
+                  <circle cx={180} cy={360} r={3} fill="rgba(184,174,219,0.9)" />
+                </g>
+              </>
+            )}
 
             <g className="rb-hero-dot" ref={heroDotRef}>
               <circle r={44} fill="rgba(139,125,216,0.08)" />

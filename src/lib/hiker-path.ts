@@ -32,7 +32,7 @@ export function buildGlobalPath(w: number, h: number): string {
 }
 
 /**
- * Hero-local horizontal sweep path, 1920x1080 viewBox.
+ * Hero-local horizontal sweep — desktop (landscape 1920×1080).
  * Enters top-right, descends into right margin, sweeps across the
  * lower third (under the headline), rises on the left, exits top-left.
  */
@@ -46,3 +46,20 @@ export const HERO_PATH_D = [
   "C 100 340, 100 240, 160 150",
   "C 220 80, 300 40, 380 40",
 ].join(" ");
+export const HERO_VIEWBOX_DESKTOP = "0 0 1920 1080";
+
+/**
+ * Hero-local sweep — mobile (portrait 400×720). Same horizontal-
+ * journey character as desktop, re-composed for portrait aspect ratio.
+ * Four Bézier segments: enters top-right, sweeps left through the
+ * upper third, descends the left margin, returns across the middle-
+ * right, exits bottom-left.
+ */
+export const HERO_PATH_MOBILE_D = [
+  "M 370 -30",
+  "C 390 100, 360 180, 240 240",
+  "C 120 300, 60 380, 100 480",
+  "C 140 560, 280 600, 360 660",
+  "C 400 720, 300 820, 100 820",
+].join(" ");
+export const HERO_VIEWBOX_MOBILE = "0 0 400 720";

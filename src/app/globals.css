@@ -348,12 +348,10 @@ button { font: inherit; color: inherit; }
      edge (path margin 22-34px, amp up to 18px — clearance ~40px). */
   .rb-wrap { padding-right: 40px; }
   .rb-topo-5, .rb-topo-2 { display: none; }
-  /* Hero-local horizontal sweep hidden on portrait — the 1920×1080
-     viewBox can't frame cleanly in portrait (stretching distorts
-     curves, letterboxing shrinks them). Mobile hero instead relies
-     on the global vertical hiker (right edge, RAF + lerp) plus the
-     boosted topo parallax for visible scroll-driven motion. */
-  .rb-hero-hiker { display: none; }
+  /* Hero-local hiker visible on mobile, using a portrait 400×720 viewBox
+     and a dedicated sweep path (Hero.tsx switches based on isMobile).
+     Same horizontal-journey character as the desktop sweep, re-composed
+     for portrait so nothing stretches or gets cropped off-screen. */
 }
 @media (max-width: 480px) {
   .rb-sec { padding: 4rem 1.25rem; }
