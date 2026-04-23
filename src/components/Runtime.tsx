@@ -142,22 +142,27 @@ export default function Runtime() {
         left: 0;
         font-family: var(--font-cormorant), 'Cormorant Garamond', serif;
         font-style: italic;
-        font-weight: 400;
-        font-size: 15px;
-        letter-spacing: 0.015em;
-        color: rgba(245, 241, 234, 0.55);
+        font-weight: 500;
+        font-size: clamp(20px, 1.6vw, 26px);
+        letter-spacing: 0.005em;
+        color: rgba(245, 241, 234, 0.88);
         white-space: nowrap;
         pointer-events: none;
         z-index: 10;
         opacity: 0;
         transition: opacity 1400ms var(--rb-ease);
         text-shadow:
-          0 0 12px rgba(184, 174, 219, 0.35),
-          0 0 24px rgba(139, 125, 216, 0.22);
+          0 0 16px rgba(184, 174, 219, 0.7),
+          0 0 32px rgba(139, 125, 216, 0.5),
+          0 0 64px rgba(139, 125, 216, 0.25);
         transform: translate(0, 0);
         will-change: transform, opacity;
       }
-      #rb-hiker-label.rb-label-visible { opacity: 1; }
+      #rb-hiker-label.rb-label-visible { opacity: 1; animation: rbLabelBreathe 3.2s ease-in-out infinite; }
+      @keyframes rbLabelBreathe {
+        0%, 100% { filter: brightness(1); }
+        50%      { filter: brightness(1.25); }
+      }
       /* Label hidden on narrow screens — hiker alone reads; the
          Cormorant italic label would crowd content on portrait. */
       @media (max-width: 820px) {
@@ -185,16 +190,21 @@ export default function Runtime() {
     // Label tracks the hiker's screen position with a slower lerp
     // (0.065 vs hiker's 0.14) — the lag *is* the "following" feel.
     let labelX = 0, labelY = 0;
-    const LABEL_OFFSET_X = -82;
-    const LABEL_OFFSET_Y = 2;
+    // Larger, more directive copy needs more horizontal clearance from
+    // the dot so the text doesn't crowd the hiker.
+    const LABEL_OFFSET_X = -180;
+    const LABEL_OFFSET_Y = 4;
     const LABEL_LERP = 0.065;
 
     // Voice moments — phrases the hiker says as you descend.
     // Progress bands are based on content scroll (0..1, post-hero).
+    // First phrase is directive (invites scroll), second confirms the
+    // motion, third arrives. Keeps the editorial voice but reads as an
+    // instruction the moment the hiker enters the content.
     const PHRASES = [
-      { text: "follow me.",  from: 0.05, to: 0.42 },
-      { text: "keep going.", from: 0.42, to: 0.78 },
-      { text: "here.",       from: 0.78, to: 0.94 },
+      { text: "scroll to follow.",  from: 0.02, to: 0.42 },
+      { text: "keep scrolling.",    from: 0.42, to: 0.78 },
+      { text: "here.",              from: 0.78, to: 0.94 },
     ];
     let currentPhraseIdx = -1;
     let phraseTransitioning = false;
