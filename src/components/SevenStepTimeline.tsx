@@ -1,6 +1,13 @@
 "use client";
 
-import { useEffect, useRef, useState, type CSSProperties } from "react";
+import {
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+  type CSSProperties,
+  type TouchEvent as ReactTouchEvent,
+} from "react";
 
 const STEPS: [string, string][] = [
   ["JD lands on your desk", "Every role. Same format. Same clock starts ticking."],
@@ -13,55 +20,152 @@ const STEPS: [string, string][] = [
 ];
 
 export default function SevenStepTimeline() {
-  const [active, setActive] = useState(-1);
-  const refs = useRef<(HTMLLIElement | null)[]>([]);
+  const [active, setActive] = useState(0);
+  const rootRef = useRef<HTMLDivElement | null>(null);
+  const touchStartX = useRef<number | null>(null);
 
-  useEffect(() => {
-    const obs = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((e) => {
-          if (e.isIntersecting) {
-            const idx = Number((e.target as HTMLElement).dataset.step);
-            setActive((prev) => (idx > prev ? idx : prev));
-          }
-        });
-      },
-      { rootMargin: "-40% 0px -40% 0px", threshold: 0 }
-    );
-    refs.current.forEach((el) => el && obs.observe(el));
-    return () => obs.disconnect();
+  const go = useCallback((i: number) => {
+    setActive(() => Math.max(0, Math.min(STEPS.length - 1, i)));
   }, []);
 
-  const progress = active < 0 ? 0 : ((active + 1) / STEPS.length) * 100;
+  const next = useCallback(() => go(active + 1), [active, go]);
+  const prev = useCallback(() => go(active - 1), [active, go]);
+
+  const atStart = active === 0;
+  const atEnd = active === STEPS.length - 1;
+  const progress = (active / (STEPS.length - 1)) * 100;
+
+  useEffect(() => {
+    function onKey(e: KeyboardEvent) {
+      const root = rootRef.current;
+      if (!root) return;
+      const rect = root.getBoundingClientRect();
+      const onScreen = rect.top < window.innerHeight * 0.8 && rect.bottom > 0;
+      if (!onScreen) return;
+      if (e.key === "ArrowRight") {
+        e.preventDefault();
+        setActive((a) => Math.min(STEPS.length - 1, a + 1));
+      } else if (e.key === "ArrowLeft") {
+        e.preventDefault();
+        setActive((a) => Math.max(0, a - 1));
+      }
+    }
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, []);
+
+  const onTouchStart = (e: ReactTouchEvent) => {
+    touchStartX.current = e.touches[0].clientX;
+  };
+  const onTouchEnd = (e: ReactTouchEvent) => {
+    if (touchStartX.current == null) return;
+    const dx = e.changedTouches[0].clientX - touchStartX.current;
+    if (Math.abs(dx) > 40) {
+      if (dx < 0) next();
+      else prev();
+    }
+    touchStartX.current = null;
+  };
 
   return (
-    <ol
-      className="rb-timeline"
-      style={{ "--rb-tl-progress": `${progress}%` } as CSSProperties}
+    <div
+      ref={rootRef}
+      className="rb-tl-carousel"
+      style={{ "--rb-tl-active": active } as CSSProperties}
     >
-      <div className="rb-timeline-rail" aria-hidden="true">
-        <div className="rb-timeline-fill" />
-      </div>
-      {STEPS.map(([title, body], i) => (
-        <li
-          key={i}
-          ref={(el) => {
-            refs.current[i] = el;
-          }}
-          data-step={i}
-          className={`rb-tl-step ${i <= active ? "rb-tl-step-active" : ""}`}
+      <div
+        className="rb-tl-stage"
+        onTouchStart={onTouchStart}
+        onTouchEnd={onTouchEnd}
+      >
+        <div className="rb-tl-track">
+          {STEPS.map(([title, body], i) => {
+            const diff = i - active;
+            const state =
+              diff === 0 ? "active" : diff < 0 ? "past" : "upcoming";
+            return (
+              <article
+                key={i}
+                className={`rb-tl-slide rb-tl-slide-${state}`}
+                aria-hidden={state !== "active"}
+                onClick={() => state !== "active" && go(i)}
+              >
+                <span className="rb-tl-slide-num">
+                  {String(i + 1).padStart(2, "0")}
+                </span>
+                <h3 className="rb-tl-slide-title">{title}</h3>
+                <p className="rb-tl-slide-body">{body}</p>
+              </article>
+            );
+          })}
+        </div>
+
+        <button
+          type="button"
+          className="rb-tl-arrow rb-tl-arrow-prev"
+          onClick={prev}
+          disabled={atStart}
+          aria-label="Previous step"
         >
-          <span className="rb-tl-node" aria-hidden="true" />
-          <span className="rb-tl-num">{String(i + 1).padStart(2, "0")}</span>
-          <div className="rb-tl-text">
-            <span className="rb-tl-title">{title}</span>
-            <span className="rb-tl-body">{body}</span>
-          </div>
-          <span className="rb-tl-tick" aria-hidden="true">
-            {i === STEPS.length - 1 ? "∞" : "→"}
-          </span>
-        </li>
-      ))}
-    </ol>
+          <svg viewBox="0 0 24 24" width="18" height="18">
+            <path
+              d="M15 5 L9 12 L15 19"
+              stroke="currentColor"
+              strokeWidth="1.4"
+              fill="none"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
+        </button>
+        <button
+          type="button"
+          className="rb-tl-arrow rb-tl-arrow-next"
+          onClick={next}
+          disabled={atEnd}
+          aria-label="Next step"
+        >
+          <svg viewBox="0 0 24 24" width="18" height="18">
+            <path
+              d="M9 5 L15 12 L9 19"
+              stroke="currentColor"
+              strokeWidth="1.4"
+              fill="none"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
+        </button>
+      </div>
+
+      <div className="rb-tl-rail" role="tablist" aria-label="Recruitment steps">
+        <div className="rb-tl-rail-line" aria-hidden="true">
+          <div
+            className="rb-tl-rail-fill"
+            style={{ width: `${progress}%` }}
+          />
+        </div>
+        {STEPS.map((_, i) => {
+          const state =
+            i < active ? "past" : i === active ? "active" : "upcoming";
+          return (
+            <button
+              key={i}
+              type="button"
+              role="tab"
+              aria-selected={i === active}
+              aria-label={`Step ${i + 1}`}
+              className={`rb-tl-rail-station rb-tl-rail-station-${state}`}
+              onClick={() => go(i)}
+            >
+              <span className="rb-tl-rail-label">
+                {String(i + 1).padStart(2, "0")}
+              </span>
+              <span className="rb-tl-rail-node" aria-hidden="true" />
+            </button>
+          );
+        })}
+      </div>
+    </div>
   );
 }
