@@ -1239,7 +1239,7 @@ button { font: inherit; color: inherit; }
   left: 0;
   right: 0;
   z-index: 50;
-  height: 68px;
+  height: 80px;
   display: flex;
   align-items: center;
   background: transparent;
@@ -1259,7 +1259,7 @@ button { font: inherit; color: inherit; }
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 clamp(1.25rem, 4vw, 2.5rem);
+  padding: 0 clamp(1.5rem, 5vw, 3.5rem);
   gap: 1.5rem;
 }
 
@@ -1269,7 +1269,7 @@ button { font: inherit; color: inherit; }
 .rb-nav-logo {
   display: inline-flex;
   align-items: center;
-  height: 32px;
+  height: 40px;
   flex-shrink: 0;
 }
 .rb-nav-logo img {
@@ -1297,15 +1297,15 @@ button { font: inherit; color: inherit; }
   position: relative;
   background: transparent;
   border: 0;
-  padding: 0.85rem 0.15rem 0.95rem;
+  padding: 1rem 0.15rem 1.1rem;
   cursor: pointer;
   display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.75rem;
   font-family: var(--font-dm-sans), sans-serif;
   font-weight: 500;
-  font-size: 11.5px;
-  letter-spacing: 0.24em;
+  font-size: 13px;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
   color: var(--rb-bone-dim);
   transition: color 400ms var(--rb-ease),
@@ -1316,7 +1316,7 @@ button { font: inherit; color: inherit; }
   content: '';
   position: absolute;
   left: 0.15rem;
-  bottom: 0.45rem;
+  bottom: 0.55rem;
   height: 1px;
   width: 0;
   background: var(--rb-purple);
@@ -1333,19 +1333,23 @@ button { font: inherit; color: inherit; }
 .rb-nav-trigger:focus-visible::after,
 .rb-nav-item-open .rb-nav-trigger::after {
   /* Reach to just before the chevron — the span containing 'Solutions' */
-  width: calc(100% - 1.4rem);
+  width: calc(100% - 1.5rem);
 }
+/* Chevron is now an inline SVG — clean V that rotates 180° on open.
+   Uses currentColor so it inherits the trigger's color state. */
 .rb-nav-chevron {
-  font-family: var(--font-cormorant), serif;
-  font-style: italic;
-  font-size: 16px;
+  width: 10px;
+  height: 6px;
   color: var(--rb-purple);
-  line-height: 1;
-  transform: translateY(-2px);
-  transition: transform 400ms var(--rb-ease);
+  display: block;
+  transition: transform 400ms var(--rb-ease), color 400ms var(--rb-ease);
+}
+.rb-nav-trigger:hover .rb-nav-chevron,
+.rb-nav-item-open .rb-nav-chevron {
+  color: #FFFFFF;
 }
 .rb-nav-item-open .rb-nav-chevron {
-  transform: translateY(0) rotate(180deg);
+  transform: rotate(180deg);
 }
 
 /* Dropdown — editorial card with staggered-reveal entries.
@@ -1511,10 +1515,10 @@ button { font: inherit; color: inherit; }
 }
 
 @media (max-width: 560px) {
-  .rb-nav { height: 60px; }
-  .rb-nav-inner { padding: 0 1rem; gap: 1rem; }
-  .rb-nav-logo { height: 26px; }
-  .rb-nav-trigger { font-size: 10.5px; letter-spacing: 0.22em; }
+  .rb-nav { height: 64px; }
+  .rb-nav-inner { padding: 0 1.25rem; gap: 1rem; }
+  .rb-nav-logo { height: 30px; }
+  .rb-nav-trigger { font-size: 11.5px; letter-spacing: 0.18em; gap: 0.55rem; }
   .rb-nav-dropdown {
     right: -0.5rem;
     min-width: 18rem;

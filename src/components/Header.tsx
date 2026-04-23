@@ -91,7 +91,22 @@ export default function Header() {
               aria-haspopup="true"
             >
               <span>Solutions</span>
-              <span className="rb-nav-chevron" aria-hidden="true">⌄</span>
+              <svg
+                className="rb-nav-chevron"
+                aria-hidden="true"
+                viewBox="0 0 10 6"
+                width="10"
+                height="6"
+              >
+                <path
+                  d="M1 1 L5 5 L9 1"
+                  stroke="currentColor"
+                  strokeWidth="1.2"
+                  fill="none"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
             </button>
 
             <div
