@@ -3093,15 +3093,19 @@ button { font: inherit; color: inherit; }
 .rb-footer {
   position: relative;
   margin-top: clamp(4rem, 8vw, 7rem);
-  padding: clamp(3rem, 6vw, 5rem) clamp(1.5rem, 5vw, 3rem)
-           clamp(2rem, 4vw, 3rem);
+  padding: clamp(3rem, 6vw, 5rem) 0 clamp(2rem, 4vw, 3rem);
   background: var(--rb-bg-deep);
   color: var(--rb-bone-dim);
   z-index: 2;
 }
+/* Inner carries the horizontal padding so the 1280px max lines up
+   exactly with .rb-nav-inner above — the footer logo sits beneath
+   the header logo, the social icons beneath the Solutions trigger. */
 .rb-footer-inner {
+  width: 100%;
   max-width: 1280px;
   margin: 0 auto;
+  padding: 0 clamp(1.5rem, 5vw, 3rem);
 }
 
 .rb-footer-top {
