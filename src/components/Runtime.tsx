@@ -87,10 +87,14 @@ export default function Runtime() {
           <feGaussianBlur stdDeviation="6" result="b2"/>
           <feMerge><feMergeNode in="b2"/><feMergeNode in="b1"/><feMergeNode in="SourceGraphic"/></feMerge>
         </filter>
-        <radialGradient id="rb-g-core" cx="50%" cy="50%" r="50%">
+        <!-- Off-center radial: highlight biased to upper-left gives the
+             dot an implied light direction — reads as lit sphere, not
+             flat disc. Small but material-feel premium. -->
+        <radialGradient id="rb-g-core" cx="38%" cy="36%" r="62%">
           <stop offset="0%"  stop-color="#FFFFFF" stop-opacity="1"/>
-          <stop offset="55%" stop-color="#F5F1EA" stop-opacity="1"/>
-          <stop offset="100%" stop-color="#E8DFD4" stop-opacity="0.92"/>
+          <stop offset="35%" stop-color="#FAF6EF" stop-opacity="1"/>
+          <stop offset="75%" stop-color="#F1ECDF" stop-opacity="0.98"/>
+          <stop offset="100%" stop-color="#D9CFC0" stop-opacity="0.85"/>
         </radialGradient>
       </defs>
       <path id="rb-g-guide" fill="none" stroke="rgba(245,241,234,0.09)" stroke-width="1" stroke-dasharray="1.5 4" stroke-linecap="round"/>
@@ -104,14 +108,46 @@ export default function Runtime() {
       </g>`;
     document.body.appendChild(overlay);
 
+    // Trailing label — "follow me." in Cormorant italic, drifts behind
+    // the hiker with its own slower lerp so it physically follows.
+    const label = document.createElement("div");
+    label.id = "rb-hiker-label";
+    label.setAttribute("aria-hidden", "true");
+    label.textContent = "follow me.";
+    document.body.appendChild(label);
+
     const style = document.createElement("style");
     style.id = "rb-hiker-style";
     style.textContent = `
       html { scroll-behavior: auto !important; }
-      @media (max-width: 820px) { #rb-hiker-overlay { display: none; } }
+      #rb-hiker-label {
+        position: fixed;
+        top: 0;
+        left: 0;
+        font-family: var(--font-cormorant), 'Cormorant Garamond', serif;
+        font-style: italic;
+        font-weight: 400;
+        font-size: 15px;
+        letter-spacing: 0.015em;
+        color: rgba(245, 241, 234, 0.55);
+        white-space: nowrap;
+        pointer-events: none;
+        z-index: 10;
+        opacity: 0;
+        transition: opacity 1400ms var(--rb-ease);
+        text-shadow:
+          0 0 12px rgba(184, 174, 219, 0.35),
+          0 0 24px rgba(139, 125, 216, 0.22);
+        transform: translate(0, 0);
+        will-change: transform, opacity;
+      }
+      #rb-hiker-label.rb-label-visible { opacity: 1; }
+      @media (max-width: 820px) {
+        #rb-hiker-overlay, #rb-hiker-label { display: none; }
+      }
       @media (prefers-reduced-motion: reduce) {
         #rb-hiker-overlay #rb-g-dot circle { animation: none !important; }
-        #rb-hiker-overlay { transition: opacity 250ms linear; }
+        #rb-hiker-overlay, #rb-hiker-label { transition: opacity 250ms linear; }
       }`;
     document.head.appendChild(style);
 
@@ -123,6 +159,13 @@ export default function Runtime() {
     let vw = 0, vh = 0, totalLen = 0;
     let targetP = 0, currentP = 0;
     const BASE_LERP = 0.14;
+
+    // Label tracks the hiker's screen position with a slower lerp
+    // (0.065 vs hiker's 0.14) — the lag *is* the "following" feel.
+    let labelX = 0, labelY = 0;
+    const LABEL_OFFSET_X = -82; // to the left of the hiker
+    const LABEL_OFFSET_Y = 2;   // vertically centred
+    const LABEL_LERP = 0.065;
 
     function layoutGlobal() {
       vw = window.innerWidth;
@@ -158,6 +201,14 @@ export default function Runtime() {
       const ahead  = Math.max(0, totalLen - walked);
       gFresh.style.strokeDasharray =
         `0 ${behind.toFixed(2)} ${freshLen.toFixed(2)} ${ahead.toFixed(2)}`;
+
+      // Update trailing label position with its own slower lerp —
+      // the label "follows" the hiker with visible lag.
+      const targetLx = pt.x + LABEL_OFFSET_X;
+      const targetLy = pt.y + LABEL_OFFSET_Y;
+      labelX += (targetLx - labelX) * LABEL_LERP;
+      labelY += (targetLy - labelY) * LABEL_LERP;
+      label.style.transform = `translate(${labelX.toFixed(2)}px, ${labelY.toFixed(2)}px)`;
     }
 
     function getHeroEnd(): number {
@@ -179,10 +230,17 @@ export default function Runtime() {
     }
 
     // Scroll-based show/hide of the global overlay (hide during hero)
+    // and gating for the trailing label.
     function updateOverlayVisibility() {
       const heroEnd = getHeroEnd();
       const inHero = window.scrollY < heroEnd - 40;
       overlay.style.opacity = inHero ? "0" : "1";
+
+      // Label appears once we're past hero and ~5% into the content
+      // descent; fades out near the end (last 8%).
+      const p = getContentProgress();
+      const shouldShow = !inHero && p > 0.05 && p < 0.92;
+      label.classList.toggle("rb-label-visible", shouldShow);
     }
 
     let rafId = 0;
@@ -271,6 +329,7 @@ export default function Runtime() {
       window.removeEventListener("resize", onResize);
       observers.forEach((o) => o.disconnect());
       overlay.remove();
+      label.remove();
       style.remove();
       lenis?.destroy();
     };
