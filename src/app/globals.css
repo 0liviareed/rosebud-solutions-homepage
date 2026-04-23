@@ -1256,32 +1256,36 @@ button { font: inherit; color: inherit; }
 }
 .rb-nav-inner {
   width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 clamp(1.5rem, 5vw, 3.5rem);
+  padding: 0 clamp(1.5rem, 5vw, 3rem);
   gap: 1.5rem;
 }
 
-/* Logo — the horizontal wordmark is black in the source file, so we
-   invert it for the dark background and pull brightness down slightly
-   to render as bone instead of pure white. */
+/* Logo — icon-only mark, already rendered white on transparent so
+   no invert filter needed. Slightly dimmed (94%) so it reads as
+   bone rather than pure white. */
 .rb-nav-logo {
   display: inline-flex;
   align-items: center;
-  height: 40px;
+  height: 46px;
   flex-shrink: 0;
 }
 .rb-nav-logo img {
   display: block;
   height: 100%;
   width: auto;
-  filter: invert(1) brightness(0.96);
-  transition: opacity 350ms var(--rb-ease);
+  opacity: 0.94;
+  transition: opacity 350ms var(--rb-ease),
+              transform 450ms var(--rb-ease);
 }
 .rb-nav-logo:hover img,
 .rb-nav-logo:focus-visible img {
-  opacity: 0.78;
+  opacity: 1;
+  transform: scale(1.04);
 }
 
 /* Menu + trigger */
@@ -1517,7 +1521,7 @@ button { font: inherit; color: inherit; }
 @media (max-width: 560px) {
   .rb-nav { height: 64px; }
   .rb-nav-inner { padding: 0 1.25rem; gap: 1rem; }
-  .rb-nav-logo { height: 30px; }
+  .rb-nav-logo { height: 36px; }
   .rb-nav-trigger { font-size: 11.5px; letter-spacing: 0.18em; gap: 0.55rem; }
   .rb-nav-dropdown {
     right: -0.5rem;

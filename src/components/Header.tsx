@@ -101,12 +101,12 @@ export default function Header() {
             onClick={closeMobile}
           >
             <Image
-              src="/rosebud-logo.png"
+              src="/rosebud-icon.png"
               alt="Rosebud Global"
-              width={2500}
-              height={1000}
+              width={256}
+              height={256}
               priority
-              quality={90}
+              quality={95}
             />
           </Link>
 
