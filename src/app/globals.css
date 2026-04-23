@@ -3296,7 +3296,6 @@ button { font: inherit; color: inherit; }
 
 .rb-footer-disclaimer {
   padding: clamp(2rem, 4vw, 3rem) 0;
-  max-width: 72ch;
   margin: 0;
 }
 .rb-footer-disclaimer p {
