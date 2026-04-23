@@ -2385,9 +2385,7 @@ button { font: inherit; color: inherit; }
 
 .rb-tl-track {
   display: flex;
-  padding-left: var(--rb-tl-pad);
-  padding-right: var(--rb-tl-pad);
-  transform: translateX(calc(var(--rb-tl-active, 0) * var(--rb-tl-step) * -1));
+  transform: translateX(calc(var(--rb-tl-pad) - var(--rb-tl-active, 0) * var(--rb-tl-step)));
   transition: transform 850ms var(--rb-ease);
   will-change: transform;
 }
