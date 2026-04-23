@@ -152,8 +152,10 @@ export default function Runtime() {
         will-change: transform, opacity;
       }
       #rb-hiker-label.rb-label-visible { opacity: 1; }
+      /* Label hidden on narrow screens — hiker alone reads; the
+         Cormorant italic label would crowd content on portrait. */
       @media (max-width: 820px) {
-        #rb-hiker-overlay, #rb-hiker-label { display: none; }
+        #rb-hiker-label { display: none; }
       }
       @media (prefers-reduced-motion: reduce) {
         #rb-hiker-overlay #rb-g-dot circle { animation: none !important; }
@@ -195,7 +197,6 @@ export default function Runtime() {
     function layoutGlobal() {
       vw = window.innerWidth;
       vh = window.innerHeight;
-      if (vw <= 820) return;
       const d = buildGlobalPath(vw, vh);
       gGuide.setAttribute("d", d);
       gLit.setAttribute("d", d);
@@ -256,10 +257,15 @@ export default function Runtime() {
 
     // Scroll-based show/hide of the global overlay + voice moments.
     // Label cycles through PHRASES with a crossfade on threshold crossing.
+    //
+    // Narrow viewports (≤820px): the hero-local horizontal sweep is
+    // hidden (its 1920×1080 viewBox doesn't fit portrait aspect ratio),
+    // so the global hiker stays visible for the whole page.
     function updateOverlayVisibility() {
       const heroEnd = getHeroEnd();
       const inHero = window.scrollY < heroEnd - 40;
-      overlay.style.opacity = inHero ? "0" : "1";
+      const narrow = vw <= 820;
+      overlay.style.opacity = narrow ? "1" : (inHero ? "0" : "1");
 
       const p = getContentProgress();
       let targetIdx = -1;
@@ -311,7 +317,7 @@ export default function Runtime() {
     const FRESH_MAX = 0.16;
 
     function tick() {
-      if (vw > 820 && totalLen > 0) {
+      if (totalLen > 0) {
         // Scroll velocity → fresh-tracks length. Smoothed so the trail
         // doesn't pop; decays to FRESH_MIN when scrolling stops.
         const sy = window.scrollY;

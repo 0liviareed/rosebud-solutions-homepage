@@ -2,13 +2,22 @@
  * Global hiker path — a right-edge descent with asymmetric switchbacks.
  * Viewport-space coordinates; rebuilt on resize.
  *
- * Seven Bezier segments. The strongest inflection (amp ≈ 1.02) lands
- * mid-descent; smaller ones pepper the rest. Reads as walked, not drawn.
+ * Desktop: seven Bezier segments hugging the right ~90px of viewport,
+ * with the strongest inflection (amp ≈ 1.02) landing mid-descent.
+ *
+ * Mobile (≤820px): same geometry but much tighter — margin ~24-32px
+ * from the edge, amplitude clamped to 8-18px — so the path stays
+ * visually "beside" the content rather than traversing across it.
  */
 export function buildGlobalPath(w: number, h: number): string {
-  const margin = Math.max(72, Math.min(128, w * 0.065));
+  const isNarrow = w <= 820;
+  const margin = isNarrow
+    ? Math.max(22, Math.min(34, w * 0.07))
+    : Math.max(72, Math.min(128, w * 0.065));
   const x = w - margin;
-  const a = Math.max(30, Math.min(58, w * 0.034));
+  const a = isNarrow
+    ? Math.max(8, Math.min(18, w * 0.035))
+    : Math.max(30, Math.min(58, w * 0.034));
   return [
     `M ${x} -24`,
     `C ${x + a * 0.12} ${h * 0.06}, ${x - a * 0.3} ${h * 0.11}, ${x - a * 0.18} ${h * 0.17}`,
