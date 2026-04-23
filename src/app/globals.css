@@ -3085,6 +3085,140 @@ button { font: inherit; color: inherit; }
 }
 
 /* =============================================================
+   LONG-FORM POLICY PAGES (Privacy, Terms)
+   Editorial prose register — readable, calm, no decoration beyond
+   the typographic hierarchy. Section headings in Cormorant italic
+   so they match the rest of the site's voice; body in DM Sans at
+   a comfortable reading size.
+   ============================================================= */
+.rb-policy {
+  position: relative;
+  padding: clamp(2rem, 4vw, 3rem) clamp(1.5rem, 5vw, 3rem)
+           clamp(5rem, 9vw, 8rem);
+  z-index: 2;
+}
+.rb-policy-wrap {
+  max-width: 48rem;
+  margin: 0 auto;
+}
+.rb-policy-intro {
+  font-family: var(--font-dm-sans), sans-serif;
+  font-size: clamp(1rem, 1.25vw, 1.1rem);
+  line-height: 1.75;
+  color: var(--rb-bone);
+  margin: 0 0 1.5rem;
+}
+.rb-policy-section {
+  margin-top: clamp(2.75rem, 5vw, 4rem);
+  padding-top: clamp(2rem, 4vw, 3rem);
+  border-top: 1px solid var(--rb-bone-hair);
+}
+.rb-policy-section:first-of-type {
+  margin-top: clamp(2.5rem, 5vw, 4rem);
+}
+.rb-policy-h2 {
+  font-family: var(--font-cormorant), serif;
+  font-weight: 400;
+  font-size: clamp(1.65rem, 3vw, 2.25rem);
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  color: var(--rb-bone);
+  margin: 0 0 clamp(1.1rem, 2vw, 1.5rem);
+}
+.rb-policy-h3 {
+  font-family: var(--font-dm-sans), sans-serif;
+  font-weight: 500;
+  font-size: clamp(0.95rem, 1.1vw, 1.05rem);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--rb-bone);
+  margin: clamp(1.75rem, 3vw, 2.25rem) 0 clamp(0.85rem, 1.5vw, 1.1rem);
+}
+.rb-policy-section p {
+  font-family: var(--font-dm-sans), sans-serif;
+  font-size: clamp(0.95rem, 1.1vw, 1.05rem);
+  line-height: 1.75;
+  color: var(--rb-bone-dim);
+  margin: 0 0 1.15rem;
+}
+.rb-policy-section p:last-child { margin-bottom: 0; }
+.rb-policy-section p strong {
+  color: var(--rb-bone);
+  font-weight: 500;
+}
+
+.rb-policy-list {
+  list-style: none;
+  margin: 0 0 1.25rem;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+.rb-policy-list li {
+  position: relative;
+  padding-left: 1.25rem;
+  font-family: var(--font-dm-sans), sans-serif;
+  font-size: clamp(0.95rem, 1.1vw, 1.05rem);
+  line-height: 1.65;
+  color: var(--rb-bone-dim);
+}
+.rb-policy-list li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.7em;
+  width: 6px;
+  height: 1px;
+  background: var(--rb-purple);
+}
+.rb-policy-list li strong {
+  color: var(--rb-bone);
+  font-weight: 500;
+}
+.rb-policy-list-ordered {
+  counter-reset: policyItem;
+}
+.rb-policy-list-ordered li::before {
+  content: counter(policyItem) ".";
+  counter-increment: policyItem;
+  width: auto;
+  height: auto;
+  background: none;
+  top: 0;
+  color: var(--rb-purple);
+  font-family: var(--font-cormorant), serif;
+  font-style: italic;
+  font-size: 1em;
+  line-height: 1.65;
+}
+.rb-policy-list-ordered li {
+  padding-left: 1.75rem;
+}
+
+.rb-policy-link {
+  color: var(--rb-bone);
+  text-decoration: none;
+  border-bottom: 1px solid var(--rb-purple);
+  padding-bottom: 1px;
+  transition: color 400ms var(--rb-ease),
+              border-bottom-color 400ms var(--rb-ease);
+}
+.rb-policy-link:hover,
+.rb-policy-link:focus-visible {
+  color: var(--rb-purple);
+  border-bottom-color: var(--rb-purple-core);
+  outline: none;
+}
+
+.rb-policy-contact {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.rb-policy-contact p { margin: 0; }
+
+/* =============================================================
    GLOBAL FOOTER
    Quiet register — bone-dim text, hairline dividers. The legal
    disclaimer is meant to be readable but not shout; tight line-height
