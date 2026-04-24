@@ -769,51 +769,44 @@ export default function JayWaitlist() {
           animation: jwUp 0.6s 0.34s cubic-bezier(0.16,1,0.3,1) both;
         }
         .jw-ps {
-          font-size: 13px; font-style: italic; color: #7a9bc8;
-          line-height: 1.6; margin: 0 0 32px;
+          font-family: var(--font-editorial), 'Instrument Serif', serif;
+          font-style: italic;
+          font-size: 15px;
+          line-height: 1.55;
+          color: #7a9bc8;
+          margin: 0 0 32px;
           animation: jwUp 0.6s 0.38s cubic-bezier(0.16,1,0.3,1) both;
         }
 
+        /* Secondary editorial link — italic serif with a hairline rule
+           above and below instead of a glass pill. Reads as a quiet
+           aside / standfirst, not a second CTA competing with the form. */
         .jw-pre-cta {
           position: relative;
-          display: block; text-align: center;
-          font-size: 13px; font-weight: 500;
+          display: block;
+          text-align: center;
+          font-family: var(--font-editorial), 'Instrument Serif', serif;
+          font-style: italic;
+          font-weight: 400;
+          font-size: 15.5px;
+          letter-spacing: -0.005em;
           color: #1a4fd6;
-          background: linear-gradient(
-            180deg,
-            rgba(255, 255, 255, 0.55) 0%,
-            rgba(230, 242, 255, 0.32) 100%
-          );
-          backdrop-filter: blur(16px) saturate(150%);
-          -webkit-backdrop-filter: blur(16px) saturate(150%);
-          border: 1px solid rgba(255, 255, 255, 0.65);
-          border-radius: 11px;
-          padding: 11px 16px;
-          margin-bottom: 14px;
+          padding: 14px 0;
+          margin: 6px 0 22px;
           text-decoration: none;
-          box-shadow:
-            0 4px 14px rgba(79, 134, 247, 0.1),
-            inset 0 1px 0 rgba(255, 255, 255, 0.8);
+          border-top: 1px solid rgba(79, 134, 247, 0.18);
+          border-bottom: 1px solid rgba(79, 134, 247, 0.18);
           transition:
-            background 0.3s cubic-bezier(0.16,1,0.3,1),
-            color 0.3s cubic-bezier(0.16,1,0.3,1),
-            transform 0.3s cubic-bezier(0.16,1,0.3,1),
-            box-shadow 0.3s cubic-bezier(0.16,1,0.3,1),
-            border-color 0.3s cubic-bezier(0.16,1,0.3,1);
+            color 0.35s cubic-bezier(0.16,1,0.3,1),
+            border-color 0.35s cubic-bezier(0.16,1,0.3,1),
+            letter-spacing 0.35s cubic-bezier(0.16,1,0.3,1);
           animation: jwUp 0.6s 0.40s cubic-bezier(0.16,1,0.3,1) both;
         }
         .jw-pre-cta:hover {
-          background: linear-gradient(
-            180deg,
-            rgba(255, 255, 255, 0.78) 0%,
-            rgba(230, 242, 255, 0.52) 100%
-          );
-          border-color: rgba(79, 134, 247, 0.4);
           color: #0a1b40;
-          transform: translateY(-1px);
-          box-shadow:
-            0 8px 24px rgba(79, 134, 247, 0.18),
-            inset 0 1px 0 rgba(255, 255, 255, 0.9);
+          border-top-color: rgba(26, 79, 214, 0.4);
+          border-bottom-color: rgba(26, 79, 214, 0.4);
+          letter-spacing: 0em;
         }
 
         /* True glass morph — translucent with its own backdrop-filter so
