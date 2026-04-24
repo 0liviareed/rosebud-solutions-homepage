@@ -520,11 +520,20 @@ export default function JayWaitlist() {
 
         .jw-badge {
           display: inline-flex; align-items: center; gap: 7px;
-          background: rgba(240,246,255,0.88);
-          border: 1px solid rgba(79,134,247,0.22);
+          background: linear-gradient(
+            180deg,
+            rgba(255, 255, 255, 0.7) 0%,
+            rgba(230, 242, 255, 0.48) 100%
+          );
+          backdrop-filter: blur(12px) saturate(150%);
+          -webkit-backdrop-filter: blur(12px) saturate(150%);
+          border: 1px solid rgba(255, 255, 255, 0.8);
           border-radius: 100px;
           padding: 5px 16px 5px 10px;
           margin-bottom: 22px;
+          box-shadow:
+            0 2px 10px rgba(79, 134, 247, 0.1),
+            inset 0 1px 0 rgba(255, 255, 255, 0.9);
           animation: jwUp 0.6s 0.22s cubic-bezier(0.16,1,0.3,1) both;
         }
         .jw-badge-dot {
@@ -562,32 +571,101 @@ export default function JayWaitlist() {
         }
 
         .jw-pre-cta {
+          position: relative;
           display: block; text-align: center;
           font-size: 13px; font-weight: 500;
           color: #1a4fd6;
-          background: rgba(240,246,255,0.7);
-          border: 1px solid rgba(79,134,247,0.2);
-          border-radius: 10px;
-          padding: 10px 16px; margin-bottom: 14px;
+          background: linear-gradient(
+            180deg,
+            rgba(255, 255, 255, 0.55) 0%,
+            rgba(230, 242, 255, 0.32) 100%
+          );
+          backdrop-filter: blur(16px) saturate(150%);
+          -webkit-backdrop-filter: blur(16px) saturate(150%);
+          border: 1px solid rgba(255, 255, 255, 0.65);
+          border-radius: 11px;
+          padding: 11px 16px;
+          margin-bottom: 14px;
           text-decoration: none;
-          transition: background 0.2s, color 0.2s, transform 0.15s;
+          box-shadow:
+            0 4px 14px rgba(79, 134, 247, 0.1),
+            inset 0 1px 0 rgba(255, 255, 255, 0.8);
+          transition:
+            background 0.3s cubic-bezier(0.16,1,0.3,1),
+            color 0.3s cubic-bezier(0.16,1,0.3,1),
+            transform 0.3s cubic-bezier(0.16,1,0.3,1),
+            box-shadow 0.3s cubic-bezier(0.16,1,0.3,1),
+            border-color 0.3s cubic-bezier(0.16,1,0.3,1);
           animation: jwUp 0.6s 0.40s cubic-bezier(0.16,1,0.3,1) both;
         }
-        .jw-pre-cta:hover { background: rgba(240,246,255,0.95); color: #0a1b40; transform: translateY(-1px); }
+        .jw-pre-cta:hover {
+          background: linear-gradient(
+            180deg,
+            rgba(255, 255, 255, 0.78) 0%,
+            rgba(230, 242, 255, 0.52) 100%
+          );
+          border-color: rgba(79, 134, 247, 0.4);
+          color: #0a1b40;
+          transform: translateY(-1px);
+          box-shadow:
+            0 8px 24px rgba(79, 134, 247, 0.18),
+            inset 0 1px 0 rgba(255, 255, 255, 0.9);
+        }
 
+        /* True glass morph — translucent with its own backdrop-filter so
+           it reads as a distinct pane of clear glass floating on top of
+           the heavily frosted card. Gradient fill simulates how glass
+           catches ambient light (brighter at the top, cooler at the
+           bottom); the ::before rim renders the sheen of a 1px bezel
+           that picks up light from above-left and a hint of sky-colour
+           reflection from below-right. */
         .jw-form-panel {
           position: relative;
-          background: rgba(248,251,255,0.65);
-          border: 1px solid rgba(79,134,247,0.12);
+          background: linear-gradient(
+            180deg,
+            rgba(255, 255, 255, 0.48) 0%,
+            rgba(230, 242, 255, 0.28) 100%
+          );
+          backdrop-filter: blur(20px) saturate(160%) brightness(1.04);
+          -webkit-backdrop-filter: blur(20px) saturate(160%) brightness(1.04);
           border-radius: 20px;
-          padding: 28px;
+          padding: 30px 28px;
           text-align: left;
           animation: jwUp 0.6s 0.42s cubic-bezier(0.16,1,0.3,1) both;
-          width: 100%; box-sizing: border-box;
+          width: 100%;
+          box-sizing: border-box;
           overflow: hidden;
+          box-shadow:
+            0 10px 36px rgba(50, 100, 220, 0.14),
+            0 24px 56px rgba(50, 100, 220, 0.08),
+            inset 0 1px 0 rgba(255, 255, 255, 0.78),
+            inset 0 -1px 0 rgba(79, 134, 247, 0.12);
         }
-        /* Completion hairline — fills left-to-right as fields are typed,
-           giving the user a kinetic reward for progressing. */
+        /* Rim light — 1px gradient border that simulates refraction.
+           Top-left catches the brightest highlight; bottom-right picks
+           up a cool sky-toned reflection. */
+        .jw-form-panel::before {
+          content: '';
+          position: absolute;
+          inset: 0;
+          border-radius: inherit;
+          padding: 1px;
+          background: linear-gradient(
+            135deg,
+            rgba(255, 255, 255, 0.95) 0%,
+            rgba(255, 255, 255, 0.32) 38%,
+            rgba(255, 255, 255, 0.14) 66%,
+            rgba(184, 210, 255, 0.6) 100%
+          );
+          -webkit-mask:
+            linear-gradient(#fff 0 0) content-box,
+            linear-gradient(#fff 0 0);
+          -webkit-mask-composite: xor;
+          mask-composite: exclude;
+          pointer-events: none;
+          z-index: 1;
+        }
+        /* Completion hairline sits above the rim so it reads clearly. */
         .jw-form-progress {
           position: absolute;
           top: 0; left: 0;
@@ -598,6 +676,7 @@ export default function JayWaitlist() {
           border-radius: 0 2px 2px 0;
           transition: width 500ms cubic-bezier(0.16,1,0.3,1);
           pointer-events: none;
+          z-index: 2;
         }
         .jw-field { margin-bottom: 14px; }
         .jw-field label {
@@ -605,23 +684,48 @@ export default function JayWaitlist() {
           color: #5a7aaa; letter-spacing: 0.06em;
           text-transform: uppercase; margin-bottom: 5px;
         }
+        /* Inputs styled as a third glass tier — clearer than the form
+           panel so they read as distinct pill-shaped viewports you can
+           write into. A subtle inner top highlight + blue-tinted inner
+           shadow at the bottom gives them 3D dimension. */
         .jw-field input {
-          width: 100%; background: rgba(255,255,255,0.82);
-          border: 1px solid rgba(79,134,247,0.18);
-          border-radius: 10px;
-          padding: 11px 14px; font-size: 13.5px; color: #0a1b40;
+          width: 100%;
+          background: linear-gradient(
+            180deg,
+            rgba(255, 255, 255, 0.62) 0%,
+            rgba(240, 247, 255, 0.48) 100%
+          );
+          backdrop-filter: blur(10px) saturate(140%);
+          -webkit-backdrop-filter: blur(10px) saturate(140%);
+          border: 1px solid rgba(255, 255, 255, 0.7);
+          border-radius: 11px;
+          padding: 12px 14px;
+          font-size: 13.5px;
+          color: #0a1b40;
           font-family: var(--font-dm-sans), 'DM Sans', sans-serif;
           outline: none;
-          transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+          transition:
+            border-color 0.25s cubic-bezier(0.16,1,0.3,1),
+            box-shadow 0.25s cubic-bezier(0.16,1,0.3,1),
+            background 0.25s cubic-bezier(0.16,1,0.3,1);
           box-sizing: border-box;
-        }
-        .jw-field input::placeholder { color: #a8c0d8; }
-        .jw-field input:focus {
-          border-color: rgba(79,134,247,0.55);
           box-shadow:
-            0 0 0 4px rgba(79,134,247,0.14),
-            0 0 32px rgba(79,134,247,0.22);
-          background: rgba(255,255,255,1);
+            0 2px 8px rgba(79, 134, 247, 0.06),
+            inset 0 1px 0 rgba(255, 255, 255, 0.8),
+            inset 0 -1px 0 rgba(79, 134, 247, 0.08);
+        }
+        .jw-field input::placeholder { color: #95b0d0; }
+        .jw-field input:focus {
+          border-color: rgba(79, 134, 247, 0.65);
+          background: linear-gradient(
+            180deg,
+            rgba(255, 255, 255, 0.9) 0%,
+            rgba(245, 250, 255, 0.78) 100%
+          );
+          box-shadow:
+            0 0 0 4px rgba(79, 134, 247, 0.16),
+            0 0 36px rgba(79, 134, 247, 0.28),
+            inset 0 1px 0 rgba(255, 255, 255, 0.9);
         }
         /* Magnet catch area — invisibly extends the hover region beyond
            the button so the cursor pulls the button toward it before
