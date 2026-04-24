@@ -142,10 +142,11 @@ export default function FoundersStack() {
             </div>
           </div>
 
-          <div className="fs-badge">
-            <div className="fs-badge-dot" />
-            <span>Google Sheets &middot; Instant Download</span>
-          </div>
+          <p className="fs-eyebrow">
+            <span>The Financial Stack</span>
+            <span className="fs-eyebrow-rule" aria-hidden="true" />
+            <span>Google Sheets · 2026</span>
+          </p>
 
           <h1 className="fs-headline">
             Stop guessing where
@@ -160,30 +161,27 @@ export default function FoundersStack() {
             business finances, in one place.
           </p>
 
-          <div className="fs-features">
+          <ol className="fs-numbered">
             {FEATURES.map((f, i) => (
-              <div key={i} className="fs-feature">
-                <div className="fs-feature-icon">{f.icon}</div>
-                <div className="fs-feature-text">
-                  <strong>{f.title}</strong>
-                  <span>{f.body}</span>
+              <li key={i} className="fs-num-item">
+                <span className="fs-num-digit">
+                  {String(i + 1).padStart(2, "0")}
+                </span>
+                <div className="fs-num-text">
+                  <h3 className="fs-num-title">{f.title}</h3>
+                  <p className="fs-num-body">{f.body}</p>
                 </div>
-              </div>
+              </li>
             ))}
-          </div>
+          </ol>
 
-          <div className="fs-sheets-note">
-            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-              <rect x="3" y="3" width="18" height="18" rx="3" stroke="#7a9bc8" strokeWidth="1.5" />
-              <path d="M3 9h18M9 3v18" stroke="#7a9bc8" strokeWidth="1.5" />
-            </svg>
-            Designed exclusively for Google Sheets &middot; Available in £, $, and €
-          </div>
+          <p className="fs-sheets-note">
+            Designed exclusively for Google Sheets. Available in £, $, and €.
+          </p>
 
-          <div className="fs-social-proof">
-            <div className="fs-star-row" aria-hidden="true">★★★★★</div>
-            <span>Built for founders who are serious about building real wealth</span>
-          </div>
+          <p className="fs-closer">
+            Built for founders who are serious about building real wealth.
+          </p>
         </div>
 
         {/* RIGHT — checkout */}
@@ -222,7 +220,12 @@ export default function FoundersStack() {
             </div>
 
             <div className="fs-guarantee">
-              <div className="fs-guarantee-icon" aria-hidden="true">🛡️</div>
+              <div className="fs-guarantee-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M12 3 L5 6 V11 C5 15 8 19 12 21 C16 19 19 15 19 11 V6 Z" />
+                  <path d="M9.5 12 L11.25 13.75 L14.75 10" />
+                </svg>
+              </div>
               <div className="fs-guarantee-text">
                 <strong>Built for founders, by a founder</strong>
                 <span>
@@ -342,57 +345,43 @@ export default function FoundersStack() {
         }
         .fs-founder-handle:hover { color: #4f86f7; }
 
-        .fs-badge {
+        /* Editorial eyebrow — kerned caps + hairline rule. Replaces the
+           pulsing pill badge so the opening register reads as publication
+           masthead rather than SaaS landing page. */
+        .fs-eyebrow {
           display: inline-flex;
           align-items: center;
-          gap: 7px;
-          background: linear-gradient(
-            180deg,
-            rgba(255, 255, 255, 0.7) 0%,
-            rgba(230, 242, 255, 0.48) 100%
-          );
-          backdrop-filter: blur(12px) saturate(150%);
-          -webkit-backdrop-filter: blur(12px) saturate(150%);
-          border: 1px solid rgba(255, 255, 255, 0.8);
-          border-radius: 100px;
-          padding: 5px 14px 5px 9px;
-          margin-bottom: 20px;
-          width: fit-content;
-          box-shadow:
-            0 2px 10px rgba(79, 134, 247, 0.1),
-            inset 0 1px 0 rgba(255, 255, 255, 0.9);
-        }
-        .fs-badge-dot {
-          width: 7px; height: 7px;
-          background: #4f86f7;
-          border-radius: 50%;
-          animation: fsPulse 2.4s ease-in-out infinite;
-        }
-        .fs-badge span {
-          font-size: 11px;
-          font-weight: 600;
-          color: #1a4fd6;
-          letter-spacing: 0.08em;
+          gap: 14px;
+          margin: 0 0 24px;
+          font-family: var(--font-dm-sans), sans-serif;
+          font-weight: 500;
+          font-size: 10.5px;
+          letter-spacing: 0.24em;
           text-transform: uppercase;
+          color: rgba(26, 79, 214, 0.78);
         }
-        @keyframes fsPulse {
-          0%, 100% { opacity: 1;    transform: scale(1);    }
-          50%      { opacity: 0.38; transform: scale(0.72); }
+        .fs-eyebrow-rule {
+          display: inline-block;
+          width: 32px;
+          height: 1px;
+          background: rgba(79, 134, 247, 0.45);
         }
 
+        /* Display headline — editorial serif. Larger, looser-tracked,
+           lighter weight than the Sora version. Italic emphasis lands
+           properly on the italic word. */
         .fs-headline {
-          font-family: var(--font-sora), 'Sora', sans-serif;
-          font-size: clamp(28px, 3.5vw, 44px);
-          font-weight: 700;
+          font-family: var(--font-editorial), 'Instrument Serif', 'Times New Roman', serif;
+          font-size: clamp(34px, 4.5vw, 56px);
+          font-weight: 400;
           color: #0a1b40;
-          line-height: 1.12;
-          letter-spacing: -0.035em;
-          margin: 0 0 18px;
+          line-height: 1.05;
+          letter-spacing: -0.02em;
+          margin: 0 0 22px;
         }
         .fs-headline em {
           font-style: italic;
-          font-weight: 300;
-          color: #4f86f7;
+          color: #1a4fd6;
         }
 
         .fs-subhead {
@@ -404,92 +393,80 @@ export default function FoundersStack() {
         }
         .fs-subhead em { color: #1a4fd6; font-style: italic; font-weight: 500; }
 
-        /* Feature list — glass cards */
-        .fs-features {
-          display: flex;
-          flex-direction: column;
-          gap: 12px;
-          margin-bottom: 36px;
+        /* Numbered editorial list — replaces the feature cards. Italic
+           serif digits in the signature blue, sentence-case titles in
+           DM Sans, body in muted blue-grey. Hairline divider between
+           items. Reads as a magazine table of contents rather than a
+           SaaS feature grid. */
+        .fs-numbered {
+          list-style: none;
+          margin: 0 0 32px;
+          padding: 0;
+          border-top: 1px solid rgba(79, 134, 247, 0.15);
         }
-        .fs-feature {
-          display: flex;
-          align-items: flex-start;
-          gap: 12px;
-          background: linear-gradient(
-            180deg,
-            rgba(255, 255, 255, 0.52) 0%,
-            rgba(230, 242, 255, 0.32) 100%
-          );
-          backdrop-filter: blur(16px) saturate(150%);
-          -webkit-backdrop-filter: blur(16px) saturate(150%);
-          border: 1px solid rgba(255, 255, 255, 0.7);
-          border-radius: 14px;
-          padding: 14px 16px;
-          box-shadow:
-            0 2px 10px rgba(79, 134, 247, 0.06),
-            inset 0 1px 0 rgba(255, 255, 255, 0.8);
+        .fs-num-item {
+          display: grid;
+          grid-template-columns: auto 1fr;
+          column-gap: clamp(1.25rem, 3vw, 2rem);
+          padding: clamp(1.1rem, 2.2vw, 1.5rem) 0;
+          border-bottom: 1px solid rgba(79, 134, 247, 0.11);
           transition:
-            background 0.3s cubic-bezier(0.16,1,0.3,1),
-            transform 0.3s cubic-bezier(0.16,1,0.3,1),
-            box-shadow 0.3s cubic-bezier(0.16,1,0.3,1),
-            border-color 0.3s cubic-bezier(0.16,1,0.3,1);
+            border-color 0.35s cubic-bezier(0.16,1,0.3,1),
+            background 0.35s cubic-bezier(0.16,1,0.3,1);
         }
-        .fs-feature:hover {
-          background: linear-gradient(
-            180deg,
-            rgba(255, 255, 255, 0.72) 0%,
-            rgba(230, 242, 255, 0.48) 100%
-          );
-          transform: translateX(4px);
-          border-color: rgba(79, 134, 247, 0.3);
-          box-shadow:
-            0 6px 20px rgba(79, 134, 247, 0.14),
-            inset 0 1px 0 rgba(255, 255, 255, 0.9);
+        .fs-num-item:hover {
+          border-bottom-color: rgba(79, 134, 247, 0.28);
         }
-        .fs-feature-icon {
-          width: 34px; height: 34px;
-          border-radius: 9px;
-          background: rgba(79, 134, 247, 0.12);
-          border: 1px solid rgba(79, 134, 247, 0.16);
-          display: flex; align-items: center; justify-content: center;
-          flex-shrink: 0;
+        .fs-num-item:hover .fs-num-digit {
+          color: #1a4fd6;
+          transform: translateX(-2px);
         }
-        .fs-feature-icon svg { width: 17px; height: 17px; }
-        .fs-feature-text strong {
-          display: block;
-          font-size: 13.5px;
-          font-weight: 600;
-          color: #0a1b40;
-          margin-bottom: 2px;
-        }
-        .fs-feature-text span {
-          font-size: 12.5px;
-          color: #3d5a80;
-          line-height: 1.5;
-        }
-
-        .fs-sheets-note {
-          display: flex;
-          align-items: center;
-          gap: 8px;
-          font-size: 12.5px;
-          color: #7a9bc8;
+        .fs-num-digit {
+          font-family: var(--font-editorial), 'Instrument Serif', serif;
           font-style: italic;
-          margin-bottom: 32px;
+          font-weight: 400;
+          font-size: clamp(1.6rem, 3vw, 2.25rem);
+          line-height: 1;
+          color: #4f86f7;
+          letter-spacing: -0.015em;
+          padding-top: 0.18em;
+          transition: color 0.35s cubic-bezier(0.16,1,0.3,1),
+                      transform 0.35s cubic-bezier(0.16,1,0.3,1);
         }
-        .fs-sheets-note svg { width: 16px; height: 16px; flex-shrink: 0; }
-
-        .fs-social-proof {
-          display: flex;
-          align-items: center;
-          gap: 10px;
-          font-size: 13px;
+        .fs-num-title {
+          font-family: var(--font-dm-sans), sans-serif;
+          font-weight: 600;
+          font-size: 14.5px;
+          color: #0a1b40;
+          margin: 0 0 6px;
+          letter-spacing: -0.005em;
+        }
+        .fs-num-body {
+          font-family: var(--font-dm-sans), sans-serif;
+          font-size: 13.5px;
+          line-height: 1.65;
           color: #3d5a80;
+          margin: 0;
+          max-width: 52ch;
         }
-        .fs-star-row {
-          color: #f5a623;
-          letter-spacing: 1px;
+
+        /* Prose notes below the numbered list — no stars, no emoji icons,
+           just typographic calm. */
+        .fs-sheets-note {
+          font-family: var(--font-editorial), serif;
+          font-style: italic;
           font-size: 14px;
+          line-height: 1.6;
+          color: #7a9bc8;
+          margin: 0 0 14px;
+        }
+        .fs-closer {
+          font-family: var(--font-editorial), serif;
+          font-style: italic;
+          font-size: 15px;
+          line-height: 1.6;
+          color: #3d5a80;
+          margin: 0;
         }
 
         /* Right column — checkout card */
@@ -525,11 +502,12 @@ export default function FoundersStack() {
           margin-bottom: 6px;
         }
         .fs-price {
-          font-family: var(--font-sora), 'Sora', sans-serif;
-          font-size: 42px;
-          font-weight: 700;
+          font-family: var(--font-editorial), 'Instrument Serif', serif;
+          font-size: 56px;
+          font-weight: 400;
           color: #0a1b40;
-          letter-spacing: -0.04em;
+          letter-spacing: -0.03em;
+          line-height: 1;
         }
         .fs-price-sub {
           font-size: 13px;
@@ -637,10 +615,16 @@ export default function FoundersStack() {
           padding: 12px 14px;
         }
         .fs-guarantee-icon {
-          font-size: 18px;
           flex-shrink: 0;
+          color: #4f86f7;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          width: 22px;
+          height: 22px;
           margin-top: 1px;
         }
+        .fs-guarantee-icon svg { width: 22px; height: 22px; display: block; overflow: visible; }
         .fs-guarantee-text strong {
           display: block;
           font-size: 12.5px;

@@ -412,10 +412,11 @@ export default function JayWaitlist() {
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src={AVATAR_SRC} alt="Founder" />
         </div>
-        <div className="jw-badge">
-          <div className="jw-badge-dot" />
-          <span>Welcome to the waitlist</span>
-        </div>
+        <p className="jw-eyebrow">
+          <span>Jay Okojie</span>
+          <span className="jw-eyebrow-rule" aria-hidden="true" />
+          <span>Waitlist · 2026</span>
+        </p>
         <h2 className="jw-h1">
           POV: You&rsquo;re a founder who&rsquo;s ready to stop figuring it out
           alone and start growing your business &amp; making more money in
@@ -724,46 +725,43 @@ export default function JayWaitlist() {
           100% { transform: scale(1.42); opacity: 0;   }
         }
 
-        .jw-badge {
-          display: inline-flex; align-items: center; gap: 7px;
-          background: linear-gradient(
-            180deg,
-            rgba(255, 255, 255, 0.7) 0%,
-            rgba(230, 242, 255, 0.48) 100%
-          );
-          backdrop-filter: blur(12px) saturate(150%);
-          -webkit-backdrop-filter: blur(12px) saturate(150%);
-          border: 1px solid rgba(255, 255, 255, 0.8);
-          border-radius: 100px;
-          padding: 5px 16px 5px 10px;
-          margin-bottom: 22px;
-          box-shadow:
-            0 2px 10px rgba(79, 134, 247, 0.1),
-            inset 0 1px 0 rgba(255, 255, 255, 0.9);
+        /* Editorial eyebrow — kerned caps with a hairline rule between
+           two stacked labels. Replaces the welcome-to-the-waitlist pill. */
+        .jw-eyebrow {
+          display: inline-flex;
+          align-items: center;
+          gap: 14px;
+          margin: 0 0 26px;
+          font-family: var(--font-dm-sans), sans-serif;
+          font-weight: 500;
+          font-size: 10.5px;
+          letter-spacing: 0.24em;
+          text-transform: uppercase;
+          color: rgba(26, 79, 214, 0.78);
           animation: jwUp 0.6s 0.22s cubic-bezier(0.16,1,0.3,1) both;
         }
-        .jw-badge-dot {
-          width: 7px; height: 7px; background: #4f86f7; border-radius: 50%;
-          animation: jwPulse 2.4s ease-in-out infinite;
-        }
-        .jw-badge span {
-          font-size: 11px; font-weight: 600; color: #1a4fd6;
-          letter-spacing: 0.08em; text-transform: uppercase;
-        }
-        @keyframes jwPulse {
-          0%, 100% { opacity: 1;    transform: scale(1); }
-          50%      { opacity: 0.38; transform: scale(0.72); }
+        .jw-eyebrow-rule {
+          display: inline-block;
+          width: 32px;
+          height: 1px;
+          background: rgba(79, 134, 247, 0.45);
         }
 
+        /* Display headline — editorial serif instead of Sora. The italic
+           emphasis lands harder in Instrument Serif than a geometric sans. */
         .jw-h1 {
-          font-family: var(--font-sora), 'Sora', sans-serif;
-          font-size: clamp(20px, 3vw, 30px);
-          font-weight: 700;
+          font-family: var(--font-editorial), 'Instrument Serif', 'Times New Roman', serif;
+          font-size: clamp(26px, 4vw, 40px);
+          font-weight: 400;
           color: #0a1b40;
-          line-height: 1.22;
-          letter-spacing: -0.03em;
-          margin: 0 0 16px;
+          line-height: 1.1;
+          letter-spacing: -0.015em;
+          margin: 0 0 18px;
           animation: jwUp 0.6s 0.28s cubic-bezier(0.16,1,0.3,1) both;
+        }
+        .jw-h1 em {
+          font-style: italic;
+          color: #1a4fd6;
         }
         .jw-copy {
           font-size: 14.5px; color: #3d5a80;
@@ -1019,8 +1017,9 @@ export default function JayWaitlist() {
           font-size: 22px; color: #13ce66;
         }
         .jw-success h3 {
-          font-family: var(--font-sora), 'Sora', sans-serif;
-          font-size: 18px; font-weight: 700; color: #0a1b40;
+          font-family: var(--font-editorial), 'Instrument Serif', serif;
+          font-size: 22px; font-weight: 400; color: #0a1b40;
+          letter-spacing: -0.01em;
           margin: 0 0 8px;
         }
         .jw-success p { font-size: 13.5px; color: #3d5a80; line-height: 1.6; margin: 0; }
