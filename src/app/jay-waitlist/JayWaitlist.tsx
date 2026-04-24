@@ -91,32 +91,32 @@ export default function JayWaitlist() {
       { bx: 0.80, by: 0.16, ax1: 0.05, ax2: 0.025, ay1: 0.04, ay2: 0.025,
         fx1: 0.55, fx2: 1.1, fy1: 0.75, fy2: 1.35,
         px1: 0.0, px2: 1.2, py1: 0.4, py2: 2.1,
-        r: 0.62, rBreath: 0.16, fBreath: 0.55, pBreath: 0.0, aBreath: 0.28,
-        rgb: [255, 248, 230], a: 0.32, kind: "sun" },
+        r: 0.55, rBreath: 0.16, fBreath: 0.55, pBreath: 0.0, aBreath: 0.28,
+        rgb: [255, 248, 230], a: 0.42, kind: "sun" },
       // Deep navy wash — rhythmic breath, big drift orbit
       { bx: 0.14, by: 0.78, ax1: 0.13, ax2: 0.06, ay1: 0.09, ay2: 0.05,
         fx1: 0.50, fx2: 1.25, fy1: 0.65, fy2: 1.15,
         px1: 0.8, px2: 2.4, py1: 1.6, py2: 3.2,
-        r: 0.46, rBreath: 0.20, fBreath: 0.85, pBreath: 1.0, aBreath: 0.22,
-        rgb: [60, 120, 225], a: 0.55, kind: "orb" },
+        r: 0.42, rBreath: 0.20, fBreath: 0.85, pBreath: 1.0, aBreath: 0.22,
+        rgb: [48, 108, 215], a: 0.72, kind: "orb" },
       // Mid sky-blue — warmer midground orb
       { bx: 0.68, by: 0.60, ax1: 0.12, ax2: 0.06, ay1: 0.09, ay2: 0.04,
         fx1: 0.60, fx2: 1.4, fy1: 0.80, fy2: 1.1,
         px1: 2.2, px2: 1.5, py1: 0.9, py2: 2.8,
-        r: 0.34, rBreath: 0.22, fBreath: 1.05, pBreath: 2.3, aBreath: 0.25,
-        rgb: [130, 188, 250], a: 0.66, kind: "orb" },
+        r: 0.32, rBreath: 0.22, fBreath: 1.05, pBreath: 2.3, aBreath: 0.25,
+        rgb: [110, 175, 248], a: 0.82, kind: "orb" },
       // Atmospheric wash — top-left depth, wide arc
       { bx: 0.18, by: 0.22, ax1: 0.11, ax2: 0.05, ay1: 0.09, ay2: 0.04,
         fx1: 0.70, fx2: 1.5, fy1: 0.55, fy2: 1.8,
         px1: 0.4, px2: 3.1, py1: 2.1, py2: 0.7,
-        r: 0.30, rBreath: 0.24, fBreath: 0.95, pBreath: 0.4, aBreath: 0.28,
-        rgb: [100, 160, 240], a: 0.58, kind: "orb" },
+        r: 0.28, rBreath: 0.24, fBreath: 0.95, pBreath: 0.4, aBreath: 0.28,
+        rgb: [85, 150, 240], a: 0.75, kind: "orb" },
       // Pastel haze — bottom-right
       { bx: 0.82, by: 0.84, ax1: 0.10, ax2: 0.05, ay1: 0.08, ay2: 0.04,
         fx1: 0.45, fx2: 1.2, fy1: 0.70, fy2: 1.5,
         px1: 1.5, px2: 0.8, py1: 1.3, py2: 2.6,
-        r: 0.36, rBreath: 0.18, fBreath: 0.75, pBreath: 2.8, aBreath: 0.20,
-        rgb: [180, 218, 255], a: 0.50, kind: "orb" },
+        r: 0.34, rBreath: 0.18, fBreath: 0.75, pBreath: 2.8, aBreath: 0.20,
+        rgb: [170, 210, 255], a: 0.65, kind: "orb" },
       // Bright highlight glint — faster breath, sparkle-like
       { bx: 0.42, by: 0.34, ax1: 0.07, ax2: 0.04, ay1: 0.05, ay2: 0.03,
         fx1: 0.85, fx2: 1.6, fy1: 0.95, fy2: 1.4,
@@ -133,20 +133,20 @@ export default function JayWaitlist() {
       { bx: 0.30, by: 0.62, ax1: 0.14, ax2: 0.06, ay1: 0.10, ay2: 0.05,
         fx1: 0.55, fx2: 1.3, fy1: 0.70, fy2: 1.25,
         px1: 1.2, px2: 2.8, py1: 0.7, py2: 3.4,
-        r: 0.28, rBreath: 0.24, fBreath: 0.92, pBreath: 1.7, aBreath: 0.26,
-        rgb: [150, 175, 235], a: 0.48, kind: "orb" },
+        r: 0.26, rBreath: 0.24, fBreath: 0.92, pBreath: 1.7, aBreath: 0.26,
+        rgb: [140, 160, 230], a: 0.68, kind: "orb" },
       // Warm-ivory highlight — upper-right area, plays off the sun
       { bx: 0.62, by: 0.08, ax1: 0.09, ax2: 0.04, ay1: 0.07, ay2: 0.03,
         fx1: 0.80, fx2: 1.5, fy1: 0.95, fy2: 1.3,
         px1: 2.6, px2: 0.5, py1: 1.4, py2: 2.9,
-        r: 0.20, rBreath: 0.30, fBreath: 1.25, pBreath: 0.2, aBreath: 0.30,
-        rgb: [255, 242, 220], a: 0.55, kind: "orb" },
+        r: 0.18, rBreath: 0.30, fBreath: 1.25, pBreath: 0.2, aBreath: 0.30,
+        rgb: [255, 238, 210], a: 0.72, kind: "orb" },
       // Icy pale — left edge, cool anchor
       { bx: 0.06, by: 0.46, ax1: 0.10, ax2: 0.05, ay1: 0.12, ay2: 0.05,
         fx1: 0.50, fx2: 1.2, fy1: 0.60, fy2: 1.4,
         px1: 2.0, px2: 1.1, py1: 0.3, py2: 2.2,
-        r: 0.24, rBreath: 0.22, fBreath: 0.82, pBreath: 2.5, aBreath: 0.24,
-        rgb: [200, 225, 255], a: 0.52, kind: "orb" },
+        r: 0.22, rBreath: 0.22, fBreath: 0.82, pBreath: 2.5, aBreath: 0.24,
+        rgb: [185, 215, 255], a: 0.70, kind: "orb" },
       // Tiny twinkle — lower-left, fills negative space
       { bx: 0.28, by: 0.88, ax1: 0.05, ax2: 0.03, ay1: 0.04, ay2: 0.02,
         fx1: 1.10, fx2: 1.7, fy1: 1.05, fy2: 1.55,
@@ -232,8 +232,7 @@ export default function JayWaitlist() {
 
         // Breathing — radius + alpha pulse on a slow sine. The alpha
         // breath runs slightly offset from the radius breath so the
-        // swell doesn't peak at exactly the same instant every cycle;
-        // visually this reads as a more natural breath than synced.
+        // swell doesn't peak at exactly the same instant every cycle.
         const breathR = 1 + Math.sin(t * o.fBreath + o.pBreath) * o.rBreath;
         const breathA =
           1 + Math.sin(t * o.fBreath * 0.85 + o.pBreath + 1.2) * o.aBreath;
@@ -253,17 +252,46 @@ export default function JayWaitlist() {
         const px = (x + dx * influence) * W;
         const py = (y + dy * influence) * H;
 
-        const grad = ctx.createRadialGradient(px, py, 0, px, py, rad);
         const [r, g, bl] = o.rgb;
-        grad.addColorStop(0,    `rgba(${r},${g},${bl},${alpha})`);
-        grad.addColorStop(0.35, `rgba(${r},${g},${bl},${alpha * 0.55})`);
-        grad.addColorStop(0.7,  `rgba(${r},${g},${bl},${alpha * 0.18})`);
-        grad.addColorStop(1,    `rgba(${r},${g},${bl},0)`);
 
-        ctx.beginPath();
-        ctx.arc(px, py, rad, 0, Math.PI * 2);
-        ctx.fillStyle = grad;
-        ctx.fill();
+        /* Lobed/morphing rendering — each non-glint orb is drawn as
+           three overlapping sub-circles whose centres rotate around
+           the orb's centre at different rates. The composite silhouette
+           morphs as the lobes orbit, giving a liquid blob shape rather
+           than a rigid circle. Glints stay sharp points. */
+        if (o.kind === "glint") {
+          const grad = ctx.createRadialGradient(px, py, 0, px, py, rad);
+          grad.addColorStop(0,    `rgba(${r},${g},${bl},${alpha})`);
+          grad.addColorStop(0.35, `rgba(${r},${g},${bl},${alpha * 0.55})`);
+          grad.addColorStop(0.7,  `rgba(${r},${g},${bl},${alpha * 0.18})`);
+          grad.addColorStop(1,    `rgba(${r},${g},${bl},0)`);
+          ctx.beginPath();
+          ctx.arc(px, py, rad, 0, Math.PI * 2);
+          ctx.fillStyle = grad;
+          ctx.fill();
+        } else {
+          const lobes = 3;
+          const lobeOffset = rad * 0.22; // how far each lobe strays
+          const lobeAlpha = alpha * 0.6; // each lobe softer so composite ≈ solid
+          for (let i = 0; i < lobes; i++) {
+            const ang =
+              t * (0.6 + i * 0.37) +
+              o.pBreath * 0.8 +
+              i * ((Math.PI * 2) / lobes);
+            const lx = px + Math.cos(ang) * lobeOffset;
+            const ly = py + Math.sin(ang) * lobeOffset;
+            const lr = rad * (0.92 - i * 0.05);
+            const grad = ctx.createRadialGradient(lx, ly, 0, lx, ly, lr);
+            grad.addColorStop(0,    `rgba(${r},${g},${bl},${lobeAlpha})`);
+            grad.addColorStop(0.35, `rgba(${r},${g},${bl},${lobeAlpha * 0.55})`);
+            grad.addColorStop(0.7,  `rgba(${r},${g},${bl},${lobeAlpha * 0.18})`);
+            grad.addColorStop(1,    `rgba(${r},${g},${bl},0)`);
+            ctx.beginPath();
+            ctx.arc(lx, ly, lr, 0, Math.PI * 2);
+            ctx.fillStyle = grad;
+            ctx.fill();
+          }
+        }
       }
 
       rafId = requestAnimationFrame(draw);
