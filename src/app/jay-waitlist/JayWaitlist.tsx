@@ -158,9 +158,19 @@ export default function JayWaitlist() {
     let t = 0;
     function draw() {
       if (!ctx) return;
-      // 0.006/frame * 60fps = 0.36/sec. A full 2π cycle at freq=1.0
-      // takes ~17s, so orbs trace visible arcs within seconds.
-      t += 0.006;
+
+      /* Mobile-specific motion tuning. On narrow viewports the card
+         covers most of the canvas, so orbs spend most of their time
+         behind frosted glass; the visible atmosphere is just narrow
+         strips above, below, and beside the card. Larger amplitudes
+         push orb centres further into those visible zones, larger
+         radii let their soft falloff bleed more into them, and a
+         faster time step keeps the motion unmistakable in what's
+         visibly left of the scene. */
+      const isMobile = W < 640;
+      const ampScale = isMobile ? 1.5 : 1.0;
+      const radScale = isMobile ? 1.25 : 1.0;
+      t += isMobile ? 0.009 : 0.006;
 
       /* Liquid base — a deep-blue linear floor overlaid with multiple
          oversized colour anchors that sine-drift at different rates.
@@ -204,8 +214,8 @@ export default function JayWaitlist() {
           r: 0.40, color: "rgba(250, 250, 255, 0.20)" },
       ];
       for (const a of anchors) {
-        const cx = W * (a.bx + Math.sin(t * a.fx + a.ph) * a.ax);
-        const cy = H * (a.by + Math.cos(t * a.fy + a.ph * 0.8) * a.ay);
+        const cx = W * (a.bx + Math.sin(t * a.fx + a.ph) * a.ax * ampScale);
+        const cy = H * (a.by + Math.cos(t * a.fy + a.ph * 0.8) * a.ay * ampScale);
         const grad = ctx.createRadialGradient(cx, cy, 0, cx, cy, maxDim * a.r);
         const transparent = a.color.replace(/0\.\d+\)/, "0)");
         grad.addColorStop(0, a.color);
@@ -225,11 +235,11 @@ export default function JayWaitlist() {
       for (const o of orbs) {
         // Lissajous-like organic drift — two frequencies per axis.
         const x = o.bx
-          + Math.sin(t * o.fx1 + o.px1) * o.ax1
-          + Math.cos(t * o.fx2 + o.px2) * o.ax2;
+          + (Math.sin(t * o.fx1 + o.px1) * o.ax1 +
+             Math.cos(t * o.fx2 + o.px2) * o.ax2) * ampScale;
         const y = o.by
-          + Math.cos(t * o.fy1 + o.py1) * o.ay1
-          + Math.sin(t * o.fy2 + o.py2) * o.ay2;
+          + (Math.cos(t * o.fy1 + o.py1) * o.ay1 +
+             Math.sin(t * o.fy2 + o.py2) * o.ay2) * ampScale;
 
         // Breathing — radius + alpha pulse on a slow sine. The alpha
         // breath runs slightly offset from the radius breath so the
@@ -248,7 +258,7 @@ export default function JayWaitlist() {
           : 0.014;
         const influence = Math.max(0, 1 - dist / 0.95) * baseInf;
 
-        const rad = o.r * minDim * breathR;
+        const rad = o.r * minDim * breathR * radScale;
         const alpha = o.a * breathA;
         const px = (x + dx * influence) * W;
         const py = (y + dy * influence) * H;
