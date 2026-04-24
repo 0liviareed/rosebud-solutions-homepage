@@ -12,7 +12,10 @@ import FloatingPaths from "./FloatingPaths";
  * standalone landing pages with their own self-contained design
  * system (e.g. the Jay Okojie waitlist).
  */
-const BARE_ROUTES: readonly string[] = ["/jay-waitlist"];
+const BARE_ROUTES: readonly string[] = [
+  "/jay-waitlist",
+  "/founders-stack",
+];
 
 function isBareRoute(pathname: string | null): boolean {
   if (!pathname) return false;
