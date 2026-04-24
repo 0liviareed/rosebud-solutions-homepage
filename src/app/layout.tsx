@@ -1,9 +1,6 @@
 import type { Metadata } from "next";
-import { Cormorant_Garamond, DM_Sans } from "next/font/google";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
-import Runtime from "@/components/Runtime";
-import FloatingPaths from "@/components/FloatingPaths";
+import { Cormorant_Garamond, DM_Sans, Sora } from "next/font/google";
+import LayoutChrome from "@/components/LayoutChrome";
 import "./globals.css";
 
 const cormorant = Cormorant_Garamond({
@@ -18,6 +15,13 @@ const dmSans = DM_Sans({
   variable: "--font-dm-sans",
   subsets: ["latin"],
   weight: ["400", "500", "600"],
+  display: "swap",
+});
+
+const sora = Sora({
+  variable: "--font-sora",
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
   display: "swap",
 });
 
@@ -43,15 +47,12 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${cormorant.variable} ${dmSans.variable}`}>
+    <html
+      lang="en"
+      className={`${cormorant.variable} ${dmSans.variable} ${sora.variable}`}
+    >
       <body>
-        <Header />
-        <Runtime />
-        <FloatingPaths id="rb-atmo-1" position={1.2} />
-        <FloatingPaths id="rb-atmo-2" position={-0.6} />
-        <FloatingPaths id="rb-atmo-3" position={1.8} />
-        {children}
-        <Footer />
+        <LayoutChrome>{children}</LayoutChrome>
       </body>
     </html>
   );
