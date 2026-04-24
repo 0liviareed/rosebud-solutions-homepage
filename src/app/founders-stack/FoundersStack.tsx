@@ -367,11 +367,11 @@ export default function FoundersStack() {
           background: rgba(79, 134, 247, 0.45);
         }
 
-        /* Display headline — bold modern brand sans. Unbounded at 600
+        /* Display headline — bold modern brand sans. Outfit at 600
            carries playful geometric character; emphasis is carried by
            a one-step heavier weight + signature blue, not italic. */
         .fs-headline {
-          font-family: var(--font-editorial), 'Unbounded', system-ui, sans-serif;
+          font-family: var(--font-editorial), 'Outfit', system-ui, sans-serif;
           font-size: clamp(30px, 4.2vw, 48px);
           font-weight: 600;
           color: #0a1b40;
@@ -423,7 +423,7 @@ export default function FoundersStack() {
           transform: translateX(-2px);
         }
         .fs-num-digit {
-          font-family: var(--font-editorial), 'Unbounded', sans-serif;
+          font-family: var(--font-editorial), 'Outfit', sans-serif;
           font-style: normal;
           font-weight: 500;
           font-size: clamp(1.5rem, 2.8vw, 2.1rem);
@@ -503,7 +503,7 @@ export default function FoundersStack() {
           margin-bottom: 6px;
         }
         .fs-price {
-          font-family: var(--font-editorial), 'Unbounded', sans-serif;
+          font-family: var(--font-editorial), 'Outfit', sans-serif;
           font-size: 46px;
           font-weight: 600;
           color: #0a1b40;

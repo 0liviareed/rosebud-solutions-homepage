@@ -747,12 +747,12 @@ export default function JayWaitlist() {
           background: rgba(79, 134, 247, 0.45);
         }
 
-        /* Display headline — bold modern brand sans. Unbounded at 600
+        /* Display headline — bold modern brand sans. Outfit at 600
            has playful character and weight; emphasis works through
            colour + one-step heavier weight, not italic (italic is
            synthesised and reads off on this face). */
         .jw-h1 {
-          font-family: var(--font-editorial), 'Unbounded', system-ui, sans-serif;
+          font-family: var(--font-editorial), 'Outfit', system-ui, sans-serif;
           font-size: clamp(24px, 3.6vw, 36px);
           font-weight: 600;
           color: #0a1b40;
@@ -790,7 +790,7 @@ export default function JayWaitlist() {
           position: relative;
           display: block;
           text-align: center;
-          font-family: var(--font-editorial), 'Unbounded', sans-serif;
+          font-family: var(--font-editorial), 'Outfit', sans-serif;
           font-weight: 500;
           font-size: 13px;
           letter-spacing: -0.005em;
@@ -1012,7 +1012,7 @@ export default function JayWaitlist() {
           font-size: 22px; color: #13ce66;
         }
         .jw-success h3 {
-          font-family: var(--font-editorial), 'Unbounded', sans-serif;
+          font-family: var(--font-editorial), 'Outfit', sans-serif;
           font-size: 18px; font-weight: 600; color: #0a1b40;
           letter-spacing: -0.02em;
           margin: 0 0 8px;

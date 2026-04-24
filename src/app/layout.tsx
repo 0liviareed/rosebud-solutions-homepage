@@ -3,7 +3,7 @@ import {
   Cormorant_Garamond,
   DM_Sans,
   Sora,
-  Unbounded,
+  Outfit,
 } from "next/font/google";
 import LayoutChrome from "@/components/LayoutChrome";
 import "./globals.css";
@@ -31,13 +31,14 @@ const sora = Sora({
 });
 
 /* Bold modern brand display — used for the Jay waitlist + founders-stack
-   display headlines, price, and numerals. Playful geometric sans with
-   distinct character; reads as modern brand rather than template SaaS.
-   Variable name kept as --font-editorial for downstream continuity. */
-const unbounded = Unbounded({
+   display headlines, price, and numerals. Closest free Google Fonts
+   match to the Gilroy family: clean geometric sans, full weight range,
+   bold weights read confident rather than industrial. Variable name
+   kept as --font-editorial for downstream continuity. */
+const outfit = Outfit({
   variable: "--font-editorial",
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
+  weight: ["400", "500", "600", "700", "800"],
   display: "swap",
 });
 
@@ -65,7 +66,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${cormorant.variable} ${dmSans.variable} ${sora.variable} ${unbounded.variable}`}
+      className={`${cormorant.variable} ${dmSans.variable} ${sora.variable} ${outfit.variable}`}
     >
       <body>
         <LayoutChrome>{children}</LayoutChrome>
