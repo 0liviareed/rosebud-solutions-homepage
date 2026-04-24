@@ -9,9 +9,125 @@ import BookDemoCTA from "@/components/BookDemoCTA";
 import BookCTA from "@/components/BookCTA";
 
 export const metadata: Metadata = {
-  title: "Insurance · Rosebud Solutions",
+  title: "Insurance — Custom AI System",
   description:
     "A custom insurance operations system we build and run for you. Live in 5 weeks. Not a tool — a service.",
+  alternates: { canonical: "/industries/insurance" },
+  openGraph: {
+    title: "Insurance — Custom AI System | Rosebud Global",
+    description:
+      "A custom insurance operations system we build and run for you. Live in 5 weeks. Not a tool — a service.",
+    url: "https://rosebud.global/industries/insurance",
+    type: "website",
+  },
+};
+
+/* JSON-LD — Service + FAQPage + BreadcrumbList, same pattern as the
+   recruitment page. Lets crawlers index the offering and FAQs
+   without executing JavaScript. */
+const SERVICE_SCHEMA = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  serviceType: "AI Insurance Operations System",
+  provider: { "@type": "Organization", name: "Rosebud Global Ltd" },
+  areaServed: { "@type": "Country", name: "United Kingdom" },
+  description:
+    "Custom insurance operations system that handles enquiry intake, fact-finding, market submission prep, and renewals. Built and run by Rosebud for brokers, agencies, and carriers.",
+  offers: {
+    "@type": "Offer",
+    priceCurrency: "GBP",
+    description:
+      "Pricing scoped to volume of enquiries and complexity of lines. Shared on demo call.",
+  },
+};
+
+const INSURANCE_FAQ_SCHEMA = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: [
+    {
+      "@type": "Question",
+      name: "How do you handle policy inquiries and coverage questions instantly?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Conversational agents manage high-volume client questions — from coverage details and policy options to pricing ranges and documentation requirements. Prospects receive immediate answers while the system captures key qualification signals such as coverage needs, location, and timeline, reducing friction at the top of the funnel.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "How is lead intake and pre-qualification automated?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Connect your agent to your CRM and quoting tools to collect prospect details, assess eligibility, and guide them through the early stages of the buying process. The system can identify whether someone is shopping, comparing policies, or ready to speak with an agent, ensuring licensed staff spend time on the most qualified opportunities.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "How are prospects routed to the right advisor at the right moment?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Agents gather relevant information such as coverage type, budget range, household details, and renewal timelines, then route qualified leads to the appropriate agent or team. This prevents wasted conversations and dramatically improves close rates by ensuring prospects reach specialists prepared with context.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "How do you support quote preparation and application workflows?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "AI agents collect required details for quotes, confirm information accuracy, and prepare structured data for underwriting or quoting systems. This reduces repetitive data entry and shortens the time between initial interest and receiving a policy proposal.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "How are follow-ups managed and undecided prospects nurtured?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Automated follow-ups keep prospects engaged after their first inquiry — answering additional questions, reminding them to complete applications, and surfacing new policy options when relevant. Agencies maintain momentum without requiring agents to manually chase every lead.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "How do agents assist with policy updates and service requests?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "From coverage adjustments and renewal reminders to document requests and policy explanations, AI agents handle routine servicing tasks so teams can focus on advisory work and closing business.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "Is this designed for regulated insurance environments?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Systems are structured to support U.S. insurance regulatory requirements, ensuring conversations and data collection follow appropriate compliance standards while respecting licensing boundaries.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "What visibility do agencies get across interactions?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Every interaction is logged with clear records of inquiries, qualification data, and next steps. Managers gain transparency into pipeline activity, lead quality, and operational performance.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "How do you make sure workflows launch safely?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Workflows are tested and validated before launch to ensure the agent follows approved scripts, routes prospects correctly, and supports compliance requirements across client interactions.",
+      },
+    },
+  ],
+};
+
+const INSURANCE_BREADCRUMBS = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Home", item: "https://rosebud.global/" },
+    { "@type": "ListItem", position: 2, name: "Industries", item: "https://rosebud.global/industries/insurance" },
+    { "@type": "ListItem", position: 3, name: "Insurance", item: "https://rosebud.global/industries/insurance" },
+  ],
 };
 
 const INSURANCE_STEPS: TimelineStep[] = [
@@ -52,6 +168,22 @@ const INSURANCE_VOICES = [0, 3, 5, 2, 6, 1, 4, 7].map((i) => VOICES[i]);
 export default function InsurancePage() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(SERVICE_SCHEMA) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(INSURANCE_FAQ_SCHEMA),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(INSURANCE_BREADCRUMBS),
+        }}
+      />
       {/* ========== PAGE HERO ========== */}
       <section className="rb-page-hero">
         <div className="rb-page-hero-inner">

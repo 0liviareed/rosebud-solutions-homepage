@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Healthcare · Rosebud Solutions",
+  title: "Healthcare — Custom AI System",
   description:
     "AI automation built for healthcare operations — patient intake, appointment scheduling, care follow-up.",
+  alternates: { canonical: "/industries/healthcare" },
 };
 
 export default function HealthcarePage() {

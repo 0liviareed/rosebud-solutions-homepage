@@ -1,14 +1,28 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Privacy Notice · Rosebud Solutions",
+  title: "Privacy Notice",
   description:
     "How Rosebud Global Ltd collects, uses, and safeguards personal information under UK GDPR.",
+  alternates: { canonical: "/privacy" },
+};
+
+const BREADCRUMBS = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Home", item: "https://rosebud.global/" },
+    { "@type": "ListItem", position: 2, name: "Privacy Notice", item: "https://rosebud.global/privacy" },
+  ],
 };
 
 export default function PrivacyPage() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(BREADCRUMBS) }}
+      />
       {/* ========== PAGE HERO ========== */}
       <section className="rb-page-hero">
         <div className="rb-page-hero-inner">

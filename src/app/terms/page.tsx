@@ -1,14 +1,28 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Terms of Service · Rosebud Solutions",
+  title: "Terms of Service",
   description:
     "Terms of Service governing use of the Rosebud Global Ltd website and services.",
+  alternates: { canonical: "/terms" },
+};
+
+const BREADCRUMBS = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Home", item: "https://rosebud.global/" },
+    { "@type": "ListItem", position: 2, name: "Terms of Service", item: "https://rosebud.global/terms" },
+  ],
 };
 
 export default function TermsPage() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(BREADCRUMBS) }}
+      />
       {/* ========== PAGE HERO ========== */}
       <section className="rb-page-hero">
         <div className="rb-page-hero-inner">

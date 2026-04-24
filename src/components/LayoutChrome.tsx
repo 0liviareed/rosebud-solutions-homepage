@@ -30,7 +30,13 @@ export default function LayoutChrome({
   children: React.ReactNode;
 }) {
   const pathname = usePathname();
-  if (isBareRoute(pathname)) return <>{children}</>;
+  if (isBareRoute(pathname)) {
+    return (
+      <div id="rb-main" tabIndex={-1}>
+        {children}
+      </div>
+    );
+  }
 
   return (
     <>
@@ -39,7 +45,9 @@ export default function LayoutChrome({
       <FloatingPaths id="rb-atmo-1" position={1.2} />
       <FloatingPaths id="rb-atmo-2" position={-0.6} />
       <FloatingPaths id="rb-atmo-3" position={1.8} />
-      {children}
+      <div id="rb-main" tabIndex={-1}>
+        {children}
+      </div>
       <Footer />
     </>
   );

@@ -1,0 +1,28 @@
+# Rosebud Global
+
+> Rosebud Global Ltd is a UK business systems consultancy building custom AI systems that replace founder-dependent operational work. We build and run bespoke systems for SMEs in recruitment, insurance, aesthetics, legal, property, trades, and hospitality.
+
+## About
+- [Homepage](https://rosebud.global/): What Rosebud builds and for whom — an overview of the venture studio and consultancy
+
+## Services
+- [Recruitment](https://rosebud.global/industries/recruitment): Custom recruitment system for agencies, in-house teams, and executive search
+- [Insurance](https://rosebud.global/industries/insurance): Custom insurance system for brokers, agencies, and carriers
+- [Healthcare](https://rosebud.global/industries/healthcare): Custom healthcare system for clinics and operators
+
+## Legal
+- [Privacy Notice](https://rosebud.global/privacy): Data handling and user rights
+- [Terms of Service](https://rosebud.global/terms): Site and service terms
+
+## Contact
+- Email: contact@rosebud.global
+- Booking: https://cal.eu/rosebudsolutions/30min
+- Location: London, United Kingdom
+
+## Key facts
+- Legal entity: Rosebud Global Ltd (Company No. 16623472)
+- Founded: 2025
+- Founders: Anselm Jr. Okojie (CEO), Sajni Okojie (COO)
+- Deployment timeline: 5 weeks from deposit to system live
+- Pricing: Custom scoped on demo call; starts from £1,750 setup + £500/month
+- Target market: Established SMEs with 5–15 person teams
