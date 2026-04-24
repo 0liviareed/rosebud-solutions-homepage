@@ -161,29 +161,29 @@ export default function JayWaitlist() {
       if (!ctx) return;
       t += 0.0012;
 
-      /* Layered base — radial cool-blue anchor top-left + warm accent
-         bottom-right over a richer linear base gradient. Higher value
-         range than a single linear gives the field real depth. */
+      /* Layered base — deeper mid-blue anchor so orbs actually read on
+         top. Previously the base was nearly-white and orbs disappeared
+         into it. */
       ctx.clearRect(0, 0, W, H);
       const base = ctx.createLinearGradient(0, 0, W, H);
-      base.addColorStop(0.0, "#e4efff");
-      base.addColorStop(0.5, "#d2e2fa");
-      base.addColorStop(1.0, "#bbd0f0");
+      base.addColorStop(0.0, "#d1e2fb");
+      base.addColorStop(0.5, "#b5cdf2");
+      base.addColorStop(1.0, "#97b8e8");
       ctx.fillStyle = base;
       ctx.fillRect(0, 0, W, H);
 
       // Warm accent — a breath of sunset-adjacent colour creates
       // temperature contrast against the cool blues.
       const warm = ctx.createRadialGradient(W * 0.88, H * 0.92, 0, W * 0.88, H * 0.92, Math.max(W, H) * 0.65);
-      warm.addColorStop(0, "rgba(255, 228, 200, 0.18)");
-      warm.addColorStop(1, "rgba(255, 228, 200, 0)");
+      warm.addColorStop(0, "rgba(255, 220, 190, 0.22)");
+      warm.addColorStop(1, "rgba(255, 220, 190, 0)");
       ctx.fillStyle = warm;
       ctx.fillRect(0, 0, W, H);
 
       // Cool deep anchor — top-left
       const cool = ctx.createRadialGradient(W * 0.1, H * 0.08, 0, W * 0.1, H * 0.08, Math.max(W, H) * 0.6);
-      cool.addColorStop(0, "rgba(130, 180, 240, 0.28)");
-      cool.addColorStop(1, "rgba(130, 180, 240, 0)");
+      cool.addColorStop(0, "rgba(90, 150, 225, 0.3)");
+      cool.addColorStop(1, "rgba(90, 150, 225, 0)");
       ctx.fillStyle = cool;
       ctx.fillRect(0, 0, W, H);
 
@@ -191,10 +191,9 @@ export default function JayWaitlist() {
       const my = mouseRef.current.y;
       const minDim = Math.min(W, H);
 
-      // Use additive blending for the orbs so bright highlights
-      // genuinely brighten where they overlap, like real light.
-      const prevOp = ctx.globalCompositeOperation;
-      ctx.globalCompositeOperation = "screen";
+      // Normal alpha blending — orbs paint on top of the base as visible
+      // tinted clouds. Previously used "screen" which on a light-blue
+      // base pushed everything toward white and the orbs washed out.
 
       for (const o of orbs) {
         // Lissajous-like organic drift — two frequencies per axis.
@@ -241,7 +240,6 @@ export default function JayWaitlist() {
         ctx.fill();
       }
 
-      ctx.globalCompositeOperation = prevOp;
       rafId = requestAnimationFrame(draw);
     }
     rafId = requestAnimationFrame(draw);
