@@ -161,9 +161,11 @@ export default function JayWaitlist() {
       if (!ctx) return;
       t += 0.0012;
 
-      /* Layered base — deeper mid-blue anchor so orbs actually read on
-         top. Previously the base was nearly-white and orbs disappeared
-         into it. */
+      /* Liquid base — a deep-blue linear floor overlaid with multiple
+         oversized colour anchors that sine-drift at different rates.
+         No anchor is static, so the entire field flows like water
+         catching shifting light. Orbs paint on top with sharper
+         definition; the anchors carry the ambient motion. */
       ctx.clearRect(0, 0, W, H);
       const base = ctx.createLinearGradient(0, 0, W, H);
       base.addColorStop(0.0, "#d1e2fb");
@@ -172,20 +174,44 @@ export default function JayWaitlist() {
       ctx.fillStyle = base;
       ctx.fillRect(0, 0, W, H);
 
-      // Warm accent — a breath of sunset-adjacent colour creates
-      // temperature contrast against the cool blues.
-      const warm = ctx.createRadialGradient(W * 0.88, H * 0.92, 0, W * 0.88, H * 0.92, Math.max(W, H) * 0.65);
-      warm.addColorStop(0, "rgba(255, 220, 190, 0.22)");
-      warm.addColorStop(1, "rgba(255, 220, 190, 0)");
-      ctx.fillStyle = warm;
-      ctx.fillRect(0, 0, W, H);
-
-      // Cool deep anchor — top-left
-      const cool = ctx.createRadialGradient(W * 0.1, H * 0.08, 0, W * 0.1, H * 0.08, Math.max(W, H) * 0.6);
-      cool.addColorStop(0, "rgba(90, 150, 225, 0.3)");
-      cool.addColorStop(1, "rgba(90, 150, 225, 0)");
-      ctx.fillStyle = cool;
-      ctx.fillRect(0, 0, W, H);
+      // Flowing colour anchors — big, soft, low-alpha radial washes
+      // whose centres drift on slow sine waves. Each has its own
+      // frequency, phase and colour so the field never repeats.
+      const maxDim = Math.max(W, H);
+      const anchors: Array<{
+        bx: number; by: number;
+        ax: number; ay: number;
+        fx: number; fy: number;
+        ph: number;
+        r: number;
+        color: string;
+      }> = [
+        // Warm glow drifting across the lower-right
+        { bx: 0.82, by: 0.88, ax: 0.10, ay: 0.08, fx: 0.32, fy: 0.27, ph: 0.0,
+          r: 0.68, color: "rgba(255, 220, 190, 0.22)" },
+        // Warm-pink whisper meandering mid-right
+        { bx: 0.74, by: 0.40, ax: 0.09, ay: 0.12, fx: 0.26, fy: 0.35, ph: 1.6,
+          r: 0.46, color: "rgba(255, 200, 210, 0.14)" },
+        // Cool deep current, top-left
+        { bx: 0.14, by: 0.12, ax: 0.12, ay: 0.09, fx: 0.38, fy: 0.30, ph: 2.2,
+          r: 0.60, color: "rgba(80, 145, 225, 0.30)" },
+        // Cool lavender, bottom-left
+        { bx: 0.18, by: 0.78, ax: 0.14, ay: 0.10, fx: 0.29, fy: 0.41, ph: 3.4,
+          r: 0.52, color: "rgba(130, 155, 230, 0.22)" },
+        // Bright near-white highlight, sliding around the upper mid
+        { bx: 0.50, by: 0.20, ax: 0.20, ay: 0.08, fx: 0.22, fy: 0.44, ph: 0.9,
+          r: 0.40, color: "rgba(250, 250, 255, 0.20)" },
+      ];
+      for (const a of anchors) {
+        const cx = W * (a.bx + Math.sin(t * a.fx + a.ph) * a.ax);
+        const cy = H * (a.by + Math.cos(t * a.fy + a.ph * 0.8) * a.ay);
+        const grad = ctx.createRadialGradient(cx, cy, 0, cx, cy, maxDim * a.r);
+        const transparent = a.color.replace(/0\.\d+\)/, "0)");
+        grad.addColorStop(0, a.color);
+        grad.addColorStop(1, transparent);
+        ctx.fillStyle = grad;
+        ctx.fillRect(0, 0, W, H);
+      }
 
       const mx = mouseRef.current.x;
       const my = mouseRef.current.y;
