@@ -3,7 +3,7 @@ import {
   Cormorant_Garamond,
   DM_Sans,
   Sora,
-  Instrument_Serif,
+  Unbounded,
 } from "next/font/google";
 import LayoutChrome from "@/components/LayoutChrome";
 import "./globals.css";
@@ -30,14 +30,14 @@ const sora = Sora({
   display: "swap",
 });
 
-/* Editorial display serif — used for the Jay waitlist + founders-stack
-   display headlines + price so they read as publication-grade rather
-   than SaaS-template. Italic is crucial for the emphasis moments. */
-const instrumentSerif = Instrument_Serif({
+/* Bold modern brand display — used for the Jay waitlist + founders-stack
+   display headlines, price, and numerals. Playful geometric sans with
+   distinct character; reads as modern brand rather than template SaaS.
+   Variable name kept as --font-editorial for downstream continuity. */
+const unbounded = Unbounded({
   variable: "--font-editorial",
   subsets: ["latin"],
-  weight: ["400"],
-  style: ["normal", "italic"],
+  weight: ["400", "500", "600", "700"],
   display: "swap",
 });
 
@@ -65,7 +65,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${cormorant.variable} ${dmSans.variable} ${sora.variable} ${instrumentSerif.variable}`}
+      className={`${cormorant.variable} ${dmSans.variable} ${sora.variable} ${unbounded.variable}`}
     >
       <body>
         <LayoutChrome>{children}</LayoutChrome>

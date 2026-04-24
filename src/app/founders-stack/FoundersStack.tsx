@@ -367,20 +367,21 @@ export default function FoundersStack() {
           background: rgba(79, 134, 247, 0.45);
         }
 
-        /* Display headline — editorial serif. Larger, looser-tracked,
-           lighter weight than the Sora version. Italic emphasis lands
-           properly on the italic word. */
+        /* Display headline — bold modern brand sans. Unbounded at 600
+           carries playful geometric character; emphasis is carried by
+           a one-step heavier weight + signature blue, not italic. */
         .fs-headline {
-          font-family: var(--font-editorial), 'Instrument Serif', 'Times New Roman', serif;
-          font-size: clamp(34px, 4.5vw, 56px);
-          font-weight: 400;
+          font-family: var(--font-editorial), 'Unbounded', system-ui, sans-serif;
+          font-size: clamp(30px, 4.2vw, 48px);
+          font-weight: 600;
           color: #0a1b40;
-          line-height: 1.05;
-          letter-spacing: -0.02em;
+          line-height: 1.1;
+          letter-spacing: -0.028em;
           margin: 0 0 22px;
         }
         .fs-headline em {
-          font-style: italic;
+          font-style: normal;
+          font-weight: 700;
           color: #1a4fd6;
         }
 
@@ -422,14 +423,14 @@ export default function FoundersStack() {
           transform: translateX(-2px);
         }
         .fs-num-digit {
-          font-family: var(--font-editorial), 'Instrument Serif', serif;
-          font-style: italic;
-          font-weight: 400;
-          font-size: clamp(1.6rem, 3vw, 2.25rem);
+          font-family: var(--font-editorial), 'Unbounded', sans-serif;
+          font-style: normal;
+          font-weight: 500;
+          font-size: clamp(1.5rem, 2.8vw, 2.1rem);
           line-height: 1;
           color: #4f86f7;
-          letter-spacing: -0.015em;
-          padding-top: 0.18em;
+          letter-spacing: -0.03em;
+          padding-top: 0.25em;
           transition: color 0.35s cubic-bezier(0.16,1,0.3,1),
                       transform 0.35s cubic-bezier(0.16,1,0.3,1);
         }
@@ -450,21 +451,21 @@ export default function FoundersStack() {
           max-width: 52ch;
         }
 
-        /* Prose notes below the numbered list — no stars, no emoji icons,
-           just typographic calm. */
+        /* Meta notes — italic DM Sans so they sit as quiet asides
+           under the bold display type without competing. */
         .fs-sheets-note {
-          font-family: var(--font-editorial), serif;
+          font-family: var(--font-dm-sans), sans-serif;
           font-style: italic;
-          font-size: 14px;
-          line-height: 1.6;
+          font-size: 13px;
+          line-height: 1.65;
           color: #7a9bc8;
           margin: 0 0 14px;
         }
         .fs-closer {
-          font-family: var(--font-editorial), serif;
+          font-family: var(--font-dm-sans), sans-serif;
           font-style: italic;
-          font-size: 15px;
-          line-height: 1.6;
+          font-size: 14px;
+          line-height: 1.65;
           color: #3d5a80;
           margin: 0;
         }
@@ -502,11 +503,11 @@ export default function FoundersStack() {
           margin-bottom: 6px;
         }
         .fs-price {
-          font-family: var(--font-editorial), 'Instrument Serif', serif;
-          font-size: 56px;
-          font-weight: 400;
+          font-family: var(--font-editorial), 'Unbounded', sans-serif;
+          font-size: 46px;
+          font-weight: 600;
           color: #0a1b40;
-          letter-spacing: -0.03em;
+          letter-spacing: -0.045em;
           line-height: 1;
         }
         .fs-price-sub {

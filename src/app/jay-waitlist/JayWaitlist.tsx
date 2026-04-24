@@ -747,20 +747,23 @@ export default function JayWaitlist() {
           background: rgba(79, 134, 247, 0.45);
         }
 
-        /* Display headline — editorial serif instead of Sora. The italic
-           emphasis lands harder in Instrument Serif than a geometric sans. */
+        /* Display headline — bold modern brand sans. Unbounded at 600
+           has playful character and weight; emphasis works through
+           colour + one-step heavier weight, not italic (italic is
+           synthesised and reads off on this face). */
         .jw-h1 {
-          font-family: var(--font-editorial), 'Instrument Serif', 'Times New Roman', serif;
-          font-size: clamp(26px, 4vw, 40px);
-          font-weight: 400;
+          font-family: var(--font-editorial), 'Unbounded', system-ui, sans-serif;
+          font-size: clamp(24px, 3.6vw, 36px);
+          font-weight: 600;
           color: #0a1b40;
-          line-height: 1.1;
-          letter-spacing: -0.015em;
+          line-height: 1.14;
+          letter-spacing: -0.025em;
           margin: 0 0 18px;
           animation: jwUp 0.6s 0.28s cubic-bezier(0.16,1,0.3,1) both;
         }
         .jw-h1 em {
-          font-style: italic;
+          font-style: normal;
+          font-weight: 700;
           color: #1a4fd6;
         }
         .jw-copy {
@@ -768,27 +771,28 @@ export default function JayWaitlist() {
           line-height: 1.72; margin: 0 0 10px;
           animation: jwUp 0.6s 0.34s cubic-bezier(0.16,1,0.3,1) both;
         }
+        /* Meta note — kept as italic DM Sans so it reads as a quiet
+           aside without competing with the bold display. */
         .jw-ps {
-          font-family: var(--font-editorial), 'Instrument Serif', serif;
+          font-family: var(--font-dm-sans), sans-serif;
           font-style: italic;
-          font-size: 15px;
-          line-height: 1.55;
+          font-size: 13px;
+          line-height: 1.65;
           color: #7a9bc8;
           margin: 0 0 32px;
           animation: jwUp 0.6s 0.38s cubic-bezier(0.16,1,0.3,1) both;
         }
 
-        /* Secondary editorial link — italic serif with a hairline rule
-           above and below instead of a glass pill. Reads as a quiet
-           aside / standfirst, not a second CTA competing with the form. */
+        /* Secondary link — hairline-rule standfirst. Modern sans in medium
+           weight so it reads as a considered aside without competing
+           with the primary form CTA. */
         .jw-pre-cta {
           position: relative;
           display: block;
           text-align: center;
-          font-family: var(--font-editorial), 'Instrument Serif', serif;
-          font-style: italic;
-          font-weight: 400;
-          font-size: 15.5px;
+          font-family: var(--font-editorial), 'Unbounded', sans-serif;
+          font-weight: 500;
+          font-size: 13px;
           letter-spacing: -0.005em;
           color: #1a4fd6;
           padding: 14px 0;
@@ -798,15 +802,13 @@ export default function JayWaitlist() {
           border-bottom: 1px solid rgba(79, 134, 247, 0.18);
           transition:
             color 0.35s cubic-bezier(0.16,1,0.3,1),
-            border-color 0.35s cubic-bezier(0.16,1,0.3,1),
-            letter-spacing 0.35s cubic-bezier(0.16,1,0.3,1);
+            border-color 0.35s cubic-bezier(0.16,1,0.3,1);
           animation: jwUp 0.6s 0.40s cubic-bezier(0.16,1,0.3,1) both;
         }
         .jw-pre-cta:hover {
           color: #0a1b40;
           border-top-color: rgba(26, 79, 214, 0.4);
           border-bottom-color: rgba(26, 79, 214, 0.4);
-          letter-spacing: 0em;
         }
 
         /* True glass morph — translucent with its own backdrop-filter so
@@ -1010,9 +1012,9 @@ export default function JayWaitlist() {
           font-size: 22px; color: #13ce66;
         }
         .jw-success h3 {
-          font-family: var(--font-editorial), 'Instrument Serif', serif;
-          font-size: 22px; font-weight: 400; color: #0a1b40;
-          letter-spacing: -0.01em;
+          font-family: var(--font-editorial), 'Unbounded', sans-serif;
+          font-size: 18px; font-weight: 600; color: #0a1b40;
+          letter-spacing: -0.02em;
           margin: 0 0 8px;
         }
         .jw-success p { font-size: 13.5px; color: #3d5a80; line-height: 1.6; margin: 0; }
