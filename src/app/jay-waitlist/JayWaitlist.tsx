@@ -13,11 +13,19 @@ type FormState = "idle" | "submitting" | "success";
 export default function JayWaitlist() {
   const wrapRef = useRef<HTMLDivElement | null>(null);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
+  const tiltRef = useRef<HTMLDivElement | null>(null);
+  const btnRef = useRef<HTMLButtonElement | null>(null);
+  const mouseRef = useRef({ x: 0.5, y: 0.5 }); // normalised cursor in wrap
   const [state, setState] = useState<FormState>("idle");
   const [error, setError] = useState("");
   const [form, setForm] = useState({ name: "", email: "", ig: "", goal: "" });
 
-  /* Canvas atmosphere — soft drifting blue blobs */
+  const filledCount = Object.values(form).filter(
+    (v) => v.trim().length > 0
+  ).length;
+  const progressPct = (filledCount / 4) * 100;
+
+  /* Canvas atmosphere — soft drifting blue blobs with subtle cursor parallax */
   useEffect(() => {
     const canvas = canvasRef.current;
     const wrap = wrapRef.current;
@@ -40,6 +48,20 @@ export default function JayWaitlist() {
     resize();
     window.addEventListener("resize", resize);
 
+    function trackMouse(e: MouseEvent) {
+      if (!wrap) return;
+      const rect = wrap.getBoundingClientRect();
+      mouseRef.current.x = Math.max(
+        0,
+        Math.min(1, (e.clientX - rect.left) / rect.width)
+      );
+      mouseRef.current.y = Math.max(
+        0,
+        Math.min(1, (e.clientY - rect.top) / rect.height)
+      );
+    }
+    wrap.addEventListener("mousemove", trackMouse);
+
     const blobs = [
       { x: 0.10, y: 0.10, vx:  0.0036, vy:  0.0020, r: 0.30, rgb: [100, 170, 255], a: 0.85 },
       { x: 0.80, y: 0.20, vx: -0.0024, vy:  0.0030, r: 0.26, rgb: [160, 210, 255], a: 0.80 },
@@ -60,6 +82,9 @@ export default function JayWaitlist() {
       ctx.fillStyle = bg;
       ctx.fillRect(0, 0, W, H);
 
+      const mx = mouseRef.current.x;
+      const my = mouseRef.current.y;
+
       for (const b of blobs) {
         b.x += b.vx;
         b.y += b.vy;
@@ -68,8 +93,15 @@ export default function JayWaitlist() {
         if (b.x * W + rad > W) { b.x = (W - rad) / W;  b.vx *= -1; }
         if (b.y * H - rad < 0) { b.y = rad / H;        b.vy *= -1; }
         if (b.y * H + rad > H) { b.y = (H - rad) / H;  b.vy *= -1; }
-        const px = b.x * W;
-        const py = b.y * H;
+
+        // Cursor parallax — blobs drift gently toward the cursor.
+        // Scaled by distance so close blobs respond more than far ones.
+        const dx = mx - b.x;
+        const dy = my - b.y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        const influence = Math.max(0, 1 - dist / 0.9) * 0.018;
+        const px = (b.x + dx * influence) * W;
+        const py = (b.y + dy * influence) * H;
         const grad = ctx.createRadialGradient(px, py, 0, px, py, rad);
         const [r, g, bl] = b.rgb;
         grad.addColorStop(0,   `rgba(${r},${g},${bl},${b.a})`);
@@ -87,6 +119,58 @@ export default function JayWaitlist() {
     return () => {
       cancelAnimationFrame(rafId);
       window.removeEventListener("resize", resize);
+      wrap.removeEventListener("mousemove", trackMouse);
+    };
+  }, []);
+
+  /* Card 3D tilt parallax — gentle rotateX/rotateY toward cursor, lerped.
+     Wraps the card in .jw-card-tilt so the card's own jwCardIn enter
+     animation doesn't fight this transform. Disabled on touch devices. */
+  useEffect(() => {
+    const wrap = wrapRef.current;
+    const tilt = tiltRef.current;
+    if (!wrap || !tilt) return;
+    if (window.matchMedia("(hover: none)").matches) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+    let raf = 0;
+    let targetX = 0;
+    let targetY = 0;
+    let currentX = 0;
+    let currentY = 0;
+    const LERP = 0.08;
+    const MAX_DEG = 3;
+
+    function onMove(e: MouseEvent) {
+      if (!tilt) return;
+      const rect = tilt.getBoundingClientRect();
+      const cx = rect.left + rect.width / 2;
+      const cy = rect.top + rect.height / 2;
+      const nx = (e.clientX - cx) / rect.width;
+      const ny = (e.clientY - cy) / rect.height;
+      targetY = Math.max(-1, Math.min(1, nx)) * MAX_DEG;
+      targetX = Math.max(-1, Math.min(1, ny)) * -MAX_DEG;
+    }
+    function onLeave() {
+      targetX = 0;
+      targetY = 0;
+    }
+    function tick() {
+      currentX += (targetX - currentX) * LERP;
+      currentY += (targetY - currentY) * LERP;
+      if (tilt) {
+        tilt.style.transform =
+          `perspective(1100px) rotateX(${currentX.toFixed(3)}deg) rotateY(${currentY.toFixed(3)}deg)`;
+      }
+      raf = requestAnimationFrame(tick);
+    }
+    wrap.addEventListener("mousemove", onMove);
+    wrap.addEventListener("mouseleave", onLeave);
+    raf = requestAnimationFrame(tick);
+    return () => {
+      cancelAnimationFrame(raf);
+      wrap.removeEventListener("mousemove", onMove);
+      wrap.removeEventListener("mouseleave", onLeave);
     };
   }, []);
 
@@ -132,6 +216,7 @@ export default function JayWaitlist() {
       <div className="jw-plus jw-p2" />
       <div className="jw-plus jw-p3" />
 
+      <div className="jw-card-tilt" ref={tiltRef}>
       <div className="jw-card">
         <div className="jw-avatar">
           {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -159,6 +244,11 @@ export default function JayWaitlist() {
         </a>
 
         <div className="jw-form-panel">
+          <div
+            className="jw-form-progress"
+            style={{ width: `${progressPct}%` }}
+            aria-hidden="true"
+          />
           {error && <div className="jw-error">{error}</div>}
           {state !== "success" ? (
             <div>
@@ -209,14 +299,56 @@ export default function JayWaitlist() {
                   required
                 />
               </div>
-              <button
-                type="button"
-                className="jw-btn"
-                onClick={submit}
-                disabled={state === "submitting"}
+              <div
+                className="jw-btn-magnet"
+                onMouseMove={(e) => {
+                  const btn = btnRef.current;
+                  if (!btn) return;
+                  if (window.matchMedia("(hover: none)").matches) return;
+                  const rect = btn.getBoundingClientRect();
+                  const dx =
+                    e.clientX - (rect.left + rect.width / 2);
+                  const dy =
+                    e.clientY - (rect.top + rect.height / 2);
+                  btn.style.transform = `translate(${dx * 0.14}px, ${dy * 0.18}px)`;
+                }}
+                onMouseLeave={() => {
+                  if (btnRef.current) btnRef.current.style.transform = "";
+                }}
               >
-                {state === "submitting" ? "Submitting..." : "Submit \u2192"}
-              </button>
+                <button
+                  ref={btnRef}
+                  type="button"
+                  className="jw-btn"
+                  onClick={submit}
+                  disabled={state === "submitting"}
+                >
+                  <span className="jw-btn-label">
+                    {state === "submitting" ? "Submitting..." : "Submit"}
+                  </span>
+                  <span className="jw-btn-arrow" aria-hidden="true">
+                    <svg viewBox="0 0 32 12" width="32" height="12">
+                      <path
+                        className="jw-btn-shaft"
+                        d="M0 6 L22 6"
+                        stroke="currentColor"
+                        strokeWidth="1.6"
+                        strokeLinecap="round"
+                        fill="none"
+                      />
+                      <path
+                        className="jw-btn-head"
+                        d="M17 1.5 L22 6 L17 10.5"
+                        stroke="currentColor"
+                        strokeWidth="1.6"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        fill="none"
+                      />
+                    </svg>
+                  </span>
+                </button>
+              </div>
             </div>
           ) : (
             <div className="jw-success">
@@ -226,6 +358,7 @@ export default function JayWaitlist() {
             </div>
           )}
         </div>
+      </div>
       </div>
 
       <div className="jw-social">
@@ -290,14 +423,25 @@ export default function JayWaitlist() {
         .jw-p2 { top: 22%; right: 12%; }
         .jw-p3 { bottom: 20%; left: 50%; transform: translateX(-50%); }
 
+        /* Tilt wrapper owns the 3D transform so the card's enter
+           animation (jwCardIn) can run undisturbed on the inner .jw-card. */
+        .jw-card-tilt {
+          position: relative;
+          z-index: 10;
+          max-width: 600px;
+          width: 100%;
+          transform-style: preserve-3d;
+          will-change: transform;
+          transition: transform 140ms linear;
+        }
+
         .jw-card {
-          position: relative; z-index: 10;
+          position: relative;
           background: rgba(255,255,255,0.52);
           backdrop-filter: blur(48px) saturate(180%);
           -webkit-backdrop-filter: blur(48px) saturate(180%);
           border: 1.5px solid rgba(255,255,255,0.9);
           border-radius: 28px;
-          max-width: 600px; width: 100%;
           padding: 52px 52px 48px;
           box-shadow:
             0 4px 6px rgba(50,100,220,0.06),
@@ -307,20 +451,72 @@ export default function JayWaitlist() {
           text-align: center;
           animation: jwCardIn 0.9s cubic-bezier(0.16,1,0.3,1) both;
         }
+        /* Subtle aurora sheen on the card — single slow rotation.
+           Clipped to a 1.5px border via mask trick so it reads as a
+           living edge, not a background wash. */
+        .jw-card::before {
+          content: '';
+          position: absolute;
+          inset: -1px;
+          border-radius: inherit;
+          padding: 1.5px;
+          background: conic-gradient(
+            from 90deg,
+            rgba(79, 134, 247, 0.45),
+            rgba(184, 210, 255, 0.0) 25%,
+            rgba(160, 210, 255, 0.55) 50%,
+            rgba(184, 210, 255, 0.0) 75%,
+            rgba(79, 134, 247, 0.45)
+          );
+          -webkit-mask:
+            linear-gradient(#fff 0 0) content-box,
+            linear-gradient(#fff 0 0);
+          -webkit-mask-composite: xor;
+          mask-composite: exclude;
+          animation: jwAurora 14s linear infinite;
+          pointer-events: none;
+          opacity: 0.85;
+        }
+        @keyframes jwAurora { to { transform: rotate(360deg); } }
         @keyframes jwCardIn {
           from { opacity: 0; transform: translateY(30px) scale(0.96); }
           to   { opacity: 1; transform: translateY(0)    scale(1);    }
         }
 
         .jw-avatar {
+          position: relative;
           width: 72px; height: 72px;
-          border-radius: 50%; overflow: hidden;
+          border-radius: 50%; overflow: visible;
           margin: 0 auto 20px;
-          border: 2.5px solid rgba(255,255,255,0.95);
-          box-shadow: 0 4px 18px rgba(79,130,247,0.25), 0 0 0 1px rgba(79,130,247,0.12);
           animation: jwUp 0.6s 0.15s cubic-bezier(0.16,1,0.3,1) both;
         }
-        .jw-avatar img { width: 100%; height: 100%; object-fit: cover; object-position: center top; display: block; }
+        .jw-avatar img {
+          position: relative; z-index: 2;
+          width: 100%; height: 100%;
+          object-fit: cover; object-position: center top;
+          display: block;
+          border-radius: 50%;
+          border: 2.5px solid rgba(255,255,255,0.95);
+          box-shadow: 0 4px 18px rgba(79,130,247,0.28), 0 0 0 1px rgba(79,130,247,0.12);
+        }
+        /* Sonar ring pulse — outward halo on a 2.8s loop, drawing the
+           eye to the founder's face without ever becoming loud. */
+        .jw-avatar::before,
+        .jw-avatar::after {
+          content: '';
+          position: absolute;
+          inset: -4px;
+          border-radius: 50%;
+          border: 1.5px solid rgba(79,134,247,0.35);
+          pointer-events: none;
+          animation: jwAvatarRing 2.8s cubic-bezier(0.25,0.85,0.4,1) infinite;
+        }
+        .jw-avatar::after { animation-delay: 1.4s; }
+        @keyframes jwAvatarRing {
+          0%   { transform: scale(1);    opacity: 0.7; }
+          80%  { transform: scale(1.42); opacity: 0;   }
+          100% { transform: scale(1.42); opacity: 0;   }
+        }
 
         .jw-badge {
           display: inline-flex; align-items: center; gap: 7px;
@@ -380,6 +576,7 @@ export default function JayWaitlist() {
         .jw-pre-cta:hover { background: rgba(240,246,255,0.95); color: #0a1b40; transform: translateY(-1px); }
 
         .jw-form-panel {
+          position: relative;
           background: rgba(248,251,255,0.65);
           border: 1px solid rgba(79,134,247,0.12);
           border-radius: 20px;
@@ -387,6 +584,20 @@ export default function JayWaitlist() {
           text-align: left;
           animation: jwUp 0.6s 0.42s cubic-bezier(0.16,1,0.3,1) both;
           width: 100%; box-sizing: border-box;
+          overflow: hidden;
+        }
+        /* Completion hairline — fills left-to-right as fields are typed,
+           giving the user a kinetic reward for progressing. */
+        .jw-form-progress {
+          position: absolute;
+          top: 0; left: 0;
+          height: 2px;
+          width: 0%;
+          background: linear-gradient(90deg, #4f86f7, #1a4fd6);
+          box-shadow: 0 0 14px rgba(79,134,247,0.55);
+          border-radius: 0 2px 2px 0;
+          transition: width 500ms cubic-bezier(0.16,1,0.3,1);
+          pointer-events: none;
         }
         .jw-field { margin-bottom: 14px; }
         .jw-field label {
@@ -406,23 +617,79 @@ export default function JayWaitlist() {
         }
         .jw-field input::placeholder { color: #a8c0d8; }
         .jw-field input:focus {
-          border-color: rgba(79,134,247,0.45);
-          box-shadow: 0 0 0 3px rgba(79,134,247,0.09);
-          background: rgba(255,255,255,0.98);
+          border-color: rgba(79,134,247,0.55);
+          box-shadow:
+            0 0 0 4px rgba(79,134,247,0.14),
+            0 0 32px rgba(79,134,247,0.22);
+          background: rgba(255,255,255,1);
+        }
+        /* Magnet catch area — invisibly extends the hover region beyond
+           the button so the cursor pulls the button toward it before
+           reaching the actual edge. Same interaction family as the
+           editorial site's primary CTA. */
+        .jw-btn-magnet {
+          display: block;
+          margin-top: 8px;
+          padding: 10px 14px;
+          margin-left: -14px;
+          margin-right: -14px;
         }
         .jw-btn {
-          width: 100%; margin-top: 8px;
-          background: #0a1b40; color: #fff;
-          border: none; border-radius: 10px;
-          padding: 13px 24px; font-size: 14px; font-weight: 600;
+          width: 100%;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          gap: 12px;
+          background: linear-gradient(180deg, #142658 0%, #0a1b40 100%);
+          color: #fff;
+          border: 1px solid rgba(79,134,247,0.3);
+          border-radius: 12px;
+          padding: 14px 26px;
+          font-size: 14px;
+          font-weight: 600;
           font-family: var(--font-dm-sans), 'DM Sans', sans-serif;
-          cursor: pointer; letter-spacing: 0.01em;
-          box-shadow: 0 4px 18px rgba(10,27,64,0.25);
-          transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+          cursor: pointer;
+          letter-spacing: 0.015em;
+          box-shadow:
+            0 6px 22px rgba(10,27,64,0.3),
+            0 12px 40px rgba(79,134,247,0.18),
+            inset 0 1px 0 rgba(255,255,255,0.08);
+          transition:
+            background 400ms cubic-bezier(0.16,1,0.3,1),
+            box-shadow 400ms cubic-bezier(0.16,1,0.3,1),
+            transform 650ms cubic-bezier(0.16,1,0.3,1),
+            border-color 400ms cubic-bezier(0.16,1,0.3,1);
+          will-change: transform;
         }
-        .jw-btn:hover { background: #1a3060; transform: translateY(-1px); box-shadow: 0 7px 24px rgba(10,27,64,0.32); }
-        .jw-btn:active { transform: translateY(0); }
-        .jw-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+        .jw-btn:hover {
+          background: linear-gradient(180deg, #1a3168 0%, #0f2552 100%);
+          border-color: rgba(79,134,247,0.55);
+          box-shadow:
+            0 10px 32px rgba(10,27,64,0.42),
+            0 18px 56px rgba(79,134,247,0.32),
+            inset 0 1px 0 rgba(255,255,255,0.14);
+        }
+        .jw-btn:disabled { opacity: 0.55; cursor: not-allowed; }
+        .jw-btn-label { position: relative; }
+        .jw-btn-arrow {
+          display: inline-flex;
+          align-items: center;
+          color: rgba(255,255,255,0.92);
+        }
+        .jw-btn-arrow svg { display: block; overflow: visible; }
+        /* Drawn-line shaft: starts as a 6px stub, extends to full length
+           on hover. Matches the editorial BookDemoCTA so the interaction
+           vocabulary is consistent across both sides of the brand. */
+        .jw-btn-shaft {
+          stroke-dasharray: 22;
+          stroke-dashoffset: 16;
+          transition: stroke-dashoffset 550ms cubic-bezier(0.16,1,0.3,1);
+        }
+        .jw-btn-head {
+          transition: transform 500ms cubic-bezier(0.16,1,0.3,1);
+        }
+        .jw-btn:hover:not(:disabled) .jw-btn-shaft { stroke-dashoffset: 0; }
+        .jw-btn:hover:not(:disabled) .jw-btn-head { transform: translateX(5px); }
 
         .jw-error {
           background: #ffeded;
