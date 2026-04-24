@@ -129,6 +129,30 @@ export default function JayWaitlist() {
         px1: 2.8, px2: 1.0, py1: 0.5, py2: 2.3,
         r: 0.11, rBreath: 0.40, fBreath: 1.75, pBreath: 2.2, aBreath: 0.45,
         rgb: [252, 253, 255], a: 0.85, kind: "glint" },
+      // Lavender-tinted wash drifting mid-left — adds colour variation
+      { bx: 0.30, by: 0.62, ax1: 0.14, ax2: 0.06, ay1: 0.10, ay2: 0.05,
+        fx1: 0.55, fx2: 1.3, fy1: 0.70, fy2: 1.25,
+        px1: 1.2, px2: 2.8, py1: 0.7, py2: 3.4,
+        r: 0.28, rBreath: 0.24, fBreath: 0.92, pBreath: 1.7, aBreath: 0.26,
+        rgb: [150, 175, 235], a: 0.48, kind: "orb" },
+      // Warm-ivory highlight — upper-right area, plays off the sun
+      { bx: 0.62, by: 0.08, ax1: 0.09, ax2: 0.04, ay1: 0.07, ay2: 0.03,
+        fx1: 0.80, fx2: 1.5, fy1: 0.95, fy2: 1.3,
+        px1: 2.6, px2: 0.5, py1: 1.4, py2: 2.9,
+        r: 0.20, rBreath: 0.30, fBreath: 1.25, pBreath: 0.2, aBreath: 0.30,
+        rgb: [255, 242, 220], a: 0.55, kind: "orb" },
+      // Icy pale — left edge, cool anchor
+      { bx: 0.06, by: 0.46, ax1: 0.10, ax2: 0.05, ay1: 0.12, ay2: 0.05,
+        fx1: 0.50, fx2: 1.2, fy1: 0.60, fy2: 1.4,
+        px1: 2.0, px2: 1.1, py1: 0.3, py2: 2.2,
+        r: 0.24, rBreath: 0.22, fBreath: 0.82, pBreath: 2.5, aBreath: 0.24,
+        rgb: [200, 225, 255], a: 0.52, kind: "orb" },
+      // Tiny twinkle — lower-left, fills negative space
+      { bx: 0.28, by: 0.88, ax1: 0.05, ax2: 0.03, ay1: 0.04, ay2: 0.02,
+        fx1: 1.10, fx2: 1.7, fy1: 1.05, fy2: 1.55,
+        px1: 0.6, px2: 2.4, py1: 3.0, py2: 0.9,
+        r: 0.09, rBreath: 0.38, fBreath: 1.55, pBreath: 1.4, aBreath: 0.42,
+        rgb: [248, 252, 255], a: 0.78, kind: "glint" },
     ];
 
     let rafId = 0;
@@ -315,9 +339,6 @@ export default function JayWaitlist() {
   return (
     <div id="jw-wrap" ref={wrapRef}>
       <canvas id="jw-canvas" ref={canvasRef} />
-      <div className="jw-circle-deco jw-c1" />
-      <div className="jw-circle-deco jw-c2" />
-      <div className="jw-circle-deco jw-c3" />
       <div className="jw-plus jw-p1" />
       <div className="jw-plus jw-p2" />
       <div className="jw-plus jw-p3" />
@@ -536,67 +557,6 @@ export default function JayWaitlist() {
         }
         #jw-canvas { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 1; }
 
-        /* Orbital rings — dashed, barely visible, rotating at different
-           rates and directions. Feels like a slow orrery rather than
-           decorative geometry. */
-        .jw-circle-deco {
-          position: absolute;
-          border-radius: 50%;
-          border: 1px dashed rgba(80, 130, 220, 0.16);
-          pointer-events: none;
-          z-index: 2;
-          will-change: transform;
-        }
-        /* Each ring rotates on its own axis AND breathes in scale —
-           1% expansion/contraction on an 8-14s cycle. Subtle but
-           adds life to the ring layer. */
-        .jw-c1 {
-          width: 520px; height: 520px; top: 50%; left: 50%;
-          animation:
-            jwOrbit1 180s linear infinite,
-            jwRingBreath1 8s ease-in-out infinite;
-        }
-        .jw-c2 {
-          width: 760px; height: 760px; top: 50%; left: 50%;
-          animation:
-            jwOrbit2 240s linear infinite reverse,
-            jwRingBreath2 11s ease-in-out infinite;
-        }
-        .jw-c3 {
-          width: 1040px; height: 1040px; top: 50%; left: 50%;
-          animation:
-            jwOrbit3 320s linear infinite,
-            jwRingBreath3 14s ease-in-out infinite;
-          border-color: rgba(80, 130, 220, 0.1);
-        }
-        @keyframes jwOrbit1 {
-          0%   { transform: translate(-50%, -50%) rotate(0deg)   scale(1); }
-          100% { transform: translate(-50%, -50%) rotate(360deg) scale(1); }
-        }
-        @keyframes jwOrbit2 {
-          0%   { transform: translate(-50%, -50%) rotate(0deg)   scale(1); }
-          100% { transform: translate(-50%, -50%) rotate(360deg) scale(1); }
-        }
-        @keyframes jwOrbit3 {
-          0%   { transform: translate(-50%, -50%) rotate(0deg)   scale(1); }
-          100% { transform: translate(-50%, -50%) rotate(360deg) scale(1); }
-        }
-        /* Breath — tiny opacity + border-color swell so the rings
-           pulse in visibility without a second transform fighting
-           the orbit rotation. */
-        @keyframes jwRingBreath1 {
-          0%, 100% { opacity: 0.55; border-color: rgba(80, 130, 220, 0.12); }
-          50%      { opacity: 1;    border-color: rgba(80, 130, 220, 0.22); }
-        }
-        @keyframes jwRingBreath2 {
-          0%, 100% { opacity: 0.45; border-color: rgba(80, 130, 220, 0.1);  }
-          50%      { opacity: 0.9;  border-color: rgba(80, 130, 220, 0.2);  }
-        }
-        @keyframes jwRingBreath3 {
-          0%, 100% { opacity: 0.4;  border-color: rgba(80, 130, 220, 0.06); }
-          50%      { opacity: 0.8;  border-color: rgba(80, 130, 220, 0.14); }
-        }
-
         /* Luminous specks replace the + glyphs — tiny pulsing stars
            scattered at the composition's corners. Each has its own
            breathing cadence so they don't feel synchronous. */
@@ -661,33 +621,6 @@ export default function JayWaitlist() {
           text-align: center;
           animation: jwCardIn 0.9s cubic-bezier(0.16,1,0.3,1) both;
         }
-        /* Subtle aurora sheen on the card — single slow rotation.
-           Clipped to a 1.5px border via mask trick so it reads as a
-           living edge, not a background wash. */
-        .jw-card::before {
-          content: '';
-          position: absolute;
-          inset: -1px;
-          border-radius: inherit;
-          padding: 1.5px;
-          background: conic-gradient(
-            from 90deg,
-            rgba(79, 134, 247, 0.45),
-            rgba(184, 210, 255, 0.0) 25%,
-            rgba(160, 210, 255, 0.55) 50%,
-            rgba(184, 210, 255, 0.0) 75%,
-            rgba(79, 134, 247, 0.45)
-          );
-          -webkit-mask:
-            linear-gradient(#fff 0 0) content-box,
-            linear-gradient(#fff 0 0);
-          -webkit-mask-composite: xor;
-          mask-composite: exclude;
-          animation: jwAurora 14s linear infinite;
-          pointer-events: none;
-          opacity: 0.85;
-        }
-        @keyframes jwAurora { to { transform: rotate(360deg); } }
         @keyframes jwCardIn {
           from { opacity: 0; transform: translateY(30px) scale(0.96); }
           to   { opacity: 1; transform: translateY(0)    scale(1);    }
