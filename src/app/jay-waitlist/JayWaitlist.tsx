@@ -86,33 +86,32 @@ export default function JayWaitlist() {
     };
 
     const orbs: Orb[] = [
-      // The sun — slow grand breath. Large specular anchor whose
-      // light swell is the dominant visual rhythm of the scene.
-      { bx: 0.80, by: 0.16, ax1: 0.05, ax2: 0.025, ay1: 0.04, ay2: 0.025,
+      // The sun — grand breath with wide slow arc across the upper band
+      { bx: 0.72, by: 0.22, ax1: 0.18, ax2: 0.08, ay1: 0.12, ay2: 0.06,
         fx1: 0.55, fx2: 1.1, fy1: 0.75, fy2: 1.35,
         px1: 0.0, px2: 1.2, py1: 0.4, py2: 2.1,
         r: 0.55, rBreath: 0.16, fBreath: 0.55, pBreath: 0.0, aBreath: 0.28,
         rgb: [255, 248, 230], a: 0.42, kind: "sun" },
-      // Deep navy wash — rhythmic breath, big drift orbit
-      { bx: 0.14, by: 0.78, ax1: 0.13, ax2: 0.06, ay1: 0.09, ay2: 0.05,
+      // Deep navy — sweeps a large figure-8 across the lower-left
+      { bx: 0.22, by: 0.72, ax1: 0.24, ax2: 0.10, ay1: 0.18, ay2: 0.08,
         fx1: 0.50, fx2: 1.25, fy1: 0.65, fy2: 1.15,
         px1: 0.8, px2: 2.4, py1: 1.6, py2: 3.2,
         r: 0.42, rBreath: 0.20, fBreath: 0.85, pBreath: 1.0, aBreath: 0.22,
         rgb: [48, 108, 215], a: 0.72, kind: "orb" },
-      // Mid sky-blue — warmer midground orb
-      { bx: 0.68, by: 0.60, ax1: 0.12, ax2: 0.06, ay1: 0.09, ay2: 0.04,
+      // Mid sky-blue — wanders the mid-right
+      { bx: 0.66, by: 0.58, ax1: 0.22, ax2: 0.09, ay1: 0.18, ay2: 0.08,
         fx1: 0.60, fx2: 1.4, fy1: 0.80, fy2: 1.1,
         px1: 2.2, px2: 1.5, py1: 0.9, py2: 2.8,
         r: 0.32, rBreath: 0.22, fBreath: 1.05, pBreath: 2.3, aBreath: 0.25,
         rgb: [110, 175, 248], a: 0.82, kind: "orb" },
-      // Atmospheric wash — top-left depth, wide arc
-      { bx: 0.18, by: 0.22, ax1: 0.11, ax2: 0.05, ay1: 0.09, ay2: 0.04,
+      // Top-left atmospheric — wide arc
+      { bx: 0.24, by: 0.26, ax1: 0.22, ax2: 0.10, ay1: 0.18, ay2: 0.08,
         fx1: 0.70, fx2: 1.5, fy1: 0.55, fy2: 1.8,
         px1: 0.4, px2: 3.1, py1: 2.1, py2: 0.7,
         r: 0.28, rBreath: 0.24, fBreath: 0.95, pBreath: 0.4, aBreath: 0.28,
         rgb: [85, 150, 240], a: 0.75, kind: "orb" },
-      // Pastel haze — bottom-right
-      { bx: 0.82, by: 0.84, ax1: 0.10, ax2: 0.05, ay1: 0.08, ay2: 0.04,
+      // Bottom-right pastel haze — large loop
+      { bx: 0.76, by: 0.80, ax1: 0.20, ax2: 0.09, ay1: 0.16, ay2: 0.07,
         fx1: 0.45, fx2: 1.2, fy1: 0.70, fy2: 1.5,
         px1: 1.5, px2: 0.8, py1: 1.3, py2: 2.6,
         r: 0.34, rBreath: 0.18, fBreath: 0.75, pBreath: 2.8, aBreath: 0.20,
@@ -129,20 +128,20 @@ export default function JayWaitlist() {
         px1: 2.8, px2: 1.0, py1: 0.5, py2: 2.3,
         r: 0.11, rBreath: 0.40, fBreath: 1.75, pBreath: 2.2, aBreath: 0.45,
         rgb: [252, 253, 255], a: 0.85, kind: "glint" },
-      // Lavender-tinted wash drifting mid-left — adds colour variation
-      { bx: 0.30, by: 0.62, ax1: 0.14, ax2: 0.06, ay1: 0.10, ay2: 0.05,
+      // Lavender-tinted wash — travels a wide figure-8 mid-canvas
+      { bx: 0.38, by: 0.56, ax1: 0.26, ax2: 0.11, ay1: 0.20, ay2: 0.09,
         fx1: 0.55, fx2: 1.3, fy1: 0.70, fy2: 1.25,
         px1: 1.2, px2: 2.8, py1: 0.7, py2: 3.4,
         r: 0.26, rBreath: 0.24, fBreath: 0.92, pBreath: 1.7, aBreath: 0.26,
         rgb: [140, 160, 230], a: 0.68, kind: "orb" },
-      // Warm-ivory highlight — upper-right area, plays off the sun
-      { bx: 0.62, by: 0.08, ax1: 0.09, ax2: 0.04, ay1: 0.07, ay2: 0.03,
+      // Warm-ivory highlight — drifts around the upper band
+      { bx: 0.55, by: 0.16, ax1: 0.18, ax2: 0.08, ay1: 0.12, ay2: 0.06,
         fx1: 0.80, fx2: 1.5, fy1: 0.95, fy2: 1.3,
         px1: 2.6, px2: 0.5, py1: 1.4, py2: 2.9,
         r: 0.18, rBreath: 0.30, fBreath: 1.25, pBreath: 0.2, aBreath: 0.30,
         rgb: [255, 238, 210], a: 0.72, kind: "orb" },
-      // Icy pale — left edge, cool anchor
-      { bx: 0.06, by: 0.46, ax1: 0.10, ax2: 0.05, ay1: 0.12, ay2: 0.05,
+      // Icy pale — sweeps the left side top-to-bottom
+      { bx: 0.12, by: 0.46, ax1: 0.16, ax2: 0.07, ay1: 0.24, ay2: 0.10,
         fx1: 0.50, fx2: 1.2, fy1: 0.60, fy2: 1.4,
         px1: 2.0, px2: 1.1, py1: 0.3, py2: 2.2,
         r: 0.22, rBreath: 0.22, fBreath: 0.82, pBreath: 2.5, aBreath: 0.24,
@@ -159,9 +158,9 @@ export default function JayWaitlist() {
     let t = 0;
     function draw() {
       if (!ctx) return;
-      // Bumped from 0.0012 -> 0.0022 so drift + lobe rotation + flow
-      // cadence all run visibly faster without feeling frantic.
-      t += 0.0022;
+      // 0.006/frame * 60fps = 0.36/sec. A full 2π cycle at freq=1.0
+      // takes ~17s, so orbs trace visible arcs within seconds.
+      t += 0.006;
 
       /* Liquid base — a deep-blue linear floor overlaid with multiple
          oversized colour anchors that sine-drift at different rates.
