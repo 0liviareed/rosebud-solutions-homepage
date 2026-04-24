@@ -159,7 +159,9 @@ export default function JayWaitlist() {
     let t = 0;
     function draw() {
       if (!ctx) return;
-      t += 0.0012;
+      // Bumped from 0.0012 -> 0.0022 so drift + lobe rotation + flow
+      // cadence all run visibly faster without feeling frantic.
+      t += 0.0022;
 
       /* Liquid base — a deep-blue linear floor overlaid with multiple
          oversized colour anchors that sine-drift at different rates.
@@ -271,11 +273,11 @@ export default function JayWaitlist() {
           ctx.fill();
         } else {
           const lobes = 3;
-          const lobeOffset = rad * 0.22; // how far each lobe strays
+          const lobeOffset = rad * 0.34; // how far each lobe strays
           const lobeAlpha = alpha * 0.6; // each lobe softer so composite ≈ solid
           for (let i = 0; i < lobes; i++) {
             const ang =
-              t * (0.6 + i * 0.37) +
+              t * (0.9 + i * 0.5) +
               o.pBreath * 0.8 +
               i * ((Math.PI * 2) / lobes);
             const lx = px + Math.cos(ang) * lobeOffset;
