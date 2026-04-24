@@ -62,56 +62,142 @@ export default function JayWaitlist() {
     }
     wrap.addEventListener("mousemove", trackMouse);
 
-    const blobs = [
-      { x: 0.10, y: 0.10, vx:  0.0036, vy:  0.0020, r: 0.30, rgb: [100, 170, 255], a: 0.85 },
-      { x: 0.80, y: 0.20, vx: -0.0024, vy:  0.0030, r: 0.26, rgb: [160, 210, 255], a: 0.80 },
-      { x: 0.50, y: 0.80, vx:  0.0040, vy: -0.0026, r: 0.22, rgb: [200, 230, 255], a: 0.75 },
-      { x: 0.18, y: 0.65, vx: -0.0028, vy: -0.0032, r: 0.20, rgb: [ 80, 150, 255], a: 0.70 },
-      { x: 0.72, y: 0.50, vx:  0.0022, vy:  0.0036, r: 0.18, rgb: [220, 238, 255], a: 0.72 },
-      { x: 0.38, y: 0.26, vx: -0.0036, vy:  0.0024, r: 0.24, rgb: [130, 190, 255], a: 0.78 },
+    /* Orbs drift on multi-frequency Lissajous-like paths — smoother,
+       more organic than linear+bounce. Each has its own frequencies,
+       amplitudes and phases so they never move in lockstep. */
+    type Orb = {
+      bx: number; by: number;             // base position (0-1)
+      ax1: number; ax2: number;           // x amplitudes
+      ay1: number; ay2: number;           // y amplitudes
+      fx1: number; fx2: number;           // x frequencies
+      fy1: number; fy2: number;           // y frequencies
+      px1: number; px2: number;           // x phases
+      py1: number; py2: number;           // y phases
+      r: number;                          // radius fraction of min(W,H)
+      rgb: [number, number, number];
+      a: number;                          // peak alpha
+      kind: "sun" | "orb" | "glint";
+    };
+
+    const orbs: Orb[] = [
+      // The sun — oversized specular anchor. Slow, subtle drift;
+      // warm-tinted near-white so it reads as off-screen light source.
+      { bx: 0.80, by: 0.16, ax1: 0.04, ax2: 0.02, ay1: 0.03, ay2: 0.02,
+        fx1: 0.55, fx2: 1.1, fy1: 0.75, fy2: 1.35,
+        px1: 0.0, px2: 1.2, py1: 0.4, py2: 2.1,
+        r: 0.62, rgb: [255, 248, 230], a: 0.30, kind: "sun" },
+      // Deep navy wash — anchors the bottom-left with atmospheric depth
+      { bx: 0.14, by: 0.78, ax1: 0.09, ax2: 0.04, ay1: 0.06, ay2: 0.03,
+        fx1: 0.50, fx2: 1.25, fy1: 0.65, fy2: 1.15,
+        px1: 0.8, px2: 2.4, py1: 1.6, py2: 3.2,
+        r: 0.46, rgb: [60, 120, 225], a: 0.52, kind: "orb" },
+      // Mid sky-blue — warms the composition's midground
+      { bx: 0.68, by: 0.60, ax1: 0.08, ax2: 0.04, ay1: 0.06, ay2: 0.03,
+        fx1: 0.60, fx2: 1.4, fy1: 0.80, fy2: 1.1,
+        px1: 2.2, px2: 1.5, py1: 0.9, py2: 2.8,
+        r: 0.34, rgb: [130, 188, 250], a: 0.62, kind: "orb" },
+      // Soft atmospheric wash — top-left depth
+      { bx: 0.18, by: 0.20, ax1: 0.07, ax2: 0.03, ay1: 0.06, ay2: 0.03,
+        fx1: 0.70, fx2: 1.5, fy1: 0.55, fy2: 1.8,
+        px1: 0.4, px2: 3.1, py1: 2.1, py2: 0.7,
+        r: 0.30, rgb: [100, 160, 240], a: 0.55, kind: "orb" },
+      // Pastel haze — bottom-right
+      { bx: 0.82, by: 0.84, ax1: 0.06, ax2: 0.03, ay1: 0.05, ay2: 0.03,
+        fx1: 0.45, fx2: 1.2, fy1: 0.70, fy2: 1.5,
+        px1: 1.5, px2: 0.8, py1: 1.3, py2: 2.6,
+        r: 0.36, rgb: [180, 218, 255], a: 0.48, kind: "orb" },
+      // Bright highlight glint — mid-upper area, smaller and brighter
+      { bx: 0.42, by: 0.34, ax1: 0.05, ax2: 0.03, ay1: 0.04, ay2: 0.02,
+        fx1: 0.85, fx2: 1.6, fy1: 0.95, fy2: 1.4,
+        px1: 1.8, px2: 0.3, py1: 2.5, py2: 1.1,
+        r: 0.17, rgb: [230, 242, 255], a: 0.75, kind: "glint" },
+      // Small pure-white sparkle — upper-middle specular accent
+      { bx: 0.54, by: 0.22, ax1: 0.04, ax2: 0.02, ay1: 0.04, ay2: 0.02,
+        fx1: 1.15, fx2: 1.8, fy1: 0.90, fy2: 1.6,
+        px1: 2.8, px2: 1.0, py1: 0.5, py2: 2.3,
+        r: 0.11, rgb: [252, 253, 255], a: 0.82, kind: "glint" },
     ];
 
     let rafId = 0;
+    let t = 0;
     function draw() {
       if (!ctx) return;
+      t += 0.0012;
+
+      /* Layered base — radial cool-blue anchor top-left + warm accent
+         bottom-right over a richer linear base gradient. Higher value
+         range than a single linear gives the field real depth. */
       ctx.clearRect(0, 0, W, H);
-      const bg = ctx.createLinearGradient(0, 0, W, H);
-      bg.addColorStop(0, "#e8f3ff");
-      bg.addColorStop(0.5, "#f4f9ff");
-      bg.addColorStop(1, "#daeaff");
-      ctx.fillStyle = bg;
+      const base = ctx.createLinearGradient(0, 0, W, H);
+      base.addColorStop(0.0, "#e4efff");
+      base.addColorStop(0.5, "#d2e2fa");
+      base.addColorStop(1.0, "#bbd0f0");
+      ctx.fillStyle = base;
+      ctx.fillRect(0, 0, W, H);
+
+      // Warm accent — a breath of sunset-adjacent colour creates
+      // temperature contrast against the cool blues.
+      const warm = ctx.createRadialGradient(W * 0.88, H * 0.92, 0, W * 0.88, H * 0.92, Math.max(W, H) * 0.65);
+      warm.addColorStop(0, "rgba(255, 228, 200, 0.18)");
+      warm.addColorStop(1, "rgba(255, 228, 200, 0)");
+      ctx.fillStyle = warm;
+      ctx.fillRect(0, 0, W, H);
+
+      // Cool deep anchor — top-left
+      const cool = ctx.createRadialGradient(W * 0.1, H * 0.08, 0, W * 0.1, H * 0.08, Math.max(W, H) * 0.6);
+      cool.addColorStop(0, "rgba(130, 180, 240, 0.28)");
+      cool.addColorStop(1, "rgba(130, 180, 240, 0)");
+      ctx.fillStyle = cool;
       ctx.fillRect(0, 0, W, H);
 
       const mx = mouseRef.current.x;
       const my = mouseRef.current.y;
+      const minDim = Math.min(W, H);
 
-      for (const b of blobs) {
-        b.x += b.vx;
-        b.y += b.vy;
-        const rad = b.r * Math.min(W, H);
-        if (b.x * W - rad < 0) { b.x = rad / W;        b.vx *= -1; }
-        if (b.x * W + rad > W) { b.x = (W - rad) / W;  b.vx *= -1; }
-        if (b.y * H - rad < 0) { b.y = rad / H;        b.vy *= -1; }
-        if (b.y * H + rad > H) { b.y = (H - rad) / H;  b.vy *= -1; }
+      // Use additive blending for the orbs so bright highlights
+      // genuinely brighten where they overlap, like real light.
+      const prevOp = ctx.globalCompositeOperation;
+      ctx.globalCompositeOperation = "screen";
 
-        // Cursor parallax — blobs drift gently toward the cursor.
-        // Scaled by distance so close blobs respond more than far ones.
-        const dx = mx - b.x;
-        const dy = my - b.y;
+      for (const o of orbs) {
+        // Lissajous-like organic drift — two frequencies per axis.
+        const x = o.bx
+          + Math.sin(t * o.fx1 + o.px1) * o.ax1
+          + Math.cos(t * o.fx2 + o.px2) * o.ax2;
+        const y = o.by
+          + Math.cos(t * o.fy1 + o.py1) * o.ay1
+          + Math.sin(t * o.fy2 + o.py2) * o.ay2;
+
+        // Cursor parallax — close orbs respond more than distant ones.
+        const dx = mx - x;
+        const dy = my - y;
         const dist = Math.sqrt(dx * dx + dy * dy);
-        const influence = Math.max(0, 1 - dist / 0.9) * 0.018;
-        const px = (b.x + dx * influence) * W;
-        const py = (b.y + dy * influence) * H;
+        // Sun barely responds; glints respond most (feel like catching
+        // highlights on the cursor's motion).
+        const base =
+          o.kind === "sun" ? 0.006
+          : o.kind === "glint" ? 0.028
+          : 0.014;
+        const influence = Math.max(0, 1 - dist / 0.95) * base;
+
+        const rad = o.r * minDim;
+        const px = (x + dx * influence) * W;
+        const py = (y + dy * influence) * H;
+
         const grad = ctx.createRadialGradient(px, py, 0, px, py, rad);
-        const [r, g, bl] = b.rgb;
-        grad.addColorStop(0,   `rgba(${r},${g},${bl},${b.a})`);
-        grad.addColorStop(0.4, `rgba(${r},${g},${bl},${b.a * 0.6})`);
-        grad.addColorStop(1,   `rgba(${r},${g},${bl},0)`);
+        const [r, g, bl] = o.rgb;
+        grad.addColorStop(0,    `rgba(${r},${g},${bl},${o.a})`);
+        grad.addColorStop(0.35, `rgba(${r},${g},${bl},${o.a * 0.55})`);
+        grad.addColorStop(0.7,  `rgba(${r},${g},${bl},${o.a * 0.18})`);
+        grad.addColorStop(1,    `rgba(${r},${g},${bl},0)`);
+
         ctx.beginPath();
         ctx.arc(px, py, rad, 0, Math.PI * 2);
         ctx.fillStyle = grad;
         ctx.fill();
       }
+
+      ctx.globalCompositeOperation = prevOp;
       rafId = requestAnimationFrame(draw);
     }
     rafId = requestAnimationFrame(draw);
@@ -412,16 +498,90 @@ export default function JayWaitlist() {
           background: #c8dfff;
           color: #0a1b40;
         }
+        /* Edge vignette — subtle inward darkening on the corners so
+           the glass card reads as the focal point, not just another
+           bright region. Sits above the canvas, below the card. */
+        #jw-wrap::after {
+          content: '';
+          position: absolute;
+          inset: 0;
+          pointer-events: none;
+          z-index: 3;
+          background:
+            radial-gradient(
+              ellipse at center,
+              transparent 42%,
+              rgba(20, 55, 120, 0.15) 100%
+            );
+        }
         #jw-canvas { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 1; }
-        .jw-circle-deco { position: absolute; border-radius: 50%; border: 1px dashed rgba(80,130,220,0.18); pointer-events: none; z-index: 2; }
-        .jw-c1 { width: 520px; height: 520px; top: 50%; left: 50%; transform: translate(-50%,-50%); }
-        .jw-c2 { width: 760px; height: 760px; top: 50%; left: 50%; transform: translate(-50%,-50%); }
-        .jw-c3 { width: 1040px; height: 1040px; top: 50%; left: 50%; transform: translate(-50%,-50%); }
-        .jw-plus { position: absolute; z-index: 2; color: rgba(80,130,220,0.22); font-size: 20px; font-weight: 300; pointer-events: none; }
-        .jw-plus::before { content: '+'; }
-        .jw-p1 { top: 22%; left: 12%; }
-        .jw-p2 { top: 22%; right: 12%; }
-        .jw-p3 { bottom: 20%; left: 50%; transform: translateX(-50%); }
+
+        /* Orbital rings — dashed, barely visible, rotating at different
+           rates and directions. Feels like a slow orrery rather than
+           decorative geometry. */
+        .jw-circle-deco {
+          position: absolute;
+          border-radius: 50%;
+          border: 1px dashed rgba(80, 130, 220, 0.16);
+          pointer-events: none;
+          z-index: 2;
+          will-change: transform;
+        }
+        .jw-c1 {
+          width: 520px; height: 520px; top: 50%; left: 50%;
+          transform: translate(-50%, -50%) rotate(0deg);
+          animation: jwOrbit1 180s linear infinite;
+        }
+        .jw-c2 {
+          width: 760px; height: 760px; top: 50%; left: 50%;
+          transform: translate(-50%, -50%) rotate(0deg);
+          animation: jwOrbit2 240s linear infinite reverse;
+        }
+        .jw-c3 {
+          width: 1040px; height: 1040px; top: 50%; left: 50%;
+          transform: translate(-50%, -50%) rotate(0deg);
+          animation: jwOrbit3 320s linear infinite;
+          border-color: rgba(80, 130, 220, 0.1);
+        }
+        @keyframes jwOrbit1 { to { transform: translate(-50%, -50%) rotate(360deg); } }
+        @keyframes jwOrbit2 { to { transform: translate(-50%, -50%) rotate(360deg); } }
+        @keyframes jwOrbit3 { to { transform: translate(-50%, -50%) rotate(360deg); } }
+
+        /* Luminous specks replace the + glyphs — tiny pulsing stars
+           scattered at the composition's corners. Each has its own
+           breathing cadence so they don't feel synchronous. */
+        .jw-plus {
+          position: absolute;
+          z-index: 2;
+          pointer-events: none;
+          width: 5px;
+          height: 5px;
+          border-radius: 50%;
+          background: radial-gradient(
+            circle,
+            rgba(255, 255, 255, 1) 0%,
+            rgba(210, 230, 255, 0.8) 38%,
+            rgba(184, 210, 255, 0) 80%
+          );
+          box-shadow:
+            0 0 10px rgba(220, 235, 255, 0.75),
+            0 0 24px rgba(160, 200, 255, 0.45);
+          animation: jwSparkle 5.2s ease-in-out infinite;
+        }
+        .jw-p1 { top: 18%; left: 14%;                     animation-delay: 0s;   }
+        .jw-p2 { top: 26%; right: 16%;                    animation-delay: 1.7s; }
+        .jw-p3 { bottom: 18%; left: 50%; transform: translateX(-50%); animation-delay: 3.4s; }
+        @keyframes jwSparkle {
+          0%, 100% { opacity: 0.35; transform: scale(0.8);  }
+          50%      { opacity: 1;    transform: scale(1.15); }
+        }
+        .jw-p3 {
+          animation-name: jwSparkleCentred;
+        }
+        @keyframes jwSparkleCentred {
+          0%, 100% { opacity: 0.35; transform: translateX(-50%) scale(0.8);  }
+          50%      { opacity: 1;    transform: translateX(-50%) scale(1.15); }
+        }
 
         /* Tilt wrapper owns the 3D transform so the card's enter
            animation (jwCardIn) can run undisturbed on the inner .jw-card. */
