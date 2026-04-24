@@ -62,60 +62,73 @@ export default function JayWaitlist() {
     }
     wrap.addEventListener("mousemove", trackMouse);
 
-    /* Orbs drift on multi-frequency Lissajous-like paths — smoother,
-       more organic than linear+bounce. Each has its own frequencies,
-       amplitudes and phases so they never move in lockstep. */
+    /* Orbs drift on multi-frequency Lissajous-like paths AND breathe
+       — radius + alpha pulse on their own slow sine waves so the
+       composition has a living rhythm even when you sit still. Each
+       field (drift + breath) has its own frequency/phase so nothing
+       moves in lockstep. */
     type Orb = {
       bx: number; by: number;             // base position (0-1)
-      ax1: number; ax2: number;           // x amplitudes
-      ay1: number; ay2: number;           // y amplitudes
-      fx1: number; fx2: number;           // x frequencies
-      fy1: number; fy2: number;           // y frequencies
+      ax1: number; ax2: number;           // x drift amplitudes
+      ay1: number; ay2: number;           // y drift amplitudes
+      fx1: number; fx2: number;           // x drift frequencies
+      fy1: number; fy2: number;           // y drift frequencies
       px1: number; px2: number;           // x phases
       py1: number; py2: number;           // y phases
-      r: number;                          // radius fraction of min(W,H)
+      r: number;                          // base radius fraction of min(W,H)
+      rBreath: number;                    // radius breath amplitude (0-1 of r)
+      fBreath: number;                    // breath frequency
+      pBreath: number;                    // breath phase
+      aBreath: number;                    // alpha breath amplitude (0-1 of a)
       rgb: [number, number, number];
       a: number;                          // peak alpha
       kind: "sun" | "orb" | "glint";
     };
 
     const orbs: Orb[] = [
-      // The sun — oversized specular anchor. Slow, subtle drift;
-      // warm-tinted near-white so it reads as off-screen light source.
-      { bx: 0.80, by: 0.16, ax1: 0.04, ax2: 0.02, ay1: 0.03, ay2: 0.02,
+      // The sun — slow grand breath. Large specular anchor whose
+      // light swell is the dominant visual rhythm of the scene.
+      { bx: 0.80, by: 0.16, ax1: 0.05, ax2: 0.025, ay1: 0.04, ay2: 0.025,
         fx1: 0.55, fx2: 1.1, fy1: 0.75, fy2: 1.35,
         px1: 0.0, px2: 1.2, py1: 0.4, py2: 2.1,
-        r: 0.62, rgb: [255, 248, 230], a: 0.30, kind: "sun" },
-      // Deep navy wash — anchors the bottom-left with atmospheric depth
-      { bx: 0.14, by: 0.78, ax1: 0.09, ax2: 0.04, ay1: 0.06, ay2: 0.03,
+        r: 0.62, rBreath: 0.16, fBreath: 0.55, pBreath: 0.0, aBreath: 0.28,
+        rgb: [255, 248, 230], a: 0.32, kind: "sun" },
+      // Deep navy wash — rhythmic breath, big drift orbit
+      { bx: 0.14, by: 0.78, ax1: 0.13, ax2: 0.06, ay1: 0.09, ay2: 0.05,
         fx1: 0.50, fx2: 1.25, fy1: 0.65, fy2: 1.15,
         px1: 0.8, px2: 2.4, py1: 1.6, py2: 3.2,
-        r: 0.46, rgb: [60, 120, 225], a: 0.52, kind: "orb" },
-      // Mid sky-blue — warms the composition's midground
-      { bx: 0.68, by: 0.60, ax1: 0.08, ax2: 0.04, ay1: 0.06, ay2: 0.03,
+        r: 0.46, rBreath: 0.20, fBreath: 0.85, pBreath: 1.0, aBreath: 0.22,
+        rgb: [60, 120, 225], a: 0.55, kind: "orb" },
+      // Mid sky-blue — warmer midground orb
+      { bx: 0.68, by: 0.60, ax1: 0.12, ax2: 0.06, ay1: 0.09, ay2: 0.04,
         fx1: 0.60, fx2: 1.4, fy1: 0.80, fy2: 1.1,
         px1: 2.2, px2: 1.5, py1: 0.9, py2: 2.8,
-        r: 0.34, rgb: [130, 188, 250], a: 0.62, kind: "orb" },
-      // Soft atmospheric wash — top-left depth
-      { bx: 0.18, by: 0.20, ax1: 0.07, ax2: 0.03, ay1: 0.06, ay2: 0.03,
+        r: 0.34, rBreath: 0.22, fBreath: 1.05, pBreath: 2.3, aBreath: 0.25,
+        rgb: [130, 188, 250], a: 0.66, kind: "orb" },
+      // Atmospheric wash — top-left depth, wide arc
+      { bx: 0.18, by: 0.22, ax1: 0.11, ax2: 0.05, ay1: 0.09, ay2: 0.04,
         fx1: 0.70, fx2: 1.5, fy1: 0.55, fy2: 1.8,
         px1: 0.4, px2: 3.1, py1: 2.1, py2: 0.7,
-        r: 0.30, rgb: [100, 160, 240], a: 0.55, kind: "orb" },
+        r: 0.30, rBreath: 0.24, fBreath: 0.95, pBreath: 0.4, aBreath: 0.28,
+        rgb: [100, 160, 240], a: 0.58, kind: "orb" },
       // Pastel haze — bottom-right
-      { bx: 0.82, by: 0.84, ax1: 0.06, ax2: 0.03, ay1: 0.05, ay2: 0.03,
+      { bx: 0.82, by: 0.84, ax1: 0.10, ax2: 0.05, ay1: 0.08, ay2: 0.04,
         fx1: 0.45, fx2: 1.2, fy1: 0.70, fy2: 1.5,
         px1: 1.5, px2: 0.8, py1: 1.3, py2: 2.6,
-        r: 0.36, rgb: [180, 218, 255], a: 0.48, kind: "orb" },
-      // Bright highlight glint — mid-upper area, smaller and brighter
-      { bx: 0.42, by: 0.34, ax1: 0.05, ax2: 0.03, ay1: 0.04, ay2: 0.02,
+        r: 0.36, rBreath: 0.18, fBreath: 0.75, pBreath: 2.8, aBreath: 0.20,
+        rgb: [180, 218, 255], a: 0.50, kind: "orb" },
+      // Bright highlight glint — faster breath, sparkle-like
+      { bx: 0.42, by: 0.34, ax1: 0.07, ax2: 0.04, ay1: 0.05, ay2: 0.03,
         fx1: 0.85, fx2: 1.6, fy1: 0.95, fy2: 1.4,
         px1: 1.8, px2: 0.3, py1: 2.5, py2: 1.1,
-        r: 0.17, rgb: [230, 242, 255], a: 0.75, kind: "glint" },
-      // Small pure-white sparkle — upper-middle specular accent
-      { bx: 0.54, by: 0.22, ax1: 0.04, ax2: 0.02, ay1: 0.04, ay2: 0.02,
+        r: 0.17, rBreath: 0.32, fBreath: 1.45, pBreath: 0.9, aBreath: 0.38,
+        rgb: [230, 242, 255], a: 0.78, kind: "glint" },
+      // Small pure-white sparkle — even faster, twinkles
+      { bx: 0.54, by: 0.22, ax1: 0.06, ax2: 0.03, ay1: 0.05, ay2: 0.03,
         fx1: 1.15, fx2: 1.8, fy1: 0.90, fy2: 1.6,
         px1: 2.8, px2: 1.0, py1: 0.5, py2: 2.3,
-        r: 0.11, rgb: [252, 253, 255], a: 0.82, kind: "glint" },
+        r: 0.11, rBreath: 0.40, fBreath: 1.75, pBreath: 2.2, aBreath: 0.45,
+        rgb: [252, 253, 255], a: 0.85, kind: "glint" },
     ];
 
     let rafId = 0;
@@ -168,27 +181,34 @@ export default function JayWaitlist() {
           + Math.cos(t * o.fy1 + o.py1) * o.ay1
           + Math.sin(t * o.fy2 + o.py2) * o.ay2;
 
+        // Breathing — radius + alpha pulse on a slow sine. The alpha
+        // breath runs slightly offset from the radius breath so the
+        // swell doesn't peak at exactly the same instant every cycle;
+        // visually this reads as a more natural breath than synced.
+        const breathR = 1 + Math.sin(t * o.fBreath + o.pBreath) * o.rBreath;
+        const breathA =
+          1 + Math.sin(t * o.fBreath * 0.85 + o.pBreath + 1.2) * o.aBreath;
+
         // Cursor parallax — close orbs respond more than distant ones.
         const dx = mx - x;
         const dy = my - y;
         const dist = Math.sqrt(dx * dx + dy * dy);
-        // Sun barely responds; glints respond most (feel like catching
-        // highlights on the cursor's motion).
-        const base =
+        const baseInf =
           o.kind === "sun" ? 0.006
           : o.kind === "glint" ? 0.028
           : 0.014;
-        const influence = Math.max(0, 1 - dist / 0.95) * base;
+        const influence = Math.max(0, 1 - dist / 0.95) * baseInf;
 
-        const rad = o.r * minDim;
+        const rad = o.r * minDim * breathR;
+        const alpha = o.a * breathA;
         const px = (x + dx * influence) * W;
         const py = (y + dy * influence) * H;
 
         const grad = ctx.createRadialGradient(px, py, 0, px, py, rad);
         const [r, g, bl] = o.rgb;
-        grad.addColorStop(0,    `rgba(${r},${g},${bl},${o.a})`);
-        grad.addColorStop(0.35, `rgba(${r},${g},${bl},${o.a * 0.55})`);
-        grad.addColorStop(0.7,  `rgba(${r},${g},${bl},${o.a * 0.18})`);
+        grad.addColorStop(0,    `rgba(${r},${g},${bl},${alpha})`);
+        grad.addColorStop(0.35, `rgba(${r},${g},${bl},${alpha * 0.55})`);
+        grad.addColorStop(0.7,  `rgba(${r},${g},${bl},${alpha * 0.18})`);
         grad.addColorStop(1,    `rgba(${r},${g},${bl},0)`);
 
         ctx.beginPath();
@@ -527,25 +547,55 @@ export default function JayWaitlist() {
           z-index: 2;
           will-change: transform;
         }
+        /* Each ring rotates on its own axis AND breathes in scale —
+           1% expansion/contraction on an 8-14s cycle. Subtle but
+           adds life to the ring layer. */
         .jw-c1 {
           width: 520px; height: 520px; top: 50%; left: 50%;
-          transform: translate(-50%, -50%) rotate(0deg);
-          animation: jwOrbit1 180s linear infinite;
+          animation:
+            jwOrbit1 180s linear infinite,
+            jwRingBreath1 8s ease-in-out infinite;
         }
         .jw-c2 {
           width: 760px; height: 760px; top: 50%; left: 50%;
-          transform: translate(-50%, -50%) rotate(0deg);
-          animation: jwOrbit2 240s linear infinite reverse;
+          animation:
+            jwOrbit2 240s linear infinite reverse,
+            jwRingBreath2 11s ease-in-out infinite;
         }
         .jw-c3 {
           width: 1040px; height: 1040px; top: 50%; left: 50%;
-          transform: translate(-50%, -50%) rotate(0deg);
-          animation: jwOrbit3 320s linear infinite;
+          animation:
+            jwOrbit3 320s linear infinite,
+            jwRingBreath3 14s ease-in-out infinite;
           border-color: rgba(80, 130, 220, 0.1);
         }
-        @keyframes jwOrbit1 { to { transform: translate(-50%, -50%) rotate(360deg); } }
-        @keyframes jwOrbit2 { to { transform: translate(-50%, -50%) rotate(360deg); } }
-        @keyframes jwOrbit3 { to { transform: translate(-50%, -50%) rotate(360deg); } }
+        @keyframes jwOrbit1 {
+          0%   { transform: translate(-50%, -50%) rotate(0deg)   scale(1); }
+          100% { transform: translate(-50%, -50%) rotate(360deg) scale(1); }
+        }
+        @keyframes jwOrbit2 {
+          0%   { transform: translate(-50%, -50%) rotate(0deg)   scale(1); }
+          100% { transform: translate(-50%, -50%) rotate(360deg) scale(1); }
+        }
+        @keyframes jwOrbit3 {
+          0%   { transform: translate(-50%, -50%) rotate(0deg)   scale(1); }
+          100% { transform: translate(-50%, -50%) rotate(360deg) scale(1); }
+        }
+        /* Breath — tiny opacity + border-color swell so the rings
+           pulse in visibility without a second transform fighting
+           the orbit rotation. */
+        @keyframes jwRingBreath1 {
+          0%, 100% { opacity: 0.55; border-color: rgba(80, 130, 220, 0.12); }
+          50%      { opacity: 1;    border-color: rgba(80, 130, 220, 0.22); }
+        }
+        @keyframes jwRingBreath2 {
+          0%, 100% { opacity: 0.45; border-color: rgba(80, 130, 220, 0.1);  }
+          50%      { opacity: 0.9;  border-color: rgba(80, 130, 220, 0.2);  }
+        }
+        @keyframes jwRingBreath3 {
+          0%, 100% { opacity: 0.4;  border-color: rgba(80, 130, 220, 0.06); }
+          50%      { opacity: 0.8;  border-color: rgba(80, 130, 220, 0.14); }
+        }
 
         /* Luminous specks replace the + glyphs — tiny pulsing stars
            scattered at the composition's corners. Each has its own
