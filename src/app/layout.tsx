@@ -8,6 +8,8 @@ import {
 import LayoutChrome from "@/components/LayoutChrome";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import SiteBeacon from "@/components/SiteBeacon";
+import { Suspense } from "react";
 import "./globals.css";
 
 const cormorant = Cormorant_Garamond({
@@ -127,6 +129,9 @@ export default function RootLayout({
           }}
         />
         <LayoutChrome>{children}</LayoutChrome>
+        <Suspense fallback={null}>
+          <SiteBeacon />
+        </Suspense>
         <Analytics />
         <SpeedInsights />
       </body>
