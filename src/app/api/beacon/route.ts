@@ -142,7 +142,8 @@ export async function POST(req: NextRequest) {
     is_bot: uaInfo.is_bot,
   }
 
-  const res = await fetch(`${SUPABASE_URL}/rest/v1/site_events`, {
+  const supabaseTarget = `${SUPABASE_URL}/rest/v1/site_events`
+  const res = await fetch(supabaseTarget, {
     method: 'POST',
     headers: {
       'apikey': SUPABASE_KEY,
@@ -156,11 +157,16 @@ export async function POST(req: NextRequest) {
   if (!res.ok) {
     const detail = await res.text().catch(() => '')
     console.error('beacon insert failed', res.status, detail.slice(0, 200))
-    // Surface the Supabase error inline while we're stabilising — revert
-    // once the pipeline is verified end-to-end. The response body is only
-    // visible to the caller (the client beacon) and to Vercel logs.
     return NextResponse.json(
-      { ok: false, error: 'insert_failed', supabase_status: res.status, detail: detail.slice(0, 400) },
+      {
+        ok: false,
+        error: 'insert_failed',
+        supabase_status: res.status,
+        detail: detail.slice(0, 400),
+        target: supabaseTarget,
+        key_len: SUPABASE_KEY.length,
+        key_prefix: SUPABASE_KEY.slice(0, 8),
+      },
       { status: 502, headers }
     )
   }
