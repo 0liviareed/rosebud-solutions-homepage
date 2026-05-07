@@ -142,8 +142,7 @@ export async function POST(req: NextRequest) {
     is_bot: uaInfo.is_bot,
   }
 
-  const supabaseTarget = `${SUPABASE_URL}/rest/v1/site_events`
-  const res = await fetch(supabaseTarget, {
+  const res = await fetch(`${SUPABASE_URL}/rest/v1/site_events`, {
     method: 'POST',
     headers: {
       'apikey': SUPABASE_KEY,
@@ -157,18 +156,7 @@ export async function POST(req: NextRequest) {
   if (!res.ok) {
     const detail = await res.text().catch(() => '')
     console.error('beacon insert failed', res.status, detail.slice(0, 200))
-    return NextResponse.json(
-      {
-        ok: false,
-        error: 'insert_failed',
-        supabase_status: res.status,
-        detail: detail.slice(0, 400),
-        target: supabaseTarget,
-        key_len: SUPABASE_KEY.length,
-        key_prefix: SUPABASE_KEY.slice(0, 8),
-      },
-      { status: 502, headers }
-    )
+    return NextResponse.json({ ok: false, error: 'insert_failed' }, { status: 502, headers })
   }
 
   return NextResponse.json({ ok: true }, { status: 200, headers })
