@@ -3,9 +3,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 import { useEffect } from "react";
+import { track } from "@/lib/analytics";
 
 export default function CalEmbed() {
   useEffect(() => {
+    track("cal_loaded");
     // Cal.com embed loader — standard snippet, recast to any for brevity.
     (function (C: any, A: string, L: string) {
       const p = function (a: any, ar: any) {
@@ -58,6 +60,30 @@ export default function CalEmbed() {
       hideEventTypeDetails: false,
       layout: "month_view",
     });
+
+    // Cal.com fires postMessage events on its iframe — listen for the
+    // bookingSuccessful action (named "bookingSuccessful" by the embed API,
+    // sent as { action: "bookingSuccessful" }). Track each as a conversion
+    // so PostHog's funnel can attribute the booking back to the original
+    // session/source. Other actions (linkReady, eventTypeViewed, etc.) get
+    // captured generically for path analysis.
+    const onMessage = (e: MessageEvent) => {
+      const data = e?.data;
+      if (!data || typeof data !== "object") return;
+      const action = (data as any).action as string | undefined;
+      if (!action) return;
+      if (action === "bookingSuccessful") {
+        const payload = (data as any).payload ?? {};
+        track("booking_completed", {
+          event_type: payload?.eventType?.title ?? null,
+          source: "cal_embed",
+        });
+      } else if (action === "linkReady" || action === "eventTypeViewed") {
+        track(`cal_${action}`);
+      }
+    };
+    window.addEventListener("message", onMessage);
+    return () => window.removeEventListener("message", onMessage);
   }, []);
 
   return <div id="rb-cal-inline" className="rb-cal-inline" />;

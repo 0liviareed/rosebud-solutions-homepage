@@ -27,14 +27,19 @@ function initOnce() {
     // below) — PostHog's auto-capture would double-count.
     capture_pageview: false,
     capture_pageleave: true,
-    // GDPR: shorten IP storage and disable session recordings until we opt in
-    // explicitly. (Recordings are off by default in the SDK but safer to
-    // assert here so a future flag flip in the PostHog UI doesn't surprise us.)
     ip: true,
-    disable_session_recording: true,
-    // PostHog's auto-capture clicks/form submits is opinionated and noisy on
-    // a marketing site — turn off; we'll instrument the few CTAs we care
-    // about (Book a call, Demo) explicitly later.
+    // Session replay enabled — PostHog Cloud free tier covers 5k recordings
+    // per month, far above our marketing-site volume. Mask all input values
+    // and form fields by default so PII (names, emails entered into Cal
+    // booking forms) is not stored alongside the replay.
+    disable_session_recording: false,
+    session_recording: {
+      maskAllInputs: true,
+      maskTextSelector: '[data-ph-mask]',
+    },
+    // Auto-capture is opinionated and noisy on a marketing site — turn off;
+    // we instrument the few CTAs that matter (book_call, cal_loaded,
+    // booking_completed, industry_view) explicitly via the analytics helper.
     autocapture: false,
   })
   initialised = true
