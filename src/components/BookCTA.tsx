@@ -1,6 +1,7 @@
 "use client";
 
 import Lenis from "lenis";
+import { track } from "@/lib/analytics";
 
 /**
  * BookCTA — inline editorial link that smooth-scrolls to the booking
@@ -13,11 +14,14 @@ import Lenis from "lenis";
  */
 export default function BookCTA({
   label = "Book a call",
+  location = "inline",
 }: {
   label?: string;
+  location?: string;
 }) {
   function handleClick(e: React.MouseEvent<HTMLAnchorElement>) {
     e.preventDefault();
+    track("cta_click", { cta: "book_call", variant: "inline", location, label });
     const target = document.getElementById("rb-book");
     if (!target) return;
     const lenis = (window as unknown as { __rbLenis?: Lenis | null }).__rbLenis;

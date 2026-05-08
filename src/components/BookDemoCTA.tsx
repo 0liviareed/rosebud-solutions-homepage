@@ -1,11 +1,13 @@
 "use client";
 
 import { useRef, type MouseEvent } from "react";
+import { track } from "@/lib/analytics";
 
 type Props = {
   href: string;
   label?: string;
   meta?: string;
+  location?: string;
 };
 
 /**
@@ -21,7 +23,12 @@ export default function BookDemoCTA({
   href,
   label = "Request a demo",
   meta = "30 minutes · Zoom · no prep required",
+  location = "hero",
 }: Props) {
+  const onClick = () => {
+    track("cta_click", { cta: "book_call", variant: "demo", location, label, href });
+  };
+
   const linkRef = useRef<HTMLAnchorElement>(null);
 
   const onMove = (e: MouseEvent<HTMLDivElement>) => {
@@ -58,6 +65,7 @@ export default function BookDemoCTA({
           target="_blank"
           rel="noopener noreferrer"
           className="rb-book-cta"
+          onClick={onClick}
         >
           <span className="rb-book-cta-label">{label}</span>
           <span className="rb-book-cta-arrow" aria-hidden="true">
