@@ -891,8 +891,9 @@ button { font: inherit; color: inherit; }
   pointer-events: none;
   z-index: 0;
   color: var(--rb-bone);
-  opacity: 0.38;
-  mix-blend-mode: screen;
+  opacity: 0.55;
+  /* mix-blend-mode removed — it isolates the compositor layer and
+     prevents backdrop-filter on sibling elements from seeing these paths */
   /* Two-stop radial mask — no hard transitions. The center sits at
      ~38% intensity, the edges at 100%, and everything in between
      interpolates smoothly so there's no visible gradient line. */
@@ -1048,16 +1049,24 @@ button { font: inherit; color: inherit; }
 }
 
 /* Closing line beneath the Digital Team grid — centered italic */
-.rb-dt-closing {
-  max-width: 42rem;
-  margin: clamp(3rem, 5vw, 4.5rem) auto 0;
-  text-align: center;
+.rb-dt-coda-inner { text-align: center; }
+.rb-dt-coda-statement {
   font-family: var(--font-cormorant), serif;
   font-style: italic;
   font-weight: 400;
-  font-size: clamp(1.05rem, 1.35vw, 1.2rem);
-  line-height: 1.45;
+  font-size: clamp(2.4rem, 5vw, 4.2rem);
+  line-height: 1.08;
+  letter-spacing: -0.015em;
+  color: var(--rb-bone);
+  margin: 0 0 clamp(1rem, 2vw, 1.5rem);
+}
+.rb-dt-coda-sub {
+  font-family: var(--font-dm-sans), sans-serif;
+  font-size: clamp(0.92rem, 1.05vw, 1rem);
+  line-height: 1.65;
   color: var(--rb-bone-dim);
+  max-width: 36ch;
+  margin: 0 auto clamp(2rem, 4vw, 3rem);
 }
 
 /* (Previous .rb-reassure / .rb-cta classes removed — Book section now
@@ -1376,6 +1385,31 @@ button { font: inherit; color: inherit; }
   outline: none;
   position: relative;
   padding: 0 clamp(0rem, 3vw, 2.5rem);
+}
+/* Large decorative opening mark behind all quotes */
+.rb-voices::before {
+  content: '\201C';
+  position: absolute;
+  top: -3rem;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: var(--font-cormorant), serif;
+  font-style: italic;
+  font-size: clamp(9rem, 18vw, 16rem);
+  line-height: 0.75;
+  color: var(--rb-bone);
+  opacity: 0.03;
+  pointer-events: none;
+  z-index: 0;
+  user-select: none;
+}
+/* Auto-advance progress bar — flows between quote and nav dots */
+.rb-voice-progress {
+  width: 100%;
+  height: 1px;
+  background: var(--rb-purple);
+  will-change: transform;
+  flex-shrink: 0;
 }
 .rb-voice {
   width: 100%;
@@ -3506,4 +3540,470 @@ button { font: inherit; color: inherit; }
   }
   .rb-footer-social { align-self: flex-start; }
   .rb-footer-social-link { width: 38px; height: 38px; }
+}
+
+/* ================================================================
+   Is This You — scroll-narrative section
+   ================================================================ */
+.rb-nar-outer { position: relative; height: 400vh; }
+.rb-nar-inner {
+  position: sticky; top: 0; height: 100vh; overflow: hidden;
+  display: flex; align-items: center; justify-content: center;
+}
+.rb-nar-txt { position: absolute; opacity: 0; transition: none; pointer-events: none; }
+.rb-nar-txt.on { opacity: 1; }
+.rb-nar-stage-head  { width: 100%; text-align: center; top: 50%; transform: translateY(-50%); padding: 0 clamp(2rem,12vw,16rem); }
+.rb-nar-stage-orbright { left: clamp(2rem,4vw,4rem); width: 48%; top: 50%; transform: translateY(-50%); text-align: left; }
+.rb-nar-stage-orbleft  { right: clamp(2rem,4vw,4rem); width: 48%; top: 50%; transform: translateY(-50%); text-align: right; }
+.rb-nar-stage-outro { width: 100%; text-align: center; top: 50%; transform: translateY(-50%); padding: 0 clamp(2rem,10vw,14rem); }
+.rb-nar-eyebrow-label {
+  font-family: var(--font-dm-sans), sans-serif; font-weight: 500;
+  font-size: 11px; letter-spacing: 0.28em; text-transform: uppercase;
+  color: rgba(245,241,234,0.45); margin: 0 0 1.5rem; display: block;
+}
+.rb-nar-h2 {
+  font-family: var(--font-cormorant), serif; font-weight: 400;
+  font-size: clamp(2.6rem,5.5vw,5rem); line-height: 1.02;
+  letter-spacing: -0.015em; color: rgba(245,241,234,0.95); margin: 0;
+}
+.rb-nar-h2 em { font-style: italic; color: var(--rb-purple); }
+.rb-nar-point-text {
+  font-family: var(--font-cormorant), serif; font-weight: 400;
+  font-size: clamp(1.8rem,3.5vw,3.2rem); line-height: 1.1;
+  letter-spacing: -0.012em; color: rgba(245,241,234,0.9); margin: 0;
+}
+.rb-nar-point-text em { font-style: italic; color: var(--rb-purple); }
+.rb-nar-outro-text {
+  font-family: var(--font-cormorant), serif; font-weight: 400;
+  font-size: clamp(2.6rem,5.5vw,5rem); line-height: 1.02;
+  letter-spacing: -0.015em; color: rgba(245,241,234,1); margin: 0;
+}
+.rb-nar-outro-text em { font-style: italic; color: var(--rb-purple); }
+.rb-nar-trail-svg { display: none; }
+.rb-nar-orb-wrap { display: none; }
+.rb-nar-orb {
+  width: 100%; height: 100%; border-radius: 50%; background: rgba(245,241,234,0.95);
+  box-shadow: 0 0 6px 2px rgba(245,241,234,0.85), 0 0 16px 6px rgba(184,174,219,0.55),
+              0 0 36px 14px rgba(139,125,216,0.3), 0 0 70px 28px rgba(139,125,216,0.12);
+}
+.rb-nar-pips { position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%); display: flex; gap: 8px; align-items: center; pointer-events: none; }
+.rb-nar-pip { width: 4px; height: 4px; border-radius: 50%; background: rgba(245,241,234,0.1); transition: background 400ms, transform 400ms; }
+.rb-nar-pip.on { background: rgba(184,174,219,0.8); transform: scale(1.5); }
+@media (max-width: 768px) {
+  .rb-nar-orb-wrap, .rb-nar-trail-svg, .rb-nar-pips { display: none !important; }
+  .rb-nar-stage-orbright, .rb-nar-stage-orbleft { left: 1.5rem !important; right: 1.5rem !important; width: auto !important; text-align: center !important; }
+  .rb-nar-stage-head { padding: 0 1.5rem; }
+  .rb-nar-stage-outro { padding: 0 1.5rem; }
+  .rb-nar-h2 { font-size: clamp(2rem,9vw,2.8rem) !important; }
+  .rb-nar-point-text { font-size: clamp(1.4rem,6vw,1.9rem) !important; }
+  .rb-nar-outro-text { font-size: clamp(2rem,9vw,2.8rem) !important; }
+}
+
+/* ================================================================
+   Digital Team — position:fixed cards, no overflow clipping,
+   backdrop-filter works directly against FloatingPaths
+   ================================================================ */
+.rb-dt-outer {
+  position: relative;
+  /* height overridden by JS to N * window.innerHeight */
+}
+
+/* Sticky heading — pins during section scroll */
+.rb-dt-head-sticky {
+  position: sticky;
+  top: 0;
+  z-index: 15;
+}
+.rb-dt-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: clamp(2.5rem,4vw,4rem) clamp(2rem,4vw,3.5rem) clamp(1.5rem,2.5vw,2.5rem);
+}
+.rb-dt-counter {
+  font-family: var(--font-cormorant), serif;
+  font-style: italic;
+  font-size: clamp(0.95rem,1.1vw,1.2rem);
+  color: rgba(245,241,234,0.35);
+  letter-spacing: 0.06em;
+  padding-top: 0.35rem;
+  white-space: nowrap;
+}
+
+/* ── Fixed glass cards — position:fixed, no parent overflow ── */
+.rb-dt-card {
+  position: fixed;
+  top: var(--dt-card-top, 200px);
+  height: var(--dt-card-h, calc(100vh - 280px));
+  width: 80vw;
+  padding: clamp(1.25rem,2vw,1.75rem);
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.5rem,0.8vw,0.75rem);
+  visibility: hidden;
+  will-change: transform;
+  /* True glassmorphism — no compositor boundary above these elements */
+  background: rgba(12,10,18,0.45);
+  backdrop-filter: blur(24px) saturate(1.8);
+  -webkit-backdrop-filter: blur(24px) saturate(1.8);
+  border-radius: 18px;
+  border: 1px solid rgba(255,255,255,0.09);
+  border-top: 1px solid rgba(255,255,255,0.22);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.14),
+    0 24px 60px rgba(0,0,0,0.5),
+    0 4px 16px rgba(0,0,0,0.35);
+}
+
+/* Fixed progress dots */
+.rb-dt-dots-fixed {
+  position: fixed;
+  left: clamp(2rem,4vw,3.5rem);
+  z-index: 16;
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  visibility: hidden;
+}
+.rb-dt-card-num {
+  font-family: var(--font-cormorant), serif;
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(4rem, 11vw, 10rem);
+  line-height: 0.85;
+  letter-spacing: -0.02em;
+  color: rgba(245,241,234,0.06);
+  margin-bottom: -0.25rem;
+}
+.rb-dt-card-label {
+  color: var(--rb-purple) !important;
+}
+.rb-dt-card-heading {
+  font-family: var(--font-cormorant), serif;
+  font-weight: 400;
+  font-size: clamp(1.35rem,2vw,1.75rem);
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  color: var(--rb-bone);
+}
+.rb-dt-card-heading em { font-style: italic; color: var(--rb-purple); }
+.rb-dt-card-copy {
+  font-family: var(--font-dm-sans), sans-serif;
+  font-size: clamp(0.82rem,0.9vw,0.95rem);
+  line-height: 1.65;
+  color: rgba(245,241,234,0.6);
+  max-width: 52ch;
+  margin: 0;
+}
+
+/* ── Visual panel ── */
+.rb-dt-vis {
+  margin-top: 16px;
+  flex: 1;
+  background: rgba(0,0,0,0.12);
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 12px;
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 10px;
+}
+/* Score bars */
+.rb-dt-vis-scores { display: flex; flex-direction: column; gap: 11px; }
+.rb-dt-vis-srow { display: flex; flex-direction: column; gap: 5px; }
+.rb-dt-vis-smeta { display: flex; justify-content: space-between; align-items: baseline; }
+.rb-dt-vis-tier { font-size: 9.5px; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; }
+.rb-dt-vis-tier.hot { color: #D4A87A; }
+.rb-dt-vis-tier.warm { color: var(--rb-purple); }
+.rb-dt-vis-tier.nur { color: rgba(245,241,234,0.5); }
+.rb-dt-vis-sval { font-family: var(--font-cormorant), serif; font-size: 1rem; color: var(--rb-bone); }
+.rb-dt-vis-btrack { height: 4px; background: rgba(245,241,234,0.07); border-radius: 2px; overflow: hidden; }
+.rb-dt-vis-bfill { height: 100%; border-radius: 2px; }
+.rb-dt-vis-bfill.hot { background: linear-gradient(90deg,#b07840,#D4A87A); }
+.rb-dt-vis-bfill.warm { background: linear-gradient(90deg,var(--rb-purple-core),var(--rb-purple)); }
+.rb-dt-vis-bfill.nur { background: rgba(245,241,234,0.2); }
+.rb-dt-vis-foot { font-size: 9.5px; letter-spacing: .1em; text-transform: uppercase; color: rgba(245,241,234,0.28); margin-top: 6px; }
+/* Pipeline */
+.rb-dt-vis-prow { display: flex; align-items: center; gap: 10px; }
+.rb-dt-vis-pstage { font-size: 11px; color: rgba(245,241,234,0.5); width: 85px; flex-shrink: 0; }
+.rb-dt-vis-ptrack { flex: 1; height: 5px; background: rgba(245,241,234,0.06); border-radius: 3px; overflow: hidden; }
+.rb-dt-vis-pfill { height: 100%; border-radius: 3px; background: linear-gradient(90deg,var(--rb-purple-core),var(--rb-purple)); }
+.rb-dt-vis-pfill.amber { background: linear-gradient(90deg,#b07840,#D4A87A); }
+.rb-dt-vis-pcount { font-family: var(--font-cormorant), serif; font-size: 1rem; color: var(--rb-bone); width: 22px; text-align: right; flex-shrink: 0; }
+/* Channels */
+.rb-dt-vis-ch { display: flex; align-items: center; gap: 10px; }
+.rb-dt-vis-chico { width: 30px; height: 30px; border-radius: 7px; background: rgba(184,174,219,0.08); border: 1px solid rgba(184,174,219,0.16); display: flex; align-items: center; justify-content: center; flex-shrink: 0; color: var(--rb-purple); }
+.rb-dt-vis-chlabel { font-size: 11.5px; color: rgba(245,241,234,0.55); flex: 1; }
+.rb-dt-vis-chpill { font-size: 9px; font-weight: 500; letter-spacing: .1em; text-transform: uppercase; background: rgba(184,174,219,0.12); color: var(--rb-purple); border-radius: 20px; padding: 3px 10px; }
+.rb-dt-vis-chpill.live { background: rgba(184,174,219,0.22); }
+/* Timeline */
+.rb-dt-vis-titem { display: flex; align-items: flex-start; gap: 10px; padding-bottom: 12px; position: relative; }
+.rb-dt-vis-titem.line::before { content: ''; position: absolute; left: 11px; top: 24px; width: 1px; bottom: 0; background: rgba(245,241,234,0.07); }
+.rb-dt-vis-tdot { width: 23px; height: 23px; border-radius: 50%; flex-shrink: 0; border: 1px solid rgba(245,241,234,0.12); display: flex; align-items: center; justify-content: center; }
+.rb-dt-vis-tdot.done { background: rgba(184,174,219,0.15); border-color: rgba(184,174,219,0.4); color: var(--rb-purple); }
+.rb-dt-vis-tday { font-size: 9px; font-weight: 500; letter-spacing: .14em; text-transform: uppercase; color: rgba(245,241,234,0.3); }
+.rb-dt-vis-tact { font-size: 11.5px; color: var(--rb-bone); margin-top: 2px; }
+.rb-dt-vis-tact.dim { color: rgba(245,241,234,0.45); }
+/* Dashboard */
+.rb-dt-vis-kpis { display: flex; gap: 10px; }
+.rb-dt-vis-kpi { flex: 1; background: rgba(184,174,219,0.06); border: 1px solid rgba(184,174,219,0.12); border-radius: 8px; padding: 12px; }
+.rb-dt-vis-kpilbl { font-size: 9px; font-weight: 500; letter-spacing: .18em; text-transform: uppercase; color: rgba(245,241,234,0.5); }
+.rb-dt-vis-kpival { font-family: var(--font-cormorant), serif; font-size: 1.5rem; color: var(--rb-bone); margin-top: 4px; line-height: 1; }
+.rb-dt-vis-kpidelta { font-size: 10px; color: var(--rb-purple); margin-top: 4px; }
+.rb-dt-vis-chart { height: 46px; }
+/* Receptionist inbound */
+.rb-dt-vis-inbound { display: flex; flex-direction: column; gap: 8px; }
+.rb-dt-vis-irow { display: flex; align-items: center; gap: 10px; font-size: 11px; color: rgba(245,241,234,0.5); }
+.rb-dt-vis-idot { width: 6px; height: 6px; border-radius: 50%; background: rgba(184,174,219,0.4); flex-shrink: 0; }
+.rb-dt-vis-ilabel { width: 40px; flex-shrink: 0; }
+.rb-dt-vis-iline { flex: 1; height: 1px; background: linear-gradient(90deg,rgba(184,174,219,0.12),rgba(184,174,219,0.55)); position: relative; }
+.rb-dt-vis-iline::after { content: ''; position: absolute; right: 0; top: 50%; transform: translateY(-50%); width: 5px; height: 5px; border-radius: 50%; background: var(--rb-purple); box-shadow: 0 0 8px rgba(184,174,219,0.7); }
+.rb-dt-vis-ical { margin-top: 10px; background: rgba(184,174,219,0.08); border: 1px solid rgba(184,174,219,0.2); border-radius: 8px; padding: 10px 12px; display: flex; align-items: center; justify-content: space-between; }
+.rb-dt-vis-ical-lbl { font-size: 9px; color: var(--rb-purple); letter-spacing: .14em; text-transform: uppercase; margin-bottom: 3px; }
+.rb-dt-vis-ical-time { font-family: var(--font-cormorant), serif; font-style: italic; font-size: 1rem; color: var(--rb-bone); }
+.rb-dt-vis-ical-badge { font-size: 9px; font-weight: 500; letter-spacing: .1em; text-transform: uppercase; background: rgba(184,174,219,0.18); color: var(--rb-purple); border-radius: 20px; padding: 4px 10px; }
+.rb-dt-dots-fixed {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+.rb-dt-dot {
+  display: block;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: rgba(245,241,234,0.12);
+  transition: background 400ms, transform 400ms;
+}
+.rb-dt-dot.rb-dt-dot-active {
+  background: var(--rb-purple);
+  transform: scale(1.5);
+}
+.rb-dt-coda {
+  padding: clamp(4rem,7vw,6rem) 0 0;
+}
+@media (max-width: 768px) {
+  .rb-dt-head { flex-direction: column; gap: 0.5rem; }
+  .rb-dt-counter { align-self: flex-end; }
+  .rb-dt-card-num { font-size: clamp(3.5rem,18vw,5rem); }
+  .rb-dt-card-heading { font-size: clamp(1.2rem,4.5vw,1.5rem) !important; }
+  .rb-dt-card-copy { font-size: 0.82rem !important; }
+}
+
+/* ================================================================
+   Build the Future — cycling steps + calculator modal
+   ================================================================ */
+.rb-build-wrap { max-width: 600px; margin: 0 auto; }
+
+/* Force calculator visible inside the modal — no rb-in parent to trigger it */
+.rb-calc-modal [data-rb-fade] { opacity: 1 !important; transform: none !important; }
+
+.rb-build-bar-track {
+  height: 1px;
+  background: rgba(245,241,234,0.08);
+  margin-bottom: clamp(2rem,4vw,3rem);
+  overflow: hidden;
+}
+@keyframes rbBarFill {
+  from { width: 0% }
+  to   { width: 100% }
+}
+.rb-build-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--rb-purple-core), var(--rb-purple));
+  animation: rbBarFill linear forwards;
+}
+
+.rb-build-steps { position: relative; min-height: 240px; }
+.rb-build-step {
+  position: absolute; top: 0; left: 0; right: 0;
+  opacity: 0; pointer-events: none;
+  transform: translateY(12px);
+  transition: opacity 500ms var(--rb-ease), transform 500ms var(--rb-ease);
+}
+.rb-build-step.rb-build-step-active {
+  opacity: 1; pointer-events: auto; position: relative;
+  transform: none;
+}
+.rb-build-step-num {
+  font-family: var(--font-cormorant), serif;
+  font-size: clamp(2.2rem,4.5vw,3.2rem);
+  font-weight: 400;
+  line-height: 1;
+  color: rgba(245,241,234,0.10);
+  letter-spacing: -0.02em;
+  margin: 0 0 0.75rem;
+}
+.rb-build-step-num span {
+  font-size: 0.42em;
+  letter-spacing: 0.06em;
+  vertical-align: middle;
+  color: rgba(245,241,234,0.05);
+}
+
+.rb-build-dots {
+  display: flex;
+  gap: 0.6rem;
+  align-items: center;
+  margin-top: 2.5rem;
+}
+.rb-build-dot {
+  width: 32px; height: 2px;
+  background: rgba(245,241,234,0.1);
+  border: none; cursor: pointer; padding: 0;
+  transition: background 350ms var(--rb-ease), transform 350ms var(--rb-ease);
+  transform-origin: left center;
+}
+.rb-build-dot.rb-build-dot-active {
+  background: var(--rb-purple);
+  transform: scaleX(1.6);
+}
+
+/* Calculator CTA — entry-block */
+.rb-build-calc-entry {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 1.5rem;
+  align-items: center;
+  width: 100%;
+  padding: 1.5rem 0;
+  margin-top: clamp(1.5rem,3vw,2.5rem);
+  border-top: 1px solid rgba(245,241,234,0.08);
+  border-bottom: 1px solid rgba(245,241,234,0.08);
+  background: none;
+  cursor: pointer;
+  text-align: left;
+  transition: border-color 350ms var(--rb-ease);
+}
+.rb-build-calc-entry:hover {
+  border-color: rgba(184,174,219,0.35);
+}
+.rb-build-calc-question {
+  font-family: var(--font-cormorant), serif;
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(1.35rem,2.2vw,1.9rem);
+  line-height: 1.2;
+  color: rgba(245,241,234,0.82);
+  letter-spacing: -0.005em;
+  transition: color 350ms var(--rb-ease);
+}
+.rb-build-calc-entry:hover .rb-build-calc-question {
+  color: rgba(245,241,234,1);
+}
+.rb-build-calc-arrow {
+  color: var(--rb-purple);
+  font-style: normal;
+  display: inline-block;
+  transition: transform 350ms var(--rb-ease);
+}
+.rb-build-calc-entry:hover .rb-build-calc-arrow {
+  transform: translateX(5px);
+}
+@media (max-width: 640px) {
+  .rb-build-calc-entry { grid-template-columns: 1fr; gap: 0.5rem; }
+}
+
+/* Calculator modal */
+.rb-calc-modal {
+  position: fixed; inset: 0;
+  z-index: 200;
+  display: flex; align-items: center; justify-content: center;
+  padding: clamp(1rem,4vw,3rem);
+}
+.rb-calc-modal-overlay {
+  position: absolute; inset: 0;
+  background: rgba(0,0,0,0.78);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+.rb-calc-modal-inner {
+  position: relative;
+  background: var(--rb-bg-deep);
+  border: 1px solid rgba(245,241,234,0.08);
+  max-width: 640px; width: 100%;
+  max-height: 90vh; overflow-y: auto;
+  padding: clamp(2rem,5vw,3.5rem);
+  border-radius: 2px;
+}
+.rb-calc-close {
+  position: absolute; top: 1.25rem; right: 1.25rem;
+  background: none; border: none; cursor: pointer;
+  color: rgba(245,241,234,0.4);
+  font-size: 1rem; line-height: 1;
+  padding: 0.5rem;
+  transition: color 250ms;
+}
+.rb-calc-close:hover { color: var(--rb-bone); }
+
+/* ================================================================
+   Receipts — lead scoring count-up tiers
+   ================================================================ */
+.rb-receipts-scores {
+  display: flex;
+  gap: clamp(1.5rem, 4vw, 3rem);
+  flex-wrap: wrap;
+}
+.rb-receipts-tier {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+.rb-receipts-tier-name {
+  font-family: var(--font-dm-sans), sans-serif;
+  font-weight: 500;
+  font-size: 10.5px;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: var(--rb-purple);
+}
+.rb-receipts-tier-range {
+  font-family: var(--font-cormorant), serif;
+  font-weight: 400;
+  font-size: clamp(1.6rem, 2.5vw, 2.2rem);
+  line-height: 1;
+  letter-spacing: -0.02em;
+  color: var(--rb-bone);
+}
+.rb-receipts-num {
+  display: inline-block;
+  min-width: 2ch;
+}
+
+/* ================================================================
+   About page — founder contact links (mirror footer social style)
+   ================================================================ */
+.rb-founder-links {
+  display: flex;
+  gap: 0.6rem;
+  margin-top: 1.25rem;
+  align-items: center;
+}
+.rb-founder-2 .rb-founder-links {
+  justify-content: flex-end;
+}
+.rb-founder-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid var(--rb-bone-hair);
+  color: var(--rb-bone-dim);
+  text-decoration: none;
+  transition: color 450ms var(--rb-ease),
+              border-color 450ms var(--rb-ease),
+              background 450ms var(--rb-ease),
+              box-shadow 500ms var(--rb-ease);
+}
+.rb-founder-link svg { display: block; }
+.rb-founder-link:hover,
+.rb-founder-link:focus-visible {
+  color: var(--rb-bone);
+  border-color: var(--rb-purple);
+  background: rgba(139,125,216,0.08);
+  box-shadow: 0 0 0 3px rgba(139,125,216,0.08), 0 0 18px rgba(139,125,216,0.25);
+  outline: none;
 }

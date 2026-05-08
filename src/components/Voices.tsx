@@ -98,6 +98,17 @@ export default function Voices({ voices = VOICES }: { voices?: Voice[] } = {}) {
         <span aria-hidden="true">&rarr;</span>
       </button>
 
+      {/* Progress bar — resets on each quote change, pauses on hover */}
+      <motion.div
+        key={`progress-${index}`}
+        className="rb-voice-progress"
+        initial={{ scaleX: 0 }}
+        animate={paused ? false : { scaleX: 1 }}
+        transition={{ duration: AUTO_ADVANCE_MS / 1000, ease: "linear" }}
+        style={{ transformOrigin: "left center" }}
+        aria-hidden="true"
+      />
+
       <div className="rb-voice-nav">
         <span className="rb-voice-counter" aria-hidden="true">
           {String(index + 1).padStart(2, "0")}{" "}

@@ -24,6 +24,7 @@ export default function Runtime() {
      per-route IntersectionObserver below, read by the phrase picker
      in the mount-once tick loop. */
   const bookInViewRef = useRef(false);
+  const itsyInViewRef = useRef(false);
 
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -230,9 +231,10 @@ export default function Runtime() {
     // gated by bookInViewRef — it fires the moment the #rb-book section
     // is prominently in view, independent of page length.
     const PHRASES = [
-      { text: "scroll to follow.",  from: 0.02, to: 0.52 },
-      { text: "keep scrolling.",    from: 0.52, to: 0.99 },
-      { text: "here.",              from: 0,    to: 1    }, // gated externally
+      { text: "keep scrolling.",      from: 0.02, to: 0.78 }, // Digital Team → Method
+      { text: "you're almost there.", from: 0.78, to: 0.99 }, // Calculator → About
+      { text: "book now.",            from: 0,    to: 1    }, // gated by bookInViewRef
+      { text: "is this you?",         from: 0,    to: 1    }, // gated by itsyInViewRef
     ];
     let currentPhraseIdx = -1;
     let phraseTransitioning = false;
@@ -317,14 +319,27 @@ export default function Runtime() {
       const inHero = window.scrollY < heroEnd - 40;
       overlay.style.opacity = inHero ? "0" : "1";
 
+      // In the hero: immediately clear the label — no 1400ms fade delay.
+      // Without this, phrases set in lower sections stay visible for up
+      // to 1.4s when the user scrolls back up into the hero.
+      if (inHero) {
+        label.classList.remove("rb-label-visible");
+        if (phraseTimeout) clearTimeout(phraseTimeout);
+        phraseTransitioning = false;
+        currentPhraseIdx = -1;
+        return;
+      }
+
       const p = getContentProgress();
       let targetIdx = -1;
       if (!inHero) {
         // "here." wins whenever the booking section is on-screen —
         // regardless of scroll progress. Otherwise fall back to the
         // progress-band driven phrases for the two earlier beats.
-        if (bookInViewRef.current) {
-          targetIdx = 2;
+        if (itsyInViewRef.current) {
+          targetIdx = 3; // "is this you?" — highest priority
+        } else if (bookInViewRef.current) {
+          targetIdx = 2; // "book now."
         } else {
           for (let i = 0; i < 2; i++) {
             if (p >= PHRASES[i].from && p <= PHRASES[i].to) {
@@ -568,6 +583,23 @@ export default function Runtime() {
         observers.push(ioBook);
       } else {
         bookInViewRef.current = false;
+      }
+
+      // "is this you?" — fires while the Recognition section is on screen.
+      const itsyEl = document.getElementById("rb-nar-outer");
+      if (itsyEl) {
+        const ioItsy = new IntersectionObserver(
+          (evts) => {
+            evts.forEach((e) => {
+              itsyInViewRef.current = e.isIntersecting;
+            });
+          },
+          { rootMargin: "0px 0px 0px 0px", threshold: 0 }
+        );
+        ioItsy.observe(itsyEl);
+        observers.push(ioItsy);
+      } else {
+        itsyInViewRef.current = false;
       }
     } else {
       sections.forEach((s) => s.classList.add("rb-in"));

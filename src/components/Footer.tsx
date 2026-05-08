@@ -105,6 +105,17 @@ export default function Footer() {
           </div>
 
           <div className="rb-footer-col">
+            <p className="rb-footer-eyebrow">Company</p>
+            <ul className="rb-footer-links">
+              <li>
+                <Link href="/about" className="rb-footer-link">
+                  About
+                </Link>
+              </li>
+            </ul>
+          </div>
+
+          <div className="rb-footer-col">
             <p className="rb-footer-eyebrow">Legal</p>
             <ul className="rb-footer-links">
               <li>
