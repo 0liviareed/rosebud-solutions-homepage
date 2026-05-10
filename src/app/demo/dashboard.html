@@ -82,22 +82,11 @@
     display: flex; align-items: center; gap: 10px;
   }
   .brand-mark {
-    width: 26px; height: 26px;
-    background: linear-gradient(135deg, var(--rb-purple-core), var(--rb-purple));
+    width: 28px; height: 28px;
+    display: block;
+    object-fit: contain;
     border-radius: 50%;
-    position: relative;
     box-shadow: 0 0 24px var(--rb-purple-glow);
-  }
-  .brand-mark::after {
-    content: ''; position: absolute;
-    inset: 4px; background: var(--rb-bg-deep);
-    border-radius: 50%;
-  }
-  .brand-mark::before {
-    content: ''; position: absolute;
-    inset: 8px; background: var(--rb-purple);
-    border-radius: 50%;
-    box-shadow: 0 0 12px var(--rb-purple-glow);
   }
   .brand-text {
     font-family: 'Cormorant Garamond', serif;
@@ -1129,7 +1118,7 @@
   <!-- ─── Top bar ─── -->
   <header class="topbar">
     <div class="brand">
-      <div class="brand-mark"></div>
+      <img class="brand-mark" src="/rosebud-brand-orb.png" alt="Rosebud Solutions" width="28" height="28" />
       <div>
         <div class="brand-text">Rosebud Solutions</div>
         <div class="brand-sub">Operating Infrastructure</div>
