@@ -1,0 +1,181 @@
+.page {
+  min-height: 100vh;
+  background: #050304;
+  color: #f5f1ea;
+  font-family: 'DM Sans', -apple-system, sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  position: relative;
+  overflow: hidden;
+}
+
+.atmosphere {
+  position: absolute; inset: 0; z-index: 0;
+  background:
+    radial-gradient(ellipse 1200px 700px at 70% 0%, rgba(139, 125, 216, 0.06), transparent 60%),
+    radial-gradient(ellipse 900px 600px at 10% 100%, rgba(184, 174, 219, 0.04), transparent 70%);
+  pointer-events: none;
+}
+
+.atmosphere::before {
+  content: ''; position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(245, 241, 234, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(245, 241, 234, 0.04) 1px, transparent 1px);
+  background-size: 80px 80px;
+  opacity: 0.5;
+  mask-image: radial-gradient(ellipse 70% 60% at 50% 50%, black 20%, transparent 90%);
+}
+
+.card {
+  position: relative; z-index: 1;
+  width: 100%; max-width: 420px;
+  padding: 36px 36px 30px;
+  background: linear-gradient(180deg, rgba(15, 10, 13, 0.85), rgba(10, 6, 8, 0.92));
+  border: 1px solid rgba(245, 241, 234, 0.12);
+  border-radius: 14px;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(20px);
+}
+
+.brand {
+  display: flex; align-items: center; gap: 10px;
+  margin-bottom: 28px;
+}
+.brandMark {
+  width: 26px; height: 26px;
+  background: linear-gradient(135deg, #8b7dd8, #b8aedb);
+  border-radius: 50%;
+  position: relative;
+  box-shadow: 0 0 24px rgba(139, 125, 216, 0.4);
+}
+.brandMark::after {
+  content: ''; position: absolute; inset: 4px;
+  background: #050304;
+  border-radius: 50%;
+}
+.brandMarkInner {
+  position: absolute; inset: 8px;
+  background: #b8aedb;
+  border-radius: 50%;
+  box-shadow: 0 0 12px rgba(139, 125, 216, 0.4);
+  z-index: 1;
+}
+.brandText {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 17px;
+  letter-spacing: 0.02em;
+  color: #f5f1ea;
+}
+.brandSub {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 9px;
+  letter-spacing: 0.18em;
+  color: rgba(245, 241, 234, 0.55);
+  text-transform: uppercase;
+  margin-top: 1px;
+}
+
+.title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 28px;
+  font-weight: 500;
+  letter-spacing: -0.005em;
+  line-height: 1.05;
+  margin-bottom: 10px;
+  color: #f5f1ea;
+}
+.title em {
+  font-style: italic;
+  color: #b8aedb;
+}
+
+.subtitle {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 14px;
+  line-height: 1.5;
+  color: rgba(245, 241, 234, 0.65);
+  margin-bottom: 28px;
+}
+
+.field { margin-bottom: 8px; }
+
+.label {
+  display: block;
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 9px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(245, 241, 234, 0.55);
+  margin-bottom: 8px;
+}
+
+.input {
+  width: 100%;
+  padding: 12px 14px;
+  background: rgba(245, 241, 234, 0.04);
+  border: 1px solid rgba(245, 241, 234, 0.12);
+  border-radius: 8px;
+  color: #f5f1ea;
+  font-family: 'DM Sans', -apple-system, sans-serif;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.2s, background 0.2s;
+}
+.input:focus {
+  border-color: rgba(139, 125, 216, 0.5);
+  background: rgba(245, 241, 234, 0.06);
+}
+.input:disabled { opacity: 0.5; cursor: not-allowed; }
+
+.errorSlot {
+  min-height: 22px;
+  margin-top: 8px;
+  margin-bottom: 12px;
+}
+.error {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 11px;
+  color: #d8a0a0;
+  letter-spacing: 0.04em;
+}
+
+.button {
+  width: 100%;
+  padding: 12px 18px;
+  background: linear-gradient(180deg, rgba(139, 125, 216, 0.2), rgba(139, 125, 216, 0.1));
+  border: 1px solid rgba(139, 125, 216, 0.45);
+  border-radius: 8px;
+  color: #f5f1ea;
+  font-family: 'DM Sans', -apple-system, sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.button:hover:not(:disabled) {
+  background: linear-gradient(180deg, rgba(139, 125, 216, 0.28), rgba(139, 125, 216, 0.14));
+  border-color: rgba(139, 125, 216, 0.7);
+}
+.button:disabled { opacity: 0.5; cursor: not-allowed; }
+
+.footer {
+  margin-top: 24px;
+  padding-top: 18px;
+  border-top: 1px solid rgba(245, 241, 234, 0.08);
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(245, 241, 234, 0.5);
+  text-align: center;
+}
+.footer a {
+  color: #b8aedb;
+  text-decoration: none;
+}
+.footer a:hover { color: #f5f1ea; }
