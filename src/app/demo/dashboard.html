@@ -1,0 +1,2027 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Candidate Sourcing Engine — Rosebud Solutions</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=DM+Sans:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --rb-bg: #0a0608;
+    --rb-bg-deep: #050304;
+    --rb-bg-card: #0f0a0d;
+    --rb-bone: #f5f1ea;
+    --rb-bone-dim: rgba(245, 241, 234, 0.55);
+    --rb-bone-faint: rgba(245, 241, 234, 0.12);
+    --rb-bone-whisper: rgba(245, 241, 234, 0.04);
+    --rb-purple: #b8aedb;
+    --rb-purple-core: #8b7dd8;
+    --rb-purple-glow: rgba(139, 125, 216, 0.4);
+    --rb-success: #a8c69f;
+    --rb-warn: #d8b87a;
+    --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html, body {
+    background: var(--rb-bg-deep);
+    color: var(--rb-bone);
+    font-family: 'DM Sans', -apple-system, sans-serif;
+    font-size: 14px;
+    line-height: 1.5;
+    margin: 0;
+    /* allow scroll in narrow previews; full screen still looks right */
+    overflow-x: auto;
+    overflow-y: auto;
+  }
+
+  /* ── Atmosphere layer ─────────────────────────────── */
+  .atmosphere {
+    position: fixed; inset: 0; z-index: 0;
+    background:
+      radial-gradient(ellipse 1200px 700px at 70% 0%, rgba(139, 125, 216, 0.06), transparent 60%),
+      radial-gradient(ellipse 900px 600px at 10% 100%, rgba(184, 174, 219, 0.04), transparent 70%),
+      var(--rb-bg-deep);
+    pointer-events: none;
+  }
+
+  .atmosphere::before {
+    content: ''; position: absolute; inset: 0;
+    background-image:
+      linear-gradient(var(--rb-bone-whisper) 1px, transparent 1px),
+      linear-gradient(90deg, var(--rb-bone-whisper) 1px, transparent 1px);
+    background-size: 80px 80px;
+    opacity: 0.5;
+    mask-image: radial-gradient(ellipse 70% 60% at 50% 50%, black 20%, transparent 90%);
+  }
+
+  .app {
+    position: relative; z-index: 1;
+    display: grid;
+    grid-template-rows: auto auto 1fr;
+    width: 1320px;       /* fixed design width */
+    min-height: 820px;   /* fixed minimum so canvas always has room */
+    margin: 0 auto;      /* centred when iframe is wider */
+  }
+
+  /* ── Top bar ──────────────────────────────────────── */
+  .topbar {
+    display: grid;
+    grid-template-columns: 260px 1fr 260px;
+    align-items: center;
+    padding: 14px 28px;
+    border-bottom: 1px solid var(--rb-bone-faint);
+    backdrop-filter: blur(12px);
+    background: rgba(10, 6, 8, 0.7);
+  }
+
+  .brand {
+    display: flex; align-items: center; gap: 10px;
+  }
+  .brand-mark {
+    width: 26px; height: 26px;
+    background: linear-gradient(135deg, var(--rb-purple-core), var(--rb-purple));
+    border-radius: 50%;
+    position: relative;
+    box-shadow: 0 0 24px var(--rb-purple-glow);
+  }
+  .brand-mark::after {
+    content: ''; position: absolute;
+    inset: 4px; background: var(--rb-bg-deep);
+    border-radius: 50%;
+  }
+  .brand-mark::before {
+    content: ''; position: absolute;
+    inset: 8px; background: var(--rb-purple);
+    border-radius: 50%;
+    box-shadow: 0 0 12px var(--rb-purple-glow);
+  }
+  .brand-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 17px; letter-spacing: 0.02em;
+    color: var(--rb-bone);
+  }
+  .brand-sub {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px; letter-spacing: 0.18em;
+    color: var(--rb-bone-dim);
+    text-transform: uppercase;
+    margin-top: 1px;
+  }
+
+  /* ── Center: client identity (the demo magic) ─── */
+  .client-identity {
+    display: flex; align-items: center; justify-content: center;
+    gap: 16px;
+    padding: 6px 22px;
+    border: 1px solid var(--rb-bone-faint);
+    border-radius: 100px;
+    background: linear-gradient(180deg, rgba(245,241,234,0.03), rgba(245,241,234,0.01));
+    transition: border-color 0.4s var(--ease-out);
+    max-width: 640px;
+    margin: 0 auto;
+  }
+  .client-identity:hover { border-color: rgba(184, 174, 219, 0.3); }
+
+  .live-pulse {
+    display: flex; align-items: center; gap: 6px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px; letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--rb-success);
+  }
+  .live-dot {
+    width: 6px; height: 6px;
+    background: var(--rb-success);
+    border-radius: 50%;
+    box-shadow: 0 0 0 0 var(--rb-success);
+    animation: live-pulse 2s ease-out infinite;
+  }
+  @keyframes live-pulse {
+    0% { box-shadow: 0 0 0 0 rgba(168, 198, 159, 0.6); }
+    70% { box-shadow: 0 0 0 8px rgba(168, 198, 159, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(168, 198, 159, 0); }
+  }
+
+  .client-divider {
+    width: 1px; height: 18px;
+    background: var(--rb-bone-faint);
+  }
+
+  .client-logo {
+    width: 28px; height: 28px;
+    border-radius: 6px;
+    background: var(--rb-bone-whisper);
+    border: 1px dashed var(--rb-bone-faint);
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer;
+    overflow: hidden;
+    flex-shrink: 0;
+    transition: all 0.3s var(--ease-out);
+    position: relative;
+  }
+  .client-logo:hover {
+    border-color: var(--rb-purple-core);
+    border-style: solid;
+  }
+  .client-logo svg {
+    width: 14px; height: 14px;
+    color: var(--rb-bone-dim);
+  }
+  .client-logo img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+  }
+  .client-logo input { display: none; }
+
+  .client-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    font-weight: 500;
+    letter-spacing: 0.005em;
+    color: var(--rb-bone);
+    outline: none;
+    cursor: text;
+    min-width: 100px;
+    padding: 2px 4px;
+    border-radius: 4px;
+    transition: background 0.3s var(--ease-out);
+    white-space: nowrap;
+  }
+  .client-name:hover { background: var(--rb-bone-whisper); }
+  .client-name:focus {
+    background: var(--rb-bone-whisper);
+    box-shadow: inset 0 -1px 0 var(--rb-purple-core);
+  }
+  .client-name:empty::before {
+    content: 'Client name';
+    color: var(--rb-bone-dim);
+    font-style: italic;
+  }
+
+  .topbar-meta {
+    display: flex; align-items: center; justify-content: flex-end; gap: 18px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--rb-bone-dim);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  .topbar-meta .stat-pair {
+    display: flex; flex-direction: column; align-items: flex-end;
+    line-height: 1.2;
+  }
+  .topbar-meta .stat-num {
+    font-size: 13px; color: var(--rb-bone);
+    letter-spacing: 0.02em;
+  }
+  .view-toggle {
+    display: flex; border: 1px solid var(--rb-bone-faint);
+    border-radius: 4px; overflow: hidden;
+  }
+  .view-toggle button {
+    background: transparent; border: none;
+    color: var(--rb-bone-dim);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px; letter-spacing: 0.16em;
+    padding: 5px 9px; cursor: pointer;
+    text-transform: uppercase;
+    transition: all 0.2s;
+  }
+  .view-toggle button.active {
+    background: var(--rb-bone-faint);
+    color: var(--rb-bone);
+  }
+
+  /* ── Sub bar (hero stats) ─────────────────────── */
+  .subbar {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: end;
+    gap: 40px;
+    padding: 22px 28px 18px;
+    border-bottom: 1px solid var(--rb-bone-faint);
+  }
+  .hero-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 28px;
+    font-weight: 400;
+    letter-spacing: -0.005em;
+    color: var(--rb-bone);
+    line-height: 1;
+  }
+  .hero-title em {
+    font-style: italic;
+    color: var(--rb-purple);
+  }
+  .hero-meta {
+    display: flex; gap: 32px;
+  }
+  .outcome-anchor {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-top: 10px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10.5px;
+    letter-spacing: 0.16em;
+    color: var(--rb-bone);
+    text-transform: uppercase;
+  }
+  .outcome-anchor .sep {
+    width: 3px;
+    height: 3px;
+    border-radius: 50%;
+    background: var(--rb-purple);
+    opacity: 0.85;
+    flex-shrink: 0;
+  }
+  .outcome-anchor .editable {
+    outline: none;
+    cursor: text;
+    padding: 2px 6px;
+    margin: -2px -6px;
+    border-radius: 3px;
+    white-space: nowrap;
+    transition: background 0.25s var(--ease-out), box-shadow 0.25s var(--ease-out);
+  }
+  .outcome-anchor .editable:hover {
+    background: var(--rb-bone-whisper);
+  }
+  .outcome-anchor .editable:focus {
+    background: var(--rb-bone-whisper);
+    box-shadow: inset 0 -1px 0 var(--rb-purple-core);
+  }
+  .outcome-anchor .editable:empty::before {
+    content: attr(data-placeholder);
+    color: var(--rb-bone-dim);
+    font-style: italic;
+    text-transform: none;
+    letter-spacing: 0.04em;
+  }
+  .hero-stat {
+    display: flex; flex-direction: column; gap: 2px;
+  }
+  .hero-stat-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px; letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--rb-bone-dim);
+  }
+  .hero-stat-value {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px; line-height: 1;
+    color: var(--rb-bone);
+  }
+  .hero-stat-value .unit {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11px; color: var(--rb-bone-dim);
+    margin-left: 4px; letter-spacing: 0.04em;
+  }
+  .hero-tagline {
+    grid-column: 3;
+    text-align: right;
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 13px;
+    color: var(--rb-bone-dim);
+    max-width: 240px;
+    margin-left: auto;
+    line-height: 1.4;
+  }
+
+  /* ── Main 2-col layout ──────────────────────── */
+  .main {
+    display: grid;
+    grid-template-columns: 260px 1fr;
+    overflow: hidden;
+  }
+
+  /* Sidebar */
+  .sidebar {
+    border-right: 1px solid var(--rb-bone-faint);
+    padding: 22px 18px;
+    overflow-y: auto;
+    display: flex; flex-direction: column; gap: 22px;
+  }
+  .panel-title {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px; letter-spacing: 0.22em;
+    color: var(--rb-bone-dim);
+    text-transform: uppercase;
+    margin-bottom: 10px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .panel-title .count {
+    color: var(--rb-purple);
+    font-size: 9px;
+  }
+
+  .quick-actions { display: flex; flex-direction: column; gap: 6px; }
+  .qa-btn {
+    display: flex; align-items: center; gap: 10px;
+    padding: 10px 12px;
+    background: var(--rb-bone-whisper);
+    border: 1px solid var(--rb-bone-faint);
+    border-radius: 6px;
+    color: var(--rb-bone);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12px;
+    cursor: pointer;
+    transition: all 0.2s var(--ease-out);
+    text-align: left;
+  }
+  .qa-btn:hover {
+    background: rgba(184, 174, 219, 0.06);
+    border-color: rgba(184, 174, 219, 0.25);
+  }
+  .qa-btn.primary {
+    background: linear-gradient(180deg, rgba(139, 125, 216, 0.12), rgba(139, 125, 216, 0.04));
+    border-color: rgba(139, 125, 216, 0.35);
+    color: var(--rb-purple);
+  }
+  .qa-icon {
+    width: 14px; height: 14px;
+    color: var(--rb-bone-dim);
+  }
+  .qa-btn.primary .qa-icon { color: var(--rb-purple); }
+
+  .notif-empty {
+    text-align: center;
+    padding: 18px 12px;
+    color: var(--rb-bone-dim);
+    font-size: 11px;
+    font-style: italic;
+    font-family: 'Cormorant Garamond', serif;
+  }
+  .notif-empty .check {
+    width: 28px; height: 28px;
+    margin: 0 auto 8px;
+    border-radius: 50%;
+    background: rgba(168, 198, 159, 0.08);
+    display: flex; align-items: center; justify-content: center;
+    color: var(--rb-success);
+  }
+
+  .roster { display: flex; flex-direction: column; }
+  .roster-item {
+    display: flex; align-items: center; gap: 10px;
+    padding: 8px 6px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.2s;
+    font-size: 12px;
+  }
+  .roster-item:hover { background: var(--rb-bone-whisper); }
+  .roster-item.active {
+    background: rgba(139, 125, 216, 0.08);
+    color: var(--rb-purple);
+  }
+  .roster-item .role-name { font-family: 'JetBrains Mono', monospace; font-size: 11px; }
+  .roster-item .role-name.lead { color: var(--rb-warn); }
+  .roster-status {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--rb-success);
+    box-shadow: 0 0 6px rgba(168, 198, 159, 0.6);
+    flex-shrink: 0;
+  }
+
+  /* ── Canvas ─────────────────────────────── */
+  .canvas-wrap {
+    position: relative;
+    overflow: hidden;
+    display: flex; flex-direction: column;
+    min-height: 580px;
+  }
+  .canvas {
+    flex: 1; position: relative;
+    overflow: hidden;
+    min-height: 470px;
+  }
+
+  .canvas-corner {
+    position: absolute;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    color: var(--rb-bone-dim);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    z-index: 5;
+  }
+  .canvas-corner.tl { top: 16px; left: 18px; }
+  .canvas-corner.tr { top: 16px; right: 18px; }
+  .canvas-corner.bl { bottom: 16px; left: 18px; }
+  .canvas-corner.br { bottom: 16px; right: 18px; display: flex; align-items: center; gap: 8px; }
+  .canvas-corner .arrow { color: var(--rb-bone-faint); }
+
+  .network-svg {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .agent-layer {
+    position: absolute; inset: 0;
+    z-index: 2;
+  }
+
+  .agent {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    display: flex; flex-direction: column; align-items: center; gap: 6px;
+    cursor: pointer;
+    transition: transform 0.4s var(--ease-out);
+    z-index: 3;
+  }
+  .agent:hover { transform: translate(-50%, -50%) scale(1.04); z-index: 6; }
+
+  .agent-node {
+    width: 76px; height: 76px;
+    border-radius: 50%;
+    background: linear-gradient(180deg, rgba(245,241,234,0.04), rgba(245,241,234,0.01));
+    border: 1px solid var(--rb-bone-faint);
+    display: flex; align-items: center; justify-content: center;
+    position: relative;
+    transition: all 0.4s var(--ease-out);
+  }
+
+  .agent-node::before {
+    content: '';
+    position: absolute; inset: -6px;
+    border-radius: 50%;
+    border: 1px solid transparent;
+    transition: border-color 0.4s var(--ease-out);
+  }
+
+  .agent:hover .agent-node {
+    border-color: var(--rb-purple);
+    background: linear-gradient(180deg, rgba(184,174,219,0.1), rgba(139,125,216,0.04));
+  }
+  .agent:hover .agent-node::before { border-color: rgba(184, 174, 219, 0.2); }
+
+  .agent.selected .agent-node {
+    border-color: var(--rb-purple-core);
+    background: linear-gradient(180deg, rgba(139,125,216,0.18), rgba(139,125,216,0.06));
+    box-shadow: 0 0 32px rgba(139, 125, 216, 0.25);
+  }
+  .agent.selected .agent-node::before { border-color: var(--rb-purple-core); }
+
+  .agent-glyph {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    color: var(--rb-bone);
+    text-transform: uppercase;
+  }
+  .agent-status-ring {
+    position: absolute;
+    width: 8px; height: 8px;
+    background: var(--rb-success);
+    border-radius: 50%;
+    bottom: 6px; right: 10px;
+    box-shadow: 0 0 8px rgba(168, 198, 159, 0.7);
+    animation: live-pulse 2.4s ease-out infinite;
+  }
+  .agent-label {
+    text-align: center;
+    line-height: 1.2;
+  }
+  .agent-name {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.04em;
+    color: var(--rb-bone);
+    margin-bottom: 2px;
+  }
+  .agent-role {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 9px;
+    color: var(--rb-bone-dim);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+  }
+
+  /* Lead — the centerpiece */
+  .agent.lead .agent-node {
+    width: 96px; height: 96px;
+    background: radial-gradient(circle at 50% 30%, rgba(216, 184, 122, 0.25), rgba(216, 184, 122, 0.05) 70%);
+    border-color: rgba(216, 184, 122, 0.5);
+    box-shadow:
+      0 0 0 1px rgba(216, 184, 122, 0.2),
+      0 0 50px rgba(216, 184, 122, 0.18),
+      inset 0 0 30px rgba(216, 184, 122, 0.08);
+    overflow: hidden;
+  }
+  .agent.lead .agent-glyph {
+    color: var(--rb-warn);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 24px;
+    font-style: italic;
+    letter-spacing: -0.01em;
+  }
+  .agent.lead .agent-name { color: var(--rb-warn); }
+  .lead-logo {
+    width: 64px; height: 64px;
+    object-fit: contain;
+    object-position: center;
+    border-radius: 50%;
+    background: rgba(245, 241, 234, 0.9);
+    padding: 6px;
+  }
+
+  /* Activity feed under canvas */
+  .activity {
+    border-top: 1px solid var(--rb-bone-faint);
+    padding: 14px 28px;
+    height: 110px;
+    overflow: hidden;
+    position: relative;
+  }
+  .activity-title {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px; letter-spacing: 0.2em;
+    color: var(--rb-bone-dim);
+    text-transform: uppercase;
+    margin-bottom: 8px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .activity-feed {
+    display: flex; flex-direction: column; gap: 4px;
+    font-size: 11px;
+  }
+  .activity-row {
+    display: grid;
+    grid-template-columns: 80px 110px 1fr auto;
+    align-items: center;
+    gap: 12px;
+    padding: 4px 0;
+    border-bottom: 1px solid var(--rb-bone-whisper);
+    animation: row-in 0.6s var(--ease-out);
+  }
+  @keyframes row-in {
+    from { opacity: 0; transform: translateX(-8px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+  .activity-time {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--rb-bone-dim);
+  }
+  .activity-agent {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--rb-purple);
+  }
+  .activity-msg { color: var(--rb-bone); }
+  .activity-meta { color: var(--rb-bone-dim); font-size: 10px; }
+
+  /* ── Right detail panel ─────────────────────────── */
+  .detail {
+    border-left: 1px solid var(--rb-bone-faint);
+    padding: 22px 22px;
+    overflow-y: auto;
+    display: flex; flex-direction: column; gap: 18px;
+  }
+
+  .detail-head {
+    display: flex; align-items: flex-start; justify-content: space-between;
+    gap: 12px;
+  }
+  .detail-id {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    color: var(--rb-bone-dim);
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  .detail-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 26px;
+    font-weight: 500;
+    letter-spacing: -0.005em;
+    line-height: 1.05;
+    color: var(--rb-bone);
+  }
+  .detail-name em { font-style: italic; color: var(--rb-purple); }
+  .detail-status {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 3px 8px;
+    background: rgba(168, 198, 159, 0.1);
+    border: 1px solid rgba(168, 198, 159, 0.25);
+    border-radius: 100px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    color: var(--rb-success);
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    flex-shrink: 0;
+    margin-top: 4px;
+  }
+  .detail-status .dot {
+    width: 5px; height: 5px;
+    border-radius: 50%;
+    background: var(--rb-success);
+    box-shadow: 0 0 6px var(--rb-success);
+  }
+
+  .detail-section { display: flex; flex-direction: column; gap: 8px; }
+  .detail-section-title {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--rb-bone-dim);
+  }
+  .detail-blurb {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 14px;
+    line-height: 1.5;
+    color: var(--rb-bone);
+    font-style: italic;
+  }
+  .detail-list {
+    list-style: none;
+    display: flex; flex-direction: column; gap: 6px;
+  }
+  .detail-list li {
+    font-size: 12px;
+    color: var(--rb-bone);
+    padding-left: 14px;
+    position: relative;
+    line-height: 1.45;
+  }
+  .detail-list li::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 8px;
+    width: 6px; height: 1px;
+    background: var(--rb-purple);
+  }
+
+  .detail-metrics {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--rb-bone-faint);
+    border: 1px solid var(--rb-bone-faint);
+    border-radius: 6px;
+    overflow: hidden;
+  }
+  .metric-tile {
+    background: var(--rb-bg-card);
+    padding: 12px;
+    display: flex; flex-direction: column; gap: 2px;
+  }
+  .metric-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--rb-bone-dim);
+  }
+  .metric-value {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    color: var(--rb-bone);
+    line-height: 1;
+  }
+  .metric-value .unit {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11px;
+    color: var(--rb-bone-dim);
+    margin-left: 3px;
+  }
+  .metric-trend {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    color: var(--rb-success);
+    margin-top: 2px;
+  }
+
+  /* footer */
+  .footer-mark {
+    margin-top: auto;
+    padding-top: 16px;
+    border-top: 1px solid var(--rb-bone-faint);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--rb-bone-dim);
+    text-align: center;
+  }
+  .footer-mark em {
+    color: var(--rb-purple);
+    font-style: normal;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 11px;
+    letter-spacing: 0.05em;
+    text-transform: none;
+  }
+
+  /* ── Connection styles ───────────────────────────── */
+  .conn-line {
+    fill: none;
+    stroke: rgba(184, 174, 219, 0.18);
+    stroke-width: 1;
+    transition: opacity 0.35s var(--ease-out), stroke 0.35s var(--ease-out), stroke-width 0.35s var(--ease-out);
+  }
+  .conn-line.lead-link {
+    stroke: rgba(216, 184, 122, 0.18);
+    stroke-dasharray: 2 6;
+  }
+  .conn-flow {
+    fill: none;
+    stroke: var(--rb-purple);
+    stroke-width: 1.5;
+    stroke-linecap: round;
+    stroke-dasharray: 4 8;
+    animation: dash-flow 4s linear infinite;
+    opacity: 0.55;
+    transition: opacity 0.35s var(--ease-out), stroke 0.35s var(--ease-out), stroke-width 0.35s var(--ease-out);
+  }
+  @keyframes dash-flow {
+    from { stroke-dashoffset: 0; }
+    to { stroke-dashoffset: -240; }
+  }
+
+  /* When an agent is hovered, dim non-connected lines and emphasise connected ones */
+  .network-svg.has-focus .conn-line:not(.highlighted),
+  .network-svg.has-focus .conn-flow:not(.highlighted) {
+    opacity: 0.08;
+  }
+  .network-svg .conn-flow.highlighted {
+    opacity: 1;
+    stroke-width: 2;
+    stroke: var(--rb-purple);
+    filter: drop-shadow(0 0 6px rgba(139, 125, 216, 0.6));
+  }
+  .network-svg .conn-line.highlighted.lead-link {
+    opacity: 1;
+    stroke: rgba(216, 184, 122, 0.7);
+    stroke-width: 1.5;
+  }
+
+  /* ── Hover popover ──────────────────────────────── */
+  .agent-popover {
+    position: absolute;
+    width: 260px;
+    padding: 12px 14px 11px;
+    background: linear-gradient(180deg, rgba(15, 10, 13, 0.96), rgba(10, 6, 8, 0.97));
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(184, 174, 219, 0.22);
+    border-radius: 10px;
+    box-shadow:
+      0 18px 48px rgba(0, 0, 0, 0.6),
+      0 0 0 1px rgba(245, 241, 234, 0.02),
+      inset 0 1px 0 rgba(245, 241, 234, 0.05);
+    z-index: 50;
+    pointer-events: none;
+    opacity: 0;
+    transform: translateY(6px) scale(0.97);
+    transform-origin: center;
+    transition: opacity 0.22s var(--ease-out), transform 0.28s var(--ease-out);
+  }
+  .agent-popover.show {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  .popover-head {
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 10px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--rb-bone-faint);
+    margin-bottom: 8px;
+  }
+  .popover-id {
+    display: flex; align-items: center; gap: 7px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--rb-bone);
+    letter-spacing: 0.02em;
+  }
+  .popover-id .dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--rb-success);
+    box-shadow: 0 0 6px rgba(168, 198, 159, 0.7);
+  }
+  .popover-id.lead .dot { background: var(--rb-warn); box-shadow: 0 0 6px rgba(216, 184, 122, 0.7); }
+  .popover-id.lead { color: var(--rb-warn); }
+  .popover-status {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 8px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--rb-success);
+    padding: 2px 6px;
+    background: rgba(168, 198, 159, 0.08);
+    border: 1px solid rgba(168, 198, 159, 0.2);
+    border-radius: 100px;
+  }
+  .popover-blurb {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 12.5px;
+    line-height: 1.4;
+    color: var(--rb-bone);
+    margin-bottom: 9px;
+    /* clamp to 3 lines */
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .popover-caps {
+    list-style: none;
+    display: flex; flex-direction: column; gap: 3px;
+    margin-bottom: 9px;
+  }
+  .popover-caps li {
+    font-size: 10.5px;
+    color: var(--rb-bone);
+    padding-left: 11px;
+    position: relative;
+    line-height: 1.35;
+    /* clamp to 1 line each */
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .popover-caps li::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 6px;
+    width: 6px; height: 1px;
+    background: var(--rb-purple);
+  }
+  .popover-foot {
+    display: flex; align-items: center; justify-content: space-between;
+    padding-top: 7px;
+    border-top: 1px solid var(--rb-bone-faint);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 8.5px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--rb-bone-dim);
+  }
+  .popover-foot .cta {
+    color: var(--rb-purple);
+  }
+
+  /* Highlight the agent itself when hovered */
+  .agent.is-focus .agent-node {
+    border-color: var(--rb-purple);
+    background: linear-gradient(180deg, rgba(184,174,219,0.12), rgba(139,125,216,0.05));
+  }
+  .agent.is-focus .agent-node::before {
+    border-color: rgba(184, 174, 219, 0.3);
+  }
+  /* Light up the connected agents too */
+  .agent.is-connected .agent-node {
+    border-color: rgba(184, 174, 219, 0.45);
+  }
+  /* Dim non-connected agents */
+  .agent-layer.has-focus .agent:not(.is-focus):not(.is-connected) {
+    opacity: 0.45;
+  }
+  .agent { transition: opacity 0.3s var(--ease-out), transform 0.4s var(--ease-out); }
+
+  /* ── Lightbox (agent deep-dive on click) ───────── */
+  .lightbox {
+    position: fixed; inset: 0; z-index: 200;
+    display: flex; align-items: center; justify-content: center;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.3s var(--ease-out);
+    padding: 24px;
+  }
+  .lightbox.open {
+    opacity: 1;
+    pointer-events: auto;
+  }
+  .lightbox-backdrop {
+    position: absolute; inset: 0;
+    background: rgba(5, 3, 4, 0.78);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    cursor: pointer;
+  }
+  .lightbox-card {
+    position: relative;
+    width: 580px;
+    max-width: 100%;
+    max-height: 86vh;
+    overflow-y: auto;
+    background: linear-gradient(180deg, rgba(15, 10, 13, 0.98), rgba(10, 6, 8, 0.98));
+    border: 1px solid rgba(184, 174, 219, 0.25);
+    border-radius: 14px;
+    padding: 36px 40px 32px;
+    box-shadow:
+      0 30px 80px rgba(0, 0, 0, 0.7),
+      0 0 0 1px rgba(245, 241, 234, 0.03),
+      inset 0 1px 0 rgba(245, 241, 234, 0.05);
+    transform: scale(0.96) translateY(8px);
+    transition: transform 0.35s var(--ease-out);
+  }
+  .lightbox.open .lightbox-card {
+    transform: scale(1) translateY(0);
+  }
+  .lightbox-close {
+    position: absolute;
+    top: 18px; right: 18px;
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    background: var(--rb-bone-whisper);
+    border: 1px solid var(--rb-bone-faint);
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer;
+    color: var(--rb-bone-dim);
+    transition: all 0.2s var(--ease-out);
+    z-index: 2;
+  }
+  .lightbox-close:hover {
+    color: var(--rb-bone);
+    background: rgba(184, 174, 219, 0.1);
+    border-color: rgba(184, 174, 219, 0.3);
+  }
+  .lb-head {
+    display: flex; align-items: flex-start; justify-content: space-between;
+    gap: 16px;
+    padding-bottom: 18px;
+    border-bottom: 1px solid var(--rb-bone-faint);
+    margin-bottom: 22px;
+  }
+  .lb-id {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px; letter-spacing: 0.22em;
+    color: var(--rb-bone-dim);
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .lb-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 36px;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    line-height: 1;
+    color: var(--rb-bone);
+  }
+  .lb-name em { font-style: italic; color: var(--rb-purple); }
+  .lb-status {
+    display: inline-flex; align-items: center; gap: 7px;
+    padding: 5px 11px;
+    background: rgba(168, 198, 159, 0.1);
+    border: 1px solid rgba(168, 198, 159, 0.25);
+    border-radius: 100px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    color: var(--rb-success);
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    flex-shrink: 0;
+    margin-top: 28px;
+  }
+  .lb-status .dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--rb-success);
+    box-shadow: 0 0 6px var(--rb-success);
+  }
+  .lb-section { margin-bottom: 22px; }
+  .lb-section:last-child { margin-bottom: 0; }
+  .lb-section-title {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--rb-bone-dim);
+    margin-bottom: 10px;
+  }
+  .lb-blurb {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 17px;
+    line-height: 1.5;
+    color: var(--rb-bone);
+    font-style: italic;
+  }
+  .lb-list {
+    list-style: none;
+    display: flex; flex-direction: column; gap: 8px;
+  }
+  .lb-list li {
+    font-size: 13px;
+    color: var(--rb-bone);
+    padding-left: 16px;
+    position: relative;
+    line-height: 1.5;
+  }
+  .lb-list li::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 9px;
+    width: 8px; height: 1px;
+    background: var(--rb-purple);
+  }
+  .lb-metrics {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--rb-bone-faint);
+    border: 1px solid var(--rb-bone-faint);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  .lb-metric {
+    background: var(--rb-bg-card);
+    padding: 14px 16px;
+    display: flex; flex-direction: column; gap: 4px;
+  }
+  .lb-metric-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--rb-bone-dim);
+  }
+  .lb-metric-value {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 26px;
+    color: var(--rb-bone);
+    line-height: 1;
+  }
+  .lb-metric-value .unit {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12px;
+    color: var(--rb-bone-dim);
+    margin-left: 4px;
+  }
+
+  /* ── Scrollbar ────────────────────────────── */
+  ::-webkit-scrollbar { width: 6px; height: 6px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: var(--rb-bone-faint); border-radius: 100px; }
+  ::-webkit-scrollbar-thumb:hover { background: var(--rb-bone-dim); }
+
+  /* small entry animation on agents */
+  @keyframes agent-in {
+    from { opacity: 0; transform: translate(-50%, -50%) scale(0.85); }
+    to { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+  }
+  .agent { animation: agent-in 0.7s var(--ease-out) backwards; }
+</style>
+</head>
+<body>
+<div class="atmosphere"></div>
+
+<div class="app">
+
+  <!-- ─── Top bar ─── -->
+  <header class="topbar">
+    <div class="brand">
+      <div class="brand-mark"></div>
+      <div>
+        <div class="brand-text">Rosebud Solutions</div>
+        <div class="brand-sub">Operating Infrastructure</div>
+      </div>
+    </div>
+
+    <div class="client-identity" title="Click to edit company name and logo for this demo">
+      <div class="live-pulse">
+        <span class="live-dot"></span>
+        <span>Live</span>
+      </div>
+      <div class="client-divider"></div>
+      <label class="client-logo" id="logoBtn" title="Upload client logo">
+        <input type="file" id="logoInput" accept="image/*" />
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" id="logoPlaceholder">
+          <path d="M12 5v14M5 12h14" stroke-linecap="round" />
+        </svg>
+      </label>
+      <span class="client-name" id="clientName" contenteditable="true" spellcheck="false">Acme Talent Partners</span>
+    </div>
+
+    <div class="topbar-meta">
+      <div class="stat-pair">
+        <span class="stat-num" id="utilNum">87<span style="font-size:10px;color:var(--rb-bone-dim);">%</span></span>
+        <span>Utilisation</span>
+      </div>
+      <div class="view-toggle">
+        <button class="active">Daily</button>
+        <button>Weekly</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ─── Sub bar ─── -->
+  <section class="subbar">
+    <div>
+      <div class="hero-title">Candidate <em>Sourcing</em> Engine</div>
+      <div class="outcome-anchor">
+        <span class="editable" contenteditable="true" data-key="rb_demo_outcome_1" spellcheck="false">5-week deployment</span>
+        <span class="sep"></span>
+        <span class="editable" contenteditable="true" data-key="rb_demo_outcome_2" spellcheck="false">Cost of one hire</span>
+        <span class="sep"></span>
+        <span class="editable" contenteditable="true" data-key="rb_demo_outcome_3" spellcheck="false">You own it</span>
+      </div>
+    </div>
+
+    <div class="hero-meta">
+      <div class="hero-stat">
+        <span class="hero-stat-label">Agents</span>
+        <span class="hero-stat-value">7<span class="unit">live</span></span>
+      </div>
+      <div class="hero-stat">
+        <span class="hero-stat-label">Tasks today</span>
+        <span class="hero-stat-value" id="tasksNum">142</span>
+      </div>
+      <div class="hero-stat">
+        <span class="hero-stat-label">Throughput</span>
+        <span class="hero-stat-value" id="thruNum">38<span class="unit">/hr</span></span>
+      </div>
+      <div class="hero-stat">
+        <span class="hero-stat-label">Uptime</span>
+        <span class="hero-stat-value">99.8<span class="unit">%</span></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── Main grid ─── -->
+  <div class="main">
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div>
+        <div class="panel-title">Quick actions</div>
+        <div class="quick-actions">
+          <button class="qa-btn primary">
+            <svg class="qa-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M12 5v14M5 12h14" stroke-linecap="round"/>
+            </svg>
+            New brief
+          </button>
+          <button class="qa-btn">
+            <svg class="qa-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <rect x="6" y="5" width="3" height="14" rx="1"/>
+              <rect x="15" y="5" width="3" height="14" rx="1"/>
+            </svg>
+            Pause operations
+          </button>
+          <button class="qa-btn">
+            <svg class="qa-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <circle cx="12" cy="12" r="3"/>
+              <path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.93 4.93l2.12 2.12M16.95 16.95l2.12 2.12M4.93 19.07l2.12-2.12M16.95 7.05l2.12-2.12"/>
+            </svg>
+            Configure ICP
+          </button>
+        </div>
+      </div>
+
+      <div>
+        <div class="panel-title">Notifications <span class="count">0</span></div>
+        <div class="notif-empty">
+          <div class="check">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          No pending approvals
+        </div>
+      </div>
+
+      <div>
+        <div class="panel-title">Roster <span class="count">8</span></div>
+        <div class="roster" id="roster">
+          <!-- populated by JS -->
+        </div>
+      </div>
+    </aside>
+
+    <!-- Canvas -->
+    <main class="canvas-wrap">
+      <div class="canvas" id="canvas">
+        <div class="canvas-corner tl">SHARED SCREENING LAYER</div>
+        <div class="canvas-corner tr">CRM AUTO-POPULATION</div>
+        <div class="canvas-corner bl">PIPELINE WARM</div>
+        <div class="canvas-corner br">
+          <span>FLOW</span>
+          <span class="arrow">→</span>
+          <span style="color:var(--rb-purple)">LIVE</span>
+        </div>
+
+        <svg class="network-svg" id="networkSvg" preserveAspectRatio="none"></svg>
+        <div class="agent-layer" id="agentLayer"></div>
+        <div class="agent-popover" id="agentPopover" role="tooltip" aria-hidden="true"></div>
+      </div>
+
+      <div class="activity">
+        <div class="activity-title">
+          <span>Live activity</span>
+          <span class="live-dot"></span>
+        </div>
+        <div class="activity-feed" id="activityFeed"></div>
+      </div>
+    </main>
+
+  </div>
+</div>
+
+<!-- Lightbox: full agent deep-dive on click -->
+<div class="lightbox" id="lightbox" aria-hidden="true">
+  <div class="lightbox-backdrop" id="lightboxBackdrop"></div>
+  <div class="lightbox-card" id="lightboxCard" role="dialog" aria-modal="true">
+    <button class="lightbox-close" id="lightboxClose" aria-label="Close">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+        <path d="M6 6l12 12M18 6L6 18" />
+      </svg>
+    </button>
+    <div id="lightboxContent"></div>
+  </div>
+</div>
+
+<script>
+/* ───────────────────────── Data ───────────────────────── */
+const AGENTS = [
+  {
+    id: 'lead',
+    glyph: '♛',
+    name: 'lead',
+    role: 'Operations Lead',
+    blurb: 'You are the orchestrator. The seven agents below run autonomously, but the lead holds the override at every step. Priorities flow from here. Reports flow back here.',
+    section: 'You',
+    capabilities: [
+      'Sets ICP and brief priority for each role type',
+      'Receives escalations from every agent',
+      'Holds the override on screening, outreach, and pipeline',
+      'Reviews weekly metrics from all 7 agents'
+    ],
+    metrics: [
+      { label: 'Briefs open', value: '4', unit: '' },
+      { label: 'Escalations', value: '0', unit: '' },
+      { label: 'Reports due', value: '2', unit: '' },
+      { label: 'Override rate', value: '3', unit: '%' }
+    ],
+    accent: 'lead',
+    pos: { x: 50, y: 50 }
+  },
+  {
+    id: 'inbound',
+    glyph: 'IN',
+    name: 'inbound-agent',
+    role: 'Inbound capture',
+    blurb: 'Captures every applicant from live job postings the moment they apply. Zero leakage. Every applicant flows into the shared screening layer.',
+    section: 'Intake stream',
+    capabilities: [
+      'Receives and validates inbound applicant data',
+      'Normalises and formats profiles for screening',
+      'Heartbeat monitoring on every job posting channel',
+      'Flags any flow issues to the lead immediately'
+    ],
+    metrics: [
+      { label: 'Applicants today', value: '38', unit: '' },
+      { label: 'Channels live', value: '6', unit: '' },
+      { label: 'Drop rate', value: '0', unit: '%' },
+      { label: 'Avg latency', value: '4', unit: 's' }
+    ],
+    pos: { x: 25, y: 22 }
+  },
+  {
+    id: 'outbound',
+    glyph: 'OUT',
+    name: 'outbound-agent',
+    role: 'Outbound sourcing',
+    blurb: 'Runs targeted outbound search across LinkedIn, sector networks, and industry boards. Filtered against the ICP for each role type.',
+    section: 'Intake stream',
+    capabilities: [
+      'Executes outbound search filtered by ICP',
+      'Refines query templates against result quality',
+      'Surfaces strong candidates outside current briefs to the pipeline agent',
+      'Reports search effectiveness weekly'
+    ],
+    metrics: [
+      { label: 'Sourced today', value: '64', unit: '' },
+      { label: 'Match rate', value: '41', unit: '%' },
+      { label: 'Channels', value: '3', unit: '' },
+      { label: 'Avg fit score', value: '7.2', unit: '/10' }
+    ],
+    pos: { x: 75, y: 22 }
+  },
+  {
+    id: 'screen',
+    glyph: 'SCR',
+    name: 'screen-agent',
+    role: 'AI CV screening',
+    blurb: 'The gatekeeper. Reads every profile against your criteria and returns Pass, Fail, or Needs Review. Only Pass goes to the team. Rejects stay hidden unless you override.',
+    section: 'Screening layer',
+    capabilities: [
+      'Evaluates every candidate against ICP, skills, trajectory, fit',
+      'Returns verdict with reason attached',
+      'Produces a clean shortlist — team sees only Pass',
+      'Flags borderline cases as Needs Review for human judgement'
+    ],
+    metrics: [
+      { label: 'Screened today', value: '102', unit: '' },
+      { label: 'Pass rate', value: '23', unit: '%' },
+      { label: 'Needs review', value: '8', unit: '' },
+      { label: 'Avg time', value: '2.1', unit: 's' }
+    ],
+    pos: { x: 88, y: 50 }
+  },
+  {
+    id: 'outreach',
+    glyph: 'OR',
+    name: 'outreach-agent',
+    role: 'Outreach sequences',
+    blurb: 'Crafts and sends personalised outreach in your firm\'s voice. Multi-touch follow-up runs on schedule, not on memory. Cold candidates hand off to the pipeline agent.',
+    section: 'Engagement',
+    capabilities: [
+      'Personalises every message to candidate-specific background',
+      'Auto-sends initial outreach and follow-up cadence',
+      'Tracks reply rate, response time, conversation status',
+      'Hands cold candidates to pipeline-agent for warm hold'
+    ],
+    metrics: [
+      { label: 'Sent today', value: '47', unit: '' },
+      { label: 'Reply rate', value: '32', unit: '%' },
+      { label: 'In sequence', value: '184', unit: '' },
+      { label: 'Avg response', value: '14', unit: 'h' }
+    ],
+    pos: { x: 73, y: 78 }
+  },
+  {
+    id: 'crm',
+    glyph: 'CRM',
+    name: 'crm-agent',
+    role: 'CRM auto-population',
+    blurb: 'Every interaction written to the CRM in real time. No duplicate entry. No manual logging. Pipeline status visible to anyone on the team who needs it.',
+    section: 'System of record',
+    capabilities: [
+      'Receives interaction events from every agent',
+      'Writes to CRM in real time, deduped by candidate ID',
+      'Maintains referential integrity across records',
+      'Flags orphaned records and data gaps'
+    ],
+    metrics: [
+      { label: 'Records today', value: '286', unit: '' },
+      { label: 'Duplicates', value: '0', unit: '' },
+      { label: 'Stale flags', value: '3', unit: '' },
+      { label: 'Completeness', value: '99', unit: '%' }
+    ],
+    pos: { x: 27, y: 78 }
+  },
+  {
+    id: 'pipeline',
+    glyph: 'PL',
+    name: 'pipeline-agent',
+    role: 'Warm pipeline',
+    blurb: 'Keeps strong past candidates in active rotation. Re-engages on schedule when the next matching brief lands. Behaviour-triggered follow-up for no-shows and dormant candidates.',
+    section: 'Engagement',
+    capabilities: [
+      'Tracks warm candidate status and scores against new briefs',
+      'Triggers re-engagement when matching briefs arrive',
+      'Recovery sequences for interview no-shows',
+      'Flags stalled briefs to the lead with alternatives'
+    ],
+    metrics: [
+      { label: 'Warm pool', value: '247', unit: '' },
+      { label: 'Re-engaged', value: '12', unit: 'wk' },
+      { label: 'Brief fill rate', value: '68', unit: '%' },
+      { label: 'Avg dwell', value: '23', unit: 'd' }
+    ],
+    pos: { x: 12, y: 50 }
+  },
+  {
+    id: 'ops',
+    glyph: 'OPS',
+    name: 'ops-auditor',
+    role: 'Audit & roadmap',
+    blurb: 'Identifies where the operation is losing time today, delivers the roadmap for what to build next. Live dashboard of operational metrics. The business owner sets priorities — ops-auditor advises.',
+    section: 'Oversight',
+    capabilities: [
+      'Audits workflows for bottlenecks and time loss',
+      'Quantifies time saved against baseline',
+      'Recommends priority shifts based on data',
+      'Bi-weekly efficiency report to the lead'
+    ],
+    metrics: [
+      { label: 'Time saved', value: '31', unit: 'h/wk' },
+      { label: 'Bottlenecks', value: '2', unit: 'open' },
+      { label: 'Quick wins', value: '5', unit: '' },
+      { label: 'Roadmap items', value: '8', unit: '' }
+    ],
+    pos: { x: 50, y: 50, _isLeadCenter: true }
+  }
+];
+
+/* Workflow connections (per the doc) */
+const POS = {
+  lead:     { x: 50, y: 50 },
+  inbound:  { x: 22, y: 22 },
+  outbound: { x: 78, y: 22 },
+  screen:   { x: 86, y: 50 },
+  outreach: { x: 76, y: 76 },
+  crm:      { x: 50, y: 84 },
+  pipeline: { x: 24, y: 76 },
+  ops:      { x: 14, y: 50 }
+};
+AGENTS.forEach(a => { a.pos = POS[a.id]; });
+
+/* Workflow connections per the doc */
+const FLOWS = [
+  ['inbound', 'screen'],
+  ['outbound', 'screen'],
+  ['screen', 'outreach'],
+  ['screen', 'pipeline'],
+  ['outreach', 'crm'],
+  ['pipeline', 'crm'],
+  ['ops', 'lead']
+];
+
+/* ───────────────────────── Render ───────────────────────── */
+const agentLayer = document.getElementById('agentLayer');
+const networkSvg = document.getElementById('networkSvg');
+const roster = document.getElementById('roster');
+const activityFeed = document.getElementById('activityFeed');
+
+let selectedId = null;
+
+function getCanvasSize() {
+  const c = document.getElementById('canvas').getBoundingClientRect();
+  return { w: c.width, h: c.height };
+}
+
+function pctToPx(pct, dim) { return (pct / 100) * dim; }
+
+function leadAvatarHtml() {
+  // If a client logo is uploaded, the lead avatar becomes that logo (the prospect sits at the centre).
+  // Otherwise, show the crown.
+  const logo = (() => { try { return localStorage.getItem('rb_demo_logo'); } catch(e) { return null; } })();
+  if (logo) {
+    return `<img class="lead-logo" src="${logo}" alt="Client logo" />`;
+  }
+  return `<span class="agent-glyph">♛</span>`;
+}
+
+function renderAgents() {
+  agentLayer.innerHTML = '';
+  AGENTS.forEach((a, i) => {
+    const el = document.createElement('div');
+    el.className = 'agent' + (a.id === 'lead' ? ' lead' : '') + (a.id === selectedId ? ' selected' : '');
+    el.style.left = a.pos.x + '%';
+    el.style.top = a.pos.y + '%';
+    el.style.animationDelay = (i * 80) + 'ms';
+    el.dataset.id = a.id;
+    const inner = a.id === 'lead'
+      ? leadAvatarHtml()
+      : `<span class="agent-glyph">${a.glyph}</span><span class="agent-status-ring"></span>`;
+    el.innerHTML = `
+      <div class="agent-node">
+        ${inner}
+      </div>
+      <div class="agent-label">
+        <div class="agent-name">${a.name}</div>
+        <div class="agent-role">${a.role}</div>
+      </div>
+    `;
+    el.addEventListener('click', () => { openLightbox(a.id); });
+    el.addEventListener('mouseenter', () => focusAgent(a.id));
+    el.addEventListener('mouseleave', () => unfocusAgent());
+    agentLayer.appendChild(el);
+  });
+}
+
+function renderConnections() {
+  const { w, h } = getCanvasSize();
+  networkSvg.setAttribute('width', w);
+  networkSvg.setAttribute('height', h);
+  networkSvg.setAttribute('viewBox', `0 0 ${w} ${h}`);
+
+  let svgContent = '';
+
+  // 1. lead-link (gold dashed) from lead to every other agent — subtle authority lines
+  const lead = AGENTS.find(a => a.id === 'lead');
+  const leadX = pctToPx(lead.pos.x, w);
+  const leadY = pctToPx(lead.pos.y, h);
+  AGENTS.filter(a => a.id !== 'lead').forEach(a => {
+    const x = pctToPx(a.pos.x, w);
+    const y = pctToPx(a.pos.y, h);
+    svgContent += `<line x1="${leadX}" y1="${leadY}" x2="${x}" y2="${y}" class="conn-line lead-link" data-from="lead" data-to="${a.id}" />`;
+  });
+
+  // 2. workflow flows (purple, animated)
+  FLOWS.forEach(([from, to]) => {
+    const a = AGENTS.find(x => x.id === from);
+    const b = AGENTS.find(x => x.id === to);
+    const x1 = pctToPx(a.pos.x, w), y1 = pctToPx(a.pos.y, h);
+    const x2 = pctToPx(b.pos.x, w), y2 = pctToPx(b.pos.y, h);
+    // Curve via midpoint with slight offset
+    const mx = (x1 + x2) / 2;
+    const my = (y1 + y2) / 2;
+    // perpendicular nudge
+    const dx = x2 - x1, dy = y2 - y1;
+    const len = Math.sqrt(dx*dx + dy*dy);
+    const nx = -dy / len * 30;
+    const ny =  dx / len * 30;
+    svgContent += `<path d="M ${x1} ${y1} Q ${mx + nx} ${my + ny} ${x2} ${y2}" class="conn-flow" data-from="${from}" data-to="${to}" />`;
+  });
+
+  networkSvg.innerHTML = svgContent;
+}
+
+function renderRoster() {
+  roster.innerHTML = '';
+  AGENTS.forEach(a => {
+    const el = document.createElement('div');
+    el.className = 'roster-item' + (a.id === selectedId ? ' active' : '');
+    el.innerHTML = `
+      <span class="roster-status"></span>
+      <span class="role-name ${a.id === 'lead' ? 'lead' : ''}">${a.name}</span>
+    `;
+    el.addEventListener('click', () => { openLightbox(a.id); });
+    roster.appendChild(el);
+  });
+}
+
+/* ───────────────────────── Lightbox (full agent deep-dive) ───────────────────────── */
+const lightbox = document.getElementById('lightbox');
+const lightboxContent = document.getElementById('lightboxContent');
+
+function openLightbox(id) {
+  const a = AGENTS.find(x => x.id === id);
+  if (!a) return;
+  selectedId = id;
+  unfocusAgent(); // clear any hover state
+  lightboxContent.innerHTML = `
+    <div class="lb-head">
+      <div>
+        <div class="lb-id">${a.section}</div>
+        <div class="lb-name">${a.id === 'lead' ? '<em>You</em>' : a.name}</div>
+      </div>
+      <span class="lb-status"><span class="dot"></span>${a.id === 'lead' ? 'Active' : 'Auto'}</span>
+    </div>
+
+    <div class="lb-section">
+      <div class="lb-section-title">Role</div>
+      <p class="lb-blurb">${a.blurb}</p>
+    </div>
+
+    <div class="lb-section">
+      <div class="lb-section-title">Capabilities</div>
+      <ul class="lb-list">
+        ${a.capabilities.map(c => `<li>${c}</li>`).join('')}
+      </ul>
+    </div>
+
+    <div class="lb-section">
+      <div class="lb-section-title">Today</div>
+      <div class="lb-metrics">
+        ${a.metrics.map(m => `
+          <div class="lb-metric">
+            <span class="lb-metric-label">${m.label}</span>
+            <span class="lb-metric-value">${m.value}<span class="unit">${m.unit}</span></span>
+          </div>
+        `).join('')}
+      </div>
+    </div>
+  `;
+  lightbox.classList.add('open');
+  lightbox.setAttribute('aria-hidden', 'false');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeLightbox() {
+  lightbox.classList.remove('open');
+  lightbox.setAttribute('aria-hidden', 'true');
+  document.body.style.overflow = '';
+  selectedId = null;
+}
+
+document.getElementById('lightboxClose').addEventListener('click', closeLightbox);
+document.getElementById('lightboxBackdrop').addEventListener('click', closeLightbox);
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape' && lightbox.classList.contains('open')) closeLightbox();
+});
+
+/* ───────────────────────── Hover focus + popover ───────────────────────── */
+const agentPopover = document.getElementById('agentPopover');
+
+function getConnectedIds(id) {
+  // An agent is "connected" to another if either FLOWS or the lead-link relates them.
+  const set = new Set();
+  // lead is connected to all
+  if (id === 'lead') {
+    AGENTS.forEach(a => set.add(a.id));
+    return set;
+  }
+  // Every agent is connected to lead via the gold authority line
+  set.add('lead');
+  set.add(id);
+  // Workflow connections
+  FLOWS.forEach(([from, to]) => {
+    if (from === id) set.add(to);
+    if (to === id) set.add(from);
+  });
+  return set;
+}
+
+function focusAgent(id) {
+  const a = AGENTS.find(x => x.id === id);
+  if (!a) return;
+
+  // Highlight matching connections
+  networkSvg.classList.add('has-focus');
+  networkSvg.querySelectorAll('[data-from], [data-to]').forEach(el => {
+    const from = el.getAttribute('data-from');
+    const to = el.getAttribute('data-to');
+    if (from === id || to === id) {
+      el.classList.add('highlighted');
+    } else {
+      el.classList.remove('highlighted');
+    }
+  });
+
+  // Highlight connected agents
+  agentLayer.classList.add('has-focus');
+  const connected = getConnectedIds(id);
+  agentLayer.querySelectorAll('.agent').forEach(el => {
+    el.classList.remove('is-focus', 'is-connected');
+    const aid = el.dataset.id;
+    if (aid === id) el.classList.add('is-focus');
+    else if (connected.has(aid)) el.classList.add('is-connected');
+  });
+
+  // Position and show the popover
+  showPopover(a);
+}
+
+function unfocusAgent() {
+  networkSvg.classList.remove('has-focus');
+  networkSvg.querySelectorAll('.highlighted').forEach(el => el.classList.remove('highlighted'));
+  agentLayer.classList.remove('has-focus');
+  agentLayer.querySelectorAll('.agent').forEach(el => el.classList.remove('is-focus', 'is-connected'));
+  hidePopover();
+}
+
+function showPopover(a) {
+  const isLead = a.id === 'lead';
+  // Keep the popover compact — 2 capabilities max
+  const caps = a.capabilities.slice(0, 2);
+  agentPopover.innerHTML = `
+    <div class="popover-head">
+      <div class="popover-id ${isLead ? 'lead' : ''}">
+        <span class="dot"></span>
+        <span>${a.name}</span>
+      </div>
+      <span class="popover-status">${isLead ? 'You' : 'Auto'}</span>
+    </div>
+    <p class="popover-blurb">${a.blurb}</p>
+    <ul class="popover-caps">
+      ${caps.map(c => `<li>${c}</li>`).join('')}
+    </ul>
+    <div class="popover-foot">
+      <span>${a.section}</span>
+      <span class="cta">Click for full role →</span>
+    </div>
+  `;
+
+  // Position the popover by trying multiple candidate slots and picking the first
+  // that doesn't overlap the agent itself or the lead at centre.
+  const canvasEl = document.getElementById('canvas');
+  const cw = canvasEl.clientWidth;
+  const ch = canvasEl.clientHeight;
+  const ax = (a.pos.x / 100) * cw;
+  const ay = (a.pos.y / 100) * ch;
+  const cx = cw / 2, cy = ch / 2;
+
+  // Make popover measurable while keeping it invisible
+  agentPopover.style.left = '0px';
+  agentPopover.style.top = '0px';
+  agentPopover.classList.add('show');
+  agentPopover.style.visibility = 'hidden';
+  const pw = agentPopover.offsetWidth;
+  const phh = agentPopover.offsetHeight;
+  agentPopover.style.visibility = '';
+
+  // Vector from centre to agent
+  let dx = ax - cx, dy = ay - cy;
+  const len = Math.max(1, Math.sqrt(dx * dx + dy * dy));
+  const ux = dx / len, uy = dy / len;
+
+  const PAD = 12, GAP = 60;
+  const clampX = v => Math.max(PAD, Math.min(cw - pw - PAD, v));
+  const clampY = v => Math.max(PAD, Math.min(ch - phh - PAD, v));
+  const overlap = (a, b) => !(a.x + a.w < b.x || b.x + b.w < a.x || a.y + a.h < b.y || b.y + b.h < a.y);
+
+  const agentBox = { x: ax - 56, y: ay - 56, w: 112, h: 112 };
+  const leadBox  = isLead ? null : { x: cx - 70, y: cy - 70, w: 140, h: 140 };
+
+  // Candidate slots, in priority order
+  const candidates = isLead
+    ? [
+        { x: ax - pw / 2, y: ay + GAP + 24 },           // below lead (clear of crown)
+        { x: ax - pw / 2, y: ay - GAP - 24 - phh },     // above lead
+        { x: ax + GAP + 30, y: ay - phh / 2 },          // right (clear of edge agents)
+        { x: ax - GAP - 30 - pw, y: ay - phh / 2 }      // left
+      ]
+    : [
+        // outward along the centre→agent vector
+        { x: ax + ux * GAP - pw / 2, y: ay + uy * GAP - phh / 2 },
+        // below agent
+        { x: ax - pw / 2, y: ay + GAP },
+        // above agent
+        { x: ax - pw / 2, y: ay - GAP - phh },
+        // to the right
+        { x: ax + GAP, y: ay - phh / 2 },
+        // to the left
+        { x: ax - GAP - pw, y: ay - phh / 2 }
+      ];
+
+  let chosen = null;
+  for (const c of candidates) {
+    const box = { x: clampX(c.x), y: clampY(c.y), w: pw, h: phh };
+    if (overlap(box, agentBox)) continue;
+    if (leadBox && overlap(box, leadBox)) continue;
+    chosen = box;
+    break;
+  }
+  if (!chosen) {
+    const c = candidates[0];
+    chosen = { x: clampX(c.x), y: clampY(c.y), w: pw, h: phh };
+  }
+
+  agentPopover.style.left = chosen.x + 'px';
+  agentPopover.style.top = chosen.y + 'px';
+  agentPopover.setAttribute('aria-hidden', 'false');
+}
+
+function hidePopover() {
+  agentPopover.classList.remove('show');
+  agentPopover.setAttribute('aria-hidden', 'true');
+}
+
+/* ───────────────────────── Activity feed ───────────────────────── */
+const ACTIVITY_TEMPLATES = [
+  { agent: 'screen-agent', msg: 'Screened candidate against ICP', meta: 'Pass — senior backend, fintech' },
+  { agent: 'outbound-agent', msg: 'Sourced 12 candidates from LinkedIn', meta: 'Brief: Senior PM' },
+  { agent: 'outreach-agent', msg: 'Sent personalised first-touch', meta: 'Cadence: Day 1 of 4' },
+  { agent: 'crm-agent', msg: 'Pipeline status updated', meta: '14 records synced' },
+  { agent: 'inbound-agent', msg: 'Captured applicant from job board', meta: 'Channel: Indeed' },
+  { agent: 'pipeline-agent', msg: 'Re-engaged warm candidate', meta: 'Match: 84% to new brief' },
+  { agent: 'ops-auditor', msg: 'Bottleneck flagged: outreach reply window', meta: 'Recommendation queued' },
+  { agent: 'screen-agent', msg: 'Needs Review flagged', meta: 'Borderline experience' },
+  { agent: 'outreach-agent', msg: 'Reply received', meta: 'Moved to interview stage' },
+  { agent: 'crm-agent', msg: 'Status change logged', meta: 'Interview → offer' },
+  { agent: 'pipeline-agent', msg: 'Brief stalled, alternatives surfaced', meta: '3 warm candidates suggested' },
+  { agent: 'inbound-agent', msg: 'Captured applicant from job board', meta: 'Channel: LinkedIn Easy Apply' },
+  { agent: 'outbound-agent', msg: 'ICP refined per result quality', meta: 'Match rate: +8%' },
+  { agent: 'screen-agent', msg: 'Screened candidate against ICP', meta: 'Fail — no industry overlap' },
+  { agent: 'ops-auditor', msg: 'Weekly efficiency report ready', meta: '31h saved vs baseline' }
+];
+
+function timeStr(d = new Date()) {
+  return d.toLocaleTimeString('en-GB', { hour12: false });
+}
+
+function pushActivity(initial = false) {
+  const t = ACTIVITY_TEMPLATES[Math.floor(Math.random() * ACTIVITY_TEMPLATES.length)];
+  const row = document.createElement('div');
+  row.className = 'activity-row';
+  row.innerHTML = `
+    <span class="activity-time">${timeStr()}</span>
+    <span class="activity-agent">${t.agent}</span>
+    <span class="activity-msg">${t.msg}</span>
+    <span class="activity-meta">${t.meta}</span>
+  `;
+  activityFeed.prepend(row);
+  while (activityFeed.children.length > 4) {
+    activityFeed.removeChild(activityFeed.lastChild);
+  }
+}
+
+function seedActivity() {
+  // pre-populate with a few recent — newest first (top), older below
+  const now = new Date();
+  for (let i = 0; i < 4; i++) {
+    const past = new Date(now.getTime() - i * 1000 * (12 + Math.random() * 40));
+    const t = ACTIVITY_TEMPLATES[Math.floor(Math.random() * ACTIVITY_TEMPLATES.length)];
+    const row = document.createElement('div');
+    row.className = 'activity-row';
+    row.innerHTML = `
+      <span class="activity-time">${timeStr(past)}</span>
+      <span class="activity-agent">${t.agent}</span>
+      <span class="activity-msg">${t.msg}</span>
+      <span class="activity-meta">${t.meta}</span>
+    `;
+    activityFeed.appendChild(row);
+  }
+}
+
+/* ───────────────────────── Demo personalisation ───────────────────────── */
+const clientName = document.getElementById('clientName');
+const logoInput = document.getElementById('logoInput');
+const logoBtn = document.getElementById('logoBtn');
+const logoPlaceholder = document.getElementById('logoPlaceholder');
+
+// Restore from localStorage
+try {
+  const savedName = localStorage.getItem('rb_demo_name');
+  const savedLogo = localStorage.getItem('rb_demo_logo');
+  if (savedName) clientName.textContent = savedName;
+  if (savedLogo) {
+    const img = document.createElement('img');
+    img.src = savedLogo;
+    logoBtn.innerHTML = '';
+    logoBtn.appendChild(img);
+    // re-attach the input
+    const inp = document.createElement('input'); inp.type='file'; inp.id='logoInput'; inp.accept='image/*';
+    inp.style.display='none';
+    logoBtn.appendChild(inp);
+    inp.addEventListener('change', handleLogo);
+  }
+} catch(e) {}
+
+clientName.addEventListener('focus', () => {
+  // select all so user can immediately type the new name
+  setTimeout(() => {
+    const range = document.createRange();
+    range.selectNodeContents(clientName);
+    const sel = window.getSelection();
+    sel.removeAllRanges();
+    sel.addRange(range);
+  }, 0);
+});
+clientName.addEventListener('blur', () => {
+  localStorage.setItem('rb_demo_name', clientName.textContent.trim() || 'Client name');
+});
+clientName.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') { e.preventDefault(); clientName.blur(); }
+});
+clientName.addEventListener('paste', (e) => {
+  e.preventDefault();
+  const text = (e.clipboardData || window.clipboardData).getData('text');
+  document.execCommand('insertText', false, text);
+});
+
+/* Editable outcome anchor — same pattern as client name */
+document.querySelectorAll('.outcome-anchor .editable').forEach(el => {
+  // Capture the default copy as the placeholder before restoring saved value
+  el.setAttribute('data-placeholder', el.textContent.trim());
+
+  try {
+    const saved = localStorage.getItem(el.dataset.key);
+    if (saved !== null) el.textContent = saved;
+  } catch (e) {}
+
+  el.addEventListener('focus', () => {
+    setTimeout(() => {
+      const range = document.createRange();
+      range.selectNodeContents(el);
+      const sel = window.getSelection();
+      sel.removeAllRanges();
+      sel.addRange(range);
+    }, 0);
+  });
+
+  el.addEventListener('blur', () => {
+    // contenteditable leaves a <br> behind on clear, which breaks :empty — strip it
+    if (!el.textContent.trim()) el.innerHTML = '';
+    try { localStorage.setItem(el.dataset.key, el.textContent.trim()); } catch (e) {}
+  });
+
+  el.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') { e.preventDefault(); el.blur(); }
+  });
+
+  el.addEventListener('paste', (e) => {
+    e.preventDefault();
+    const text = (e.clipboardData || window.clipboardData).getData('text');
+    document.execCommand('insertText', false, text);
+  });
+});
+
+function handleLogo(e) {
+  const file = e.target.files && e.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = (ev) => {
+    const dataUrl = ev.target.result;
+    localStorage.setItem('rb_demo_logo', dataUrl);
+    logoBtn.innerHTML = '';
+    const img = document.createElement('img');
+    img.src = dataUrl;
+    logoBtn.appendChild(img);
+    const inp = document.createElement('input'); inp.type='file'; inp.id='logoInput'; inp.accept='image/*';
+    inp.style.display='none';
+    logoBtn.appendChild(inp);
+    inp.addEventListener('change', handleLogo);
+    // refresh lead avatar so the prospect's logo sits at the centre of the engine
+    refreshLeadAvatar();
+  };
+  reader.readAsDataURL(file);
+}
+logoInput.addEventListener('change', handleLogo);
+
+function refreshLeadAvatar() {
+  const leadEl = agentLayer.querySelector('.agent.lead .agent-node');
+  if (!leadEl) return;
+  leadEl.innerHTML = leadAvatarHtml();
+}
+
+/* Allow right-click on logo to reset */
+logoBtn.addEventListener('contextmenu', (e) => {
+  e.preventDefault();
+  if (confirm('Reset client logo?')) {
+    localStorage.removeItem('rb_demo_logo');
+    location.reload();
+  }
+});
+
+/* ───────────────────────── Live counter drift ─────────────────── */
+function driftStats() {
+  const tasksEl = document.getElementById('tasksNum');
+  const thruEl = document.getElementById('thruNum');
+  const utilEl = document.getElementById('utilNum');
+
+  setInterval(() => {
+    const t = parseInt(tasksEl.textContent.replace(/[^\d]/g, ''));
+    tasksEl.textContent = (t + Math.floor(Math.random() * 3));
+  }, 9000);
+
+  setInterval(() => {
+    const newThru = 32 + Math.floor(Math.random() * 12);
+    thruEl.innerHTML = `${newThru}<span class="unit">/hr</span>`;
+  }, 14000);
+
+  setInterval(() => {
+    const newUtil = 84 + Math.floor(Math.random() * 8);
+    utilEl.innerHTML = `${newUtil}<span style="font-size:10px;color:var(--rb-bone-dim);">%</span>`;
+  }, 12000);
+}
+
+/* ───────────────────────── Boot ───────────────────────── */
+function boot() {
+  renderAgents();
+  renderRoster();
+  renderConnections();
+  seedActivity();
+  setInterval(pushActivity, 4500);
+  driftStats();
+}
+boot();
+
+window.addEventListener('resize', renderConnections);
+// re-render connections after fonts load to account for layout shift
+document.fonts && document.fonts.ready.then(() => setTimeout(renderConnections, 50));
+</script>
+</body>
+</html>

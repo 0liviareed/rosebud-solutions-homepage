@@ -4,6 +4,7 @@ import {
   DM_Sans,
   Sora,
   Outfit,
+  JetBrains_Mono,
 } from "next/font/google";
 import LayoutChrome from "@/components/LayoutChrome";
 import { Analytics } from "@vercel/analytics/next";
@@ -43,6 +44,16 @@ const outfit = Outfit({
   variable: "--font-editorial",
   subsets: ["latin"],
   weight: ["400", "500", "600", "700", "800"],
+  display: "swap",
+});
+
+/* Mono used for small all-caps labels on the engine demo dashboard + the
+   gated login page. Loaded by name (the login page CSS module references
+   'JetBrains Mono' explicitly) — falls back to system monospace if absent. */
+const jetbrainsMono = JetBrains_Mono({
+  variable: "--font-jetbrains-mono",
+  subsets: ["latin"],
+  weight: ["400", "500"],
   display: "swap",
 });
 
@@ -116,7 +127,7 @@ export default function RootLayout({
   return (
     <html
       lang="en-GB"
-      className={`${cormorant.variable} ${dmSans.variable} ${sora.variable} ${outfit.variable}`}
+      className={`${cormorant.variable} ${dmSans.variable} ${sora.variable} ${outfit.variable} ${jetbrainsMono.variable}`}
     >
       <body>
         <a href="#rb-main" className="rb-skip-link">
