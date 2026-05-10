@@ -37,9 +37,14 @@ export default function LoginPage() {
       <div className={styles.atmosphere} />
       <form className={styles.card} onSubmit={handleSubmit}>
         <div className={styles.brand}>
-          <div className={styles.brandMark}>
-            <div className={styles.brandMarkInner} />
-          </div>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/rosebud-brand-orb.png"
+            alt="Rosebud Solutions"
+            className={styles.brandMark}
+            width={32}
+            height={32}
+          />
           <div>
             <div className={styles.brandText}>Rosebud Solutions</div>
             <div className={styles.brandSub}>Operating Infrastructure</div>

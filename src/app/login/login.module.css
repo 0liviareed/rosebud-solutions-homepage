@@ -41,27 +41,17 @@
 }
 
 .brand {
-  display: flex; align-items: center; gap: 10px;
+  display: flex; align-items: center; gap: 12px;
   margin-bottom: 28px;
 }
 .brandMark {
-  width: 26px; height: 26px;
-  background: linear-gradient(135deg, #8b7dd8, #b8aedb);
+  width: 32px;
+  height: 32px;
+  display: block;
+  object-fit: contain;
   border-radius: 50%;
-  position: relative;
-  box-shadow: 0 0 24px rgba(139, 125, 216, 0.4);
-}
-.brandMark::after {
-  content: ''; position: absolute; inset: 4px;
-  background: #050304;
-  border-radius: 50%;
-}
-.brandMarkInner {
-  position: absolute; inset: 8px;
-  background: #b8aedb;
-  border-radius: 50%;
-  box-shadow: 0 0 12px rgba(139, 125, 216, 0.4);
-  z-index: 1;
+  /* Soft halo behind the orb so it lifts off the deep card background */
+  box-shadow: 0 0 24px rgba(139, 125, 216, 0.35);
 }
 .brandText {
   font-family: 'Cormorant Garamond', serif;
