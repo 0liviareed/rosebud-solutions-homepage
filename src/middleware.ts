@@ -50,12 +50,17 @@ export async function middleware(request: NextRequest) {
     });
   }
 
-  // Allow the login flow + Next.js internals through unconditionally.
+  // Allow the login flow, Next.js internals, and Let's Encrypt's HTTP-01
+  // challenge through unconditionally. The ACME path matters: Vercel hits
+  // /.well-known/acme-challenge/<token> on the host to issue/renew the
+  // SSL cert; if the gate redirects that to /login the cert never issues
+  // (silent SSL-pending — the symptom that bit us on first deploy).
   if (
     path === '/login' ||
     path === '/api/login' ||
     path.startsWith('/_next/') ||
     path.startsWith('/static/') ||
+    path.startsWith('/.well-known/') ||
     path === '/favicon.ico'
   ) {
     return NextResponse.next();
