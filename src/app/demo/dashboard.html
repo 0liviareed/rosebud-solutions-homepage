@@ -4,6 +4,8 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Candidate Sourcing Engine — Rosebud Solutions</title>
+<link rel="icon" type="image/png" href="/rosebud-brand-orb.png" />
+<link rel="apple-touch-icon" href="/rosebud-brand-orb.png" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=DM+Sans:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
@@ -86,24 +88,8 @@
   }
   .brand-mark {
     width: 28px; height: 28px;
-    background: linear-gradient(135deg, #a594ff, #b8aedb);
+    display: block;
     border-radius: 50%;
-    position: relative;
-    box-shadow:
-      0 0 24px var(--rb-purple-glow),
-      0 0 0 1px rgba(165, 148, 255, 0.4),
-      inset 0 1px 0 rgba(255, 255, 255, 0.3);
-  }
-  .brand-mark::after {
-    content: ''; position: absolute;
-    inset: 5px; background: var(--rb-bg-panel);
-    border-radius: 50%;
-  }
-  .brand-mark::before {
-    content: ''; position: absolute;
-    inset: 9px; background: var(--rb-purple-bright);
-    border-radius: 50%;
-    box-shadow: 0 0 12px var(--rb-purple-glow);
   }
   .brand-text {
     font-family: 'Cormorant Garamond', serif;
@@ -1328,7 +1314,7 @@
   <!-- ─── Top bar ─── -->
   <header class="topbar">
     <div class="brand">
-      <div class="brand-mark"></div>
+      <img class="brand-mark" src="/rosebud-brand-orb.png" alt="Rosebud Solutions" />
       <div>
         <div class="brand-text">Rosebud Solutions</div>
         <div class="brand-sub">Operating Infrastructure</div>
