@@ -9,73 +9,76 @@
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=DM+Sans:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
 <style>
   :root {
-    --rb-bg: #0a0608;
-    --rb-bg-deep: #050304;
-    --rb-bg-card: #0f0a0d;
+    /* Ambient backdrop (just outside the dashboard frame) */
+    --rb-ambient: #050306;
+    /* Dashboard frame & panels — pure neutral dark, no purple tint */
+    --rb-bg-canvas: #0a0a0c;     /* workboard interior */
+    --rb-bg-panel: #131316;      /* sidebars, top bar */
+    --rb-bg-panel-2: #1c1c20;    /* elevated elements inside panels */
+    --rb-bg-card: #131316;       /* lightbox/popover */
+    /* Type */
     --rb-bone: #f5f1ea;
     --rb-bone-dim: rgba(245, 241, 234, 0.55);
-    --rb-bone-faint: rgba(245, 241, 234, 0.12);
+    --rb-bone-faint: rgba(245, 241, 234, 0.1);
     --rb-bone-whisper: rgba(245, 241, 234, 0.04);
+    /* Accent — used sparingly */
     --rb-purple: #b8aedb;
     --rb-purple-core: #8b7dd8;
+    --rb-purple-bright: #a594ff;
     --rb-purple-glow: rgba(139, 125, 216, 0.4);
-    --rb-success: #a8c69f;
+    --rb-success: #7ee08a;
+    --rb-success-glow: rgba(126, 224, 138, 0.7);
     --rb-warn: #d8b87a;
+    /* Borders */
+    --rb-border: rgba(245, 241, 234, 0.08);
+    --rb-border-strong: rgba(245, 241, 234, 0.16);
+    --rb-border-accent: rgba(184, 174, 219, 0.3);
+    /* Easing */
     --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
 
   html, body {
-    background: var(--rb-bg-deep);
+    background: #050306;
     color: var(--rb-bone);
     font-family: 'DM Sans', -apple-system, sans-serif;
     font-size: 14px;
     line-height: 1.5;
     margin: 0;
-    /* allow scroll in narrow previews; full screen still looks right */
     overflow-x: auto;
     overflow-y: auto;
   }
 
-  /* ── Atmosphere layer ─────────────────────────────── */
-  .atmosphere {
-    position: fixed; inset: 0; z-index: 0;
-    background:
-      radial-gradient(ellipse 1200px 700px at 70% 0%, rgba(139, 125, 216, 0.06), transparent 60%),
-      radial-gradient(ellipse 900px 600px at 10% 100%, rgba(184, 174, 219, 0.04), transparent 70%),
-      var(--rb-bg-deep);
-    pointer-events: none;
-  }
-
-  .atmosphere::before {
-    content: ''; position: absolute; inset: 0;
-    background-image:
-      linear-gradient(var(--rb-bone-whisper) 1px, transparent 1px),
-      linear-gradient(90deg, var(--rb-bone-whisper) 1px, transparent 1px);
-    background-size: 80px 80px;
-    opacity: 0.5;
-    mask-image: radial-gradient(ellipse 70% 60% at 50% 50%, black 20%, transparent 90%);
-  }
+  /* ── Atmosphere layer (now subsumed by body) ─── */
+  .atmosphere { display: none; }
 
   .app {
     position: relative; z-index: 1;
     display: grid;
-    grid-template-rows: auto auto 1fr;
-    width: 1320px;       /* fixed design width */
-    min-height: 820px;   /* fixed minimum so canvas always has room */
-    margin: 0 auto;      /* centred when iframe is wider */
+    grid-template-rows: auto 1fr;
+    width: 1320px;
+    min-height: 920px;
+    margin: 24px auto;
+    padding: 14px;
+    gap: 12px;
+    background: var(--rb-bg-panel);
+    border: 1px solid var(--rb-border-strong);
+    border-radius: 18px;
+    box-shadow:
+      0 1px 0 rgba(255, 255, 255, 0.04) inset,
+      0 0 0 1px rgba(0, 0, 0, 0.3),
+      0 40px 80px -20px rgba(0, 0, 0, 0.55),
+      0 80px 140px -40px rgba(0, 0, 0, 0.4);
   }
 
-  /* ── Top bar ──────────────────────────────────────── */
+  /* ── Top bar (flush inside the card) ─── */
   .topbar {
     display: grid;
-    grid-template-columns: 260px 1fr 260px;
+    grid-template-columns: 240px 1fr 240px;
     align-items: center;
-    padding: 14px 28px;
-    border-bottom: 1px solid var(--rb-bone-faint);
-    backdrop-filter: blur(12px);
-    background: rgba(10, 6, 8, 0.7);
+    padding: 6px 10px 14px;
+    border-bottom: 1px solid var(--rb-border);
   }
 
   .brand {
@@ -83,10 +86,24 @@
   }
   .brand-mark {
     width: 28px; height: 28px;
-    display: block;
-    object-fit: contain;
+    background: linear-gradient(135deg, #a594ff, #b8aedb);
     border-radius: 50%;
-    box-shadow: 0 0 24px var(--rb-purple-glow);
+    position: relative;
+    box-shadow:
+      0 0 24px var(--rb-purple-glow),
+      0 0 0 1px rgba(165, 148, 255, 0.4),
+      inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  }
+  .brand-mark::after {
+    content: ''; position: absolute;
+    inset: 5px; background: var(--rb-bg-panel);
+    border-radius: 50%;
+  }
+  .brand-mark::before {
+    content: ''; position: absolute;
+    inset: 9px; background: var(--rb-purple-bright);
+    border-radius: 50%;
+    box-shadow: 0 0 12px var(--rb-purple-glow);
   }
   .brand-text {
     font-family: 'Cormorant Garamond', serif;
@@ -105,15 +122,21 @@
   .client-identity {
     display: flex; align-items: center; justify-content: center;
     gap: 16px;
-    padding: 6px 22px;
-    border: 1px solid var(--rb-bone-faint);
+    padding: 7px 22px;
+    border: 1px solid var(--rb-border-strong);
     border-radius: 100px;
-    background: linear-gradient(180deg, rgba(245,241,234,0.03), rgba(245,241,234,0.01));
-    transition: border-color 0.4s var(--ease-out);
+    background: var(--rb-bg-panel-2);
+    transition: border-color 0.4s var(--ease-out), background 0.4s var(--ease-out);
     max-width: 640px;
     margin: 0 auto;
+    box-shadow:
+      0 1px 0 rgba(255, 255, 255, 0.04) inset,
+      0 6px 20px -8px rgba(0, 0, 0, 0.4);
   }
-  .client-identity:hover { border-color: rgba(184, 174, 219, 0.3); }
+  .client-identity:hover {
+    border-color: var(--rb-border-accent);
+    background: linear-gradient(180deg, var(--rb-bg-panel-2), rgba(139, 125, 216, 0.06));
+  }
 
   .live-pulse {
     display: flex; align-items: center; gap: 6px;
@@ -126,13 +149,15 @@
     width: 6px; height: 6px;
     background: var(--rb-success);
     border-radius: 50%;
-    box-shadow: 0 0 0 0 var(--rb-success);
+    box-shadow:
+      0 0 0 0 var(--rb-success-glow),
+      0 0 8px var(--rb-success-glow);
     animation: live-pulse 2s ease-out infinite;
   }
   @keyframes live-pulse {
-    0% { box-shadow: 0 0 0 0 rgba(168, 198, 159, 0.6); }
-    70% { box-shadow: 0 0 0 8px rgba(168, 198, 159, 0); }
-    100% { box-shadow: 0 0 0 0 rgba(168, 198, 159, 0); }
+    0% { box-shadow: 0 0 0 0 rgba(126, 224, 138, 0.7), 0 0 8px rgba(126, 224, 138, 0.5); }
+    70% { box-shadow: 0 0 0 8px rgba(126, 224, 138, 0), 0 0 8px rgba(126, 224, 138, 0.5); }
+    100% { box-shadow: 0 0 0 0 rgba(126, 224, 138, 0), 0 0 8px rgba(126, 224, 138, 0.5); }
   }
 
   .client-divider {
@@ -208,8 +233,9 @@
     letter-spacing: 0.02em;
   }
   .view-toggle {
-    display: flex; border: 1px solid var(--rb-bone-faint);
-    border-radius: 4px; overflow: hidden;
+    display: flex; border: 1px solid var(--rb-border);
+    border-radius: 6px; overflow: hidden;
+    background: var(--rb-bg-panel-2);
   }
   .view-toggle button {
     background: transparent; border: none;
@@ -221,18 +247,19 @@
     transition: all 0.2s;
   }
   .view-toggle button.active {
-    background: var(--rb-bone-faint);
+    background: rgba(184, 174, 219, 0.12);
     color: var(--rb-bone);
   }
 
-  /* ── Sub bar (hero stats) ─────────────────────── */
+  /* ── Sub bar ─────────────────────────────────────── */
   .subbar {
     display: grid;
     grid-template-columns: 1fr auto;
     align-items: end;
     gap: 40px;
     padding: 22px 28px 18px;
-    border-bottom: 1px solid var(--rb-bone-faint);
+    border-bottom: 1px solid var(--rb-border);
+    background: linear-gradient(180deg, rgba(245, 241, 234, 0.02), transparent);
   }
   .hero-title {
     font-family: 'Cormorant Garamond', serif;
@@ -322,19 +349,23 @@
     line-height: 1.4;
   }
 
-  /* ── Main 2-col layout ──────────────────────── */
+  /* ── Main layout — inner grid, no separate chrome ─── */
   .main {
     display: grid;
-    grid-template-columns: 260px 1fr;
+    grid-template-columns: 240px 1fr;
     overflow: hidden;
+    border-radius: 12px;
+    border: 1px solid var(--rb-border);
+    background: var(--rb-bg-panel);
   }
 
   /* Sidebar */
   .sidebar {
-    border-right: 1px solid var(--rb-bone-faint);
+    border-right: 1px solid var(--rb-border);
     padding: 22px 18px;
     overflow-y: auto;
     display: flex; flex-direction: column; gap: 22px;
+    background: var(--rb-bg-panel);
   }
   .panel-title {
     font-family: 'JetBrains Mono', monospace;
@@ -352,25 +383,33 @@
   .quick-actions { display: flex; flex-direction: column; gap: 6px; }
   .qa-btn {
     display: flex; align-items: center; gap: 10px;
-    padding: 10px 12px;
-    background: var(--rb-bone-whisper);
-    border: 1px solid var(--rb-bone-faint);
-    border-radius: 6px;
+    padding: 11px 12px;
+    background: var(--rb-bg-panel-2);
+    border: 1px solid var(--rb-border);
+    border-radius: 8px;
     color: var(--rb-bone);
     font-family: 'DM Sans', sans-serif;
     font-size: 12px;
     cursor: pointer;
     transition: all 0.2s var(--ease-out);
     text-align: left;
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.03) inset;
   }
   .qa-btn:hover {
-    background: rgba(184, 174, 219, 0.06);
-    border-color: rgba(184, 174, 219, 0.25);
+    background: rgba(184, 174, 219, 0.1);
+    border-color: rgba(184, 174, 219, 0.35);
   }
   .qa-btn.primary {
-    background: linear-gradient(180deg, rgba(139, 125, 216, 0.12), rgba(139, 125, 216, 0.04));
-    border-color: rgba(139, 125, 216, 0.35);
-    color: var(--rb-purple);
+    background: linear-gradient(180deg, rgba(165, 148, 255, 0.25), rgba(139, 125, 216, 0.08));
+    border-color: rgba(165, 148, 255, 0.45);
+    color: var(--rb-purple-bright);
+    box-shadow:
+      0 1px 0 rgba(255, 255, 255, 0.08) inset,
+      0 0 20px rgba(139, 125, 216, 0.15);
+  }
+  .qa-btn.primary:hover {
+    background: linear-gradient(180deg, rgba(165, 148, 255, 0.35), rgba(139, 125, 216, 0.12));
+    border-color: rgba(165, 148, 255, 0.6);
   }
   .qa-icon {
     width: 14px; height: 14px;
@@ -395,41 +434,59 @@
     color: var(--rb-success);
   }
 
-  .roster { display: flex; flex-direction: column; }
+  .roster { display: flex; flex-direction: column; gap: 2px; }
   .roster-item {
     display: flex; align-items: center; gap: 10px;
-    padding: 8px 6px;
-    border-radius: 4px;
+    padding: 9px 10px;
+    border-radius: 6px;
     cursor: pointer;
-    transition: background 0.2s;
+    transition: all 0.2s var(--ease-out);
     font-size: 12px;
+    border: 1px solid transparent;
   }
-  .roster-item:hover { background: var(--rb-bone-whisper); }
+  .roster-item:hover {
+    background: var(--rb-bg-panel-2);
+    border-color: var(--rb-border);
+  }
   .roster-item.active {
-    background: rgba(139, 125, 216, 0.08);
-    color: var(--rb-purple);
+    background: linear-gradient(180deg, rgba(165, 148, 255, 0.18), rgba(139, 125, 216, 0.06));
+    border-color: rgba(165, 148, 255, 0.3);
+    color: var(--rb-purple-bright);
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.04) inset;
   }
   .roster-item .role-name { font-family: 'JetBrains Mono', monospace; font-size: 11px; }
-  .roster-item .role-name.lead { color: var(--rb-warn); }
+  .roster-item .role-name.lead { color: #f5d889; }
   .roster-status {
     width: 6px; height: 6px;
     border-radius: 50%;
     background: var(--rb-success);
-    box-shadow: 0 0 6px rgba(168, 198, 159, 0.6);
+    box-shadow:
+      0 0 6px rgba(126, 224, 138, 0.7),
+      0 0 0 1.5px rgba(5, 3, 9, 0.6);
     flex-shrink: 0;
   }
 
-  /* ── Canvas ─────────────────────────────── */
+  /* ── Canvas wrapper — vertical stack inside main panel ─── */
   .canvas-wrap {
     position: relative;
     overflow: hidden;
     display: flex; flex-direction: column;
-    min-height: 580px;
+    min-height: 660px;
+    background: var(--rb-bg-panel);
   }
   .canvas {
     flex: 1; position: relative;
     overflow: hidden;
-    min-height: 470px;
+    min-height: 540px;
+    background: #07070a;
+    background-image:
+      linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+    background-size: 28px 28px;
+    background-position: center;
+    box-shadow:
+      inset 0 10px 28px -10px rgba(0, 0, 0, 0.9),
+      inset 0 0 0 1px rgba(255, 255, 255, 0.02);
   }
 
   .canvas-corner {
@@ -459,118 +516,184 @@
     z-index: 2;
   }
 
+  /* ── Agent cards (replacing the old circle nodes) ─────────── */
   .agent {
     position: absolute;
     transform: translate(-50%, -50%);
-    display: flex; flex-direction: column; align-items: center; gap: 6px;
     cursor: pointer;
     transition: transform 0.4s var(--ease-out);
     z-index: 3;
+    width: 158px;
   }
-  .agent:hover { transform: translate(-50%, -50%) scale(1.04); z-index: 6; }
+  .agent:hover { transform: translate(-50%, -50%) translateY(-2px); z-index: 6; }
 
-  .agent-node {
-    width: 76px; height: 76px;
-    border-radius: 50%;
-    background: linear-gradient(180deg, rgba(245,241,234,0.04), rgba(245,241,234,0.01));
-    border: 1px solid var(--rb-bone-faint);
-    display: flex; align-items: center; justify-content: center;
-    position: relative;
+  .agent-card {
+    background: linear-gradient(180deg, #15151b, #0d0d11);
+    border: 1px solid var(--rb-border-strong);
+    border-radius: 9px;
+    padding: 10px 11px 9px;
     transition: all 0.4s var(--ease-out);
+    box-shadow:
+      0 1px 0 rgba(255, 255, 255, 0.04) inset,
+      0 0 0 1px rgba(0, 0, 0, 0.4),
+      0 12px 24px -10px rgba(0, 0, 0, 0.6);
+    position: relative;
   }
 
-  .agent-node::before {
-    content: '';
-    position: absolute; inset: -6px;
-    border-radius: 50%;
-    border: 1px solid transparent;
-    transition: border-color 0.4s var(--ease-out);
+  .agent:hover .agent-card {
+    border-color: rgba(245, 241, 234, 0.25);
+    background: linear-gradient(180deg, #1c1c24, #131319);
+    box-shadow:
+      0 1px 0 rgba(255, 255, 255, 0.07) inset,
+      0 0 0 1px rgba(245, 241, 234, 0.12),
+      0 18px 36px -10px rgba(0, 0, 0, 0.7);
   }
 
-  .agent:hover .agent-node {
-    border-color: var(--rb-purple);
-    background: linear-gradient(180deg, rgba(184,174,219,0.1), rgba(139,125,216,0.04));
-  }
-  .agent:hover .agent-node::before { border-color: rgba(184, 174, 219, 0.2); }
-
-  .agent.selected .agent-node {
+  .agent.selected .agent-card {
     border-color: var(--rb-purple-core);
-    background: linear-gradient(180deg, rgba(139,125,216,0.18), rgba(139,125,216,0.06));
-    box-shadow: 0 0 32px rgba(139, 125, 216, 0.25);
+    background: linear-gradient(180deg, #1c1830, #110d1c);
+    box-shadow:
+      0 1px 0 rgba(255, 255, 255, 0.08) inset,
+      0 0 0 1px rgba(165, 148, 255, 0.4),
+      0 0 36px rgba(139, 125, 216, 0.22);
   }
-  .agent.selected .agent-node::before { border-color: var(--rb-purple-core); }
 
-  .agent-glyph {
+  /* Card header — chip + name + status pill */
+  .card-head {
+    display: flex; align-items: center; gap: 7px;
+    margin-bottom: 7px;
+  }
+  .card-chip {
+    width: 22px; height: 22px;
+    flex-shrink: 0;
+    border-radius: 5px;
+    background: linear-gradient(180deg, rgba(184, 174, 219, 0.18), rgba(139, 125, 216, 0.06));
+    border: 1px solid rgba(184, 174, 219, 0.3);
+    display: flex; align-items: center; justify-content: center;
+    color: var(--rb-purple);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 8px;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+  }
+  .card-name {
+    flex: 1;
     font-family: 'JetBrains Mono', monospace;
     font-size: 11px;
-    font-weight: 500;
-    letter-spacing: 0.08em;
     color: var(--rb-bone);
-    text-transform: uppercase;
+    letter-spacing: 0.01em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
-  .agent-status-ring {
-    position: absolute;
-    width: 8px; height: 8px;
-    background: var(--rb-success);
-    border-radius: 50%;
-    bottom: 6px; right: 10px;
-    box-shadow: 0 0 8px rgba(168, 198, 159, 0.7);
-    animation: live-pulse 2.4s ease-out infinite;
-  }
-  .agent-label {
-    text-align: center;
-    line-height: 1.2;
-  }
-  .agent-name {
+  .card-status {
+    display: flex; align-items: center; gap: 4px;
+    padding: 2px 5px;
+    background: rgba(126, 224, 138, 0.1);
+    border: 1px solid rgba(126, 224, 138, 0.22);
+    border-radius: 100px;
     font-family: 'JetBrains Mono', monospace;
-    font-size: 10px;
-    letter-spacing: 0.04em;
-    color: var(--rb-bone);
-    margin-bottom: 2px;
-  }
-  .agent-role {
-    font-family: 'DM Sans', sans-serif;
-    font-size: 9px;
-    color: var(--rb-bone-dim);
-    text-transform: uppercase;
+    font-size: 7.5px;
+    color: var(--rb-success);
     letter-spacing: 0.12em;
+    text-transform: uppercase;
+    flex-shrink: 0;
+  }
+  .card-status .dot {
+    width: 4px; height: 4px; border-radius: 50%;
+    background: var(--rb-success);
+    box-shadow: 0 0 5px rgba(126, 224, 138, 0.7);
   }
 
-  /* Lead — the centerpiece */
-  .agent.lead .agent-node {
-    width: 96px; height: 96px;
-    background: radial-gradient(circle at 50% 30%, rgba(216, 184, 122, 0.25), rgba(216, 184, 122, 0.05) 70%);
-    border-color: rgba(216, 184, 122, 0.5);
-    box-shadow:
-      0 0 0 1px rgba(216, 184, 122, 0.2),
-      0 0 50px rgba(216, 184, 122, 0.18),
-      inset 0 0 30px rgba(216, 184, 122, 0.08);
+  /* Role line under header */
+  .card-role {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 10px;
+    color: var(--rb-bone-dim);
+    margin-bottom: 7px;
+    line-height: 1.25;
+  }
+
+  /* Success bar — premium density signal */
+  .card-success {
+    margin-bottom: 7px;
+  }
+  .card-success-head {
+    display: flex; justify-content: space-between;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 8.5px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--rb-bone-dim);
+    margin-bottom: 3px;
+  }
+  .card-success-head .pct {
+    color: var(--rb-success);
+    letter-spacing: 0.04em;
+  }
+  .card-success-bar {
+    height: 3px;
+    background: rgba(245, 241, 234, 0.06);
+    border-radius: 100px;
     overflow: hidden;
   }
-  .agent.lead .agent-glyph {
-    color: var(--rb-warn);
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 24px;
-    font-style: italic;
-    letter-spacing: -0.01em;
-  }
-  .agent.lead .agent-name { color: var(--rb-warn); }
-  .lead-logo {
-    width: 64px; height: 64px;
-    object-fit: contain;
-    object-position: center;
-    border-radius: 50%;
-    background: rgba(245, 241, 234, 0.9);
-    padding: 6px;
+  .card-success-fill {
+    height: 100%;
+    background: linear-gradient(90deg, rgba(126, 224, 138, 0.6), rgba(126, 224, 138, 0.95));
+    border-radius: 100px;
+    box-shadow: 0 0 6px rgba(126, 224, 138, 0.4);
   }
 
-  /* Activity feed under canvas */
+  /* Stats row */
+  .card-stats {
+    display: flex; gap: 8px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    color: var(--rb-bone-dim);
+  }
+  .card-stat {
+    display: flex; align-items: baseline; gap: 3px;
+  }
+  .card-stat .val {
+    color: var(--rb-bone);
+    font-size: 10px;
+    letter-spacing: 0.01em;
+  }
+
+  /* Lead card variant — gold treatment, sits at the top */
+  .agent.lead .agent-card {
+    background:
+      radial-gradient(ellipse 200% 100% at 50% 0%, rgba(232, 196, 118, 0.14), transparent 70%),
+      linear-gradient(180deg, #1a1410, #0e0b08);
+    border-color: rgba(216, 184, 122, 0.45);
+    box-shadow:
+      0 1px 0 rgba(255, 230, 170, 0.1) inset,
+      0 0 0 1px rgba(216, 184, 122, 0.18),
+      0 0 40px rgba(216, 184, 122, 0.14),
+      0 18px 36px -10px rgba(0, 0, 0, 0.7);
+  }
+  .agent.lead .card-chip {
+    background: linear-gradient(180deg, rgba(232, 196, 118, 0.3), rgba(216, 184, 122, 0.1));
+    border-color: rgba(232, 196, 118, 0.5);
+    color: #e8c476;
+    overflow: hidden;
+  }
+  .agent.lead .card-chip img {
+    width: 100%; height: 100%; object-fit: contain;
+    background: rgba(245, 241, 234, 0.95);
+    padding: 3px;
+    border-radius: 4px;
+  }
+  .agent.lead .card-name { color: #e8c476; }
+
+  /* Activity feed at the bottom of workboard */
   .activity {
-    border-top: 1px solid var(--rb-bone-faint);
+    border-top: 1px solid var(--rb-border);
     padding: 14px 28px;
     height: 110px;
     overflow: hidden;
     position: relative;
+    background: var(--rb-bg-panel);
   }
   .activity-title {
     font-family: 'JetBrains Mono', monospace;
@@ -758,22 +881,29 @@
   /* ── Connection styles ───────────────────────────── */
   .conn-line {
     fill: none;
-    stroke: rgba(184, 174, 219, 0.18);
+    stroke: rgba(245, 241, 234, 0.15);
     stroke-width: 1;
     transition: opacity 0.35s var(--ease-out), stroke 0.35s var(--ease-out), stroke-width 0.35s var(--ease-out);
   }
   .conn-line.lead-link {
-    stroke: rgba(216, 184, 122, 0.18);
+    stroke: rgba(216, 184, 122, 0.22);
     stroke-dasharray: 2 6;
+  }
+  /* Reporting structure — solid bright primary lines (org chart hierarchy) */
+  .conn-hierarchy {
+    fill: none;
+    stroke: rgba(245, 241, 234, 0.4);
+    stroke-width: 1.25;
+    transition: opacity 0.35s var(--ease-out), stroke 0.35s var(--ease-out), stroke-width 0.35s var(--ease-out);
   }
   .conn-flow {
     fill: none;
-    stroke: var(--rb-purple);
+    stroke: rgba(184, 174, 219, 0.7);
     stroke-width: 1.5;
     stroke-linecap: round;
-    stroke-dasharray: 4 8;
+    stroke-dasharray: 5 6;
     animation: dash-flow 4s linear infinite;
-    opacity: 0.55;
+    opacity: 1;
     transition: opacity 0.35s var(--ease-out), stroke 0.35s var(--ease-out), stroke-width 0.35s var(--ease-out);
   }
   @keyframes dash-flow {
@@ -783,19 +913,66 @@
 
   /* When an agent is hovered, dim non-connected lines and emphasise connected ones */
   .network-svg.has-focus .conn-line:not(.highlighted),
+  .network-svg.has-focus .conn-hierarchy:not(.highlighted),
   .network-svg.has-focus .conn-flow:not(.highlighted) {
     opacity: 0.08;
   }
   .network-svg .conn-flow.highlighted {
     opacity: 1;
-    stroke-width: 2;
+    stroke-width: 1.75;
     stroke: var(--rb-purple);
-    filter: drop-shadow(0 0 6px rgba(139, 125, 216, 0.6));
+  }
+  .network-svg .conn-hierarchy.highlighted {
+    opacity: 1;
+    stroke: rgba(245, 241, 234, 0.75);
+    stroke-width: 1.5;
   }
   .network-svg .conn-line.highlighted.lead-link {
     opacity: 1;
-    stroke: rgba(216, 184, 122, 0.7);
-    stroke-width: 1.5;
+    stroke: rgba(216, 184, 122, 0.6);
+    stroke-width: 1.25;
+  }
+
+  /* ── Traveling pulses on paths (continuous + highlighted runs) ─── */
+  .pulse {
+    pointer-events: none;
+  }
+  .pulse circle {
+    fill: var(--rb-purple-bright);
+    filter: drop-shadow(0 0 6px rgba(165, 148, 255, 0.7));
+  }
+  .pulse.bg circle {
+    fill: rgba(184, 174, 219, 0.85);
+    filter: drop-shadow(0 0 4px rgba(184, 174, 219, 0.5));
+  }
+  .pulse.bright circle {
+    fill: #d8c4ff;
+    filter: drop-shadow(0 0 10px rgba(216, 196, 255, 0.95)) drop-shadow(0 0 4px rgba(165, 148, 255, 1));
+  }
+  /* Authority pulse — ops reporting up to lead, gold tint */
+  .pulse.auth circle {
+    fill: #ffd97a;
+    filter: drop-shadow(0 0 8px rgba(255, 217, 122, 0.8));
+  }
+
+  /* ── Agent card activation: a brief glow when work hits ───── */
+  .agent.activating .agent-card {
+    border-color: rgba(165, 148, 255, 0.7);
+    box-shadow:
+      0 1px 0 rgba(255, 255, 255, 0.08) inset,
+      0 0 0 1px rgba(165, 148, 255, 0.5),
+      0 0 32px rgba(139, 125, 216, 0.45),
+      0 12px 24px -10px rgba(0, 0, 0, 0.6);
+    transition: box-shadow 0.18s var(--ease-out), border-color 0.18s var(--ease-out);
+  }
+  .agent.lead.activating .agent-card {
+    border-color: rgba(255, 217, 122, 0.7);
+    box-shadow:
+      0 1px 0 rgba(255, 230, 170, 0.15) inset,
+      0 0 0 1px rgba(255, 217, 122, 0.6),
+      0 0 50px rgba(216, 184, 122, 0.45),
+      inset 0 0 30px rgba(232, 196, 118, 0.1),
+      0 18px 36px -10px rgba(0, 0, 0, 0.7);
   }
 
   /* ── Hover popover ──────────────────────────────── */
@@ -1096,18 +1273,51 @@
     margin-left: 4px;
   }
 
+  /* Legend — quick glance at what the two line types mean */
+  .canvas-legend {
+    position: absolute;
+    bottom: 14px;
+    right: 18px;
+    display: flex;
+    gap: 18px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--rb-bone-dim);
+    z-index: 4;
+  }
+  .canvas-legend .item {
+    display: flex; align-items: center; gap: 7px;
+  }
+  .canvas-legend .swatch {
+    width: 18px; height: 1.5px;
+    flex-shrink: 0;
+  }
+  .canvas-legend .swatch.hierarchy {
+    background: rgba(245, 241, 234, 0.5);
+  }
+  .canvas-legend .swatch.flow {
+    background: repeating-linear-gradient(
+      to right,
+      rgba(184, 174, 219, 0.8) 0 5px,
+      transparent 5px 11px
+    );
+    height: 2px;
+  }
+
   /* ── Scrollbar ────────────────────────────── */
   ::-webkit-scrollbar { width: 6px; height: 6px; }
   ::-webkit-scrollbar-track { background: transparent; }
   ::-webkit-scrollbar-thumb { background: var(--rb-bone-faint); border-radius: 100px; }
   ::-webkit-scrollbar-thumb:hover { background: var(--rb-bone-dim); }
 
-  /* small entry animation on agents */
+  /* small entry animation on agent cards */
   @keyframes agent-in {
-    from { opacity: 0; transform: translate(-50%, -50%) scale(0.85); }
-    to { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+    from { opacity: 0; transform: translate(-50%, -50%) translateY(6px); }
+    to { opacity: 1; transform: translate(-50%, -50%) translateY(0); }
   }
-  .agent { animation: agent-in 0.7s var(--ease-out) backwards; }
+  .agent { animation: agent-in 0.6s var(--ease-out) backwards; }
 </style>
 </head>
 <body>
@@ -1118,7 +1328,7 @@
   <!-- ─── Top bar ─── -->
   <header class="topbar">
     <div class="brand">
-      <img class="brand-mark" src="/rosebud-brand-orb.png" alt="Rosebud Solutions" width="28" height="28" />
+      <div class="brand-mark"></div>
       <div>
         <div class="brand-text">Rosebud Solutions</div>
         <div class="brand-sub">Operating Infrastructure</div>
@@ -1151,39 +1361,6 @@
       </div>
     </div>
   </header>
-
-  <!-- ─── Sub bar ─── -->
-  <section class="subbar">
-    <div>
-      <div class="hero-title">Candidate <em>Sourcing</em> Engine</div>
-      <div class="outcome-anchor">
-        <span class="editable" contenteditable="true" data-key="rb_demo_outcome_1" spellcheck="false">5-week deployment</span>
-        <span class="sep"></span>
-        <span class="editable" contenteditable="true" data-key="rb_demo_outcome_2" spellcheck="false">Cost of one hire</span>
-        <span class="sep"></span>
-        <span class="editable" contenteditable="true" data-key="rb_demo_outcome_3" spellcheck="false">You own it</span>
-      </div>
-    </div>
-
-    <div class="hero-meta">
-      <div class="hero-stat">
-        <span class="hero-stat-label">Agents</span>
-        <span class="hero-stat-value">7<span class="unit">live</span></span>
-      </div>
-      <div class="hero-stat">
-        <span class="hero-stat-label">Tasks today</span>
-        <span class="hero-stat-value" id="tasksNum">142</span>
-      </div>
-      <div class="hero-stat">
-        <span class="hero-stat-label">Throughput</span>
-        <span class="hero-stat-value" id="thruNum">38<span class="unit">/hr</span></span>
-      </div>
-      <div class="hero-stat">
-        <span class="hero-stat-label">Uptime</span>
-        <span class="hero-stat-value">99.8<span class="unit">%</span></span>
-      </div>
-    </div>
-  </section>
 
   <!-- ─── Main grid ─── -->
   <div class="main">
@@ -1236,21 +1413,50 @@
       </div>
     </aside>
 
-    <!-- Canvas -->
+    <!-- Canvas zone: subbar header + workboard + activity -->
     <main class="canvas-wrap">
-      <div class="canvas" id="canvas">
-        <div class="canvas-corner tl">SHARED SCREENING LAYER</div>
-        <div class="canvas-corner tr">CRM AUTO-POPULATION</div>
-        <div class="canvas-corner bl">PIPELINE WARM</div>
-        <div class="canvas-corner br">
-          <span>FLOW</span>
-          <span class="arrow">→</span>
-          <span style="color:var(--rb-purple)">LIVE</span>
+
+      <!-- ─── Sub bar (inside canvas zone) ─── -->
+      <section class="subbar">
+        <div>
+          <div class="hero-title">Candidate <em>Sourcing</em> Engine</div>
+          <div class="outcome-anchor">
+            <span class="editable" contenteditable="true" data-key="rb_demo_outcome_1" spellcheck="false">5-week deployment</span>
+            <span class="sep"></span>
+            <span class="editable" contenteditable="true" data-key="rb_demo_outcome_2" spellcheck="false">Cost of one hire</span>
+            <span class="sep"></span>
+            <span class="editable" contenteditable="true" data-key="rb_demo_outcome_3" spellcheck="false">You own it</span>
+          </div>
         </div>
 
+        <div class="hero-meta">
+          <div class="hero-stat">
+            <span class="hero-stat-label">Agents</span>
+            <span class="hero-stat-value">7<span class="unit">live</span></span>
+          </div>
+          <div class="hero-stat">
+            <span class="hero-stat-label">Tasks today</span>
+            <span class="hero-stat-value" id="tasksNum">142</span>
+          </div>
+          <div class="hero-stat">
+            <span class="hero-stat-label">Throughput</span>
+            <span class="hero-stat-value" id="thruNum">38<span class="unit">/hr</span></span>
+          </div>
+          <div class="hero-stat">
+            <span class="hero-stat-label">Uptime</span>
+            <span class="hero-stat-value">99.8<span class="unit">%</span></span>
+          </div>
+        </div>
+      </section>
+
+      <div class="canvas" id="canvas">
         <svg class="network-svg" id="networkSvg" preserveAspectRatio="none"></svg>
         <div class="agent-layer" id="agentLayer"></div>
         <div class="agent-popover" id="agentPopover" role="tooltip" aria-hidden="true"></div>
+        <div class="canvas-legend">
+          <div class="item"><span class="swatch hierarchy"></span><span>Reports to</span></div>
+          <div class="item"><span class="swatch flow"></span><span>Workflow</span></div>
+        </div>
       </div>
 
       <div class="activity">
@@ -1452,28 +1658,47 @@ const AGENTS = [
   }
 ];
 
-/* Workflow connections (per the doc) */
+/* Org chart layout — 3 tiers
+   Tier 1: lead              (you, top centre)
+   Tier 2: ops-auditor       (advisor/chief of staff, reports to lead)
+   Tier 3: six executors     (the team — fanned out below ops-auditor)
+*/
 const POS = {
-  lead:     { x: 50, y: 50 },
-  inbound:  { x: 22, y: 22 },
-  outbound: { x: 78, y: 22 },
-  screen:   { x: 86, y: 50 },
-  outreach: { x: 76, y: 76 },
-  crm:      { x: 50, y: 84 },
-  pipeline: { x: 24, y: 76 },
-  ops:      { x: 14, y: 50 }
+  lead:     { x: 50, y: 11 },
+  ops:      { x: 50, y: 33 },
+  inbound:  { x: 9,  y: 58 },
+  outbound: { x: 25, y: 58 },
+  screen:   { x: 42, y: 58 },
+  outreach: { x: 58, y: 58 },
+  pipeline: { x: 75, y: 58 },
+  crm:      { x: 91, y: 58 }
 };
 AGENTS.forEach(a => { a.pos = POS[a.id]; });
 
-/* Workflow connections per the doc */
+/* Reporting hierarchy — solid bright lines (primary read) */
+const HIERARCHY = [
+  // Lead → Ops-auditor (direct report)
+  ['lead', 'ops'],
+  // Ops-auditor → all six executors (the team reports through ops)
+  ['ops', 'inbound'],
+  ['ops', 'outbound'],
+  ['ops', 'screen'],
+  ['ops', 'outreach'],
+  ['ops', 'pipeline'],
+  ['ops', 'crm']
+];
+
+/* Workflow connections — animated dashed lines (secondary read) */
 const FLOWS = [
+  // Intake feeds screening
   ['inbound', 'screen'],
   ['outbound', 'screen'],
+  // Screening branches to engagement
   ['screen', 'outreach'],
   ['screen', 'pipeline'],
+  // Engagement writes to CRM
   ['outreach', 'crm'],
-  ['pipeline', 'crm'],
-  ['ops', 'lead']
+  ['pipeline', 'crm']
 ];
 
 /* ───────────────────────── Render ───────────────────────── */
@@ -1492,13 +1717,12 @@ function getCanvasSize() {
 function pctToPx(pct, dim) { return (pct / 100) * dim; }
 
 function leadAvatarHtml() {
-  // If a client logo is uploaded, the lead avatar becomes that logo (the prospect sits at the centre).
-  // Otherwise, show the crown.
+  // If a client logo is uploaded, the lead chip becomes that logo.
   const logo = (() => { try { return localStorage.getItem('rb_demo_logo'); } catch(e) { return null; } })();
   if (logo) {
-    return `<img class="lead-logo" src="${logo}" alt="Client logo" />`;
+    return `<img src="${logo}" alt="Client logo" />`;
   }
-  return `<span class="agent-glyph">♛</span>`;
+  return `<span>♛</span>`;
 }
 
 function renderAgents() {
@@ -1508,18 +1732,56 @@ function renderAgents() {
     el.className = 'agent' + (a.id === 'lead' ? ' lead' : '') + (a.id === selectedId ? ' selected' : '');
     el.style.left = a.pos.x + '%';
     el.style.top = a.pos.y + '%';
-    el.style.animationDelay = (i * 80) + 'ms';
+    el.style.animationDelay = (i * 70) + 'ms';
     el.dataset.id = a.id;
-    const inner = a.id === 'lead'
-      ? leadAvatarHtml()
-      : `<span class="agent-glyph">${a.glyph}</span><span class="agent-status-ring"></span>`;
+
+    // Pull headline stats from the metrics array. First metric drives "primary",
+    // last metric drives "secondary" — keeps the card readable without packing it.
+    const m = a.metrics;
+    const primaryStat = m[0] || { label: '', value: '' };
+    const secondaryStat = m[1] || { label: '', value: '' };
+
+    // Success % — vary slightly per agent so they don't all look identical
+    const successPct = a.id === 'lead' ? 100
+                     : a.id === 'screen' ? 96
+                     : a.id === 'inbound' ? 100
+                     : a.id === 'outbound' ? 88
+                     : a.id === 'outreach' ? 92
+                     : a.id === 'crm' ? 99
+                     : a.id === 'pipeline' ? 94
+                     : a.id === 'ops' ? 100
+                     : 95;
+
+    const chipContent = a.id === 'lead' ? leadAvatarHtml() : a.glyph;
+
+    // Display name: drop the redundant "-agent" and "-auditor" suffix in the card for breathing room.
+    // Everywhere else (roster, lightbox, popover, activity feed) keeps the full name.
+    let displayName = a.name;
+    if (a.id !== 'lead') {
+      displayName = a.name.replace(/-agent$/, '').replace(/-auditor$/, '');
+    }
+
     el.innerHTML = `
-      <div class="agent-node">
-        ${inner}
-      </div>
-      <div class="agent-label">
-        <div class="agent-name">${a.name}</div>
-        <div class="agent-role">${a.role}</div>
+      <div class="agent-card">
+        <div class="card-head">
+          <div class="card-chip">${chipContent}</div>
+          <div class="card-name">${displayName}</div>
+          <span class="card-status"><span class="dot"></span>${a.id === 'lead' ? 'You' : 'Auto'}</span>
+        </div>
+        <div class="card-role">${a.role}</div>
+        <div class="card-success">
+          <div class="card-success-head">
+            <span>Success</span>
+            <span class="pct">${successPct}%</span>
+          </div>
+          <div class="card-success-bar">
+            <div class="card-success-fill" style="width: ${successPct}%"></div>
+          </div>
+        </div>
+        <div class="card-stats">
+          <div class="card-stat"><span class="val">${primaryStat.value}${primaryStat.unit || ''}</span><span>${primaryStat.label.toLowerCase()}</span></div>
+          <div class="card-stat"><span class="val">${secondaryStat.value}${secondaryStat.unit || ''}</span><span>${secondaryStat.label.toLowerCase()}</span></div>
+        </div>
       </div>
     `;
     el.addEventListener('click', () => { openLightbox(a.id); });
@@ -1535,33 +1797,55 @@ function renderConnections() {
   networkSvg.setAttribute('height', h);
   networkSvg.setAttribute('viewBox', `0 0 ${w} ${h}`);
 
+  // Measure each rendered agent card to get its true edges
+  const cardRects = {};
+  AGENTS.forEach(a => {
+    const el = agentLayer.querySelector(`.agent[data-id="${a.id}"]`);
+    if (!el) return;
+    const ar = el.getBoundingClientRect();
+    const cr = networkSvg.getBoundingClientRect();
+    cardRects[a.id] = {
+      cx: ar.left + ar.width / 2 - cr.left,
+      cy: ar.top + ar.height / 2 - cr.top,
+      top: ar.top - cr.top,
+      bottom: ar.bottom - cr.top,
+      left: ar.left - cr.left,
+      right: ar.right - cr.left,
+      width: ar.width,
+      height: ar.height
+    };
+  });
+  // Expose for animation system to read
+  window._cardRects = cardRects;
+
   let svgContent = '';
 
-  // 1. lead-link (gold dashed) from lead to every other agent — subtle authority lines
-  const lead = AGENTS.find(a => a.id === 'lead');
-  const leadX = pctToPx(lead.pos.x, w);
-  const leadY = pctToPx(lead.pos.y, h);
-  AGENTS.filter(a => a.id !== 'lead').forEach(a => {
-    const x = pctToPx(a.pos.x, w);
-    const y = pctToPx(a.pos.y, h);
-    svgContent += `<line x1="${leadX}" y1="${leadY}" x2="${x}" y2="${y}" class="conn-line lead-link" data-from="lead" data-to="${a.id}" />`;
+  // 1) HIERARCHY — solid bright lines, primary read
+  HIERARCHY.forEach(([from, to]) => {
+    const a = cardRects[from], b = cardRects[to];
+    if (!a || !b) return;
+    const x1 = a.cx, y1 = a.bottom;
+    const x2 = b.cx, y2 = b.top;
+    const midY = y1 + (y2 - y1) * 0.5;
+    const path = `M ${x1} ${y1} C ${x1} ${midY}, ${x2} ${midY}, ${x2} ${y2}`;
+    const pid = `h-${from}-${to}`;
+    svgContent += `<path id="${pid}" d="${path}" class="conn-hierarchy" data-from="${from}" data-to="${to}" />`;
   });
 
-  // 2. workflow flows (purple, animated)
+  // 2) WORKFLOW — animated dashed lines, secondary read
   FLOWS.forEach(([from, to]) => {
-    const a = AGENTS.find(x => x.id === from);
-    const b = AGENTS.find(x => x.id === to);
-    const x1 = pctToPx(a.pos.x, w), y1 = pctToPx(a.pos.y, h);
-    const x2 = pctToPx(b.pos.x, w), y2 = pctToPx(b.pos.y, h);
-    // Curve via midpoint with slight offset
-    const mx = (x1 + x2) / 2;
-    const my = (y1 + y2) / 2;
-    // perpendicular nudge
-    const dx = x2 - x1, dy = y2 - y1;
-    const len = Math.sqrt(dx*dx + dy*dy);
-    const nx = -dy / len * 30;
-    const ny =  dx / len * 30;
-    svgContent += `<path d="M ${x1} ${y1} Q ${mx + nx} ${my + ny} ${x2} ${y2}" class="conn-flow" data-from="${from}" data-to="${to}" />`;
+    const a = cardRects[from], b = cardRects[to];
+    if (!a || !b) return;
+    const fromRight = a.cx < b.cx;
+    const x1 = fromRight ? a.right - 8 : a.left + 8;
+    const y1 = a.bottom - 2;
+    const x2 = fromRight ? b.left + 8 : b.right - 8;
+    const y2 = b.bottom - 2;
+    const dist = Math.abs(x2 - x1);
+    const dipY = Math.max(y1, y2) + Math.min(50, 18 + dist * 0.18);
+    const path = `M ${x1} ${y1} C ${x1} ${dipY}, ${x2} ${dipY}, ${x2} ${y2}`;
+    const pid = `f-${from}-${to}`;
+    svgContent += `<path id="${pid}" d="${path}" class="conn-flow" data-from="${from}" data-to="${to}" />`;
   });
 
   networkSvg.innerHTML = svgContent;
@@ -1645,16 +1929,18 @@ document.addEventListener('keydown', (e) => {
 const agentPopover = document.getElementById('agentPopover');
 
 function getConnectedIds(id) {
-  // An agent is "connected" to another if either FLOWS or the lead-link relates them.
+  // An agent is "connected" to another via HIERARCHY (reports-to) or FLOWS (workflow handoff).
   const set = new Set();
-  // lead is connected to all
+  set.add(id);
   if (id === 'lead') {
     AGENTS.forEach(a => set.add(a.id));
     return set;
   }
-  // Every agent is connected to lead via the gold authority line
-  set.add('lead');
-  set.add(id);
+  // Reporting hierarchy
+  HIERARCHY.forEach(([from, to]) => {
+    if (from === id) set.add(to);
+    if (to === id) set.add(from);
+  });
   // Workflow connections
   FLOWS.forEach(([from, to]) => {
     if (from === id) set.add(to);
@@ -1961,9 +2247,9 @@ function handleLogo(e) {
 logoInput.addEventListener('change', handleLogo);
 
 function refreshLeadAvatar() {
-  const leadEl = agentLayer.querySelector('.agent.lead .agent-node');
-  if (!leadEl) return;
-  leadEl.innerHTML = leadAvatarHtml();
+  const leadChip = agentLayer.querySelector('.agent.lead .card-chip');
+  if (!leadChip) return;
+  leadChip.innerHTML = leadAvatarHtml();
 }
 
 /* Allow right-click on logo to reset */
@@ -1997,14 +2283,336 @@ function driftStats() {
   }, 12000);
 }
 
+/* ───────────────────────── Animation: pulses + activations ───────────────────────── */
+/* Two layers:
+   1. Continuous background — small subtle pulses fire at random on workflow edges
+   2. Highlighted runs — a brighter pulse traces a complete intake→CRM journey every ~10-14s,
+      with synchronized activity feed entries that narrate what's happening.
+*/
+
+const SVG_NS = 'http://www.w3.org/2000/svg';
+
+function getPathEl(prefix, from, to) {
+  return networkSvg.querySelector(`#${prefix}-${from}-${to}`);
+}
+
+/* Spawn a single pulse traveling along a path edge */
+function spawnPulse(pathEl, opts = {}) {
+  if (!pathEl) return null;
+  const {
+    duration = 1200,
+    radius = 2.5,
+    variant = '',
+    onArrive = null
+  } = opts;
+
+  const totalLen = pathEl.getTotalLength();
+  if (!totalLen) return null;
+
+  // Create a group with a circle that we'll move along the path
+  const g = document.createElementNS(SVG_NS, 'g');
+  g.setAttribute('class', `pulse ${variant}`.trim());
+  const c = document.createElementNS(SVG_NS, 'circle');
+  c.setAttribute('r', String(radius));
+  g.appendChild(c);
+  networkSvg.appendChild(g);
+
+  // Animate using rAF — independent of CSS, smoother than SMIL
+  const start = performance.now();
+  let cancelled = false;
+  function frame(now) {
+    if (cancelled) return;
+    const t = Math.min(1, (now - start) / duration);
+    // ease-in-out cubic for natural acceleration
+    const eased = t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+    const point = pathEl.getPointAtLength(eased * totalLen);
+    c.setAttribute('cx', point.x);
+    c.setAttribute('cy', point.y);
+    if (t < 1) {
+      requestAnimationFrame(frame);
+    } else {
+      // Fade out at the end
+      g.style.transition = 'opacity 0.25s';
+      g.style.opacity = '0';
+      setTimeout(() => g.remove(), 280);
+      if (onArrive) onArrive();
+    }
+  }
+  requestAnimationFrame(frame);
+
+  return () => { cancelled = true; g.remove(); };
+}
+
+/* Briefly activate an agent card (border glow) */
+function activateAgent(id, duration = 600) {
+  const el = agentLayer.querySelector(`.agent[data-id="${id}"]`);
+  if (!el) return;
+  el.classList.add('activating');
+  setTimeout(() => el.classList.remove('activating'), duration);
+}
+
+/* Background pulses — random low-key activity on workflow edges */
+const WORKFLOW_EDGES = FLOWS.slice(); // [[from, to], ...]
+
+function bgPulseLoop() {
+  // Pick a random workflow edge and fire a small pulse
+  const [from, to] = WORKFLOW_EDGES[Math.floor(Math.random() * WORKFLOW_EDGES.length)];
+  const pathEl = getPathEl('f', from, to);
+  if (pathEl) {
+    spawnPulse(pathEl, {
+      duration: 1100 + Math.random() * 600,
+      radius: 2,
+      variant: 'bg',
+      onArrive: () => activateAgent(to, 350)
+    });
+  }
+  // Next pulse in 800-2200ms
+  setTimeout(bgPulseLoop, 800 + Math.random() * 1400);
+}
+
+/* Highlighted run — trace a complete candidate journey through the pipeline.
+   Path: (inbound or outbound) → screen → (outreach or pipeline) → crm
+   Each step fires a bright pulse + activates the destination + adds an activity row. */
+
+const RUN_SCENARIOS = [
+  {
+    intake: 'inbound',
+    branch: 'outreach',
+    candidate: 'Marcus Chen — senior backend, fintech, London',
+    feed: [
+      { agent: 'inbound-agent', msg: 'Applicant captured', meta: 'Channel: LinkedIn Easy Apply' },
+      { agent: 'screen-agent', msg: 'Pass — 6yr backend, Series B fintech', meta: 'ICP match: 5/5' },
+      { agent: 'outreach-agent', msg: 'Personalised first-touch sent', meta: 'Opened 4 min later' },
+      { agent: 'crm-agent', msg: 'Record created, status: in conversation', meta: 'Marcus Chen' }
+    ]
+  },
+  {
+    intake: 'outbound',
+    branch: 'outreach',
+    candidate: 'Priya Shah — staff engineer, payments',
+    feed: [
+      { agent: 'outbound-agent', msg: 'Sourced from LinkedIn', meta: 'ICP score: 9/10' },
+      { agent: 'screen-agent', msg: 'Pass — 8yr payments, currently at Klarna', meta: 'ICP match: 5/5' },
+      { agent: 'outreach-agent', msg: 'Personalised first-touch sent', meta: 'Cadence: Day 1 of 4' },
+      { agent: 'crm-agent', msg: 'Record created, awaiting reply', meta: 'Priya Shah' }
+    ]
+  },
+  {
+    intake: 'outbound',
+    branch: 'pipeline',
+    candidate: 'James Okafor — strong fit but unavailable',
+    feed: [
+      { agent: 'outbound-agent', msg: 'Sourced from sector network', meta: 'Senior PM, fintech' },
+      { agent: 'screen-agent', msg: 'Pass — strong profile, on parental leave', meta: 'Available Q3' },
+      { agent: 'pipeline-agent', msg: 'Moved to warm pool, scheduled check-in', meta: 'Re-engage: 12 weeks' },
+      { agent: 'crm-agent', msg: 'Status: warm — held for future brief', meta: 'James Okafor' }
+    ]
+  },
+  {
+    intake: 'inbound',
+    branch: 'outreach',
+    candidate: 'Sarah Lindqvist — frontend lead',
+    feed: [
+      { agent: 'inbound-agent', msg: 'Applicant captured', meta: 'Channel: Indeed' },
+      { agent: 'screen-agent', msg: 'Pass — 7yr frontend, React/TS specialist', meta: 'ICP match: 4/5' },
+      { agent: 'outreach-agent', msg: 'Personalised first-touch sent', meta: 'Custom: portfolio referenced' },
+      { agent: 'crm-agent', msg: 'Record created, status: in conversation', meta: 'Sarah Lindqvist' }
+    ]
+  }
+];
+
+function runHighlightedJourney() {
+  const scenario = RUN_SCENARIOS[Math.floor(Math.random() * RUN_SCENARIOS.length)];
+  const steps = [
+    [scenario.intake, 'screen', scenario.feed[0], scenario.feed[1]],
+    ['screen', scenario.branch, null, scenario.feed[2]],
+    [scenario.branch, 'crm', null, scenario.feed[3]]
+  ];
+
+  // Activate the intake agent first + log entry
+  activateAgent(scenario.intake, 700);
+  pushActivityRow(scenario.feed[0]);
+
+  let stepIndex = 0;
+  function nextStep() {
+    if (stepIndex >= steps.length) return;
+    const [from, to, _arrivedLog, departLog] = steps[stepIndex];
+    const pathEl = getPathEl('f', from, to);
+    if (!pathEl) { stepIndex++; setTimeout(nextStep, 100); return; }
+
+    spawnPulse(pathEl, {
+      duration: 1400,
+      radius: 3.5,
+      variant: 'bright',
+      onArrive: () => {
+        activateAgent(to, 700);
+        if (departLog) pushActivityRow(departLog);
+        stepIndex++;
+        setTimeout(nextStep, 900 + Math.random() * 400);
+      }
+    });
+  }
+  // Small delay after intake activation so the eye can register it
+  setTimeout(nextStep, 650);
+}
+
+/* Authority pulse — ops-auditor reporting findings up to lead.
+   Less frequent than workflow runs. */
+function opsReportToLead() {
+  const pathEl = getPathEl('h', 'lead', 'ops');
+  if (!pathEl) return;
+  // Travel along the hierarchy path in reverse (ops → lead) by computing in reverse
+  // The path runs lead.bottom → ops.top, so we trace it in reverse
+  if (!pathEl.getTotalLength()) return;
+
+  const totalLen = pathEl.getTotalLength();
+  const g = document.createElementNS(SVG_NS, 'g');
+  g.setAttribute('class', 'pulse auth');
+  const c = document.createElementNS(SVG_NS, 'circle');
+  c.setAttribute('r', '2.5');
+  g.appendChild(c);
+  networkSvg.appendChild(g);
+
+  const start = performance.now();
+  const duration = 1100;
+  function frame(now) {
+    const t = Math.min(1, (now - start) / duration);
+    const eased = t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+    // Reverse: travel from end of path back to start
+    const point = pathEl.getPointAtLength((1 - eased) * totalLen);
+    c.setAttribute('cx', point.x);
+    c.setAttribute('cy', point.y);
+    if (t < 1) {
+      requestAnimationFrame(frame);
+    } else {
+      activateAgent('lead', 800);
+      pushActivityRow({
+        agent: 'ops-auditor',
+        msg: 'Bottleneck report delivered to lead',
+        meta: 'Recommendation: scale outreach cadence'
+      });
+      g.style.transition = 'opacity 0.25s';
+      g.style.opacity = '0';
+      setTimeout(() => g.remove(), 280);
+    }
+  }
+  requestAnimationFrame(frame);
+}
+
+/* Ops dispatches a directive down to an executor — gold pulse, hierarchy line.
+   Different message per executor so the activity feed reads as varied. */
+const DISPATCH_MESSAGES = {
+  inbound: [
+    { msg: 'ICP threshold adjusted', meta: 'New floor: 7/10 match score' },
+    { msg: 'Channel priority updated', meta: 'LinkedIn first, then job boards' },
+    { msg: 'Heartbeat check requested', meta: 'All 6 channels confirmed live' }
+  ],
+  outbound: [
+    { msg: 'Search query refined', meta: 'Added: Series B+ fintech filter' },
+    { msg: 'ICP weights rebalanced', meta: 'Skills 40%, trajectory 35%, fit 25%' },
+    { msg: 'Match rate target raised', meta: 'New goal: 45%' }
+  ],
+  screen: [
+    { msg: 'Screening criteria tightened', meta: 'Pass rate forecast: 18-22%' },
+    { msg: 'Needs Review flag escalated', meta: '2 borderline cases sent up' },
+    { msg: 'Reasoning audit enabled', meta: 'All Fail decisions logged' }
+  ],
+  outreach: [
+    { msg: 'Cadence cap adjusted', meta: 'Max 4 touches before pipeline handoff' },
+    { msg: 'Voice template refreshed', meta: 'Conversational tone enabled' },
+    { msg: 'Reply window extended', meta: 'Day 14 → Day 21 before cooling' }
+  ],
+  pipeline: [
+    { msg: 'Warm pool re-scored', meta: '24 candidates moved to active' },
+    { msg: 'Dormancy threshold updated', meta: '90 days → 60 days' },
+    { msg: 'Re-engagement priority set', meta: 'Match-rate weighted' }
+  ],
+  crm: [
+    { msg: 'Sync interval reduced', meta: 'Real-time → 30s polling' },
+    { msg: 'Duplicate detection tuned', meta: 'Email + LinkedIn URL match' },
+    { msg: 'Stale record sweep run', meta: '3 orphaned entries cleaned' }
+  ]
+};
+
+function opsDispatchToExecutor() {
+  // Pick a random executor (not lead, not ops itself)
+  const executors = ['inbound', 'outbound', 'screen', 'outreach', 'pipeline', 'crm'];
+  const targetId = executors[Math.floor(Math.random() * executors.length)];
+  const pathEl = getPathEl('h', 'ops', targetId);
+  if (!pathEl) return;
+  if (!pathEl.getTotalLength()) return;
+
+  // Travel along the hierarchy path normally (ops → executor, top-to-bottom)
+  spawnPulse(pathEl, {
+    duration: 950,
+    radius: 2.5,
+    variant: 'auth',
+    onArrive: () => {
+      activateAgent(targetId, 550);
+      // Pick a random message for this executor
+      const msgs = DISPATCH_MESSAGES[targetId];
+      const m = msgs[Math.floor(Math.random() * msgs.length)];
+      pushActivityRow({
+        agent: 'ops-auditor',
+        msg: `→ ${targetId}-agent: ${m.msg}`,
+        meta: m.meta
+      });
+    }
+  });
+}
+
+/* Activity feed helper that takes a structured row (so highlighted runs and
+   ops reports can push real-looking entries instead of random templates) */
+function pushActivityRow(row) {
+  const r = document.createElement('div');
+  r.className = 'activity-row';
+  r.innerHTML = `
+    <span class="activity-time">${timeStr()}</span>
+    <span class="activity-agent">${row.agent}</span>
+    <span class="activity-msg">${row.msg}</span>
+    <span class="activity-meta">${row.meta}</span>
+  `;
+  activityFeed.prepend(r);
+  while (activityFeed.children.length > 4) {
+    activityFeed.removeChild(activityFeed.lastChild);
+  }
+}
+
+/* Animation system controller — gates everything on first render being complete */
+function startAnimationSystem() {
+  // Background pulses start after a short pause so the dashboard settles in
+  setTimeout(bgPulseLoop, 800);
+
+  // Highlighted run every ~11-15 seconds
+  setTimeout(() => {
+    runHighlightedJourney();
+    setInterval(runHighlightedJourney, 11000 + Math.random() * 4000);
+  }, 2400);
+
+  // Ops dispatches a directive every ~6-9 seconds — keeps the hierarchy lines alive
+  setTimeout(() => {
+    opsDispatchToExecutor();
+    setInterval(opsDispatchToExecutor, 6000 + Math.random() * 3000);
+  }, 4200);
+
+  // Ops report up to lead every ~30 seconds
+  setTimeout(() => {
+    opsReportToLead();
+    setInterval(opsReportToLead, 28000 + Math.random() * 8000);
+  }, 7000);
+}
+
 /* ───────────────────────── Boot ───────────────────────── */
 function boot() {
   renderAgents();
   renderRoster();
   renderConnections();
   seedActivity();
-  setInterval(pushActivity, 4500);
+  // Random background activity feed entries — slowed because the highlighted
+  // runs and ops reports now provide most of the credible activity.
+  setInterval(pushActivity, 8500);
   driftStats();
+  startAnimationSystem();
 }
 boot();
 
