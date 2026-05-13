@@ -181,6 +181,77 @@ export default function PrivacyPage() {
               If you disable cookies, some Website features may not function
               properly.
             </p>
+
+            <h3 className="rb-policy-h3">Product Analytics (PostHog)</h3>
+            <p>
+              We use PostHog, a product analytics platform, to understand how
+              visitors interact with our Website and improve our services.
+              PostHog acts as a data processor on our behalf and is operated
+              by PostHog Inc. (United States) and its subsidiaries, including
+              PostHog GmbH in Germany.
+            </p>
+            <p>
+              We use PostHog&rsquo;s EU Cloud, meaning the personal data
+              PostHog processes on our behalf &mdash; including IP address,
+              device and browser data, pages viewed, click and navigation
+              events, and session metadata &mdash; is stored on infrastructure
+              located in Germany, within the EU.
+            </p>
+            <p>
+              We also use PostHog&rsquo;s session replay feature, which records
+              interactions with our Website such as mouse movements, clicks,
+              scrolls, and page navigation, so we can diagnose usability issues
+              and improve the experience. Input fields, payment details, and
+              other sensitive information are masked by default and are not
+              captured.
+            </p>
+            <p>
+              PostHog uses first-party cookies only and does not run
+              third-party tracking or retargeting through our Website.
+              Analytics and session replay are loaded only after you accept
+              non-essential cookies through our cookie banner.
+            </p>
+            <p>
+              PostHog&rsquo;s privacy notice is available at{" "}
+              <a
+                href="https://posthog.com/privacy"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="rb-policy-link"
+              >
+                https://posthog.com/privacy
+              </a>
+              .
+            </p>
+
+            <h3 className="rb-policy-h3">Booking and Scheduling (Cal.com)</h3>
+            <p>
+              When you book a consultation with us, scheduling is handled
+              through Cal.com &mdash; specifically the EU-hosted instance at
+              cal.eu &mdash; operated by Cal.com, Inc. To process your
+              booking, Cal.com collects the information you provide on the
+              booking form, including your name, email address, time zone,
+              scheduling preferences, and any responses to questions we ask
+              before the meeting.
+            </p>
+            <p>
+              Cal.com acts as a data controller in respect of its own platform
+              and as a service provider to us for the purpose of facilitating
+              your booking. Bookings made through cal.eu are processed and
+              stored within the European Union.
+            </p>
+            <p>
+              Cal.com&rsquo;s privacy notice is available at{" "}
+              <a
+                href="https://cal.com/privacy"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="rb-policy-link"
+              >
+                https://cal.com/privacy
+              </a>
+              .
+            </p>
           </section>
 
           <section className="rb-policy-section">
