@@ -10,6 +10,7 @@ import LayoutChrome from "@/components/LayoutChrome";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import PostHogProvider from "@/components/PostHogProvider";
+import CookieBanner from "@/components/CookieBanner";
 import { Suspense } from "react";
 import "./globals.css";
 
@@ -145,6 +146,7 @@ export default function RootLayout({
         </Suspense>
         <Analytics />
         <SpeedInsights />
+        <CookieBanner />
       </body>
     </html>
   );

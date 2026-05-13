@@ -3,54 +3,66 @@
 import { useEffect } from 'react'
 import { usePathname, useSearchParams } from 'next/navigation'
 import posthog from 'posthog-js'
+import { readConsent } from '@/lib/consent'
 
 const PH_KEY  = process.env.NEXT_PUBLIC_POSTHOG_KEY
 const PH_HOST = process.env.NEXT_PUBLIC_POSTHOG_HOST ?? 'https://eu.i.posthog.com'
 
 let initialised = false
 
+function hasStatisticsConsent(): boolean {
+  const c = readConsent()
+  return !!c && c.categories.statistics === true
+}
+
 function initOnce() {
   if (initialised) return
   if (!PH_KEY) return
   if (typeof window === 'undefined') return
+  if (!hasStatisticsConsent()) return
 
   posthog.init(PH_KEY, {
     api_host: PH_HOST,
-    // Cookieless mode: PostHog stores its anon id in localStorage / memory
-    // instead of dropping a first-party cookie. Avoids needing a UK/EU
-    // cookie banner under PECR's analytics carve-out and keeps return-visitor
-    // tracking working across sessions on the same browser.
     persistence: 'localStorage+cookie',
     cross_subdomain_cookie: false,
     secure_cookie: true,
-    // We fire pageviews ourselves on App Router navigations (see effect
-    // below) — PostHog's auto-capture would double-count.
     capture_pageview: false,
     capture_pageleave: true,
     ip: true,
-    // Session replay enabled — PostHog Cloud free tier covers 5k recordings
-    // per month, far above our marketing-site volume. Mask all input values
-    // and form fields by default so PII (names, emails entered into Cal
-    // booking forms) is not stored alongside the replay.
     disable_session_recording: false,
     session_recording: {
       maskAllInputs: true,
       maskTextSelector: '[data-ph-mask]',
     },
-    // Auto-capture is opinionated and noisy on a marketing site — turn off;
-    // we instrument the few CTAs that matter (book_call, cal_loaded,
-    // booking_completed, industry_view) explicitly via the analytics helper.
     autocapture: false,
   })
   initialised = true
+}
+
+function teardown() {
+  if (!initialised) return
+  try {
+    posthog.opt_out_capturing()
+    posthog.reset()
+  } catch {
+    /* posthog not yet ready — nothing to tear down */
+  }
 }
 
 export default function PostHogProvider() {
   const pathname = usePathname()
   const search = useSearchParams()
 
+  // Init only when consent is already present; otherwise wait for
+  // 'rb:consent-updated' from the banner.
   useEffect(() => {
     initOnce()
+    const onConsent = () => {
+      if (hasStatisticsConsent()) initOnce()
+      else teardown()
+    }
+    window.addEventListener('rb:consent-updated', onConsent)
+    return () => window.removeEventListener('rb:consent-updated', onConsent)
   }, [])
 
   useEffect(() => {

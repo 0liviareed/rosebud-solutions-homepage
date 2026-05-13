@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import CookieSettingsLink from "@/components/CookieSettingsLink";
 
 /**
  * Footer — global, appears below every page via layout.tsx.
@@ -127,6 +128,9 @@ export default function Footer() {
                 <Link href="/terms" className="rb-footer-link">
                   Terms of Service
                 </Link>
+              </li>
+              <li>
+                <CookieSettingsLink />
               </li>
             </ul>
           </div>

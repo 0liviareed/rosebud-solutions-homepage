@@ -4007,3 +4007,297 @@ button { font: inherit; color: inherit; }
   box-shadow: 0 0 0 3px rgba(139,125,216,0.08), 0 0 18px rgba(139,125,216,0.25);
   outline: none;
 }
+
+/* =============================================================
+   Cookie consent — top banner + preferences modal
+   ============================================================= */
+
+.rb-cookie-bar {
+  position: fixed;
+  top: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1100;
+  width: calc(100% - 32px);
+  max-width: 980px;
+  background: rgba(10,10,12,0.92);
+  backdrop-filter: blur(14px) saturate(140%);
+  -webkit-backdrop-filter: blur(14px) saturate(140%);
+  border: 1px solid rgba(245,241,234,0.10);
+  border-radius: 14px;
+  box-shadow:
+    0 1px 0 rgba(255,255,255,0.04) inset,
+    0 24px 48px -16px rgba(0,0,0,0.6);
+  animation: rbCookieIn 360ms var(--rb-ease) both;
+}
+
+@keyframes rbCookieIn {
+  from { opacity: 0; transform: translate(-50%, -10px); }
+  to   { opacity: 1; transform: translate(-50%, 0); }
+}
+
+.rb-cookie-bar-inner {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 18px;
+  padding: 14px 56px 14px 18px;
+  position: relative;
+}
+
+.rb-cookie-bar-icon {
+  display: inline-flex;
+  width: 36px; height: 36px;
+  align-items: center; justify-content: center;
+  border-radius: 50%;
+  color: var(--rb-purple);
+  background: rgba(139,125,216,0.08);
+  border: 1px solid rgba(184,174,219,0.22);
+  flex-shrink: 0;
+}
+
+.rb-cookie-bar-text { min-width: 0; }
+.rb-cookie-bar-title {
+  margin: 0 0 2px;
+  font-family: var(--font-cormorant), serif;
+  font-style: italic;
+  font-weight: 500;
+  font-size: 16px;
+  color: var(--rb-bone);
+}
+.rb-cookie-bar-body {
+  margin: 0;
+  font-size: 12.5px;
+  line-height: 1.5;
+  color: var(--rb-bone-dim);
+}
+
+.rb-cookie-bar-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.rb-cookie-customise {
+  font-size: 12.5px;
+  padding: 0 2px;
+  margin-right: 4px;
+}
+
+.rb-cookie-link {
+  color: var(--rb-purple);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  text-decoration-color: rgba(184,174,219,0.4);
+  background: none;
+  border: 0;
+  cursor: pointer;
+  padding: 0;
+  font: inherit;
+}
+.rb-cookie-link:hover { color: var(--rb-bone); text-decoration-color: var(--rb-purple); }
+
+.rb-cookie-btn {
+  appearance: none;
+  border: 0;
+  cursor: pointer;
+  font-family: var(--font-dm-sans), system-ui, sans-serif;
+  font-size: 12.5px;
+  font-weight: 500;
+  padding: 9px 16px;
+  border-radius: 8px;
+  letter-spacing: 0.01em;
+  transition: background 180ms var(--rb-ease), border-color 180ms var(--rb-ease), color 180ms var(--rb-ease);
+}
+.rb-cookie-btn-secondary {
+  background: transparent;
+  color: var(--rb-bone);
+  border: 1px solid rgba(245,241,234,0.18);
+}
+.rb-cookie-btn-secondary:hover {
+  border-color: var(--rb-purple);
+  background: rgba(139,125,216,0.06);
+}
+.rb-cookie-btn-primary {
+  background: var(--rb-bone);
+  color: #0a0a0c;
+  border: 1px solid var(--rb-bone);
+}
+.rb-cookie-btn-primary:hover { background: #ffffff; border-color: #ffffff; }
+
+.rb-cookie-close {
+  position: absolute;
+  top: 8px;
+  right: 10px;
+  width: 28px; height: 28px;
+  border-radius: 6px;
+  background: transparent;
+  border: 0;
+  color: var(--rb-bone-dim);
+  font-size: 22px;
+  line-height: 1;
+  cursor: pointer;
+}
+.rb-cookie-close:hover { color: var(--rb-bone); background: rgba(255,255,255,0.04); }
+
+/* ---- Modal ---- */
+
+.rb-cookie-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 1200;
+  background: rgba(0,0,0,0.55);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  animation: rbFade 200ms var(--rb-ease) both;
+}
+
+@keyframes rbFade { from { opacity: 0 } to { opacity: 1 } }
+
+.rb-cookie-modal {
+  position: relative;
+  width: 100%;
+  max-width: 640px;
+  max-height: calc(100vh - 48px);
+  overflow-y: auto;
+  background: #0e0e10;
+  border: 1px solid rgba(245,241,234,0.10);
+  border-radius: 16px;
+  box-shadow: 0 32px 64px -20px rgba(0,0,0,0.7);
+  padding: 28px 28px 22px;
+  animation: rbCookieModalIn 280ms var(--rb-ease) both;
+}
+
+@keyframes rbCookieModalIn {
+  from { opacity: 0; transform: translateY(8px) scale(0.99); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.rb-cookie-modal-close { top: 12px; right: 14px; }
+
+.rb-cookie-modal-head { margin-bottom: 18px; padding-right: 24px; }
+.rb-cookie-modal-title {
+  margin: 0 0 6px;
+  font-family: var(--font-cormorant), serif;
+  font-style: italic;
+  font-weight: 500;
+  font-size: 22px;
+  color: var(--rb-bone);
+  letter-spacing: 0.01em;
+}
+.rb-cookie-modal-sub {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--rb-bone-dim);
+}
+
+.rb-cookie-categories {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.rb-cookie-cat {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 18px;
+  padding: 14px 16px;
+  border: 1px solid rgba(245,241,234,0.08);
+  border-radius: 10px;
+  background: rgba(255,255,255,0.015);
+}
+
+.rb-cookie-cat-title {
+  margin: 0 0 3px;
+  font-size: 13.5px;
+  font-weight: 500;
+  color: var(--rb-bone);
+}
+.rb-cookie-cat-body {
+  margin: 0;
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--rb-bone-dim);
+}
+
+.rb-cookie-toggle {
+  appearance: none;
+  border: 0;
+  background: rgba(245,241,234,0.12);
+  width: 38px; height: 22px;
+  border-radius: 999px;
+  position: relative;
+  cursor: pointer;
+  transition: background 180ms var(--rb-ease);
+  flex-shrink: 0;
+}
+.rb-cookie-toggle-knob {
+  position: absolute;
+  top: 3px; left: 3px;
+  width: 16px; height: 16px;
+  border-radius: 50%;
+  background: var(--rb-bone);
+  box-shadow: 0 1px 2px rgba(0,0,0,0.5);
+  transition: transform 200ms var(--rb-ease);
+}
+.rb-cookie-toggle.is-on { background: var(--rb-purple-core); }
+.rb-cookie-toggle.is-on .rb-cookie-toggle-knob { transform: translateX(16px); }
+
+.rb-cookie-locked {
+  display: inline-flex;
+  width: 38px; height: 22px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  background: rgba(245,241,234,0.04);
+  border: 1px solid rgba(245,241,234,0.08);
+  color: var(--rb-bone-dim);
+}
+
+.rb-cookie-modal-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: flex-end;
+  margin-top: 22px;
+}
+
+/* Footer "Cookie settings" trigger */
+.rb-cookie-footer-trigger {
+  background: none;
+  border: 0;
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
+  color: inherit;
+  text-align: left;
+}
+
+/* Mobile — stack the banner */
+@media (max-width: 720px) {
+  .rb-cookie-bar { top: 8px; }
+  .rb-cookie-bar-inner {
+    grid-template-columns: 1fr;
+    padding: 14px 44px 16px 16px;
+  }
+  .rb-cookie-bar-icon { display: none; }
+  .rb-cookie-bar-actions {
+    width: 100%;
+    flex-wrap: wrap;
+    margin-top: 4px;
+  }
+  .rb-cookie-bar-actions .rb-cookie-btn { flex: 1; min-width: 130px; }
+  .rb-cookie-modal { padding: 22px 18px 18px; }
+  .rb-cookie-modal-actions { gap: 8px; }
+  .rb-cookie-modal-actions .rb-cookie-btn { flex: 1; min-width: 110px; }
+}
