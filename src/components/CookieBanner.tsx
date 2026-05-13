@@ -121,14 +121,6 @@ export default function CookieBanner() {
                 Accept all
               </button>
             </div>
-            <button
-              type="button"
-              className="rb-cookie-close"
-              onClick={rejectAll}
-              aria-label="Close — reject non-essential cookies"
-            >
-              ×
-            </button>
           </div>
         </div>
       )}
@@ -139,21 +131,8 @@ export default function CookieBanner() {
           role="dialog"
           aria-modal="true"
           aria-labelledby="rb-cookie-modal-title"
-          onClick={(e) => {
-            // Click outside the panel closes back to banner state.
-            if (e.target === e.currentTarget) setModalOpen(false)
-          }}
         >
           <div className="rb-cookie-modal">
-            <button
-              type="button"
-              className="rb-cookie-close rb-cookie-modal-close"
-              onClick={() => setModalOpen(false)}
-              aria-label="Close preferences"
-            >
-              ×
-            </button>
-
             <div className="rb-cookie-modal-head">
               <h2 id="rb-cookie-modal-title" className="rb-cookie-modal-title">
                 Manage Cookie preferences
