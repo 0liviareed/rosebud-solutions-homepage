@@ -4014,7 +4014,7 @@ button { font: inherit; color: inherit; }
 
 .rb-cookie-bar {
   position: fixed;
-  top: 16px;
+  bottom: max(16px, env(safe-area-inset-bottom, 0px));
   left: 50%;
   transform: translateX(-50%);
   z-index: 1100;
@@ -4027,12 +4027,12 @@ button { font: inherit; color: inherit; }
   border-radius: 14px;
   box-shadow:
     0 1px 0 rgba(255,255,255,0.04) inset,
-    0 24px 48px -16px rgba(0,0,0,0.6);
+    0 -24px 48px -16px rgba(0,0,0,0.6);
   animation: rbCookieIn 360ms var(--rb-ease) both;
 }
 
 @keyframes rbCookieIn {
-  from { opacity: 0; transform: translate(-50%, -10px); }
+  from { opacity: 0; transform: translate(-50%, 12px); }
   to   { opacity: 1; transform: translate(-50%, 0); }
 }
 
@@ -4285,7 +4285,7 @@ button { font: inherit; color: inherit; }
 
 /* Mobile — stack the banner */
 @media (max-width: 720px) {
-  .rb-cookie-bar { top: 8px; }
+  .rb-cookie-bar { bottom: max(8px, env(safe-area-inset-bottom, 0px)); }
   .rb-cookie-bar-inner {
     grid-template-columns: 1fr;
     padding: 14px 44px 16px 16px;
