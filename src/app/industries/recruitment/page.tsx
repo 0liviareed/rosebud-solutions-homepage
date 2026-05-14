@@ -164,11 +164,41 @@ export default function RecruitmentPage() {
             Your recruitment, <em>rebuilt.</em>
           </h1>
           <p className="rb-page-hero-sub">
-            Not a tool. A custom recruitment system we build and run for you.
+            Agentic recruitment orchestration — from brief to placement.
+            Autonomously source and screen candidates against your ICP,
+            sequence outreach across LinkedIn and email, and keep warm clients
+            engaged between roles. Coordinated across your job boards, CRM,
+            and consultant desks.
           </p>
-          <p className="rb-page-hero-caption">
-            We build it in 5 weeks. We run it. You interview.
-          </p>
+
+          {/* Stats row — same layout as the healthcare hero. Four KPIs,
+              big number + one-line label. Designed to scan in five seconds. */}
+          <ul className="rb-hero-stats" aria-label="Key recruitment metrics">
+            <li className="rb-hero-stat">
+              <span className="rb-hero-stat-num">&lt; 60s</span>
+              <span className="rb-hero-stat-label">
+                Response time to every candidate enquiry
+              </span>
+            </li>
+            <li className="rb-hero-stat">
+              <span className="rb-hero-stat-num">24/7</span>
+              <span className="rb-hero-stat-label">
+                Coverage across job boards, LinkedIn, and inbound
+              </span>
+            </li>
+            <li className="rb-hero-stat">
+              <span className="rb-hero-stat-num">2–3 hrs / day</span>
+              <span className="rb-hero-stat-label">
+                Admin returned to each consultant
+              </span>
+            </li>
+            <li className="rb-hero-stat">
+              <span className="rb-hero-stat-num">5 weeks</span>
+              <span className="rb-hero-stat-label">
+                We build it. We run it. You interview.
+              </span>
+            </li>
+          </ul>
         </div>
       </section>
 
