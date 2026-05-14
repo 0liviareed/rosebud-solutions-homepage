@@ -210,7 +210,7 @@ export default function DigitalTeam() {
           <div className="rb-dt-head">
             <div>
               <p className="rb-eyebrow" data-rb-fade="0"><span className="rb-num">I</span>What you actually get</p>
-              <h2 className="rb-h2" data-rb-fade="1">Inside your digital <em>team.</em></h2>
+              <h2 className="rb-h2" data-rb-fade="1">What you&apos;ll own by <em>week five.</em></h2>
             </div>
             <span className="rb-dt-counter" ref={counterRef} aria-live="polite">01 / 06</span>
           </div>
