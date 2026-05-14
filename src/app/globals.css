@@ -4301,3 +4301,59 @@ button { font: inherit; color: inherit; }
   .rb-cookie-modal-actions { gap: 8px; }
   .rb-cookie-modal-actions .rb-cookie-btn { flex: 1; min-width: 110px; }
 }
+
+/* =============================================================
+   Healthcare hero — stats row (inline beneath subhead)
+   ============================================================= */
+
+.rb-hero-stats {
+  list-style: none;
+  margin: 32px 0 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 28px 24px;
+  border-top: 1px solid var(--rb-bone-hair);
+  padding-top: 28px;
+  max-width: 980px;
+}
+
+.rb-hero-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.rb-hero-stat-num {
+  font-family: var(--font-cormorant), serif;
+  font-style: italic;
+  font-weight: 500;
+  font-size: clamp(28px, 3.4vw, 38px);
+  letter-spacing: 0.005em;
+  color: var(--rb-bone);
+  line-height: 1;
+}
+
+.rb-hero-stat-label {
+  font-size: 12.5px;
+  line-height: 1.5;
+  color: var(--rb-bone-dim);
+  max-width: 24ch;
+}
+
+@media (max-width: 880px) {
+  .rb-hero-stats {
+    grid-template-columns: 1fr 1fr;
+    gap: 22px 20px;
+  }
+}
+
+@media (max-width: 520px) {
+  .rb-hero-stats {
+    grid-template-columns: 1fr;
+    gap: 18px;
+    padding-top: 22px;
+    margin-top: 26px;
+  }
+  .rb-hero-stat-num { font-size: 26px; }
+}

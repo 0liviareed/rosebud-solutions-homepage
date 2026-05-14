@@ -183,8 +183,10 @@ export default function Header() {
                     role="menuitem"
                     onClick={() => setMenuOpen(false)}
                   >
-                    <span className="rb-nav-link-title">Healthcare</span>
-                    <span className="rb-nav-link-desc">Intake. Scheduling. Follow-up.</span>
+                    <span className="rb-nav-link-title">
+                      Dental, Aesthetic &amp; Private Healthcare
+                    </span>
+                    <span className="rb-nav-link-desc">Intake. Scheduling. Recall.</span>
                     <span className="rb-nav-link-arrow" aria-hidden="true">→</span>
                   </Link>
                 </div>
@@ -245,8 +247,10 @@ export default function Header() {
               className="rb-mobile-link"
               onClick={closeMobile}
             >
-              <span className="rb-mobile-link-title">Healthcare</span>
-              <span className="rb-mobile-link-desc">Intake. Scheduling. Follow-up.</span>
+              <span className="rb-mobile-link-title">
+                Dental, Aesthetic &amp; Private Healthcare
+              </span>
+              <span className="rb-mobile-link-desc">Intake. Scheduling. Recall.</span>
               <span className="rb-mobile-link-arrow" aria-hidden="true">→</span>
             </Link>
           </div>
