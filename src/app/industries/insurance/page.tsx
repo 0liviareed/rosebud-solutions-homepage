@@ -195,9 +195,42 @@ export default function InsurancePage() {
             Half the week your team doesn&apos;t write.{" "}
             <em>That&apos;s the half we run.</em>
           </h1>
-          <p className="rb-page-hero-caption">
-            5-week build. We run it. Your advisors do the work only they can do.
+          <p className="rb-page-hero-sub">
+            Agentic insurance orchestration — from enquiry to renewal.
+            Autonomously qualify enquiries, capture risk details, prepare
+            carrier-ready submissions, and run the renewal cycle. Coordinated
+            across your CRM, carrier portals, and advisor desks.
           </p>
+
+          {/* Stats row — same layout as healthcare + recruitment. Four KPIs,
+              big number + one-line label. Designed to scan in five seconds. */}
+          <ul className="rb-hero-stats" aria-label="Key insurance metrics">
+            <li className="rb-hero-stat">
+              <span className="rb-hero-stat-num">&lt; 60s</span>
+              <span className="rb-hero-stat-label">
+                Response time to every new enquiry
+              </span>
+            </li>
+            <li className="rb-hero-stat">
+              <span className="rb-hero-stat-num">24/7</span>
+              <span className="rb-hero-stat-label">
+                Coverage across calls, emails, and portals
+              </span>
+            </li>
+            <li className="rb-hero-stat">
+              <span className="rb-hero-stat-num">2–3 hrs / day</span>
+              <span className="rb-hero-stat-label">
+                Admin returned to each advisor
+              </span>
+            </li>
+            <li className="rb-hero-stat">
+              <span className="rb-hero-stat-num">5 weeks</span>
+              <span className="rb-hero-stat-label">
+                We build it. We run it. Your advisors do the work only they
+                can do.
+              </span>
+            </li>
+          </ul>
         </div>
       </section>
 
