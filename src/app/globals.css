@@ -2753,6 +2753,23 @@ button { font: inherit; color: inherit; }
               0 30px 60px -30px rgba(139, 125, 216, 0.35);
 }
 
+/* Optional small tracked-uppercase label above the numeral. Section I
+   on the home page uses this to surface the role name (LEAD ENGINE,
+   KNOW EVERY RELATIONSHIP, etc); the industry-page timelines pass no
+   label so it doesn't render. */
+.rb-tl-slide-label {
+  font-family: var(--font-dm-sans), sans-serif;
+  font-weight: 500;
+  font-size: 11px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--rb-purple);
+  margin: 0;
+  transition: opacity 700ms var(--rb-ease);
+  opacity: 0.7;
+}
+.rb-tl-slide-active .rb-tl-slide-label { opacity: 1; }
+
 .rb-tl-slide-num {
   font-family: var(--font-cormorant), serif;
   font-style: italic;
@@ -2776,6 +2793,10 @@ button { font: inherit; color: inherit; }
   color: var(--rb-bone);
   letter-spacing: -0.01em;
   margin: 0;
+}
+.rb-tl-slide-title em {
+  font-style: italic;
+  color: var(--rb-purple);
 }
 .rb-tl-slide-body {
   font-family: var(--font-dm-sans), sans-serif;

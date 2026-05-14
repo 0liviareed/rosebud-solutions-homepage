@@ -9,7 +9,19 @@ import {
   type TouchEvent as ReactTouchEvent,
 } from "react";
 
-export type TimelineStep = readonly [title: string, body: string];
+/* Tuple shape:
+ *   [title, body]                — recruitment / insurance / healthcare use this
+ *   [title, body, label]         — Section I (homepage) adds a small tracked
+ *                                   uppercase label above the numeral
+ * Title accepts ReactNode so callers can include <em> italic accents — the
+ * recruitment + healthcare timelines pass plain strings; Section I passes
+ * JSX with em-emphasis on the key phrase.
+ */
+export type TimelineStep = readonly [
+  title: React.ReactNode,
+  body: string,
+  label?: string,
+];
 
 const RECRUITMENT_STEPS: TimelineStep[] = [
   ["JD lands on your desk", "Every role. Same format. Same clock starts ticking."],
@@ -84,7 +96,7 @@ export default function SevenStepTimeline({
         onTouchEnd={onTouchEnd}
       >
         <div className="rb-tl-track">
-          {STEPS.map(([title, body], i) => {
+          {STEPS.map(([title, body, label], i) => {
             const diff = i - active;
             const state =
               diff === 0 ? "active" : diff < 0 ? "past" : "upcoming";
@@ -95,6 +107,9 @@ export default function SevenStepTimeline({
                 aria-hidden={state !== "active"}
                 onClick={() => state !== "active" && go(i)}
               >
+                {label && (
+                  <span className="rb-tl-slide-label">{label}</span>
+                )}
                 <span className="rb-tl-slide-num">
                   {String(i + 1).padStart(2, "0")}
                 </span>
