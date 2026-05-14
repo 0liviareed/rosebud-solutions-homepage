@@ -7,135 +7,15 @@ const N = 5;
 const CARD_GAP = 20;
 const LEFT_PAD_VW = 0.04;
 
-/* ───────────────────────────────────────────────────────────────
-   Editorial visuals — typography, no dashboard UI.
-   Each card gets a small block of supporting data rendered as
-   typography rather than charts, bars, or live-pill widgets.
-   Sits below the body copy, above a thin top-divider.
-   ─────────────────────────────────────────────────────────────── */
-
-function LeadEditorial() {
-  // Hot / Warm / Nurture — three editorial stat callouts.
-  // Colour-coded numerals (amber / lavender / white-dim) plus the
-  // right-aligned italic footnote that gives the cohort context.
-  const TIERS: { label: string; n: string; tone: "hot" | "warm" | "nurture" }[] = [
-    { label: "Hot", n: "84", tone: "hot" },
-    { label: "Warm", n: "67", tone: "warm" },
-    { label: "Nurture", n: "42", tone: "nurture" },
-  ];
-  return (
-    <div className="rb-dt-edit">
-      <div className="rb-dt-edit-row">
-        {TIERS.map((t) => (
-          <div key={t.label} className="rb-dt-edit-stat">
-            <span className="rb-dt-edit-stat-label">{t.label}</span>
-            <span className={`rb-dt-edit-stat-num rb-dt-edit-stat-num-${t.tone}`}>
-              {t.n}
-            </span>
-          </div>
-        ))}
-      </div>
-      <p className="rb-dt-edit-foot">1,000 leads scored this batch</p>
-    </div>
-  );
-}
-
-function PipelineEditorial() {
-  // Pipeline as a stage flow rendered in typography. Active stage
-  // emphasised in lavender italic; the rest sit in dim bone.
-  const STAGES = ["Lead", "Qualified", "Proposal", "Negotiation", "Closed"];
-  const ACTIVE = 2; // Proposal
-  return (
-    <div className="rb-dt-edit">
-      <p className="rb-dt-edit-flow">
-        {STAGES.map((s, i) => (
-          <span key={s}>
-            {i === ACTIVE ? (
-              <em className="rb-dt-edit-flow-active">{s}</em>
-            ) : (
-              <span className="rb-dt-edit-flow-dim">{s}</span>
-            )}
-            {i < STAGES.length - 1 && (
-              <span className="rb-dt-edit-flow-sep" aria-hidden="true">
-                {" → "}
-              </span>
-            )}
-          </span>
-        ))}
-      </p>
-      <p className="rb-dt-edit-foot">Active brief · proposal stage</p>
-    </div>
-  );
-}
-
-function ChannelsEditorial() {
-  // Channel list as a single editorial pull-quote — serif italic,
-  // channels named in sequence, no icons, no live pills.
-  return (
-    <div className="rb-dt-edit">
-      <p className="rb-dt-edit-quote">
-        Email. <em>SMS.</em> The voice agent on day eight. One brand, every
-        thread.
-      </p>
-      <p className="rb-dt-edit-foot">Three channels · one cadence</p>
-    </div>
-  );
-}
-
-function CadenceEditorial() {
-  // Three-day cadence shown as typographic stat callouts — day label
-  // tracked uppercase, day number in serif, supporting line beneath.
-  const DAYS = [
-    { day: "Day 1", body: "Enquiry replied" },
-    { day: "Day 3", body: "Chase delivered" },
-    { day: "Day 8", body: "Voice agent calls" },
-  ];
-  return (
-    <div className="rb-dt-edit">
-      <div className="rb-dt-edit-row">
-        {DAYS.map((d) => (
-          <div key={d.day} className="rb-dt-edit-stat">
-            <span className="rb-dt-edit-stat-label">{d.day}</span>
-            <span className="rb-dt-edit-stat-body">{d.body}</span>
-          </div>
-        ))}
-      </div>
-      <p className="rb-dt-edit-foot">Triggered by the enquiry itself</p>
-    </div>
-  );
-}
-
-function DashboardEditorial() {
-  // Operations dashboard rendered as a serif-italic list of what gets
-  // reported. No KPI tiles, no sparkline. Reads as a sentence the
-  // operator could read aloud.
-  const ITEMS = ["Pipeline", "Conversion", "Revenue", "Daily summary"];
-  return (
-    <div className="rb-dt-edit">
-      <p className="rb-dt-edit-list">
-        {ITEMS.map((item, i) => (
-          <span key={item}>
-            <em className="rb-dt-edit-list-item">{item}</em>
-            {i < ITEMS.length - 1 && (
-              <span className="rb-dt-edit-list-sep" aria-hidden="true">
-                {" · "}
-              </span>
-            )}
-          </span>
-        ))}
-      </p>
-      <p className="rb-dt-edit-foot">Sent every morning · not pulled</p>
-    </div>
-  );
-}
-
 // ── Role data ─────────────────────────────────────────────────────
+// Each card matches the insurance "Where the hours go" carousel
+// (SevenStepTimeline) treatment: numeral eyebrow, label, italic-serif
+// heading, body copy. No dashboard widgets, no editorial stat callouts.
 const ROLES: {
   num: string;
   label: string;
   heading: React.ReactNode;
   copy: string;
-  visual: React.ReactNode;
 }[] = [
   {
     num: "I",
@@ -146,8 +26,7 @@ const ROLES: {
         booked straight into your <em>calendar.</em>
       </>
     ),
-    copy: "Scrapes qualified leads using your target criteria at the volume your pipeline can handle. Cleans, validates, and scores each one on a 0–100 scale.",
-    visual: <LeadEditorial />,
+    copy: "Scrapes qualified leads using your target criteria at the volume your pipeline can handle. Cleans, validates, and scores each one on a 0–100 scale — Hot, Warm, or Nurture — so your team only spends time on the ones worth a call.",
   },
   {
     num: "II",
@@ -157,8 +36,7 @@ const ROLES: {
         Every contact, deal, and resource in one source of <em>truth.</em>
       </>
     ),
-    copy: "Designed to bring every contact, deal, and resource into one source of truth. No more scattered spreadsheets. No more missed follow-ups.",
-    visual: <PipelineEditorial />,
+    copy: "Designed to bring every contact, deal, and resource into one source of truth. No more scattered spreadsheets. No more missed follow-ups. Lead → Qualified → Proposal → Negotiation → Closed, tracked end to end.",
   },
   {
     num: "III",
@@ -169,8 +47,7 @@ const ROLES: {
         <em>managing it.</em>
       </>
     ),
-    copy: "Personalised email outreach at scale, SMS follow-up, and a voice agent that calls unresponsive leads on day 8. Your brand, without you.",
-    visual: <ChannelsEditorial />,
+    copy: "Personalised email outreach at scale, SMS follow-up, and a voice agent that calls unresponsive leads on day 8. Three channels, one cadence, one brand — without you in the middle of every thread.",
   },
   {
     num: "IV",
@@ -181,8 +58,7 @@ const ROLES: {
         <em>you.</em>
       </>
     ),
-    copy: "Three-stage follow-up sequences on every enquiry. Reminders, chase-ups, reactivation touches — all sent on schedule, all tracked.",
-    visual: <CadenceEditorial />,
+    copy: "Three-stage follow-up sequences on every enquiry. Day one reply, day three chase, day eight voice agent. Reminders, chase-ups, reactivation touches — all sent on schedule, all tracked.",
   },
   {
     num: "V",
@@ -192,8 +68,7 @@ const ROLES: {
         No more Sunday night reporting. It&apos;s already <em>done.</em>
       </>
     ),
-    copy: "Get instant insights into your business performance. Pipeline, conversions, salesperson activity — delivered daily without you pulling it.",
-    visual: <DashboardEditorial />,
+    copy: "Pipeline, conversion, revenue, daily summary — every number you need to run the business, delivered every morning without you pulling it.",
   },
 ];
 
@@ -362,7 +237,9 @@ export default function DigitalTeam() {
           </ul>
         </div>
 
-        {/* Fixed glass cards — position:fixed, no parent overflow */}
+        {/* Fixed glass cards — same chrome as the insurance carousel:
+            italic-serif numeral, tracked-uppercase label, italic-serif
+            heading, dim-bone body copy. No widgets, no charts. */}
         {ROLES.map((role, i) => (
           <article
             key={i}
@@ -376,7 +253,6 @@ export default function DigitalTeam() {
             <span className="rb-label rb-dt-card-label">{role.label}</span>
             <h3 className="rb-dt-card-heading">{role.heading}</h3>
             <p className="rb-dt-card-copy">{role.copy}</p>
-            {role.visual}
           </article>
         ))}
 
