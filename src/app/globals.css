@@ -4378,3 +4378,215 @@ button { font: inherit; color: inherit; }
   }
   .rb-hero-stat-num { font-size: 26px; }
 }
+
+/* =============================================================
+   Digital Team — sub-paragraph + stats band + editorial visuals
+   ============================================================= */
+
+/* Sub-paragraph beneath H2 (Section I head). Body sans, white 70%,
+   tight to H2, breathes before the stats band. Max-width 720px so
+   it doesn't run across the full card-stage width. */
+.rb-dt-sub {
+  font-family: var(--font-dm-sans), system-ui, sans-serif;
+  font-weight: 300;
+  font-size: clamp(0.95rem, 1.1vw, 1.125rem);
+  line-height: 1.5;
+  letter-spacing: -0.005em;
+  color: rgba(255, 255, 255, 0.7);
+  max-width: 720px;
+  margin: 20px 0 0;
+}
+
+/* Head text wrapper — lets the sub paragraph sit beneath the H2 without
+   stretching across the counter column when the card-counter wraps. */
+.rb-dt-head-text {
+  flex: 1;
+  min-width: 0;
+  padding-right: clamp(1rem, 2vw, 2rem);
+}
+
+/* Stats band — four-column row with hairline top + bottom dividers.
+   Big serif numerals (matching H2 family), tracked uppercase label,
+   body-sans description. Sits between sub-paragraph and the carousel. */
+.rb-dt-stats {
+  list-style: none;
+  margin: 32px clamp(2rem, 4vw, 3.5rem) 32px;
+  padding: 36px 0;
+  border-top: 0.5px solid rgba(255, 255, 255, 0.15);
+  border-bottom: 0.5px solid rgba(255, 255, 255, 0.15);
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 28px;
+}
+
+.rb-dt-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.rb-dt-stat-num {
+  font-family: var(--font-cormorant), serif;
+  font-weight: 400;
+  font-style: italic;
+  font-size: clamp(2.4rem, 3.4vw, 3.2rem);
+  line-height: 0.95;
+  letter-spacing: -0.015em;
+  color: var(--rb-bone);
+}
+
+.rb-dt-stat-label {
+  font-family: var(--font-dm-sans), system-ui, sans-serif;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 1.5;
+  letter-spacing: 0.005em;
+  color: rgba(255, 255, 255, 0.6);
+  max-width: 22ch;
+}
+
+@media (max-width: 880px) {
+  .rb-dt-stats {
+    grid-template-columns: 1fr 1fr;
+    gap: 24px 24px;
+    padding: 28px 0;
+  }
+}
+
+@media (max-width: 520px) {
+  .rb-dt-stats {
+    grid-template-columns: 1fr;
+    gap: 20px;
+    padding: 22px 0;
+    margin: 26px clamp(1.25rem, 4vw, 2rem);
+  }
+  .rb-dt-stat-num { font-size: 2rem; }
+  .rb-dt-sub { font-size: 1rem; }
+}
+
+/* =============================================================
+   Editorial visuals — replaces the old dashboard panels
+   (LeadVisual, PipelineVisual, ChannelsVisual, TimelineVisual,
+   DashboardVisual). Pure typography — no bars, no charts, no pills.
+   ============================================================= */
+
+.rb-dt-edit {
+  margin-top: 24px;
+  padding-top: 24px;
+  border-top: 0.5px solid rgba(255, 255, 255, 0.12);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* Stat-row used by Lead Editorial + Cadence Editorial */
+.rb-dt-edit-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+}
+
+.rb-dt-edit-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.rb-dt-edit-stat-label {
+  font-family: var(--font-dm-sans), system-ui, sans-serif;
+  font-size: 10.5px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(245, 241, 234, 0.4);
+}
+
+.rb-dt-edit-stat-num {
+  font-family: var(--font-cormorant), serif;
+  font-weight: 400;
+  font-style: italic;
+  font-size: clamp(2rem, 2.6vw, 2.4rem);
+  line-height: 1;
+  letter-spacing: -0.01em;
+}
+
+.rb-dt-edit-stat-num-hot     { color: #E8B57A; }
+.rb-dt-edit-stat-num-warm    { color: #C9C0E8; }
+.rb-dt-edit-stat-num-nurture { color: rgba(245, 241, 234, 0.5); }
+
+/* Cadence-style stat body (no numeral, just label + description line) */
+.rb-dt-edit-stat-body {
+  font-family: var(--font-cormorant), serif;
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 1.3;
+  color: rgba(245, 241, 234, 0.78);
+}
+
+/* Pipeline flow — typography, no bars */
+.rb-dt-edit-flow {
+  font-family: var(--font-cormorant), serif;
+  font-weight: 400;
+  font-size: clamp(1.1rem, 1.5vw, 1.4rem);
+  line-height: 1.4;
+  color: rgba(245, 241, 234, 0.55);
+  margin: 0;
+}
+.rb-dt-edit-flow-dim    { color: rgba(245, 241, 234, 0.5); }
+.rb-dt-edit-flow-active {
+  font-style: italic;
+  color: var(--rb-purple);
+}
+.rb-dt-edit-flow-sep {
+  color: rgba(245, 241, 234, 0.25);
+  padding: 0 4px;
+}
+
+/* Channels — single editorial pull-quote */
+.rb-dt-edit-quote {
+  font-family: var(--font-cormorant), serif;
+  font-weight: 400;
+  font-size: clamp(1.15rem, 1.7vw, 1.55rem);
+  line-height: 1.35;
+  color: var(--rb-bone);
+  margin: 0;
+}
+.rb-dt-edit-quote em {
+  font-style: italic;
+  color: var(--rb-purple);
+}
+
+/* Operations dashboard — italic list with thin separators */
+.rb-dt-edit-list {
+  font-family: var(--font-cormorant), serif;
+  font-weight: 400;
+  font-size: clamp(1.1rem, 1.5vw, 1.4rem);
+  line-height: 1.4;
+  color: rgba(245, 241, 234, 0.92);
+  margin: 0;
+}
+.rb-dt-edit-list-item { font-style: italic; color: var(--rb-purple); }
+.rb-dt-edit-list-sep  { color: rgba(245, 241, 234, 0.3); padding: 0 4px; }
+
+/* Footnote — right-aligned italic, on every editorial visual */
+.rb-dt-edit-foot {
+  font-family: var(--font-cormorant), serif;
+  font-style: italic;
+  font-size: 13px;
+  color: rgba(245, 241, 234, 0.4);
+  margin: 0;
+  text-align: right;
+  letter-spacing: 0.01em;
+}
+
+/* Narrow viewport — stack the 3-up stat rows so they don't crush */
+@media (max-width: 720px) {
+  .rb-dt-edit-row {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  .rb-dt-edit-stat-num { font-size: 1.7rem; }
+  .rb-dt-edit-flow { font-size: 1rem; }
+  .rb-dt-edit-list { font-size: 1rem; }
+  .rb-dt-edit-quote { font-size: 1.1rem; }
+}
