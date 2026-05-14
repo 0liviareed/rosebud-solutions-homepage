@@ -199,14 +199,14 @@ export default function DigitalTeam() {
             Stays in viewport as the cards scroll past horizontally. */}
         <div ref={headRef} className="rb-dt-head-sticky">
           <div className="rb-dt-head">
-            <div className="rb-dt-head-text">
+            <div className="rb-head rb-head-left">
               <p className="rb-eyebrow" data-rb-fade="0">
                 <span className="rb-num">I</span>What you actually get
               </p>
               <h2 className="rb-h2" data-rb-fade="1">
                 What you&apos;ll own by <em>week five.</em>
               </h2>
-              <p className="rb-dt-sub" data-rb-fade="2">
+              <p className="rb-sub" data-rb-fade="2">
                 Because this isn&apos;t software you operate. It&apos;s a
                 custom AI operation we operate for you — from first enquiry to
                 closed deal. Built around your business, run by us, owned by

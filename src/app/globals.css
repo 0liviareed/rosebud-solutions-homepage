@@ -4383,26 +4383,21 @@ button { font: inherit; color: inherit; }
    Digital Team — sub-paragraph + stats band + editorial visuals
    ============================================================= */
 
-/* Sub-paragraph beneath H2 (Section I head). Body sans, white 70%,
-   tight to H2, breathes before the stats band. Max-width 720px so
-   it doesn't run across the full card-stage width. */
-.rb-dt-sub {
-  font-family: var(--font-dm-sans), system-ui, sans-serif;
-  font-weight: 300;
-  font-size: clamp(0.95rem, 1.1vw, 1.125rem);
-  line-height: 1.5;
-  letter-spacing: -0.005em;
-  color: rgba(255, 255, 255, 0.7);
-  max-width: 720px;
-  margin: 20px 0 0;
-}
-
-/* Head text wrapper — lets the sub paragraph sit beneath the H2 without
-   stretching across the counter column when the card-counter wraps. */
-.rb-dt-head-text {
+/* Section I head — reuses the canonical .rb-head + .rb-eyebrow + .rb-h2
+   + .rb-sub treatment used on the industry pages (e.g. recruitment's
+   "Sound familiar?" head), but left-aligned and unhooked from the
+   centred auto margins so it sits flush in the rb-dt-head flex layout
+   next to the card-counter. */
+.rb-head.rb-head-left {
+  text-align: left;
+  margin: 0;
+  max-width: 38rem;
   flex: 1;
   min-width: 0;
   padding-right: clamp(1rem, 2vw, 2rem);
+}
+.rb-head.rb-head-left .rb-sub {
+  margin: 1.5rem 0 0;
 }
 
 /* Stats band — four-column row with hairline top + bottom dividers.
@@ -4461,7 +4456,7 @@ button { font: inherit; color: inherit; }
     margin: 26px clamp(1.25rem, 4vw, 2rem);
   }
   .rb-dt-stat-num { font-size: 2rem; }
-  .rb-dt-sub { font-size: 1rem; }
+  .rb-head.rb-head-left .rb-sub { font-size: 1rem; }
 }
 
 /* =============================================================
