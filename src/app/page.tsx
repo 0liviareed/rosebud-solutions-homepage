@@ -1,7 +1,6 @@
 import Hero from "@/components/Hero";
 import IsThisYou from "@/components/IsThisYou";
 import DigitalTeam from "@/components/DigitalTeam";
-import Receipts from "@/components/Receipts";
 import BuildSection from "@/components/BuildSection";
 import CalEmbed from "@/components/CalEmbed";
 import Voices from "@/components/Voices";
@@ -34,10 +33,7 @@ export default function Home() {
           </div>
         </section>
 
-        {/* ===================== III — RECEIPTS ===================== */}
-        <Receipts />
-
-        {/* ===================== IV — METHOD ===================== */}
+        {/* ===================== III — METHOD ===================== */}
         <section className="rb-sec rb-sec-method" data-rb-sec aria-label="Method">
           <div className="rb-topo rb-topo-4" aria-hidden="true">
             <svg viewBox="0 0 480 340" preserveAspectRatio="none">
@@ -64,7 +60,7 @@ export default function Home() {
           <div className="rb-wrap">
             <div className="rb-head">
               <p className="rb-eyebrow" data-rb-fade="0">
-                <span className="rb-num">IV</span>How we work
+                <span className="rb-num">III</span>How we work
               </p>
               <h2 className="rb-h2" data-rb-fade="1">
                 Three phases. Time back. <em>Revenue forward.</em>
