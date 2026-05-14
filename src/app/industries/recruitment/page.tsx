@@ -298,10 +298,6 @@ export default function RecruitmentPage() {
               ))}
             </div>
 
-            <p className="rb-aftertext" data-rb-fade="3">
-              You own every system we build. Full access. Full credentials.
-              Full data. No lock-in. Cancel any time.
-            </p>
             <p className="rb-aftertext rb-aftertext-quiet" data-rb-fade="3">
               Pricing shared on the demo call — scoped to the volume and
               seniority of the roles you hire for.
