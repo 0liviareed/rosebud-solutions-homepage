@@ -3579,6 +3579,27 @@ button { font: inherit; color: inherit; }
   letter-spacing: -0.015em; color: rgba(245,241,234,1); margin: 0;
 }
 .rb-nar-outro-text em { font-style: italic; color: var(--rb-purple); }
+
+/* Resolution stage — prose, not headline. Same centred stage container as
+   the outro (.rb-nar-stage-outro), but the copy is a full sentence rather
+   than a two-line punch, so we step the type down to body register. */
+.rb-nar-resolution-text {
+  font-family: var(--font-dm-sans), system-ui, sans-serif;
+  font-weight: 300;
+  font-size: clamp(1.1rem, 1.8vw, 1.5rem);
+  line-height: 1.55;
+  letter-spacing: -0.005em;
+  color: rgba(245,241,234,0.92);
+  max-width: 36rem;
+  margin: 0 auto;
+}
+.rb-nar-resolution-text em {
+  font-family: var(--font-cormorant), serif;
+  font-style: italic;
+  font-weight: 400;
+  color: var(--rb-purple);
+}
+
 .rb-nar-trail-svg { display: none; }
 .rb-nar-orb-wrap { display: none; }
 .rb-nar-orb {
@@ -3597,6 +3618,7 @@ button { font: inherit; color: inherit; }
   .rb-nar-h2 { font-size: clamp(2rem,9vw,2.8rem) !important; }
   .rb-nar-point-text { font-size: clamp(1.4rem,6vw,1.9rem) !important; }
   .rb-nar-outro-text { font-size: clamp(2rem,9vw,2.8rem) !important; }
+  .rb-nar-resolution-text { font-size: clamp(1rem,4.2vw,1.25rem) !important; line-height: 1.5 !important; }
 }
 
 /* ================================================================

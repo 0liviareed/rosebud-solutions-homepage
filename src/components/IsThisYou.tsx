@@ -24,6 +24,7 @@ const ORB_POS = [
   [58, 39], // stage 5: orbright
   [42, 52], // stage 6: orbleft
   [50, 47], // stage 7: outro — centre
+  [50, 53], // stage 8: resolution — settle just below centre
 ];
 
 function smooth(pts: number[][]): string {
@@ -86,7 +87,18 @@ export default function IsThisYou() {
       if (total <= 0) return;
 
       const p = Math.max(0, Math.min(1, -rect.top / total));
-      const stage = p < 0.1 ? 0 : p > 0.88 ? N + 1 : Math.min(N, Math.floor((p - 0.1) / (0.78 / N)) + 1);
+      // Scroll budget: 0–10% intro, 10–80% the N pain points, 80–90% outro
+      // ("right place"), 90–100% the resolution slide. Splitting the bottom
+      // 22% into two equal-ish bands gives both closing slides enough dwell
+      // time without rushing the pain-point progression.
+      const stage =
+        p < 0.1
+          ? 0
+          : p > 0.9
+          ? N + 2
+          : p > 0.8
+          ? N + 1
+          : Math.min(N, Math.floor((p - 0.1) / (0.7 / N)) + 1);
       setStage(stage);
 
       // Desktop orb movement
@@ -150,6 +162,16 @@ export default function IsThisYou() {
         <div className="rb-nar-txt rb-nar-stage-outro" data-stage={String(N + 1)}>
           <p className="rb-nar-outro-text">
             If so, you&apos;re in the<br /><em>right place.</em>
+          </p>
+        </div>
+
+        {/* Resolution — what Rosebud is, in one line */}
+        <div className="rb-nar-txt rb-nar-stage-outro" data-stage={String(N + 2)}>
+          <p className="rb-nar-resolution-text">
+            Because Rosebud isn&apos;t software you operate. It&apos;s a{" "}
+            <em>custom AI operation we operate for you</em> — from first
+            enquiry to closed deal. Built around your business, run by us,
+            owned by you.
           </p>
         </div>
 
