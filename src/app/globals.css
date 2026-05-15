@@ -4863,3 +4863,163 @@ button { font: inherit; color: inherit; }
   .rb-pricing-form-shell .g-recaptcha { transform: scale(0.85); }
 }
 
+
+/* =============================================================
+   Pricing page — two-column split (left content, right sticky form)
+   ============================================================= */
+
+.rb-pricing-page {
+  /* Pull section padding back a touch so the hero feels anchored to
+     the top without the page-hero block above it. */
+  padding-top: clamp(5rem, 8vw, 8rem);
+}
+
+.rb-pricing-split-sec {
+  /* Section already provides vertical padding; this is just a scoping
+     hook for the split grid below. */
+}
+
+.rb-pricing-split {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+  gap: clamp(2rem, 4vw, 4rem);
+  align-items: start;
+  max-width: 1200px;
+  padding-right: 0;
+}
+
+.rb-pricing-left {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(1rem, 1.6vw, 1.4rem);
+}
+
+/* Headline + sub treatment for the split layout — sits one notch below the
+   full-bleed page-hero h1 so the form on the right doesn't get visually
+   dominated. */
+.rb-pricing-h1 {
+  font-family: var(--font-cormorant), serif;
+  font-weight: 400;
+  font-size: clamp(2.4rem, 4.6vw, 4rem);
+  line-height: 1.02;
+  letter-spacing: -0.015em;
+  margin: 8px 0 0;
+  color: var(--rb-bone);
+}
+.rb-pricing-h1 em {
+  font-style: italic;
+  font-weight: 400;
+  color: var(--rb-purple);
+}
+
+.rb-pricing-subhead {
+  font-family: var(--font-dm-sans), sans-serif;
+  font-size: clamp(1.05rem, 1.25vw, 1.2rem);
+  line-height: 1.5;
+  color: rgba(245, 241, 234, 0.78);
+  margin: 8px 0 0;
+  max-width: 38rem;
+}
+
+.rb-pricing-body {
+  font-family: var(--font-dm-sans), sans-serif;
+  font-size: clamp(0.95rem, 1.05vw, 1.0625rem);
+  line-height: 1.6;
+  color: var(--rb-bone-dim);
+  margin: 0;
+  max-width: 38rem;
+}
+
+/* When the three cards stack vertically inside the left column they want
+   smaller numerals + tighter gaps than the 3-column desktop layout. */
+.rb-pricing-cards-stacked {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 12px;
+}
+.rb-pricing-cards-stacked .rb-pricing-card {
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 18px;
+  padding: clamp(1.25rem, 2vw, 1.75rem) clamp(1.25rem, 2vw, 1.75rem);
+}
+.rb-pricing-cards-stacked .rb-pricing-card-num {
+  font-size: clamp(2rem, 3vw, 2.4rem);
+  flex-shrink: 0;
+  min-width: 2.5rem;
+}
+.rb-pricing-cards-stacked .rb-pricing-card-label {
+  margin-bottom: 4px;
+}
+.rb-pricing-cards-stacked .rb-pricing-card > * { display: block; }
+.rb-pricing-cards-stacked .rb-pricing-card {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-template-rows: auto auto;
+  column-gap: 18px;
+  row-gap: 4px;
+}
+.rb-pricing-cards-stacked .rb-pricing-card-num {
+  grid-row: 1 / span 2;
+  grid-column: 1;
+}
+.rb-pricing-cards-stacked .rb-pricing-card-label {
+  grid-row: 1;
+  grid-column: 2;
+  align-self: end;
+}
+.rb-pricing-cards-stacked .rb-pricing-card-body {
+  grid-row: 2;
+  grid-column: 2;
+}
+
+/* Right column — sticky form */
+.rb-pricing-right {
+  position: relative;
+}
+.rb-pricing-right-sticky {
+  position: sticky;
+  top: clamp(5rem, 8vh, 6.5rem);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.rb-pricing-form-head { display: flex; flex-direction: column; gap: 6px; }
+.rb-pricing-form-h2 {
+  font-family: var(--font-cormorant), serif;
+  font-weight: 400;
+  font-size: clamp(1.4rem, 1.8vw, 1.8rem);
+  line-height: 1.15;
+  letter-spacing: -0.005em;
+  color: var(--rb-bone);
+  margin: 4px 0 0;
+}
+.rb-pricing-form-h2 em { font-style: italic; color: var(--rb-purple); }
+.rb-pricing-form-sub {
+  font-family: var(--font-dm-sans), sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--rb-bone-dim);
+  margin: 4px 0 8px;
+}
+
+/* Form shell now lives inside a column — let it fill the right column */
+.rb-pricing-right .rb-pricing-form-shell {
+  max-width: none;
+  margin: 0;
+}
+
+/* Mobile / tablet — single column, form stops being sticky and just sits
+   beneath the cards. */
+@media (max-width: 960px) {
+  .rb-pricing-split {
+    grid-template-columns: 1fr;
+    gap: clamp(2.5rem, 5vw, 3.5rem);
+  }
+  .rb-pricing-right-sticky {
+    position: static;
+    top: auto;
+  }
+}
+

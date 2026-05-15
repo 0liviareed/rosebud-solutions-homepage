@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import PricingFAQ from "@/components/PricingFAQ";
 import PricingBrevoForm from "@/components/PricingBrevoForm";
+import BookDemoCTA from "@/components/BookDemoCTA";
 
 export const metadata: Metadata = {
   title: "Pricing — Custom AI Systems Scoped to Your Operation",
@@ -92,57 +93,70 @@ export default function PricingPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(FAQ_SCHEMA) }}
       />
 
-      {/* ========== PAGE HERO ========== */}
-      <section className="rb-page-hero">
-        <div className="rb-page-hero-inner">
-          <p className="rb-page-hero-eyebrow">Rosebud Solutions</p>
-          <p className="rb-page-hero-crumb">
-            <span className="rb-num">·</span>Plans &amp; Pricing
-          </p>
-          <h1 className="rb-page-hero-h1">
-            You&rsquo;re not licensing software.{" "}
-            <em>You&rsquo;re commissioning a build.</em>
-          </h1>
-          <p className="rb-page-hero-sub">
-            Custom-scoped to the operation we run for you. No per-seat fees,
-            no platform charges, no surprises. To scope the right system for
-            your business, we need to understand what you&rsquo;re running
-            today. Every quote includes the build, the team, and the scope —
-            mapped to your operation.
-          </p>
-        </div>
-      </section>
-
-      <main className="rb-content">
-        {/* ===================== I — THREE CARDS ===================== */}
+      <main className="rb-content rb-pricing-page">
+        {/* ===================== TWO-COLUMN HERO + CARDS ===================== */}
         <section
-          className="rb-sec"
+          className="rb-sec rb-pricing-split-sec"
           data-rb-sec
-          aria-label="What every engagement includes"
+          aria-label="Pricing overview"
         >
-          <div className="rb-wrap">
-            <div className="rb-head">
+          <div className="rb-wrap rb-pricing-split">
+            {/* Left column — eyebrow, H1, subhead, body, three cards */}
+            <div className="rb-pricing-left">
               <p className="rb-eyebrow" data-rb-fade="0">
-                <span className="rb-num">I</span>Every engagement includes
+                <span className="rb-num">·</span>Plans &amp; Pricing
               </p>
-              <h2 className="rb-h2" data-rb-fade="1">
-                Three things. <em>One quote.</em>
-              </h2>
+              <h1 className="rb-pricing-h1" data-rb-fade="1">
+                You&rsquo;re not licensing software.{" "}
+                <em>You&rsquo;re commissioning a build.</em>
+              </h1>
+              <p className="rb-pricing-subhead" data-rb-fade="2">
+                Custom-scoped to the operation we run for you. No per-seat
+                fees, no platform charges, no surprises.
+              </p>
+              <p className="rb-pricing-body" data-rb-fade="3">
+                To scope the right system for your business, we need to
+                understand what you&rsquo;re running today. Every quote
+                includes:
+              </p>
+
+              <div className="rb-pricing-cards rb-pricing-cards-stacked" data-rb-fade="4">
+                {CARDS.map((card) => (
+                  <article key={card.num} className="rb-pricing-card">
+                    <span className="rb-pricing-card-num">{card.num}</span>
+                    <span className="rb-pricing-card-label">{card.label}</span>
+                    <p className="rb-pricing-card-body">{card.body}</p>
+                  </article>
+                ))}
+              </div>
             </div>
 
-            <div className="rb-pricing-cards" data-rb-fade="2">
-              {CARDS.map((card) => (
-                <article key={card.num} className="rb-pricing-card">
-                  <span className="rb-pricing-card-num">{card.num}</span>
-                  <span className="rb-pricing-card-label">{card.label}</span>
-                  <p className="rb-pricing-card-body">{card.body}</p>
-                </article>
-              ))}
-            </div>
+            {/* Right column — sticky form */}
+            <aside className="rb-pricing-right">
+              <div className="rb-pricing-right-sticky">
+                <div className="rb-pricing-form-head">
+                  <p className="rb-eyebrow" data-rb-fade="0">
+                    <span className="rb-num">·</span>Get started
+                  </p>
+                  <h2 className="rb-pricing-form-h2" data-rb-fade="1">
+                    Tell us what you&rsquo;re running.{" "}
+                    <em>We&rsquo;ll scope the system.</em>
+                  </h2>
+                  <p className="rb-pricing-form-sub" data-rb-fade="2">
+                    A 30-minute call to understand your operation, scope the
+                    system, and quote the build. You leave with a clear
+                    figure — no follow-ups, no chasing.
+                  </p>
+                </div>
+                <div data-rb-fade="3">
+                  <PricingBrevoForm />
+                </div>
+              </div>
+            </aside>
           </div>
         </section>
 
-        {/* ===================== II — DEEP-DIVE ===================== */}
+        {/* ===================== DEEP-DIVE ===================== */}
         <section
           className="rb-sec"
           data-rb-sec
@@ -151,7 +165,7 @@ export default function PricingPage() {
           <div className="rb-wrap">
             <div className="rb-head">
               <p className="rb-eyebrow" data-rb-fade="0">
-                <span className="rb-num">II</span>What gets built
+                <span className="rb-num">·</span>What gets built
               </p>
               <h2 className="rb-h2" data-rb-fade="1">
                 See it mapped to <em>your operation.</em>
@@ -184,36 +198,7 @@ export default function PricingPage() {
           </div>
         </section>
 
-        {/* ===================== III — ENQUIRY FORM ===================== */}
-        <section
-          id="get-started"
-          className="rb-sec"
-          data-rb-sec
-          aria-label="Tell us what you're running"
-        >
-          <div className="rb-wrap">
-            <div className="rb-head">
-              <p className="rb-eyebrow" data-rb-fade="0">
-                <span className="rb-num">III</span>Get started
-              </p>
-              <h2 className="rb-h2" data-rb-fade="1">
-                Tell us what you&rsquo;re running.{" "}
-                <em>We&rsquo;ll scope the system.</em>
-              </h2>
-              <p className="rb-sub" data-rb-fade="2">
-                A 30-minute call to understand your operation, scope the
-                system, and quote the build. You leave with a clear figure —
-                no follow-ups, no chasing.
-              </p>
-            </div>
-
-            <div data-rb-fade="3">
-              <PricingBrevoForm />
-            </div>
-          </div>
-        </section>
-
-        {/* ===================== IV — FAQ ===================== */}
+        {/* ===================== FAQ ===================== */}
         <section
           className="rb-sec"
           data-rb-sec
@@ -222,7 +207,7 @@ export default function PricingPage() {
           <div className="rb-wrap">
             <div className="rb-head">
               <p className="rb-eyebrow" data-rb-fade="0">
-                <span className="rb-num">IV</span>Frequently asked
+                <span className="rb-num">·</span>Frequently asked
               </p>
               <h2 className="rb-h2" data-rb-fade="1">
                 The pricing questions we get on{" "}
@@ -235,6 +220,33 @@ export default function PricingPage() {
 
             <div data-rb-fade="3">
               <PricingFAQ />
+            </div>
+          </div>
+        </section>
+
+        {/* ===================== BOOK A CONSULTATION CTA ===================== */}
+        <section
+          id="rb-book"
+          className="rb-sec"
+          data-rb-sec
+          aria-label="Book a consultation"
+        >
+          <div className="rb-wrap">
+            <div className="rb-head">
+              <p className="rb-eyebrow" data-rb-fade="0">
+                <span className="rb-num">·</span>Book a call
+              </p>
+              <h2 className="rb-h2" data-rb-fade="1">
+                Skip the form. <em>Book the call.</em>
+              </h2>
+              <p className="rb-sub" data-rb-fade="2">
+                If you already know what you&rsquo;re looking for, grab a
+                30-minute slot directly.
+              </p>
+            </div>
+
+            <div data-rb-fade="3">
+              <BookDemoCTA href="https://cal.eu/rosebudsolutions/30min" />
             </div>
           </div>
         </section>
