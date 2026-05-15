@@ -186,6 +186,13 @@ const BREVO_FORM_HTML = `
         </div>
         <input type="text" name="email_address_check" value="" class="input--hidden">
         <input type="hidden" name="locale" value="en">
+        <p class="rb-recaptcha-attrib">
+          This site is protected by reCAPTCHA and the Google
+          <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">Privacy Policy</a>
+          and
+          <a href="https://policies.google.com/terms" target="_blank" rel="noopener noreferrer">Terms of Service</a>
+          apply.
+        </p>
       </form>
     </div>
   </div>
