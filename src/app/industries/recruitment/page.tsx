@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import RecruitmentFAQ from "@/components/RecruitmentFAQ";
+import RecruitmentSplitRoles from "@/components/RecruitmentSplitRoles";
 import SevenStepTimeline from "@/components/SevenStepTimeline";
 import Voices from "@/components/Voices";
 import { VOICES } from "@/components/voices-data";
@@ -257,71 +257,73 @@ export default function RecruitmentPage() {
                 </p>
 
                 <div className="rb-split-ctas" data-rb-fade="3">
-                  <Link href="/pricing" className="rb-cta rb-cta-primary">
-                    <span>Get started</span>
-                    <span className="rb-cta-arrow" aria-hidden="true">→</span>
-                  </Link>
+                  {/* CTAs use the editorial italic-serif inline-link pattern
+                      that's used everywhere else on the site (BookCTA /
+                      BookDemoCTA). Two side-by-side links rather than a
+                      filled-button pair, so they match the rest of the
+                      page's voice. */}
+                  <a href="/pricing" className="rb-book-link">
+                    <span className="rb-book-link-label">Get started</span>
+                    <span className="rb-book-link-arrow" aria-hidden="true">
+                      <svg viewBox="0 0 36 12" width="36" height="12">
+                        <path
+                          className="rb-book-link-shaft"
+                          d="M0 6 L28 6"
+                          stroke="currentColor"
+                          strokeWidth="1.3"
+                          strokeLinecap="round"
+                          fill="none"
+                        />
+                        <path
+                          className="rb-book-link-head"
+                          d="M22 1.5 L28 6 L22 10.5"
+                          stroke="currentColor"
+                          strokeWidth="1.3"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          fill="none"
+                        />
+                      </svg>
+                    </span>
+                    <span className="rb-book-link-underline" aria-hidden="true" />
+                  </a>
                   <a
                     href="https://www.cal.eu/rosebudsolutions/30min?overlayCalendar=true"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="rb-cta rb-cta-secondary"
+                    className="rb-book-link"
                   >
-                    <span>Schedule demo</span>
-                    <span className="rb-cta-arrow" aria-hidden="true">→</span>
+                    <span className="rb-book-link-label">Schedule demo</span>
+                    <span className="rb-book-link-arrow" aria-hidden="true">
+                      <svg viewBox="0 0 36 12" width="36" height="12">
+                        <path
+                          className="rb-book-link-shaft"
+                          d="M0 6 L28 6"
+                          stroke="currentColor"
+                          strokeWidth="1.3"
+                          strokeLinecap="round"
+                          fill="none"
+                        />
+                        <path
+                          className="rb-book-link-head"
+                          d="M22 1.5 L28 6 L22 10.5"
+                          stroke="currentColor"
+                          strokeWidth="1.3"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          fill="none"
+                        />
+                      </svg>
+                    </span>
+                    <span className="rb-book-link-underline" aria-hidden="true" />
                   </a>
                 </div>
               </div>
             </div>
 
-            {/* Right column — seven roles, editorial list */}
-            <ol className="rb-split-right" aria-label="Seven roles in every deployment">
-              {[
-                {
-                  num: "I",
-                  label: "Candidate Sourcing Engine",
-                  body: "Targeted search across LinkedIn and sector networks, filtered against your ICP.",
-                },
-                {
-                  num: "II",
-                  label: "CV Screening & Shortlisting",
-                  body: "Agentic AI reading every profile against your criteria.",
-                },
-                {
-                  num: "III",
-                  label: "Automated Outreach Sequences",
-                  body: "Multi-touch personalised sequences, sent without manual input.",
-                },
-                {
-                  num: "IV",
-                  label: "CRM Auto-Population",
-                  body: "Everything written directly into your CRM, nothing typed.",
-                },
-                {
-                  num: "V",
-                  label: "Pipeline Management",
-                  body: "Warm candidates tracked, re-engaged, ready when the next role opens.",
-                },
-                {
-                  num: "VI",
-                  label: "Behaviour-Triggered Follow-Up",
-                  body: "Re-engagement handled automatically.",
-                },
-                {
-                  num: "VII",
-                  label: "Operational Audit & Roadmap",
-                  body: "Where your operation is losing time, and what to fix next.",
-                },
-              ].map((role) => (
-                <li key={role.num} className="rb-split-role">
-                  <div className="rb-split-role-head">
-                    <span className="rb-split-role-num">{role.num}</span>
-                    <span className="rb-split-role-label">{role.label}</span>
-                  </div>
-                  <p className="rb-split-role-body">{role.body}</p>
-                </li>
-              ))}
-            </ol>
+            {/* Right column — seven roles + scroll-progress track + active
+                state. Client component (IntersectionObserver). */}
+            <RecruitmentSplitRoles />
           </div>
 
           <div className="rb-wrap">
