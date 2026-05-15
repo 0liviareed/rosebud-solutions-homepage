@@ -113,6 +113,11 @@ export default function Footer() {
                   About
                 </Link>
               </li>
+              <li>
+                <Link href="/pricing" className="rb-footer-link">
+                  Pricing
+                </Link>
+              </li>
             </ul>
           </div>
 

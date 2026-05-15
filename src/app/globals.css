@@ -4721,7 +4721,28 @@ button { font: inherit; color: inherit; }
    still binds to the class + data-attribute contract in the markup, so
    validation, captcha and the checkbox-toggle (it adds .checkbox_checked
    to the span when the native input changes) keep working. ── */
-.rb-pricing-form-shell { width: 100%; margin: 0; }
+/* Bordered card now lives on the outer shell so the form head and the
+   Brevo fields share one container. Brevo's #sib-container has its
+   border + background stripped to avoid doubling-up. */
+.rb-pricing-form-shell {
+  width: 100%;
+  margin: 0;
+  background: rgba(245, 241, 234, 0.025);
+  border: 1px solid var(--rb-bone-hair);
+  border-radius: 14px;
+  padding: clamp(1.5rem, 3vw, 2rem);
+}
+
+/* Form head — eyebrow + h2 + sub, sits at the top of the shell above
+   the Brevo fields, separated by a hairline divider. */
+.rb-pricing-form-shell .rb-pricing-form-head {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 18px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid var(--rb-bone-hair);
+}
 
 /* Outer Brevo container — kill all their inline-style backgrounds. */
 .rb-pricing-form-shell .sib-form,
@@ -4730,11 +4751,11 @@ button { font: inherit; color: inherit; }
 }
 
 .rb-pricing-form-shell #sib-container {
-  background: rgba(245, 241, 234, 0.025) !important;
-  border: 1px solid var(--rb-bone-hair) !important;
-  border-radius: 14px !important;
+  background: transparent !important;
+  border: 0 !important;
+  border-radius: 0 !important;
   max-width: none !important;
-  padding: clamp(1.5rem, 3vw, 2rem) !important;
+  padding: 0 !important;
   text-align: left !important;
   direction: ltr;
 }
@@ -4768,6 +4789,47 @@ button { font: inherit; color: inherit; }
   font-family: var(--font-dm-sans), sans-serif !important;
   text-transform: none !important;
   letter-spacing: 0 !important;
+}
+
+/* Industry dropdown — replaces the old multi-select checkbox group.
+   Same visual contract as the text inputs above, plus a custom chevron
+   on the right (background-image SVG, hidden native arrow). */
+.rb-pricing-form-shell select.input,
+.rb-pricing-form-shell .rb-pricing-select {
+  width: 100%;
+  background: rgba(0, 0, 0, 0.35) !important;
+  color: var(--rb-bone) !important;
+  border: 1px solid rgba(245, 241, 234, 0.14) !important;
+  border-radius: 8px !important;
+  font-family: var(--font-dm-sans), sans-serif !important;
+  font-size: 15px !important;
+  padding: 12px 40px 12px 14px !important;
+  line-height: 1.4 !important;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  cursor: pointer;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8' fill='none'%3E%3Cpath d='M1 1.5L6 6.5L11 1.5' stroke='%23B8AEDB' stroke-width='1.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") !important;
+  background-repeat: no-repeat !important;
+  background-position: right 14px center !important;
+  background-size: 12px 8px !important;
+  box-shadow: none !important;
+}
+.rb-pricing-form-shell select.input:focus {
+  outline: none !important;
+  border-color: var(--rb-purple-core) !important;
+  box-shadow: 0 0 0 3px rgba(139, 125, 216, 0.18) !important;
+}
+.rb-pricing-form-shell select.input option {
+  background: #0e0e10;
+  color: var(--rb-bone);
+  padding: 8px;
+}
+/* The "Select an industry" placeholder option renders dim when no real
+   value is picked yet. */
+.rb-pricing-form-shell select.input:invalid,
+.rb-pricing-form-shell select.input option[value=""][disabled] {
+  color: rgba(245, 241, 234, 0.35);
 }
 
 /* Field labels (the multi-select + REQUEST groups have labelled headers) */

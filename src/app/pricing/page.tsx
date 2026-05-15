@@ -108,26 +108,11 @@ export default function PricingPage() {
               </div>
             </div>
 
-            {/* Right column — sticky form */}
+            {/* Right column — sticky form (head + Brevo embed live inside
+                a single bordered container, see PricingBrevoForm). */}
             <aside className="rb-pricing-right">
-              <div className="rb-pricing-right-sticky">
-                <div className="rb-pricing-form-head">
-                  <p className="rb-eyebrow" data-rb-fade="0">
-                    <span className="rb-num">·</span>Get started
-                  </p>
-                  <h2 className="rb-pricing-form-h2" data-rb-fade="1">
-                    Tell us what you&rsquo;re running.{" "}
-                    <em>We&rsquo;ll scope the system.</em>
-                  </h2>
-                  <p className="rb-pricing-form-sub" data-rb-fade="2">
-                    A 30-minute call to understand your operation, scope the
-                    system, and quote the build. You leave with a clear
-                    figure — no follow-ups, no chasing.
-                  </p>
-                </div>
-                <div data-rb-fade="3">
-                  <PricingBrevoForm />
-                </div>
+              <div className="rb-pricing-right-sticky" data-rb-fade="0">
+                <PricingBrevoForm />
               </div>
             </aside>
           </div>

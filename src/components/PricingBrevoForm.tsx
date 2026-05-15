@@ -66,50 +66,23 @@ const BREVO_FORM_HTML = `
           </div>
         </div>
         <div style="padding: 8px 0;">
-          <div class="sib-checkbox-group sib-form-block" data-required="true">
-            <div class="form__entry entry_mcq">
+          <div class="sib-input sib-form-block" data-required="true">
+            <div class="form__entry entry_block">
               <div class="form__label-row ">
-                <label class="entry__label" style="font-weight: 700; text-align: left; font-family:Helvetica, sans-serif; font-size:16px; font-weight:700; text-align:left; color:#3c4858;" data-required="*">I would like to learn about:</label>
-                <div style="">
-                  <div class="entry__choice">
-                    <label class="checkbox__label">
-                      <input type="checkbox" class="input_replaced" name="INDUSTRY_INTEREST[]" data-value="Dental, Aesthetic &amp; Private Healthcare" value="Dental, Aesthetic &amp; Private Healthcare" data-required="true" />
-                      <span class="checkbox checkbox_tick_positive" style="margin-left:"></span><span style="font-family:Helvetica, sans-serif; font-size:16px; text-align:left; color:#3C4858; background-color:transparent;">Dental, Aesthetic &amp; Private Healthcare</span>
-                    </label>
-                  </div>
-                  <div class="entry__choice">
-                    <label class="checkbox__label">
-                      <input type="checkbox" class="input_replaced" name="INDUSTRY_INTEREST[]" data-value="Enterprise" value="Enterprise" data-required="true" />
-                      <span class="checkbox checkbox_tick_positive" style="margin-left:"></span><span style="font-family:Helvetica, sans-serif; font-size:16px; text-align:left; color:#3C4858; background-color:transparent;">Enterprise</span>
-                    </label>
-                  </div>
-                  <div class="entry__choice">
-                    <label class="checkbox__label">
-                      <input type="checkbox" class="input_replaced" name="INDUSTRY_INTEREST[]" data-value="Financial Services" value="Financial Services" data-required="true" />
-                      <span class="checkbox checkbox_tick_positive" style="margin-left:"></span><span style="font-family:Helvetica, sans-serif; font-size:16px; text-align:left; color:#3C4858; background-color:transparent;">Financial Services</span>
-                    </label>
-                  </div>
-                  <div class="entry__choice">
-                    <label class="checkbox__label">
-                      <input type="checkbox" class="input_replaced" name="INDUSTRY_INTEREST[]" data-value="Insurance" value="Insurance" data-required="true" />
-                      <span class="checkbox checkbox_tick_positive" style="margin-left:"></span><span style="font-family:Helvetica, sans-serif; font-size:16px; text-align:left; color:#3C4858; background-color:transparent;">Insurance</span>
-                    </label>
-                  </div>
-                  <div class="entry__choice">
-                    <label class="checkbox__label">
-                      <input type="checkbox" class="input_replaced" name="INDUSTRY_INTEREST[]" data-value="Real Estate" value="Real Estate" data-required="true" />
-                      <span class="checkbox checkbox_tick_positive" style="margin-left:"></span><span style="font-family:Helvetica, sans-serif; font-size:16px; text-align:left; color:#3C4858; background-color:transparent;">Real Estate</span>
-                    </label>
-                  </div>
-                  <div class="entry__choice">
-                    <label class="checkbox__label">
-                      <input type="checkbox" class="input_replaced" name="INDUSTRY_INTEREST[]" data-value="Recruitment" value="Recruitment" data-required="true" />
-                      <span class="checkbox checkbox_tick_positive" style="margin-left:"></span><span style="font-family:Helvetica, sans-serif; font-size:16px; text-align:left; color:#3C4858; background-color:transparent;">Recruitment</span>
-                    </label>
-                  </div>
+                <label class="entry__label" data-required="*" for="INDUSTRY_INTEREST">I would like to learn about</label>
+                <div class="entry__field">
+                  <select class="input rb-pricing-select" id="INDUSTRY_INTEREST" name="INDUSTRY_INTEREST[]" data-required="true" required>
+                    <option value="" disabled selected>Select an industry</option>
+                    <option value="Dental, Aesthetic &amp; Private Healthcare">Dental, Aesthetic &amp; Private Healthcare</option>
+                    <option value="Enterprise">Enterprise</option>
+                    <option value="Financial Services">Financial Services</option>
+                    <option value="Insurance">Insurance</option>
+                    <option value="Real Estate">Real Estate</option>
+                    <option value="Recruitment">Recruitment</option>
+                  </select>
                 </div>
               </div>
-              <label class="entry__error entry__error--primary" style="font-family:Helvetica, sans-serif; font-size:16px; text-align:left; color:#661d1d; background-color:#ffeded; border-color:#ff4949; border-radius:3px;"></label>
+              <label class="entry__error entry__error--primary"></label>
             </div>
           </div>
         </div>
@@ -198,11 +171,27 @@ export default function PricingBrevoForm() {
         class + data-attribute contract in the markup below for validation,
         captcha, error panels, and the custom checkbox toggle (adds
         .checkbox_checked to the span when the native input changes).
+
+        The form head (eyebrow + h2 + sub) sits inside the same bordered
+        shell as the form so it reads as a single contained card.
       */}
-      <div
-        className="rb-pricing-form-shell"
-        dangerouslySetInnerHTML={{ __html: BREVO_FORM_HTML }}
-      />
+      <div className="rb-pricing-form-shell">
+        <div className="rb-pricing-form-head" data-rb-fade="0">
+          <p className="rb-eyebrow">
+            <span className="rb-num">·</span>Get started
+          </p>
+          <h2 className="rb-pricing-form-h2">
+            Tell us what you&rsquo;re running.{" "}
+            <em>We&rsquo;ll scope the system.</em>
+          </h2>
+          <p className="rb-pricing-form-sub">
+            A 30-minute call to understand your operation, scope the
+            system, and quote the build. You leave with a clear figure —
+            no follow-ups, no chasing.
+          </p>
+        </div>
+        <div dangerouslySetInnerHTML={{ __html: BREVO_FORM_HTML }} />
+      </div>
 
       <Script
         id="brevo-form-globals"
