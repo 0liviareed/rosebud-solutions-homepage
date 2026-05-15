@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import PricingFAQ from "@/components/PricingFAQ";
 import PricingBrevoForm from "@/components/PricingBrevoForm";
+import PricingCardsDrawer from "@/components/PricingCardsDrawer";
 import BookDemoCTA from "@/components/BookDemoCTA";
 
 export const metadata: Metadata = {
@@ -44,24 +45,6 @@ const FAQ_SCHEMA = {
     { "@type": "Question", name: "Is there a minimum term?", acceptedAnswer: { "@type": "Answer", text: "Twelve months. The system needs time to learn your data, refine its logic, and produce compounding results." } },
   ],
 };
-
-const CARDS = [
-  {
-    num: "I",
-    label: "The Build",
-    body: "A live, operational system in five weeks. Discovered, configured, deployed, and integrated with the tools you already run. Your team is five Mondays away from running it.",
-  },
-  {
-    num: "II",
-    label: "The Team",
-    body: "A team running the system on your behalf. Day-to-day operation, refinement as you grow, and the work the system produces handled for you — so the only thing your team touches is the work that needs them.",
-  },
-  {
-    num: "III",
-    label: "The Scope",
-    body: "Five to seven roles, custom-built around your operation, working as one system. Not a tool you configure. A team you don't have to hire.",
-  },
-];
 
 const VERTICALS = [
   {
@@ -120,14 +103,8 @@ export default function PricingPage() {
                 includes:
               </p>
 
-              <div className="rb-pricing-cards rb-pricing-cards-stacked" data-rb-fade="4">
-                {CARDS.map((card) => (
-                  <article key={card.num} className="rb-pricing-card">
-                    <span className="rb-pricing-card-num">{card.num}</span>
-                    <span className="rb-pricing-card-label">{card.label}</span>
-                    <p className="rb-pricing-card-body">{card.body}</p>
-                  </article>
-                ))}
+              <div data-rb-fade="4">
+                <PricingCardsDrawer />
               </div>
             </div>
 
