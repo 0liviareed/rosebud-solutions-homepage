@@ -4824,8 +4824,14 @@ button { font: inherit; color: inherit; }
   border-color: rgba(245, 241, 234, 0.28) !important;
 }
 
-/* Dropdown panel — Brevo's main.js toggles display between none/block. */
+/* Dropdown panel — Brevo's main.js toggles display between none/block
+   via inline style on the trigger click. The external sib-styles.css
+   normally provides the initial display:none rule; since we don't load
+   it, the panel would otherwise render open on page load. Force closed
+   here so Brevo's inline style:display:block override opens it on
+   click. */
 .rb-pricing-form-shell .sib-menu {
+  display: none;
   position: absolute;
   z-index: 5;
   top: calc(100% + 6px);
