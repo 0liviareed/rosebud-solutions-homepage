@@ -190,14 +190,15 @@ function handleCaptchaResponse() {
 export default function PricingBrevoForm() {
   return (
     <>
-      {/* Brevo's structural CSS — label/input/checkbox-replacement logic
-          binds to this. Surface palette is overridden in globals.css under
-          .rb-pricing-form-shell so the form lands on the dark site. */}
-      <link
-        rel="stylesheet"
-        href="https://sibforms.com/forms/end-form/build/sib-styles.css"
-      />
-
+      {/*
+        Brevo's external stylesheet (sib-styles.css) is intentionally NOT
+        loaded — it ships !important light-mode rules that beat our overrides
+        regardless of source order. All form styling now lives in globals.css
+        under .rb-pricing-form-shell. Brevo's main.js still binds to the
+        class + data-attribute contract in the markup below for validation,
+        captcha, error panels, and the custom checkbox toggle (adds
+        .checkbox_checked to the span when the native input changes).
+      */}
       <div
         className="rb-pricing-form-shell"
         dangerouslySetInnerHTML={{ __html: BREVO_FORM_HTML }}

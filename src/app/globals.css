@@ -4620,29 +4620,10 @@ button { font: inherit; color: inherit; }
 
 .rb-pricing-card {
   position: relative;
-  padding: clamp(2rem, 3vw, 2.5rem) clamp(1.5rem, 2.5vw, 2rem);
-  border: 1px solid var(--rb-bone-hair);
-  border-radius: 14px;
-  background: linear-gradient(
-    180deg,
-    rgba(245, 241, 234, 0.022) 0%,
-    rgba(245, 241, 234, 0) 100%
-  );
+  padding: 18px 4px;
   display: flex;
   flex-direction: column;
-  gap: clamp(1rem, 1.5vw, 1.25rem);
-  transition: border-color 360ms var(--rb-ease),
-    background 360ms var(--rb-ease),
-    transform 360ms var(--rb-ease);
-}
-.rb-pricing-card:hover {
-  border-color: rgba(184, 174, 219, 0.32);
-  background: linear-gradient(
-    180deg,
-    rgba(139, 125, 216, 0.06) 0%,
-    rgba(139, 125, 216, 0) 100%
-  );
-  transform: translateY(-2px);
+  gap: 8px;
 }
 
 .rb-pricing-card-num {
@@ -4734,16 +4715,18 @@ button { font: inherit; color: inherit; }
   transform: translateX(4px);
 }
 
-/* ── Brevo form overrides — Brevo ships light-mode styling; we re-skin
-      the surface (background, inputs, labels, button, captcha) to the dark
-      bone-on-near-black palette while keeping their structural CSS intact
-      so the form's checkbox-replacement, error panel, and validation
-      bindings keep working. ── */
-.rb-pricing-form-shell { max-width: 720px; margin: 0 auto; }
+/* ── Brevo form — self-contained styling (no external Brevo stylesheet).
+   Owns everything: container, inputs, labels, custom checkboxes, error
+   + success panels, submit button, reCAPTCHA spacing. Brevo's main.js
+   still binds to the class + data-attribute contract in the markup, so
+   validation, captcha and the checkbox-toggle (it adds .checkbox_checked
+   to the span when the native input changes) keep working. ── */
+.rb-pricing-form-shell { width: 100%; margin: 0; }
 
-.rb-pricing-form-shell .sib-form {
+/* Outer Brevo container — kill all their inline-style backgrounds. */
+.rb-pricing-form-shell .sib-form,
+.rb-pricing-form-shell .sib-form > * {
   background: transparent !important;
-  padding: 0 !important;
 }
 
 .rb-pricing-form-shell #sib-container {
@@ -4751,11 +4734,18 @@ button { font: inherit; color: inherit; }
   border: 1px solid var(--rb-bone-hair) !important;
   border-radius: 14px !important;
   max-width: none !important;
-  padding: clamp(1.5rem, 3vw, 2.25rem) !important;
+  padding: clamp(1.5rem, 3vw, 2rem) !important;
   text-align: left !important;
+  direction: ltr;
 }
 
-.rb-pricing-form-shell .input {
+/* Block-level form rows — fall into a flex column with consistent gaps */
+.rb-pricing-form-shell #sib-form { display: flex; flex-direction: column; gap: 14px; }
+.rb-pricing-form-shell #sib-form > div { padding: 0 !important; }
+
+/* Inputs */
+.rb-pricing-form-shell input.input {
+  width: 100%;
   background: rgba(0, 0, 0, 0.35) !important;
   color: var(--rb-bone) !important;
   border: 1px solid rgba(245, 241, 234, 0.14) !important;
@@ -4763,45 +4753,94 @@ button { font: inherit; color: inherit; }
   font-family: var(--font-dm-sans), sans-serif !important;
   font-size: 15px !important;
   padding: 12px 14px !important;
-  width: 100% !important;
+  line-height: 1.4 !important;
+  -webkit-appearance: none;
+  appearance: none;
+  box-shadow: none !important;
+  outline: none;
 }
-.rb-pricing-form-shell .input:focus {
-  outline: none !important;
+.rb-pricing-form-shell input.input:focus {
   border-color: var(--rb-purple-core) !important;
   box-shadow: 0 0 0 3px rgba(139, 125, 216, 0.18) !important;
 }
-.rb-pricing-form-shell .input::placeholder { color: rgba(245, 241, 234, 0.35) !important; }
-.rb-pricing-form-shell .input:-ms-input-placeholder { color: rgba(245, 241, 234, 0.35) !important; }
-
-.rb-pricing-form-shell .entry__label {
+.rb-pricing-form-shell input.input::placeholder {
+  color: rgba(245, 241, 234, 0.35) !important;
   font-family: var(--font-dm-sans), sans-serif !important;
-  font-weight: 500 !important;
-  font-size: 12.5px !important;
-  letter-spacing: 0.06em !important;
-  text-transform: uppercase !important;
-  color: var(--rb-bone) !important;
-  margin-bottom: 8px !important;
+  text-transform: none !important;
+  letter-spacing: 0 !important;
 }
 
-.rb-pricing-form-shell .entry__choice {
-  margin: 4px 0;
+/* Field labels (the multi-select + REQUEST groups have labelled headers) */
+.rb-pricing-form-shell .entry__label {
+  display: block;
+  font-family: var(--font-dm-sans), sans-serif !important;
+  font-weight: 500 !important;
+  font-size: 11.5px !important;
+  letter-spacing: 0.22em !important;
+  text-transform: uppercase !important;
+  color: var(--rb-bone) !important;
+  margin: 0 0 10px !important;
+  background: transparent !important;
+}
+.rb-pricing-form-shell .entry__label[data-required="*"]::after {
+  content: "";
+}
+
+/* Multi-select checkbox group — vertical list, each row tight */
+.rb-pricing-form-shell .entry_mcq > div > div { display: flex; flex-direction: column; gap: 6px; }
+.rb-pricing-form-shell .entry__choice { margin: 0; }
+
+/* Native checkbox is hidden by Brevo's .input_replaced contract; we
+   replace it with the .checkbox span (toggled via .checkbox_checked
+   by Brevo's main.js). */
+.rb-pricing-form-shell input.input_replaced {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+  width: 1px;
+  height: 1px;
 }
 
 .rb-pricing-form-shell .checkbox__label,
 .rb-pricing-form-shell .sib-optin label {
-  display: inline-flex;
-  align-items: flex-start;
-  gap: 10px;
+  display: inline-flex !important;
+  align-items: flex-start !important;
+  gap: 10px !important;
   cursor: pointer;
-  color: var(--rb-bone-dim) !important;
 }
 
-.rb-pricing-form-shell .checkbox__label span:last-child,
+.rb-pricing-form-shell .checkbox {
+  display: inline-block !important;
+  background: rgba(0, 0, 0, 0.4) !important;
+  border: 1px solid rgba(245, 241, 234, 0.22) !important;
+  border-radius: 4px !important;
+  width: 18px !important;
+  height: 18px !important;
+  flex-shrink: 0 !important;
+  margin: 1px 0 0 !important;
+  position: relative;
+  transition: background 160ms var(--rb-ease), border-color 160ms var(--rb-ease);
+}
+.rb-pricing-form-shell .checkbox_checked {
+  background: var(--rb-purple-core) !important;
+  border-color: var(--rb-purple-core) !important;
+}
+.rb-pricing-form-shell .checkbox_checked::after {
+  content: "";
+  position: absolute;
+  inset: 2px 4px 4px 2px;
+  border-right: 2px solid #fff;
+  border-bottom: 2px solid #fff;
+  transform: rotate(45deg) translate(-1px, -1px);
+}
+
+.rb-pricing-form-shell .checkbox__label > span:last-child,
 .rb-pricing-form-shell .sib-optin label > span:last-child {
   font-family: var(--font-dm-sans), sans-serif !important;
   font-size: 14px !important;
   color: var(--rb-bone-dim) !important;
   line-height: 1.5 !important;
+  background: transparent !important;
 }
 .rb-pricing-form-shell .sib-optin label > span:last-child p { margin: 0; }
 .rb-pricing-form-shell .sib-optin a {
@@ -4809,58 +4848,101 @@ button { font: inherit; color: inherit; }
   text-decoration: underline !important;
 }
 
-/* Brevo replaces the native checkbox with a span — restyle to the dark
-   palette and lift the lavender for the "checked" state. */
-.rb-pricing-form-shell .checkbox {
-  background: rgba(0, 0, 0, 0.35) !important;
-  border: 1px solid rgba(245, 241, 234, 0.2) !important;
-  border-radius: 4px !important;
-  width: 18px !important;
-  height: 18px !important;
-  flex-shrink: 0 !important;
-  margin-top: 1px;
-}
-.rb-pricing-form-shell .checkbox_checked {
-  background: var(--rb-purple-core) !important;
-  border-color: var(--rb-purple-core) !important;
+.rb-pricing-form-shell .entry__specification {
+  display: block;
+  color: rgba(245, 241, 234, 0.35) !important;
+  font-family: var(--font-dm-sans), sans-serif !important;
+  font-size: 12px !important;
+  margin-top: 6px !important;
+  background: transparent !important;
 }
 
+/* Error + success panels — keep them subtle, dark surface, lavender or red
+   accent strip on the left. Brevo toggles them on submit. */
+.rb-pricing-form-shell .sib-form-message-panel {
+  display: none;
+  border-radius: 10px !important;
+  border: 1px solid !important;
+  padding: 12px 14px !important;
+  font-family: var(--font-dm-sans), sans-serif !important;
+  font-size: 13.5px !important;
+  margin: 0 0 14px !important;
+  max-width: none !important;
+}
+.rb-pricing-form-shell #error-message {
+  background: rgba(248, 113, 113, 0.08) !important;
+  border-color: rgba(248, 113, 113, 0.35) !important;
+  color: #fca5a5 !important;
+}
+.rb-pricing-form-shell #success-message {
+  background: rgba(126, 224, 138, 0.08) !important;
+  border-color: rgba(126, 224, 138, 0.35) !important;
+  color: #86efac !important;
+}
+.rb-pricing-form-shell .sib-form-message-panel__inner-text {
+  color: inherit !important;
+}
+.rb-pricing-form-shell .sib-notification__icon {
+  width: 18px !important;
+  height: 18px !important;
+  vertical-align: -3px;
+  margin-right: 8px;
+  fill: currentColor;
+}
+
+/* Inline per-field error label — Brevo toggles its display on validation */
+.rb-pricing-form-shell .entry__error {
+  display: none;
+  background: rgba(248, 113, 113, 0.08) !important;
+  border: 1px solid rgba(248, 113, 113, 0.3) !important;
+  border-radius: 6px !important;
+  color: #fca5a5 !important;
+  font-family: var(--font-dm-sans), sans-serif !important;
+  font-size: 12.5px !important;
+  padding: 8px 10px !important;
+  margin-top: 6px !important;
+}
+
+/* Submit button — bone pill matching the rest of the site CTAs */
 .rb-pricing-form-shell .sib-form-block__button {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 8px !important;
   background: var(--rb-bone) !important;
   color: #0a0a0c !important;
+  border: 1px solid var(--rb-bone) !important;
   border-radius: 999px !important;
-  padding: 14px 28px !important;
+  padding: 13px 24px !important;
   font-family: var(--font-dm-sans), sans-serif !important;
   font-weight: 500 !important;
   font-size: 14px !important;
   letter-spacing: 0.02em !important;
   text-align: center !important;
-  border: 1px solid var(--rb-bone) !important;
-  transition: background 200ms var(--rb-ease), color 200ms var(--rb-ease) !important;
+  text-transform: none !important;
   cursor: pointer;
+  width: 100%;
+  transition: background 200ms var(--rb-ease), color 200ms var(--rb-ease);
 }
 .rb-pricing-form-shell .sib-form-block__button:hover {
   background: #ffffff !important;
   border-color: #ffffff !important;
 }
+.rb-pricing-form-shell .sib-form-block__button .icon { display: none; }
 
-.rb-pricing-form-shell .entry__specification {
-  color: rgba(245, 241, 234, 0.35) !important;
-  font-family: var(--font-dm-sans), sans-serif !important;
-  margin-top: 4px;
-}
+/* Hidden honeypot — Brevo uses .input--hidden */
+.rb-pricing-form-shell .input--hidden { display: none !important; }
 
-/* reCAPTCHA badge — light on dark looks fine, just centre it on the form
-   and give it some breathing room. */
-.rb-pricing-form-shell .sib-captcha { margin-top: 6px; }
+/* reCAPTCHA wrapper */
+.rb-pricing-form-shell .sib-captcha { margin-top: 4px; }
 .rb-pricing-form-shell .g-recaptcha {
   display: inline-block;
   transform-origin: left top;
 }
 
 @media (max-width: 420px) {
-  /* reCAPTCHA at 304px doesn't fit narrow phones — shrink to 0.85x */
-  .rb-pricing-form-shell .g-recaptcha { transform: scale(0.85); }
+  /* reCAPTCHA at 304px doesn't fit narrow phones — shrink slightly */
+  .rb-pricing-form-shell .g-recaptcha { transform: scale(0.88); }
 }
 
 
@@ -4930,48 +5012,44 @@ button { font: inherit; color: inherit; }
   max-width: 38rem;
 }
 
-/* When the three cards stack vertically inside the left column they want
-   smaller numerals + tighter gaps than the 3-column desktop layout. */
+/* Editorial treatment when the three cards stack vertically in the left
+   column — drop the card chrome (no borders, no backgrounds, no hover lift)
+   and separate them with hairlines. Numeral, label and body sit as a tight
+   typographic grid. Much less visual noise above the fold. */
 .rb-pricing-cards-stacked {
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  margin-top: 12px;
+  margin-top: 4px;
+  border-top: 1px solid var(--rb-bone-hair);
 }
-.rb-pricing-cards-stacked .rb-pricing-card {
-  flex-direction: row;
-  align-items: flex-start;
-  gap: 18px;
-  padding: clamp(1.25rem, 2vw, 1.75rem) clamp(1.25rem, 2vw, 1.75rem);
-}
-.rb-pricing-cards-stacked .rb-pricing-card-num {
-  font-size: clamp(2rem, 3vw, 2.4rem);
-  flex-shrink: 0;
-  min-width: 2.5rem;
-}
-.rb-pricing-cards-stacked .rb-pricing-card-label {
-  margin-bottom: 4px;
-}
-.rb-pricing-cards-stacked .rb-pricing-card > * { display: block; }
 .rb-pricing-cards-stacked .rb-pricing-card {
   display: grid;
-  grid-template-columns: auto 1fr;
+  grid-template-columns: 3rem 1fr;
   grid-template-rows: auto auto;
-  column-gap: 18px;
+  column-gap: 20px;
   row-gap: 4px;
+  padding: 18px 0;
+  border-bottom: 1px solid var(--rb-bone-hair);
 }
 .rb-pricing-cards-stacked .rb-pricing-card-num {
   grid-row: 1 / span 2;
   grid-column: 1;
+  align-self: start;
+  font-size: 1.7rem;
+  line-height: 1.1;
 }
 .rb-pricing-cards-stacked .rb-pricing-card-label {
   grid-row: 1;
   grid-column: 2;
-  align-self: end;
+  align-self: start;
+  font-size: 11.5px;
+  letter-spacing: 0.22em;
 }
 .rb-pricing-cards-stacked .rb-pricing-card-body {
   grid-row: 2;
   grid-column: 2;
+  font-size: clamp(0.92rem, 1vw, 1rem);
+  line-height: 1.55;
 }
 
 /* Right column — sticky form */
