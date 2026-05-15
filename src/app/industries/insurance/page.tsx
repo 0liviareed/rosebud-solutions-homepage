@@ -3,10 +3,21 @@ import InsuranceFAQ from "@/components/InsuranceFAQ";
 import SevenStepTimeline, {
   type TimelineStep,
 } from "@/components/SevenStepTimeline";
+import SplitRoles, { type SplitRole } from "@/components/SplitRoles";
 import Voices from "@/components/Voices";
 import { VOICES } from "@/components/voices-data";
 import BookDemoCTA from "@/components/BookDemoCTA";
 import BookCTA from "@/components/BookCTA";
+
+const INSURANCE_ROLES: SplitRole[] = [
+  { num: "I",   label: "Enquiry Intake",            body: "Every new enquiry answered the moment it lands, with the qualifying questions asked before a licensed advisor picks it up." },
+  { num: "II",  label: "Fact-Find Automation",      body: "Risk details, claims history, and documentation requests captured through structured conversation, not email back-and-forth." },
+  { num: "III", label: "Market Submission Support", body: "Client data prepared in the format each carrier's portal expects, so no-one's retyping the same information five times." },
+  { num: "IV",  label: "Quote Comparison Assembly", body: "Carrier responses pulled together into client-ready comparisons automatically." },
+  { num: "V",   label: "CRM Auto-Population",       body: "Every conversation, every document, every decision filed directly into your CRM." },
+  { num: "VI",  label: "Renewal & MTA Management",  body: "Renewal cycles diarised, mid-term adjustments handled without dropping in your advisors' laps." },
+  { num: "VII", label: "Operational Audit & Roadmap", body: "Where your operation is losing time, and what to fix next." },
+];
 
 export const metadata: Metadata = {
   title: "Insurance — Custom AI System",
@@ -273,70 +284,68 @@ export default function InsurancePage() {
         </section>
 
         {/* ===================== II — WHAT'S INCLUDED ===================== */}
-        <section className="rb-sec" data-rb-sec aria-label="What's included">
-          <div className="rb-wrap">
-            <div className="rb-head">
-              <p className="rb-eyebrow" data-rb-fade="0">
-                <span className="rb-num">II</span>Every deployment includes
-              </p>
-              <h2 className="rb-h2" data-rb-fade="1">
-                One system. <em>All seven roles.</em>
-              </h2>
-              <p className="rb-sub" data-rb-fade="2">
-                Built around your lines, your carriers, your book. One setup.
-                One monthly figure. No per-seat pricing. Live in 5 weeks.
-              </p>
-            </div>
+        <section className="rb-sec rb-sec-split" data-rb-sec aria-label="What's included">
+          <div className="rb-wrap rb-split">
+            <div className="rb-split-left">
+              <div className="rb-split-left-inner">
+                <p className="rb-eyebrow" data-rb-fade="0">
+                  <span className="rb-num">II</span>Every deployment includes
+                </p>
+                <h2 className="rb-h2" data-rb-fade="1">
+                  One system. <em>All seven roles.</em>
+                </h2>
+                <p className="rb-split-body" data-rb-fade="2">
+                  Built around your lines, your carriers, your book. One
+                  setup. One monthly figure. No per-seat pricing. Live in 5
+                  weeks.
+                </p>
+                <p className="rb-split-body rb-split-body-quiet" data-rb-fade="3">
+                  Every deployment is built around the lines you write, the
+                  carriers you place with, and the clients you serve. Seven
+                  roles run as one system — operated by us, handed to you.
+                </p>
 
-            <p className="rb-included-intro" data-rb-fade="3">
-              Every deployment is built around the lines you write, the
-              carriers you place with, and the clients you serve. Seven roles
-              run as one system — operated by us, handed to you.
-            </p>
-
-            <div data-rb-fade="3">
-              {[
-                [
-                  "Enquiry Intake",
-                  "Every new enquiry answered the moment it lands, with the qualifying questions asked before a licensed advisor picks it up.",
-                ],
-                [
-                  "Fact-Find Automation",
-                  "Risk details, claims history, and documentation requests captured through structured conversation, not email back-and-forth.",
-                ],
-                [
-                  "Market Submission Support",
-                  "Client data prepared in the format each carrier's portal expects, so no-one's retyping the same information five times.",
-                ],
-                [
-                  "Quote Comparison Assembly",
-                  "Carrier responses pulled together into client-ready comparisons automatically.",
-                ],
-                [
-                  "CRM Auto-Population",
-                  "Every conversation, every document, every decision filed directly into your CRM.",
-                ],
-                [
-                  "Renewal & MTA Management",
-                  "Renewal cycles diarised, mid-term adjustments handled without dropping in your advisors' laps.",
-                ],
-                [
-                  "Operational Audit & Roadmap",
-                  "Where your operation is losing time, and what to fix next.",
-                ],
-              ].map(([title, body], i) => (
-                <div key={i} className="rb-entry rb-entry-numbered" tabIndex={0}>
-                  <span className="rb-num-big">
-                    {String(i + 1).padStart(2, "0")}
+                <div className="rb-split-ctas" data-rb-fade="3">
+                  <a href="/pricing" className="rb-book-link">
+                    <span className="rb-book-link-label">Get started</span>
+                    <span className="rb-book-link-arrow" aria-hidden="true">
+                      <svg viewBox="0 0 36 12" width="36" height="12">
+                        <path className="rb-book-link-shaft" d="M0 6 L28 6" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" fill="none" />
+                        <path className="rb-book-link-head" d="M22 1.5 L28 6 L22 10.5" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+                      </svg>
+                    </span>
+                    <span className="rb-book-link-underline" aria-hidden="true" />
+                  </a>
+                  <span className="rb-split-cta-glow-wrap">
+                    <span className="rb-split-cta-glow rb-split-cta-glow-pedestal" aria-hidden="true" />
+                    <span className="rb-split-cta-glow rb-split-cta-glow-halo" aria-hidden="true" />
+                    <a
+                      href="https://www.cal.eu/rosebudsolutions/30min?overlayCalendar=true"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="rb-book-cta rb-book-cta-inline"
+                    >
+                      <span className="rb-book-cta-label">Schedule demo</span>
+                      <span className="rb-book-cta-arrow" aria-hidden="true">
+                        <svg viewBox="0 0 42 12" width="42" height="12">
+                          <path className="rb-book-cta-shaft" d="M0 6 L32 6" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" fill="none" />
+                          <path className="rb-book-cta-head" d="M26 1.5 L32 6 L26 10.5" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+                        </svg>
+                      </span>
+                      <span className="rb-book-cta-underline" aria-hidden="true" />
+                    </a>
                   </span>
-                  <div className="rb-body-stack">
-                    <span className="rb-label">{title}</span>
-                    <p className="rb-body-copy">{body}</p>
-                  </div>
                 </div>
-              ))}
+              </div>
             </div>
 
+            <SplitRoles
+              ariaLabel="Seven roles in every insurance deployment"
+              roles={INSURANCE_ROLES}
+            />
+          </div>
+
+          <div className="rb-wrap">
             <p className="rb-aftertext rb-aftertext-quiet" data-rb-fade="3">
               Pricing shared on the demo call — scoped to the volume of
               enquiries and the complexity of the lines you write.

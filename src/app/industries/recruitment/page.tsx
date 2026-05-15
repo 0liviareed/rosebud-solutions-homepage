@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import RecruitmentFAQ from "@/components/RecruitmentFAQ";
-import RecruitmentSplitRoles from "@/components/RecruitmentSplitRoles";
+import SplitRoles, { type SplitRole } from "@/components/SplitRoles";
 import SevenStepTimeline from "@/components/SevenStepTimeline";
 import Voices from "@/components/Voices";
 import { VOICES } from "@/components/voices-data";
@@ -10,6 +10,16 @@ import BookCTA from "@/components/BookCTA";
 // Reorder so recruitment-adjacent quotes (pipeline scoring, chasing deals,
 // fast build time) lead — the general operational ones follow.
 const RECRUITMENT_VOICES = [2, 0, 5, 3, 6, 1, 4, 7].map((i) => VOICES[i]);
+
+const RECRUITMENT_ROLES: SplitRole[] = [
+  { num: "I",   label: "Candidate Sourcing Engine",       body: "Targeted search across LinkedIn and sector networks, filtered against your ICP." },
+  { num: "II",  label: "CV Screening & Shortlisting",     body: "Agentic AI reading every profile against your criteria." },
+  { num: "III", label: "Automated Outreach Sequences",    body: "Multi-touch personalised sequences, sent without manual input." },
+  { num: "IV",  label: "CRM Auto-Population",             body: "Everything written directly into your CRM, nothing typed." },
+  { num: "V",   label: "Pipeline Management",             body: "Warm candidates tracked, re-engaged, ready when the next role opens." },
+  { num: "VI",  label: "Behaviour-Triggered Follow-Up",   body: "Re-engagement handled automatically." },
+  { num: "VII", label: "Operational Audit & Roadmap",     body: "Where your operation is losing time, and what to fix next." },
+];
 
 export const metadata: Metadata = {
   title: "Recruitment — Custom AI System",
@@ -340,8 +350,12 @@ export default function RecruitmentPage() {
             </div>
 
             {/* Right column — seven roles + scroll-progress track + active
-                state. Client component (IntersectionObserver). */}
-            <RecruitmentSplitRoles />
+                state. Roles data passed in so the same component drives
+                Section II on insurance + healthcare too. */}
+            <SplitRoles
+              ariaLabel="Seven roles in every recruitment deployment"
+              roles={RECRUITMENT_ROLES}
+            />
           </div>
 
           <div className="rb-wrap">

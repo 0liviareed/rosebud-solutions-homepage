@@ -2,45 +2,38 @@
 
 import { useEffect, useRef, useState } from "react";
 
-const ROLES = [
-  {
-    num: "I",
-    label: "Candidate Sourcing Engine",
-    body: "Targeted search across LinkedIn and sector networks, filtered against your ICP.",
-  },
-  {
-    num: "II",
-    label: "CV Screening & Shortlisting",
-    body: "Agentic AI reading every profile against your criteria.",
-  },
-  {
-    num: "III",
-    label: "Automated Outreach Sequences",
-    body: "Multi-touch personalised sequences, sent without manual input.",
-  },
-  {
-    num: "IV",
-    label: "CRM Auto-Population",
-    body: "Everything written directly into your CRM, nothing typed.",
-  },
-  {
-    num: "V",
-    label: "Pipeline Management",
-    body: "Warm candidates tracked, re-engaged, ready when the next role opens.",
-  },
-  {
-    num: "VI",
-    label: "Behaviour-Triggered Follow-Up",
-    body: "Re-engagement handled automatically.",
-  },
-  {
-    num: "VII",
-    label: "Operational Audit & Roadmap",
-    body: "Where your operation is losing time, and what to fix next.",
-  },
-];
+export type SplitRole = {
+  num: string;
+  label: string;
+  body: string;
+};
 
-export default function RecruitmentSplitRoles() {
+type Props = {
+  roles: SplitRole[];
+  ariaLabel?: string;
+};
+
+/**
+ * Right-column scroll-tracking roles list used in Section II of each
+ * industry page (recruitment / insurance / healthcare).
+ *
+ * Renders the vertical progress track (rail + lavender fill + glowing
+ * orb in the bone-on-lavender hiker-orb family) on the left edge, and
+ * the editorial role list to the right of that. As the user scrolls
+ * through the section, every frame:
+ *   1. The fill height + orb position update to mark scroll progress.
+ *   2. The role whose centre is closest to a 40%-from-top anchor line
+ *      gets the .rb-split-role-active class — numeral lights up
+ *      lavender + grows, label brightens, body copy lifts.
+ *
+ * Direct rAF measurement (rather than IntersectionObserver) so the
+ * active state updates on every scroll frame, not just on threshold
+ * crossings.
+ */
+export default function SplitRoles({
+  roles,
+  ariaLabel = "Seven roles in every deployment",
+}: Props) {
   const listRef = useRef<HTMLOListElement | null>(null);
   const itemRefs = useRef<(HTMLLIElement | null)[]>([]);
   const fillRef = useRef<HTMLSpanElement | null>(null);
@@ -48,13 +41,6 @@ export default function RecruitmentSplitRoles() {
   const [active, setActive] = useState(0);
 
   useEffect(() => {
-    // Scroll-driven: every frame, compute (1) how far through the list we
-    // are vs the viewport anchor, and (2) which role's centre is closest to
-    // that anchor. IntersectionObserver was unreliable here because it
-    // only fires on threshold crossings — once a role is fully inside the
-    // active band it stops firing even as the user keeps scrolling, so the
-    // "closest" picker would lag behind. Direct measurement on rAF avoids
-    // that entirely.
     function update() {
       const list = listRef.current;
       const fill = fillRef.current;
@@ -64,23 +50,14 @@ export default function RecruitmentSplitRoles() {
       const items = itemRefs.current.filter(Boolean) as HTMLLIElement[];
       if (items.length === 0) return;
 
-      // Anchor line — 40% from the top of the viewport feels natural
-      // when the left column is sticky-pinned near the top.
       const anchor = window.innerHeight * 0.4;
       const listRect = list.getBoundingClientRect();
-
-      // 1. Progress through the list (0 at the top hitting the anchor,
-      //    1 at the bottom hitting the anchor). Used to drive both the
-      //    lavender track fill and the orb position.
       const traversed = anchor - listRect.top;
       const total = listRect.height;
       const pct = Math.max(0, Math.min(1, traversed / total));
       fill.style.transform = `scaleY(${pct})`;
       orb.style.top = `${pct * 100}%`;
 
-      // 2. Active index — the role whose centre is closest to the anchor.
-      //    Clamps to first/last when above/below the list bounds so the
-      //    UI never goes dark.
       let bestIdx = 0;
       let bestDist = Infinity;
       items.forEach((el, i) => {
@@ -93,8 +70,6 @@ export default function RecruitmentSplitRoles() {
         }
       });
 
-      // Only commit state changes on transitions (avoids re-renders every
-      // frame; React would short-circuit equal values but cheaper this way).
       setActive((prev) => (prev === bestIdx ? prev : bestIdx));
     }
 
@@ -116,9 +91,6 @@ export default function RecruitmentSplitRoles() {
 
   return (
     <div className="rb-split-right-wrap">
-      {/* Vertical progress track — rail behind, lavender fill scaled by
-          scroll progress, glowing orb (same visual family as the hiker
-          orb in IsThisYou) sliding down to mark current position. */}
       <div className="rb-split-track" aria-hidden="true">
         <span className="rb-split-track-rail" />
         <span ref={fillRef} className="rb-split-track-fill" />
@@ -127,12 +99,8 @@ export default function RecruitmentSplitRoles() {
         </span>
       </div>
 
-      <ol
-        ref={listRef}
-        className="rb-split-right"
-        aria-label="Seven roles in every deployment"
-      >
-        {ROLES.map((role, i) => (
+      <ol ref={listRef} className="rb-split-right" aria-label={ariaLabel}>
+        {roles.map((role, i) => (
           <li
             key={role.num}
             ref={(el) => {

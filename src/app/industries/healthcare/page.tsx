@@ -1,10 +1,21 @@
 import type { Metadata } from "next";
 import HealthcareFAQ from "@/components/HealthcareFAQ";
 import SevenStepTimeline, { type TimelineStep } from "@/components/SevenStepTimeline";
+import SplitRoles, { type SplitRole } from "@/components/SplitRoles";
 import Voices from "@/components/Voices";
 import { VOICES } from "@/components/voices-data";
 import BookDemoCTA from "@/components/BookDemoCTA";
 import BookCTA from "@/components/BookCTA";
+
+const HEALTHCARE_ROLES: SplitRole[] = [
+  { num: "I",   label: "Enquiry Intake",                    body: "Every enquiry across every channel — phone, Instagram DM, contact form, WhatsApp — answered the moment it lands. The aesthetic enquiry who messaged five clinics before bed gets a proper answer from yours. The dental patient calling on their lunch break hits a booking, not a voicemail." },
+  { num: "II",  label: "Patient Triage & Qualification",    body: "Treatment needs, suitability flags, urgency, and finance questions captured through structured conversation. Routine queries get answered without clinical input; anything that needs clinical eyes — a dental emergency at 9pm, a post-treatment patient worried about swelling — gets escalated the moment the agent recognises it." },
+  { num: "III", label: "Records & Documentation Collection", body: "Medical history, pre-treatment photos, consent paperwork, finance details — collected through guided conversation, not chased over email. Filed straight into your practice management system so the clinician walks in with the full picture." },
+  { num: "IV",  label: "Booking & Diary Management",        body: "Slots offered against live practitioner availability, confirmed in real time, written into your PMS. Slots fill while your team is on the floor." },
+  { num: "V",   label: "Reminders & Reschedules",           body: "Reminders sent at the cadence that actually moves the no-show number. Reschedules handled the moment a patient flags one. Day-before confirmations sent automatically. Your diary stays tight without anyone manually working it." },
+  { num: "VI",  label: "Post-Visit Follow-up & Aftercare",  body: "Aftercare for aesthetic clients. Hygiene guidance between dental visits. Treatment-plan progress chases for Invisalign or implant patients. Triggered by the appointment itself, sequenced to the treatment." },
+  { num: "VII", label: "Recall & Retention",                body: "Recall cycles diarised by treatment type — three-month aesthetic top-ups, six-month hygiene checks, twelve-month ortho reviews — plus the sequenced touchpoints across multi-visit courses like Profhilo, polynucleotides, or laser hair removal. The patients you assumed went elsewhere end up back in your diary, often without a single human touching the thread." },
+];
 
 // Re-order Voices so the operational / fast-build / quietly-running quotes
 // lead — those carry best across dental, aesthetic, and private healthcare
@@ -297,72 +308,70 @@ export default function HealthcarePage() {
         </section>
 
         {/* ===================== II — WHAT'S INCLUDED ===================== */}
-        <section className="rb-sec" data-rb-sec aria-label="What's included">
-          <div className="rb-wrap">
-            <div className="rb-head">
-              <p className="rb-eyebrow" data-rb-fade="0">
-                <span className="rb-num">II</span>Every deployment includes
-              </p>
-              <h2 className="rb-h2" data-rb-fade="1">
-                One system. <em>All seven roles.</em>
-              </h2>
-              <p className="rb-sub" data-rb-fade="2">
-                Built around your treatments, your PMS, your patient base. One
-                setup. One monthly figure. No per-seat pricing. Live in 5
-                weeks.
-              </p>
-            </div>
+        <section className="rb-sec rb-sec-split" data-rb-sec aria-label="What's included">
+          <div className="rb-wrap rb-split">
+            <div className="rb-split-left">
+              <div className="rb-split-left-inner">
+                <p className="rb-eyebrow" data-rb-fade="0">
+                  <span className="rb-num">II</span>Every deployment includes
+                </p>
+                <h2 className="rb-h2" data-rb-fade="1">
+                  One system. <em>All seven roles.</em>
+                </h2>
+                <p className="rb-split-body" data-rb-fade="2">
+                  Built around your treatments, your PMS, your patient base.
+                  One setup. One monthly figure. No per-seat pricing. Live
+                  in 5 weeks.
+                </p>
+                <p className="rb-split-body rb-split-body-quiet" data-rb-fade="3">
+                  Every deployment is built around the treatments you offer,
+                  the systems you already run — Dentally, SOE, Pabau, Open
+                  Dental, Aesthetic Nurse Software — and the patients you
+                  already serve. Seven roles run as one system, operated by
+                  us, handed to you.
+                </p>
 
-            <p className="rb-included-intro" data-rb-fade="3">
-              Every deployment is built around the treatments you offer, the
-              systems you already run — Dentally, SOE, Pabau, Open Dental,
-              Aesthetic Nurse Software — and the patients you already serve.
-              Seven roles run as one system, operated by us, handed to you.
-            </p>
-
-            <div data-rb-fade="3">
-              {[
-                [
-                  "Enquiry Intake",
-                  "Every enquiry across every channel — phone, Instagram DM, contact form, WhatsApp — answered the moment it lands. Aesthetic enquiries comparison-shop in real time across three to five clinics; the one that responds first wins the booking. The aesthetic enquiry who messaged five clinics before bed gets a proper answer from yours. The dental patient calling on their lunch break hits a booking, not a voicemail.",
-                ],
-                [
-                  "Patient Triage & Qualification",
-                  "Treatment needs, suitability flags, urgency, and finance questions captured through structured conversation. Routine queries get answered without clinical input; anything that needs clinical eyes — a dental emergency at 9pm, a post-treatment patient worried about swelling — gets escalated the moment the agent recognises it.",
-                ],
-                [
-                  "Records & Documentation Collection",
-                  "Medical history, pre-treatment photos, consent paperwork, finance details — collected through guided conversation, not chased over email. Filed straight into your practice management system so the clinician walks in with the full picture.",
-                ],
-                [
-                  "Booking & Diary Management",
-                  "Slots offered against live practitioner availability, confirmed in real time, written into your PMS. Slots fill while your team is on the floor.",
-                ],
-                [
-                  "Reminders & Reschedules",
-                  "Reminders sent at the cadence that actually moves the no-show number. Reschedules handled the moment a patient flags one. Day-before confirmations sent automatically. Your diary stays tight without anyone manually working it.",
-                ],
-                [
-                  "Post-Visit Follow-up & Aftercare",
-                  "Aftercare for aesthetic clients. Hygiene guidance between dental visits. Treatment-plan progress chases for Invisalign or implant patients. Triggered by the appointment itself, sequenced to the treatment.",
-                ],
-                [
-                  "Recall & Retention",
-                  "Recall cycles diarised by treatment type — three-month aesthetic top-ups, six-month hygiene checks, twelve-month ortho reviews — plus the sequenced touchpoints across multi-visit courses like Profhilo, polynucleotides, or laser hair removal. The patients you assumed went elsewhere end up back in your diary, often without a single human touching the thread.",
-                ],
-              ].map(([title, body], i) => (
-                <div key={i} className="rb-entry rb-entry-numbered" tabIndex={0}>
-                  <span className="rb-num-big">
-                    {String(i + 1).padStart(2, "0")}
+                <div className="rb-split-ctas" data-rb-fade="3">
+                  <a href="/pricing" className="rb-book-link">
+                    <span className="rb-book-link-label">Get started</span>
+                    <span className="rb-book-link-arrow" aria-hidden="true">
+                      <svg viewBox="0 0 36 12" width="36" height="12">
+                        <path className="rb-book-link-shaft" d="M0 6 L28 6" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" fill="none" />
+                        <path className="rb-book-link-head" d="M22 1.5 L28 6 L22 10.5" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+                      </svg>
+                    </span>
+                    <span className="rb-book-link-underline" aria-hidden="true" />
+                  </a>
+                  <span className="rb-split-cta-glow-wrap">
+                    <span className="rb-split-cta-glow rb-split-cta-glow-pedestal" aria-hidden="true" />
+                    <span className="rb-split-cta-glow rb-split-cta-glow-halo" aria-hidden="true" />
+                    <a
+                      href="https://www.cal.eu/rosebudsolutions/30min?overlayCalendar=true"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="rb-book-cta rb-book-cta-inline"
+                    >
+                      <span className="rb-book-cta-label">Schedule demo</span>
+                      <span className="rb-book-cta-arrow" aria-hidden="true">
+                        <svg viewBox="0 0 42 12" width="42" height="12">
+                          <path className="rb-book-cta-shaft" d="M0 6 L32 6" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" fill="none" />
+                          <path className="rb-book-cta-head" d="M26 1.5 L32 6 L26 10.5" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+                        </svg>
+                      </span>
+                      <span className="rb-book-cta-underline" aria-hidden="true" />
+                    </a>
                   </span>
-                  <div className="rb-body-stack">
-                    <span className="rb-label">{title}</span>
-                    <p className="rb-body-copy">{body}</p>
-                  </div>
                 </div>
-              ))}
+              </div>
             </div>
 
+            <SplitRoles
+              ariaLabel="Seven roles in every healthcare deployment"
+              roles={HEALTHCARE_ROLES}
+            />
+          </div>
+
+          <div className="rb-wrap">
             <p className="rb-aftertext rb-aftertext-quiet" data-rb-fade="3">
               Pricing shared on the demo call — scoped to your enquiry volume
               and the treatments you offer.
