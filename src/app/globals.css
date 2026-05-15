@@ -4791,46 +4791,151 @@ button { font: inherit; color: inherit; }
   letter-spacing: 0 !important;
 }
 
-/* Industry dropdown — replaces the old multi-select checkbox group.
-   Same visual contract as the text inputs above, plus a custom chevron
-   on the right (background-image SVG, hidden native arrow). */
-.rb-pricing-form-shell select.input,
-.rb-pricing-form-shell .rb-pricing-select {
+/* Industry multi-select — Brevo's .sib-multiselect widget. The
+   .input.input_display is the always-visible closed-state pill
+   (clickable, says "0 selected"); .sib-menu is the dropdown panel
+   that Brevo's main.js toggles open on click. */
+.rb-pricing-form-shell .sib-multiselect {
+  position: relative;
+}
+.rb-pricing-form-shell .input_display.input--multiselect {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
   width: 100%;
+  text-align: left !important;
   background: rgba(0, 0, 0, 0.35) !important;
-  color: var(--rb-bone) !important;
+  color: rgba(245, 241, 234, 0.5) !important;
   border: 1px solid rgba(245, 241, 234, 0.14) !important;
   border-radius: 8px !important;
   font-family: var(--font-dm-sans), sans-serif !important;
   font-size: 15px !important;
   padding: 12px 40px 12px 14px !important;
   line-height: 1.4 !important;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
   cursor: pointer;
+  user-select: none;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8' fill='none'%3E%3Cpath d='M1 1.5L6 6.5L11 1.5' stroke='%23B8AEDB' stroke-width='1.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") !important;
   background-repeat: no-repeat !important;
   background-position: right 14px center !important;
   background-size: 12px 8px !important;
-  box-shadow: none !important;
+  transition: border-color 200ms var(--rb-ease);
 }
-.rb-pricing-form-shell select.input:focus {
-  outline: none !important;
-  border-color: var(--rb-purple-core) !important;
-  box-shadow: 0 0 0 3px rgba(139, 125, 216, 0.18) !important;
+.rb-pricing-form-shell .input_display.input--multiselect:hover {
+  border-color: rgba(245, 241, 234, 0.28) !important;
 }
-.rb-pricing-form-shell select.input option {
-  background: #0e0e10;
-  color: var(--rb-bone);
-  padding: 8px;
+
+/* Dropdown panel — Brevo's main.js toggles display between none/block. */
+.rb-pricing-form-shell .sib-menu {
+  position: absolute;
+  z-index: 5;
+  top: calc(100% + 6px);
+  left: 0;
+  right: 0;
+  background: #0e0e10 !important;
+  border: 1px solid var(--rb-bone-hair) !important;
+  border-radius: 10px !important;
+  padding: 12px !important;
+  box-shadow: 0 18px 36px -16px rgba(0, 0, 0, 0.6) !important;
+  text-align: left !important;
 }
-/* The "Select an industry" placeholder option renders dim when no real
-   value is picked yet. */
-.rb-pricing-form-shell select.input:invalid,
-.rb-pricing-form-shell select.input option[value=""][disabled] {
-  color: rgba(245, 241, 234, 0.35);
+
+.rb-pricing-form-shell .sib-menu__select {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 6px 10px;
+  border-bottom: 1px solid var(--rb-bone-hair);
+  margin-bottom: 6px;
 }
+.rb-pricing-form-shell .sib-menu__select .clickable_link {
+  background: transparent !important;
+  border: 0 !important;
+  padding: 0 !important;
+  font-family: var(--font-dm-sans), sans-serif !important;
+  font-size: 11.5px !important;
+  font-weight: 500 !important;
+  letter-spacing: 0.12em !important;
+  text-transform: uppercase !important;
+  color: var(--rb-purple) !important;
+  cursor: pointer;
+}
+.rb-pricing-form-shell .sib-menu__select .clickable_link:hover { color: #fff !important; }
+.rb-pricing-form-shell .sib-menu__separator {
+  color: rgba(245, 241, 234, 0.25);
+  font-size: 12px;
+}
+
+.rb-pricing-form-shell .sib-menu__item-list {
+  list-style: none;
+  margin: 0;
+  padding: 4px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.rb-pricing-form-shell .sib-menu__item {
+  margin: 0;
+  border-radius: 6px;
+  transition: background 160ms var(--rb-ease);
+}
+.rb-pricing-form-shell .sib-menu__item:hover {
+  background: rgba(139, 125, 216, 0.08);
+}
+.rb-pricing-form-shell .sib-menu__item .entry__choice { margin: 0; padding: 8px 6px; }
+.rb-pricing-form-shell .sib-multiselect__label {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 10px !important;
+  cursor: pointer;
+  width: 100%;
+}
+.rb-pricing-form-shell .sib-multiselect__label-text {
+  font-family: var(--font-dm-sans), sans-serif !important;
+  font-size: 14px !important;
+  color: var(--rb-bone) !important;
+  line-height: 1.4 !important;
+}
+
+.rb-pricing-form-shell .sib-menu__apply {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  padding: 10px 6px 4px;
+  border-top: 1px solid var(--rb-bone-hair);
+  margin-top: 6px;
+}
+.rb-pricing-form-shell .sib-menu__cancel-button {
+  background: transparent !important;
+  border: 0 !important;
+  font-family: var(--font-dm-sans), sans-serif !important;
+  font-size: 12.5px !important;
+  letter-spacing: 0.04em !important;
+  color: var(--rb-bone-dim) !important;
+  padding: 8px 12px !important;
+  cursor: pointer;
+}
+.rb-pricing-form-shell .sib-menu__cancel-button:hover { color: var(--rb-bone) !important; }
+.rb-pricing-form-shell .sib-menu__apply-button {
+  background: var(--rb-purple-core) !important;
+  border: 0 !important;
+  border-radius: 999px !important;
+  font-family: var(--font-dm-sans), sans-serif !important;
+  font-size: 12.5px !important;
+  font-weight: 500 !important;
+  letter-spacing: 0.04em !important;
+  color: #fff !important;
+  padding: 8px 16px !important;
+  cursor: pointer;
+  transition: background 200ms var(--rb-ease);
+}
+.rb-pricing-form-shell .sib-menu__apply-button:hover {
+  background: var(--rb-purple) !important;
+}
+
+/* reCAPTCHA v3 — invisible, executes on submit. Hide the badge wrapper
+   completely; Google still shows a floating badge in the bottom-right
+   corner which is a separate element outside our scope. */
+.rb-pricing-form-shell .g-recaptcha-v3 { display: none !important; }
 
 /* Field labels (the multi-select + REQUEST groups have labelled headers) */
 .rb-pricing-form-shell .entry__label {
