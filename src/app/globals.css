@@ -4801,8 +4801,12 @@ button { font: inherit; color: inherit; }
   height: 1px;
 }
 
+/* Only the consent + checkbox-group <label>s inside .entry__choice should
+   render as clickable rows. The .entry__specification (e.g. "You may
+   unsubscribe at any time...") and .entry__error are also <label>
+   elements but are NOT checkbox options — keep them as plain text. */
 .rb-pricing-form-shell .checkbox__label,
-.rb-pricing-form-shell .sib-optin label {
+.rb-pricing-form-shell .sib-optin .entry__choice > label {
   display: inline-flex !important;
   align-items: flex-start !important;
   gap: 10px !important;
@@ -4835,26 +4839,32 @@ button { font: inherit; color: inherit; }
 }
 
 .rb-pricing-form-shell .checkbox__label > span:last-child,
-.rb-pricing-form-shell .sib-optin label > span:last-child {
+.rb-pricing-form-shell .sib-optin .entry__choice > label > span:last-child {
   font-family: var(--font-dm-sans), sans-serif !important;
   font-size: 14px !important;
   color: var(--rb-bone-dim) !important;
   line-height: 1.5 !important;
   background: transparent !important;
 }
-.rb-pricing-form-shell .sib-optin label > span:last-child p { margin: 0; }
+.rb-pricing-form-shell .sib-optin .entry__choice > label > span:last-child p { margin: 0; }
 .rb-pricing-form-shell .sib-optin a {
   color: var(--rb-purple) !important;
   text-decoration: underline !important;
 }
 
+/* .entry__specification — plain helper text, NOT a checkbox row */
 .rb-pricing-form-shell .entry__specification {
-  display: block;
-  color: rgba(245, 241, 234, 0.35) !important;
+  display: block !important;
+  color: rgba(245, 241, 234, 0.32) !important;
   font-family: var(--font-dm-sans), sans-serif !important;
-  font-size: 12px !important;
-  margin-top: 6px !important;
+  font-weight: 400 !important;
+  font-size: 11.5px !important;
+  letter-spacing: 0 !important;
+  text-transform: none !important;
+  margin: 8px 0 0 28px !important;
   background: transparent !important;
+  cursor: default;
+  text-align: left !important;
 }
 
 /* Error + success panels — keep them subtle, dark surface, lavender or red
@@ -4903,32 +4913,76 @@ button { font: inherit; color: inherit; }
   margin-top: 6px !important;
 }
 
-/* Submit button — bone pill matching the rest of the site CTAs */
-.rb-pricing-form-shell .sib-form-block__button {
-  display: inline-flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  gap: 8px !important;
-  background: var(--rb-bone) !important;
-  color: #0a0a0c !important;
-  border: 1px solid var(--rb-bone) !important;
-  border-radius: 999px !important;
-  padding: 13px 24px !important;
-  font-family: var(--font-dm-sans), sans-serif !important;
-  font-weight: 500 !important;
-  font-size: 14px !important;
-  letter-spacing: 0.02em !important;
+/* Submit button — matches the BookCTA inline-link aesthetic used across
+   the site: Cormorant italic serif, bone text, lavender drawn-line
+   underline, no filled background. Brevo ships an inline loader SVG
+   inside the button (.icon) — hidden via CSS, replaced with a
+   right-pointing arrow ::after that animates on hover the same way the
+   BookCTA arrow does. The form-block wrapper holds the underline
+   pseudo-element since Brevo's <button> doesn't have a ::after slot
+   that pairs cleanly with the text. */
+.rb-pricing-form-shell .sib-form-block:has(> .sib-form-block__button) {
   text-align: center !important;
+  margin-top: 6px;
+}
+.rb-pricing-form-shell .sib-form-block__button {
+  position: relative;
+  display: inline-flex !important;
+  align-items: baseline !important;
+  justify-content: center !important;
+  gap: 0.7rem !important;
+  background: transparent !important;
+  color: var(--rb-bone) !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  padding: 0.35rem 0.2rem 0.7rem !important;
+  font-family: var(--font-cormorant), serif !important;
+  font-style: italic !important;
+  font-weight: 400 !important;
+  font-size: clamp(1.2rem, 1.7vw, 1.5rem) !important;
+  line-height: 1.2 !important;
+  letter-spacing: -0.005em !important;
+  text-align: left !important;
   text-transform: none !important;
   cursor: pointer;
-  width: 100%;
-  transition: background 200ms var(--rb-ease), color 200ms var(--rb-ease);
+  width: auto !important;
+  box-shadow: none !important;
+  transition: color 450ms var(--rb-ease);
+}
+.rb-pricing-form-shell .sib-form-block__button::before {
+  content: "";
+  position: absolute;
+  left: 0.2rem;
+  right: 0.2rem;
+  bottom: 0.3rem;
+  height: 1px;
+  background: rgba(139, 125, 216, 0.5);
+  transition: background 450ms var(--rb-ease), height 400ms var(--rb-ease);
+}
+.rb-pricing-form-shell .sib-form-block__button::after {
+  content: "→";
+  display: inline-block;
+  color: var(--rb-purple);
+  font-family: var(--font-cormorant), serif;
+  font-style: italic;
+  font-size: 1.1em;
+  transform: translateY(-0.05em);
+  transition: transform 500ms var(--rb-ease), color 450ms var(--rb-ease);
 }
 .rb-pricing-form-shell .sib-form-block__button:hover {
-  background: #ffffff !important;
-  border-color: #ffffff !important;
+  background: transparent !important;
+  color: #ffffff !important;
 }
-.rb-pricing-form-shell .sib-form-block__button .icon { display: none; }
+.rb-pricing-form-shell .sib-form-block__button:hover::before {
+  background: var(--rb-purple);
+  height: 2px;
+}
+.rb-pricing-form-shell .sib-form-block__button:hover::after {
+  transform: translate(4px, -0.05em);
+  color: #c9c0e8;
+}
+.rb-pricing-form-shell .sib-form-block__button .icon,
+.rb-pricing-form-shell .sib-form-block__button svg { display: none !important; }
 
 /* Hidden honeypot — Brevo uses .input--hidden */
 .rb-pricing-form-shell .input--hidden { display: none !important; }
