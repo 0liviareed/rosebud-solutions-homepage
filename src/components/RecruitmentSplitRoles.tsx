@@ -44,71 +44,70 @@ export default function RecruitmentSplitRoles() {
   const listRef = useRef<HTMLOListElement | null>(null);
   const itemRefs = useRef<(HTMLLIElement | null)[]>([]);
   const fillRef = useRef<HTMLSpanElement | null>(null);
+  const orbRef = useRef<HTMLSpanElement | null>(null);
   const [active, setActive] = useState(0);
 
   useEffect(() => {
-    const list = listRef.current;
-    const fill = fillRef.current;
-    if (!list || !fill) return;
-
-    // IntersectionObserver picks the role nearest the viewport's vertical
-    // anchor (around 35% from the top) as "active". Each role hits the
-    // anchor as the user scrolls past it; we surface that index to drive
-    // the active-state styling (numeral lights up, label/body fade in).
-    const observer = new IntersectionObserver(
-      (entries) => {
-        // Find the entry with the smallest distance to the anchor line.
-        const anchor = window.innerHeight * 0.35;
-        let bestIdx = -1;
-        let bestDist = Infinity;
-        entries.forEach((entry) => {
-          if (!entry.isIntersecting) return;
-          const rect = entry.boundingClientRect;
-          const dist = Math.abs(rect.top + rect.height / 2 - anchor);
-          if (dist < bestDist) {
-            bestDist = dist;
-            bestIdx = Number(
-              (entry.target as HTMLElement).dataset.idx ?? "-1",
-            );
-          }
-        });
-        if (bestIdx >= 0) setActive(bestIdx);
-      },
-      {
-        // Active band runs from ~10% to ~60% of the viewport.
-        rootMargin: "-10% 0px -40% 0px",
-        threshold: [0, 0.25, 0.5, 0.75, 1],
-      },
-    );
-
-    itemRefs.current.forEach((el) => el && observer.observe(el));
-
-    // Drive the progress-fill height based on how far the user has
-    // scrolled through the list. 0% at the list's top, 100% at its
-    // bottom (relative to the viewport's vertical anchor line).
-    function updateFill() {
+    // Scroll-driven: every frame, compute (1) how far through the list we
+    // are vs the viewport anchor, and (2) which role's centre is closest to
+    // that anchor. IntersectionObserver was unreliable here because it
+    // only fires on threshold crossings — once a role is fully inside the
+    // active band it stops firing even as the user keeps scrolling, so the
+    // "closest" picker would lag behind. Direct measurement on rAF avoids
+    // that entirely.
+    function update() {
       const list = listRef.current;
       const fill = fillRef.current;
-      if (!list || !fill) return;
-      const rect = list.getBoundingClientRect();
-      const anchor = window.innerHeight * 0.35;
-      const traversed = anchor - rect.top;
-      const total = rect.height;
+      const orb = orbRef.current;
+      if (!list || !fill || !orb) return;
+
+      const items = itemRefs.current.filter(Boolean) as HTMLLIElement[];
+      if (items.length === 0) return;
+
+      // Anchor line — 40% from the top of the viewport feels natural
+      // when the left column is sticky-pinned near the top.
+      const anchor = window.innerHeight * 0.4;
+      const listRect = list.getBoundingClientRect();
+
+      // 1. Progress through the list (0 at the top hitting the anchor,
+      //    1 at the bottom hitting the anchor). Used to drive both the
+      //    lavender track fill and the orb position.
+      const traversed = anchor - listRect.top;
+      const total = listRect.height;
       const pct = Math.max(0, Math.min(1, traversed / total));
       fill.style.transform = `scaleY(${pct})`;
+      orb.style.top = `${pct * 100}%`;
+
+      // 2. Active index — the role whose centre is closest to the anchor.
+      //    Clamps to first/last when above/below the list bounds so the
+      //    UI never goes dark.
+      let bestIdx = 0;
+      let bestDist = Infinity;
+      items.forEach((el, i) => {
+        const r = el.getBoundingClientRect();
+        const centre = r.top + r.height / 2;
+        const dist = Math.abs(centre - anchor);
+        if (dist < bestDist) {
+          bestDist = dist;
+          bestIdx = i;
+        }
+      });
+
+      // Only commit state changes on transitions (avoids re-renders every
+      // frame; React would short-circuit equal values but cheaper this way).
+      setActive((prev) => (prev === bestIdx ? prev : bestIdx));
     }
 
     let raf = 0;
     function onScroll() {
       cancelAnimationFrame(raf);
-      raf = requestAnimationFrame(updateFill);
+      raf = requestAnimationFrame(update);
     }
     window.addEventListener("scroll", onScroll, { passive: true });
     window.addEventListener("resize", onScroll, { passive: true });
-    updateFill();
+    update();
 
     return () => {
-      observer.disconnect();
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("resize", onScroll);
       cancelAnimationFrame(raf);
@@ -118,10 +117,14 @@ export default function RecruitmentSplitRoles() {
   return (
     <div className="rb-split-right-wrap">
       {/* Vertical progress track — rail behind, lavender fill scaled by
-          scroll progress. Sits on the left edge of the right column. */}
+          scroll progress, glowing orb (same visual family as the hiker
+          orb in IsThisYou) sliding down to mark current position. */}
       <div className="rb-split-track" aria-hidden="true">
         <span className="rb-split-track-rail" />
         <span ref={fillRef} className="rb-split-track-fill" />
+        <span ref={orbRef} className="rb-split-orb">
+          <span className="rb-split-orb-core" />
+        </span>
       </div>
 
       <ol
