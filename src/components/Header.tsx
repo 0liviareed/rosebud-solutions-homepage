@@ -18,9 +18,11 @@ import { useEffect, useRef, useState } from "react";
  */
 export default function Header() {
   const [scrolled, setScrolled] = useState(false);
-  const [menuOpen, setMenuOpen] = useState(false); // desktop dropdown
+  const [menuOpen, setMenuOpen] = useState(false); // desktop Solutions dropdown
+  const [resourcesOpen, setResourcesOpen] = useState(false); // desktop Resources dropdown
   const [mobileOpen, setMobileOpen] = useState(false); // mobile overlay
   const itemRef = useRef<HTMLDivElement | null>(null);
+  const resourcesRef = useRef<HTMLDivElement | null>(null);
 
   // Scrolled state
   useEffect(() => {
@@ -42,17 +44,24 @@ export default function Header() {
     };
   }, []);
 
-  // Close desktop dropdown on outside click / Escape
+  // Close desktop dropdown on outside click / Escape (Solutions + Resources
+  // share the same handler — clicking outside either container closes both)
   useEffect(() => {
-    if (!menuOpen) return;
+    if (!menuOpen && !resourcesOpen) return;
     function onDocClick(e: MouseEvent) {
       const target = e.target as Node;
       if (itemRef.current && !itemRef.current.contains(target)) {
         setMenuOpen(false);
       }
+      if (resourcesRef.current && !resourcesRef.current.contains(target)) {
+        setResourcesOpen(false);
+      }
     }
     function onKey(e: KeyboardEvent) {
-      if (e.key === "Escape") setMenuOpen(false);
+      if (e.key === "Escape") {
+        setMenuOpen(false);
+        setResourcesOpen(false);
+      }
     }
     document.addEventListener("click", onDocClick);
     document.addEventListener("keydown", onKey);
@@ -60,7 +69,7 @@ export default function Header() {
       document.removeEventListener("click", onDocClick);
       document.removeEventListener("keydown", onKey);
     };
-  }, [menuOpen]);
+  }, [menuOpen, resourcesOpen]);
 
   // Mobile menu: body scroll lock + Escape to close
   useEffect(() => {
@@ -192,6 +201,75 @@ export default function Header() {
                 </div>
               </div>
             </div>
+
+            {/* Resources dropdown — sits to the right of Solutions */}
+            <div
+              ref={resourcesRef}
+              className={`rb-nav-item ${resourcesOpen ? "rb-nav-item-open" : ""}`}
+              onMouseEnter={() => setResourcesOpen(true)}
+              onMouseLeave={() => setResourcesOpen(false)}
+            >
+              <button
+                type="button"
+                className="rb-nav-trigger"
+                onClick={() => setResourcesOpen((v) => !v)}
+                aria-expanded={resourcesOpen}
+                aria-haspopup="true"
+              >
+                <span>Resources</span>
+                <svg
+                  className="rb-nav-chevron"
+                  aria-hidden="true"
+                  viewBox="0 0 10 6"
+                  width="10"
+                  height="6"
+                >
+                  <path
+                    d="M1 1 L5 5 L9 1"
+                    stroke="currentColor"
+                    strokeWidth="1.2"
+                    fill="none"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </button>
+
+              <div
+                className="rb-nav-dropdown"
+                role="menu"
+                aria-hidden={!resourcesOpen}
+              >
+                <div className="rb-nav-group">
+                  <span className="rb-nav-group-label">
+                    <span className="rb-nav-group-count" aria-hidden="true">·</span>
+                    <span>Resources</span>
+                  </span>
+
+                  <Link
+                    href="/about"
+                    className="rb-nav-link"
+                    role="menuitem"
+                    onClick={() => setResourcesOpen(false)}
+                  >
+                    <span className="rb-nav-link-title">About</span>
+                    <span className="rb-nav-link-desc">Who we are. How we build.</span>
+                    <span className="rb-nav-link-arrow" aria-hidden="true">→</span>
+                  </Link>
+
+                  <Link
+                    href="/pricing"
+                    className="rb-nav-link"
+                    role="menuitem"
+                    onClick={() => setResourcesOpen(false)}
+                  >
+                    <span className="rb-nav-link-title">Pricing</span>
+                    <span className="rb-nav-link-desc">One setup. One monthly.</span>
+                    <span className="rb-nav-link-arrow" aria-hidden="true">→</span>
+                  </Link>
+                </div>
+              </div>
+            </div>
           </nav>
 
           {/* Mobile hamburger trigger */}
@@ -251,6 +329,34 @@ export default function Header() {
                 Dental, Aesthetic &amp; Private Healthcare
               </span>
               <span className="rb-mobile-link-desc">Intake. Scheduling. Recall.</span>
+              <span className="rb-mobile-link-arrow" aria-hidden="true">→</span>
+            </Link>
+          </div>
+
+          {/* Resources group — sits below Industries on mobile */}
+          <div className="rb-mobile-group">
+            <span className="rb-mobile-group-label">
+              <span className="rb-mobile-group-count" aria-hidden="true">·</span>
+              <span>Resources</span>
+            </span>
+
+            <Link
+              href="/about"
+              className="rb-mobile-link"
+              onClick={closeMobile}
+            >
+              <span className="rb-mobile-link-title">About</span>
+              <span className="rb-mobile-link-desc">Who we are. How we build.</span>
+              <span className="rb-mobile-link-arrow" aria-hidden="true">→</span>
+            </Link>
+
+            <Link
+              href="/pricing"
+              className="rb-mobile-link"
+              onClick={closeMobile}
+            >
+              <span className="rb-mobile-link-title">Pricing</span>
+              <span className="rb-mobile-link-desc">One setup. One monthly.</span>
               <span className="rb-mobile-link-arrow" aria-hidden="true">→</span>
             </Link>
           </div>
