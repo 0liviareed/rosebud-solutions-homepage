@@ -287,35 +287,42 @@ export default function RecruitmentPage() {
                     </span>
                     <span className="rb-book-link-underline" aria-hidden="true" />
                   </a>
+                  {/* Schedule demo — uses the BookDemoCTA visual treatment
+                      (italic Cormorant + drawn shaft+head arrow + gradient
+                      hairline underline that extends beyond the text on
+                      both sides). Same .rb-book-cta classes the elevated
+                      Request-a-demo button uses, just inline rather than
+                      inside the .rb-book-stage glow pedestal — see the
+                      .rb-split-ctas .rb-book-cta override in globals.css. */}
                   <a
                     href="https://www.cal.eu/rosebudsolutions/30min?overlayCalendar=true"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="rb-book-link"
+                    className="rb-book-cta rb-book-cta-inline"
                   >
-                    <span className="rb-book-link-label">Schedule demo</span>
-                    <span className="rb-book-link-arrow" aria-hidden="true">
-                      <svg viewBox="0 0 36 12" width="36" height="12">
+                    <span className="rb-book-cta-label">Schedule demo</span>
+                    <span className="rb-book-cta-arrow" aria-hidden="true">
+                      <svg viewBox="0 0 42 12" width="42" height="12">
                         <path
-                          className="rb-book-link-shaft"
-                          d="M0 6 L28 6"
+                          className="rb-book-cta-shaft"
+                          d="M0 6 L32 6"
                           stroke="currentColor"
-                          strokeWidth="1.3"
+                          strokeWidth="1.4"
                           strokeLinecap="round"
                           fill="none"
                         />
                         <path
-                          className="rb-book-link-head"
-                          d="M22 1.5 L28 6 L22 10.5"
+                          className="rb-book-cta-head"
+                          d="M26 1.5 L32 6 L26 10.5"
                           stroke="currentColor"
-                          strokeWidth="1.3"
+                          strokeWidth="1.4"
                           strokeLinecap="round"
                           strokeLinejoin="round"
                           fill="none"
                         />
                       </svg>
                     </span>
-                    <span className="rb-book-link-underline" aria-hidden="true" />
+                    <span className="rb-book-cta-underline" aria-hidden="true" />
                   </a>
                 </div>
               </div>

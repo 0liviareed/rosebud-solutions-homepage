@@ -5503,6 +5503,52 @@ button { font: inherit; color: inherit; }
   font-size: clamp(1.15rem, 1.6vw, 1.45rem);
 }
 
+/* Inline variant of the elevated BookDemoCTA treatment (italic
+   Cormorant + drawn shaft+head arrow + gradient hairline underline
+   that extends beyond the text on both sides). Scales the type down
+   to sit alongside the other inline CTA, and stretches the gradient
+   underline wider than the text so it reads like the standalone
+   Request-a-demo button. No magnet pull / glow pedestal — those only
+   make sense in the hero standalone slot. */
+.rb-split-ctas .rb-book-cta {
+  font-size: clamp(1.15rem, 1.6vw, 1.45rem);
+  padding: 0.35rem 1.4rem 0.7rem;
+  gap: 0.6rem;
+}
+.rb-split-ctas .rb-book-cta-arrow {
+  transform: translateY(-0.18em);
+}
+.rb-split-ctas .rb-book-cta-arrow svg {
+  width: 30px;
+  height: 11px;
+}
+.rb-split-ctas .rb-book-cta-underline {
+  left: 0;
+  right: 0;
+  bottom: 0.2rem;
+  /* Asymmetric fade — brighter trailing edge so the line "extends
+     past" the arrow the way Olivia's reference shows. */
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(139, 125, 216, 0.45) 14%,
+    rgba(184, 174, 219, 0.7) 50%,
+    rgba(184, 174, 219, 0.7) 78%,
+    transparent 100%
+  );
+}
+.rb-split-ctas .rb-book-cta:hover .rb-book-cta-underline {
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(184, 174, 219, 0.7) 12%,
+    rgba(245, 241, 234, 0.85) 50%,
+    rgba(184, 174, 219, 0.7) 80%,
+    transparent 100%
+  );
+  height: 1.5px;
+}
+
 /* ── RIGHT — vertical list of seven roles + scroll-progress track ── */
 .rb-split-right-wrap {
   position: relative;
