@@ -287,43 +287,54 @@ export default function RecruitmentPage() {
                     </span>
                     <span className="rb-book-link-underline" aria-hidden="true" />
                   </a>
-                  {/* Schedule demo — uses the BookDemoCTA visual treatment
-                      (italic Cormorant + drawn shaft+head arrow + gradient
-                      hairline underline that extends beyond the text on
-                      both sides). Same .rb-book-cta classes the elevated
-                      Request-a-demo button uses, just inline rather than
-                      inside the .rb-book-stage glow pedestal — see the
-                      .rb-split-ctas .rb-book-cta override in globals.css. */}
-                  <a
-                    href="https://www.cal.eu/rosebudsolutions/30min?overlayCalendar=true"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="rb-book-cta rb-book-cta-inline"
-                  >
-                    <span className="rb-book-cta-label">Schedule demo</span>
-                    <span className="rb-book-cta-arrow" aria-hidden="true">
-                      <svg viewBox="0 0 42 12" width="42" height="12">
-                        <path
-                          className="rb-book-cta-shaft"
-                          d="M0 6 L32 6"
-                          stroke="currentColor"
-                          strokeWidth="1.4"
-                          strokeLinecap="round"
-                          fill="none"
-                        />
-                        <path
-                          className="rb-book-cta-head"
-                          d="M26 1.5 L32 6 L26 10.5"
-                          stroke="currentColor"
-                          strokeWidth="1.4"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          fill="none"
-                        />
-                      </svg>
-                    </span>
-                    <span className="rb-book-cta-underline" aria-hidden="true" />
-                  </a>
+                  {/* Schedule demo — elevated CTA. Wrapped in an inline
+                      glow pedestal (mirrors .rb-book-stage's radial halos
+                      from the hero Request-a-demo button, sized down so
+                      it fits the inline CTA row). The breathing animation
+                      reuses the same @keyframes rbBookGlowBreathe. */}
+                  <span className="rb-split-cta-glow-wrap">
+                    <span
+                      className="rb-split-cta-glow rb-split-cta-glow-pedestal"
+                      aria-hidden="true"
+                    />
+                    <span
+                      className="rb-split-cta-glow rb-split-cta-glow-halo"
+                      aria-hidden="true"
+                    />
+                    <a
+                      href="https://www.cal.eu/rosebudsolutions/30min?overlayCalendar=true"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="rb-book-cta rb-book-cta-inline"
+                    >
+                      <span className="rb-book-cta-label">Schedule demo</span>
+                      <span className="rb-book-cta-arrow" aria-hidden="true">
+                        <svg viewBox="0 0 42 12" width="42" height="12">
+                          <path
+                            className="rb-book-cta-shaft"
+                            d="M0 6 L32 6"
+                            stroke="currentColor"
+                            strokeWidth="1.4"
+                            strokeLinecap="round"
+                            fill="none"
+                          />
+                          <path
+                            className="rb-book-cta-head"
+                            d="M26 1.5 L32 6 L26 10.5"
+                            stroke="currentColor"
+                            strokeWidth="1.4"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            fill="none"
+                          />
+                        </svg>
+                      </span>
+                      <span
+                        className="rb-book-cta-underline"
+                        aria-hidden="true"
+                      />
+                    </a>
+                  </span>
                 </div>
               </div>
             </div>

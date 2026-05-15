@@ -5503,13 +5503,60 @@ button { font: inherit; color: inherit; }
   font-size: clamp(1.15rem, 1.6vw, 1.45rem);
 }
 
+/* Inline glow pedestal — wraps ONLY the Schedule demo CTA (not Get
+   started). Mirrors the radial halos behind the hero Request-a-demo
+   button, sized down so the breathing pedestal fits behind an inline
+   link rather than a full hero slot. Uses the same
+   @keyframes rbBookGlowBreathe defined for .rb-book-glow above. */
+.rb-split-cta-glow-wrap {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  isolation: isolate;
+  padding: clamp(0.25rem, 1.2vw, 0.75rem) clamp(0.5rem, 1.6vw, 1rem);
+}
+.rb-split-cta-glow {
+  position: absolute;
+  inset: 50% 0 0;
+  transform: translateY(-50%);
+  pointer-events: none;
+  z-index: -1;
+  animation: rbBookGlowBreathe 5.5s ease-in-out infinite;
+  transition: filter 800ms var(--rb-ease), opacity 800ms var(--rb-ease);
+}
+.rb-split-cta-glow-pedestal {
+  height: clamp(5rem, 9vw, 7rem);
+  background: radial-gradient(
+    ellipse 60% 60% at 50% 50%,
+    rgba(139, 125, 216, 0.28) 0%,
+    rgba(139, 125, 216, 0.12) 30%,
+    rgba(139, 125, 216, 0.04) 55%,
+    transparent 75%
+  );
+  filter: blur(20px);
+}
+.rb-split-cta-glow-halo {
+  height: clamp(3.5rem, 7vw, 5rem);
+  background: radial-gradient(
+    ellipse 38% 50% at 50% 50%,
+    rgba(184, 174, 219, 0.36) 0%,
+    rgba(139, 125, 216, 0.14) 40%,
+    transparent 70%
+  );
+  filter: blur(12px);
+  animation-duration: 4.2s;
+  animation-delay: -1.2s;
+}
+.rb-split-cta-glow-wrap:hover .rb-split-cta-glow-pedestal { filter: blur(26px); }
+.rb-split-cta-glow-wrap:hover .rb-split-cta-glow-halo { filter: blur(16px); }
+
 /* Inline variant of the elevated BookDemoCTA treatment (italic
    Cormorant + drawn shaft+head arrow + gradient hairline underline
    that extends beyond the text on both sides). Scales the type down
    to sit alongside the other inline CTA, and stretches the gradient
    underline wider than the text so it reads like the standalone
-   Request-a-demo button. No magnet pull / glow pedestal — those only
-   make sense in the hero standalone slot. */
+   Request-a-demo button. No magnet pull — only the radial glow
+   pedestal from .rb-split-cta-glow-wrap above. */
 .rb-split-ctas .rb-book-cta {
   font-size: clamp(1.15rem, 1.6vw, 1.45rem);
   padding: 0.35rem 1.4rem 0.7rem;
