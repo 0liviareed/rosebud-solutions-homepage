@@ -264,7 +264,6 @@ export default function Header() {
                     onClick={() => setResourcesOpen(false)}
                   >
                     <span className="rb-nav-link-title">Pricing</span>
-                    <span className="rb-nav-link-desc">One setup. One monthly.</span>
                     <span className="rb-nav-link-arrow" aria-hidden="true">→</span>
                   </Link>
                 </div>
@@ -356,7 +355,6 @@ export default function Header() {
               onClick={closeMobile}
             >
               <span className="rb-mobile-link-title">Pricing</span>
-              <span className="rb-mobile-link-desc">One setup. One monthly.</span>
               <span className="rb-mobile-link-arrow" aria-hidden="true">→</span>
             </Link>
           </div>
