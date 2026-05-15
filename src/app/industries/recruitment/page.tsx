@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import RecruitmentFAQ from "@/components/RecruitmentFAQ";
 import SevenStepTimeline from "@/components/SevenStepTimeline";
 import Voices from "@/components/Voices";
@@ -234,70 +235,96 @@ export default function RecruitmentPage() {
         </section>
 
         {/* ===================== II — WHAT'S INCLUDED ===================== */}
-        <section className="rb-sec" data-rb-sec aria-label="What's included">
-          <div className="rb-wrap">
-            <div className="rb-head">
-              <p className="rb-eyebrow" data-rb-fade="0">
-                <span className="rb-num">II</span>Every deployment includes
-              </p>
-              <h2 className="rb-h2" data-rb-fade="1">
-                One system. <em>All seven roles.</em>
-              </h2>
-              <p className="rb-sub" data-rb-fade="2">
-                A custom system we build around your desks. One setup. One
-                monthly figure. No per-seat pricing. Deployed in 5 weeks.
-              </p>
-            </div>
+        <section className="rb-sec rb-sec-split" data-rb-sec aria-label="What's included">
+          <div className="rb-wrap rb-split">
+            {/* Left column — sticky-pinned heading + CTAs */}
+            <div className="rb-split-left">
+              <div className="rb-split-left-inner">
+                <p className="rb-eyebrow" data-rb-fade="0">
+                  <span className="rb-num">II</span>Every deployment includes
+                </p>
+                <h2 className="rb-h2" data-rb-fade="1">
+                  One system. <em>All seven roles.</em>
+                </h2>
+                <p className="rb-split-body" data-rb-fade="2">
+                  A custom system we build around your desks. One setup. One
+                  monthly figure. No per-seat pricing. Deployed in 5 weeks.
+                </p>
+                <p className="rb-split-body rb-split-body-quiet" data-rb-fade="3">
+                  Every deployment is built around your desks, your briefs,
+                  and your ICP. Seven roles run as one system — operated by
+                  us, handed to you.
+                </p>
 
-            <p className="rb-included-intro" data-rb-fade="3">
-              Every deployment is built around your desks, your briefs, and
-              your ICP. Seven roles run as one system — operated by us, handed
-              to you.
-            </p>
-
-            <div data-rb-fade="3">
-              {[
-                [
-                  "Candidate Sourcing Engine",
-                  "Targeted search across LinkedIn and sector networks, filtered against your ICP.",
-                ],
-                [
-                  "CV Screening & Shortlisting",
-                  "Agentic AI reading every profile against your criteria.",
-                ],
-                [
-                  "Automated Outreach Sequences",
-                  "Multi-touch personalised sequences, sent without manual input.",
-                ],
-                [
-                  "CRM Auto-Population",
-                  "Everything written directly into your CRM, nothing typed.",
-                ],
-                [
-                  "Pipeline Management",
-                  "Warm candidates tracked, re-engaged, ready when the next role opens.",
-                ],
-                [
-                  "Behaviour-Triggered Follow-Up",
-                  "Re-engagement handled automatically.",
-                ],
-                [
-                  "Operational Audit & Roadmap",
-                  "Where your operation is losing time, and what to fix next.",
-                ],
-              ].map(([title, body], i) => (
-                <div key={i} className="rb-entry rb-entry-numbered" tabIndex={0}>
-                  <span className="rb-num-big">
-                    {String(i + 1).padStart(2, "0")}
-                  </span>
-                  <div className="rb-body-stack">
-                    <span className="rb-label">{title}</span>
-                    <p className="rb-body-copy">{body}</p>
-                  </div>
+                <div className="rb-split-ctas" data-rb-fade="3">
+                  <Link href="/pricing" className="rb-cta rb-cta-primary">
+                    <span>Get started</span>
+                    <span className="rb-cta-arrow" aria-hidden="true">→</span>
+                  </Link>
+                  <a
+                    href="https://www.cal.eu/rosebudsolutions/30min?overlayCalendar=true"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="rb-cta rb-cta-secondary"
+                  >
+                    <span>Schedule demo</span>
+                    <span className="rb-cta-arrow" aria-hidden="true">→</span>
+                  </a>
                 </div>
-              ))}
+              </div>
             </div>
 
+            {/* Right column — seven roles, editorial list */}
+            <ol className="rb-split-right" aria-label="Seven roles in every deployment">
+              {[
+                {
+                  num: "I",
+                  label: "Candidate Sourcing Engine",
+                  body: "Targeted search across LinkedIn and sector networks, filtered against your ICP.",
+                },
+                {
+                  num: "II",
+                  label: "CV Screening & Shortlisting",
+                  body: "Agentic AI reading every profile against your criteria.",
+                },
+                {
+                  num: "III",
+                  label: "Automated Outreach Sequences",
+                  body: "Multi-touch personalised sequences, sent without manual input.",
+                },
+                {
+                  num: "IV",
+                  label: "CRM Auto-Population",
+                  body: "Everything written directly into your CRM, nothing typed.",
+                },
+                {
+                  num: "V",
+                  label: "Pipeline Management",
+                  body: "Warm candidates tracked, re-engaged, ready when the next role opens.",
+                },
+                {
+                  num: "VI",
+                  label: "Behaviour-Triggered Follow-Up",
+                  body: "Re-engagement handled automatically.",
+                },
+                {
+                  num: "VII",
+                  label: "Operational Audit & Roadmap",
+                  body: "Where your operation is losing time, and what to fix next.",
+                },
+              ].map((role) => (
+                <li key={role.num} className="rb-split-role">
+                  <div className="rb-split-role-head">
+                    <span className="rb-split-role-num">{role.num}</span>
+                    <span className="rb-split-role-label">{role.label}</span>
+                  </div>
+                  <p className="rb-split-role-body">{role.body}</p>
+                </li>
+              ))}
+            </ol>
+          </div>
+
+          <div className="rb-wrap">
             <p className="rb-aftertext rb-aftertext-quiet" data-rb-fade="3">
               Pricing shared on the demo call — scoped to the volume and
               seniority of the roles you hire for.
