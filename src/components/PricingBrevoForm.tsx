@@ -101,16 +101,16 @@ const BREVO_FORM_HTML = `
                 </li>
                 <li class="sib-menu__item">
                   <div class="entry__choice"><label class="sib-multiselect__label">
-                    <input type="checkbox" class="input_replaced" data-value="Financial Services">
+                    <input type="checkbox" class="input_replaced" data-value="Insurance">
                     <span class="checkbox checkbox_tick_positive"></span>
-                    <span class="sib-multiselect__label-text">Financial Services</span>
+                    <span class="sib-multiselect__label-text">Insurance</span>
                   </label></div>
                 </li>
                 <li class="sib-menu__item">
                   <div class="entry__choice"><label class="sib-multiselect__label">
-                    <input type="checkbox" class="input_replaced" data-value="Insurance">
+                    <input type="checkbox" class="input_replaced" data-value="Mortgage &amp; Lending">
                     <span class="checkbox checkbox_tick_positive"></span>
-                    <span class="sib-multiselect__label-text">Insurance</span>
+                    <span class="sib-multiselect__label-text">Mortgage &amp; Lending</span>
                   </label></div>
                 </li>
                 <li class="sib-menu__item">
