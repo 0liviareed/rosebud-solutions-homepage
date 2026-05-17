@@ -67,6 +67,11 @@ const VERTICALS = [
     title: "Real Estate",
     desc: "Inquiry. Showings. Nurture.",
   },
+  {
+    href: "/industries/mortgage-lending",
+    title: "Mortgage & Lending",
+    desc: "Inquiry. Conditions. Funded.",
+  },
 ];
 
 export default function PricingPage() {

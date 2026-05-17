@@ -160,7 +160,7 @@ export default function Header() {
               >
                 <div className="rb-nav-group">
                   <span className="rb-nav-group-label">
-                    <span className="rb-nav-group-count" aria-hidden="true">I–IV</span>
+                    <span className="rb-nav-group-count" aria-hidden="true">I–V</span>
                     <span>By Industry</span>
                   </span>
 
@@ -207,6 +207,17 @@ export default function Header() {
                   >
                     <span className="rb-nav-link-title">Real Estate</span>
                     <span className="rb-nav-link-desc">Inquiry. Showings. Nurture.</span>
+                    <span className="rb-nav-link-arrow" aria-hidden="true">→</span>
+                  </Link>
+
+                  <Link
+                    href="/industries/mortgage-lending"
+                    className="rb-nav-link"
+                    role="menuitem"
+                    onClick={() => setMenuOpen(false)}
+                  >
+                    <span className="rb-nav-link-title">Mortgage &amp; Lending</span>
+                    <span className="rb-nav-link-desc">Inquiry. Conditions. Funded.</span>
                     <span className="rb-nav-link-arrow" aria-hidden="true">→</span>
                   </Link>
                 </div>
@@ -306,7 +317,7 @@ export default function Header() {
         <div className="rb-mobile-menu-inner">
           <div className="rb-mobile-group">
             <span className="rb-mobile-group-label">
-              <span className="rb-mobile-group-count" aria-hidden="true">I–IV</span>
+              <span className="rb-mobile-group-count" aria-hidden="true">I–V</span>
               <span>By Industry</span>
             </span>
 
@@ -349,6 +360,16 @@ export default function Header() {
             >
               <span className="rb-mobile-link-title">Real Estate</span>
               <span className="rb-mobile-link-desc">Inquiry. Showings. Nurture.</span>
+              <span className="rb-mobile-link-arrow" aria-hidden="true">→</span>
+            </Link>
+
+            <Link
+              href="/industries/mortgage-lending"
+              className="rb-mobile-link"
+              onClick={closeMobile}
+            >
+              <span className="rb-mobile-link-title">Mortgage &amp; Lending</span>
+              <span className="rb-mobile-link-desc">Inquiry. Conditions. Funded.</span>
               <span className="rb-mobile-link-arrow" aria-hidden="true">→</span>
             </Link>
           </div>
