@@ -1818,6 +1818,10 @@ button { font: inherit; color: inherit; }
 .rb-nav-item-open .rb-nav-link:nth-of-type(1) { transition-delay: 120ms, 120ms, 0ms; opacity: 1; transform: translateY(0); }
 .rb-nav-item-open .rb-nav-link:nth-of-type(2) { transition-delay: 200ms, 200ms, 0ms; opacity: 1; transform: translateY(0); }
 .rb-nav-item-open .rb-nav-link:nth-of-type(3) { transition-delay: 280ms, 280ms, 0ms; opacity: 1; transform: translateY(0); }
+.rb-nav-item-open .rb-nav-link:nth-of-type(4) { transition-delay: 360ms, 360ms, 0ms; opacity: 1; transform: translateY(0); }
+/* Catch-all so adding a 5th+ vertical never silently hides — any nav-link
+   beyond the staggered set just appears with the last stagger's delay. */
+.rb-nav-item-open .rb-nav-link:nth-of-type(n+5) { transition-delay: 440ms, 440ms, 0ms; opacity: 1; transform: translateY(0); }
 
 .rb-nav-link-title {
   grid-area: title;
