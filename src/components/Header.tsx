@@ -160,7 +160,7 @@ export default function Header() {
               >
                 <div className="rb-nav-group">
                   <span className="rb-nav-group-label">
-                    <span className="rb-nav-group-count" aria-hidden="true">I–III</span>
+                    <span className="rb-nav-group-count" aria-hidden="true">I–IV</span>
                     <span>By Industry</span>
                   </span>
 
@@ -306,7 +306,7 @@ export default function Header() {
         <div className="rb-mobile-menu-inner">
           <div className="rb-mobile-group">
             <span className="rb-mobile-group-label">
-              <span className="rb-mobile-group-count" aria-hidden="true">I–III</span>
+              <span className="rb-mobile-group-count" aria-hidden="true">I–IV</span>
               <span>By Industry</span>
             </span>
 
