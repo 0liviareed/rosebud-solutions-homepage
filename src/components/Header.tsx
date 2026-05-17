@@ -198,6 +198,17 @@ export default function Header() {
                     <span className="rb-nav-link-desc">Intake. Scheduling. Recall.</span>
                     <span className="rb-nav-link-arrow" aria-hidden="true">→</span>
                   </Link>
+
+                  <Link
+                    href="/industries/real-estate"
+                    className="rb-nav-link"
+                    role="menuitem"
+                    onClick={() => setMenuOpen(false)}
+                  >
+                    <span className="rb-nav-link-title">Real Estate</span>
+                    <span className="rb-nav-link-desc">Inquiry. Showings. Nurture.</span>
+                    <span className="rb-nav-link-arrow" aria-hidden="true">→</span>
+                  </Link>
                 </div>
               </div>
             </div>
@@ -328,6 +339,16 @@ export default function Header() {
                 Dental, Aesthetic &amp; Private Healthcare
               </span>
               <span className="rb-mobile-link-desc">Intake. Scheduling. Recall.</span>
+              <span className="rb-mobile-link-arrow" aria-hidden="true">→</span>
+            </Link>
+
+            <Link
+              href="/industries/real-estate"
+              className="rb-mobile-link"
+              onClick={closeMobile}
+            >
+              <span className="rb-mobile-link-title">Real Estate</span>
+              <span className="rb-mobile-link-desc">Inquiry. Showings. Nurture.</span>
               <span className="rb-mobile-link-arrow" aria-hidden="true">→</span>
             </Link>
           </div>

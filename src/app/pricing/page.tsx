@@ -62,6 +62,11 @@ const VERTICALS = [
     title: "Dental, Aesthetic & Private Healthcare",
     desc: "Intake. Scheduling. Recall.",
   },
+  {
+    href: "/industries/real-estate",
+    title: "Real Estate",
+    desc: "Inquiry. Showings. Nurture.",
+  },
 ];
 
 export default function PricingPage() {

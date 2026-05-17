@@ -9,6 +9,7 @@
 - [Recruitment](https://rosebud.global/industries/recruitment): Agentic recruitment orchestration for agencies, in-house teams, and executive search — sources and screens candidates against ICP, sequences outreach across LinkedIn and email, keeps warm clients engaged between roles. Integrates with ATS and job boards.
 - [Insurance](https://rosebud.global/industries/insurance): Agentic insurance orchestration for brokers, agencies, and carriers — qualifies enquiries, captures risk details, prepares carrier-ready submissions, and runs the renewal cycle. Integrates with CRM and carrier portals.
 - [Dental, Aesthetic & Private Healthcare](https://rosebud.global/industries/healthcare): AI-powered patient operations software for dental, aesthetic, and private healthcare clinics — enquiry intake, triage, records collection, booking, reminders, aftercare, and recall. Integrates with Dentally, SOE, Pabau, Open Dental, Aesthetic Nurse Software.
+- [Real Estate](https://rosebud.global/industries/real-estate): AI workflow for real estate teams and brokers — lead capture across Zillow, Realtor.com, Redfin, IDX, Facebook, Instagram answered in under 60 seconds; buyer + seller qualification; showing booking; 6-12 month long-tail nurture. Integrates with Follow Up Boss, kvCORE, Sierra Interactive, Chime, BoomTown, LionDesk, Wise Agent, Realvolve. TCPA-compliant.
 
 ## Legal
 - [Privacy Notice](https://rosebud.global/privacy): Data handling and user rights
