@@ -20,14 +20,14 @@ const INSURANCE_ROLES: SplitRole[] = [
 ];
 
 export const metadata: Metadata = {
-  title: "Insurance — Custom AI System",
+  title: "Insurance — AI Workflow for Brokers & Agencies",
   description:
-    "A custom insurance operations system we build and run for you. Live in 5 weeks. Not a tool — a service.",
+    "AI for insurance brokers: qualifies enquiries, automates fact-finds, preps carrier submissions, assembles quote comparisons, runs renewals.",
   alternates: { canonical: "/industries/insurance" },
   openGraph: {
-    title: "Insurance — Custom AI System | Rosebud Global",
+    title: "Insurance — AI Workflow for Brokers & Agencies | Rosebud Global",
     description:
-      "A custom insurance operations system we build and run for you. Live in 5 weeks. Not a tool — a service.",
+      "AI for insurance brokers: a custom workflow that qualifies enquiries, automates fact-finds, prepares carrier-ready submissions, assembles quote comparisons, and runs renewals. Built and run by Rosebud. Live in 5 weeks.",
     url: "https://rosebud.global/industries/insurance",
     type: "website",
   },

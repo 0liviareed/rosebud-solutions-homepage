@@ -22,14 +22,14 @@ const RECRUITMENT_ROLES: SplitRole[] = [
 ];
 
 export const metadata: Metadata = {
-  title: "Recruitment — Custom AI System",
+  title: "Recruitment — AI Workflow for Agencies & In-House Teams",
   description:
-    "A custom recruitment system we build and run for you. Deployed in 5 weeks. Not a tool — a service.",
+    "AI for recruitment agencies: sources candidates against your ICP, screens CVs, sequences outreach, writes everything into your ATS. Live in 5 weeks.",
   alternates: { canonical: "/industries/recruitment" },
   openGraph: {
-    title: "Recruitment — Custom AI System | Rosebud Global",
+    title: "Recruitment — AI Workflow for Agencies & In-House Teams | Rosebud Global",
     description:
-      "A custom recruitment system we build and run for you. Deployed in 5 weeks. Not a tool — a service.",
+      "AI for recruitment agencies: a custom workflow that sources candidates against your ICP, screens CVs, sequences outreach across LinkedIn and email, and writes everything into your ATS. Live in 5 weeks.",
     url: "https://rosebud.global/industries/recruitment",
     type: "website",
   },

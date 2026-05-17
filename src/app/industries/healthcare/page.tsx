@@ -26,7 +26,7 @@ const HEALTHCARE_VOICES = [3, 5, 1, 7, 0, 4, 6, 2].map((i) => VOICES[i]);
 export const metadata: Metadata = {
   title: "Dental, Aesthetic & Private Healthcare — AI-Powered Patient Operations",
   description:
-    "Agentic patient orchestration for dental, aesthetic, and private healthcare clinics — from first enquiry to long-term loyalty. Built and run by Rosebud. Live in 5 weeks.",
+    "AI for dental, aesthetic & private healthcare: answers every enquiry across calls, DMs, forms, books patients into Dentally / SOE / Pabau, runs recall.",
   alternates: { canonical: "/industries/healthcare" },
   openGraph: {
     title:

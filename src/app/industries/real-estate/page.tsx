@@ -21,7 +21,7 @@ export const metadata: Metadata = {
   title:
     "Real Estate — AI Workflow for Estate Agents, Brokers & Teams",
   description:
-    "AI for real estate: an agentic workflow that answers every Zillow, Realtor.com, and IDX lead in under 60 seconds, qualifies buyers and sellers, books showings into Follow Up Boss / kvCORE / Sierra, and runs the long-tail nurture that closes deals six months later. Built and run by Rosebud. Live in 5 weeks.",
+    "AI for real estate: answers every Zillow, Realtor.com & IDX lead in <60s, qualifies buyers + sellers, books showings into Follow Up Boss / kvCORE.",
   keywords: [
     "ai for real estate",
     "ai workflow for real estate",
