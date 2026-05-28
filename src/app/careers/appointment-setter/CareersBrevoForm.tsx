@@ -61,6 +61,9 @@ const BREVO_FORM_HTML = `
           </div><label class="entry__error entry__error--primary"></label></div></div>
         </div>
 
+        <input type="hidden" name="SMS" value="" />
+        <input type="hidden" name="SMS__COUNTRY_CODE" value="+44" />
+
         <div style="padding: 8px 0;">
           <div class="sib-input sib-form-block"><div class="form__entry entry_block"><div class="form__label-row">
             <label class="entry__label" for="CITY" data-required="*">Country and city of residence</label>
