@@ -6082,3 +6082,20 @@ button { font: inherit; color: inherit; }
   border: 1px solid rgba(245, 241, 234, 0.14) !important;
   border-radius: 8px !important;
 }
+
+/* Careers section headings ("Section 1 · About you") — Cormorant
+   italic, sized between the page h2 and the field labels. Class
+   .rb-careers-section-h is unique to the careers form HTML, so
+   pricing is untouched. Pure typography. */
+.rb-pricing-form-shell #sib-container .rb-careers-section-h {
+  font-family: var(--font-cormorant), serif !important;
+  font-style: italic;
+  font-weight: 400 !important;
+  font-size: clamp(1.25rem, 1.8vw, 1.5rem) !important;
+  color: var(--rb-bone) !important;
+  letter-spacing: -0.005em;
+  margin-top: 0.5rem;
+}
+.rb-pricing-form-shell #sib-container .rb-careers-section-h p {
+  margin: 0;
+}
