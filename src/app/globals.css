@@ -6625,3 +6625,32 @@ button { font: inherit; color: inherit; }
   accent-color: var(--rb-purple-core);
   flex: 0 0 auto;
 }
+
+/* Careers form success/error panels — hidden by default, our submit
+   handler toggles display:block on the right one. Without this they'd
+   render visible at form load (Brevo's sib-styles.css would normally
+   hide them via :where(.sib-form-message-panel){display:none}). */
+.rb-pricing-form-shell .sib-form-message-panel {
+  display: none;
+}
+.rb-pricing-form-shell #success-message {
+  background: rgba(19, 206, 102, 0.08) !important;
+  border: 1px solid rgba(19, 206, 102, 0.35) !important;
+  color: #c8e8d3 !important;
+  padding: 14px 18px !important;
+  border-radius: 10px !important;
+  margin: 0 0 16px !important;
+}
+.rb-pricing-form-shell #error-message {
+  background: rgba(220, 88, 88, 0.08) !important;
+  border: 1px solid rgba(220, 88, 88, 0.35) !important;
+  color: #f4c5c5 !important;
+  padding: 14px 18px !important;
+  border-radius: 10px !important;
+  margin: 0 0 16px !important;
+}
+.rb-pricing-form-shell .sib-form-message-panel__text { display: flex !important; gap: 10px; align-items: flex-start; }
+.rb-pricing-form-shell .sib-form-message-panel__inner-text { color: inherit !important; font-family: var(--font-dm-sans), sans-serif !important; }
+.rb-pricing-form-shell .sib-icon { flex: 0 0 auto; width: 18px !important; height: 18px !important; margin-top: 2px; }
+.rb-pricing-form-shell #error-message .sib-icon path { fill: #f4c5c5 !important; }
+.rb-pricing-form-shell #success-message .sib-icon path { fill: #b4e5c5 !important; }

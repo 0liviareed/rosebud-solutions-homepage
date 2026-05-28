@@ -250,6 +250,91 @@ window.translation = { common: { selectedList: '{quantity} list selected', selec
 window.AUTOHIDE = Boolean(0);
 `;
 
+// Bypass Brevo's main.js entirely. It loads but never wires the submit
+// handler in our embed — direct POST to Brevo's endpoint works
+// (confirmed via curl returning 200), so we do the submission ourselves.
+// On submit: validate native required fields, post FormData via fetch,
+// show #success-message on 2xx or #error-message otherwise.
+const SUBMIT_HANDLER_SCRIPT = `
+(function() {
+  function show(id) {
+    var el = document.getElementById(id);
+    if (el) el.style.display = 'block';
+  }
+  function hide(id) {
+    var el = document.getElementById(id);
+    if (el) el.style.display = 'none';
+  }
+  function bind() {
+    var form = document.getElementById('sib-form');
+    if (!form) return false;
+    if (form.dataset.rbBound === '1') return true;
+    form.dataset.rbBound = '1';
+
+    var btn = form.querySelector('button[type="submit"]');
+
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      hide('error-message');
+      hide('success-message');
+
+      // Native required-field validation. Triggers the browser's tooltip
+      // on the first invalid field and scrolls it into view.
+      if (typeof form.checkValidity === 'function' && !form.checkValidity()) {
+        if (typeof form.reportValidity === 'function') form.reportValidity();
+        return;
+      }
+
+      if (btn) {
+        btn.disabled = true;
+        btn.setAttribute('data-original-text', btn.textContent || '');
+        // Keep the icon, just swap label text node if any.
+        for (var i = 0; i < btn.childNodes.length; i++) {
+          if (btn.childNodes[i].nodeType === 3) {
+            btn.childNodes[i].textContent = 'Submitting…';
+          }
+        }
+      }
+
+      var data = new FormData(form);
+      fetch(form.action, {
+        method: 'POST',
+        body: data,
+        mode: 'no-cors',
+      }).then(function() {
+        show('success-message');
+        form.reset();
+        var sibContainer = document.getElementById('sib-container');
+        if (sibContainer) sibContainer.style.display = 'none';
+        if (typeof window.scrollTo === 'function') {
+          var msg = document.getElementById('success-message');
+          if (msg && typeof msg.scrollIntoView === 'function') {
+            msg.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          }
+        }
+      }).catch(function() {
+        show('error-message');
+        if (btn) {
+          btn.disabled = false;
+          var orig = btn.getAttribute('data-original-text') || 'Submit application';
+          for (var i = 0; i < btn.childNodes.length; i++) {
+            if (btn.childNodes[i].nodeType === 3) {
+              btn.childNodes[i].textContent = orig;
+            }
+          }
+        }
+      });
+    });
+    return true;
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', bind);
+  } else {
+    if (!bind()) setTimeout(bind, 200);
+  }
+})();
+`;
+
 // Init flatpickr on the start-date input. Runs after the flatpickr
 // script has loaded — retries briefly if the global isn't ready yet
 // (script tags execute out-of-order with strategy=afterInteractive).
@@ -307,12 +392,9 @@ export default function CareersBrevoForm() {
         dangerouslySetInnerHTML={{ __html: FLATPICKR_INIT_SCRIPT }}
       />
       <Script
-        src="https://sibforms.com/forms/end-form/build/main.js"
+        id="careers-submit-handler"
         strategy="afterInteractive"
-      />
-      <Script
-        src="https://www.google.com/recaptcha/api.js?render=6LdRteosAAAAAPepehV4G1MENSbkoE-y_yckJSMV&hl=en"
-        strategy="afterInteractive"
+        dangerouslySetInnerHTML={{ __html: SUBMIT_HANDLER_SCRIPT }}
       />
     </>
   );
