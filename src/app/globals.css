@@ -6070,3 +6070,15 @@ button { font: inherit; color: inherit; }
   border: 0 !important;
   border-radius: 0 !important;
 }
+
+/* Multiselect trigger ("0 selected" pill) — Brevo renders it as a
+   <div class="input input_display input--multiselect">, not an
+   actual <input>, so the input.input rule doesn't catch it. Same
+   dark treatment as the text inputs. Layout (position, padding-right
+   for the dropdown arrow, line-height) stays Brevo's. */
+.rb-pricing-form-shell #sib-container .input_display {
+  background: rgba(0, 0, 0, 0.35) !important;
+  color: var(--rb-bone) !important;
+  border: 1px solid rgba(245, 241, 234, 0.14) !important;
+  border-radius: 8px !important;
+}
