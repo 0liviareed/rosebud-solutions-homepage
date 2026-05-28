@@ -330,7 +330,10 @@ window.AUTOHIDE = Boolean(0);
 // hidden Brevo SMS field. Both visible fields fire this on every change,
 // so the hidden SMS attribute is always in sync before the form submits.
 // Country code values carry a trailing country marker for entries that
-// share a dial code (+1 US / +1 CA) — strip it before concat.
+// share a dial code (+1 US / +1 CA) — strip it before concat. Brevo's
+// SMS validation rejects any "+" or leading 0 in the submitted value
+// (their help text: "must contain between 6 and 19 digits and include
+// the country code without using +/0"), so we drop both before joining.
 const SMS_COMBINE_SCRIPT = `
 (function() {
   function sync() {
@@ -338,7 +341,7 @@ const SMS_COMBINE_SCRIPT = `
     var num = document.getElementById('SMS_NUMBER');
     var sms = document.getElementById('SMS');
     if (!cc || !num || !sms) return;
-    var code = (cc.value || '').replace(/[A-Z]+$/, '');
+    var code = (cc.value || '').replace(/[A-Z]+$/, '').replace(/^\\+/, '');
     var n = (num.value || '').replace(/[^0-9]/g, '').replace(/^0+/, '');
     sms.value = n ? (code + n) : '';
   }
