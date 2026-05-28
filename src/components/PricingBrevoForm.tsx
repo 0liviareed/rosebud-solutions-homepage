@@ -198,7 +198,9 @@ var AUTOHIDE = Boolean(0);
 export default function PricingBrevoForm() {
   return (
     <>
-      <div dangerouslySetInnerHTML={{ __html: BREVO_FORM_HTML }} />
+      <div className="rb-pricing-form-shell">
+        <div dangerouslySetInnerHTML={{ __html: BREVO_FORM_HTML }} />
+      </div>
       <Script
         id="brevo-form-globals"
         strategy="afterInteractive"
