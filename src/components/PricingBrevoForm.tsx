@@ -199,6 +199,20 @@ export default function PricingBrevoForm() {
   return (
     <>
       <div className="rb-pricing-form-shell">
+        <div className="rb-pricing-form-head" data-rb-fade="0">
+          <p className="rb-eyebrow">
+            <span className="rb-num">·</span>Get started
+          </p>
+          <h2 className="rb-pricing-form-h2">
+            Tell us what you&rsquo;re running.{" "}
+            <em>We&rsquo;ll scope the system.</em>
+          </h2>
+          <p className="rb-pricing-form-sub">
+            A 30-minute call to understand your operation, scope the
+            system, and quote the build. You leave with a clear figure —
+            no follow-ups, no chasing.
+          </p>
+        </div>
         <div dangerouslySetInnerHTML={{ __html: BREVO_FORM_HTML }} />
       </div>
       <Script

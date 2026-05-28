@@ -6305,50 +6305,5 @@ button { font: inherit; color: inherit; }
   color: #fff !important;
 }
 
-/* Read-only date input — visually identical to other inputs, but
-   the cursor is a pointer because the only way to set the value
-   is via the flatpickr calendar popup. */
-.rb-pricing-form-shell.rb-careers-form-shell #START_DATE {
-  cursor: pointer !important;
-  caret-color: transparent;
-}
 
-/* Required-field asterisk. Brevo's data-required="*" attribute carries
-   the marker, and their sib-styles.css normally renders it via ::after.
-   We don't load that stylesheet, so surface it ourselves — purple star
-   trailing every required label and consent block. */
-.rb-pricing-form-shell.rb-careers-form-shell .entry__label[data-required="*"]::after,
-.rb-pricing-form-shell.rb-careers-form-shell [data-required="*"].entry__label_optin::after {
-  content: " *";
-  color: var(--rb-purple);
-  font-weight: 600;
-  margin-left: 1px;
-}
-
-/* Checkboxes — Brevo's pattern is to hide the native checkbox via
-   .input_replaced and render a styled .checkbox span beside it that
-   gets a .checkbox_checked class on toggle. Their visual state lives
-   in sib-styles.css which we don't load, so the user sees no tick
-   feedback when selecting options in the multiselect dropdowns.
-   Fix: hide Brevo's visual replacement, show the native checkbox,
-   style it with accent-color so the tick lands in our purple. */
-.rb-pricing-form-shell.rb-careers-form-shell .checkbox,
-.rb-pricing-form-shell.rb-careers-form-shell .checkbox.checkbox_tick_positive {
-  display: none !important;
-}
-.rb-pricing-form-shell.rb-careers-form-shell input.input_replaced {
-  -webkit-appearance: checkbox;
-  appearance: checkbox;
-  display: inline-block !important;
-  position: static !important;
-  width: 16px !important;
-  height: 16px !important;
-  margin: 0 !important;
-  padding: 0 !important;
-  opacity: 1 !important;
-  pointer-events: auto !important;
-  cursor: pointer;
-  accent-color: var(--rb-purple-core);
-  flex: 0 0 auto;
-}
 
