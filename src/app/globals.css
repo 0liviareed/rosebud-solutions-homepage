@@ -6504,3 +6504,85 @@ button { font: inherit; color: inherit; }
 .rb-pricing-form-shell input[type="date"].input::-webkit-calendar-picker-indicator:hover {
   opacity: 1;
 }
+
+/* Flatpickr calendar — dark theme override.
+   Loaded as a CDN stylesheet (flatpickr.min.css) plus these
+   overrides so the calendar matches the form's bone-on-near-black
+   palette. dateFormat=d-m-Y outputs into the visible input.
+   The native browser indicator is suppressed (we're not using
+   type=date anymore). */
+
+.flatpickr-calendar {
+  background: #15151c !important;
+  border: 1px solid rgba(245, 241, 234, 0.18) !important;
+  border-radius: 12px !important;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.55) !important;
+  color: var(--rb-bone) !important;
+  font-family: var(--font-dm-sans), sans-serif !important;
+}
+.flatpickr-calendar.arrowTop::before,
+.flatpickr-calendar.arrowBottom::before { display: none !important; }
+.flatpickr-calendar.arrowTop::after { border-bottom-color: #15151c !important; }
+.flatpickr-calendar.arrowBottom::after { border-top-color: #15151c !important; }
+
+.flatpickr-months .flatpickr-month,
+.flatpickr-current-month,
+.flatpickr-current-month .cur-month,
+.flatpickr-current-month input.cur-year,
+.flatpickr-weekday {
+  color: var(--rb-bone) !important;
+  background: transparent !important;
+  font-family: var(--font-dm-sans), sans-serif !important;
+}
+.flatpickr-current-month .cur-month { font-weight: 600 !important; font-size: 14px !important; }
+.flatpickr-current-month input.cur-year {
+  font-weight: 600 !important; font-size: 14px !important;
+  color: var(--rb-bone) !important; background: transparent !important;
+}
+.flatpickr-weekday {
+  font-size: 10.5px !important;
+  letter-spacing: 0.12em !important;
+  text-transform: uppercase;
+  color: var(--rb-bone-dim) !important;
+  font-weight: 500 !important;
+}
+.flatpickr-prev-month,
+.flatpickr-next-month { fill: var(--rb-bone-dim) !important; }
+.flatpickr-prev-month:hover,
+.flatpickr-next-month:hover { fill: var(--rb-bone) !important; }
+.flatpickr-prev-month svg,
+.flatpickr-next-month svg { fill: inherit !important; }
+
+.flatpickr-day {
+  color: var(--rb-bone) !important;
+  border-radius: 8px !important;
+  border: 0 !important;
+  font-size: 13px !important;
+}
+.flatpickr-day.flatpickr-disabled,
+.flatpickr-day.prevMonthDay,
+.flatpickr-day.nextMonthDay {
+  color: rgba(245, 241, 234, 0.22) !important;
+}
+.flatpickr-day:hover,
+.flatpickr-day.today {
+  background: rgba(139, 125, 216, 0.14) !important;
+  border-color: transparent !important;
+  color: var(--rb-bone) !important;
+}
+.flatpickr-day.today {
+  border: 1px solid rgba(139, 125, 216, 0.45) !important;
+}
+.flatpickr-day.selected,
+.flatpickr-day.selected:hover {
+  background: var(--rb-purple-core) !important;
+  color: #fff !important;
+}
+
+/* Read-only date input — visually identical to other inputs, but
+   the cursor is a pointer because the only way to set the value
+   is via the flatpickr calendar popup. */
+.rb-pricing-form-shell #START_DATE {
+  cursor: pointer !important;
+  caret-color: transparent;
+}
