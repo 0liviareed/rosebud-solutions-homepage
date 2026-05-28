@@ -65,7 +65,7 @@ const BREVO_FORM_HTML = `
           <div class="sib-input sib-form-block"><div class="form__entry entry_block"><div class="form__label-row">
             <label class="entry__label" data-required="*">Phone number</label>
             <div class="entry__field rb-phone-row">
-              <select class="input rb-phone-cc" id="SMS__COUNTRY_CODE" name="SMS__COUNTRY_CODE" data-required="true" required>
+              <select class="input rb-phone-cc" id="SMS__COUNTRY_CODE" name="SMS__COUNTRY_CODE">
                 <option value="+44">United Kingdom (+44)</option>
                 <option value="+1US">United States (+1)</option>
                 <option value="+1CA">Canada (+1)</option>
@@ -127,7 +127,7 @@ const BREVO_FORM_HTML = `
                 <option value="+56">Chile (+56)</option>
                 <option value="+57">Colombia (+57)</option>
               </select>
-              <input class="input rb-phone-num" type="tel" id="SMS_NUMBER" autocomplete="tel-national" placeholder="Phone number" data-required="true" required />
+              <input class="input rb-phone-num" type="text" inputmode="numeric" id="SMS_NUMBER" autocomplete="tel-national" placeholder="Phone number" data-required="true" required />
             </div>
             <input type="hidden" name="SMS" id="SMS" />
           </div><label class="entry__error entry__error--primary"></label></div></div>
@@ -341,10 +341,15 @@ const SMS_COMBINE_SCRIPT = `
   function bind() {
     var cc = document.getElementById('SMS__COUNTRY_CODE');
     var num = document.getElementById('SMS_NUMBER');
+    var form = document.getElementById('sib-form');
     if (!cc || !num) return false;
     cc.addEventListener('change', sync);
     num.addEventListener('input', sync);
     num.addEventListener('blur', sync);
+    // Capture phase so we run BEFORE Brevo's main.js validates the SMS
+    // field on submit — guarantees the hidden field carries the
+    // current combined value when Brevo's validator inspects it.
+    if (form) form.addEventListener('submit', sync, true);
     sync();
     return true;
   }
