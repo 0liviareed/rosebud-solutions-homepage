@@ -5910,7 +5910,7 @@ button { font: inherit; color: inherit; }
   line-height: 1.7;
   color: var(--rb-bone);
 }
-.rb-job-intro {
+.rb-job-main p.rb-job-intro {
   margin: 0 0 clamp(3rem, 5vw, 4.5rem);
   font-size: clamp(15.5px, 1.1vw, 17px);
   line-height: 1.7;
