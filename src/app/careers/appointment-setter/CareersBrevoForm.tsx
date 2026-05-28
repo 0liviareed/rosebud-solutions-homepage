@@ -62,89 +62,10 @@ const BREVO_FORM_HTML = `
         </div>
 
         <div style="padding: 8px 0;">
-          <div class="sib-sms-field sib-form-block"><div class="form__entry entry_block"><div class="form__label-row">
-            <label class="entry__label" for="SMS" data-required="*">Phone number</label>
-            <div class="sib-sms-input-wrapper" style="direction:ltr">
-              <div class="sib-sms-input" data-placeholder="" data-required="true" data-country-code="GB" data-value="" data-attributename="SMS">
-                <div class="entry__field"><select class="input" name="SMS__COUNTRY_CODE" data-required="true">
-                  <option value="+44">+44 GB</option>
-                  <option value="+1">+1 US</option>
-                  <option value="+1">+1 CA</option>
-                  <option value="+61">+61 AU</option>
-                  <option value="+353">+353 IE</option>
-                  <option value="+64">+64 NZ</option>
-                  <option value="+27">+27 ZA</option>
-                  <option value="+33">+33 FR</option>
-                  <option value="+49">+49 DE</option>
-                  <option value="+34">+34 ES</option>
-                  <option value="+39">+39 IT</option>
-                  <option value="+31">+31 NL</option>
-                  <option value="+32">+32 BE</option>
-                  <option value="+41">+41 CH</option>
-                  <option value="+43">+43 AT</option>
-                  <option value="+45">+45 DK</option>
-                  <option value="+46">+46 SE</option>
-                  <option value="+47">+47 NO</option>
-                  <option value="+48">+48 PL</option>
-                  <option value="+351">+351 PT</option>
-                  <option value="+352">+352 LU</option>
-                  <option value="+354">+354 IS</option>
-                  <option value="+356">+356 MT</option>
-                  <option value="+357">+357 CY</option>
-                  <option value="+358">+358 FI</option>
-                  <option value="+359">+359 BG</option>
-                  <option value="+30">+30 GR</option>
-                  <option value="+36">+36 HU</option>
-                  <option value="+40">+40 RO</option>
-                  <option value="+420">+420 CZ</option>
-                  <option value="+421">+421 SK</option>
-                  <option value="+371">+371 LV</option>
-                  <option value="+370">+370 LT</option>
-                  <option value="+372">+372 EE</option>
-                  <option value="+386">+386 SI</option>
-                  <option value="+385">+385 HR</option>
-                  <option value="+91">+91 IN</option>
-                  <option value="+92">+92 PK</option>
-                  <option value="+880">+880 BD</option>
-                  <option value="+94">+94 LK</option>
-                  <option value="+852">+852 HK</option>
-                  <option value="+65">+65 SG</option>
-                  <option value="+60">+60 MY</option>
-                  <option value="+66">+66 TH</option>
-                  <option value="+62">+62 ID</option>
-                  <option value="+63">+63 PH</option>
-                  <option value="+84">+84 VN</option>
-                  <option value="+81">+81 JP</option>
-                  <option value="+82">+82 KR</option>
-                  <option value="+86">+86 CN</option>
-                  <option value="+886">+886 TW</option>
-                  <option value="+971">+971 AE</option>
-                  <option value="+966">+966 SA</option>
-                  <option value="+972">+972 IL</option>
-                  <option value="+90">+90 TR</option>
-                  <option value="+20">+20 EG</option>
-                  <option value="+234">+234 NG</option>
-                  <option value="+254">+254 KE</option>
-                  <option value="+233">+233 GH</option>
-                  <option value="+52">+52 MX</option>
-                  <option value="+55">+55 BR</option>
-                  <option value="+54">+54 AR</option>
-                  <option value="+56">+56 CL</option>
-                  <option value="+57">+57 CO</option>
-                  <option value="+51">+51 PE</option>
-                  <option value="+58">+58 VE</option>
-                </select></div>
-                <div class="entry__field" style="width: 100%"><input type="tel" class="input" id="SMS" name="SMS" autocomplete="tel" placeholder="Phone number" data-required="true" required /></div>
-              </div>
-              <div class="sib-sms-tooltip">
-                <div class="sib-sms-tooltip__box">Enter your number without a leading + or 0 — e.g. 7700900123 for the UK.</div>
-                <span class="sib-sms-tooltip__icon">?</span>
-              </div>
-            </div>
-          </div>
-          <label class="entry__error entry__error--primary"></label>
-          <label class="entry__error entry__error--secondary"></label>
-          </div></div>
+          <div class="sib-input sib-form-block"><div class="form__entry entry_block"><div class="form__label-row">
+            <label class="entry__label" for="SMS" data-required="*">Phone number (with country code)</label>
+            <div class="entry__field"><input class="input" type="tel" id="SMS" name="SMS" autocomplete="tel" placeholder="e.g. +44 7700 900123" data-required="true" required /></div>
+          </div><label class="entry__error entry__error--primary"></label></div></div>
         </div>
 
         <div style="padding: 8px 0;">
