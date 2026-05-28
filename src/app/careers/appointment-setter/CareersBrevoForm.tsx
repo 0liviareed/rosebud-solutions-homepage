@@ -309,13 +309,10 @@ export default function CareersBrevoForm() {
       <Script
         src="https://sibforms.com/forms/end-form/build/main.js"
         strategy="afterInteractive"
-        defer
       />
       <Script
         src="https://www.google.com/recaptcha/api.js?render=6LdRteosAAAAAPepehV4G1MENSbkoE-y_yckJSMV&hl=en"
         strategy="afterInteractive"
-        async
-        defer
       />
     </>
   );
