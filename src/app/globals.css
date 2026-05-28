@@ -5802,16 +5802,14 @@ button { font: inherit; color: inherit; }
 
 /* =============================================================
    Careers — /careers/appointment-setter
-   Job-listing layout: flush-left content, two-column with sticky
-   apply sidebar. Reuses global tokens (--rb-bone, --rb-bone-hair,
-   --rb-purple-core, type families). NOT the editorial centered
-   marketing pattern used elsewhere on the site — this page is a
-   long-form job post and reads denser, top-down, left-aligned.
+   Two-column long-form job post with sticky apply sidebar.
+   Reuses global tokens (--rb-bone, --rb-bone-hair,
+   --rb-purple-core). Editorial Cormorant italic section heads.
    ============================================================= */
 
 .rb-job {
   --rb-job-max: 1120px;
-  --rb-job-content-max: 720px;
+  --rb-job-content-max: 680px;
   --rb-job-aside-w: 320px;
   --rb-job-pad-x: clamp(1.25rem, 4vw, 2.5rem);
   width: 100%;
@@ -5827,10 +5825,10 @@ button { font: inherit; color: inherit; }
   padding-right: var(--rb-job-pad-x);
 }
 
-/* ── HEADER BAR ── */
+/* ── HEADER ── */
 .rb-job-header {
   padding-top: clamp(7rem, 12vw, 9.5rem);
-  padding-bottom: clamp(2rem, 3.5vw, 3rem);
+  padding-bottom: clamp(2rem, 3.5vw, 2.75rem);
   border-bottom: 1px solid var(--rb-bone-hair);
   background:
     radial-gradient(
@@ -5849,37 +5847,21 @@ button { font: inherit; color: inherit; }
   font-weight: 500;
 }
 .rb-job-title {
-  margin: 0 0 22px;
+  margin: 0 0 14px;
   font-family: var(--font-cormorant), serif;
   font-style: italic;
   font-weight: 400;
-  font-size: clamp(2.5rem, 5.5vw, 4.25rem);
+  font-size: clamp(2.5rem, 5.5vw, 4rem);
   letter-spacing: -0.02em;
   color: var(--rb-bone);
   line-height: 1.02;
 }
-.rb-job-meta {
-  list-style: none;
-  padding: 0;
-  margin: 0 0 28px;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, max-content));
-  gap: 16px 36px;
-  border-top: 1px solid var(--rb-bone-hair);
-  border-bottom: 1px solid var(--rb-bone-hair);
-  padding: 18px 0;
-}
-.rb-job-meta li { display: flex; flex-direction: column; gap: 4px; }
-.rb-job-meta-k {
-  font-size: 10.5px;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
+.rb-job-strap {
+  margin: 0 0 1.75rem;
+  font-size: clamp(14px, 1.05vw, 15.5px);
+  letter-spacing: 0.02em;
   color: var(--rb-bone-dim);
-}
-.rb-job-meta-v {
-  font-size: 14px;
-  color: var(--rb-bone);
-  font-weight: 500;
+  line-height: 1.55;
 }
 .rb-job-header-cta {
   display: flex;
@@ -5906,17 +5888,8 @@ button { font: inherit; color: inherit; }
   background: #9d8fe2;
   transform: translateY(-1px);
 }
-.rb-job-secondary-link {
-  font-size: 13.5px;
-  color: var(--rb-bone-dim);
-  text-decoration: underline;
-  text-underline-offset: 3px;
-  text-decoration-color: var(--rb-bone-hair);
-  transition: color 0.2s var(--rb-ease);
-}
-.rb-job-secondary-link:hover { color: var(--rb-bone); }
 
-/* ── BODY: TWO COLUMNS ── */
+/* ── TWO-COLUMN BODY ── */
 .rb-job-body { padding-top: clamp(2rem, 4vw, 3rem); }
 .rb-job-cols {
   display: grid;
@@ -5934,7 +5907,13 @@ button { font: inherit; color: inherit; }
 .rb-job-main {
   min-width: 0;
   font-size: clamp(15px, 1.05vw, 16px);
-  line-height: 1.65;
+  line-height: 1.7;
+  color: var(--rb-bone);
+}
+.rb-job-intro {
+  margin: 0 0 clamp(2rem, 3vw, 2.75rem);
+  font-size: clamp(15.5px, 1.1vw, 17px);
+  line-height: 1.7;
   color: var(--rb-bone);
 }
 .rb-job-sec {
@@ -5942,10 +5921,10 @@ button { font: inherit; color: inherit; }
   scroll-margin-top: 100px;
 }
 .rb-job-sec:last-child { margin-bottom: 0; }
-/* Section headings — Cormorant italic, sentence case, sized for a
-   long-form job post (NOT the giant marketing h2 used on industry /
-   about pages, which would push sections too far apart). Hairline
-   underline gives the editorial-rule feel from the site footer. */
+
+/* Section heads — Cormorant italic, sized for long-form post (NOT the
+   giant marketing h2 used on industry/about pages). Hairline rule gives
+   the editorial feel from the rest of the site. */
 .rb-job-h2 {
   margin: 0 0 1.1rem;
   font-family: var(--font-cormorant), serif;
@@ -5958,46 +5937,24 @@ button { font: inherit; color: inherit; }
   padding-bottom: 0.85rem;
   border-bottom: 1px solid var(--rb-bone-hair);
 }
-.rb-job-h2 em { font-style: italic; color: var(--rb-purple); }
-.rb-job-h3 {
-  margin: 1.5rem 0 0.65rem;
-  font-family: var(--font-cormorant), serif;
-  font-style: italic;
-  font-weight: 400;
-  font-size: clamp(1.15rem, 1.6vw, 1.35rem);
-  letter-spacing: -0.005em;
-  color: var(--rb-purple);
-}
+.rb-job-h2 em { font-style: italic; color: var(--rb-purple); font-weight: 400; }
+
 .rb-job-main p {
   margin: 0 0 1rem;
-  max-width: 64ch;
   color: var(--rb-bone);
 }
 .rb-job-main p:last-child { margin-bottom: 0; }
-.rb-job-main p strong { color: var(--rb-bone); font-weight: 600; }
 
-.rb-job-callout {
-  margin: 1.25rem 0 0 !important;
-  padding: 0.85rem 1.1rem;
-  border-left: 2px solid var(--rb-purple-core);
-  background: rgba(139, 125, 216, 0.05);
-  font-style: italic;
-  color: var(--rb-bone);
-}
-
-/* Lists */
-.rb-job-list,
-.rb-job-ol {
+/* Bullet list — purple dot, comfortable gap */
+.rb-job-list {
   list-style: none;
   padding: 0;
   margin: 0;
   display: flex;
   flex-direction: column;
-  gap: 9px;
-  max-width: 64ch;
+  gap: 10px;
 }
-.rb-job-list li,
-.rb-job-ol li {
+.rb-job-list li {
   position: relative;
   padding-left: 22px;
   color: var(--rb-bone);
@@ -6013,90 +5970,17 @@ button { font: inherit; color: inherit; }
   background: var(--rb-purple-core);
   opacity: 0.85;
 }
-.rb-job-ol {
-  counter-reset: rb-job-ol;
-}
-.rb-job-ol li {
-  padding-left: 28px;
-  counter-increment: rb-job-ol;
-}
-.rb-job-ol li::before {
-  content: counter(rb-job-ol, decimal-leading-zero);
-  position: absolute;
-  left: 0;
-  top: 0.05em;
-  font-family: var(--font-dm-sans), sans-serif;
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  color: var(--rb-purple);
-}
-.rb-job-list li strong,
-.rb-job-ol li strong { color: var(--rb-bone); font-weight: 600; }
+.rb-job-list li strong { color: var(--rb-bone); font-weight: 600; }
 
-/* Definition list for 30/60/90 */
-.rb-job-dl {
-  margin: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 0.85rem;
-  max-width: 64ch;
-}
-.rb-job-dl dt {
-  font-family: var(--font-cormorant), serif;
-  font-style: italic;
-  font-weight: 400;
-  font-size: clamp(1.05rem, 1.4vw, 1.2rem);
-  letter-spacing: -0.005em;
-  color: var(--rb-purple);
-  margin-bottom: 4px;
-}
-.rb-job-dl dd {
-  margin: 0 0 0.5rem;
-  color: var(--rb-bone);
-}
-.rb-job-dl dd:last-child { margin-bottom: 0; }
-
-/* Earnings table */
-.rb-job-table-wrap {
-  margin: 1.25rem 0 0.75rem;
-  overflow-x: auto;
-  border: 1px solid var(--rb-bone-hair);
-  border-radius: 10px;
-}
-.rb-job-table {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: 14px;
-  color: var(--rb-bone);
-}
-.rb-job-table th,
-.rb-job-table td {
-  text-align: left;
-  padding: 11px 16px;
-  border-bottom: 1px solid var(--rb-bone-hair);
-}
-.rb-job-table thead th {
-  font-weight: 500;
-  font-size: 10.5px;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--rb-bone-dim);
-  background: rgba(245, 241, 234, 0.02);
-}
-.rb-job-table tbody tr:last-child td { border-bottom: 0; }
-.rb-job-table tbody td:first-child { font-weight: 600; color: var(--rb-purple); }
-.rb-job-foot {
-  margin-top: 0.75rem !important;
-  font-size: 13px;
-  color: var(--rb-bone-dim) !important;
-  line-height: 1.55;
+/* Form container inside the Apply section — drop the 540px cap so it
+   fills the content column. */
+.rb-job-sec .rb-pricing-form-shell {
+  margin-left: 0;
+  max-width: 100%;
 }
 
 /* ── STICKY APPLY SIDEBAR ── */
-.rb-job-aside {
-  align-self: start;
-}
+.rb-job-aside { align-self: start; }
 @media (min-width: 920px) {
   .rb-job-aside {
     position: sticky;
@@ -6149,150 +6033,6 @@ button { font: inherit; color: inherit; }
   font-size: 13px;
   color: var(--rb-bone);
   line-height: 1.4;
-}
-
-/* Application form */
-.rb-apply-shell {
-  width: 100%;
-  max-width: 720px;
-  margin: 0 auto;
-  background: rgba(245, 241, 234, 0.025);
-  border: 1px solid var(--rb-bone-hair);
-  border-radius: 14px;
-  padding: clamp(1.5rem, 3vw, 2.25rem);
-  display: flex;
-  flex-direction: column;
-  gap: 1.75rem;
-}
-.rb-apply-fs {
-  border: 0;
-  padding: 0;
-  margin: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-}
-.rb-apply-fs[disabled] { opacity: 0.65; }
-.rb-apply-legend {
-  font-size: 11px;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--rb-bone-dim);
-  padding: 0;
-  margin: 0 0 4px;
-}
-.rb-apply-row {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 14px;
-}
-@media (min-width: 640px) {
-  .rb-apply-row { grid-template-columns: 1fr 1fr; gap: 14px; }
-}
-.rb-apply-field {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-.rb-apply-label {
-  font-size: 12.5px;
-  font-weight: 500;
-  color: var(--rb-bone);
-  letter-spacing: 0.01em;
-}
-.rb-apply-input {
-  width: 100%;
-  background: rgba(0, 0, 0, 0.35);
-  color: var(--rb-bone);
-  border: 1px solid rgba(245, 241, 234, 0.14);
-  border-radius: 8px;
-  font-family: var(--font-dm-sans), sans-serif;
-  font-size: 15px;
-  padding: 11px 14px;
-  line-height: 1.4;
-  -webkit-appearance: none;
-  appearance: none;
-  outline: none;
-  transition: border-color 0.2s var(--rb-ease), box-shadow 0.2s var(--rb-ease);
-}
-.rb-apply-input:focus {
-  border-color: var(--rb-purple-core);
-  box-shadow: 0 0 0 3px rgba(139, 125, 216, 0.18);
-}
-.rb-apply-input::placeholder { color: rgba(245, 241, 234, 0.32); }
-.rb-apply-textarea { resize: vertical; min-height: 92px; font-family: inherit; }
-.rb-apply-select {
-  background-image: linear-gradient(45deg, transparent 50%, var(--rb-bone-dim) 50%),
-                    linear-gradient(135deg, var(--rb-bone-dim) 50%, transparent 50%);
-  background-position: calc(100% - 18px) 50%, calc(100% - 13px) 50%;
-  background-size: 5px 5px, 5px 5px;
-  background-repeat: no-repeat;
-  padding-right: 36px;
-}
-.rb-apply-select option { background: #0e0e0e; color: var(--rb-bone); }
-.rb-apply-hint {
-  margin-top: 4px;
-  font-size: 12.5px;
-  color: var(--rb-bone-dim);
-  line-height: 1.55;
-}
-.rb-apply-consent {
-  display: flex;
-  gap: 10px;
-  align-items: flex-start;
-  font-size: 13px;
-  color: var(--rb-bone-dim);
-  line-height: 1.55;
-}
-.rb-apply-consent input { margin-top: 3px; accent-color: var(--rb-purple-core); }
-.rb-apply-consent a { color: var(--rb-purple); text-decoration: underline; text-underline-offset: 2px; }
-.rb-apply-error {
-  margin: 0;
-  padding: 10px 14px;
-  background: rgba(220, 88, 88, 0.08);
-  border: 1px solid rgba(220, 88, 88, 0.32);
-  border-radius: 8px;
-  color: #f4c5c5;
-  font-size: 13.5px;
-}
-.rb-apply-submit {
-  align-self: flex-start;
-  padding: 13px 28px;
-  background: var(--rb-purple-core);
-  border: 1px solid var(--rb-purple-core);
-  border-radius: 999px;
-  color: #fff;
-  font-family: var(--font-dm-sans), sans-serif;
-  font-size: 14px;
-  font-weight: 600;
-  letter-spacing: 0.02em;
-  cursor: pointer;
-  transition: background 0.2s var(--rb-ease), transform 0.2s var(--rb-ease);
-}
-.rb-apply-submit:hover:not(:disabled) {
-  background: #9d8fe2;
-  transform: translateY(-1px);
-}
-.rb-apply-submit:disabled { cursor: not-allowed; opacity: 0.7; }
-
-.rb-apply-success {
-  text-align: left;
-}
-.rb-apply-success-h {
-  margin: 4px 0 12px;
-  font-family: var(--font-cormorant), serif;
-  font-weight: 400;
-  font-style: italic;
-  font-size: clamp(1.5rem, 2.4vw, 2rem);
-  color: var(--rb-bone);
-  letter-spacing: -0.015em;
-}
-.rb-apply-success-body {
-  margin: 0;
-  max-width: 56ch;
-  font-size: 14.5px;
-  line-height: 1.65;
-  color: var(--rb-bone-dim);
 }
 
 /* =============================================================
