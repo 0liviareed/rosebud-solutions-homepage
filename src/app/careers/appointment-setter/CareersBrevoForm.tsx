@@ -293,7 +293,7 @@ const FLATPICKR_INIT_SCRIPT = `
 export default function CareersBrevoForm() {
   return (
     <>
-      <div className="rb-pricing-form-shell rb-careers-form-shell">
+      <div className="rb-pricing-form-shell">
         <div dangerouslySetInnerHTML={{ __html: BREVO_FORM_HTML }} />
       </div>
       <Script
