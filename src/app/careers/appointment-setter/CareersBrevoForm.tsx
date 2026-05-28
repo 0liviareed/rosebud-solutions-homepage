@@ -256,8 +256,8 @@ const BREVO_FORM_HTML = `
         <div style="padding: 8px 0;">
           <div class="sib-input sib-form-block"><div class="form__entry"><div class="form__label-row">
             <label class="entry__label" for="START_DATE" data-required="*">Earliest possible start date</label>
-            <div class="entry__field"><input maxlength="200" type="text" data-type="date" class="input" pattern="^([0-2][0-9]|(3)[0-1])(-)(((0)[0-9])|((1)[0-2]))(-)\\d{4}$" title="dd-mm-yyyy" data-format="dd-mm-yyyy" id="START_DATE" name="START_DATE" autocomplete="off" data-required="true" required /></div>
-          </div><label class="entry__error entry__error--primary"></label><label class="entry__specification">dd-mm-yyyy</label></div></div>
+            <div class="entry__field"><input class="input" type="date" id="START_DATE" name="START_DATE" autocomplete="off" data-required="true" required /></div>
+          </div><label class="entry__error entry__error--primary"></label></div></div>
         </div>
 
         <div style="padding: 8px 0;">

@@ -6370,3 +6370,137 @@ button { font: inherit; color: inherit; }
   .rb-pricing-form-shell .rb-phone-cc { flex: 1 1 100% !important; max-width: none; }
   .rb-pricing-form-shell .rb-phone-num { flex: 1 1 100% !important; }
 }
+
+/* =============================================================
+   Careers form — multiselect dropdown positioning fix.
+
+   Brevo's main.js positions .sib-menu absolutely with inline
+   pixel coords computed from the trigger's viewport position.
+   Without their sib-styles.css the menu escapes the form and
+   renders aligned to the page right. Forcing the menu to
+   position absolute INSIDE its .sib-multiselect parent (which
+   becomes the offset parent via position: relative) anchors it
+   directly below the trigger at the trigger's exact width.
+   ============================================================= */
+
+.rb-pricing-form-shell .sib-multiselect {
+  position: relative !important;
+}
+.rb-pricing-form-shell .sib-multiselect .sib-menu {
+  position: absolute !important;
+  top: calc(100% + 4px) !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: auto !important;
+  width: 100% !important;
+  max-width: none !important;
+  margin: 0 !important;
+  transform: none !important;
+  background: #15151c !important;
+  border: 1px solid rgba(245, 241, 234, 0.18) !important;
+  border-radius: 10px !important;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.55) !important;
+  z-index: 60 !important;
+  padding: 0 !important;
+  overflow: hidden;
+}
+.rb-pricing-form-shell .sib-menu__select {
+  display: flex !important;
+  gap: 8px;
+  padding: 10px 14px !important;
+  background: transparent !important;
+  border-bottom: 1px solid var(--rb-bone-hair);
+  font-size: 11px !important;
+  letter-spacing: 0.12em !important;
+  text-transform: uppercase;
+  color: var(--rb-bone-dim) !important;
+}
+.rb-pricing-form-shell .sib-menu__select-all-button,
+.rb-pricing-form-shell .sib-menu__clear-button {
+  background: transparent !important;
+  border: 0 !important;
+  color: var(--rb-bone-dim) !important;
+  font: inherit;
+  cursor: pointer;
+  padding: 0 !important;
+}
+.rb-pricing-form-shell .sib-menu__select-all-button:hover,
+.rb-pricing-form-shell .sib-menu__clear-button:hover {
+  color: var(--rb-bone) !important;
+}
+.rb-pricing-form-shell .sib-menu__separator {
+  color: var(--rb-bone-hair) !important;
+}
+.rb-pricing-form-shell .sib-menu__item-list {
+  list-style: none !important;
+  margin: 0 !important;
+  padding: 6px 0 !important;
+  max-height: 240px;
+  overflow-y: auto;
+}
+.rb-pricing-form-shell .sib-menu__item {
+  padding: 0 !important;
+}
+.rb-pricing-form-shell .sib-menu__item .entry__choice {
+  padding: 8px 14px !important;
+  display: flex;
+  cursor: pointer;
+  transition: background 0.15s var(--rb-ease);
+}
+.rb-pricing-form-shell .sib-menu__item:hover .entry__choice {
+  background: rgba(139, 125, 216, 0.08) !important;
+}
+.rb-pricing-form-shell .sib-multiselect__label {
+  display: flex !important;
+  gap: 10px;
+  align-items: center;
+  color: var(--rb-bone) !important;
+  font-size: 14px !important;
+  cursor: pointer;
+}
+.rb-pricing-form-shell .sib-multiselect__label-text { color: var(--rb-bone) !important; }
+.rb-pricing-form-shell .sib-menu__apply {
+  display: flex !important;
+  justify-content: flex-end;
+  gap: 8px;
+  padding: 10px 14px !important;
+  border-top: 1px solid var(--rb-bone-hair);
+  background: transparent !important;
+}
+.rb-pricing-form-shell .sib-menu__cancel-button {
+  background: transparent !important;
+  color: var(--rb-bone-dim) !important;
+  border: 0 !important;
+  padding: 6px 12px !important;
+  font-size: 12px !important;
+  cursor: pointer;
+}
+.rb-pricing-form-shell .sib-menu__apply-button {
+  background: var(--rb-purple-core) !important;
+  color: #fff !important;
+  border: 0 !important;
+  border-radius: 999px !important;
+  padding: 7px 16px !important;
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+}
+.rb-pricing-form-shell .sib-menu__apply-button:hover { background: #9d8fe2 !important; }
+
+/* Native date input — Brevo's custom calendar widget is gone (we
+   switched to type="date"), but the browser's input still needs
+   dark styling. The calendar icon is brightened so it's visible
+   against the dark input background. */
+.rb-pricing-form-shell input[type="date"].input {
+  color-scheme: dark;
+}
+.rb-pricing-form-shell input[type="date"].input::-webkit-calendar-picker-indicator {
+  filter: invert(0.85);
+  cursor: pointer;
+  opacity: 0.7;
+  transition: opacity 0.2s var(--rb-ease);
+}
+.rb-pricing-form-shell input[type="date"].input::-webkit-calendar-picker-indicator:hover {
+  opacity: 1;
+}
