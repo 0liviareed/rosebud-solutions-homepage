@@ -5942,24 +5942,30 @@ button { font: inherit; color: inherit; }
   scroll-margin-top: 100px;
 }
 .rb-job-sec:last-child { margin-bottom: 0; }
+/* Section headings — Cormorant italic, sentence case, sized for a
+   long-form job post (NOT the giant marketing h2 used on industry /
+   about pages, which would push sections too far apart). Hairline
+   underline gives the editorial-rule feel from the site footer. */
 .rb-job-h2 {
-  margin: 0 0 0.85rem;
-  font-family: var(--font-dm-sans), sans-serif;
-  font-weight: 600;
-  font-size: clamp(1.05rem, 1.4vw, 1.15rem);
-  letter-spacing: 0.02em;
-  text-transform: uppercase;
+  margin: 0 0 1.1rem;
+  font-family: var(--font-cormorant), serif;
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(1.65rem, 2.6vw, 2.15rem);
+  letter-spacing: -0.015em;
+  line-height: 1.1;
   color: var(--rb-bone);
-  padding-bottom: 0.7rem;
+  padding-bottom: 0.85rem;
   border-bottom: 1px solid var(--rb-bone-hair);
 }
+.rb-job-h2 em { font-style: italic; color: var(--rb-purple); }
 .rb-job-h3 {
-  margin: 1.5rem 0 0.5rem;
-  font-family: var(--font-dm-sans), sans-serif;
-  font-weight: 600;
-  font-size: 14px;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
+  margin: 1.5rem 0 0.65rem;
+  font-family: var(--font-cormorant), serif;
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(1.15rem, 1.6vw, 1.35rem);
+  letter-spacing: -0.005em;
   color: var(--rb-purple);
 }
 .rb-job-main p {
@@ -6037,11 +6043,11 @@ button { font: inherit; color: inherit; }
   max-width: 64ch;
 }
 .rb-job-dl dt {
-  font-family: var(--font-dm-sans), sans-serif;
-  font-weight: 600;
-  font-size: 13px;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
+  font-family: var(--font-cormorant), serif;
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(1.05rem, 1.4vw, 1.2rem);
+  letter-spacing: -0.005em;
   color: var(--rb-purple);
   margin-bottom: 4px;
 }
@@ -6288,3 +6294,164 @@ button { font: inherit; color: inherit; }
   line-height: 1.65;
   color: var(--rb-bone-dim);
 }
+
+/* =============================================================
+   Careers Brevo form — overrides on top of .rb-pricing-form-shell
+   to handle the field types the careers form adds: section
+   headers, SMS country dropdown, date input, checkbox group
+   (Yes/No), dividers, data-protection block, three consent
+   checkboxes.
+   ============================================================= */
+
+.rb-careers-form-shell { max-width: 540px; margin: 0; }
+
+/* Section header rows ("Section 1 · About you") — editorial Cormorant
+   italic instead of Brevo's heavy DM-Sans-700-32px. Sits as an h3-level
+   accent inside the form. */
+.rb-pricing-form-shell .rb-careers-section-h {
+  font-family: var(--font-cormorant), serif !important;
+  font-style: italic;
+  font-weight: 400 !important;
+  font-size: clamp(1.25rem, 1.8vw, 1.5rem) !important;
+  color: var(--rb-bone) !important;
+  letter-spacing: -0.005em;
+  margin-top: 0.5rem;
+}
+.rb-pricing-form-shell .rb-careers-section-h p { margin: 0; }
+
+/* Brevo's <hr> divider — turn it into a hairline rule that matches the
+   global bone-hair colour. */
+.rb-pricing-form-shell .sib-divider-form-block > div {
+  border: 0 !important;
+  border-bottom: 1px solid var(--rb-bone-hair) !important;
+  height: 0;
+}
+
+/* SMS phone field — Brevo splits into [country code select][number input].
+   Both need the dark-mode treatment plus an explicit gap so they don't
+   collide. */
+.rb-pricing-form-shell .sib-sms-input {
+  display: flex !important;
+  gap: 8px;
+  align-items: stretch;
+}
+.rb-pricing-form-shell .sib-sms-input > .entry__field { display: flex; }
+.rb-pricing-form-shell .sib-sms-input > .entry__field:first-child { flex: 0 0 auto; min-width: 110px; }
+.rb-pricing-form-shell .sib-sms-input > .entry__field:last-child { flex: 1 1 auto; }
+.rb-pricing-form-shell select.input {
+  width: 100%;
+  background: rgba(0, 0, 0, 0.35) !important;
+  color: var(--rb-bone) !important;
+  border: 1px solid rgba(245, 241, 234, 0.14) !important;
+  border-radius: 8px !important;
+  font-family: var(--font-dm-sans), sans-serif !important;
+  font-size: 14px !important;
+  padding: 11px 30px 11px 12px !important;
+  appearance: none;
+  -webkit-appearance: none;
+  background-image: linear-gradient(45deg, transparent 50%, rgba(245,241,234,0.45) 50%),
+                    linear-gradient(135deg, rgba(245,241,234,0.45) 50%, transparent 50%) !important;
+  background-position: calc(100% - 16px) 50%, calc(100% - 11px) 50% !important;
+  background-size: 5px 5px, 5px 5px !important;
+  background-repeat: no-repeat !important;
+  cursor: pointer;
+}
+.rb-pricing-form-shell select.input:focus {
+  border-color: var(--rb-purple-core) !important;
+  box-shadow: 0 0 0 3px rgba(139, 125, 216, 0.18) !important;
+}
+.rb-pricing-form-shell select.input option { background: #0e0e0e; color: var(--rb-bone); }
+
+/* SMS tooltip — Brevo's "?" hint. Soften palette. */
+.rb-pricing-form-shell .sib-sms-tooltip { margin-top: 6px; }
+.rb-pricing-form-shell .sib-sms-tooltip__icon {
+  background: rgba(245, 241, 234, 0.08) !important;
+  color: var(--rb-bone) !important;
+  border: 1px solid var(--rb-bone-hair) !important;
+}
+.rb-pricing-form-shell .sib-sms-tooltip__box {
+  background: rgba(0, 0, 0, 0.85) !important;
+  color: var(--rb-bone) !important;
+  border: 1px solid var(--rb-bone-hair) !important;
+  font-size: 12.5px !important;
+}
+
+/* Date-input hint underneath ("dd-mm-yyyy") + numeric input hint */
+.rb-pricing-form-shell .entry__specification {
+  color: var(--rb-bone-dim) !important;
+  font-size: 12px !important;
+  margin-top: 4px;
+  display: block;
+}
+
+/* Yes / No checkbox group — display options inline with comfortable gap. */
+.rb-pricing-form-shell .sib-checkbox-group .form__label-row > div {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px;
+  margin-top: 8px;
+}
+.rb-pricing-form-shell .sib-checkbox-group .entry__choice .checkbox__label {
+  display: flex !important;
+  gap: 8px;
+  align-items: center;
+  cursor: pointer;
+  color: var(--rb-bone);
+  font-size: 14.5px;
+}
+.rb-careers-choice-label { color: var(--rb-bone); font-size: 14.5px; }
+
+/* Data-protection block: heading + paragraph above the consent checkboxes */
+.rb-pricing-form-shell .rb-careers-data-h {
+  font-family: var(--font-dm-sans), sans-serif !important;
+  font-size: 11px !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--rb-bone-dim) !important;
+  margin-top: 0.5rem;
+}
+.rb-pricing-form-shell .rb-careers-data-h p { margin: 0; }
+.rb-pricing-form-shell .rb-careers-data-body {
+  font-family: var(--font-dm-sans), sans-serif !important;
+  font-size: 12.5px !important;
+  color: var(--rb-bone-dim) !important;
+  line-height: 1.55;
+}
+.rb-pricing-form-shell .rb-careers-data-body p { margin: 0; }
+.rb-pricing-form-shell .rb-careers-data-body a {
+  color: var(--rb-purple) !important;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+/* Optin (consent) checkboxes — three of them, each with inline copy.
+   Brevo wraps the copy in a <p> inside a <span>; make sure both flow
+   inline-block-ish so the checkbox sits next to the first line. */
+.rb-pricing-form-shell .rb-careers-optin-label {
+  display: inline-block;
+  color: var(--rb-bone);
+  font-size: 13px;
+  line-height: 1.55;
+}
+.rb-pricing-form-shell .rb-careers-optin-label p { margin: 0; display: inline; }
+.rb-pricing-form-shell .sib-optin .entry__choice label {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  cursor: pointer;
+}
+
+/* Submit button — keep Brevo's contract but restyle to purple pill */
+.rb-pricing-form-shell .sib-form-block__button {
+  background: var(--rb-purple-core) !important;
+  color: #fff !important;
+  border-radius: 999px !important;
+  padding: 12px 28px !important;
+  font-family: var(--font-dm-sans), sans-serif !important;
+  font-size: 14px !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.02em;
+  transition: background 0.2s var(--rb-ease);
+}
+.rb-pricing-form-shell .sib-form-block__button:hover { background: #9d8fe2 !important; }

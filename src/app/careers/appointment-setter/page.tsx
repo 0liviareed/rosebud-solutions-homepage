@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import ApplicationForm from "./ApplicationForm";
+import CareersBrevoForm from "./CareersBrevoForm";
 
 export const metadata: Metadata = {
   title: "Appointment Setter — Rosebud Solutions",
@@ -309,7 +309,7 @@ export default function AppointmentSetterPage() {
                 Applications reviewed weekly. Strong applicants invited to a
                 30-minute interview with the COO.
               </p>
-              <ApplicationForm />
+              <CareersBrevoForm />
             </section>
           </article>
 
@@ -327,7 +327,7 @@ export default function AppointmentSetterPage() {
                 <dt>Role</dt>
                 <dd>Appointment Setter</dd>
                 <dt>Reports to</dt>
-                <dd>COO, Rosebud Solutions</dd>
+                <dd>CEO, Rosebud Solutions</dd>
                 <dt>Pay</dt>
                 <dd>100% commission · 7% → 10%</dd>
                 <dt>Location</dt>
