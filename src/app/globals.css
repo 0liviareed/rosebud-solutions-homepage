@@ -6060,3 +6060,13 @@ button { font: inherit; color: inherit; }
   color: var(--rb-bone);
   border-bottom-color: var(--rb-bone-hair);
 }
+
+/* .entry__field — Brevo wraps every input in this div and sib-styles
+   gives it background:#fff + light border. Clear those so the input
+   inside renders against our dark theme. Pure visual; no display/
+   position/pointer-events touched. */
+.rb-pricing-form-shell #sib-container .entry__field {
+  background: transparent !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+}
