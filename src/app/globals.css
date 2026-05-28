@@ -6034,3 +6034,13 @@ button { font: inherit; color: inherit; }
   color: var(--rb-bone);
   line-height: 1.4;
 }
+
+/* Apply page form width — restores Brevo's intended ~540px width on
+   the careers /apply page. .rb-pricing-form-shell has no max-width of
+   its own; the pricing form is constrained by .rb-pricing-right; the
+   careers form's container is the 760px .rb-apply-page-container, so
+   without this the form stretched too wide. */
+.rb-apply-page-container .rb-pricing-form-shell {
+  max-width: 540px;
+  margin: 0 auto;
+}
