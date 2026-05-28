@@ -4769,7 +4769,7 @@ button { font: inherit; color: inherit; }
 .rb-pricing-form-shell #sib-form > div { padding: 0 !important; }
 
 /* Inputs */
-.rb-pricing-form-shell input.input {
+.rb-pricing-form-shell #sib-container input.input {
   width: 100%;
   background: rgba(0, 0, 0, 0.35) !important;
   color: var(--rb-bone) !important;
@@ -4784,11 +4784,11 @@ button { font: inherit; color: inherit; }
   box-shadow: none !important;
   outline: none;
 }
-.rb-pricing-form-shell input.input:focus {
+.rb-pricing-form-shell #sib-container input.input:focus {
   border-color: var(--rb-purple-core) !important;
   box-shadow: 0 0 0 3px rgba(139, 125, 216, 0.18) !important;
 }
-.rb-pricing-form-shell input.input::placeholder {
+.rb-pricing-form-shell #sib-container input.input::placeholder {
   color: rgba(245, 241, 234, 0.35) !important;
   font-family: var(--font-dm-sans), sans-serif !important;
   text-transform: none !important;
@@ -4993,7 +4993,7 @@ button { font: inherit; color: inherit; }
 /* Native checkbox is hidden by Brevo's .input_replaced contract; we
    replace it with the .checkbox span (toggled via .checkbox_checked
    by Brevo's main.js). */
-.rb-pricing-form-shell input.input_replaced {
+.rb-pricing-form-shell #sib-container input.input_replaced {
   position: absolute;
   opacity: 0;
   pointer-events: none;
