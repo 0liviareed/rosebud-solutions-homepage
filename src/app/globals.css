@@ -5801,266 +5801,348 @@ button { font: inherit; color: inherit; }
 
 
 /* =============================================================
-   Careers — Appointment Setter page
-   /careers/appointment-setter
-
-   Self-contained section + form styles. Reuses the global token
-   palette (--rb-bone, --rb-bone-hair, --rb-purple-core) and the
-   .rb-sec / .rb-wrap / .rb-head / .rb-eyebrow / .rb-h2 / .rb-sub
-   scaffolding so the page reads as part of the editorial site.
+   Careers — /careers/appointment-setter
+   Job-listing layout: flush-left content, two-column with sticky
+   apply sidebar. Reuses global tokens (--rb-bone, --rb-bone-hair,
+   --rb-purple-core, type families). NOT the editorial centered
+   marketing pattern used elsewhere on the site — this page is a
+   long-form job post and reads denser, top-down, left-aligned.
    ============================================================= */
 
-/* Hero block — keeps role overview tight at the top */
-.rb-career .rb-career-hero {
-  padding-top: clamp(7rem, 12vw, 11rem);
+.rb-job {
+  --rb-job-max: 1120px;
+  --rb-job-content-max: 720px;
+  --rb-job-aside-w: 320px;
+  --rb-job-pad-x: clamp(1.25rem, 4vw, 2.5rem);
+  width: 100%;
+  color: var(--rb-bone);
+  background: var(--rb-bg-deep);
+  padding-bottom: clamp(3rem, 6vw, 5rem);
 }
-.rb-career-tags {
-  list-style: none;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px 10px;
-  margin: 1.5rem 0 0;
-  padding: 0;
-}
-.rb-career-tags li {
-  font-size: 12px;
-  letter-spacing: 0.04em;
-  color: var(--rb-bone-dim);
-  border: 1px solid var(--rb-bone-hair);
-  border-radius: 999px;
-  padding: 6px 12px;
-  background: rgba(245, 241, 234, 0.02);
-}
-.rb-career-apply-link {
-  margin-top: 1.75rem;
+.rb-job-container {
+  width: 100%;
+  max-width: var(--rb-job-max);
+  margin: 0 auto;
+  padding-left: var(--rb-job-pad-x);
+  padding-right: var(--rb-job-pad-x);
 }
 
-/* Body copy used inside career sections */
-.rb-career-body {
-  max-width: 64ch;
-  font-size: clamp(15px, 1.1vw, 17px);
+/* ── HEADER BAR ── */
+.rb-job-header {
+  padding-top: clamp(7rem, 12vw, 9.5rem);
+  padding-bottom: clamp(2rem, 3.5vw, 3rem);
+  border-bottom: 1px solid var(--rb-bone-hair);
+  background:
+    radial-gradient(
+      circle at 88% 18%,
+      rgba(139, 125, 216, 0.10),
+      transparent 55%
+    ),
+    var(--rb-bg-deep);
+}
+.rb-job-crumb {
+  margin: 0 0 14px;
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--rb-bone-dim);
+  font-weight: 500;
+}
+.rb-job-title {
+  margin: 0 0 22px;
+  font-family: var(--font-cormorant), serif;
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(2.5rem, 5.5vw, 4.25rem);
+  letter-spacing: -0.02em;
+  color: var(--rb-bone);
+  line-height: 1.02;
+}
+.rb-job-meta {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 28px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, max-content));
+  gap: 16px 36px;
+  border-top: 1px solid var(--rb-bone-hair);
+  border-bottom: 1px solid var(--rb-bone-hair);
+  padding: 18px 0;
+}
+.rb-job-meta li { display: flex; flex-direction: column; gap: 4px; }
+.rb-job-meta-k {
+  font-size: 10.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--rb-bone-dim);
+}
+.rb-job-meta-v {
+  font-size: 14px;
+  color: var(--rb-bone);
+  font-weight: 500;
+}
+.rb-job-header-cta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 18px;
+}
+.rb-job-apply-btn {
+  display: inline-block;
+  padding: 13px 28px;
+  background: var(--rb-purple-core);
+  border: 1px solid var(--rb-purple-core);
+  border-radius: 999px;
+  color: #fff !important;
+  font-family: var(--font-dm-sans), sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background 0.2s var(--rb-ease), transform 0.2s var(--rb-ease);
+}
+.rb-job-apply-btn:hover {
+  background: #9d8fe2;
+  transform: translateY(-1px);
+}
+.rb-job-secondary-link {
+  font-size: 13.5px;
+  color: var(--rb-bone-dim);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-color: var(--rb-bone-hair);
+  transition: color 0.2s var(--rb-ease);
+}
+.rb-job-secondary-link:hover { color: var(--rb-bone); }
+
+/* ── BODY: TWO COLUMNS ── */
+.rb-job-body { padding-top: clamp(2rem, 4vw, 3rem); }
+.rb-job-cols {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(2rem, 4vw, 3.5rem);
+}
+@media (min-width: 920px) {
+  .rb-job-cols {
+    grid-template-columns: minmax(0, var(--rb-job-content-max)) var(--rb-job-aside-w);
+    align-items: start;
+  }
+}
+
+/* ── MAIN COLUMN ── */
+.rb-job-main {
+  min-width: 0;
+  font-size: clamp(15px, 1.05vw, 16px);
   line-height: 1.65;
   color: var(--rb-bone);
 }
-.rb-career-body p { margin: 0 0 1rem; }
-.rb-career-body p:last-child { margin: 0; }
-.rb-career-body em { font-style: italic; color: var(--rb-purple); font-weight: 400; }
-.rb-career-body-tight { margin-top: 1.25rem; }
+.rb-job-sec {
+  margin: 0 0 clamp(2rem, 3vw, 2.75rem);
+  scroll-margin-top: 100px;
+}
+.rb-job-sec:last-child { margin-bottom: 0; }
+.rb-job-h2 {
+  margin: 0 0 0.85rem;
+  font-family: var(--font-dm-sans), sans-serif;
+  font-weight: 600;
+  font-size: clamp(1.05rem, 1.4vw, 1.15rem);
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--rb-bone);
+  padding-bottom: 0.7rem;
+  border-bottom: 1px solid var(--rb-bone-hair);
+}
+.rb-job-h3 {
+  margin: 1.5rem 0 0.5rem;
+  font-family: var(--font-dm-sans), sans-serif;
+  font-weight: 600;
+  font-size: 14px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--rb-purple);
+}
+.rb-job-main p {
+  margin: 0 0 1rem;
+  max-width: 64ch;
+  color: var(--rb-bone);
+}
+.rb-job-main p:last-child { margin-bottom: 0; }
+.rb-job-main p strong { color: var(--rb-bone); font-weight: 600; }
 
-.rb-career-callout {
-  margin: 1.5rem 0 0 !important;
-  padding: 1rem 1.25rem;
+.rb-job-callout {
+  margin: 1.25rem 0 0 !important;
+  padding: 0.85rem 1.1rem;
   border-left: 2px solid var(--rb-purple-core);
-  background: rgba(139, 125, 216, 0.06);
-  border-radius: 0 8px 8px 0;
+  background: rgba(139, 125, 216, 0.05);
   font-style: italic;
   color: var(--rb-bone);
 }
 
-/* Bullet lists used across the page */
-.rb-career-list {
+/* Lists */
+.rb-job-list,
+.rb-job-ol {
   list-style: none;
   padding: 0;
   margin: 0;
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 9px;
   max-width: 64ch;
-  font-size: clamp(15px, 1.05vw, 16px);
-  line-height: 1.55;
-  color: var(--rb-bone);
 }
-.rb-career-list li {
+.rb-job-list li,
+.rb-job-ol li {
   position: relative;
   padding-left: 22px;
+  color: var(--rb-bone);
 }
-.rb-career-list li::before {
+.rb-job-list li::before {
   content: "";
   position: absolute;
-  left: 0;
-  top: 0.55em;
-  width: 6px;
-  height: 6px;
+  left: 6px;
+  top: 0.7em;
+  width: 5px;
+  height: 5px;
   border-radius: 50%;
   background: var(--rb-purple-core);
   opacity: 0.85;
 }
-
-/* Numbered qualification criteria */
-.rb-criteria {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 1rem;
+.rb-job-ol {
+  counter-reset: rb-job-ol;
 }
-.rb-criteria li {
-  display: flex;
-  gap: 14px;
-  padding: 1.25rem 1.25rem 1.35rem;
-  border: 1px solid var(--rb-bone-hair);
-  border-radius: 14px;
-  background: rgba(245, 241, 234, 0.02);
-  transition: border-color 0.4s var(--rb-ease), background 0.4s var(--rb-ease);
+.rb-job-ol li {
+  padding-left: 28px;
+  counter-increment: rb-job-ol;
 }
-.rb-criteria li:hover {
-  border-color: rgba(139, 125, 216, 0.32);
-  background: rgba(139, 125, 216, 0.04);
-}
-.rb-criteria-num {
-  font-family: var(--font-cormorant), serif;
-  font-style: italic;
-  font-size: 1.4rem;
-  color: var(--rb-purple);
-  line-height: 1;
-  opacity: 0.85;
-  min-width: 28px;
-}
-.rb-criteria li h3 {
-  margin: 0 0 6px;
-  font-size: 15px;
+.rb-job-ol li::before {
+  content: counter(rb-job-ol, decimal-leading-zero);
+  position: absolute;
+  left: 0;
+  top: 0.05em;
+  font-family: var(--font-dm-sans), sans-serif;
+  font-size: 11px;
   font-weight: 600;
-  color: var(--rb-bone);
-  letter-spacing: -0.005em;
-}
-.rb-criteria li p {
-  margin: 0;
-  font-size: 14px;
-  line-height: 1.55;
-  color: var(--rb-bone-dim);
-}
-
-/* 30/60/90 ramp cards */
-.rb-ramp {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 1rem;
-}
-.rb-ramp-card {
-  padding: 1.5rem 1.25rem;
-  border: 1px solid var(--rb-bone-hair);
-  border-radius: 14px;
-  background: rgba(245, 241, 234, 0.02);
-}
-.rb-ramp-window {
-  margin: 0 0 0.75rem;
-  font-family: var(--font-cormorant), serif;
-  font-style: italic;
-  font-size: 1.25rem;
+  letter-spacing: 0.08em;
   color: var(--rb-purple);
-  letter-spacing: -0.01em;
 }
-.rb-ramp-card p:last-child {
+.rb-job-list li strong,
+.rb-job-ol li strong { color: var(--rb-bone); font-weight: 600; }
+
+/* Definition list for 30/60/90 */
+.rb-job-dl {
   margin: 0;
-  font-size: 14.5px;
-  line-height: 1.55;
-  color: var(--rb-bone);
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  max-width: 64ch;
 }
-
-/* Required / Nice-to-have two-column */
-.rb-need {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 2rem;
-}
-@media (min-width: 780px) {
-  .rb-need { grid-template-columns: 1fr 1fr; gap: 3rem; }
-}
-.rb-need-h {
-  margin: 0 0 1rem;
-  font-family: var(--font-cormorant), serif;
-  font-style: italic;
-  font-weight: 400;
-  font-size: 1.4rem;
-  color: var(--rb-bone);
-  letter-spacing: -0.005em;
-}
-
-/* Compensation — rate cards + earnings table */
-.rb-comp-rates {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 1rem;
-  margin-top: 1rem;
-}
-.rb-comp-card {
-  padding: 1.75rem 1.5rem;
-  border: 1px solid var(--rb-bone-hair);
-  border-radius: 14px;
-  background: rgba(245, 241, 234, 0.02);
-}
-.rb-comp-card-on {
-  border-color: rgba(139, 125, 216, 0.32);
-  background: rgba(139, 125, 216, 0.05);
-  box-shadow: 0 0 0 1px rgba(139, 125, 216, 0.12) inset;
-}
-.rb-comp-card-rate {
-  margin: 0 0 4px;
-  font-family: var(--font-editorial), system-ui, sans-serif;
-  font-size: clamp(2.5rem, 4vw, 3.25rem);
-  font-weight: 700;
-  letter-spacing: -0.025em;
-  color: var(--rb-bone);
-  line-height: 1;
-}
-.rb-comp-card-on .rb-comp-card-rate { color: var(--rb-purple); }
-.rb-comp-card-label {
-  margin: 0 0 8px;
-  font-size: 12px;
-  letter-spacing: 0.12em;
+.rb-job-dl dt {
+  font-family: var(--font-dm-sans), sans-serif;
+  font-weight: 600;
+  font-size: 13px;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
-  color: var(--rb-bone-dim);
+  color: var(--rb-purple);
+  margin-bottom: 4px;
 }
-.rb-comp-card-body {
-  margin: 0;
-  font-size: 14px;
-  line-height: 1.55;
+.rb-job-dl dd {
+  margin: 0 0 0.5rem;
   color: var(--rb-bone);
 }
+.rb-job-dl dd:last-child { margin-bottom: 0; }
 
-.rb-earnings {
-  margin-top: 1.75rem;
-}
-.rb-earnings-table-wrap {
+/* Earnings table */
+.rb-job-table-wrap {
+  margin: 1.25rem 0 0.75rem;
   overflow-x: auto;
   border: 1px solid var(--rb-bone-hair);
-  border-radius: 14px;
-  background: rgba(245, 241, 234, 0.02);
+  border-radius: 10px;
 }
-.rb-earnings-table {
+.rb-job-table {
   width: 100%;
   border-collapse: collapse;
-  font-size: 14.5px;
+  font-size: 14px;
   color: var(--rb-bone);
 }
-.rb-earnings-table th,
-.rb-earnings-table td {
+.rb-job-table th,
+.rb-job-table td {
   text-align: left;
-  padding: 14px 18px;
+  padding: 11px 16px;
   border-bottom: 1px solid var(--rb-bone-hair);
 }
-.rb-earnings-table thead th {
+.rb-job-table thead th {
   font-weight: 500;
-  font-size: 11px;
-  letter-spacing: 0.12em;
+  font-size: 10.5px;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--rb-bone-dim);
-  background: rgba(245, 241, 234, 0.015);
+  background: rgba(245, 241, 234, 0.02);
 }
-.rb-earnings-table tbody tr:last-child td { border-bottom: 0; }
-.rb-earnings-table tbody td:first-child {
-  font-family: var(--font-cormorant), serif;
-  font-size: 16px;
-  color: var(--rb-purple);
-}
-.rb-earnings-table tbody td em { font-style: italic; }
-.rb-earnings-foot {
-  margin: 0.75rem 0 0;
+.rb-job-table tbody tr:last-child td { border-bottom: 0; }
+.rb-job-table tbody td:first-child { font-weight: 600; color: var(--rb-purple); }
+.rb-job-foot {
+  margin-top: 0.75rem !important;
   font-size: 13px;
-  color: var(--rb-bone-dim);
+  color: var(--rb-bone-dim) !important;
   line-height: 1.55;
-  max-width: 64ch;
+}
+
+/* ── STICKY APPLY SIDEBAR ── */
+.rb-job-aside {
+  align-self: start;
+}
+@media (min-width: 920px) {
+  .rb-job-aside {
+    position: sticky;
+    top: 100px;
+  }
+}
+.rb-job-aside-card {
+  background: rgba(245, 241, 234, 0.025);
+  border: 1px solid var(--rb-bone-hair);
+  border-radius: 14px;
+  padding: 1.5rem 1.5rem 1.75rem;
+}
+.rb-job-aside-eyebrow {
+  margin: 0 0 6px;
+  font-size: 10.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--rb-bone-dim);
+  font-weight: 600;
+}
+.rb-job-aside-body {
+  margin: 0 0 16px;
+  font-size: 13.5px;
+  line-height: 1.55;
+  color: var(--rb-bone);
+}
+.rb-job-apply-btn-full {
+  display: block;
+  width: 100%;
+  text-align: center;
+  margin-bottom: 1.25rem;
+}
+.rb-job-aside-facts {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px 14px;
+  margin: 0;
+  padding: 1.25rem 0 0;
+  border-top: 1px solid var(--rb-bone-hair);
+}
+.rb-job-aside-facts dt {
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--rb-bone-dim);
+  font-weight: 600;
+}
+.rb-job-aside-facts dd {
+  margin: 0;
+  font-size: 13px;
+  color: var(--rb-bone);
+  line-height: 1.4;
 }
 
 /* Application form */
