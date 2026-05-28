@@ -5911,13 +5911,13 @@ button { font: inherit; color: inherit; }
   color: var(--rb-bone);
 }
 .rb-job-intro {
-  margin: 0 0 clamp(2rem, 3vw, 2.75rem);
+  margin: 0 0 clamp(3rem, 5vw, 4.5rem);
   font-size: clamp(15.5px, 1.1vw, 17px);
   line-height: 1.7;
   color: var(--rb-bone);
 }
 .rb-job-sec {
-  margin: 0 0 clamp(2rem, 3vw, 2.75rem);
+  margin: 0 0 clamp(3rem, 5vw, 4.5rem);
   scroll-margin-top: 100px;
 }
 .rb-job-sec:last-child { margin-bottom: 0; }
