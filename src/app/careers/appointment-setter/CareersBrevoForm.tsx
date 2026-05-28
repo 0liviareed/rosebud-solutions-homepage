@@ -279,7 +279,7 @@ const BREVO_FORM_HTML = `
         </div>
 
         <div style="padding: 8px 0;">
-          <div class="sib-form-block rb-careers-data-body"><div class="sib-text-form-block"><p>Rosebud Global Ltd (trading as Rosebud Solutions) is the data controller for the information you provide. We use it to assess your suitability for this role and to contact you about your application. Full details on how we handle your data, how long we keep it, and your rights are in our <a href="/privacy" target="_blank" rel="noopener noreferrer">Privacy Policy</a>.</p></div></div>
+          <div class="sib-form-block rb-careers-data-body"><div class="sib-text-form-block"><p>Rosebud Global Ltd (trading as Rosebud Solutions) is the data controller for the information you provide. We use it to assess your suitability for this role and to contact you about your application. Full details on how we handle your data, how long we keep it, and your rights are in our <a href="/privacy" target="_blank" rel="noopener noreferrer">Privacy Policy</a>.<span class="rb-tip" tabindex="0" role="button" aria-label="Verification notice"><span class="rb-tip-icon" aria-hidden="true">i</span><span class="rb-tip-content" role="tooltip">This site is protected by reCAPTCHA and the Google <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">Privacy Policy</a> and <a href="https://policies.google.com/terms" target="_blank" rel="noopener noreferrer">Terms of Service</a> apply.</span></span></p></div></div>
         </div>
 
         <div style="padding: 8px 0;">
@@ -321,7 +321,6 @@ const BREVO_FORM_HTML = `
 
         <input type="text" name="email_address_check" value="" class="input--hidden">
         <input type="hidden" name="locale" value="en">
-        <p class="rb-recaptcha-attrib">This site is protected by reCAPTCHA and the Google <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">Privacy Policy</a> and <a href="https://policies.google.com/terms" target="_blank" rel="noopener noreferrer">Terms of Service</a> apply.</p>
       </form>
     </div>
   </div>

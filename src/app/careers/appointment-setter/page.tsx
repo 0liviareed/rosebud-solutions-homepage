@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import CareersBrevoForm from "./CareersBrevoForm";
+import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "Appointment Setter — Rosebud Solutions",
@@ -65,7 +65,9 @@ export default function AppointmentSetterPage() {
             Remote · Independent Contractor · Commission-Only · Rolling Intake.
           </p>
           <div className="rb-job-header-cta">
-            <a href="#apply" className="rb-job-apply-btn">Apply for this role</a>
+            <Link href="/careers/appointment-setter/apply" className="rb-job-apply-btn">
+              Apply for this role
+            </Link>
           </div>
         </div>
       </header>
@@ -149,13 +151,8 @@ export default function AppointmentSetterPage() {
                 <li><strong>Location:</strong> Remote, with UK and US East Coast calling overlap</li>
                 <li><strong>Type:</strong> Independent contractor, commission-only</li>
                 <li><strong>Intake:</strong> Rolling — we onboard when fit is clear</li>
-                <li><strong>Apply:</strong> Complete the form below. Applications reviewed weekly.</li>
+                <li><strong>Apply:</strong> Submit the application form. Applications reviewed weekly.</li>
               </ul>
-            </section>
-
-            <section className="rb-job-sec" id="apply">
-              <h2 className="rb-job-h2">Apply</h2>
-              <CareersBrevoForm />
             </section>
           </article>
 
@@ -165,9 +162,9 @@ export default function AppointmentSetterPage() {
               <p className="rb-job-aside-body">
                 Applications reviewed weekly.
               </p>
-              <a href="#apply" className="rb-job-apply-btn rb-job-apply-btn-full">
+              <Link href="/careers/appointment-setter/apply" className="rb-job-apply-btn rb-job-apply-btn-full">
                 Start application
-              </a>
+              </Link>
               <dl className="rb-job-aside-facts">
                 <dt>Role</dt>
                 <dd>Appointment Setter</dd>

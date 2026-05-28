@@ -6043,7 +6043,17 @@ button { font: inherit; color: inherit; }
    checkboxes.
    ============================================================= */
 
-.rb-careers-form-shell { max-width: 540px; margin: 0; }
+/* Careers form shell — higher-contrast card than the pricing form because
+   the role-listing background is near-black; the pricing-form 2.5%-alpha
+   panel was disappearing into it. Solid elevated panel + stronger border
+   makes the form clearly distinct. */
+.rb-careers-form-shell {
+  max-width: 720px;
+  margin: 0 auto;
+  background: #0e0e14 !important;
+  border: 1px solid rgba(245, 241, 234, 0.18) !important;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
+}
 
 /* Section header rows ("Section 1 · About you") — editorial Cormorant
    italic instead of Brevo's heavy DM-Sans-700-32px. Sits as an h3-level
@@ -6067,17 +6077,24 @@ button { font: inherit; color: inherit; }
   height: 0;
 }
 
-/* SMS phone field — Brevo splits into [country code select][number input].
-   Both need the dark-mode treatment plus an explicit gap so they don't
-   collide. */
+/* SMS phone field — Brevo splits into [country code select] + [number input].
+   Stacked vertical so Brevo's intl widget rendering can't push elements out
+   of the column on narrow viewports. Each child takes the full row with a
+   modest gap — robust at any breakpoint. */
 .rb-pricing-form-shell .sib-sms-input {
   display: flex !important;
-  gap: 8px;
+  flex-direction: column !important;
+  gap: 8px !important;
   align-items: stretch;
+  width: 100%;
 }
-.rb-pricing-form-shell .sib-sms-input > .entry__field { display: flex; }
-.rb-pricing-form-shell .sib-sms-input > .entry__field:first-child { flex: 0 0 auto; min-width: 110px; }
-.rb-pricing-form-shell .sib-sms-input > .entry__field:last-child { flex: 1 1 auto; }
+.rb-pricing-form-shell .sib-sms-input > .entry__field {
+  display: block !important;
+  width: 100% !important;
+  flex: none !important;
+}
+.rb-pricing-form-shell .sib-sms-input > .entry__field input,
+.rb-pricing-form-shell .sib-sms-input > .entry__field select { width: 100% !important; }
 .rb-pricing-form-shell select.input {
   width: 100%;
   background: rgba(0, 0, 0, 0.35) !important;
@@ -6195,3 +6212,110 @@ button { font: inherit; color: inherit; }
   transition: background 0.2s var(--rb-ease);
 }
 .rb-pricing-form-shell .sib-form-block__button:hover { background: #9d8fe2 !important; }
+
+/* =============================================================
+   Inline info tooltip — used inline in the data-protection
+   paragraph to surface the reCAPTCHA notice without occupying
+   permanent visual real estate. CSS-only reveal on hover OR
+   keyboard focus for accessibility.
+   ============================================================= */
+.rb-tip {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 6px;
+  vertical-align: baseline;
+  cursor: help;
+  outline: none;
+}
+.rb-tip-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  border: 1px solid var(--rb-bone-dim);
+  color: var(--rb-bone-dim);
+  font-family: var(--font-cormorant), serif;
+  font-style: italic;
+  font-size: 11px;
+  line-height: 1;
+  font-weight: 500;
+  transition: border-color 0.2s var(--rb-ease), color 0.2s var(--rb-ease);
+}
+.rb-tip:hover .rb-tip-icon,
+.rb-tip:focus .rb-tip-icon {
+  border-color: var(--rb-purple-core);
+  color: var(--rb-purple);
+}
+.rb-tip-content {
+  position: absolute;
+  bottom: calc(100% + 8px);
+  right: 0;
+  width: max-content;
+  max-width: 280px;
+  padding: 10px 12px;
+  background: #15151c;
+  color: var(--rb-bone);
+  border: 1px solid rgba(245, 241, 234, 0.18);
+  border-radius: 8px;
+  font-family: var(--font-dm-sans), sans-serif;
+  font-size: 12px;
+  line-height: 1.5;
+  letter-spacing: 0.01em;
+  text-align: left;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(4px);
+  transition: opacity 0.2s var(--rb-ease), transform 0.2s var(--rb-ease);
+  z-index: 20;
+}
+.rb-tip-content a {
+  color: var(--rb-purple);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.rb-tip:hover .rb-tip-content,
+.rb-tip:focus .rb-tip-content,
+.rb-tip:focus-within .rb-tip-content {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+@media (max-width: 520px) {
+  .rb-tip-content { max-width: 220px; }
+}
+
+/* =============================================================
+   Apply page — /careers/appointment-setter/apply
+   Single-column form-only layout. Reuses .rb-job tokens for
+   header colour + Cormorant title, but a tighter container
+   sized to the form rather than the two-column job listing.
+   ============================================================= */
+.rb-apply-page-container {
+  width: 100%;
+  max-width: 760px;
+  margin: 0 auto;
+  padding-left: clamp(1.25rem, 4vw, 2rem);
+  padding-right: clamp(1.25rem, 4vw, 2rem);
+}
+.rb-apply-page-header { padding-top: clamp(5rem, 9vw, 7rem); }
+.rb-apply-page-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 1.25rem;
+  font-size: 12.5px;
+  letter-spacing: 0.04em;
+  color: var(--rb-bone-dim);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: color 0.2s var(--rb-ease), border-color 0.2s var(--rb-ease);
+}
+.rb-apply-page-back:hover {
+  color: var(--rb-bone);
+  border-bottom-color: var(--rb-bone-hair);
+}
