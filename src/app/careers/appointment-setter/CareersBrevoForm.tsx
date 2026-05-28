@@ -63,78 +63,6 @@ const BREVO_FORM_HTML = `
 
         <div style="padding: 8px 0;">
           <div class="sib-input sib-form-block"><div class="form__entry entry_block"><div class="form__label-row">
-            <label class="entry__label" data-required="*">Phone number</label>
-            <div class="entry__field rb-phone-row">
-              <select class="input rb-phone-cc" id="SMS__COUNTRY_CODE" name="SMS__COUNTRY_CODE">
-                <option value="+44">United Kingdom (+44)</option>
-                <option value="+1US">United States (+1)</option>
-                <option value="+1CA">Canada (+1)</option>
-                <option value="+61">Australia (+61)</option>
-                <option value="+353">Ireland (+353)</option>
-                <option value="+64">New Zealand (+64)</option>
-                <option value="+27">South Africa (+27)</option>
-                <option value="+33">France (+33)</option>
-                <option value="+49">Germany (+49)</option>
-                <option value="+34">Spain (+34)</option>
-                <option value="+39">Italy (+39)</option>
-                <option value="+31">Netherlands (+31)</option>
-                <option value="+32">Belgium (+32)</option>
-                <option value="+41">Switzerland (+41)</option>
-                <option value="+43">Austria (+43)</option>
-                <option value="+45">Denmark (+45)</option>
-                <option value="+46">Sweden (+46)</option>
-                <option value="+47">Norway (+47)</option>
-                <option value="+48">Poland (+48)</option>
-                <option value="+351">Portugal (+351)</option>
-                <option value="+352">Luxembourg (+352)</option>
-                <option value="+30">Greece (+30)</option>
-                <option value="+36">Hungary (+36)</option>
-                <option value="+40">Romania (+40)</option>
-                <option value="+420">Czech Republic (+420)</option>
-                <option value="+421">Slovakia (+421)</option>
-                <option value="+372">Estonia (+372)</option>
-                <option value="+371">Latvia (+371)</option>
-                <option value="+370">Lithuania (+370)</option>
-                <option value="+386">Slovenia (+386)</option>
-                <option value="+385">Croatia (+385)</option>
-                <option value="+358">Finland (+358)</option>
-                <option value="+91">India (+91)</option>
-                <option value="+92">Pakistan (+92)</option>
-                <option value="+880">Bangladesh (+880)</option>
-                <option value="+94">Sri Lanka (+94)</option>
-                <option value="+852">Hong Kong (+852)</option>
-                <option value="+65">Singapore (+65)</option>
-                <option value="+60">Malaysia (+60)</option>
-                <option value="+66">Thailand (+66)</option>
-                <option value="+62">Indonesia (+62)</option>
-                <option value="+63">Philippines (+63)</option>
-                <option value="+84">Vietnam (+84)</option>
-                <option value="+81">Japan (+81)</option>
-                <option value="+82">South Korea (+82)</option>
-                <option value="+86">China (+86)</option>
-                <option value="+886">Taiwan (+886)</option>
-                <option value="+971">United Arab Emirates (+971)</option>
-                <option value="+966">Saudi Arabia (+966)</option>
-                <option value="+972">Israel (+972)</option>
-                <option value="+90">Turkey (+90)</option>
-                <option value="+20">Egypt (+20)</option>
-                <option value="+234">Nigeria (+234)</option>
-                <option value="+254">Kenya (+254)</option>
-                <option value="+233">Ghana (+233)</option>
-                <option value="+52">Mexico (+52)</option>
-                <option value="+55">Brazil (+55)</option>
-                <option value="+54">Argentina (+54)</option>
-                <option value="+56">Chile (+56)</option>
-                <option value="+57">Colombia (+57)</option>
-              </select>
-              <input class="input rb-phone-num" type="text" inputmode="numeric" id="SMS_NUMBER" autocomplete="tel-national" placeholder="Number — no country code" data-required="true" required />
-            </div>
-            <input type="hidden" name="SMS" id="SMS" />
-          </div><label class="entry__error entry__error--primary"></label></div></div>
-        </div>
-
-        <div style="padding: 8px 0;">
-          <div class="sib-input sib-form-block"><div class="form__entry entry_block"><div class="form__label-row">
             <label class="entry__label" for="CITY" data-required="*">Country and city of residence</label>
             <div class="entry__field"><input class="input" maxlength="200" type="text" id="CITY" name="CITY" autocomplete="address-level2" data-required="true" required /></div>
           </div><label class="entry__error entry__error--primary"></label></div></div>
@@ -319,55 +247,6 @@ window.translation = { common: { selectedList: '{quantity} list selected', selec
 window.AUTOHIDE = Boolean(0);
 `;
 
-// Combine the custom country-code select + plain phone input into the
-// hidden Brevo SMS field. Both visible fields fire this on every change,
-// so the hidden SMS attribute is always in sync before the form submits.
-// Country code values carry a trailing country marker for entries that
-// share a dial code (+1 US / +1 CA) — strip it before concat. Brevo's
-// SMS validation rejects any "+" or leading 0 in the submitted value
-// (their help text: "must contain between 6 and 19 digits and include
-// the country code without using +/0"), so we drop both before joining.
-const SMS_COMBINE_SCRIPT = `
-(function() {
-  function sync() {
-    var cc = document.getElementById('SMS__COUNTRY_CODE');
-    var num = document.getElementById('SMS_NUMBER');
-    var sms = document.getElementById('SMS');
-    if (!cc || !num || !sms) return;
-    var code = (cc.value || '').replace(/[A-Z]+$/, '').replace(/^\\+/, '');
-    var n = (num.value || '').replace(/[^0-9]/g, '').replace(/^0+/, '');
-    // Guard for users who include the country code in the number too —
-    // e.g. US applicant types '15551234567' with US already selected.
-    // Strip the leading code if the remainder is still a reasonable
-    // national-number length (>= 6 digits) so we don't double it.
-    if (code && n.indexOf(code) === 0 && (n.length - code.length) >= 6) {
-      n = n.substring(code.length);
-    }
-    sms.value = n ? (code + n) : '';
-  }
-  function bind() {
-    var cc = document.getElementById('SMS__COUNTRY_CODE');
-    var num = document.getElementById('SMS_NUMBER');
-    var form = document.getElementById('sib-form');
-    if (!cc || !num) return false;
-    cc.addEventListener('change', sync);
-    num.addEventListener('input', sync);
-    num.addEventListener('blur', sync);
-    // Capture phase so we run BEFORE Brevo's main.js validates the SMS
-    // field on submit — guarantees the hidden field carries the
-    // current combined value when Brevo's validator inspects it.
-    if (form) form.addEventListener('submit', sync, true);
-    sync();
-    return true;
-  }
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', bind);
-  } else {
-    if (!bind()) setTimeout(bind, 300);
-  }
-})();
-`;
-
 // Init flatpickr on the start-date input. Runs after the flatpickr
 // script has loaded — retries briefly if the global isn't ready yet
 // (script tags execute out-of-order with strategy=afterInteractive).
@@ -414,11 +293,6 @@ export default function CareersBrevoForm() {
         id="careers-brevo-globals"
         strategy="afterInteractive"
         dangerouslySetInnerHTML={{ __html: BREVO_GLOBALS_SCRIPT }}
-      />
-      <Script
-        id="careers-sms-combine"
-        strategy="afterInteractive"
-        dangerouslySetInnerHTML={{ __html: SMS_COMBINE_SCRIPT }}
       />
       <Script
         src="https://cdn.jsdelivr.net/npm/flatpickr@4.6.13/dist/flatpickr.min.js"
