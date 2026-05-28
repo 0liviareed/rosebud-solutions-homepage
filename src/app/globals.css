@@ -6342,3 +6342,31 @@ button { font: inherit; color: inherit; }
   color: var(--rb-bone);
   border-bottom-color: var(--rb-bone-hair);
 }
+
+/* Custom phone-number row — country code select + phone input side by
+   side. Bypasses Brevo's intl-tel-input widget which can't be reliably
+   styled against the dark palette without loading sib-styles.css. The
+   two visible values are concatenated into the hidden SMS field by the
+   careers-sms-combine script, so Brevo's submission still receives the
+   full international number on the SMS attribute. */
+.rb-pricing-form-shell .rb-phone-row {
+  display: flex !important;
+  flex-direction: row !important;
+  gap: 8px !important;
+  align-items: stretch;
+  width: 100%;
+}
+.rb-pricing-form-shell .rb-phone-cc {
+  flex: 0 0 38% !important;
+  min-width: 0;
+  max-width: 220px;
+}
+.rb-pricing-form-shell .rb-phone-num {
+  flex: 1 1 auto !important;
+  min-width: 0 !important;
+}
+@media (max-width: 480px) {
+  .rb-pricing-form-shell .rb-phone-row { flex-wrap: wrap; }
+  .rb-pricing-form-shell .rb-phone-cc { flex: 1 1 100% !important; max-width: none; }
+  .rb-pricing-form-shell .rb-phone-num { flex: 1 1 100% !important; }
+}
