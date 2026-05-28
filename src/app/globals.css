@@ -6077,24 +6077,47 @@ button { font: inherit; color: inherit; }
   height: 0;
 }
 
-/* SMS phone field — Brevo splits into [country code select] + [number input].
-   Stacked vertical so Brevo's intl widget rendering can't push elements out
-   of the column on narrow viewports. Each child takes the full row with a
-   modest gap — robust at any breakpoint. */
+/* SMS phone field.
+   Brevo's main.js enhances .sib-sms-input into a country picker UI:
+   the country name renders above (e.g. "United Kingdom"), then a row
+   of [dial-code box] + [number input]. We don't load Brevo's
+   sib-styles.css, so the default tooltip box + "?" icon show all
+   the time — we hide the whole tooltip (the dial code makes the
+   format obvious). The two inputs sit side by side; the dial-code
+   box is fixed-width so the number input claims the remaining space.
+   Any non-.entry__field divs Brevo injects (country name header)
+   render as a thin caption that wraps the row. */
+.rb-pricing-form-shell .sib-sms-tooltip { display: none !important; }
 .rb-pricing-form-shell .sib-sms-input {
   display: flex !important;
-  flex-direction: column !important;
+  flex-direction: row !important;
+  flex-wrap: wrap;
   gap: 8px !important;
   align-items: stretch;
   width: 100%;
 }
 .rb-pricing-form-shell .sib-sms-input > .entry__field {
   display: block !important;
-  width: 100% !important;
   flex: none !important;
 }
+.rb-pricing-form-shell .sib-sms-input > .entry__field:first-child {
+  flex: 0 0 110px !important;
+}
+.rb-pricing-form-shell .sib-sms-input > .entry__field:last-child {
+  flex: 1 1 auto !important;
+  min-width: 0 !important;
+}
 .rb-pricing-form-shell .sib-sms-input > .entry__field input,
-.rb-pricing-form-shell .sib-sms-input > .entry__field select { width: 100% !important; }
+.rb-pricing-form-shell .sib-sms-input > .entry__field select {
+  width: 100% !important;
+}
+.rb-pricing-form-shell .sib-sms-input > div:not(.entry__field) {
+  flex: 1 0 100%;
+  font-size: 11.5px;
+  letter-spacing: 0.04em;
+  color: var(--rb-bone-dim);
+  margin-bottom: 2px;
+}
 .rb-pricing-form-shell select.input {
   width: 100%;
   background: rgba(0, 0, 0, 0.35) !important;
