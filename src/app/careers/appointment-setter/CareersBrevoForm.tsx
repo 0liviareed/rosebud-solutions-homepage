@@ -177,7 +177,7 @@ const BREVO_FORM_HTML = `
         <div style="padding: 8px 0;">
           <div class="sib-input sib-form-block"><div class="form__entry"><div class="form__label-row">
             <label class="entry__label" for="START_DATE" data-required="*">Earliest possible start date</label>
-            <div class="entry__field"><input class="input" type="text" id="START_DATE" name="START_DATE" autocomplete="off" placeholder="dd-mm-yyyy" data-required="true" required readonly /></div>
+            <div class="entry__field"><input class="input" type="date" id="START_DATE" name="START_DATE" autocomplete="off" data-required="true" required /></div>
           </div><label class="entry__error entry__error--primary"></label></div></div>
         </div>
 
@@ -285,23 +285,10 @@ export default function CareersBrevoForm() {
       <div className="rb-pricing-form-shell rb-careers-form-shell">
         <div dangerouslySetInnerHTML={{ __html: BREVO_FORM_HTML }} />
       </div>
-      <link
-        rel="stylesheet"
-        href="https://cdn.jsdelivr.net/npm/flatpickr@4.6.13/dist/flatpickr.min.css"
-      />
       <Script
         id="careers-brevo-globals"
         strategy="afterInteractive"
         dangerouslySetInnerHTML={{ __html: BREVO_GLOBALS_SCRIPT }}
-      />
-      <Script
-        src="https://cdn.jsdelivr.net/npm/flatpickr@4.6.13/dist/flatpickr.min.js"
-        strategy="afterInteractive"
-      />
-      <Script
-        id="careers-flatpickr-init"
-        strategy="afterInteractive"
-        dangerouslySetInnerHTML={{ __html: FLATPICKR_INIT_SCRIPT }}
       />
       <Script
         src="https://sibforms.com/forms/end-form/build/main.js"
