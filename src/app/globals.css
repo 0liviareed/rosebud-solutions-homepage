@@ -5799,3 +5799,410 @@ button { font: inherit; color: inherit; }
   .rb-split-role-body { padding-left: calc(2rem + 14px); }
 }
 
+
+/* =============================================================
+   Careers — Appointment Setter page
+   /careers/appointment-setter
+
+   Self-contained section + form styles. Reuses the global token
+   palette (--rb-bone, --rb-bone-hair, --rb-purple-core) and the
+   .rb-sec / .rb-wrap / .rb-head / .rb-eyebrow / .rb-h2 / .rb-sub
+   scaffolding so the page reads as part of the editorial site.
+   ============================================================= */
+
+/* Hero block — keeps role overview tight at the top */
+.rb-career .rb-career-hero {
+  padding-top: clamp(7rem, 12vw, 11rem);
+}
+.rb-career-tags {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 10px;
+  margin: 1.5rem 0 0;
+  padding: 0;
+}
+.rb-career-tags li {
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  color: var(--rb-bone-dim);
+  border: 1px solid var(--rb-bone-hair);
+  border-radius: 999px;
+  padding: 6px 12px;
+  background: rgba(245, 241, 234, 0.02);
+}
+.rb-career-apply-link {
+  margin-top: 1.75rem;
+}
+
+/* Body copy used inside career sections */
+.rb-career-body {
+  max-width: 64ch;
+  font-size: clamp(15px, 1.1vw, 17px);
+  line-height: 1.65;
+  color: var(--rb-bone);
+}
+.rb-career-body p { margin: 0 0 1rem; }
+.rb-career-body p:last-child { margin: 0; }
+.rb-career-body em { font-style: italic; color: var(--rb-purple); font-weight: 400; }
+.rb-career-body-tight { margin-top: 1.25rem; }
+
+.rb-career-callout {
+  margin: 1.5rem 0 0 !important;
+  padding: 1rem 1.25rem;
+  border-left: 2px solid var(--rb-purple-core);
+  background: rgba(139, 125, 216, 0.06);
+  border-radius: 0 8px 8px 0;
+  font-style: italic;
+  color: var(--rb-bone);
+}
+
+/* Bullet lists used across the page */
+.rb-career-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-width: 64ch;
+  font-size: clamp(15px, 1.05vw, 16px);
+  line-height: 1.55;
+  color: var(--rb-bone);
+}
+.rb-career-list li {
+  position: relative;
+  padding-left: 22px;
+}
+.rb-career-list li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.55em;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--rb-purple-core);
+  opacity: 0.85;
+}
+
+/* Numbered qualification criteria */
+.rb-criteria {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1rem;
+}
+.rb-criteria li {
+  display: flex;
+  gap: 14px;
+  padding: 1.25rem 1.25rem 1.35rem;
+  border: 1px solid var(--rb-bone-hair);
+  border-radius: 14px;
+  background: rgba(245, 241, 234, 0.02);
+  transition: border-color 0.4s var(--rb-ease), background 0.4s var(--rb-ease);
+}
+.rb-criteria li:hover {
+  border-color: rgba(139, 125, 216, 0.32);
+  background: rgba(139, 125, 216, 0.04);
+}
+.rb-criteria-num {
+  font-family: var(--font-cormorant), serif;
+  font-style: italic;
+  font-size: 1.4rem;
+  color: var(--rb-purple);
+  line-height: 1;
+  opacity: 0.85;
+  min-width: 28px;
+}
+.rb-criteria li h3 {
+  margin: 0 0 6px;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--rb-bone);
+  letter-spacing: -0.005em;
+}
+.rb-criteria li p {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--rb-bone-dim);
+}
+
+/* 30/60/90 ramp cards */
+.rb-ramp {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1rem;
+}
+.rb-ramp-card {
+  padding: 1.5rem 1.25rem;
+  border: 1px solid var(--rb-bone-hair);
+  border-radius: 14px;
+  background: rgba(245, 241, 234, 0.02);
+}
+.rb-ramp-window {
+  margin: 0 0 0.75rem;
+  font-family: var(--font-cormorant), serif;
+  font-style: italic;
+  font-size: 1.25rem;
+  color: var(--rb-purple);
+  letter-spacing: -0.01em;
+}
+.rb-ramp-card p:last-child {
+  margin: 0;
+  font-size: 14.5px;
+  line-height: 1.55;
+  color: var(--rb-bone);
+}
+
+/* Required / Nice-to-have two-column */
+.rb-need {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+}
+@media (min-width: 780px) {
+  .rb-need { grid-template-columns: 1fr 1fr; gap: 3rem; }
+}
+.rb-need-h {
+  margin: 0 0 1rem;
+  font-family: var(--font-cormorant), serif;
+  font-style: italic;
+  font-weight: 400;
+  font-size: 1.4rem;
+  color: var(--rb-bone);
+  letter-spacing: -0.005em;
+}
+
+/* Compensation — rate cards + earnings table */
+.rb-comp-rates {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
+}
+.rb-comp-card {
+  padding: 1.75rem 1.5rem;
+  border: 1px solid var(--rb-bone-hair);
+  border-radius: 14px;
+  background: rgba(245, 241, 234, 0.02);
+}
+.rb-comp-card-on {
+  border-color: rgba(139, 125, 216, 0.32);
+  background: rgba(139, 125, 216, 0.05);
+  box-shadow: 0 0 0 1px rgba(139, 125, 216, 0.12) inset;
+}
+.rb-comp-card-rate {
+  margin: 0 0 4px;
+  font-family: var(--font-editorial), system-ui, sans-serif;
+  font-size: clamp(2.5rem, 4vw, 3.25rem);
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  color: var(--rb-bone);
+  line-height: 1;
+}
+.rb-comp-card-on .rb-comp-card-rate { color: var(--rb-purple); }
+.rb-comp-card-label {
+  margin: 0 0 8px;
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--rb-bone-dim);
+}
+.rb-comp-card-body {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--rb-bone);
+}
+
+.rb-earnings {
+  margin-top: 1.75rem;
+}
+.rb-earnings-table-wrap {
+  overflow-x: auto;
+  border: 1px solid var(--rb-bone-hair);
+  border-radius: 14px;
+  background: rgba(245, 241, 234, 0.02);
+}
+.rb-earnings-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14.5px;
+  color: var(--rb-bone);
+}
+.rb-earnings-table th,
+.rb-earnings-table td {
+  text-align: left;
+  padding: 14px 18px;
+  border-bottom: 1px solid var(--rb-bone-hair);
+}
+.rb-earnings-table thead th {
+  font-weight: 500;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--rb-bone-dim);
+  background: rgba(245, 241, 234, 0.015);
+}
+.rb-earnings-table tbody tr:last-child td { border-bottom: 0; }
+.rb-earnings-table tbody td:first-child {
+  font-family: var(--font-cormorant), serif;
+  font-size: 16px;
+  color: var(--rb-purple);
+}
+.rb-earnings-table tbody td em { font-style: italic; }
+.rb-earnings-foot {
+  margin: 0.75rem 0 0;
+  font-size: 13px;
+  color: var(--rb-bone-dim);
+  line-height: 1.55;
+  max-width: 64ch;
+}
+
+/* Application form */
+.rb-apply-shell {
+  width: 100%;
+  max-width: 720px;
+  margin: 0 auto;
+  background: rgba(245, 241, 234, 0.025);
+  border: 1px solid var(--rb-bone-hair);
+  border-radius: 14px;
+  padding: clamp(1.5rem, 3vw, 2.25rem);
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+}
+.rb-apply-fs {
+  border: 0;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.rb-apply-fs[disabled] { opacity: 0.65; }
+.rb-apply-legend {
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--rb-bone-dim);
+  padding: 0;
+  margin: 0 0 4px;
+}
+.rb-apply-row {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 14px;
+}
+@media (min-width: 640px) {
+  .rb-apply-row { grid-template-columns: 1fr 1fr; gap: 14px; }
+}
+.rb-apply-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.rb-apply-label {
+  font-size: 12.5px;
+  font-weight: 500;
+  color: var(--rb-bone);
+  letter-spacing: 0.01em;
+}
+.rb-apply-input {
+  width: 100%;
+  background: rgba(0, 0, 0, 0.35);
+  color: var(--rb-bone);
+  border: 1px solid rgba(245, 241, 234, 0.14);
+  border-radius: 8px;
+  font-family: var(--font-dm-sans), sans-serif;
+  font-size: 15px;
+  padding: 11px 14px;
+  line-height: 1.4;
+  -webkit-appearance: none;
+  appearance: none;
+  outline: none;
+  transition: border-color 0.2s var(--rb-ease), box-shadow 0.2s var(--rb-ease);
+}
+.rb-apply-input:focus {
+  border-color: var(--rb-purple-core);
+  box-shadow: 0 0 0 3px rgba(139, 125, 216, 0.18);
+}
+.rb-apply-input::placeholder { color: rgba(245, 241, 234, 0.32); }
+.rb-apply-textarea { resize: vertical; min-height: 92px; font-family: inherit; }
+.rb-apply-select {
+  background-image: linear-gradient(45deg, transparent 50%, var(--rb-bone-dim) 50%),
+                    linear-gradient(135deg, var(--rb-bone-dim) 50%, transparent 50%);
+  background-position: calc(100% - 18px) 50%, calc(100% - 13px) 50%;
+  background-size: 5px 5px, 5px 5px;
+  background-repeat: no-repeat;
+  padding-right: 36px;
+}
+.rb-apply-select option { background: #0e0e0e; color: var(--rb-bone); }
+.rb-apply-hint {
+  margin-top: 4px;
+  font-size: 12.5px;
+  color: var(--rb-bone-dim);
+  line-height: 1.55;
+}
+.rb-apply-consent {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  font-size: 13px;
+  color: var(--rb-bone-dim);
+  line-height: 1.55;
+}
+.rb-apply-consent input { margin-top: 3px; accent-color: var(--rb-purple-core); }
+.rb-apply-consent a { color: var(--rb-purple); text-decoration: underline; text-underline-offset: 2px; }
+.rb-apply-error {
+  margin: 0;
+  padding: 10px 14px;
+  background: rgba(220, 88, 88, 0.08);
+  border: 1px solid rgba(220, 88, 88, 0.32);
+  border-radius: 8px;
+  color: #f4c5c5;
+  font-size: 13.5px;
+}
+.rb-apply-submit {
+  align-self: flex-start;
+  padding: 13px 28px;
+  background: var(--rb-purple-core);
+  border: 1px solid var(--rb-purple-core);
+  border-radius: 999px;
+  color: #fff;
+  font-family: var(--font-dm-sans), sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  transition: background 0.2s var(--rb-ease), transform 0.2s var(--rb-ease);
+}
+.rb-apply-submit:hover:not(:disabled) {
+  background: #9d8fe2;
+  transform: translateY(-1px);
+}
+.rb-apply-submit:disabled { cursor: not-allowed; opacity: 0.7; }
+
+.rb-apply-success {
+  text-align: left;
+}
+.rb-apply-success-h {
+  margin: 4px 0 12px;
+  font-family: var(--font-cormorant), serif;
+  font-weight: 400;
+  font-style: italic;
+  font-size: clamp(1.5rem, 2.4vw, 2rem);
+  color: var(--rb-bone);
+  letter-spacing: -0.015em;
+}
+.rb-apply-success-body {
+  margin: 0;
+  max-width: 56ch;
+  font-size: 14.5px;
+  line-height: 1.65;
+  color: var(--rb-bone-dim);
+}
