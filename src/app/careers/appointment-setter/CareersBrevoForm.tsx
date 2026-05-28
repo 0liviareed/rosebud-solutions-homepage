@@ -127,7 +127,7 @@ const BREVO_FORM_HTML = `
                 <option value="+56">Chile (+56)</option>
                 <option value="+57">Colombia (+57)</option>
               </select>
-              <input class="input rb-phone-num" type="text" inputmode="numeric" id="SMS_NUMBER" autocomplete="tel-national" placeholder="Phone number" data-required="true" required />
+              <input class="input rb-phone-num" type="text" inputmode="numeric" id="SMS_NUMBER" autocomplete="tel-national" placeholder="Number — no country code" data-required="true" required />
             </div>
             <input type="hidden" name="SMS" id="SMS" />
           </div><label class="entry__error entry__error--primary"></label></div></div>
@@ -336,6 +336,13 @@ const SMS_COMBINE_SCRIPT = `
     if (!cc || !num || !sms) return;
     var code = (cc.value || '').replace(/[A-Z]+$/, '').replace(/^\\+/, '');
     var n = (num.value || '').replace(/[^0-9]/g, '').replace(/^0+/, '');
+    // Guard for users who include the country code in the number too —
+    // e.g. US applicant types '15551234567' with US already selected.
+    // Strip the leading code if the remainder is still a reasonable
+    // national-number length (>= 6 digits) so we don't double it.
+    if (code && n.indexOf(code) === 0 && (n.length - code.length) >= 6) {
+      n = n.substring(code.length);
+    }
     sms.value = n ? (code + n) : '';
   }
   function bind() {
