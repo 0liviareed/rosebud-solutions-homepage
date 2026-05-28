@@ -6036,17 +6036,17 @@ button { font: inherit; color: inherit; }
 }
 
 /* =============================================================
-   Careers Brevo form — overrides on top of .rb-pricing-form-shell.rb-careers-form-shell
-   to handle the field types the careers form adds: section
-   headers, SMS country dropdown, date input, checkbox group
-   (Yes/No), dividers, data-protection block, three consent
-   checkboxes.
+   Careers Brevo form — MINIMAL careers-form-only overrides.
+   The careers form root carries BOTH .rb-pricing-form-shell AND
+   .rb-careers-form-shell, so it inherits all of the WORKING pricing
+   form CSS for multiselects, checkboxes, message panels, submit
+   button, etc. This block only adds careers-specific bits that
+   the pricing form doesn't need: a more solid card background,
+   editorial Cormorant section headers between sections, the
+   "Data Protection" label + body styling, and the consent / Yes-No
+   label classes. Nothing here touches Brevo's interactive contract.
    ============================================================= */
 
-/* Careers form shell — higher-contrast card than the pricing form because
-   the role-listing background is near-black; the pricing-form 2.5%-alpha
-   panel was disappearing into it. Solid elevated panel + stronger border
-   makes the form clearly distinct. */
 .rb-careers-form-shell {
   max-width: 720px;
   margin: 0 auto;
@@ -6056,8 +6056,7 @@ button { font: inherit; color: inherit; }
 }
 
 /* Section header rows ("Section 1 · About you") — editorial Cormorant
-   italic instead of Brevo's heavy DM-Sans-700-32px. Sits as an h3-level
-   accent inside the form. */
+   italic instead of Brevo's heavy DM-Sans-700-32px. */
 .rb-pricing-form-shell.rb-careers-form-shell .rb-careers-section-h {
   font-family: var(--font-cormorant), serif !important;
   font-style: italic;
@@ -6069,119 +6068,15 @@ button { font: inherit; color: inherit; }
 }
 .rb-pricing-form-shell.rb-careers-form-shell .rb-careers-section-h p { margin: 0; }
 
-/* Brevo's <hr> divider — turn it into a hairline rule that matches the
-   global bone-hair colour. */
+/* Brevo's <hr> divider — turn it into a hairline rule in our palette. */
 .rb-pricing-form-shell.rb-careers-form-shell .sib-divider-form-block > div {
   border: 0 !important;
   border-bottom: 1px solid var(--rb-bone-hair) !important;
   height: 0;
 }
 
-/* SMS phone field.
-   Brevo's main.js enhances .sib-sms-input into a country picker UI:
-   the country name renders above (e.g. "United Kingdom"), then a row
-   of [dial-code box] + [number input]. We don't load Brevo's
-   sib-styles.css, so the default tooltip box + "?" icon show all
-   the time — we hide the whole tooltip (the dial code makes the
-   format obvious). The two inputs sit side by side; the dial-code
-   box is fixed-width so the number input claims the remaining space.
-   Any non-.entry__field divs Brevo injects (country name header)
-   render as a thin caption that wraps the row. */
-.rb-pricing-form-shell.rb-careers-form-shell .sib-sms-tooltip { display: none !important; }
-.rb-pricing-form-shell.rb-careers-form-shell .sib-sms-input {
-  display: flex !important;
-  flex-direction: row !important;
-  flex-wrap: wrap;
-  gap: 8px !important;
-  align-items: stretch;
-  width: 100%;
-}
-.rb-pricing-form-shell.rb-careers-form-shell .sib-sms-input > .entry__field {
-  display: block !important;
-  flex: none !important;
-}
-.rb-pricing-form-shell.rb-careers-form-shell .sib-sms-input > .entry__field:first-child {
-  flex: 0 0 110px !important;
-}
-.rb-pricing-form-shell.rb-careers-form-shell .sib-sms-input > .entry__field:last-child {
-  flex: 1 1 auto !important;
-  min-width: 0 !important;
-}
-.rb-pricing-form-shell.rb-careers-form-shell .sib-sms-input > .entry__field input,
-.rb-pricing-form-shell.rb-careers-form-shell .sib-sms-input > .entry__field select {
-  width: 100% !important;
-}
-.rb-pricing-form-shell.rb-careers-form-shell .sib-sms-input > div:not(.entry__field) {
-  flex: 1 0 100%;
-  font-size: 11.5px;
-  letter-spacing: 0.04em;
-  color: var(--rb-bone-dim);
-  margin-bottom: 2px;
-}
-.rb-pricing-form-shell.rb-careers-form-shell select.input {
-  width: 100%;
-  background: rgba(0, 0, 0, 0.35) !important;
-  color: var(--rb-bone) !important;
-  border: 1px solid rgba(245, 241, 234, 0.14) !important;
-  border-radius: 8px !important;
-  font-family: var(--font-dm-sans), sans-serif !important;
-  font-size: 14px !important;
-  padding: 11px 30px 11px 12px !important;
-  appearance: none;
-  -webkit-appearance: none;
-  background-image: linear-gradient(45deg, transparent 50%, rgba(245,241,234,0.45) 50%),
-                    linear-gradient(135deg, rgba(245,241,234,0.45) 50%, transparent 50%) !important;
-  background-position: calc(100% - 16px) 50%, calc(100% - 11px) 50% !important;
-  background-size: 5px 5px, 5px 5px !important;
-  background-repeat: no-repeat !important;
-  cursor: pointer;
-}
-.rb-pricing-form-shell.rb-careers-form-shell select.input:focus {
-  border-color: var(--rb-purple-core) !important;
-  box-shadow: 0 0 0 3px rgba(139, 125, 216, 0.18) !important;
-}
-.rb-pricing-form-shell.rb-careers-form-shell select.input option { background: #0e0e0e; color: var(--rb-bone); }
-
-/* SMS tooltip — Brevo's "?" hint. Soften palette. */
-.rb-pricing-form-shell.rb-careers-form-shell .sib-sms-tooltip { margin-top: 6px; }
-.rb-pricing-form-shell.rb-careers-form-shell .sib-sms-tooltip__icon {
-  background: rgba(245, 241, 234, 0.08) !important;
-  color: var(--rb-bone) !important;
-  border: 1px solid var(--rb-bone-hair) !important;
-}
-.rb-pricing-form-shell.rb-careers-form-shell .sib-sms-tooltip__box {
-  background: rgba(0, 0, 0, 0.85) !important;
-  color: var(--rb-bone) !important;
-  border: 1px solid var(--rb-bone-hair) !important;
-  font-size: 12.5px !important;
-}
-
-/* Date-input hint underneath ("dd-mm-yyyy") + numeric input hint */
-.rb-pricing-form-shell.rb-careers-form-shell .entry__specification {
-  color: var(--rb-bone-dim) !important;
-  font-size: 12px !important;
-  margin-top: 4px;
-  display: block;
-}
-
-/* Yes / No checkbox group — display options inline with comfortable gap. */
-.rb-pricing-form-shell.rb-careers-form-shell .sib-checkbox-group .form__label-row > div {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 18px;
-  margin-top: 8px;
-}
-.rb-pricing-form-shell.rb-careers-form-shell .sib-checkbox-group .entry__choice .checkbox__label {
-  display: flex !important;
-  gap: 8px;
-  align-items: center;
-  cursor: pointer;
-  color: var(--rb-bone);
-  font-size: 14.5px;
-}
-.rb-careers-choice-label { color: var(--rb-bone); font-size: 14.5px; }
-
-/* Data-protection block: heading + paragraph above the consent checkboxes */
+/* Data-protection block: heading + paragraph above the consent
+   checkboxes. */
 .rb-pricing-form-shell.rb-careers-form-shell .rb-careers-data-h {
   font-family: var(--font-dm-sans), sans-serif !important;
   font-size: 11px !important;
@@ -6205,36 +6100,29 @@ button { font: inherit; color: inherit; }
   text-underline-offset: 2px;
 }
 
-/* Optin (consent) checkboxes — three of them, each with inline copy.
-   Brevo wraps the copy in a <p> inside a <span>; make sure both flow
-   inline-block-ish so the checkbox sits next to the first line. */
+/* Optin (consent) checkbox copy — keep inline next to the checkbox. */
 .rb-pricing-form-shell.rb-careers-form-shell .rb-careers-optin-label {
   display: inline-block;
   color: var(--rb-bone);
   font-size: 13px;
   line-height: 1.55;
 }
-.rb-pricing-form-shell.rb-careers-form-shell .rb-careers-optin-label p { margin: 0; display: inline; }
-.rb-pricing-form-shell.rb-careers-form-shell .sib-optin .entry__choice label {
-  display: flex;
-  gap: 10px;
-  align-items: flex-start;
-  cursor: pointer;
+.rb-pricing-form-shell.rb-careers-form-shell .rb-careers-optin-label p {
+  margin: 0; display: inline;
 }
 
-/* Submit button — keep Brevo's contract but restyle to purple pill */
-.rb-pricing-form-shell.rb-careers-form-shell .sib-form-block__button {
-  background: var(--rb-purple-core) !important;
-  color: #fff !important;
-  border-radius: 999px !important;
-  padding: 12px 28px !important;
-  font-family: var(--font-dm-sans), sans-serif !important;
-  font-size: 14px !important;
-  font-weight: 600 !important;
-  letter-spacing: 0.02em;
-  transition: background 0.2s var(--rb-ease);
+/* Yes/No choice label colour */
+.rb-pricing-form-shell.rb-careers-form-shell .rb-careers-choice-label {
+  color: var(--rb-bone);
+  font-size: 14.5px;
 }
-.rb-pricing-form-shell.rb-careers-form-shell .sib-form-block__button:hover { background: #9d8fe2 !important; }
+
+/* Date input — readonly text input that Flatpickr drives. Cursor
+   reflects that the only way to set a value is via the calendar. */
+.rb-pricing-form-shell.rb-careers-form-shell #START_DATE {
+  cursor: pointer !important;
+  caret-color: transparent;
+}
 
 /* =============================================================
    Inline info tooltip — used inline in the data-protection
@@ -6341,168 +6229,6 @@ button { font: inherit; color: inherit; }
 .rb-apply-page-back:hover {
   color: var(--rb-bone);
   border-bottom-color: var(--rb-bone-hair);
-}
-
-/* Custom phone-number row — country code select + phone input side by
-   side. Bypasses Brevo's intl-tel-input widget which can't be reliably
-   styled against the dark palette without loading sib-styles.css. The
-   two visible values are concatenated into the hidden SMS field by the
-   careers-sms-combine script, so Brevo's submission still receives the
-   full international number on the SMS attribute. */
-.rb-pricing-form-shell.rb-careers-form-shell .rb-phone-row {
-  display: flex !important;
-  flex-direction: row !important;
-  gap: 8px !important;
-  align-items: stretch;
-  width: 100%;
-}
-.rb-pricing-form-shell.rb-careers-form-shell .rb-phone-cc {
-  flex: 0 0 38% !important;
-  min-width: 0;
-  max-width: 220px;
-}
-.rb-pricing-form-shell.rb-careers-form-shell .rb-phone-num {
-  flex: 1 1 auto !important;
-  min-width: 0 !important;
-}
-@media (max-width: 480px) {
-  .rb-pricing-form-shell.rb-careers-form-shell .rb-phone-row { flex-wrap: wrap; }
-  .rb-pricing-form-shell.rb-careers-form-shell .rb-phone-cc { flex: 1 1 100% !important; max-width: none; }
-  .rb-pricing-form-shell.rb-careers-form-shell .rb-phone-num { flex: 1 1 100% !important; }
-}
-
-/* =============================================================
-   Careers form — multiselect dropdown positioning fix.
-
-   Brevo's main.js positions .sib-menu absolutely with inline
-   pixel coords computed from the trigger's viewport position.
-   Without their sib-styles.css the menu escapes the form and
-   renders aligned to the page right. Forcing the menu to
-   position absolute INSIDE its .sib-multiselect parent (which
-   becomes the offset parent via position: relative) anchors it
-   directly below the trigger at the trigger's exact width.
-   ============================================================= */
-
-.rb-pricing-form-shell.rb-careers-form-shell .sib-multiselect {
-  position: relative !important;
-}
-.rb-pricing-form-shell.rb-careers-form-shell .sib-multiselect .sib-menu {
-  position: absolute !important;
-  top: calc(100% + 4px) !important;
-  left: 0 !important;
-  right: 0 !important;
-  bottom: auto !important;
-  width: 100% !important;
-  max-width: none !important;
-  margin: 0 !important;
-  transform: none !important;
-  background: #15151c !important;
-  border: 1px solid rgba(245, 241, 234, 0.18) !important;
-  border-radius: 10px !important;
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.55) !important;
-  z-index: 60 !important;
-  padding: 0 !important;
-  overflow: hidden;
-}
-.rb-pricing-form-shell.rb-careers-form-shell .sib-menu__select {
-  display: flex !important;
-  gap: 8px;
-  padding: 10px 14px !important;
-  background: transparent !important;
-  border-bottom: 1px solid var(--rb-bone-hair);
-  font-size: 11px !important;
-  letter-spacing: 0.12em !important;
-  text-transform: uppercase;
-  color: var(--rb-bone-dim) !important;
-}
-.rb-pricing-form-shell.rb-careers-form-shell .sib-menu__select-all-button,
-.rb-pricing-form-shell.rb-careers-form-shell .sib-menu__clear-button {
-  background: transparent !important;
-  border: 0 !important;
-  color: var(--rb-bone-dim) !important;
-  font: inherit;
-  cursor: pointer;
-  padding: 0 !important;
-}
-.rb-pricing-form-shell.rb-careers-form-shell .sib-menu__select-all-button:hover,
-.rb-pricing-form-shell.rb-careers-form-shell .sib-menu__clear-button:hover {
-  color: var(--rb-bone) !important;
-}
-.rb-pricing-form-shell.rb-careers-form-shell .sib-menu__separator {
-  color: var(--rb-bone-hair) !important;
-}
-.rb-pricing-form-shell.rb-careers-form-shell .sib-menu__item-list {
-  list-style: none !important;
-  margin: 0 !important;
-  padding: 6px 0 !important;
-  max-height: 240px;
-  overflow-y: auto;
-}
-.rb-pricing-form-shell.rb-careers-form-shell .sib-menu__item {
-  padding: 0 !important;
-}
-.rb-pricing-form-shell.rb-careers-form-shell .sib-menu__item .entry__choice {
-  padding: 8px 14px !important;
-  display: flex;
-  cursor: pointer;
-  transition: background 0.15s var(--rb-ease);
-}
-.rb-pricing-form-shell.rb-careers-form-shell .sib-menu__item:hover .entry__choice {
-  background: rgba(139, 125, 216, 0.08) !important;
-}
-.rb-pricing-form-shell.rb-careers-form-shell .sib-multiselect__label {
-  display: flex !important;
-  gap: 10px;
-  align-items: center;
-  color: var(--rb-bone) !important;
-  font-size: 14px !important;
-  cursor: pointer;
-}
-.rb-pricing-form-shell.rb-careers-form-shell .sib-multiselect__label-text { color: var(--rb-bone) !important; }
-.rb-pricing-form-shell.rb-careers-form-shell .sib-menu__apply {
-  display: flex !important;
-  justify-content: flex-end;
-  gap: 8px;
-  padding: 10px 14px !important;
-  border-top: 1px solid var(--rb-bone-hair);
-  background: transparent !important;
-}
-.rb-pricing-form-shell.rb-careers-form-shell .sib-menu__cancel-button {
-  background: transparent !important;
-  color: var(--rb-bone-dim) !important;
-  border: 0 !important;
-  padding: 6px 12px !important;
-  font-size: 12px !important;
-  cursor: pointer;
-}
-.rb-pricing-form-shell.rb-careers-form-shell .sib-menu__apply-button {
-  background: var(--rb-purple-core) !important;
-  color: #fff !important;
-  border: 0 !important;
-  border-radius: 999px !important;
-  padding: 7px 16px !important;
-  font-size: 12px !important;
-  font-weight: 600 !important;
-  letter-spacing: 0.04em;
-  cursor: pointer;
-}
-.rb-pricing-form-shell.rb-careers-form-shell .sib-menu__apply-button:hover { background: #9d8fe2 !important; }
-
-/* Native date input — Brevo's custom calendar widget is gone (we
-   switched to type="date"), but the browser's input still needs
-   dark styling. The calendar icon is brightened so it's visible
-   against the dark input background. */
-.rb-pricing-form-shell.rb-careers-form-shell input[type="date"].input {
-  color-scheme: dark;
-}
-.rb-pricing-form-shell.rb-careers-form-shell input[type="date"].input::-webkit-calendar-picker-indicator {
-  filter: invert(0.85);
-  cursor: pointer;
-  opacity: 0.7;
-  transition: opacity 0.2s var(--rb-ease);
-}
-.rb-pricing-form-shell.rb-careers-form-shell input[type="date"].input::-webkit-calendar-picker-indicator:hover {
-  opacity: 1;
 }
 
 /* Flatpickr calendar — dark theme override.
@@ -6626,31 +6352,3 @@ button { font: inherit; color: inherit; }
   flex: 0 0 auto;
 }
 
-/* Careers form success/error panels — hidden by default, our submit
-   handler toggles display:block on the right one. Without this they'd
-   render visible at form load (Brevo's sib-styles.css would normally
-   hide them via :where(.sib-form-message-panel){display:none}). */
-.rb-pricing-form-shell.rb-careers-form-shell .sib-form-message-panel {
-  display: none;
-}
-.rb-pricing-form-shell.rb-careers-form-shell #success-message {
-  background: rgba(19, 206, 102, 0.08) !important;
-  border: 1px solid rgba(19, 206, 102, 0.35) !important;
-  color: #c8e8d3 !important;
-  padding: 14px 18px !important;
-  border-radius: 10px !important;
-  margin: 0 0 16px !important;
-}
-.rb-pricing-form-shell.rb-careers-form-shell #error-message {
-  background: rgba(220, 88, 88, 0.08) !important;
-  border: 1px solid rgba(220, 88, 88, 0.35) !important;
-  color: #f4c5c5 !important;
-  padding: 14px 18px !important;
-  border-radius: 10px !important;
-  margin: 0 0 16px !important;
-}
-.rb-pricing-form-shell.rb-careers-form-shell .sib-form-message-panel__text { display: flex !important; gap: 10px; align-items: flex-start; }
-.rb-pricing-form-shell.rb-careers-form-shell .sib-form-message-panel__inner-text { color: inherit !important; font-family: var(--font-dm-sans), sans-serif !important; }
-.rb-pricing-form-shell.rb-careers-form-shell .sib-icon { flex: 0 0 auto; width: 18px !important; height: 18px !important; margin-top: 2px; }
-.rb-pricing-form-shell.rb-careers-form-shell #error-message .sib-icon path { fill: #f4c5c5 !important; }
-.rb-pricing-form-shell.rb-careers-form-shell #success-message .sib-icon path { fill: #b4e5c5 !important; }
