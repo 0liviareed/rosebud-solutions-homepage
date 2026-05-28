@@ -142,13 +142,6 @@ const BREVO_FORM_HTML = `
 
         <div style="padding: 8px 0;">
           <div class="sib-input sib-form-block"><div class="form__entry entry_block"><div class="form__label-row">
-            <label class="entry__label" for="TIMEZONE" data-required="*">Timezone, and the hours you can reliably work Monday to Friday</label>
-            <div class="entry__field"><input class="input" maxlength="200" type="text" id="TIMEZONE" name="TIMEZONE" autocomplete="off" data-required="true" required /></div>
-          </div><label class="entry__error entry__error--primary"></label></div></div>
-        </div>
-
-        <div style="padding: 8px 0;">
-          <div class="sib-input sib-form-block"><div class="form__entry entry_block"><div class="form__label-row">
             <label class="entry__label" for="LINKEDIN">LinkedIn profile URL</label>
             <div class="entry__field"><input class="input" maxlength="200" type="text" id="LINKEDIN" name="LINKEDIN" autocomplete="url" /></div>
           </div><label class="entry__error entry__error--primary"></label></div></div>
@@ -248,7 +241,7 @@ const BREVO_FORM_HTML = `
 
         <div style="padding: 8px 0;">
           <div class="sib-input sib-form-block"><div class="form__entry entry_block"><div class="form__label-row">
-            <label class="entry__label" for="HOURLY_COMMITMENT" data-required="*">Hours per week you can commit</label>
+            <label class="entry__label" for="HOURLY_COMMITMENT" data-required="*">Hours per week you can commit Monday to Friday</label>
             <div class="entry__field"><input maxlength="200" type="text" data-numeric="true" class="input" id="HOURLY_COMMITMENT" name="HOURLY_COMMITMENT" autocomplete="off" data-required="true" required /></div>
           </div><label class="entry__error entry__error--primary"></label></div></div>
         </div>
