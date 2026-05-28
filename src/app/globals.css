@@ -5001,18 +5001,6 @@ button { font: inherit; color: inherit; }
   height: 1px;
 }
 
-/* Only the consent + checkbox-group <label>s inside .entry__choice should
-   render as clickable rows. The .entry__specification (e.g. "You may
-   unsubscribe at any time...") and .entry__error are also <label>
-   elements but are NOT checkbox options — keep them as plain text. */
-.rb-pricing-form-shell .checkbox__label,
-.rb-pricing-form-shell .sib-optin .entry__choice > label {
-  display: inline-flex !important;
-  align-items: flex-start !important;
-  gap: 10px !important;
-  cursor: pointer;
-}
-
 .rb-pricing-form-shell .checkbox {
   display: inline-block !important;
   background: rgba(245, 241, 234, 0.06) !important;
