@@ -187,8 +187,8 @@ const BREVO_FORM_HTML = `
 
         <div style="padding: 8px 0;">
           <div class="sib-input sib-form-block"><div class="form__entry"><div class="form__label-row">
-            <label class="entry__label" for="START_DATE" data-required="*">Earliest possible start date</label>
-            <div class="entry__field"><input class="input" type="date" id="START_DATE" name="START_DATE" autocomplete="off" data-required="true" required /></div>
+            <label class="entry__label" for="START_DATE_VISIBLE" data-required="*">Earliest possible start date</label>
+            <div class="entry__field"><input class="input" type="date" id="START_DATE_VISIBLE" autocomplete="off" required /><input type="hidden" id="START_DATE" name="START_DATE" /></div>
           </div><label class="entry__error entry__error--primary"></label></div></div>
         </div>
 
@@ -258,34 +258,33 @@ window.translation = { common: { selectedList: '{quantity} list selected', selec
 window.AUTOHIDE = Boolean(0);
 `;
 
-// Init flatpickr on the start-date input. Runs after the flatpickr
-// script has loaded — retries briefly if the global isn't ready yet
-// (script tags execute out-of-order with strategy=afterInteractive).
-const FLATPICKR_INIT_SCRIPT = `
+// Visible field is type=date which submits YYYY-MM-DD. Brevo's
+// START_DATE field is configured for dd-mm-yyyy. On every change of
+// the visible picker, mirror the value into the hidden #START_DATE
+// input in Brevo's expected format. Submit-time fetch picks up the
+// hidden input. Only touches the date picker — no other field, no
+// Brevo wiring, no submit handler.
+const DATE_REFORMAT_SCRIPT = `
 (function() {
-  function init() {
-    var el = document.getElementById('START_DATE');
-    if (!el || typeof window.flatpickr !== 'function') return false;
-    if (el.classList.contains('flatpickr-input')) return true;
-    window.flatpickr(el, {
-      dateFormat: 'd-m-Y',
-      altInput: false,
-      allowInput: false,
-      minDate: 'today',
-      disableMobile: true,
-    });
+  function bind() {
+    var v = document.getElementById('START_DATE_VISIBLE');
+    var h = document.getElementById('START_DATE');
+    if (!v || !h) return false;
+    function sync() {
+      if (v.value) {
+        var p = v.value.split('-');
+        h.value = p[2] + '-' + p[1] + '-' + p[0];
+      } else { h.value = ''; }
+    }
+    v.addEventListener('change', sync);
+    v.addEventListener('input', sync);
+    sync();
     return true;
   }
-  var tries = 0;
-  function poll() {
-    if (init()) return;
-    if (++tries > 40) return;
-    setTimeout(poll, 100);
-  }
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', poll);
+    document.addEventListener('DOMContentLoaded', bind);
   } else {
-    poll();
+    if (!bind()) setTimeout(bind, 300);
   }
 })();
 `;
@@ -300,6 +299,11 @@ export default function CareersBrevoForm() {
         id="careers-brevo-globals"
         strategy="afterInteractive"
         dangerouslySetInnerHTML={{ __html: BREVO_GLOBALS_SCRIPT }}
+      />
+      <Script
+        id="careers-date-reformat"
+        strategy="afterInteractive"
+        dangerouslySetInnerHTML={{ __html: DATE_REFORMAT_SCRIPT }}
       />
       <Script
         src="https://sibforms.com/forms/end-form/build/main.js"
