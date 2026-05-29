@@ -10,7 +10,7 @@ type Form = {
   email: string;
   location: string;
   linkedin_url: string;
-  b2b_experience: string[];
+  b2b_experience: string;
   commission_role_before: "yes" | "no" | "";
   commission_role_details: string;
   industry_experience: string[];
@@ -28,7 +28,7 @@ const INITIAL: Form = {
   email: "",
   location: "",
   linkedin_url: "",
-  b2b_experience: [],
+  b2b_experience: "",
   commission_role_before: "",
   commission_role_details: "",
   industry_experience: [],
@@ -74,7 +74,7 @@ export default function CareersApplicationForm() {
     setForm((f) => ({ ...f, [key]: value }));
   }
 
-  function toggleArray(key: "b2b_experience" | "industry_experience" | "equipment_check", value: string) {
+  function toggleArray(key: "industry_experience" | "equipment_check", value: string) {
     setForm((f) => {
       const current = f[key];
       const next = current.includes(value)
@@ -88,8 +88,8 @@ export default function CareersApplicationForm() {
     e.preventDefault();
     setErrorMsg("");
 
-    if (form.b2b_experience.length === 0) {
-      setErrorMsg("Please select at least one B2B experience option.");
+    if (!form.b2b_experience) {
+      setErrorMsg("Please select your B2B experience.");
       return;
     }
     if (form.industry_experience.length === 0) {
@@ -120,7 +120,7 @@ export default function CareersApplicationForm() {
           email: form.email,
           location: form.location,
           linkedin_url: form.linkedin_url || undefined,
-          b2b_experience: form.b2b_experience,
+          b2b_experience: [form.b2b_experience],
           commission_role_before: form.commission_role_before === "yes",
           commission_role_details: form.commission_role_details || undefined,
           industry_experience: form.industry_experience,
@@ -233,9 +233,10 @@ export default function CareersApplicationForm() {
             {B2B_OPTIONS.map((opt) => (
               <label key={opt} className="rb-app-check">
                 <input
-                  type="checkbox"
-                  checked={form.b2b_experience.includes(opt)}
-                  onChange={() => toggleArray("b2b_experience", opt)}
+                  type="radio"
+                  name="b2b_experience"
+                  checked={form.b2b_experience === opt}
+                  onChange={() => update("b2b_experience", opt)}
                 />
                 <span>{opt}</span>
               </label>
