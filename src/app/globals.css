@@ -6109,3 +6109,263 @@ button { font: inherit; color: inherit; }
   display: none !important;
   content: none !important;
 }
+
+/* =============================================================
+   Custom appointment-setter application form — replaces the Brevo
+   embed. Lives at /careers/appointment-setter/apply. Plain HTML
+   form, full control, dark theme native.
+   ============================================================= */
+
+.rb-app-shell {
+  width: 100%;
+  max-width: 640px;
+  margin: 0 auto;
+  background: #0e0e14;
+  border: 1px solid rgba(245, 241, 234, 0.18);
+  border-radius: 14px;
+  padding: clamp(1.5rem, 3vw, 2.25rem);
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
+  color: var(--rb-bone);
+}
+
+.rb-app-fs {
+  border: 0;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.rb-app-fs[disabled] { opacity: 0.65; }
+
+.rb-app-legend {
+  font-family: var(--font-cormorant), serif;
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(1.25rem, 1.8vw, 1.5rem);
+  color: var(--rb-bone);
+  letter-spacing: -0.005em;
+  padding: 0;
+  margin: 0 0 4px;
+}
+
+.rb-app-row {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+@media (min-width: 560px) {
+  .rb-app-row { grid-template-columns: 1fr 1fr; }
+}
+
+.rb-app-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.rb-app-label {
+  font-family: var(--font-dm-sans), sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--rb-bone);
+}
+
+.rb-app-req {
+  color: var(--rb-purple);
+  font-weight: 600;
+  margin-left: 2px;
+}
+
+.rb-app-input {
+  width: 100%;
+  background: rgba(0, 0, 0, 0.35);
+  color: var(--rb-bone);
+  border: 1px solid rgba(245, 241, 234, 0.18);
+  border-radius: 8px;
+  font-family: var(--font-dm-sans), sans-serif;
+  font-size: 15px;
+  padding: 11px 14px;
+  line-height: 1.4;
+  outline: none;
+  appearance: none;
+  -webkit-appearance: none;
+  color-scheme: dark;
+  transition: border-color 0.2s var(--rb-ease), box-shadow 0.2s var(--rb-ease);
+}
+.rb-app-input:focus {
+  border-color: var(--rb-purple-core);
+  box-shadow: 0 0 0 3px rgba(139, 125, 216, 0.18);
+}
+.rb-app-input::placeholder { color: rgba(245, 241, 234, 0.32); }
+.rb-app-input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(0.85);
+  cursor: pointer;
+}
+
+/* Multiselect — rendered as a checkbox column, not a dropdown */
+.rb-app-checks {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  background: rgba(245, 241, 234, 0.025);
+  border: 1px solid rgba(245, 241, 234, 0.12);
+  border-radius: 8px;
+  padding: 8px;
+}
+.rb-app-check {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  padding: 10px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  color: var(--rb-bone);
+  font-size: 14.5px;
+  line-height: 1.5;
+  transition: background 0.15s var(--rb-ease);
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: rgba(139, 125, 216, 0.18);
+}
+@media (hover: hover) {
+  .rb-app-check:hover { background: rgba(139, 125, 216, 0.08); }
+}
+.rb-app-check input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  margin: 0;
+  accent-color: var(--rb-purple-core);
+  cursor: pointer;
+  flex: 0 0 auto;
+}
+
+/* Yes/No radio row */
+.rb-app-radios {
+  display: flex;
+  gap: 16px;
+  margin-top: 4px;
+}
+.rb-app-radio {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  padding: 10px 16px;
+  background: rgba(245, 241, 234, 0.025);
+  border: 1px solid rgba(245, 241, 234, 0.12);
+  border-radius: 8px;
+  cursor: pointer;
+  color: var(--rb-bone);
+  font-size: 14.5px;
+  transition: border-color 0.2s var(--rb-ease), background 0.2s var(--rb-ease);
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: rgba(139, 125, 216, 0.18);
+}
+.rb-app-radio:has(input:checked) {
+  border-color: var(--rb-purple-core);
+  background: rgba(139, 125, 216, 0.08);
+}
+.rb-app-radio input[type="radio"] {
+  width: 16px;
+  height: 16px;
+  margin: 0;
+  accent-color: var(--rb-purple-core);
+  cursor: pointer;
+}
+
+/* Data-protection prose */
+.rb-app-prose {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--rb-bone-dim);
+  background: rgba(245, 241, 234, 0.02);
+  border-left: 2px solid rgba(245, 241, 234, 0.18);
+  padding: 12px 14px;
+  border-radius: 0 8px 8px 0;
+}
+.rb-app-prose a {
+  color: var(--rb-purple);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+/* Consent checkboxes */
+.rb-app-consent {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  font-size: 13.5px;
+  line-height: 1.55;
+  color: var(--rb-bone);
+  cursor: pointer;
+  touch-action: manipulation;
+}
+.rb-app-consent input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  margin: 2px 0 0;
+  accent-color: var(--rb-purple-core);
+  cursor: pointer;
+  flex: 0 0 auto;
+}
+
+/* Inline error */
+.rb-app-error {
+  margin: 0;
+  padding: 12px 14px;
+  background: rgba(220, 88, 88, 0.08);
+  border: 1px solid rgba(220, 88, 88, 0.35);
+  border-radius: 8px;
+  color: #f4c5c5;
+  font-size: 13.5px;
+}
+
+/* Submit */
+.rb-app-submit {
+  align-self: stretch;
+  padding: 14px 28px;
+  background: var(--rb-purple-core);
+  color: #fff;
+  border: 0;
+  border-radius: 999px;
+  font-family: var(--font-dm-sans), sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  transition: background 0.2s var(--rb-ease), transform 0.15s var(--rb-ease);
+}
+.rb-app-submit:hover:not(:disabled) { background: #9d8fe2; transform: translateY(-1px); }
+.rb-app-submit:disabled { opacity: 0.65; cursor: not-allowed; }
+
+/* Success state */
+.rb-app-success { text-align: left; }
+.rb-app-eyebrow {
+  margin: 0 0 8px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--rb-bone-dim);
+}
+.rb-app-success-h {
+  margin: 0 0 14px;
+  font-family: var(--font-cormorant), serif;
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(1.65rem, 2.6vw, 2rem);
+  color: var(--rb-bone);
+  letter-spacing: -0.015em;
+}
+.rb-app-success-body {
+  margin: 0;
+  max-width: 54ch;
+  font-size: 14.5px;
+  line-height: 1.7;
+  color: var(--rb-bone-dim);
+}

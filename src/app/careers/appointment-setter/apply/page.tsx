@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import CareersBrevoForm from "../CareersBrevoForm";
+import CareersApplicationForm from "./CareersApplicationForm";
 
 export const metadata: Metadata = {
   title: "Apply — Appointment Setter — Rosebud Solutions",
@@ -28,7 +28,7 @@ export default function ApplicationPage() {
 
       <div className="rb-job-body">
         <div className="rb-apply-page-container">
-          <CareersBrevoForm />
+          <CareersApplicationForm />
         </div>
       </div>
     </main>
