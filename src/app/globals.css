@@ -6099,3 +6099,13 @@ button { font: inherit; color: inherit; }
 .rb-pricing-form-shell #sib-container .rb-careers-section-h p {
   margin: 0;
 }
+
+/* Suppress Brevo's always-on ::before tick on .checkbox_tick_positive.
+   Brevo's pattern is to render the tick by default and turn the box
+   background green on :checked. Our pattern is the opposite — empty
+   box by default, purple-filled with tick on .checkbox_checked. The
+   two were stacking and every box looked ticked. Hide theirs. */
+.rb-pricing-form-shell #sib-container .checkbox_tick_positive::before {
+  display: none !important;
+  content: none !important;
+}
