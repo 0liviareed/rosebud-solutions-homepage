@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 type FormState = "idle" | "submitting" | "success" | "error";
 
@@ -34,6 +34,29 @@ export default function PricingEnquiryForm() {
   const [state, setState] = useState<FormState>("idle");
   const [form, setForm] = useState<Form>(INITIAL);
   const [errorMsg, setErrorMsg] = useState<string>("");
+
+  // Industry-dropdown open/close
+  const [industryOpen, setIndustryOpen] = useState(false);
+  const industryRef = useRef<HTMLDivElement | null>(null);
+
+  // Close on outside click + Escape
+  useEffect(() => {
+    if (!industryOpen) return;
+    function onDown(e: MouseEvent) {
+      if (industryRef.current && !industryRef.current.contains(e.target as Node)) {
+        setIndustryOpen(false);
+      }
+    }
+    function onKey(e: KeyboardEvent) {
+      if (e.key === "Escape") setIndustryOpen(false);
+    }
+    document.addEventListener("mousedown", onDown);
+    document.addEventListener("keydown", onKey);
+    return () => {
+      document.removeEventListener("mousedown", onDown);
+      document.removeEventListener("keydown", onKey);
+    };
+  }, [industryOpen]);
 
   function update<K extends keyof Form>(key: K, value: Form[K]) {
     setForm((f) => ({ ...f, [key]: value }));
@@ -78,7 +101,7 @@ export default function PricingEnquiryForm() {
   if (state === "success") {
     return (
       <div className="rb-pricing-form-shell">
-        <div className="rb-app-shell rb-app-success" role="status" aria-live="polite">
+        <div className="rb-pricing-success" role="status" aria-live="polite">
           <p className="rb-app-eyebrow">Enquiry received</p>
           <h2 className="rb-app-success-h">Thanks — we&rsquo;ve got it.</h2>
           <p className="rb-app-success-body">
@@ -88,6 +111,11 @@ export default function PricingEnquiryForm() {
       </div>
     );
   }
+
+  const industryLabel =
+    form.industry_interest.length === 0
+      ? "Select industries…"
+      : `${form.industry_interest.length} selected`;
 
   return (
     <div className="rb-pricing-form-shell">
@@ -106,7 +134,7 @@ export default function PricingEnquiryForm() {
         </p>
       </div>
 
-      <form className="rb-app-shell" onSubmit={onSubmit} noValidate>
+      <form className="rb-app-form" onSubmit={onSubmit} noValidate>
         <fieldset className="rb-app-fs" disabled={state === "submitting"}>
           <label className="rb-app-field">
             <span className="rb-app-label">Name <span className="rb-app-req">*</span></span>
@@ -132,22 +160,34 @@ export default function PricingEnquiryForm() {
             />
           </label>
 
-          <div className="rb-app-field">
+          <div className="rb-app-field rb-app-dropdown-wrap" ref={industryRef}>
             <span className="rb-app-label">
               I would like to learn about <span className="rb-app-req">*</span>
             </span>
-            <div className="rb-app-checks">
-              {INDUSTRY_OPTIONS.map((opt) => (
-                <label key={opt} className="rb-app-check">
-                  <input
-                    type="checkbox"
-                    checked={form.industry_interest.includes(opt)}
-                    onChange={() => toggleIndustry(opt)}
-                  />
-                  <span>{opt}</span>
-                </label>
-              ))}
-            </div>
+            <button
+              type="button"
+              className="rb-app-dropdown-trigger"
+              aria-haspopup="listbox"
+              aria-expanded={industryOpen}
+              onClick={() => setIndustryOpen((o) => !o)}
+            >
+              <span>{industryLabel}</span>
+              <span className="rb-app-dropdown-caret" aria-hidden="true">▾</span>
+            </button>
+            {industryOpen && (
+              <div className="rb-app-dropdown-panel" role="listbox">
+                {INDUSTRY_OPTIONS.map((opt) => (
+                  <label key={opt} className="rb-app-dropdown-item">
+                    <input
+                      type="checkbox"
+                      checked={form.industry_interest.includes(opt)}
+                      onChange={() => toggleIndustry(opt)}
+                    />
+                    <span>{opt}</span>
+                  </label>
+                ))}
+              </div>
+            )}
           </div>
 
           <label className="rb-app-field">

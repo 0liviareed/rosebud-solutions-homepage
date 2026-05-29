@@ -6369,3 +6369,99 @@ button { font: inherit; color: inherit; }
   line-height: 1.7;
   color: var(--rb-bone-dim);
 }
+
+/* Pricing enquiry form — sits inside .rb-pricing-form-shell which is
+   already a card, so the form body itself should NOT have its own card
+   chrome. Just the layout. */
+.rb-app-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+  margin-top: 1.5rem;
+}
+.rb-pricing-success {
+  text-align: left;
+  padding-top: 1rem;
+}
+
+/* Multi-select dropdown for the industry picker. Trigger looks like an
+   input, panel drops below with checkbox rows. */
+.rb-app-dropdown-wrap { position: relative; }
+.rb-app-dropdown-trigger {
+  width: 100%;
+  background: rgba(0, 0, 0, 0.35);
+  color: var(--rb-bone);
+  border: 1px solid rgba(245, 241, 234, 0.18);
+  border-radius: 8px;
+  font-family: var(--font-dm-sans), sans-serif;
+  font-size: 15px;
+  padding: 11px 14px;
+  line-height: 1.4;
+  text-align: left;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  transition: border-color 0.2s var(--rb-ease), box-shadow 0.2s var(--rb-ease);
+}
+.rb-app-dropdown-trigger:hover,
+.rb-app-dropdown-trigger[aria-expanded="true"] {
+  border-color: var(--rb-purple-core);
+}
+.rb-app-dropdown-trigger:focus-visible {
+  outline: none;
+  border-color: var(--rb-purple-core);
+  box-shadow: 0 0 0 3px rgba(139, 125, 216, 0.18);
+}
+.rb-app-dropdown-caret {
+  font-size: 10px;
+  color: var(--rb-bone-dim);
+  transition: transform 0.15s var(--rb-ease);
+}
+.rb-app-dropdown-trigger[aria-expanded="true"] .rb-app-dropdown-caret {
+  transform: rotate(180deg);
+}
+
+.rb-app-dropdown-panel {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  right: 0;
+  z-index: 30;
+  background: #15151c;
+  border: 1px solid rgba(245, 241, 234, 0.22);
+  border-radius: 10px;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.55);
+  padding: 6px;
+  max-height: 280px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.rb-app-dropdown-item {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  padding: 10px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  color: var(--rb-bone);
+  font-size: 14.5px;
+  line-height: 1.5;
+  transition: background 0.15s var(--rb-ease);
+  -webkit-tap-highlight-color: rgba(139, 125, 216, 0.18);
+  touch-action: manipulation;
+}
+@media (hover: hover) {
+  .rb-app-dropdown-item:hover { background: rgba(139, 125, 216, 0.08); }
+}
+.rb-app-dropdown-item input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  margin: 0;
+  accent-color: var(--rb-purple-core);
+  cursor: pointer;
+  flex: 0 0 auto;
+}
