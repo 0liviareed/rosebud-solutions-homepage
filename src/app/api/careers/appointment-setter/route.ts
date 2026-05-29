@@ -237,9 +237,12 @@ export async function POST(req: Request) {
     );
   }
 
-  // Fire-and-forget Telegram alert
+  // Await the Telegram alert. void/fire-and-forget doesn't work in
+  // Vercel serverless — the runtime terminates the function as soon as
+  // the response is returned, killing any in-flight promises. A brief
+  // extra ms on the response is fine for this surface.
   const fullName = `${body.first_name.trim()} ${body.last_name.trim()}`;
-  void fireTelegram(fullName);
+  await fireTelegram(fullName);
 
   return NextResponse.json({ ok: true });
 }
