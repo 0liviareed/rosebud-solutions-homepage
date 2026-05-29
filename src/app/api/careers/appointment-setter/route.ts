@@ -93,7 +93,7 @@ function validateArray(input: unknown, allowed: Set<string>): string[] | null {
   return cleaned;
 }
 
-async function fireTelegram(name: string, email: string, location: string, hoursPerWeek: number, startDate: string) {
+async function fireTelegram(name: string) {
   const token = process.env.TELEGRAM_BOT_TOKEN;
   const chats = (process.env.TELEGRAM_WARROOM_CHAT_IDS || "")
     .split(",")
@@ -105,12 +105,7 @@ async function fireTelegram(name: string, email: string, location: string, hours
   // characters Markdown/HTML treats as markup (underscores in emails,
   // ampersands in companies, etc.) which return 400 from Telegram and
   // silently fail. Plain text is bulletproof.
-  const msg =
-    `🌹 New Appointment Setter application\n\n` +
-    `${name}\n` +
-    `${email}\n` +
-    `📍 ${location}\n` +
-    `⏰ ${hoursPerWeek} hrs/week · Earliest start: ${startDate}`;
+  const msg = `🌹 New application: ${name}`;
 
   await Promise.all(
     chats.map(async (chatId) => {
@@ -244,7 +239,7 @@ export async function POST(req: Request) {
 
   // Fire-and-forget Telegram alert
   const fullName = `${body.first_name.trim()} ${body.last_name.trim()}`;
-  void fireTelegram(fullName, body.email.trim(), body.location.trim(), hours, startDate);
+  void fireTelegram(fullName);
 
   return NextResponse.json({ ok: true });
 }
