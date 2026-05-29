@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import PricingFAQ from "@/components/PricingFAQ";
-import PricingBrevoForm from "@/components/PricingBrevoForm";
+import PricingEnquiryForm from "@/components/PricingEnquiryForm";
 import PricingCardsDrawer from "@/components/PricingCardsDrawer";
 import BookDemoCTA from "@/components/BookDemoCTA";
 
@@ -122,7 +122,7 @@ export default function PricingPage() {
                 a single bordered container, see PricingBrevoForm). */}
             <aside className="rb-pricing-right">
               <div className="rb-pricing-right-sticky" data-rb-fade="0">
-                <PricingBrevoForm />
+                <PricingEnquiryForm />
               </div>
             </aside>
           </div>
