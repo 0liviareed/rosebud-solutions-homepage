@@ -101,27 +101,38 @@ async function fireTelegram(name: string, email: string, location: string, hours
     .filter(Boolean);
   if (!token || chats.length === 0) return;
 
+  // Plain text only — no parse_mode. Applicant fields routinely contain
+  // characters Markdown/HTML treats as markup (underscores in emails,
+  // ampersands in companies, etc.) which return 400 from Telegram and
+  // silently fail. Plain text is bulletproof.
   const msg =
-    `🌹 *New Appointment Setter application*\n` +
+    `🌹 New Appointment Setter application\n\n` +
     `${name}\n` +
     `${email}\n` +
     `📍 ${location}\n` +
     `⏰ ${hoursPerWeek} hrs/week · Earliest start: ${startDate}`;
 
   await Promise.all(
-    chats.map((chatId) =>
-      fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          chat_id: chatId,
-          text: msg,
-          parse_mode: "Markdown",
-        }),
-      }).catch(() => {
-        /* fire-and-forget */
-      })
-    )
+    chats.map(async (chatId) => {
+      try {
+        const r = await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ chat_id: chatId, text: msg }),
+        });
+        if (!r.ok) {
+          const t = await r.text().catch(() => "");
+          console.error(
+            `[appointment-setter] telegram send to ${chatId} failed status=${r.status} body=${t.slice(0, 200)}`
+          );
+        }
+      } catch (e) {
+        console.error(
+          `[appointment-setter] telegram send to ${chatId} threw:`,
+          e instanceof Error ? e.message : String(e)
+        );
+      }
+    })
   );
 }
 

@@ -149,10 +149,10 @@ export default function CareersApplicationForm() {
         <p className="rb-app-eyebrow">Application received</p>
         <h2 className="rb-app-success-h">Thanks for applying.</h2>
         <p className="rb-app-success-body">
-          We review applications weekly. If you&rsquo;re a strong fit you&rsquo;ll hear
-          from the COO within seven days with an interview slot. If you don&rsquo;t,
-          assume we&rsquo;ve passed this cycle — rolling intake means we keep your
-          application on file for future windows.
+          We review applications on an ongoing basis. If you&rsquo;re a strong fit
+          you&rsquo;ll hear from the Rosebud Global team within three days with an
+          interview slot. If you don&rsquo;t, assume we&rsquo;ve passed this cycle
+          — rolling intake means we keep your application on file for future windows.
         </p>
       </div>
     );
