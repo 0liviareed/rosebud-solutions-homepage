@@ -33,7 +33,7 @@ export default function PrivacyPage() {
           <h1 className="rb-page-hero-h1">
             Privacy <em>Notice.</em>
           </h1>
-          <p className="rb-page-hero-caption">Last update: April 24, 2026</p>
+          <p className="rb-page-hero-caption">Last update: May 29, 2026</p>
         </div>
       </section>
 
@@ -148,6 +148,68 @@ export default function PrivacyPage() {
                 To manage recruitment, applications, and partnerships.
               </li>
             </ul>
+          </section>
+
+          <section className="rb-policy-section">
+            <h2 className="rb-policy-h2">Job Applicants and Recruitment Data</h2>
+            <p>
+              When you apply for a role at Rosebud Solutions via our website
+              (including the appointment-setter application form), we collect
+              and process the personal information you submit for the purpose
+              of assessing your application and contacting you about it.
+            </p>
+            <p>
+              <strong>What we collect.</strong> Information you provide through
+              the application form, including your name, email address,
+              country and city of residence, LinkedIn profile (if shared),
+              relevant sales / SDR / setter experience, industry experience,
+              commission-role history, equipment confirmation, available hours,
+              earliest start date, and the consents you provide on the form.
+              We also automatically log the browser user-agent string at
+              submission for support and abuse-prevention purposes.
+            </p>
+            <p>
+              <strong>How we use it.</strong> To review your application
+              against the requirements of the role, to compare candidates
+              fairly, to contact you with interview slots or follow-up
+              questions, and to keep your details on file for future relevant
+              openings during the retention period. We do not use applicant
+              information for marketing without separate consent.
+            </p>
+            <p>
+              <strong>Where it is stored.</strong> Applications are stored in a
+              private Supabase database hosted in the European Union, with
+              access restricted to authorised members of the Rosebud Solutions
+              team via our internal dashboard. A short notification containing
+              only the applicant&rsquo;s name is sent to an internal team
+              channel on submission so we know to review the application — the
+              full application body is never sent over that channel.
+            </p>
+            <p>
+              <strong>Lawful basis.</strong> We process applicant data on the
+              basis of your consent (given when you submit the form) and our
+              legitimate interest in assessing candidates for open roles.
+              Where we rely on consent, you may withdraw it at any time by
+              emailing the contact below — withdrawing consent will not
+              affect any processing that has already taken place but will
+              result in your application being deleted from our systems.
+            </p>
+            <p>
+              <strong>Retention.</strong> Unsuccessful applications are kept
+              for up to 12 months from submission so we can consider you for
+              future openings, after which they are deleted. If you ask us to
+              delete your application sooner, we will do so promptly.
+              Successful applicants&rsquo; data may be retained for longer
+              as part of standard onboarding and employment records.
+            </p>
+            <p>
+              <strong>Your rights.</strong> You retain all of the rights set
+              out in the &ldquo;Your Rights Under UK GDPR&rdquo; section
+              below over your application data, including the right to
+              access, correct, or delete it. To exercise any of these,
+              contact us at{" "}
+              <a href="mailto:contact@rosebud.global">contact@rosebud.global</a>.
+            </p>
           </section>
 
           <section className="rb-policy-section">
