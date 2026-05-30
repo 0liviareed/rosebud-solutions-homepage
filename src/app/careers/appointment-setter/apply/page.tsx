@@ -23,6 +23,9 @@ export default function ApplicationPage() {
           <p className="rb-job-strap">
             Complete the form below. Applications reviewed weekly.
           </p>
+          <p className="rb-job-strap rb-apply-page-expectation">
+            Before you apply — this role expects <strong>250 calls per week</strong>, which is a minimum <strong>20-hour weekly commitment</strong>.
+          </p>
         </div>
       </header>
 
