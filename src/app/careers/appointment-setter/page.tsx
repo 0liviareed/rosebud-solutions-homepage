@@ -92,6 +92,10 @@ export default function AppointmentSetterPage() {
                 go to a Business Development Executive who handles the
                 close. You&rsquo;re paid when the deal closes.
               </p>
+              <p className="rb-job-callout">
+                This role expects <strong>250 calls per week</strong>, which
+                is a minimum <strong>20-hour weekly commitment</strong>.
+              </p>
             </section>
 
             <section className="rb-job-sec">
