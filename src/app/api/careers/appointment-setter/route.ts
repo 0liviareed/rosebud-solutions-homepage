@@ -48,6 +48,19 @@ const EQUIPMENT_OPTIONS = new Set([
   "Quiet calling environment",
 ]);
 
+const OUTBOUND_EXPERIENCE_OPTIONS = new Set([
+  "None",
+  "Some",
+  "Significant",
+]);
+
+const OUTBOUND_FEELING_OPTIONS = new Set([
+  "Love it",
+  "Fine with it",
+  "Prefer minimal",
+  "Avoid if possible",
+]);
+
 type Body = {
   first_name?: string;
   last_name?: string;
@@ -58,6 +71,9 @@ type Body = {
   commission_role_before?: boolean;
   commission_role_details?: string;
   industry_experience?: string[];
+  outbound_experience?: string;
+  outbound_feeling?: string;
+  calling_notes?: string;
   equipment_check?: string[];
   hours_per_week?: number;
   earliest_start_date?: string;
@@ -163,6 +179,17 @@ export async function POST(req: Request) {
   const industry = validateArray(body.industry_experience, INDUSTRY_OPTIONS);
   if (!industry) return bad("Select at least one option for industry experience");
 
+  if (!nonEmptyString(body.outbound_experience) || !OUTBOUND_EXPERIENCE_OPTIONS.has(body.outbound_experience))
+    return bad("Select your outbound calling experience");
+  const outboundExperience = body.outbound_experience;
+
+  if (!nonEmptyString(body.outbound_feeling) || !OUTBOUND_FEELING_OPTIONS.has(body.outbound_feeling))
+    return bad("Tell us how you feel about an outbound calling role");
+  const outboundFeeling = body.outbound_feeling;
+
+  let callingNotes: string | null = null;
+  if (nonEmptyString(body.calling_notes)) callingNotes = body.calling_notes.trim();
+
   const equipment = validateArray(body.equipment_check, EQUIPMENT_OPTIONS);
   if (!equipment) return bad("Select at least one item for the equipment check");
 
@@ -220,6 +247,9 @@ export async function POST(req: Request) {
       commission_role_before: body.commission_role_before,
       commission_role_details: commissionDetails,
       industry_experience: industry,
+      outbound_experience: outboundExperience,
+      outbound_feeling: outboundFeeling,
+      calling_notes: callingNotes,
       equipment_check: equipment,
       hours_per_week: hours,
       earliest_start_date: startDate,

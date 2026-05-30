@@ -14,6 +14,9 @@ type Form = {
   commission_role_before: "yes" | "no" | "";
   commission_role_details: string;
   industry_experience: string[];
+  outbound_experience: string;
+  outbound_feeling: string;
+  calling_notes: string;
   equipment_check: string[];
   hours_per_week: string;
   earliest_start_date: string;
@@ -32,6 +35,9 @@ const INITIAL: Form = {
   commission_role_before: "",
   commission_role_details: "",
   industry_experience: [],
+  outbound_experience: "",
+  outbound_feeling: "",
+  calling_notes: "",
   equipment_check: [],
   hours_per_week: "",
   earliest_start_date: "",
@@ -56,6 +62,19 @@ const INDUSTRY_OPTIONS = [
   "Recruitment",
   "Enterprise",
   "Other",
+];
+
+const OUTBOUND_EXPERIENCE_OPTIONS: { value: string; label: string }[] = [
+  { value: "None",        label: "None" },
+  { value: "Some",        label: "Some (occasional, not a core part of my role)" },
+  { value: "Significant", label: "Significant (a core, daily part of a previous role)" },
+];
+
+const OUTBOUND_FEELING_OPTIONS = [
+  "Love it",
+  "Fine with it",
+  "Prefer minimal",
+  "Avoid if possible",
 ];
 
 const EQUIPMENT_OPTIONS = [
@@ -96,6 +115,14 @@ export default function CareersApplicationForm() {
       setErrorMsg("Please select at least one industry.");
       return;
     }
+    if (!form.outbound_experience) {
+      setErrorMsg("Please select your outbound calling experience.");
+      return;
+    }
+    if (!form.outbound_feeling) {
+      setErrorMsg("Please tell us how you feel about an outbound calling role.");
+      return;
+    }
     if (form.equipment_check.length === 0) {
       setErrorMsg("Please tick the equipment items you have.");
       return;
@@ -124,6 +151,9 @@ export default function CareersApplicationForm() {
           commission_role_before: form.commission_role_before === "yes",
           commission_role_details: form.commission_role_details || undefined,
           industry_experience: form.industry_experience,
+          outbound_experience: form.outbound_experience,
+          outbound_feeling: form.outbound_feeling,
+          calling_notes: form.calling_notes || undefined,
           equipment_check: form.equipment_check,
           hours_per_week: Number(form.hours_per_week),
           earliest_start_date: form.earliest_start_date,
@@ -300,6 +330,56 @@ export default function CareersApplicationForm() {
             ))}
           </div>
         </div>
+
+        <div className="rb-app-field">
+          <span className="rb-app-label">
+            How much outbound calling experience do you have? <span className="rb-app-req">*</span>
+          </span>
+          <div className="rb-app-checks">
+            {OUTBOUND_EXPERIENCE_OPTIONS.map((opt) => (
+              <label key={opt.value} className="rb-app-check">
+                <input
+                  type="radio"
+                  name="outbound_experience"
+                  checked={form.outbound_experience === opt.value}
+                  onChange={() => update("outbound_experience", opt.value)}
+                />
+                <span>{opt.label}</span>
+              </label>
+            ))}
+          </div>
+        </div>
+
+        <div className="rb-app-field">
+          <span className="rb-app-label">
+            How do you feel about a role that&rsquo;s primarily outbound calling? <span className="rb-app-req">*</span>
+          </span>
+          <div className="rb-app-checks">
+            {OUTBOUND_FEELING_OPTIONS.map((opt) => (
+              <label key={opt} className="rb-app-check">
+                <input
+                  type="radio"
+                  name="outbound_feeling"
+                  checked={form.outbound_feeling === opt}
+                  onChange={() => update("outbound_feeling", opt)}
+                />
+                <span>{opt}</span>
+              </label>
+            ))}
+          </div>
+        </div>
+
+        <label className="rb-app-field">
+          <span className="rb-app-label">Anything else about your calling experience?</span>
+          <textarea
+            rows={3}
+            value={form.calling_notes}
+            onChange={(e) => update("calling_notes", e.target.value)}
+            className="rb-app-input"
+            style={{ resize: "vertical", minHeight: "78px", fontFamily: "inherit" }}
+            placeholder="Optional"
+          />
+        </label>
       </fieldset>
 
       <fieldset className="rb-app-fs" disabled={state === "submitting"}>
