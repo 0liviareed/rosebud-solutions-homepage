@@ -174,8 +174,6 @@ export default function AppointmentSetterPage() {
               <dl className="rb-job-aside-facts">
                 <dt>Role</dt>
                 <dd>Appointment Setter</dd>
-                <dt>Reports to</dt>
-                <dd>CEO, Rosebud Solutions</dd>
                 <dt>Pay</dt>
                 <dd>Commission-only · 7% → 10%</dd>
                 <dt>Location</dt>
