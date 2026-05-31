@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import CareersApplicationForm from "./CareersApplicationForm";
+import HiringStatusOverlay from "@/components/HiringStatusOverlay";
 
 export const metadata: Metadata = {
   title: "Apply — Appointment Setter — Rosebud Solutions",
@@ -13,6 +14,7 @@ export const metadata: Metadata = {
 export default function ApplicationPage() {
   return (
     <main className="rb-job rb-apply-page">
+      <HiringStatusOverlay />
       <header className="rb-job-header rb-apply-page-header">
         <div className="rb-apply-page-container">
           <Link href="/careers/appointment-setter" className="rb-apply-page-back">
