@@ -6299,6 +6299,45 @@ button { font: inherit; color: inherit; }
   cursor: pointer;
 }
 
+.rb-app-hint {
+  display: block;
+  margin-top: 6px;
+  font-size: 12px;
+  line-height: 1.5;
+  color: rgba(245, 241, 234, 0.52);
+}
+
+/* Per-weekday hours: a row of 5 small inputs, each with a day label above. */
+.rb-app-weekdays {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 8px;
+  margin-top: 6px;
+}
+.rb-app-weekday {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.rb-app-weekday-label {
+  font-size: 10.5px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(245, 241, 234, 0.62);
+  font-weight: 500;
+  text-align: center;
+}
+.rb-app-weekday-input {
+  text-align: center;
+  padding-left: 8px;
+  padding-right: 8px;
+}
+@media (max-width: 520px) {
+  .rb-app-weekdays { gap: 6px; }
+  .rb-app-weekday-label { font-size: 10px; letter-spacing: 0.1em; }
+  .rb-app-weekday-input { padding: 10px 4px; }
+}
+
 /* Multiselect — rendered as a checkbox column, not a dropdown */
 .rb-app-checks {
   display: flex;

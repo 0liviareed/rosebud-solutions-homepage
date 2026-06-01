@@ -61,6 +61,33 @@ const OUTBOUND_FEELING_OPTIONS = new Set([
   "Avoid if possible",
 ]);
 
+const TIMEZONE_OPTIONS = new Set([
+  "Europe/London",
+  "Europe/Dublin",
+  "Europe/Paris",
+  "Europe/Berlin",
+  "Europe/Madrid",
+  "Europe/Athens",
+  "Africa/Lagos",
+  "Africa/Johannesburg",
+  "Asia/Dubai",
+  "Asia/Karachi",
+  "Asia/Kolkata",
+  "Asia/Bangkok",
+  "Asia/Manila",
+  "Asia/Singapore",
+  "America/New_York",
+  "America/Chicago",
+  "America/Denver",
+  "America/Los_Angeles",
+  "America/Toronto",
+  "America/Mexico_City",
+  "America/Sao_Paulo",
+  "Australia/Sydney",
+  "Pacific/Auckland",
+  "UTC",
+]);
+
 type Body = {
   first_name?: string;
   last_name?: string;
@@ -75,7 +102,13 @@ type Body = {
   outbound_feeling?: string;
   calling_notes?: string;
   equipment_check?: string[];
-  hours_per_week?: number;
+  hours_monday?: number;
+  hours_tuesday?: number;
+  hours_wednesday?: number;
+  hours_thursday?: number;
+  hours_friday?: number;
+  days_per_week?: number;
+  timezone?: string;
   earliest_start_date?: string;
   gdpr_consent?: boolean;
   commission_consent?: boolean;
@@ -205,10 +238,34 @@ export async function POST(req: Request) {
     commissionDetails = body.commission_role_details.trim();
   }
 
-  // Hours per week
-  const hours = Number(body.hours_per_week);
-  if (!Number.isFinite(hours) || hours <= 0 || hours > 80)
-    return bad("Hours per week must be between 1 and 80");
+  // Per-day hours (Mon–Fri, each 0–16) + days per week + timezone
+  function dayHours(label: string, value: unknown): number | NextResponse {
+    const n = Number(value);
+    if (!Number.isFinite(n) || n < 0 || n > 16)
+      return bad(`Hours for ${label} must be between 0 and 16`);
+    return n;
+  }
+  const mon = dayHours("Monday",    body.hours_monday);    if (mon    instanceof NextResponse) return mon;
+  const tue = dayHours("Tuesday",   body.hours_tuesday);   if (tue    instanceof NextResponse) return tue;
+  const wed = dayHours("Wednesday", body.hours_wednesday); if (wed    instanceof NextResponse) return wed;
+  const thu = dayHours("Thursday",  body.hours_thursday);  if (thu    instanceof NextResponse) return thu;
+  const fri = dayHours("Friday",    body.hours_friday);    if (fri    instanceof NextResponse) return fri;
+  const hoursMonday    = mon as number;
+  const hoursTuesday   = tue as number;
+  const hoursWednesday = wed as number;
+  const hoursThursday  = thu as number;
+  const hoursFriday    = fri as number;
+  const hoursPerWeek   = hoursMonday + hoursTuesday + hoursWednesday + hoursThursday + hoursFriday;
+  if (hoursPerWeek <= 0)
+    return bad("Enter at least some hours across Monday–Friday");
+
+  const daysPerWeekNum = Number(body.days_per_week);
+  if (!Number.isInteger(daysPerWeekNum) || daysPerWeekNum < 1 || daysPerWeekNum > 5)
+    return bad("Days per week must be between 1 and 5");
+
+  if (!nonEmptyString(body.timezone) || !TIMEZONE_OPTIONS.has(body.timezone))
+    return bad("Select your timezone");
+  const timezone = body.timezone;
 
   // Date
   if (!nonEmptyString(body.earliest_start_date) || !validIsoDate(body.earliest_start_date))
@@ -251,7 +308,14 @@ export async function POST(req: Request) {
       outbound_feeling: outboundFeeling,
       calling_notes: callingNotes,
       equipment_check: equipment,
-      hours_per_week: hours,
+      hours_monday: hoursMonday,
+      hours_tuesday: hoursTuesday,
+      hours_wednesday: hoursWednesday,
+      hours_thursday: hoursThursday,
+      hours_friday: hoursFriday,
+      hours_per_week: hoursPerWeek,
+      days_per_week: daysPerWeekNum,
+      timezone,
       earliest_start_date: startDate,
       gdpr_consent: body.gdpr_consent,
       commission_consent: body.commission_consent,

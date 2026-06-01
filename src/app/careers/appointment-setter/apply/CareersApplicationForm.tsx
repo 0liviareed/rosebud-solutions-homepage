@@ -18,7 +18,13 @@ type Form = {
   outbound_feeling: string;
   calling_notes: string;
   equipment_check: string[];
-  hours_per_week: string;
+  hours_monday: string;
+  hours_tuesday: string;
+  hours_wednesday: string;
+  hours_thursday: string;
+  hours_friday: string;
+  days_per_week: string;
+  timezone: string;
   earliest_start_date: string;
   gdpr_consent: boolean;
   commission_consent: boolean;
@@ -39,7 +45,13 @@ const INITIAL: Form = {
   outbound_feeling: "",
   calling_notes: "",
   equipment_check: [],
-  hours_per_week: "",
+  hours_monday: "",
+  hours_tuesday: "",
+  hours_wednesday: "",
+  hours_thursday: "",
+  hours_friday: "",
+  days_per_week: "",
+  timezone: "",
   earliest_start_date: "",
   gdpr_consent: false,
   commission_consent: false,
@@ -82,6 +94,41 @@ const EQUIPMENT_OPTIONS = [
   "Headset with microphone",
   "Wired or stable Wi-Fi internet",
   "Quiet calling environment",
+];
+
+const WEEKDAYS = [
+  { key: "hours_monday",    label: "Mon" },
+  { key: "hours_tuesday",   label: "Tue" },
+  { key: "hours_wednesday", label: "Wed" },
+  { key: "hours_thursday",  label: "Thu" },
+  { key: "hours_friday",    label: "Fri" },
+] as const;
+
+const TIMEZONE_OPTIONS: { value: string; label: string }[] = [
+  { value: "Europe/London",       label: "London (UK)" },
+  { value: "Europe/Dublin",       label: "Dublin (Ireland)" },
+  { value: "Europe/Paris",        label: "Paris (CET)" },
+  { value: "Europe/Berlin",       label: "Berlin (CET)" },
+  { value: "Europe/Madrid",       label: "Madrid (CET)" },
+  { value: "Europe/Athens",       label: "Athens (EET)" },
+  { value: "Africa/Lagos",        label: "Lagos (WAT)" },
+  { value: "Africa/Johannesburg", label: "Johannesburg (SAST)" },
+  { value: "Asia/Dubai",          label: "Dubai (GST)" },
+  { value: "Asia/Karachi",        label: "Karachi (PKT)" },
+  { value: "Asia/Kolkata",        label: "Kolkata / Mumbai (IST)" },
+  { value: "Asia/Bangkok",        label: "Bangkok (ICT)" },
+  { value: "Asia/Manila",         label: "Manila (PHT)" },
+  { value: "Asia/Singapore",      label: "Singapore (SGT)" },
+  { value: "America/New_York",    label: "New York (US Eastern)" },
+  { value: "America/Chicago",     label: "Chicago (US Central)" },
+  { value: "America/Denver",      label: "Denver (US Mountain)" },
+  { value: "America/Los_Angeles", label: "Los Angeles (US Pacific)" },
+  { value: "America/Toronto",     label: "Toronto (Canada Eastern)" },
+  { value: "America/Mexico_City", label: "Mexico City (CST)" },
+  { value: "America/Sao_Paulo",   label: "São Paulo (BRT)" },
+  { value: "Australia/Sydney",    label: "Sydney (AEST/AEDT)" },
+  { value: "Pacific/Auckland",    label: "Auckland (NZST/NZDT)" },
+  { value: "UTC",                 label: "UTC" },
 ];
 
 export default function CareersApplicationForm() {
@@ -135,6 +182,26 @@ export default function CareersApplicationForm() {
       setErrorMsg("Please describe your previous commission role.");
       return;
     }
+    for (const d of WEEKDAYS) {
+      const v = form[d.key];
+      if (v === "" || !/^\d+$/.test(v) || Number(v) < 0 || Number(v) > 16) {
+        setErrorMsg(`Enter hours for ${d.label} (0–16).`);
+        return;
+      }
+    }
+    const totalHours = WEEKDAYS.reduce((sum, d) => sum + Number(form[d.key] || 0), 0);
+    if (totalHours <= 0) {
+      setErrorMsg("Enter at least some hours across Monday–Friday.");
+      return;
+    }
+    if (form.days_per_week === "") {
+      setErrorMsg("Select how many days per week you can commit.");
+      return;
+    }
+    if (!form.timezone) {
+      setErrorMsg("Select your timezone.");
+      return;
+    }
 
     setState("submitting");
     try {
@@ -155,7 +222,13 @@ export default function CareersApplicationForm() {
           outbound_feeling: form.outbound_feeling,
           calling_notes: form.calling_notes || undefined,
           equipment_check: form.equipment_check,
-          hours_per_week: Number(form.hours_per_week),
+          hours_monday:    Number(form.hours_monday),
+          hours_tuesday:   Number(form.hours_tuesday),
+          hours_wednesday: Number(form.hours_wednesday),
+          hours_thursday:  Number(form.hours_thursday),
+          hours_friday:    Number(form.hours_friday),
+          days_per_week:   Number(form.days_per_week),
+          timezone:        form.timezone,
           earliest_start_date: form.earliest_start_date,
           gdpr_consent: form.gdpr_consent,
           commission_consent: form.commission_consent,
@@ -401,18 +474,50 @@ export default function CareersApplicationForm() {
           </div>
         </div>
 
+        <div className="rb-app-field">
+          <span className="rb-app-label">
+            Hours you can commit per day <span className="rb-app-req">*</span>
+          </span>
+          <div className="rb-app-weekdays">
+            {WEEKDAYS.map((d) => (
+              <label key={d.key} className="rb-app-weekday">
+                <span className="rb-app-weekday-label">{d.label}</span>
+                <input
+                  type="number"
+                  min={0}
+                  max={16}
+                  step={1}
+                  inputMode="numeric"
+                  required
+                  value={form[d.key]}
+                  onChange={(e) => update(d.key, e.target.value)}
+                  className="rb-app-input rb-app-weekday-input"
+                  placeholder="0"
+                />
+              </label>
+            ))}
+          </div>
+          <span className="rb-app-hint">Enter 0 for days you can&rsquo;t commit. Range 0–16 per day.</span>
+        </div>
+
         <div className="rb-app-row">
           <label className="rb-app-field">
-            <span className="rb-app-label">Hours per week you can commit Monday to Friday <span className="rb-app-req">*</span></span>
-            <input
-              type="number"
-              min={1}
-              max={80}
+            <span className="rb-app-label">
+              Days per week you can commit <span className="rb-app-req">*</span>
+            </span>
+            <select
               required
-              value={form.hours_per_week}
-              onChange={(e) => update("hours_per_week", e.target.value)}
+              value={form.days_per_week}
+              onChange={(e) => update("days_per_week", e.target.value)}
               className="rb-app-input"
-            />
+            >
+              <option value="" disabled>Select</option>
+              <option value="1">1 day</option>
+              <option value="2">2 days</option>
+              <option value="3">3 days</option>
+              <option value="4">4 days</option>
+              <option value="5">5 days</option>
+            </select>
           </label>
           <label className="rb-app-field">
             <span className="rb-app-label">Earliest possible start date <span className="rb-app-req">*</span></span>
@@ -424,6 +529,23 @@ export default function CareersApplicationForm() {
               className="rb-app-input"
             />
           </label>
+        </div>
+
+        <div className="rb-app-field">
+          <span className="rb-app-label">
+            Your timezone <span className="rb-app-req">*</span>
+          </span>
+          <select
+            required
+            value={form.timezone}
+            onChange={(e) => update("timezone", e.target.value)}
+            className="rb-app-input"
+          >
+            <option value="" disabled>Select your timezone</option>
+            {TIMEZONE_OPTIONS.map((tz) => (
+              <option key={tz.value} value={tz.value}>{tz.label}</option>
+            ))}
+          </select>
         </div>
       </fieldset>
 
