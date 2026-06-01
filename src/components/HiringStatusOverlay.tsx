@@ -1,27 +1,30 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import { usePathname } from 'next/navigation'
 
 /**
- * Full-screen "we're not actively hiring" notice that lands on the
- * appointment-setter role overview. Dismissed via the close button
- * (top-right of the card); dismissal persists for the session only,
- * so a fresh visit re-shows the message.
+ * Full-screen "we're not actively hiring" notice. Mounted on both the
+ * role overview and the application form. Dismissal is per-route +
+ * per-session, so closing it on the overview doesn't suppress it on
+ * the apply page (or vice versa).
  */
-const STORAGE_KEY = 'rb_hiring_overlay_dismissed_v1'
 
 export default function HiringStatusOverlay() {
+  const pathname = usePathname() || ''
+  const storageKey = `rb_hiring_overlay_dismissed_v1:${pathname}`
+
   const [hydrated, setHydrated] = useState(false)
   const [open, setOpen] = useState(true)
 
   useEffect(() => {
     setHydrated(true)
     try {
-      if (sessionStorage.getItem(STORAGE_KEY) === '1') setOpen(false)
+      if (sessionStorage.getItem(storageKey) === '1') setOpen(false)
     } catch {
       // sessionStorage unavailable (private mode, etc.) — fine, overlay just stays open
     }
-  }, [])
+  }, [storageKey])
 
   // Lock body scroll while the overlay is visible.
   useEffect(() => {
@@ -41,7 +44,7 @@ export default function HiringStatusOverlay() {
 
   const dismiss = () => {
     setOpen(false)
-    try { sessionStorage.setItem(STORAGE_KEY, '1') } catch { /* ignore */ }
+    try { sessionStorage.setItem(storageKey, '1') } catch { /* ignore */ }
   }
 
   if (!hydrated || !open) return null
