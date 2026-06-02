@@ -178,6 +178,282 @@ This isn't for you if you're writing one or two policies a month on introducer r
 
 ---
 
+# Dental, Aesthetic & Private Healthcare (https://rosebud.global/industries/healthcare)
+
+## Hero
+
+AI-Powered Patient Operations Software.
+
+Agentic patient orchestration — from first enquiry to long-term loyalty. Autonomously answer calls, DMs, and contact forms, qualify patients against your suitability criteria, capture medical histories and pre-treatment photos, and book directly into your practice management system. Built around Dentally, SOE, Pabau, Open Dental, Aesthetic Nurse Software.
+
+## Section I — Where the hours go
+
+Where patient operations run on your front desk right now:
+
+1. Enquiry comes in — Instagram DM at 11pm, contact form during a treatment, the practice line at lunch
+2. Qualify the patient — suitable for treatment, contraindications, on blood thinners, comparing other clinics
+3. Chase for records and consent — medical history forms, anti-wrinkle questionnaires, pre-treatment photos, finance applications
+4. Find a slot and book — cross-checking Dentally, SOE, Pabau, Open Dental, or Aesthetic Nurse Software against practitioner availability
+5. Remind, confirm, reschedule — 24-hour reminders, day-of confirmations, the reschedules that eat half a morning
+6. Post-visit follow-up — aftercare, treatment plan progress, payment chases
+7. Recall — three-month aesthetic top-ups, six-month hygiene, twelve-month ortho reviews — usually missed entirely
+
+Every patient, the same loop. Every recall cycle, the loop restarts. What if six of those seven steps ran without them?
+
+## Section II — What's included
+
+Every deployment is built around your treatments, your clinicians, and your practice management software. Seven roles run as one system — operated by us, handed to you.
+
+- Enquiry Intake — every channel (phone, Instagram DM, contact form, WhatsApp) answered the moment it lands
+- Patient Triage & Qualification — treatment needs, suitability flags, urgency, and finance questions captured before clinical input
+- Records & Documentation Collection — medical history, pre-treatment photos, consent paperwork, finance details collected through guided conversation and filed into your PMS
+- Booking & Diary Management — slots offered against live practitioner availability, confirmed in real time, written into Dentally/SOE/Pabau/Open Dental/ANS
+- Reminders & Reschedules — sent at the cadence that actually moves the no-show number, reschedules handled the moment a patient flags one
+- Post-Visit Follow-up & Aftercare — aesthetic aftercare, hygiene guidance, treatment-plan progress for Invisalign and implant patients
+- Recall & Retention — recall cycles diarised by treatment type, multi-visit course sequencing for Profhilo, polynucleotides, laser hair removal
+
+You own every system we build. Full access, full credentials, full data. No lock-in. Cancel any time. Pricing shared on the demo call — scoped to enquiry volume and the number of practitioners.
+
+## Section III — What changes on day one
+
+By the time a patient reaches your front desk, they're qualified, their records are in, the slot is booked, and the next step is clear. Every patient arrives ready to see the clinician. Of the seven steps between enquiry and recall, your team runs one. We run the other six.
+
+## Section IV — Who this is for
+
+This works for you if you're handling 50+ enquiries a month across DMs, calls, and forms; you're running Dentally, SOE, Pabau, Open Dental, ANS or similar PMS; you've got recall cycles and multi-visit treatment courses you're not following up consistently; and you want your front desk on patient-facing work, not chasing paperwork.
+
+This isn't for you if you're a single-practitioner clinic with under 30 enquiries a month; you don't have practice management software and don't want to adopt any; or you want software to run yourself — this is a service, not a product.
+
+## FAQ
+
+**How fast does the system respond to a new patient enquiry?** Under 60 seconds, every time, across phone, Instagram DM, contact form, and WhatsApp. The aesthetic enquiry who messaged five clinics at midnight gets a proper answer from yours; the dental patient calling on lunch break hits a booking, not a voicemail.
+
+**How does triage work before a clinician sees the file?** Treatment needs, suitability flags, urgency, finance questions are captured through structured conversation. Routine queries get answered without clinical input. Anything that needs clinical eyes — dental emergency at 9pm, post-treatment patient worried about swelling — gets escalated the moment the agent recognises it.
+
+**How are medical records and consent paperwork collected?** Through guided conversation, not chased over email. Medical history, pre-treatment photos, consent forms, finance applications collected the right point in the journey and filed straight into your PMS so the clinician walks in with the full picture.
+
+**How does diary booking work?** Slots offered against live practitioner availability, confirmed in real time, written into Dentally, SOE, Pabau, Open Dental, or Aesthetic Nurse Software. Your slots fill while your team is on the floor.
+
+**How do you reduce no-shows?** Reminders sent at the cadence that actually moves the number — 24h reminders, day-of confirmations — plus reschedule handling the moment a patient flags one. Your diary stays tight without anyone manually working it.
+
+**How is aftercare and treatment progress chased?** Aesthetic aftercare, hygiene guidance between dental visits, treatment-plan progress for Invisalign and implant patients — triggered by the appointment itself, sequenced to the treatment.
+
+**How does recall actually run?** Recall cycles are diarised by treatment type — three-month aesthetic top-ups, six-month hygiene, twelve-month ortho — plus the sequenced touchpoints across multi-visit courses like Profhilo, polynucleotides, or laser hair removal. Patients you assumed went elsewhere end up back in your diary.
+
+**Which practice management systems do you integrate with?** Dentally, SOE, Pabau, Open Dental, Aesthetic Nurse Software, and most of the platforms private healthcare teams actually run. Conversation transcripts, patient data, consent paperwork, and appointment data file directly into the system.
+
+**How do you make sure the system launches safely?** Every workflow is built around your treatments, your clinicians, and your tone of voice. We build it across a five-week deployment, you test it, you sign it off. By the time it goes live, you know exactly what it says to patients and where it escalates to a human.
+
+---
+
+# Real Estate (https://rosebud.global/industries/real-estate)
+
+## Hero
+
+Your leads are messaging four other agents. The first one back wins.
+
+Agentic real estate orchestration — from first inquiry to closed deal. Autonomously qualify buyer and seller leads the moment they hit your funnel; book showings against live agent availability; run long-tail nurture across SMS, email, and voice until they're ready to transact. Built around Follow Up Boss, kvCORE, Sierra Interactive, Chime, BoomTown, LionDesk, Wise Agent, Realvolve. TCPA-compliant.
+
+## Section I — Where the leads go
+
+Where real estate runs on your team right now:
+
+1. Inquiry hits — Zillow, Realtor.com, Redfin, IDX, Facebook, Instagram, SMS, missed calls
+2. Race to first call — average agent takes 47 hours; first agent back wins 78% of the time
+3. Qualify — pre-approval, budget, timeline, motivation, are they already working with an agent
+4. Book a showing or listing appointment — cross-check the diary, confirm with the lead, write it into FUB / kvCORE / Sierra / Chime
+5. CRM updates — half-typed cards, three follow-ups behind, lead status drifting
+6. Long-tail nurture — the "maybe next spring" buyer dropped after the third follow-up
+7. Closer hand-off — by the time it gets to your closer, the lead has cooled
+
+Every lead, the same loop. Every "I'll get back to you" goes cold. What if six of those seven steps ran without them?
+
+## Section II — What's included
+
+Every deployment is built around your funnel sources, your agents, and your CRM. Seven roles run as one system — operated by us, handed to you.
+
+- Lead Capture Engine — every channel answered in under 60 seconds, 24/7
+- Buyer & Seller Qualification — pre-approval, budget, timeline, motivation, "working with an agent" flag captured before a human agent touches the file
+- Showing & Listing Appointment Booking — slots offered against live agent availability, written into your CRM
+- CRM Auto-Population — Follow Up Boss, kvCORE, Sierra, Chime, BoomTown, or whatever you're running — nothing typed
+- Reminders, Confirmations & Reschedules — day-before reminders, morning-of confirmations, reschedule handling
+- Long-Tail Nurture — the "maybe next spring" buyer kept warm across SMS, email, and voice until a buying signal fires
+- Operational Audit & Roadmap — where leads are leaking and what to fix next
+
+You own every system we build. Full access, full credentials, full data. No lock-in. Cancel any time. Pricing shared on the demo call — scoped to lead volume and the size of your team.
+
+## Section III — What changes on day one
+
+By the time a lead reaches your closer, they're pre-qualified, the showing is booked, the CRM is full, and the next step is clear. Every lead arrives ready to transact. Of the seven steps between inquiry and contract, your team runs one. We run the other six.
+
+## Section IV — Who this is for
+
+This works for you if you're handling 50+ leads a month across Zillow, Realtor.com, Redfin, IDX, and social; you're running Follow Up Boss, kvCORE, Sierra, Chime, BoomTown, LionDesk, Wise Agent, Realvolve, or similar; your biggest bottleneck is response time, not lead supply; and you want your agents on showings, listings, and closings — not data entry.
+
+This isn't for you if you're a solo agent with under 20 leads a month; you don't have a CRM and don't want to adopt one; or you want software to run yourself — this is a service, not a product.
+
+## FAQ
+
+**How fast does the system respond to a new lead?** Under 60 seconds, every time. The Zillow lead who filled out three forms before bed gets their first call back from you; the buyer who texted at 9pm hits a qualified conversation, not a "we'll get back to you Monday."
+
+**How does pre-qualification work before an agent picks up?** Pre-approval status, budget, timeline, motivation, "working with an agent" flag — captured through structured conversation. Hot leads get routed to a closer. Long-tail prospects get routed to nurture. Nobody on your team wastes an hour on a buyer six months from a mortgage application.
+
+**How does showing booking actually run?** Slots offered against live agent availability, confirmed in real time, written into your CRM. Buyers book showings directly. Sellers book listing appointments. Your calendar fills while you're at a closing.
+
+**Which CRMs do you integrate with?** Follow Up Boss, kvCORE, Sierra Interactive, Chime, BoomTown, LionDesk, Wise Agent, Realvolve, and most of the platforms real estate teams actually run. Lead details, conversation transcripts, qualification data, and next steps file directly into your CRM in the format it expects.
+
+**How does long-tail nurture work?** The buyer who said "maybe next spring." The seller circling for six months. The investor watching the market. Rosebud handles them across SMS, email, and voice for as long as it takes — adjusting cadence based on engagement signals, pulling in listings that match their criteria, and routing them back to your closer the moment a buying signal fires.
+
+**Is the system TCPA-compliant?** Yes. Every workflow is structured to meet TCPA consent requirements — written and verbal disclosures, opt-out handling, quiet-hours enforcement, recording disclosures where required.
+
+**How are no-shows reduced?** Day-before reminders, morning-of confirmations, and reschedule handling the moment a buyer flags one. No-shows drop because the system is in the conversation, not waiting on someone to make the call.
+
+**What visibility do brokerages and team leads get?** Every interaction is logged with conversation transcripts, qualification data, and pipeline stage. Managers see exactly which leads are stalling, which agents are picking up, and where the funnel is leaking.
+
+**How do you make sure the system launches safely?** Every workflow is built around your funnel sources, your scripts, your tone. Five-week build, you test it, you sign it off. By the time it goes live, you know what it says to leads, how it routes, and where it escalates.
+
+---
+
+# Mortgage & Lending (https://rosebud.global/industries/mortgage-lending)
+
+## Hero
+
+Half your applications die at conditions. That's the half we run.
+
+Agentic mortgage orchestration — from first inquiry to funded loan. Autonomously qualify borrowers, collect documentation, populate your LOS, send status updates to borrower / Realtor / referral partners, and chase conditions before they kill the lock. Built around Encompass, Calyx Point, LendingPad, Surefire CRM, BNTouch, Jungo, Velocify, Total Expert. RESPA / TILA / ECOA / TCPA / fair lending compliant.
+
+## Section I — Where the loans die
+
+Where mortgage origination runs on your team right now:
+
+1. Inquiry hits — LendingTree, Zillow, Realtor partner referrals, website forms, IDX, social, missed calls
+2. Race to first call — borrower talks to three lenders before yours; first quote back wins
+3. Pre-qualify — credit, income, employment, debts, loan purpose, property type, timeline
+4. 1003 walkthrough + document collection — pay stubs, W-2s, bank statements, tax returns, self-employed business returns
+5. LOS auto-population — Encompass / Calyx / LendingPad / Surefire / BNTouch / Jungo or manual data entry
+6. Status updates — borrower, buyer's agent, listing agent, referral source all asking the same questions
+7. Conditions and re-docs — underwriter flags a condition Friday, LO sees Monday, re-doc comes Thursday, rate-lock expires Wednesday
+
+Every loan, the same loop. Every condition, the clock starts ticking. What if six of those seven steps ran without them?
+
+## Section II — What's included
+
+Every deployment is built around your loan products, your loan officers, and your LOS. Seven roles run as one system — operated by us, handed to you.
+
+- Inquiry Capture Engine — every channel answered in under 60 seconds, 24/7
+- Borrower Pre-Qualification — loan purpose, property type, estimated credit, income, employment, existing debts, timeline captured before an LO touches the file
+- Application & Document Collection — 1003 walkthroughs, application portal logins, pay stubs, W-2s, bank statements, tax returns, business returns, gift letters, source-of-funds
+- LOS & CRM Auto-Population — Encompass, Calyx, LendingPad, Surefire, BNTouch, Jungo, Velocify, Total Expert — nothing typed
+- Status Updates to Borrower, Realtor & Referral Partners — "where are we on the appraisal?" answered before it's asked
+- Conditions, Re-Docs & Rate-Lock Management — conditions worked the moment they fire, re-docs collected same business day, rate-lock clocks watched automatically
+- Operational Audit & Roadmap — where your pipeline is leaking and what to fix next
+
+You own every system we build. Full access, full credentials, full data. No lock-in. Cancel any time. Pricing shared on the demo call — scoped to inquiry volume and the size of your team.
+
+## Section III — What changes on day one
+
+By the time a borrower reaches your loan officer, they're pre-qualified, their 1003 is started, the documents are in, and the next step is clear. Every loan arrives ready to move to processing. Of the seven steps between inquiry and funded loan, your team runs one. We run the other six.
+
+## Section IV — Who this is for
+
+This works for you if you're handling 50+ inquiries a month across LendingTree, Zillow, referrals, and social; you're running Encompass, Calyx, LendingPad, Surefire, BNTouch, Jungo, Velocify, Total Expert, or similar LOS; you've got loans dying at conditions; and you want your LOs on advice and closings — not data entry and document chase.
+
+This isn't for you if you're a solo LO with under 20 inquiries a month; you don't have an LOS and don't want to adopt one; or you want software to run yourself — this is a service, not a product.
+
+## FAQ
+
+**How fast does the system respond to a new borrower inquiry?** Under 60 seconds, every time, across every channel. The borrower who filled out three lender forms before bed gets their first call back from you; the rate-shopper texting at 9pm hits a qualified conversation, not a voicemail.
+
+**How does pre-qualification work before an LO touches the file?** Loan purpose, property type, estimated credit, income, employment, debts, timeline — captured through structured conversation. Hot leads with strong pre-quals get routed to your top LO. Marginal credit profiles get routed to a credit-improvement nurture.
+
+**How is the 1003 and document collection handled?** In conversation, not chased over email. Pay stubs, W-2s, bank statements, tax returns, business returns for self-employed borrowers, gift letters, source-of-funds — collected at the right point in the loan lifecycle, flagged before they go stale, filed straight into your LOS.
+
+**Which LOS and CRM systems do you integrate with?** Encompass, Calyx Point, LendingPad, Surefire CRM, BNTouch, Jungo, Velocify, Total Expert, and most of the platforms lending teams actually run.
+
+**How does status update communication work?** "Where are we on the appraisal?" answered before it's asked. Daily or weekly updates sent automatically to the borrower, buyer's agent, listing agent, and referral source. The questions that used to eat an hour every morning are already handled.
+
+**How are conditions and re-docs handled?** The underwriter flags a condition at 4pm Friday — Rosebud pings the borrower the moment it fires, walks them through what's needed, collects the re-doc, files it back into your LOS, and notifies the processor. Usually inside the same business day. Loans stop dying at week five.
+
+**How is rate-lock management handled?** Rate-lock clocks watched automatically. Extension requests flagged before they're urgent. The lock that would have expired on a Wednesday gets surfaced the Friday before.
+
+**Is the system RESPA / TILA / ECOA / TCPA / fair lending compliant?** Yes. Every workflow is structured around RESPA disclosures, TILA timing requirements, ECOA fair lending standards, TCPA consent, and fair lending message-script approval.
+
+**How do you make sure the system launches safely?** Every workflow is built around your products, your LOs, your tone. Five-week build, you test it, you sign it off. By the time it goes live, you know what it says to borrowers, how it routes, and where it escalates to a human.
+
+---
+
+# Trades & Home Services (https://rosebud.global/industries/trades-home-services)
+
+## Hero
+
+Your office runs the business. We run the office.
+
+The admin work your office team shouldn't be doing — answering every call, qualifying every job, chasing every quote, handling every paperwork request, and following up every past customer for repeat work. Built around your job management system. We run it. You own it.
+
+## Section I — Where the office time goes
+
+Where trades and home services admin runs in your office right now:
+
+1. Inquiry comes in — phone call during a job, website form, Facebook DM, Google Business message, referral
+2. Qualify the job — domestic vs commercial, type of work, property type, budget range, insurance claim vs private pay, timeline, access
+3. Book the survey or quote visit — cross-checking the diary, matching the right tech or estimator, writing it into ServiceTitan, Jobber, FieldEdge
+4. Send the quote — build Wednesday, send Thursday, no reply, follow-up Monday, no reply, customer already booked another trade
+5. Chase the paperwork — deposit invoice goes out Monday, customer hasn't paid by Wednesday, site starts Friday
+6. Status updates — "when are you starting?", "what time will the lads be there?", "has the part come in yet?"
+7. Invoice, chase payment, follow up — final invoice at completion, reminders at 21/30/45 days, past customers never followed up at all
+
+Every customer, the same loop. Every job, the same paperwork chase. What if six of those seven steps ran without them?
+
+One missed inquiry a week at a £2,500 average job value is £130,000 walking past the door every year.
+
+## Section II — What's included
+
+Every deployment is built around the work you do, the customers you serve, and the systems you already run — ServiceTitan, Housecall Pro, Jobber, FieldEdge, Service Fusion, Workiz, Tradify, simPRO, ServiceM8, or your own CRM. Seven roles run as one system — operated by us, handed to you.
+
+- Inquiry Capture Engine — every customer inquiry across phone, web, Facebook, Google Business, WhatsApp, SMS, missed calls answered the moment it lands
+- Job Qualification & Triage — work type, property type, urgency, budget, insurance claim vs private pay, timeline, access captured before office staff touch the file
+- Survey & Quote Booking — slots offered against live diary availability, confirmed in real time, written into your job management system
+- Quote Follow-Up & Conversion — every quote followed up on a structured cadence (24h / 48h / 7d) with price-anchoring nurture
+- Paperwork & Documentation Chase — deposit invoices, signed quotes, site photos, insurance claim docs, building control sign-off, material specs collected through guided conversation
+- Status Updates to Customers — "when are the lads arriving?" answered before it's asked, daily or job-stage updates automated
+- Invoicing, Payment Chase & Customer Follow-Up — final invoice automatic, payment reminders sequenced, plus 3 / 6 / 12-month past-customer follow-up for repeat work and referrals
+
+You own every system we build. Full access, full credentials, full data. No lock-in. Cancel any time. Pricing shared on the demo call — scoped to job volume and the size of your office team.
+
+## Section III — What changes on day one
+
+By the time a job reaches your office team, the customer is qualified, the visit is booked, the paperwork is in, and the next step is clear. Every job arrives ready to move. Of the seven steps between a customer calling and the final invoice paid, your office runs two. We run the other five.
+
+## Section IV — Who this is for
+
+This works for you if you're handling 50+ inquiries a month across calls, forms, and referrals; your office is the bottleneck — not your field team; you're running ServiceTitan, Jobber, Housecall Pro, FieldEdge, simPRO, or similar job management software; you've got past customers you've never followed up for repeat work; and you want your office team running quotes, scheduling, and customers — not answering the same questions on repeat.
+
+This isn't for you if you're a sole trader or two-person operation; you're the owner-operator doing your own quotes and surveys (we extend your office team, we don't replace your estimator); your inquiry volume is under 30/month (lead-gen problem, not response-speed problem); you expect this to generate leads (Rosebud handles inbound and admin, not paid acquisition); you don't have job management software and don't want to adopt any; or you want software to run yourself — this is a service, not a product.
+
+## FAQ
+
+**How fast does the system respond to a new customer inquiry?** Under 60 seconds, every time, across every channel and at any time of day. The emergency boiler at 7am gets immediate qualification and either books a slot, dispatches a callout, or hands the conversation back to your office with full context.
+
+**How does the system qualify a job before it reaches my office?** Through structured conversation — work type, property type, urgency, budget, insurance claim vs private pay, timeline, access. Emergency callouts get flagged immediately. Quote-stage enquiries get prioritised by job size. Time-wasters get answered without reaching your team.
+
+**How are jobs routed to the right person or trade?** The agent reads the conversation, identifies fit, and routes to the right estimator, dispatcher, or tech with full context attached.
+
+**How does the system chase quotes that haven't been replied to?** Every quote sent gets followed up on a structured cadence — 24 hours, 48 hours, 7 days — with the message tone matched to your business. "Let me think about it" gets a nurture sequence with project photos, testimonials, and a price-anchoring conversation. Price objections get handled before they kill the job.
+
+**How does the system handle paperwork chase — deposits, photos, signed quotes?** Through guided conversation, not email chase. The system requests each document at the right point in the job lifecycle, walks the customer through what's needed, collects it, and files it into your job management system.
+
+**How does the system handle "when are you arriving" calls and customer updates?** Daily or job-stage updates sent automatically — arrival windows, parts orders, completion timelines, next steps. The questions that used to eat your office team's morning are answered before they're asked.
+
+**How does the system handle invoicing and payment chase?** Final invoices go out automatically at job completion. Payment reminders sent at the cadence that gets you paid. Aged debtor reports surfaced before they become a problem.
+
+**How does the system bring back past customers for repeat work?** Every completed customer gets followed up at 3 months, 6 months, and 12 months — service reminders for boilers, annual inspections, maintenance contracts, seasonal work, the "is everything still holding up?" check-in. Repeat work and referrals stop being accidental.
+
+**Which job management systems do you integrate with?** ServiceTitan, Housecall Pro, Jobber, FieldEdge, Service Fusion, Workiz, Tradify, simPRO, ServiceM8, and most of the platforms trades and home services teams actually run.
+
+**How do you make sure the system launches safely?** Every workflow is built around how your office actually runs — your trades, your job types, your pricing structure, your tone of voice. Five-week deployment, you test it, you sign it off.
+
+---
+
 # Privacy Notice (https://rosebud.global/privacy)
 
 Rosebud Global Ltd respects your privacy and is committed to protecting the personal information of individuals who interact with us. This Policy applies to information we collect on our website (rosebud.global), our digital platforms, and other channels owned or controlled by Rosebud.
