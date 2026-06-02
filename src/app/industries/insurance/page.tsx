@@ -8,6 +8,7 @@ import Voices from "@/components/Voices";
 import { VOICES } from "@/components/voices-data";
 import BookDemoCTA from "@/components/BookDemoCTA";
 import BookCTA from "@/components/BookCTA";
+import RelatedIndustries from "@/components/RelatedIndustries";
 
 const INSURANCE_ROLES: SplitRole[] = [
   { num: "I",   label: "Enquiry Intake",            body: "Every new enquiry answered the moment it lands, with the qualifying questions asked before a licensed advisor picks it up." },
@@ -603,6 +604,26 @@ export default function InsurancePage() {
             </div>
           </div>
         </section>
+
+        <RelatedIndustries
+          items={[
+            {
+              href: "/industries/trades-home-services",
+              title: "Trades & Home Services",
+              desc: "For the restoration, roofing, and plumbing teams your property claims route to.",
+            },
+            {
+              href: "/industries/real-estate",
+              title: "Real Estate",
+              desc: "For the agents whose closings drive your new business and renewals.",
+            },
+            {
+              href: "/industries/mortgage-lending",
+              title: "Mortgage & Lending",
+              desc: "For the LOs needing the binder on the property before close.",
+            },
+          ]}
+        />
       </main>
     </>
   );

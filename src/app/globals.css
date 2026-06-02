@@ -4796,6 +4796,76 @@ button { font: inherit; color: inherit; }
   transform: translateX(4px);
 }
 
+/* ── Related industries — quiet editorial rail at the foot of each
+   industry page. Two- or three-column tile grid, same hover shift as
+   the pricing tiles, smaller scale because this sits after the FAQ
+   rather than carrying the page. ───────────────────────────────────── */
+.rb-sec-related {
+  padding-top: clamp(2rem, 4vw, 3rem);
+  padding-bottom: clamp(3rem, 6vw, 5rem);
+}
+.rb-related-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 12px;
+  list-style: none;
+  padding: 0;
+  margin: clamp(1rem, 2vw, 1.5rem) 0 0;
+}
+.rb-related-item { display: contents; }
+
+.rb-related-tile {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 14px;
+  padding: 16px 18px;
+  border: 1px solid var(--rb-bone-hair);
+  border-radius: 10px;
+  background: rgba(245, 241, 234, 0.015);
+  text-decoration: none;
+  transition: border-color 240ms var(--rb-ease),
+    background 240ms var(--rb-ease),
+    transform 240ms var(--rb-ease);
+}
+.rb-related-tile:hover,
+.rb-related-tile:focus-visible {
+  border-color: rgba(184, 174, 219, 0.36);
+  background: rgba(139, 125, 216, 0.05);
+  transform: translateX(3px);
+  outline: none;
+}
+.rb-related-tile-title {
+  display: block;
+  font-family: var(--font-cormorant), serif;
+  font-weight: 400;
+  font-size: clamp(1rem, 1.3vw, 1.2rem);
+  letter-spacing: -0.005em;
+  color: var(--rb-bone);
+  line-height: 1.2;
+}
+.rb-related-tile-desc {
+  display: block;
+  font-family: var(--font-dm-sans), sans-serif;
+  font-size: 12px;
+  letter-spacing: 0.005em;
+  color: var(--rb-bone-dim);
+  margin-top: 3px;
+  grid-column: 1;
+}
+.rb-related-tile-arrow {
+  grid-row: 1 / span 2;
+  grid-column: 2;
+  align-self: center;
+  font-family: var(--font-cormorant), serif;
+  font-size: 18px;
+  color: var(--rb-purple);
+  transition: transform 240ms var(--rb-ease);
+}
+.rb-related-tile:hover .rb-related-tile-arrow {
+  transform: translateX(3px);
+}
+
 /* ── Brevo form — self-contained styling (no external Brevo stylesheet).
    Owns everything: container, inputs, labels, custom checkboxes, error
    + success panels, submit button, reCAPTCHA spacing. Brevo's main.js

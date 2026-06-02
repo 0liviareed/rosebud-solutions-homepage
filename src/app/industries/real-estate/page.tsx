@@ -8,6 +8,7 @@ import Voices from "@/components/Voices";
 import { VOICES } from "@/components/voices-data";
 import BookDemoCTA from "@/components/BookDemoCTA";
 import BookCTA from "@/components/BookCTA";
+import RelatedIndustries from "@/components/RelatedIndustries";
 
 // Reorder Voices so quotes about lead response speed, pipeline visibility,
 // and quietly-running operations lead — those carry best for real estate
@@ -789,6 +790,26 @@ export default function RealEstatePage() {
             </div>
           </div>
         </section>
+
+        <RelatedIndustries
+          items={[
+            {
+              href: "/industries/trades-home-services",
+              title: "Trades & Home Services",
+              desc: "For the plumbers, sparkies, roofers, and HVAC teams handling pre-list repairs, inspections, and post-close work.",
+            },
+            {
+              href: "/industries/mortgage-lending",
+              title: "Mortgage & Lending",
+              desc: "For the LOs co-piloting your buyers from pre-approval to funded close.",
+            },
+            {
+              href: "/industries/insurance",
+              title: "Insurance",
+              desc: "For the brokers running new business, claims, and renewals on the homes you sell.",
+            },
+          ]}
+        />
       </main>
     </>
   );

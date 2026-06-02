@@ -4,6 +4,7 @@ import SplitRoles, { type SplitRole } from "@/components/SplitRoles";
 import TradesHomeServicesFAQ from "@/components/TradesHomeServicesFAQ";
 import BookDemoCTA from "@/components/BookDemoCTA";
 import BookCTA from "@/components/BookCTA";
+import RelatedIndustries from "@/components/RelatedIndustries";
 
 const TRADES_STEPS: TimelineStep[] = [
   [
@@ -776,6 +777,26 @@ export default function TradesHomeServicesPage() {
             </div>
           </div>
         </section>
+
+        <RelatedIndustries
+          items={[
+            {
+              href: "/industries/real-estate",
+              title: "Real Estate",
+              desc: "For the agents booking your team for pre-list repairs and post-close handovers.",
+            },
+            {
+              href: "/industries/insurance",
+              title: "Insurance",
+              desc: "For the brokers routing claims your way — restoration, roofing, plumbing emergencies.",
+            },
+            {
+              href: "/industries/mortgage-lending",
+              title: "Mortgage & Lending",
+              desc: "For the LOs needing appraisal-flagged repairs done before close.",
+            },
+          ]}
+        />
       </main>
     </>
   );

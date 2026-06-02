@@ -8,6 +8,7 @@ import Voices from "@/components/Voices";
 import { VOICES } from "@/components/voices-data";
 import BookDemoCTA from "@/components/BookDemoCTA";
 import BookCTA from "@/components/BookCTA";
+import RelatedIndustries from "@/components/RelatedIndustries";
 
 // Voices re-ordered to lead with ops/pipeline-visibility/quietly-running
 // quotes — same logic as real-estate. The mortgage audience cares about
@@ -805,6 +806,26 @@ export default function MortgageLendingPage() {
             </div>
           </div>
         </section>
+
+        <RelatedIndustries
+          items={[
+            {
+              href: "/industries/real-estate",
+              title: "Real Estate",
+              desc: "For the agents you take referrals from and refer buyers back to.",
+            },
+            {
+              href: "/industries/trades-home-services",
+              title: "Trades & Home Services",
+              desc: "For the home services teams handling appraisal-flagged repairs and post-close fit-outs.",
+            },
+            {
+              href: "/industries/insurance",
+              title: "Insurance",
+              desc: "For the brokers writing the binder before close and the renewal after.",
+            },
+          ]}
+        />
       </main>
     </>
   );
