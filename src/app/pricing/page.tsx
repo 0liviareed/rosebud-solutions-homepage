@@ -72,6 +72,11 @@ const VERTICALS = [
     title: "Mortgage & Lending",
     desc: "Inquiry. Conditions. Funded.",
   },
+  {
+    href: "/industries/trades-home-services",
+    title: "Trades & Home Services",
+    desc: "Inquiry. Quote. Paperwork. Repeat work.",
+  },
 ];
 
 export default function PricingPage() {
