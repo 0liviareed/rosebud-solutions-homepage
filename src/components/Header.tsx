@@ -160,7 +160,7 @@ export default function Header() {
               >
                 <div className="rb-nav-group">
                   <span className="rb-nav-group-label">
-                    <span className="rb-nav-group-count" aria-hidden="true">I–VI</span>
+                    <span className="rb-nav-group-count" aria-hidden="true">I–VII</span>
                     <span>By Industry</span>
                   </span>
 
@@ -229,6 +229,17 @@ export default function Header() {
                   >
                     <span className="rb-nav-link-title">Trades &amp; Home Services</span>
                     <span className="rb-nav-link-desc">Inquiry. Quote. Paperwork. Repeat work.</span>
+                    <span className="rb-nav-link-arrow" aria-hidden="true">→</span>
+                  </Link>
+
+                  <Link
+                    href="/industries/family-law"
+                    className="rb-nav-link"
+                    role="menuitem"
+                    onClick={() => setMenuOpen(false)}
+                  >
+                    <span className="rb-nav-link-title">Family Law &amp; Consumer Legal</span>
+                    <span className="rb-nav-link-desc">Intake. Deadlines. Documents. Billing.</span>
                     <span className="rb-nav-link-arrow" aria-hidden="true">→</span>
                   </Link>
                 </div>
@@ -328,7 +339,7 @@ export default function Header() {
         <div className="rb-mobile-menu-inner">
           <div className="rb-mobile-group">
             <span className="rb-mobile-group-label">
-              <span className="rb-mobile-group-count" aria-hidden="true">I–VI</span>
+              <span className="rb-mobile-group-count" aria-hidden="true">I–VII</span>
               <span>By Industry</span>
             </span>
 
@@ -391,6 +402,16 @@ export default function Header() {
             >
               <span className="rb-mobile-link-title">Trades &amp; Home Services</span>
               <span className="rb-mobile-link-desc">Inquiry. Quote. Paperwork. Repeat work.</span>
+              <span className="rb-mobile-link-arrow" aria-hidden="true">→</span>
+            </Link>
+
+            <Link
+              href="/industries/family-law"
+              className="rb-mobile-link"
+              onClick={closeMobile}
+            >
+              <span className="rb-mobile-link-title">Family Law &amp; Consumer Legal</span>
+              <span className="rb-mobile-link-desc">Intake. Deadlines. Documents. Billing.</span>
               <span className="rb-mobile-link-arrow" aria-hidden="true">→</span>
             </Link>
           </div>

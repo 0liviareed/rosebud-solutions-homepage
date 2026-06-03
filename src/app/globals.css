@@ -2537,6 +2537,63 @@ button { font: inherit; color: inherit; }
   text-align: center;
 }
 
+/* ========== "Where the line is" — used on /industries/family-law to make
+   the line between admin-we-handle and legal-work-we-don't explicit.
+   Stack of bordered blocks with serif italic heading + plain body, plus a
+   "why this matters" callout below. */
+.rb-line-blocks {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(1.5rem, 3vw, 2.25rem);
+  margin: clamp(2rem, 4vw, 3rem) auto 0;
+  max-width: 46rem;
+}
+.rb-line-block {
+  border-left: 1px solid var(--rb-bone-hair);
+  padding: 0.25rem 0 0.25rem 1.5rem;
+}
+.rb-line-block-title {
+  font-family: var(--font-cormorant), serif;
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(1.15rem, 1.8vw, 1.4rem);
+  line-height: 1.3;
+  color: var(--rb-bone);
+  margin: 0 0 0.6rem;
+  letter-spacing: -0.005em;
+}
+.rb-line-block-body {
+  font-family: var(--font-dm-sans), sans-serif;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: var(--rb-bone-dim);
+  margin: 0;
+}
+.rb-line-why {
+  margin: clamp(2.5rem, 5vw, 4rem) auto 0;
+  max-width: 46rem;
+  padding: clamp(1.25rem, 2.5vw, 1.75rem);
+  border: 1px solid var(--rb-bone-hair);
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.015);
+}
+.rb-line-why-label {
+  font-family: var(--font-dm-sans), sans-serif;
+  font-size: 0.7rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  font-weight: 500;
+  color: var(--rb-purple);
+  margin: 0 0 0.7rem;
+}
+.rb-line-why-body {
+  font-family: var(--font-dm-sans), sans-serif;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: var(--rb-bone-dim);
+  margin: 0;
+}
+
 /* ========== FAQ accordion ========== */
 .rb-faq {
   display: flex;
