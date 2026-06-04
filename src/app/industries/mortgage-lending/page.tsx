@@ -10,18 +10,16 @@ import BookDemoCTA from "@/components/BookDemoCTA";
 import BookCTA from "@/components/BookCTA";
 import RelatedIndustries from "@/components/RelatedIndustries";
 
-// Voices re-ordered to lead with ops/pipeline-visibility/quietly-running
-// quotes — same logic as real-estate. The mortgage audience cares about
-// pipeline integrity and time saved, not raw growth pitches.
-const MORTGAGE_VOICES = [5, 2, 3, 0, 7, 1, 4, 6].map((i) => VOICES[i]);
+// Single Sinclair quote, per the tightened brief — leads with the
+// "made my job smaller instead of bigger" framing that matches the
+// page's "the loans we already have actually fund" thesis.
+const MORTGAGE_VOICES = [VOICES[5]];
 
-// SEO — target "AI for mortgage brokers", "AI mortgage workflow",
-// "loan officer AI", "Encompass AI", "LendingPad AI" etc.
 export const metadata: Metadata = {
   title:
     "Mortgage & Lending — AI Workflow for Brokers, LOs & Mortgage Teams",
   description:
-    "AI for mortgage brokers: answers every LendingTree, Zillow & referral inquiry in <60s, pre-qualifies borrowers, chases conditions & re-docs, files into Encompass / Calyx / LendingPad.",
+    "AI for mortgage brokers: every inquiry answered in <60s, borrowers pre-qualified, documentation collected, conditions chased, rate-lock clocks watched. Built around Encompass, Calyx, LendingPad, Surefire, BNTouch, Jungo. Live in 5 weeks.",
   keywords: [
     "ai for mortgage",
     "ai for mortgage brokers",
@@ -41,7 +39,7 @@ export const metadata: Metadata = {
     title:
       "Mortgage & Lending — AI Workflow for Brokers, LOs & Teams | Rosebud Global",
     description:
-      "Agentic mortgage orchestration — from first inquiry to funded loan. Autonomously qualify borrowers, collect documentation, manage conditions and rate-lock timelines, and keep applications moving from pre-approval to clear-to-close.",
+      "Inquiries qualified. Documentation collected. Conditions chased. Rate-lock clocks watched. Built around your LOS and CRM. We run it. You fund.",
     url: "https://rosebud.global/industries/mortgage-lending",
     type: "website",
   },
@@ -50,27 +48,27 @@ export const metadata: Metadata = {
 const MORTGAGE_STEPS: TimelineStep[] = [
   [
     "Inquiry comes in",
-    "Zillow Premier Agent referral. LendingTree match. Realtor partner referral. Website form. Cold text from a Facebook ad. Always the moment your team is in an application or out at a meeting.",
+    "Zillow. LendingTree. Realtor referral. Website form. Always the moment your team is in an application.",
   ],
   [
     "Qualify the borrower",
-    "Loan purpose? Property type? Estimated credit score? Income? Employment status? Existing debts? Timeline? The pre-screen that decides whether they're a one-week pre-approval or a three-month nurture.",
+    "Loan purpose, credit, income, employment, debts, timeline. The pre-screen that decides if they're worth pulling credit.",
   ],
   [
     "Send the application link",
-    "1003 portal link. Account creation. Login support. The first place 30% of borrowers drop off because nobody walked them through it.",
+    "1003 link. Account creation. Login support. 30% of borrowers drop off here — nobody walked them through.",
   ],
   [
     "Chase documentation",
-    "W-2s. Pay stubs. Two months of bank statements. Tax returns. ID. Employment verification. The first email. The second. The third. The “still waiting on” Slack message to the processor.",
+    "W-2s. Pay stubs. Bank statements. Tax returns. First email Monday. Second Wednesday. Third Friday. Processor still waiting.",
   ],
   [
     "Status updates to borrower and Realtor",
-    "The borrower texts at 8am: “Any update on the appraisal?” The buyer's agent emails at 9am: “Where are we on conditions?” The listing agent calls at 10am: “Are we still on for the 28th?” The referral partner pings at noon: “How's it looking?” Three or four people, every loan, every day, asking the same questions across email, text, and phone. Half your morning, gone.",
+    "Borrower at 8am: “Any update on the appraisal?” Buyer's agent at 9am: “Where are we on conditions?” Listing agent at 10am: “Still on for the 28th?” Referral partner at noon: “How's it looking?” Half your morning, gone.",
   ],
   [
     "Conditions and re-docs",
-    "Underwriter flags two conditions at 4pm Friday. Borrower needs the bank statement re-pulled with a different date range, plus a letter of explanation on a large deposit. By the time you see it Monday, the rate lock is 11 days out. By the time the borrower responds Wednesday, you're at 7 days. By the time it clears underwriting Friday, you're chasing a rate-lock extension that costs your shop $400. Every loan. Every week.",
+    "Underwriter flags two conditions at 4pm Friday. Monday: rate lock 11 days out. Wednesday: borrower replies, 7 days out. Friday: clears underwriting. Rate-lock extension costs your shop $400. Every loan. Every week.",
   ],
   [
     "Funded — and the next one starts",
@@ -82,38 +80,76 @@ const MORTGAGE_ROLES: SplitRole[] = [
   {
     num: "I",
     label: "Inquiry Capture Engine",
-    body: "Every borrower inquiry across every channel — LendingTree, Zillow, Realtor partner referrals, website forms, your IDX, Facebook, Instagram, SMS, missed calls — answered the moment it lands. The borrower who filled out three lender forms before bed gets their first call back from you. The rate-shopper texting at 9pm hits a qualified conversation, not a voicemail.",
+    body:
+      "Every inquiry answered in under 60 seconds, across every channel — LendingTree, Zillow, Realtor referrals, website, SMS. The 9pm rate-shopper hits a qualified conversation, not a voicemail.",
   },
   {
     num: "II",
     label: "Borrower Pre-Qualification",
-    body: "Loan purpose, property type, estimated credit, income, employment, existing debts, timeline — captured through structured conversation before a loan officer touches the file. Hot leads with strong pre-quals get routed to your top LO. Marginal credit profiles get routed to a credit-improvement nurture. Nobody on your team spends an hour on a borrower who's six months from a real application.",
+    body:
+      "Loan purpose, credit, income, employment, debts, timeline — captured before an LO touches the file. Strong pre-quals routed to your top LO. Marginal credit routed to nurture.",
   },
   {
     num: "III",
     label: "Application & Document Collection",
-    body: "1003 walkthroughs, application portal logins, and document collection — handled in conversation, not chased over email. Pay stubs, W-2s, bank statements, tax returns, business returns for self-employed borrowers, gift letters, source-of-funds documentation — collected at the right point in the loan lifecycle, flagged before they go stale, filed straight into your LOS. The self-employed borrower who'd normally take three weeks of back-and-forth gets through pre-approval in three days.",
+    body:
+      "1003 walkthroughs, portal logins, document collection — handled in conversation, not chased by email. Pay stubs, tax returns, bank statements, gift letters, source-of-funds. Self-employed borrowers through pre-approval in three days instead of three weeks. Stale docs flagged before they expire.",
   },
   {
     num: "IV",
     label: "LOS & CRM Auto-Population",
-    body: "Borrower details, conversation transcripts, qualification data, document uploads — written into Encompass, Calyx, LendingPad, Surefire, BNTouch, Jungo, or whatever you're running. Nothing typed. Your LO walks into every borrower call with full context, not a half-filled-in 1003.",
+    body:
+      "Borrower data, transcripts, qualification details, document uploads — written into Encompass, Calyx, LendingPad, Surefire, BNTouch, Jungo. Nothing typed. Your LO walks in with full context, not a half-filled-in 1003.",
   },
   {
     num: "V",
     label: "Status Updates to Borrower, Realtor & Referral Partners",
-    body: "“Where are we on the appraisal?” answered before it's asked. Daily or weekly status updates sent automatically to the borrower, the buyer's agent, the listing agent, and the referral source. The questions that used to eat an hour of your day every morning are already handled.",
+    body:
+      "“Where are we on the appraisal?” answered before it's asked. Daily or weekly updates to the borrower, both agents, and the referral source. The morning that used to disappear to status calls — recovered.",
   },
   {
     num: "VI",
     label: "Conditions, Re-Docs & Rate-Lock Management",
-    body: "The underwriter flags a condition at 4pm Friday. Under the manual process, the LO sees it Monday, emails the borrower Tuesday, gets the re-doc Thursday, files it back Friday — and the rate lock expires the following Wednesday. Rosebud pings the borrower the moment the condition fires, walks them through what's needed, collects the re-doc, files it back into your LOS, and notifies the processor it's clear — usually inside the same business day. Rate-lock clocks get watched automatically. Extension requests get flagged before they're urgent. Loans stop dying at week five because the operational gap that used to swallow them is closed.",
+    body:
+      "Underwriter flags a condition at 4pm Friday. Manual process: LO sees it Monday, borrower replies Thursday, rate lock expires Wednesday. Rosebud: borrower pinged immediately, walked through it, re-doc collected, filed into your LOS, processor notified — same business day. Rate-lock clocks watched automatically. Loans stop dying at week five.",
   },
   {
     num: "VII",
     label: "Operational Audit & Roadmap",
-    body: "Where your pipeline is leaking, and what to fix next. Reviewed quarterly with you, refined into the system.",
+    body:
+      "Where your pipeline is leaking, and what to fix next. Reviewed quarterly with you, refined into the system.",
   },
+];
+
+const COMPARE_ROWS: Array<[string, string]> = [
+  [
+    "LendingTree leads sit unread for 2–3 hours",
+    "Every inquiry answered in under 60 seconds",
+  ],
+  [
+    "Qualifying every borrower manually",
+    "Pre-qualified before they hit your LO",
+  ],
+  [
+    "Emailing borrowers three times for W-2s",
+    "Documentation collected in conversation, filed into your LOS",
+  ],
+  [
+    "Answering “where's my loan at?” texts all day",
+    "Status updates sent automatically to borrower, agents, partners",
+  ],
+  [
+    "Loans stalling at conditions, re-docs uncaught",
+    "Conditions and rate-locks tracked in conversation with the borrower",
+  ],
+  [
+    "Referral partners going cold between deals",
+    "Realtors and partners kept in the loop on every loan",
+  ],
+  [
+    "Strategic guesswork on where the pipeline is leaking",
+    "Every conversation logged, every drop-off point visible",
+  ],
 ];
 
 const SERVICE_SCHEMA = {
@@ -141,58 +177,65 @@ const FAQ_SCHEMA = {
   mainEntity: [
     {
       "@type": "Question",
-      name: "How fast does the AI respond to a new mortgage borrower inquiry?",
+      name: "How fast does the system respond to a new inquiry?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Under 60 seconds, every time. The industry average is 2–3 hours — rate-shoppers are comparing 3–5 lenders inside a 14-day credit pull window. The system closes that gap before competitors know there's a gap to close.",
+        text:
+          "Under 60 seconds, every time. Industry average is 2–3 hours. Rate-shoppers compare 3–5 lenders inside a 14-day credit pull window — the broker who responds first wins.",
       },
     },
     {
       "@type": "Question",
-      name: "How does the AI pre-qualify mortgage borrowers?",
+      name: "How does the system pre-qualify borrowers?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Through structured conversation across loan purpose, property type, estimated credit, income, employment, existing debts, and timeline. Strong files route to your top LO with full context; marginal credit profiles route to a credit-improvement nurture.",
+        text:
+          "Loan purpose, credit, income, employment, debts, timeline — captured in structured conversation. Strong files routed to your top LO. Marginal credit routed to nurture.",
       },
     },
     {
       "@type": "Question",
-      name: "How are mortgage borrowers routed to the right loan officer?",
+      name: "How are borrowers routed to the right loan officer?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "The agent reads the conversation, identifies fit — loan type, loan size, complexity, location, language preference — and routes to the right LO on your team with full context attached.",
+        text:
+          "We read the conversation, identify fit — loan type, size, complexity, language — and route to the right LO with full context.",
       },
     },
     {
       "@type": "Question",
-      name: "How does the AI collect mortgage documentation from borrowers?",
+      name: "How does the system collect documentation?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Through guided conversation, not chased over email. The system walks borrowers through the application portal, requests each document at the right point in the loan lifecycle (W-2s, pay stubs, bank statements, tax returns, business returns for self-employed borrowers, gift letters, source-of-funds documentation), and files everything straight into your LOS.",
+        text:
+          "Through guided conversation, not email. Each document requested at the right point, filed into your LOS as it comes in. Self-employed borrowers through pre-approval in three days instead of three weeks. Stale docs flagged before they expire.",
       },
     },
     {
       "@type": "Question",
-      name: "How does the AI handle status updates to borrowers, Realtors, and referral partners?",
+      name: "How does the system handle status updates?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Automatically. Daily or weekly updates sent to the borrower, both real estate agents, and the referral source — covering appraisal status, underwriting progress, conditions outstanding, and clear-to-close timeline.",
+        text:
+          "Automatically. Daily or weekly updates to the borrower, both real estate agents, and the referral source. Appraisal, underwriting, conditions, clear-to-close — all answered before they're asked.",
       },
     },
     {
       "@type": "Question",
-      name: "What happens when underwriter conditions or re-docs are needed?",
+      name: "What happens when conditions are flagged?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "The system pings the borrower the moment the condition fires, walks them through what's needed, collects the re-doc, and files it back into the LOS. Rate-lock clocks are watched automatically and extensions flagged before they're needed.",
+        text:
+          "The system pings the borrower the moment the condition fires, walks them through it, collects the re-doc, files it back. Rate-lock clocks watched automatically — extensions flagged before they're urgent.",
       },
     },
     {
       "@type": "Question",
-      name: "Which mortgage LOS and CRMs do you integrate with?",
+      name: "Which LOS and CRMs do you integrate with?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Encompass, Calyx Point, LendingPad, Surefire CRM, BNTouch, Jungo, Velocify, Total Expert, and most of the platforms US mortgage teams actually run.",
+        text:
+          "Encompass, Calyx Point, LendingPad, Surefire CRM, BNTouch, Jungo, Velocify, Total Expert — and most platforms US mortgage teams actually run.",
       },
     },
     {
@@ -200,7 +243,26 @@ const FAQ_SCHEMA = {
       name: "Is this designed for mortgage compliance?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Yes. Every workflow is built around RESPA, TILA, ECOA, TCPA, and fair lending requirements — including consent capture, adverse action handling, state-by-state quiet hours, and DNC filtering.",
+        text:
+          "Yes. Every workflow built around RESPA, TILA, ECOA, TCPA, and fair lending — consent capture, adverse action handling, state-by-state quiet hours, DNC filtering. Built in, not retrofitted.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "What visibility do branch managers and ops leaders get?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text:
+          "Every conversation logged, every application tracked, every condition visible. Managers see what's pre-approved, in processing, stuck at underwriting, and where rate locks are at risk.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "How do you make sure the system launches safely?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text:
+          "Built around how your shop runs — your loan products, investors, overlays. Five-week deployment. You test it, sign it off. By go-live, you know exactly what it says.",
       },
     },
   ],
@@ -260,12 +322,9 @@ export default function MortgageLendingPage() {
             <em>That&rsquo;s the half we run.</em>
           </h1>
           <p className="rb-page-hero-sub">
-            Agentic mortgage orchestration — from first inquiry to funded
-            loan. Autonomously qualify borrowers, collect documentation
-            through guided conversation, manage conditions and rate-lock
-            timelines, and keep applications moving from pre-approval to
-            clear-to-close. Coordinated across your LOS, CRM, and every
-            channel your borrowers use.
+            Inquiries qualified. Documentation collected. Conditions chased.
+            Rate-lock clocks watched. Built around your LOS and CRM. We run
+            it. You fund.
           </p>
 
           <ul
@@ -275,7 +334,7 @@ export default function MortgageLendingPage() {
             <li className="rb-hero-stat">
               <span className="rb-hero-stat-num">&lt; 60s</span>
               <span className="rb-hero-stat-label">
-                Response time to every borrower inquiry
+                Response to every borrower inquiry
               </span>
             </li>
             <li className="rb-hero-stat">
@@ -293,7 +352,7 @@ export default function MortgageLendingPage() {
             <li className="rb-hero-stat">
               <span className="rb-hero-stat-num">5 weeks</span>
               <span className="rb-hero-stat-label">
-                We build it. We run it. You fund.
+                We build it. You fund.
               </span>
             </li>
           </ul>
@@ -316,14 +375,10 @@ export default function MortgageLendingPage() {
                 Where the loans <em>stall.</em>
               </h2>
               <p className="rb-sub" data-rb-fade="2">
-                Most mortgage brokers lose loans at two points: the gap
-                between a borrower inquiring and getting back to them, and
-                the gap between pre-approval and clear-to-close where
-                documentation goes missing and conditions sit unanswered.
-                The system below isn&rsquo;t about generating more leads.
-                It&rsquo;s about closing both gaps — so the borrowers who
-                reach out actually fund, and the loans in your pipeline
-                don&rsquo;t fall through at week five.
+                Loans die in two places: the gap between an inquiry and your
+                response, and the gap between pre-approval and
+                clear-to-close. We close both. Not by generating more leads —
+                by making the ones you already have actually fund.
               </p>
             </div>
 
@@ -332,32 +387,34 @@ export default function MortgageLendingPage() {
             </div>
 
             <p className="rb-aftertext" data-rb-fade="3">
-              Every borrower, the same loop. Every loan in process, the same
-              risk of falling through. And it all lands on a loan officer
-              who should be writing new applications, not chasing W-2s.
+              Every borrower, the same loop. Every loan, the same risk of
+              falling through. And it all lands on an LO who should be writing
+              new applications, not chasing W-2s.
             </p>
             <p className="rb-aftertext" data-rb-fade="3">
-              One missed pre-approval inquiry a week at an average broker
-              commission of $4,500 per funded loan is $234,000 walking past
-              your desk every year. One loan a month falling through at the
-              conditions stage at the same rate is $54,000 in pipeline that
-              already had your time invested in it. Plus rate-lock
-              extensions running $300–$500 each — every extension is your
-              shop&rsquo;s profit on the loan, not the borrower&rsquo;s
-              cost. One a week is $20,000+ a year, paid for slow
-              operations.<sup>*</sup>
+              One missed pre-approval a week at $4,500 average commission is
+              $234,000 a year.
+            </p>
+            <p className="rb-aftertext" data-rb-fade="3">
+              One loan a month falling through at conditions is another
+              $54,000.
+            </p>
+            <p className="rb-aftertext" data-rb-fade="3">
+              Rate-lock extensions at $300–$500 each come out of your
+              shop&rsquo;s profit. One a week is $20,000+ a year.
+            </p>
+            <p className="rb-aftertext rb-aftertext-bridge" data-rb-fade="3">
+              For most brokerages, the combined leak runs into six figures
+              every year. Recovered.
+              <span className="rb-aftertext-footnote">*</span>
+            </p>
+            <p className="rb-aftertext rb-aftertext-quiet" data-rb-fade="3">
+              <span className="rb-aftertext-footnote">*</span> Illustrative;
+              actual figures vary by market, loan size, and compensation
+              structure.
             </p>
             <p className="rb-aftertext rb-aftertext-bridge" data-rb-fade="3">
               What if six of those seven steps ran <em>without you?</em>
-            </p>
-            <p
-              className="rb-aftertext rb-aftertext-quiet"
-              data-rb-fade="3"
-              style={{ fontSize: 11.5, marginTop: 8 }}
-            >
-              <sup>*</sup> Illustrative — based on average US broker
-              commission of $4,500 per funded loan; actual figures will
-              vary by market, loan size, and compensation structure.
             </p>
 
             <div data-rb-fade="3">
@@ -382,18 +439,17 @@ export default function MortgageLendingPage() {
                   One system. <em>All seven roles.</em>
                 </h2>
                 <p className="rb-split-body" data-rb-fade="2">
-                  A custom system we build around your team. One setup. One
-                  monthly figure. No per-seat pricing. Deployed in 5 weeks.
+                  Built around your team. One setup. One monthly figure. No
+                  per-seat pricing. Live in 5 weeks.
                 </p>
                 <p
                   className="rb-split-body rb-split-body-quiet"
                   data-rb-fade="3"
                 >
-                  Every deployment is built around the loans you write, the
-                  borrowers you serve, and the systems you already run —
-                  Encompass, Calyx Point, LendingPad, Surefire CRM, BNTouch,
-                  Jungo, Velocify, Total Expert. Seven roles run as one
-                  system, operated by us, handed to you.
+                  Built around the loans you write, the borrowers you serve,
+                  and the systems you already run — Encompass, Calyx Point,
+                  LendingPad, Surefire CRM, BNTouch, Jungo, Velocify, Total
+                  Expert.
                 </p>
 
                 <div className="rb-split-ctas" data-rb-fade="3">
@@ -479,9 +535,12 @@ export default function MortgageLendingPage() {
           </div>
 
           <div className="rb-wrap">
+            <p className="rb-aftertext" data-rb-fade="3">
+              You own every system we build. No lock-in. Cancel any time.
+            </p>
             <p className="rb-aftertext rb-aftertext-quiet" data-rb-fade="3">
               Pricing shared on the demo call — scoped to your monthly
-              application volume and loan officer team size.
+              application volume and LO team size.
             </p>
           </div>
         </section>
@@ -519,43 +578,14 @@ export default function MortgageLendingPage() {
             <div className="rb-compare" data-rb-fade="2">
               <div className="rb-compare-head">
                 <span className="rb-compare-label rb-compare-label-manual">
-                  Manual &middot; the reality now
+                  Manual
                 </span>
                 <span className="rb-compare-label rb-compare-label-rosebud">
-                  Rosebud runs it for you
+                  Rosebud
                 </span>
               </div>
 
-              {[
-                [
-                  "LendingTree and Zillow leads sit unread for 2–3 hours while your LO is in application",
-                  "Every inquiry answered in under 60 seconds, across every channel",
-                ],
-                [
-                  "Qualifying every borrower manually before knowing if they're worth a pre-approval pull",
-                  "Pre-qualified before they hit your LO — loan purpose, credit, income, timeline all captured",
-                ],
-                [
-                  "Emailing borrowers three times for W-2s, pay stubs, and bank statements",
-                  "Documentation collected through guided conversation, filed straight into your LOS",
-                ],
-                [
-                  "Manually answering “where's my loan at?” texts from borrowers and Realtors all day",
-                  "Status updates sent automatically to borrower, agents, and referral partners",
-                ],
-                [
-                  "Loans stalling at conditions because nobody chased the re-doc fast enough",
-                  "Conditions, re-docs, and rate-lock timelines tracked in-conversation with the borrower",
-                ],
-                [
-                  "Referral partner relationships dying from silence between deals",
-                  "Realtors and referral sources kept in the loop on every loan they sent you",
-                ],
-                [
-                  "Strategic guesswork on where the pipeline is leaking",
-                  "Every conversation logged, every drop-off point visible",
-                ],
-              ].map(([manual, rosebud], i) => (
+              {COMPARE_ROWS.map(([manual, rosebud], i) => (
                 <div key={i} className="rb-compare-row">
                   <span className="rb-compare-cell rb-compare-cell-manual">
                     <span
@@ -600,9 +630,9 @@ export default function MortgageLendingPage() {
                 What lands in your LOS
               </p>
               <p className="rb-before-after-intro">
-                By the time a loan reaches your LO, the borrower is
-                qualified, the application is started, and the documentation
-                is in. Every file arrives processor-ready.
+                By the time a loan reaches your LO, the borrower is qualified,
+                the application started, the documentation in. Every file
+                arrives processor-ready.
               </p>
               <p className="rb-before-after-bridge">
                 Of the seven steps between inquiry and a funded loan, your
@@ -615,7 +645,7 @@ export default function MortgageLendingPage() {
                   <ul className="rb-before-after-list">
                     <li>Inquiries sitting in LendingTree inbox</li>
                     <li>Half-captured pre-qual</li>
-                    <li>Documentation chased manually for weeks</li>
+                    <li>Documentation chased manually</li>
                   </ul>
                 </div>
                 <div className="rb-before-after-col rb-before-after-col-after">
@@ -667,20 +697,19 @@ export default function MortgageLendingPage() {
                 </span>
                 <ul className="rb-filter-list">
                   <li>
-                    You&rsquo;re handling 30+ borrower inquiries a month
-                    across purchase and refi
+                    You&rsquo;re handling 30+ inquiries a month across
+                    purchase and refi
                   </li>
                   <li>
-                    Your LOs are missing deals because nobody&rsquo;s
-                    responding to LendingTree leads after hours
+                    Your LOs are missing deals on after-hours LendingTree leads
                   </li>
                   <li>
-                    You&rsquo;re running Encompass, Calyx, LendingPad,
-                    Surefire, BNTouch, Jungo, or similar
+                    You&rsquo;re on Encompass, Calyx, LendingPad, Surefire,
+                    BNTouch, Jungo, or similar
                   </li>
                   <li>
-                    You&rsquo;ve got Realtor and referral partners who need
-                    consistent status updates to keep sending deals
+                    You&rsquo;ve got referral partners who need status updates
+                    to keep sending deals
                   </li>
                   <li>
                     You want your LOs writing applications and structuring
@@ -708,28 +737,21 @@ export default function MortgageLendingPage() {
                     year — the math doesn&rsquo;t work yet
                   </li>
                   <li>
-                    Your shop is purely refi-focused and rate-sensitive —
-                    Rosebud&rsquo;s economics fit purchase pipelines and
-                    stable refi shops, not high-velocity rate-driven refi
-                    waves
+                    Your shop is rate-driven refi only — our economics fit
+                    purchase pipelines and stable refi shops
                   </li>
                   <li>
                     Your inquiry volume is under 20/month — you don&rsquo;t
-                    have a response-speed problem, you have a lead-gen
-                    problem
+                    have a response problem, you have a lead-gen problem
                   </li>
                   <li>
-                    You expect this to generate leads — Rosebud handles
-                    inbound and pipeline, it doesn&rsquo;t run paid
-                    acquisition
+                    You expect this to generate leads — we handle inbound and
+                    pipeline, not paid acquisition
                   </li>
                   <li>
                     You want a chatbot or a single AI tool, not a system
                   </li>
-                  <li>
-                    You want software to run yourself — this is a service,
-                    not a product
-                  </li>
+                  <li>You want software to run yourself — this is a service</li>
                 </ul>
               </div>
             </div>
@@ -752,25 +774,15 @@ export default function MortgageLendingPage() {
                 Let&rsquo;s build <em>your system.</em>
               </h2>
               <p className="rb-sub" data-rb-fade="2">
-                A 30-minute call to understand how your team runs and where
-                the loans are stalling. You leave with a clear map of what
-                to automate and how.
+                A 30-minute call. We map your operation, scope the system, and
+                quote the build. You leave with a clear number.
               </p>
             </div>
 
             <div className="rb-demo-cards" data-rb-fade="3">
               <div className="rb-demo-card">
-                <span className="rb-label">What to expect</span>
-                <p>
-                  A working system mapped to the kind of borrowers and loans
-                  you&rsquo;re handling every day. You&rsquo;ll see the
-                  conversation, the qualification, the LOS hand-off, and
-                  the conditions tracking.
-                </p>
-              </div>
-              <div className="rb-demo-card">
                 <span className="rb-label">Duration</span>
-                <p>30 minutes. Zoom. No prep needed.</p>
+                <p>30 minutes. Zoom. No prep.</p>
               </div>
             </div>
 
@@ -794,7 +806,7 @@ export default function MortgageLendingPage() {
           <div className="rb-wrap">
             <div className="rb-head">
               <p className="rb-eyebrow" data-rb-fade="0">
-                <span className="rb-num">VI</span>Frequently asked
+                <span className="rb-num">VI</span>FAQs
               </p>
               <h2 className="rb-h2" data-rb-fade="1">
                 The questions we get on <em>every demo call.</em>

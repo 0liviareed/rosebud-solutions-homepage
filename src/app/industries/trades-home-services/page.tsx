@@ -9,31 +9,31 @@ import RelatedIndustries from "@/components/RelatedIndustries";
 const TRADES_STEPS: TimelineStep[] = [
   [
     "Inquiry comes in",
-    "Phone call during a job. Website form. Facebook DM. Google Business message. Referral from a previous customer. Always at the worst time — mid-callout, end of day, weekends.",
+    "Phone during a job. Form at 9pm. DM on a Saturday. Always the wrong moment.",
   ],
   [
     "Qualify the job",
-    "Domestic or commercial? Type of work? Property type? Budget range? Insurance claim or private pay? Timeline? Access? The questions you need to ask before you can quote it or send a tech.",
+    "Domestic or commercial? Type of work? Budget? Access? Half the questions get missed.",
   ],
   [
     "Book the survey or quote visit",
-    "Cross-checking the diary, matching the right tech or estimator, confirming with the customer, writing it into ServiceTitan, Jobber, FieldEdge, or whatever you're running.",
+    "Diary cross-checked manually. Right tech, right job — done by hand every time.",
   ],
   [
     "Send the quote",
-    "Office staff build the quote on Wednesday. Send it Thursday. No reply. Send a follow-up Monday. No reply. Send another the following Friday. Customer's already had three other trades round and booked one of them. Half a day of office time, no job, no feedback. Repeat next week.",
+    "Built Wednesday. Sent Thursday. No reply. Followed up Monday. Customer already booked someone else.",
   ],
   [
     "Chase the paperwork",
-    "Deposit invoice goes out Monday. Customer hasn't paid by Wednesday — site starts Friday. Office calls. Customer doesn't pick up. Office texts. Customer responds Thursday evening: “Can you send the bank details again?” Job nearly delayed. Multiply by every job in the pipeline.",
+    "Deposit invoice goes out Monday. Customer pays Friday. Site nearly delayed. Every job.",
   ],
   [
     "Status updates to customer",
-    "“When are you starting?” “What time will the lads be there?” “Has the part come in yet?” “How long until you're finished?” Three or four people per active job, asking the same questions across phone, text, and email.",
+    "“When are you starting?” “What time?” “Has the part come in?” Three or four calls a day per active job.",
   ],
   [
     "Invoice, chase payment, follow up",
-    "Final invoice sent at job completion. Half pay within 14 days. The other half need a reminder at 21 days, a phone call at 30, an awkward email at 45. Three months later, that customer's boiler dies and they call a different plumber — because nobody from your office checked in. Job lost. Referrals lost.",
+    "Half pay in 14 days. The rest need reminders. Three months later, that customer calls someone else for the next job.",
   ],
 ];
 
@@ -42,86 +42,86 @@ const TRADES_ROLES: SplitRole[] = [
     num: "I",
     label: "Inquiry Capture Engine",
     body:
-      "Every customer inquiry across every channel — phone, website, Facebook, Google Business, WhatsApp, SMS, missed calls — answered the moment it lands. The boiler emergency that calls three plumbers at 7am gets a real conversation with you first. The homeowner asking about an extension at 9pm hits a qualified booking, not a voicemail. The commercial enquiry that lands while you're on site gets handled before you've finished the callout.",
+      "Every inquiry answered in under 60 seconds, across every channel. The 7am boiler emergency reaches you first.",
   },
   {
     num: "II",
     label: "Job Qualification & Triage",
     body:
-      "Type of work, property type, urgency, budget range, insurance claim vs private pay, timeline, access — captured through structured conversation before an office staffer touches the file. Emergency callouts get routed to dispatch the moment they're flagged. Quote-stage enquiries get triaged by job size and value. Time-wasters get answered without ever reaching your office team.",
+      "Type of work, urgency, budget, access — captured before your office touches the file. Emergencies routed to dispatch. Time-wasters never reach you.",
   },
   {
     num: "III",
     label: "Survey & Quote Booking",
     body:
-      "Slots offered against live diary availability, confirmed in real time, written into your job management system. The right estimator, surveyor, or tech sent to the right job. Your office stops being the bottleneck between an enquiry and a site visit.",
+      "Slots offered against live diary. Right tech sent to the right job. Office stops being the bottleneck.",
   },
   {
     num: "IV",
     label: "Quote Follow-Up & Conversion",
     body:
-      "Most trades businesses send quotes and hope. Rosebud runs the quote like a sales pipeline. The customer who didn't reply within 48 hours gets a structured follow-up. The “let me think about it” gets a nurture sequence with project photos, testimonials, and a price-anchoring conversation. The price objection gets handled before it kills the job. Quotes stop sitting in inboxes. The conversion rate on quotes you already sent doubles or triples — without sending more.",
+      "Most trades send quotes and hope. We run the quote like a sales pipeline. The 48-hour follow-up. The “let me think about it” nurture. The price objection handled before it kills the job. Conversion on the quotes you already send — doubles or triples.",
   },
   {
     num: "V",
     label: "Paperwork & Documentation Chase",
     body:
-      "Deposit invoices, signed quotes, site photos, insurance claim docs, building control sign-off, material specifications — collected through guided conversation, not chased over email. The paperwork that holds up the next stage of every job gets handled the moment the job moves forward, not three days later.",
+      "Deposit invoices, signed quotes, site photos, insurance docs, building control sign-off — collected in conversation, not chased by email. Filed straight into your system.",
   },
   {
     num: "VI",
     label: "Status Updates to Customers",
     body:
-      "“When are the lads arriving?” answered before it's asked. “Has the part come in?” answered before it's asked. “How long until you're done?” answered before it's asked. Daily or job-stage updates sent automatically to customers, with escalation to your office only when something genuinely needs a human. The questions that eat your office team's morning are handled before they hit the inbox.",
+      "“When are the lads arriving?” answered before it's asked. Daily or job-stage updates sent automatically. Office only involved when a human is genuinely needed.",
   },
   {
     num: "VII",
     label: "Invoicing, Payment Chase & Customer Follow-Up",
     body:
-      "Final invoice goes out automatically. Payment reminders sent at the cadence that actually gets you paid. Then — the part most trades businesses skip — every completed customer gets a follow-up at 3 months, 6 months, 12 months to ask how the work is holding up. The boiler service. The annual inspection. The next project. Repeat work and referrals stop being accidental.",
+      "Invoices out automatically. Payment reminders on the cadence that gets you paid. Then — the part most trades skip — every customer followed up at 3, 6, 12 months. Repeat work and referrals stop being accidental.",
   },
 ];
 
 const COMPARE_ROWS: Array<[string, string]> = [
   [
-    "Calls go to voicemail when the office is on another line or out at lunch",
-    "Every call, message, and form answered in under 60 seconds, every time",
+    "Calls go to voicemail",
+    "Every inquiry answered in under 60 seconds",
   ],
   [
-    "Office staff qualifying every job manually before the diary even opens",
-    "Pre-qualified before they hit your office — work type, urgency, budget, access all captured",
+    "Office qualifying every job manually",
+    "Pre-qualified before they reach your team",
   ],
   [
-    "Quotes sent, half ignored, no time to chase them properly",
-    "Every quote followed up on a structured cadence, converted or cleanly closed",
+    "Quotes sent, half ignored",
+    "Every quote followed up on a structured cadence",
   ],
   [
-    "Calling and emailing customers three times for site photos and signed paperwork",
-    "Documentation collected through guided conversation, filed straight into your system",
+    "Customers chased by email for paperwork",
+    "Documents collected in conversation, filed straight in",
   ],
   [
-    "Office staff answering “when are the lads coming?” calls all day",
-    "Status updates sent automatically to every active customer",
+    "Office answering “when are the lads coming?” all day",
+    "Status updates sent automatically",
   ],
   [
-    "Invoices going out late, payment chases inconsistent",
-    "Invoicing and payment follow-up automated to the cadence that gets you paid",
+    "Invoices late, payment chase inconsistent",
+    "Invoicing and payment chase automated",
   ],
   [
-    "Completed customers never followed up — repeat work and referrals lost",
-    "Every customer followed up at 3, 6, 12 months — repeat work and referrals built in",
+    "Past customers never followed up",
+    "Every customer chased at 3, 6, 12 months",
   ],
 ];
 
 export const metadata: Metadata = {
   title: "Trades & Home Services — AI Workflow for Trades Offices",
   description:
-    "AI for trades and home services: answers every inquiry in under 60 seconds, qualifies jobs, books surveys, chases quotes and paperwork, and brings past customers back. Built around your job management system. Live in 5 weeks.",
+    "AI for trades and home services: every inquiry answered in under 60 seconds, jobs qualified, quotes chased, paperwork collected, past customers brought back. Built around ServiceTitan, Jobber, Housecall Pro, FieldEdge, simPRO, ServiceM8. Live in 5 weeks.",
   alternates: { canonical: "/industries/trades-home-services" },
   openGraph: {
     title: "Trades & Home Services — AI Workflow for Trades Offices | Rosebud Global",
     description:
-      "AI for trades and home services: a custom system that answers every customer inquiry, qualifies every job, chases every quote, collects every paperwork request, and follows up every past customer for repeat work. Built around ServiceTitan, Jobber, Housecall Pro, FieldEdge, simPRO and others. Live in 5 weeks.",
+      "A custom system that answers every customer inquiry, qualifies every job, chases every quote, collects every paperwork request, and follows up every past customer for repeat work. Built around your job management system. Live in 5 weeks.",
     url: "https://rosebud.global/industries/trades-home-services",
     type: "website",
   },
@@ -152,11 +152,11 @@ const TRADES_FAQ_SCHEMA = {
   mainEntity: [
     {
       "@type": "Question",
-      name: "How fast does the system respond to a new customer inquiry?",
+      name: "How fast does the system respond to a new inquiry?",
       acceptedAnswer: {
         "@type": "Answer",
         text:
-          "Under 60 seconds, every time, regardless of channel or time of day. The reality of trades is that most calls land while your team is on a job — and the customer calling about an emergency boiler at 7am isn't going to wait. The system answers immediately, qualifies the job, and either books a slot, dispatches an emergency callout, or hands the conversation back to your office with full context.",
+          "Under 60 seconds, every time. Most calls land while your team is on a job. We answer immediately, qualify, and either book, dispatch, or hand back with full context.",
       },
     },
     {
@@ -165,7 +165,7 @@ const TRADES_FAQ_SCHEMA = {
       acceptedAnswer: {
         "@type": "Answer",
         text:
-          "Through structured conversation across the signals that decide whether a job is worth a quote — type of work, property type, urgency, budget range, insurance claim vs private pay, timeline, access. Emergency callouts get flagged immediately. Quote-stage enquiries get prioritised by job size and likelihood of conversion. Time-wasters get answered without ever reaching your team.",
+          "Type of work, property type, urgency, budget, access — captured in conversation. Emergencies flagged. Time-wasters answered without reaching your team.",
       },
     },
     {
@@ -174,34 +174,34 @@ const TRADES_FAQ_SCHEMA = {
       acceptedAnswer: {
         "@type": "Answer",
         text:
-          "The agent reads the conversation, identifies fit — domestic vs commercial, type of work, location, urgency, complexity — and routes to the right estimator, dispatcher, or tech with full context attached. Multi-trade businesses get jobs routed to the right division. Single-trade shops get jobs routed to the right person on the team.",
+          "We read the conversation, identify fit, and route to the right estimator, dispatcher, or tech with full context.",
       },
     },
     {
       "@type": "Question",
-      name: "How does the system chase quotes that haven't been replied to?",
+      name: "How does the system chase quotes?",
       acceptedAnswer: {
         "@type": "Answer",
         text:
-          "Every quote sent gets followed up on a structured cadence — 24 hours, 48 hours, 7 days — with the message tone matched to your business. The 'let me think about it' customer gets a nurture sequence with project photos, testimonials, and a price-anchoring conversation. Price objections get handled before they kill the job. Quotes stop sitting in inboxes unconverted.",
+          "Every quote followed up on a structured cadence — 24 hours, 48 hours, 7 days. The \"let me think about it\" gets a nurture sequence. Price objections handled before they kill the job.",
       },
     },
     {
       "@type": "Question",
-      name: "How does the system handle paperwork chase — deposits, photos, signed quotes?",
+      name: "How does the system handle paperwork chase?",
       acceptedAnswer: {
         "@type": "Answer",
         text:
-          "Through guided conversation, not chased over email. The system requests each document at the right point in the job lifecycle, walks the customer through what's needed, collects it, and files it into your job management system. The paperwork that used to hold up the next stage of every job gets handled the moment the job moves forward.",
+          "Through guided conversation, not email. Each document requested at the right point, walked through with the customer, filed into your system.",
       },
     },
     {
       "@type": "Question",
-      name: "How does the system handle 'when are you arriving' calls and customer updates?",
+      name: "How does the system handle \"when are you arriving\" calls?",
       acceptedAnswer: {
         "@type": "Answer",
         text:
-          "Daily or job-stage updates sent automatically to every active customer — covering arrival windows, parts orders, completion timelines, and next steps. The questions that used to eat your office team's morning are answered before they're asked. Customers only ring through to your office when something genuinely needs a human.",
+          "Daily or job-stage updates sent automatically. Office only involved when something genuinely needs a human.",
       },
     },
     {
@@ -210,16 +210,16 @@ const TRADES_FAQ_SCHEMA = {
       acceptedAnswer: {
         "@type": "Answer",
         text:
-          "Final invoices go out automatically at job completion. Payment reminders sent at the cadence that actually gets you paid — without the awkwardness of you or your office team chasing customers for late payment manually. Aged debtor reports surfaced before they become a problem, not after.",
+          "Invoices out at completion. Reminders on the cadence that gets you paid. Aged debtor reports surfaced before they become a problem.",
       },
     },
     {
       "@type": "Question",
-      name: "How does the system bring back past customers for repeat work?",
+      name: "How does the system bring back past customers?",
       acceptedAnswer: {
         "@type": "Answer",
         text:
-          "Every completed customer gets followed up at 3 months, 6 months, and 12 months — service reminders for boilers, annual inspections, maintenance contracts, seasonal work, and the 'is everything still holding up?' check-in most trades businesses never get round to. Repeat work and referrals stop being accidental and start being a system.",
+          "Every customer followed up at 3, 6, 12 months. Service reminders, annual inspections, next projects. Repeat work stops being accidental.",
       },
     },
     {
@@ -228,7 +228,7 @@ const TRADES_FAQ_SCHEMA = {
       acceptedAnswer: {
         "@type": "Answer",
         text:
-          "ServiceTitan, Housecall Pro, Jobber, FieldEdge, Service Fusion, Workiz, Tradify, simPRO, ServiceM8, and most of the platforms trades and home services teams actually run. Customer data, conversation transcripts, job details, paperwork, and invoicing all file directly into the system in the format it expects.",
+          "ServiceTitan, Housecall Pro, Jobber, FieldEdge, Service Fusion, Workiz, Tradify, simPRO, ServiceM8 — and most platforms trades businesses actually run.",
       },
     },
     {
@@ -237,7 +237,7 @@ const TRADES_FAQ_SCHEMA = {
       acceptedAnswer: {
         "@type": "Answer",
         text:
-          "Every workflow is built around how your office actually runs — your trades, your job types, your pricing structure, your tone of voice. We build it across a five-week deployment, you test it, you sign it off. By the time the system goes live, you know exactly what it says to your customers, how it handles edge cases, and where it escalates to a human. You're not handing over your phone. You're extending your office.",
+          "Built around how your office runs — your trades, your job types, your tone. Five-week deployment. You test it, you sign it off. By go-live, you know exactly what it says.",
       },
     },
   ],
@@ -280,10 +280,8 @@ export default function TradesHomeServicesPage() {
             Your office runs the business. <em>We run the office.</em>
           </h1>
           <p className="rb-page-hero-sub">
-            The admin work your office team shouldn&apos;t be doing —
-            answering every call, qualifying every job, chasing every quote,
-            handling every paperwork request, and following up every past
-            customer for repeat work. Built around your job management
+            Calls answered. Jobs qualified. Quotes chased. Paperwork collected.
+            Past customers brought back. Built around your job management
             system. We run it. You own it.
           </p>
 
@@ -291,7 +289,7 @@ export default function TradesHomeServicesPage() {
             <li className="rb-hero-stat">
               <span className="rb-hero-stat-num">&lt; 60s</span>
               <span className="rb-hero-stat-label">
-                Response time to every customer inquiry
+                Response to every customer inquiry
               </span>
             </li>
             <li className="rb-hero-stat">
@@ -309,7 +307,7 @@ export default function TradesHomeServicesPage() {
             <li className="rb-hero-stat">
               <span className="rb-hero-stat-num">5 weeks</span>
               <span className="rb-hero-stat-label">
-                We build it. We run it. You quote, schedule, invoice.
+                We build it. You quote, schedule, invoice.
               </span>
             </li>
           </ul>
@@ -328,16 +326,11 @@ export default function TradesHomeServicesPage() {
                 Where the office time <em>goes.</em>
               </h2>
               <p className="rb-sub" data-rb-fade="2">
-                Most trades businesses lose money in the same place: the
-                office. Your field teams are productive — the work happens.
-                But the calls, the quotes, the chasing for site photos, the
-                deposit invoices, the certificate paperwork, the follow-up
-                texts — all of it lands on one or two office staff who are
-                already running flat out. Slow quotes lose jobs. Missed
-                calls lose customers. Late paperwork delays the next stage.
-                The system below doesn&apos;t replace your office team. It
-                hands them back the half of their day that should never
-                have been theirs.
+                Your field team is productive. Your office is the bottleneck.
+                Calls, quotes, paperwork, status updates — all landing on one
+                or two people already running flat out. Slow quotes lose jobs.
+                Missed calls lose customers. Late paperwork delays the next
+                stage.
               </p>
             </div>
 
@@ -346,29 +339,26 @@ export default function TradesHomeServicesPage() {
             </div>
 
             <p className="rb-aftertext" data-rb-fade="3">
-              Every customer, the same loop. Every job, the same paperwork
-              chase. And it all lands on the office staff who should be
-              running the business, not answering the same question for the
-              fourth time today.
+              Every customer, the same loop. Every job, the same chase.
             </p>
             <p className="rb-aftertext" data-rb-fade="3">
-              One missed inquiry a week at an average job value of £2,500 is
-              £130,000 walking past your door every year. One quote a week
-              lost to a competitor that responded faster is another
-              £130,000. And the average trades business converts 20–30% of
-              past customers into repeat work when they actually get
-              followed up — at £2,500 a job, every 100 customers you
-              don&apos;t chase is £50,000–£75,000 of repeat revenue your
-              competitors are earning instead.
-              <span className="rb-aftertext-footnote">*</span>
+              One missed inquiry a week at £2,500 average is £130,000 a year.
+            </p>
+            <p className="rb-aftertext" data-rb-fade="3">
+              One quote lost to a faster competitor is another £130,000.
+            </p>
+            <p className="rb-aftertext" data-rb-fade="3">
+              Past customers you never follow up — at £2,500 a job, every 100
+              not chased is £50K–£75K of repeat revenue gone.
             </p>
             <p className="rb-aftertext rb-aftertext-bridge" data-rb-fade="3">
-              What if six of those seven steps ran without them?
+              For most trades businesses, the combined leak runs into six
+              figures every year. Recovered.
+              <span className="rb-aftertext-footnote">*</span>
             </p>
             <p className="rb-aftertext rb-aftertext-quiet" data-rb-fade="3">
-              <span className="rb-aftertext-footnote">*</span> Illustrative —
-              based on a £2,500 average job value across trades and home
-              services; actual figures will vary by trade and ticket size.
+              <span className="rb-aftertext-footnote">*</span> Illustrative;
+              actual figures vary by trade and ticket size.
             </p>
 
             <div data-rb-fade="3">
@@ -393,17 +383,14 @@ export default function TradesHomeServicesPage() {
                   One system. <em>All seven roles.</em>
                 </h2>
                 <p className="rb-split-body" data-rb-fade="2">
-                  A custom system we build around your office. One setup.
-                  One monthly figure. No per-seat pricing. Deployed in 5
-                  weeks.
+                  Built around your office. One setup. One monthly figure. No
+                  per-seat pricing. Live in 5 weeks.
                 </p>
                 <p className="rb-split-body rb-split-body-quiet" data-rb-fade="3">
-                  Every deployment is built around the work you do, the
-                  customers you serve, and the systems you already run —
-                  ServiceTitan, Housecall Pro, Jobber, FieldEdge, Service
-                  Fusion, Workiz, Tradify, simPRO, ServiceM8, or your own
-                  CRM. Seven roles run as one system, operated by us,
-                  handed to you.
+                  Built around the work you do, the customers you serve, and
+                  the systems you already run — ServiceTitan, Housecall Pro,
+                  Jobber, FieldEdge, Service Fusion, Workiz, Tradify, simPRO,
+                  ServiceM8.
                 </p>
 
                 <div className="rb-split-ctas" data-rb-fade="3">
@@ -487,12 +474,11 @@ export default function TradesHomeServicesPage() {
 
           <div className="rb-wrap">
             <p className="rb-aftertext" data-rb-fade="3">
-              You own every system we build. Full access, full credentials,
-              full data. No lock-in. Cancel any time.
+              You own every system we build. No lock-in. Cancel any time.
             </p>
             <p className="rb-aftertext rb-aftertext-quiet" data-rb-fade="3">
-              Pricing shared on the demo call — scoped to your job volume
-              and the size of your office team.
+              Pricing shared on the demo call — scoped to job volume and
+              office size.
             </p>
           </div>
         </section>
@@ -521,10 +507,10 @@ export default function TradesHomeServicesPage() {
             <div className="rb-compare" data-rb-fade="2">
               <div className="rb-compare-head">
                 <span className="rb-compare-label rb-compare-label-manual">
-                  Manual &middot; the reality now
+                  Manual
                 </span>
                 <span className="rb-compare-label rb-compare-label-rosebud">
-                  Rosebud runs it for you
+                  Rosebud
                 </span>
               </div>
 
@@ -570,11 +556,6 @@ export default function TradesHomeServicesPage() {
 
             <div className="rb-before-after" data-rb-fade="3">
               <p className="rb-before-after-eyebrow">What lands in your system</p>
-              <p className="rb-before-after-intro">
-                By the time a job reaches your office team, the customer is
-                qualified, the visit is booked, the paperwork is in, and
-                the next step is clear. Every job arrives ready to move.
-              </p>
               <p className="rb-before-after-bridge">
                 Of the seven steps between a customer calling and the final
                 invoice paid, your office runs two. We run the{" "}
@@ -585,19 +566,19 @@ export default function TradesHomeServicesPage() {
                 <div className="rb-before-after-col">
                   <span className="rb-label">Without Rosebud</span>
                   <ul className="rb-before-after-list">
-                    <li>Missed calls and voicemails only</li>
+                    <li>Missed calls and voicemails</li>
                     <li>Quotes sitting in inboxes</li>
-                    <li>Paperwork chased manually for weeks</li>
+                    <li>Paperwork chased manually</li>
                     <li>Past customers gone cold</li>
                   </ul>
                 </div>
                 <div className="rb-before-after-col rb-before-after-col-after">
                   <span className="rb-label">With Rosebud</span>
                   <ul className="rb-before-after-list rb-before-after-list-after">
-                    <li>Full conversation logged</li>
-                    <li>Quote followed up and converted</li>
+                    <li>Every call captured</li>
+                    <li>Every quote followed up</li>
                     <li>Paperwork collected</li>
-                    <li>Customers followed up for repeat work</li>
+                    <li>Customers chased for repeat work</li>
                   </ul>
                 </div>
               </div>
@@ -639,22 +620,19 @@ export default function TradesHomeServicesPage() {
                   <span className="rb-label">This works for you if</span>
                 </span>
                 <ul className="rb-filter-list">
+                  <li>You&apos;re handling 50+ inquiries a month</li>
+                  <li>Your office is the bottleneck, not your field team</li>
                   <li>
-                    You&apos;re handling 50+ inquiries a month across calls,
-                    forms, and referrals
-                  </li>
-                  <li>Your office is the bottleneck — not your field team</li>
-                  <li>
-                    You&apos;re running ServiceTitan, Jobber, Housecall Pro,
-                    FieldEdge, simPRO, or similar job management software
+                    You&apos;re on ServiceTitan, Jobber, Housecall Pro,
+                    FieldEdge, simPRO, or similar
                   </li>
                   <li>
-                    You&apos;ve got past customers you&apos;ve never followed up
-                    for repeat work
+                    You&apos;ve got past customers you&apos;ve never followed
+                    up
                   </li>
                   <li>
-                    You want your office team running quotes, scheduling, and
-                    customers — not answering the same questions on repeat
+                    You want your office running quotes and scheduling — not
+                    the same call on repeat
                   </li>
                 </ul>
               </div>
@@ -674,33 +652,28 @@ export default function TradesHomeServicesPage() {
                 </span>
                 <ul className="rb-filter-list">
                   <li>
-                    You&apos;re a sole trader or two-person operation — the
-                    math doesn&apos;t work yet
+                    You&apos;re a sole trader or two-person op — the math
+                    doesn&apos;t work yet
                   </li>
                   <li>
-                    You&apos;re the owner-operator doing your own quotes and
-                    surveys — Rosebud handles inbound and admin, but the quote
-                    itself still needs your expertise. We extend your office
-                    team. We don&apos;t replace your estimator.
+                    You&apos;re the owner doing your own quotes and surveys —
+                    we extend your office, we don&apos;t replace your
+                    estimator
                   </li>
                   <li>
-                    Your inquiry volume is under 30/month — you don&apos;t have
-                    a response-speed problem, you have a lead-gen problem
+                    Your inquiry volume is under 30/month — you don&apos;t
+                    have a response problem, you have a lead-gen problem
                   </li>
                   <li>
-                    You expect this to generate leads — Rosebud handles inbound
-                    and admin, it doesn&apos;t run paid acquisition or
-                    door-knocking
+                    You expect this to generate leads — we handle inbound, not
+                    paid acquisition
                   </li>
                   <li>
-                    You don&apos;t have job management software and don&apos;t
-                    want to adopt any — this is a service that connects to your
-                    systems, not a replacement for them
+                    You don&apos;t have job management software and won&apos;t
+                    adopt any — we connect to your systems, we don&apos;t
+                    replace them
                   </li>
-                  <li>
-                    You want software to run yourself — this is a service, not
-                    a product
-                  </li>
+                  <li>You want software to run yourself — this is a service</li>
                 </ul>
               </div>
             </div>
@@ -723,25 +696,15 @@ export default function TradesHomeServicesPage() {
                 Let&apos;s build <em>your system.</em>
               </h2>
               <p className="rb-sub" data-rb-fade="2">
-                A 30-minute call to understand how your office runs and
-                where the time is leaking. You leave with a clear map of
-                what to automate and how.
+                A 30-minute call. We map your operation, scope the system, and
+                quote the build. You leave with a clear number.
               </p>
             </div>
 
             <div className="rb-demo-cards" data-rb-fade="3">
               <div className="rb-demo-card">
-                <span className="rb-label">What to expect</span>
-                <p>
-                  A working system mapped to the kind of jobs you&apos;re
-                  handling every day. You&apos;ll see the conversation, the
-                  qualification, the diary booking, and the paperwork
-                  hand-off.
-                </p>
-              </div>
-              <div className="rb-demo-card">
                 <span className="rb-label">Duration</span>
-                <p>30 minutes. Zoom. No prep needed.</p>
+                <p>30 minutes. Zoom. No prep.</p>
               </div>
             </div>
 
