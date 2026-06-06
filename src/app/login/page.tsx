@@ -1,31 +1,46 @@
 'use client';
 
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import styles from './login.module.css';
 
 export default function LoginPage() {
   const [password, setPassword] = useState('');
+  const [code, setCode] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const codeRef = useRef<HTMLInputElement>(null);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    if (!password.trim() || loading) return;
+    if (loading) return;
+    if (!password.trim()) {
+      setError('Enter your password.');
+      return;
+    }
+    if (!/^\d{6}$/.test(code.trim())) {
+      setError('Enter the 6-digit code from your authenticator.');
+      codeRef.current?.focus();
+      return;
+    }
     setLoading(true);
     setError('');
     try {
       const res = await fetch('/api/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ password }),
+        body: JSON.stringify({ password, code: code.trim() }),
       });
       if (res.ok) {
         // Land at "/" so the middleware rewrites to the dashboard.
         window.location.href = '/';
-      } else {
-        setError('Incorrect password');
-        setLoading(false);
+        return;
       }
+      const body = await res.json().catch(() => ({}));
+      if (body.reason === 'bad_password') setError('Incorrect password.');
+      else if (body.reason === 'bad_code') setError('Invalid authenticator code.');
+      else if (body.reason === 'server_misconfigured') setError('Login is temporarily unavailable.');
+      else setError('Login failed. Try again.');
+      setLoading(false);
     } catch {
       setError('Something went wrong. Try again.');
       setLoading(false);
@@ -56,7 +71,8 @@ export default function LoginPage() {
         </h1>
 
         <p className={styles.subtitle}>
-          Access is restricted. Enter the password you were given.
+          Same login as the warroom. Password plus the 6-digit code from your
+          authenticator.
         </p>
 
         <div className={styles.field}>
@@ -68,6 +84,24 @@ export default function LoginPage() {
             onChange={(e) => setPassword(e.target.value)}
             autoFocus
             autoComplete="current-password"
+            className={styles.input}
+            disabled={loading}
+          />
+        </div>
+
+        <div className={styles.field}>
+          <label className={styles.label} htmlFor="code">Authenticator code</label>
+          <input
+            id="code"
+            ref={codeRef}
+            type="text"
+            inputMode="numeric"
+            pattern="[0-9]*"
+            maxLength={6}
+            value={code}
+            onChange={(e) => setCode(e.target.value.replace(/\D/g, ''))}
+            autoComplete="one-time-code"
+            placeholder="123456"
             className={styles.input}
             disabled={loading}
           />

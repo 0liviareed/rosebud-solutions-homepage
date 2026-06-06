@@ -3,29 +3,7 @@ import type { NextRequest } from 'next/server';
 
 const ENGINE_HOST = 'engine.rosebud.global';
 
-/**
- * HMAC-SHA256(DEMO_PASSWORD, "demo-auth") — hex-encoded.
- * Same scheme used by /api/login when issuing the cookie. Computed via the
- * Web Crypto API (crypto.subtle) so this works in the Edge runtime middleware
- * runs in. Rotating DEMO_PASSWORD invalidates every active cookie because the
- * recomputed token no longer matches.
- */
-async function expectedToken(password: string): Promise<string> {
-  const encoder = new TextEncoder();
-  const key = await crypto.subtle.importKey(
-    'raw',
-    encoder.encode(password),
-    { name: 'HMAC', hash: 'SHA-256' },
-    false,
-    ['sign'],
-  );
-  const sig = await crypto.subtle.sign('HMAC', key, encoder.encode('demo-auth'));
-  return Array.from(new Uint8Array(sig))
-    .map((b) => b.toString(16).padStart(2, '0'))
-    .join('');
-}
-
-export async function middleware(request: NextRequest) {
+export function middleware(request: NextRequest) {
   const host = request.headers.get('host') || '';
   const path = request.nextUrl.pathname;
 
@@ -53,8 +31,7 @@ export async function middleware(request: NextRequest) {
   // Allow the login flow, Next.js internals, and Let's Encrypt's HTTP-01
   // challenge through unconditionally. The ACME path matters: Vercel hits
   // /.well-known/acme-challenge/<token> on the host to issue/renew the
-  // SSL cert; if the gate redirects that to /login the cert never issues
-  // (silent SSL-pending — the symptom that bit us on first deploy).
+  // SSL cert; if the gate redirects that to /login the cert never issues.
   if (
     path === '/login' ||
     path === '/api/login' ||
@@ -66,17 +43,19 @@ export async function middleware(request: NextRequest) {
     return NextResponse.next();
   }
 
-  const password = process.env.DEMO_PASSWORD;
-  if (!password) {
+  // Cookie + env var contract mirrors the warroom: wr_auth holds the
+  // password, middleware compares it back against DASHBOARD_PASSWORD.
+  // Set the same values on both projects and a single password + TOTP
+  // works across warroom + engine.
+  const expectedPassword = (process.env.DASHBOARD_PASSWORD ?? '').replace(/\s+$/g, '');
+  if (!expectedPassword) {
     // Fail-secure: env missing locks everyone out (including the operator)
     // rather than silently letting requests through.
     return new NextResponse('Service temporarily unavailable', { status: 503 });
   }
 
-  const cookie = request.cookies.get('demo-auth')?.value;
-  const expected = await expectedToken(password);
-
-  if (cookie !== expected) {
+  const cookie = request.cookies.get('wr_auth')?.value;
+  if (cookie !== expectedPassword) {
     const url = request.nextUrl.clone();
     url.pathname = '/login';
     return NextResponse.redirect(url);
