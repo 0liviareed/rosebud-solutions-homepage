@@ -62,7 +62,7 @@ export default function LoginPage() {
           />
           <div>
             <div className={styles.brandText}>Rosebud Solutions</div>
-            <div className={styles.brandSub}>Operating Infrastructure</div>
+            <div className={styles.brandSub}>Part of Rosebud Global</div>
           </div>
         </div>
 
