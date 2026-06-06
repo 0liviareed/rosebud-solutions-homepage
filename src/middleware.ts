@@ -38,7 +38,12 @@ export function middleware(request: NextRequest) {
     path.startsWith('/_next/') ||
     path.startsWith('/static/') ||
     path.startsWith('/.well-known/') ||
-    path === '/favicon.ico'
+    path === '/favicon.ico' ||
+    // Static assets from /public — the login page pulls the brand orb and
+    // any fonts/icons it references. Without this, those requests get
+    // 307'd to /login and the browser renders broken images on the
+    // unauthenticated screen.
+    /\.(png|jpe?g|svg|gif|webp|ico|woff2?|ttf|otf|css|js|map)$/i.test(path)
   ) {
     return NextResponse.next();
   }
