@@ -6578,6 +6578,18 @@ button { font: inherit; color: inherit; }
   line-height: 1.45;
 }
 
+/* Per-field validation message — appears under any field the user has
+   moved past without filling. Lighter than .rb-app-inline-error because
+   it's specific to one missing answer, not a multi-line warning. */
+.rb-app-field-error {
+  display: block;
+  margin-top: 6px;
+  color: #f4a8a8;
+  font-size: 12px;
+  letter-spacing: 0.02em;
+  line-height: 1.4;
+}
+
 /* Submit */
 .rb-app-submit {
   align-self: stretch;

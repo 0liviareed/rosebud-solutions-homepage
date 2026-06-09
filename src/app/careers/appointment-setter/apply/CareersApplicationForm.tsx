@@ -131,20 +131,42 @@ const TIMEZONE_OPTIONS: { value: string; label: string }[] = [
   { value: "UTC",                 label: "UTC" },
 ];
 
+// Every required field, in render order. Used to mark-all-touched on submit
+// and to walk the form in sequence when scrolling to the first error.
+const REQUIRED_FIELDS = [
+  "first_name","last_name","email","location","linkedin_url",
+  "b2b_experience","commission_role_before","commission_role_details",
+  "industry_experience","outbound_experience","outbound_feeling","calling_notes",
+  "equipment_check","days_per_week","earliest_start_date","timezone",
+  "gdpr_consent","commission_consent","location_consent",
+] as const;
+
 export default function CareersApplicationForm() {
   const [state, setState] = useState<FormState>("idle");
   const [form, setForm] = useState<Form>(INITIAL);
-  const [errorMsg, setErrorMsg] = useState<string>("");
-  // Inline error under the hours block. Fires as soon as focus leaves
-  // the weekdays group with a sub-20-hour total — so the user finds out
-  // before they hit Submit at the bottom of the page.
+  // Submission-level error (network/API failures). Per-field validation
+  // errors are rendered inline next to each field instead.
+  const [submitError, setSubmitError] = useState<string>("");
+  // Inline error under the hours block — kept as a separate piece of state
+  // because it's group-level (total < 20), not per-cell.
   const [hoursError, setHoursError] = useState<string>("");
+  // Which fields the user has interacted with (blurred or attempted submit).
+  // Errors only render once a field is in this set, so the form is quiet
+  // until the user moves past a question without answering it.
+  const [touched, setTouched] = useState<Set<string>>(new Set());
+
+  function markTouched(key: string) {
+    setTouched((prev) => {
+      if (prev.has(key)) return prev;
+      const next = new Set(prev);
+      next.add(key);
+      return next;
+    });
+  }
 
   function update<K extends keyof Form>(key: K, value: Form[K]) {
     setForm((f) => {
       const next = { ...f, [key]: value };
-      // Live-clear the inline hours error the moment the total reaches 20
-      // so the user gets feedback while still in the weekdays group.
       if (key.toString().startsWith("hours_") && hoursError) {
         const total = WEEKDAYS.reduce((sum, d) => sum + (Number(next[d.key]) || 0), 0);
         if (total >= 20) setHoursError("");
@@ -153,95 +175,118 @@ export default function CareersApplicationForm() {
     });
   }
 
-  // Called by every hours <input>. Fires when focus is about to leave the
-  // weekdays group entirely (relatedTarget points outside the group). If
-  // every cell is filled and the total is under 20, show the inline error.
-  function onHoursBlur(e: React.FocusEvent<HTMLInputElement>) {
-    const group = e.currentTarget.closest(".rb-app-weekdays");
-    const moving = e.relatedTarget as Element | null;
-    if (group && moving && group.contains(moving)) return; // still inside the group
-    const allFilled = WEEKDAYS.every((d) => form[d.key] !== "");
-    if (!allFilled) return; // not done yet — don't nag mid-fill
-    const total = WEEKDAYS.reduce((sum, d) => sum + (Number(form[d.key]) || 0), 0);
-    if (total < 20) {
-      setHoursError(
-        `Minimum 20 hours per week required across Mon–Fri. You've entered ${total}.`,
-      );
-    } else {
-      setHoursError("");
-    }
-  }
-
   function toggleArray(key: "industry_experience" | "equipment_check", value: string) {
     setForm((f) => {
       const current = f[key];
-      const next = current.includes(value)
-        ? current.filter((v) => v !== value)
-        : [...current, value];
-      return { ...f, [key]: next };
+      const exists = current.includes(value);
+      return { ...f, [key]: exists ? current.filter((v) => v !== value) : [...current, value] };
     });
+  }
+
+  // What's wrong with a given field, if anything. Returns empty string for
+  // valid fields and a short user-facing message for invalid ones. Computed
+  // every render off the live form state — no separate errors-cache to
+  // keep in sync.
+  function fieldError(key: string): string {
+    switch (key) {
+      case "first_name":  return form.first_name.trim() ? "" : "Required.";
+      case "last_name":   return form.last_name.trim() ? "" : "Required.";
+      case "email":
+        if (!form.email.trim()) return "Required.";
+        if (!/^\S+@\S+\.\S+$/.test(form.email.trim())) return "Enter a valid email address.";
+        return "";
+      case "location":    return form.location.trim() ? "" : "Required.";
+      case "linkedin_url":return form.linkedin_url.trim() ? "" : "Required — write 'N/A' if you don't have one.";
+      case "b2b_experience":         return form.b2b_experience ? "" : "Please select an option.";
+      case "commission_role_before": return form.commission_role_before ? "" : "Please select Yes or No.";
+      case "commission_role_details":
+        if (form.commission_role_before !== "yes") return "";
+        return form.commission_role_details.trim() ? "" : "Required when 'Yes' is selected.";
+      case "industry_experience": return form.industry_experience.length > 0 ? "" : "Select at least one industry.";
+      case "outbound_experience": return form.outbound_experience ? "" : "Please select an option.";
+      case "outbound_feeling":    return form.outbound_feeling ? "" : "Please select an option.";
+      case "calling_notes":       return form.calling_notes.trim() ? "" : "Required — write 'N/A' if nothing to add.";
+      case "equipment_check":     return form.equipment_check.length > 0 ? "" : "Tick at least one item.";
+      case "days_per_week":       return form.days_per_week ? "" : "Please select.";
+      case "earliest_start_date": return form.earliest_start_date ? "" : "Required.";
+      case "timezone":            return form.timezone ? "" : "Please select your timezone.";
+      case "gdpr_consent":        return form.gdpr_consent ? "" : "Required to apply.";
+      case "commission_consent":  return form.commission_consent ? "" : "Required to apply.";
+      case "location_consent":    return form.location_consent ? "" : "Required to apply.";
+    }
+    return "";
+  }
+
+  function renderFieldError(key: string) {
+    if (!touched.has(key)) return null;
+    const err = fieldError(key);
+    if (!err) return null;
+    return (
+      <span className="rb-app-field-error" role="alert">{err}</span>
+    );
+  }
+
+  // For radio / checkbox groups: fires when focus leaves the group container
+  // entirely (relatedTarget points outside). Keeps the user from being
+  // nagged while they're still navigating between options inside the group.
+  function onGroupBlur(key: string, e: React.FocusEvent<HTMLDivElement>) {
+    const group = e.currentTarget;
+    const moving = e.relatedTarget as Element | null;
+    if (group && moving && group.contains(moving)) return;
+    markTouched(key);
+  }
+
+  function onHoursBlur(e: React.FocusEvent<HTMLInputElement>) {
+    const group = e.currentTarget.closest(".rb-app-weekdays");
+    const moving = e.relatedTarget as Element | null;
+    if (group && moving && group.contains(moving)) return;
+    const allFilled = WEEKDAYS.every((d) => form[d.key] !== "");
+    if (!allFilled) return;
+    const total = WEEKDAYS.reduce((sum, d) => sum + (Number(form[d.key]) || 0), 0);
+    setHoursError(total < 20
+      ? `Minimum 20 hours per week required across Mon–Fri. You've entered ${total}.`
+      : "");
   }
 
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
-    setErrorMsg("");
+    setSubmitError("");
 
-    if (!form.linkedin_url.trim()) {
-      setErrorMsg("Please add your LinkedIn URL (or write 'N/A' if you don't have one).");
-      return;
+    // Mark every required field as touched so all inline errors flip on.
+    setTouched(new Set(REQUIRED_FIELDS));
+
+    // Collect every blocking issue. Scroll to the first one and bail.
+    const blocking: string[] = [];
+    for (const key of REQUIRED_FIELDS) {
+      if (fieldError(key)) blocking.push(key);
     }
-    if (!form.b2b_experience) {
-      setErrorMsg("Please select your B2B experience.");
-      return;
-    }
-    if (form.industry_experience.length === 0) {
-      setErrorMsg("Please select at least one industry.");
-      return;
-    }
-    if (!form.outbound_experience) {
-      setErrorMsg("Please select your outbound calling experience.");
-      return;
-    }
-    if (!form.outbound_feeling) {
-      setErrorMsg("Please tell us how you feel about an outbound calling role.");
-      return;
-    }
-    if (!form.calling_notes.trim()) {
-      setErrorMsg("Please add a note about your calling experience (or write 'N/A').");
-      return;
-    }
-    if (form.equipment_check.length === 0) {
-      setErrorMsg("Please tick the equipment items you have.");
-      return;
-    }
-    if (form.commission_role_before === "") {
-      setErrorMsg("Please answer the commission-role question.");
-      return;
-    }
-    if (form.commission_role_before === "yes" && !form.commission_role_details.trim()) {
-      setErrorMsg("Please describe your previous commission role.");
-      return;
-    }
+    // Hours block has its own validator.
+    let hoursMsg = "";
     for (const d of WEEKDAYS) {
       const v = form[d.key];
       if (v === "" || !/^\d+$/.test(v) || Number(v) < 0 || Number(v) > 16) {
-        setErrorMsg(`Enter hours for ${d.label} (0–16).`);
-        return;
+        hoursMsg = `Enter hours for ${d.label} (0–16).`;
+        break;
       }
     }
-    const totalHours = WEEKDAYS.reduce((sum, d) => sum + Number(form[d.key] || 0), 0);
-    if (totalHours < 20) {
-      setErrorMsg(
-        `This role requires a minimum of 20 hours per week across Monday–Friday. You've entered ${totalHours}.`,
-      );
-      return;
+    if (!hoursMsg) {
+      const total = WEEKDAYS.reduce((sum, d) => sum + Number(form[d.key] || 0), 0);
+      if (total < 20) {
+        hoursMsg = `Minimum 20 hours per week required across Mon–Fri. You've entered ${total}.`;
+      }
     }
-    if (form.days_per_week === "") {
-      setErrorMsg("Select how many days per week you can commit.");
-      return;
+    if (hoursMsg) {
+      setHoursError(hoursMsg);
+      blocking.push("hours_block");
     }
-    if (!form.timezone) {
-      setErrorMsg("Select your timezone.");
+    if (blocking.length > 0) {
+      // Scroll to the first failing field. The hours block doesn't have a
+      // data-field marker on a single input so we look it up by class.
+      const first = blocking[0];
+      const node = first === "hours_block"
+        ? document.querySelector(".rb-app-weekdays")
+        : document.querySelector(`[data-field="${first}"]`);
+      node?.scrollIntoView({ behavior: "smooth", block: "center" });
       return;
     }
 
@@ -284,7 +329,7 @@ export default function CareersApplicationForm() {
       setState("success");
     } catch (err) {
       setState("error");
-      setErrorMsg(err instanceof Error ? err.message : "Submission failed");
+      setSubmitError(err instanceof Error ? err.message : "Submission failed");
     }
   }
 
@@ -309,7 +354,7 @@ export default function CareersApplicationForm() {
         <legend className="rb-app-legend">Section 1 · About you</legend>
 
         <div className="rb-app-row">
-          <label className="rb-app-field">
+          <label className="rb-app-field" data-field="first_name">
             <span className="rb-app-label">First name <span className="rb-app-req">*</span></span>
             <input
               type="text"
@@ -317,10 +362,12 @@ export default function CareersApplicationForm() {
               autoComplete="given-name"
               value={form.first_name}
               onChange={(e) => update("first_name", e.target.value)}
+              onBlur={() => markTouched("first_name")}
               className="rb-app-input"
             />
+            {renderFieldError("first_name")}
           </label>
-          <label className="rb-app-field">
+          <label className="rb-app-field" data-field="last_name">
             <span className="rb-app-label">Last name <span className="rb-app-req">*</span></span>
             <input
               type="text"
@@ -328,12 +375,14 @@ export default function CareersApplicationForm() {
               autoComplete="family-name"
               value={form.last_name}
               onChange={(e) => update("last_name", e.target.value)}
+              onBlur={() => markTouched("last_name")}
               className="rb-app-input"
             />
+            {renderFieldError("last_name")}
           </label>
         </div>
 
-        <label className="rb-app-field">
+        <label className="rb-app-field" data-field="email">
           <span className="rb-app-label">Email address <span className="rb-app-req">*</span></span>
           <input
             type="email"
@@ -341,11 +390,13 @@ export default function CareersApplicationForm() {
             autoComplete="email"
             value={form.email}
             onChange={(e) => update("email", e.target.value)}
+            onBlur={() => markTouched("email")}
             className="rb-app-input"
           />
+          {renderFieldError("email")}
         </label>
 
-        <label className="rb-app-field">
+        <label className="rb-app-field" data-field="location">
           <span className="rb-app-label">Country and city of residence <span className="rb-app-req">*</span></span>
           <input
             type="text"
@@ -353,11 +404,13 @@ export default function CareersApplicationForm() {
             autoComplete="address-level2"
             value={form.location}
             onChange={(e) => update("location", e.target.value)}
+            onBlur={() => markTouched("location")}
             className="rb-app-input"
           />
+          {renderFieldError("location")}
         </label>
 
-        <label className="rb-app-field">
+        <label className="rb-app-field" data-field="linkedin_url">
           <span className="rb-app-label">LinkedIn profile URL <span className="rb-app-req">*</span></span>
           <input
             type="text"
@@ -365,17 +418,19 @@ export default function CareersApplicationForm() {
             placeholder="https://linkedin.com/in/… (or 'N/A')"
             value={form.linkedin_url}
             onChange={(e) => update("linkedin_url", e.target.value)}
+            onBlur={() => markTouched("linkedin_url")}
             className="rb-app-input"
           />
+          {renderFieldError("linkedin_url")}
         </label>
       </fieldset>
 
       <fieldset className="rb-app-fs" disabled={state === "submitting"}>
         <legend className="rb-app-legend">Section 2 · Experience</legend>
 
-        <div className="rb-app-field">
+        <div className="rb-app-field" data-field="b2b_experience">
           <span className="rb-app-label">B2B sales, SDR, or setter experience <span className="rb-app-req">*</span></span>
-          <div className="rb-app-checks">
+          <div className="rb-app-checks" onBlur={(e) => onGroupBlur("b2b_experience", e)}>
             {B2B_OPTIONS.map((opt) => (
               <label key={opt} className="rb-app-check">
                 <input
@@ -388,11 +443,12 @@ export default function CareersApplicationForm() {
               </label>
             ))}
           </div>
+          {renderFieldError("b2b_experience")}
         </div>
 
-        <div className="rb-app-field">
+        <div className="rb-app-field" data-field="commission_role_before">
           <span className="rb-app-label">Have you worked a 100% commission role before? <span className="rb-app-req">*</span></span>
-          <div className="rb-app-radios">
+          <div className="rb-app-radios" onBlur={(e) => onGroupBlur("commission_role_before", e)}>
             <label className="rb-app-radio">
               <input
                 type="radio"
@@ -414,10 +470,11 @@ export default function CareersApplicationForm() {
               <span>No</span>
             </label>
           </div>
+          {renderFieldError("commission_role_before")}
         </div>
 
         {form.commission_role_before === "yes" && (
-          <label className="rb-app-field">
+          <label className="rb-app-field" data-field="commission_role_details">
             <span className="rb-app-label">
               If yes, for how long and what were your average monthly earnings? <span className="rb-app-req">*</span>
             </span>
@@ -426,14 +483,16 @@ export default function CareersApplicationForm() {
               required
               value={form.commission_role_details}
               onChange={(e) => update("commission_role_details", e.target.value)}
+              onBlur={() => markTouched("commission_role_details")}
               className="rb-app-input"
             />
+            {renderFieldError("commission_role_details")}
           </label>
         )}
 
-        <div className="rb-app-field">
+        <div className="rb-app-field" data-field="industry_experience">
           <span className="rb-app-label">Industry experience <span className="rb-app-req">*</span></span>
-          <div className="rb-app-checks">
+          <div className="rb-app-checks" onBlur={(e) => onGroupBlur("industry_experience", e)}>
             {INDUSTRY_OPTIONS.map((opt) => (
               <label key={opt} className="rb-app-check">
                 <input
@@ -445,13 +504,14 @@ export default function CareersApplicationForm() {
               </label>
             ))}
           </div>
+          {renderFieldError("industry_experience")}
         </div>
 
-        <div className="rb-app-field">
+        <div className="rb-app-field" data-field="outbound_experience">
           <span className="rb-app-label">
             How much outbound calling experience do you have? <span className="rb-app-req">*</span>
           </span>
-          <div className="rb-app-checks">
+          <div className="rb-app-checks" onBlur={(e) => onGroupBlur("outbound_experience", e)}>
             {OUTBOUND_EXPERIENCE_OPTIONS.map((opt) => (
               <label key={opt.value} className="rb-app-check">
                 <input
@@ -464,13 +524,14 @@ export default function CareersApplicationForm() {
               </label>
             ))}
           </div>
+          {renderFieldError("outbound_experience")}
         </div>
 
-        <div className="rb-app-field">
+        <div className="rb-app-field" data-field="outbound_feeling">
           <span className="rb-app-label">
             How do you feel about a role that&rsquo;s primarily outbound calling? <span className="rb-app-req">*</span>
           </span>
-          <div className="rb-app-checks">
+          <div className="rb-app-checks" onBlur={(e) => onGroupBlur("outbound_feeling", e)}>
             {OUTBOUND_FEELING_OPTIONS.map((opt) => (
               <label key={opt} className="rb-app-check">
                 <input
@@ -483,28 +544,31 @@ export default function CareersApplicationForm() {
               </label>
             ))}
           </div>
+          {renderFieldError("outbound_feeling")}
         </div>
 
-        <label className="rb-app-field">
+        <label className="rb-app-field" data-field="calling_notes">
           <span className="rb-app-label">Anything else about your calling experience? <span className="rb-app-req">*</span></span>
           <textarea
             rows={3}
             required
             value={form.calling_notes}
             onChange={(e) => update("calling_notes", e.target.value)}
+            onBlur={() => markTouched("calling_notes")}
             className="rb-app-input"
             style={{ resize: "vertical", minHeight: "78px", fontFamily: "inherit" }}
             placeholder="Share anything that gives us context. Write 'N/A' if nothing to add."
           />
+          {renderFieldError("calling_notes")}
         </label>
       </fieldset>
 
       <fieldset className="rb-app-fs" disabled={state === "submitting"}>
         <legend className="rb-app-legend">Section 3 · Setup</legend>
 
-        <div className="rb-app-field">
+        <div className="rb-app-field" data-field="equipment_check">
           <span className="rb-app-label">Equipment check — tick all that apply <span className="rb-app-req">*</span></span>
-          <div className="rb-app-checks">
+          <div className="rb-app-checks" onBlur={(e) => onGroupBlur("equipment_check", e)}>
             {EQUIPMENT_OPTIONS.map((opt) => (
               <label key={opt} className="rb-app-check">
                 <input
@@ -516,6 +580,7 @@ export default function CareersApplicationForm() {
               </label>
             ))}
           </div>
+          {renderFieldError("equipment_check")}
         </div>
 
         <div className="rb-app-field">
@@ -549,7 +614,7 @@ export default function CareersApplicationForm() {
         </div>
 
         <div className="rb-app-row">
-          <label className="rb-app-field">
+          <label className="rb-app-field" data-field="days_per_week">
             <span className="rb-app-label">
               Days per week you can commit <span className="rb-app-req">*</span>
             </span>
@@ -557,6 +622,7 @@ export default function CareersApplicationForm() {
               required
               value={form.days_per_week}
               onChange={(e) => update("days_per_week", e.target.value)}
+              onBlur={() => markTouched("days_per_week")}
               className="rb-app-input"
             >
               <option value="" disabled>Select</option>
@@ -566,20 +632,23 @@ export default function CareersApplicationForm() {
               <option value="4">4 days</option>
               <option value="5">5 days</option>
             </select>
+            {renderFieldError("days_per_week")}
           </label>
-          <label className="rb-app-field">
+          <label className="rb-app-field" data-field="earliest_start_date">
             <span className="rb-app-label">Earliest possible start date <span className="rb-app-req">*</span></span>
             <input
               type="date"
               required
               value={form.earliest_start_date}
               onChange={(e) => update("earliest_start_date", e.target.value)}
+              onBlur={() => markTouched("earliest_start_date")}
               className="rb-app-input"
             />
+            {renderFieldError("earliest_start_date")}
           </label>
         </div>
 
-        <div className="rb-app-field">
+        <label className="rb-app-field" data-field="timezone">
           <span className="rb-app-label">
             Your timezone <span className="rb-app-req">*</span>
           </span>
@@ -587,6 +656,7 @@ export default function CareersApplicationForm() {
             required
             value={form.timezone}
             onChange={(e) => update("timezone", e.target.value)}
+            onBlur={() => markTouched("timezone")}
             className="rb-app-input"
           >
             <option value="" disabled>Select your timezone</option>
@@ -594,7 +664,8 @@ export default function CareersApplicationForm() {
               <option key={tz.value} value={tz.value}>{tz.label}</option>
             ))}
           </select>
-        </div>
+          {renderFieldError("timezone")}
+        </label>
       </fieldset>
 
       <fieldset className="rb-app-fs" disabled={state === "submitting"}>
@@ -611,25 +682,28 @@ export default function CareersApplicationForm() {
           .
         </p>
 
-        <label className="rb-app-consent">
+        <label className="rb-app-consent" data-field="gdpr_consent">
           <input
             type="checkbox"
             required
             checked={form.gdpr_consent}
             onChange={(e) => update("gdpr_consent", e.target.checked)}
+            onBlur={() => markTouched("gdpr_consent")}
           />
           <span>
             I have read and understood how Rosebud Solutions will use my data,
             as set out in the Privacy Policy. <span className="rb-app-req">*</span>
           </span>
         </label>
+        {renderFieldError("gdpr_consent")}
 
-        <label className="rb-app-consent">
+        <label className="rb-app-consent" data-field="commission_consent">
           <input
             type="checkbox"
             required
             checked={form.commission_consent}
             onChange={(e) => update("commission_consent", e.target.checked)}
+            onBlur={() => markTouched("commission_consent")}
           />
           <span>
             I understand this is a 100% commission, independent contractor role.
@@ -638,24 +712,27 @@ export default function CareersApplicationForm() {
             cost of living. <span className="rb-app-req">*</span>
           </span>
         </label>
+        {renderFieldError("commission_consent")}
 
-        <label className="rb-app-consent">
+        <label className="rb-app-consent" data-field="location_consent">
           <input
             type="checkbox"
             required
             checked={form.location_consent}
             onChange={(e) => update("location_consent", e.target.checked)}
+            onBlur={() => markTouched("location_consent")}
           />
           <span>
             I confirm I have the right to work as a self-employed contractor in
             my country of residence. <span className="rb-app-req">*</span>
           </span>
         </label>
+        {renderFieldError("location_consent")}
       </fieldset>
 
-      {errorMsg && (
+      {submitError && (
         <p className="rb-app-error" role="alert">
-          {errorMsg}
+          {submitError}
         </p>
       )}
 
