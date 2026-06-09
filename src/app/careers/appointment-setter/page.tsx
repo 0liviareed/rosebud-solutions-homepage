@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import HiringStatusOverlay from "@/components/HiringStatusOverlay";
 
 export const metadata: Metadata = {
   title: "Appointment Setter — Rosebud Solutions",
@@ -53,7 +52,6 @@ const JOB_POSTING_SCHEMA = {
 export default function AppointmentSetterPage() {
   return (
     <main className="rb-job">
-      <HiringStatusOverlay />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(JOB_POSTING_SCHEMA) }}

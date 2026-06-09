@@ -190,8 +190,10 @@ export default function CareersApplicationForm() {
       }
     }
     const totalHours = WEEKDAYS.reduce((sum, d) => sum + Number(form[d.key] || 0), 0);
-    if (totalHours <= 0) {
-      setErrorMsg("Enter at least some hours across Monday–Friday.");
+    if (totalHours < 20) {
+      setErrorMsg(
+        `This role requires a minimum of 20 hours per week across Monday–Friday. You've entered ${totalHours}.`,
+      );
       return;
     }
     if (form.days_per_week === "") {
@@ -497,7 +499,7 @@ export default function CareersApplicationForm() {
               </label>
             ))}
           </div>
-          <span className="rb-app-hint">Enter 0 for days you can&rsquo;t commit. Range 0–16 per day.</span>
+          <span className="rb-app-hint">Enter 0 for days you can&rsquo;t commit. Range 0–16 per day. <strong>Minimum 20 hours per week required.</strong></span>
         </div>
 
         <div className="rb-app-row">
