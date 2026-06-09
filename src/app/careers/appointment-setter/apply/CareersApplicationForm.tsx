@@ -135,9 +135,41 @@ export default function CareersApplicationForm() {
   const [state, setState] = useState<FormState>("idle");
   const [form, setForm] = useState<Form>(INITIAL);
   const [errorMsg, setErrorMsg] = useState<string>("");
+  // Inline error under the hours block. Fires as soon as focus leaves
+  // the weekdays group with a sub-20-hour total — so the user finds out
+  // before they hit Submit at the bottom of the page.
+  const [hoursError, setHoursError] = useState<string>("");
 
   function update<K extends keyof Form>(key: K, value: Form[K]) {
-    setForm((f) => ({ ...f, [key]: value }));
+    setForm((f) => {
+      const next = { ...f, [key]: value };
+      // Live-clear the inline hours error the moment the total reaches 20
+      // so the user gets feedback while still in the weekdays group.
+      if (key.toString().startsWith("hours_") && hoursError) {
+        const total = WEEKDAYS.reduce((sum, d) => sum + (Number(next[d.key]) || 0), 0);
+        if (total >= 20) setHoursError("");
+      }
+      return next;
+    });
+  }
+
+  // Called by every hours <input>. Fires when focus is about to leave the
+  // weekdays group entirely (relatedTarget points outside the group). If
+  // every cell is filled and the total is under 20, show the inline error.
+  function onHoursBlur(e: React.FocusEvent<HTMLInputElement>) {
+    const group = e.currentTarget.closest(".rb-app-weekdays");
+    const moving = e.relatedTarget as Element | null;
+    if (group && moving && group.contains(moving)) return; // still inside the group
+    const allFilled = WEEKDAYS.every((d) => form[d.key] !== "");
+    if (!allFilled) return; // not done yet — don't nag mid-fill
+    const total = WEEKDAYS.reduce((sum, d) => sum + (Number(form[d.key]) || 0), 0);
+    if (total < 20) {
+      setHoursError(
+        `Minimum 20 hours per week required across Mon–Fri. You've entered ${total}.`,
+      );
+    } else {
+      setHoursError("");
+    }
   }
 
   function toggleArray(key: "industry_experience" | "equipment_check", value: string) {
@@ -154,6 +186,10 @@ export default function CareersApplicationForm() {
     e.preventDefault();
     setErrorMsg("");
 
+    if (!form.linkedin_url.trim()) {
+      setErrorMsg("Please add your LinkedIn URL (or write 'N/A' if you don't have one).");
+      return;
+    }
     if (!form.b2b_experience) {
       setErrorMsg("Please select your B2B experience.");
       return;
@@ -168,6 +204,10 @@ export default function CareersApplicationForm() {
     }
     if (!form.outbound_feeling) {
       setErrorMsg("Please tell us how you feel about an outbound calling role.");
+      return;
+    }
+    if (!form.calling_notes.trim()) {
+      setErrorMsg("Please add a note about your calling experience (or write 'N/A').");
       return;
     }
     if (form.equipment_check.length === 0) {
@@ -318,10 +358,11 @@ export default function CareersApplicationForm() {
         </label>
 
         <label className="rb-app-field">
-          <span className="rb-app-label">LinkedIn profile URL</span>
+          <span className="rb-app-label">LinkedIn profile URL <span className="rb-app-req">*</span></span>
           <input
-            type="url"
-            placeholder="https://linkedin.com/in/…"
+            type="text"
+            required
+            placeholder="https://linkedin.com/in/… (or 'N/A')"
             value={form.linkedin_url}
             onChange={(e) => update("linkedin_url", e.target.value)}
             className="rb-app-input"
@@ -445,14 +486,15 @@ export default function CareersApplicationForm() {
         </div>
 
         <label className="rb-app-field">
-          <span className="rb-app-label">Anything else about your calling experience?</span>
+          <span className="rb-app-label">Anything else about your calling experience? <span className="rb-app-req">*</span></span>
           <textarea
             rows={3}
+            required
             value={form.calling_notes}
             onChange={(e) => update("calling_notes", e.target.value)}
             className="rb-app-input"
             style={{ resize: "vertical", minHeight: "78px", fontFamily: "inherit" }}
-            placeholder="Optional"
+            placeholder="Share anything that gives us context. Write 'N/A' if nothing to add."
           />
         </label>
       </fieldset>
@@ -493,12 +535,16 @@ export default function CareersApplicationForm() {
                   required
                   value={form[d.key]}
                   onChange={(e) => update(d.key, e.target.value)}
+                  onBlur={onHoursBlur}
                   className="rb-app-input rb-app-weekday-input"
                   placeholder="0"
                 />
               </label>
             ))}
           </div>
+          {hoursError && (
+            <div className="rb-app-inline-error" role="alert">{hoursError}</div>
+          )}
           <span className="rb-app-hint">Enter 0 for days you can&rsquo;t commit. Range 0–16 per day. <strong>Minimum 20 hours per week required.</strong></span>
         </div>
 

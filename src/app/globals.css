@@ -6564,6 +6564,20 @@ button { font: inherit; color: inherit; }
   font-size: 13.5px;
 }
 
+/* Field-level inline error — sits directly under the weekdays grid so the
+   user sees the hours-shortfall message the moment they tab out, without
+   needing to scroll to the form-level error pill above Submit. */
+.rb-app-inline-error {
+  margin-top: 8px;
+  padding: 8px 12px;
+  background: rgba(220, 88, 88, 0.08);
+  border: 1px solid rgba(220, 88, 88, 0.35);
+  border-radius: 6px;
+  color: #f4c5c5;
+  font-size: 12.5px;
+  line-height: 1.45;
+}
+
 /* Submit */
 .rb-app-submit {
   align-self: stretch;
