@@ -838,6 +838,52 @@ button { font: inherit; color: inherit; }
 }
 .rb-cal-inline { width: 100%; min-height: 620px; }
 
+/* Mobile tap-to-reveal card — stands in for the inline embed on small screens
+   until tapped, so the ~620px month-view iframe never crowds the page on load.
+   Rendered only on mobile (component-gated); desktop never sees this. */
+.rb-cal-reveal {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  width: 100%;
+  margin: 0 auto;
+  padding: 1.05rem 1.15rem;
+  text-align: left;
+  background: rgba(184, 174, 219, 0.05);
+  border: 1px solid rgba(184, 174, 219, 0.22);
+  border-radius: 14px;
+  color: var(--rb-bone);
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+.rb-cal-reveal:active { background: rgba(184, 174, 219, 0.1); }
+.rb-cal-reveal-icon {
+  display: flex;
+  flex: none;
+  width: 44px;
+  height: 44px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  color: var(--rb-purple);
+  background: rgba(139, 125, 216, 0.12);
+  border: 1px solid rgba(184, 174, 219, 0.25);
+}
+.rb-cal-reveal-text { display: flex; flex-direction: column; gap: 0.2rem; flex: 1 1 auto; min-width: 0; }
+.rb-cal-reveal-label {
+  font-family: var(--font-cormorant), serif;
+  font-size: 1.2rem;
+  line-height: 1.15;
+  color: var(--rb-bone);
+}
+.rb-cal-reveal-sub {
+  font-size: 0.78rem;
+  letter-spacing: 0.01em;
+  color: var(--rb-bone-dim);
+}
+.rb-cal-reveal-arrow { flex: none; color: var(--rb-purple); display: flex; align-items: center; }
+
 /* Page-end mark */
 .rb-end {
   padding: 5rem 2rem 7rem;
