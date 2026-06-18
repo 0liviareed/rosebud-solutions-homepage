@@ -50,6 +50,20 @@ export default function BuildSection({ children }: { children?: ReactNode }) {
     return () => { document.body.style.overflow = ""; };
   }, [calcOpen]);
 
+  const calcButton = (
+    <button
+      onClick={() => setCalcOpen(true)}
+      className="rb-build-calc-entry"
+      aria-label="Open efficiency calculator"
+    >
+      <span className="rb-label">Efficiency calculator</span>
+      <span className="rb-build-calc-question">
+        What&apos;s manual work actually costing you?
+        <em className="rb-build-calc-arrow"> →</em>
+      </span>
+    </button>
+  );
+
   return (
     <>
       <section className="rb-sec" data-rb-sec aria-label="Build the future">
@@ -97,30 +111,25 @@ export default function BuildSection({ children }: { children?: ReactNode }) {
               ))}
             </div>
 
-            {/* Optional slot — rendered above the calculator entry. Used on
-                industry pages to surface the cal.eu booking embed here. */}
-            {children ? (
+            {/* Homepage (no children): the calculator entry stays inside the
+                narrow 600px build-wrap, directly under the steps. */}
+            {!children && calcButton}
+          </div>
+
+          {/* Industry pages: render the cal.eu booking embed full-width in the
+              1040px rb-wrap (so it lays out side-by-side, matching the homepage
+              cal section) above a re-homed calculator entry. */}
+          {children ? (
+            <>
               <div
-                className="rb-build-slot"
-                style={{ margin: "clamp(2.5rem,5vw,4rem) 0 clamp(2rem,4vw,3rem)" }}
+                className="rb-build-cal"
+                style={{ margin: "clamp(2.5rem,5vw,4rem) 0 clamp(1.5rem,3vw,2.5rem)" }}
               >
                 {children}
               </div>
-            ) : null}
-
-            {/* Calculator CTA — entry-block style */}
-            <button
-              onClick={() => setCalcOpen(true)}
-              className="rb-build-calc-entry"
-              aria-label="Open efficiency calculator"
-            >
-              <span className="rb-label">Efficiency calculator</span>
-              <span className="rb-build-calc-question">
-                What&apos;s manual work actually costing you?
-                <em className="rb-build-calc-arrow"> →</em>
-              </span>
-            </button>
-          </div>
+              <div className="rb-build-wrap">{calcButton}</div>
+            </>
+          ) : null}
         </div>
       </section>
 
