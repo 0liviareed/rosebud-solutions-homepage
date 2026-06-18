@@ -108,24 +108,47 @@ export default function RecruitmentHero({
     const out = outRef.current;
     if (!diag || !node || !out) return;
     const dr = diag.getBoundingClientRect();
-    const pt = (el: HTMLElement, side: "left" | "right") => {
-      const r = el.getBoundingClientRect();
-      return {
-        x: (side === "right" ? r.right : r.left) - dr.left,
-        y: r.top + r.height / 2 - dr.top,
+    const ins = inRefs.current.filter(Boolean) as HTMLElement[];
+    const mobile =
+      typeof window !== "undefined" &&
+      window.matchMedia("(max-width:760px)").matches;
+
+    let next: string[];
+    if (mobile) {
+      // Stacked layout — thread one vertical line down the column:
+      // in → in → in → node → output (card bottom-centre to next top-centre).
+      const seq: HTMLElement[] = [...ins, node, out];
+      next = [];
+      for (let i = 0; i < seq.length - 1; i++) {
+        const a = seq[i].getBoundingClientRect();
+        const b = seq[i + 1].getBoundingClientRect();
+        const ax = a.left + a.width / 2 - dr.left;
+        const ay = a.bottom - dr.top;
+        const bx = b.left + b.width / 2 - dr.left;
+        const by = b.top - dr.top;
+        next.push(`M${ax.toFixed(1)},${ay.toFixed(1)} L${bx.toFixed(1)},${by.toFixed(1)}`);
+      }
+    } else {
+      // Desktop fan-in — each input → node (curved), then node → output.
+      const pt = (el: HTMLElement, side: "left" | "right") => {
+        const r = el.getBoundingClientRect();
+        return {
+          x: (side === "right" ? r.right : r.left) - dr.left,
+          y: r.top + r.height / 2 - dr.top,
+        };
       };
-    };
-    const nodeL = pt(node, "left");
-    const nodeR = pt(node, "right");
-    const outL = pt(out, "left");
-    const next = inRefs.current.filter(Boolean).map((el) => {
-      const s = pt(el as HTMLElement, "right");
-      const cx = s.x + (nodeL.x - s.x) * 0.5;
-      return `M${s.x.toFixed(1)},${s.y.toFixed(1)} C${cx.toFixed(1)},${s.y.toFixed(1)} ${cx.toFixed(1)},${nodeL.y.toFixed(1)} ${nodeL.x.toFixed(1)},${nodeL.y.toFixed(1)}`;
-    });
-    next.push(
-      `M${nodeR.x.toFixed(1)},${nodeR.y.toFixed(1)} L${outL.x.toFixed(1)},${outL.y.toFixed(1)}`
-    );
+      const nodeL = pt(node, "left");
+      const nodeR = pt(node, "right");
+      const outL = pt(out, "left");
+      next = ins.map((el) => {
+        const s = pt(el, "right");
+        const cx = s.x + (nodeL.x - s.x) * 0.5;
+        return `M${s.x.toFixed(1)},${s.y.toFixed(1)} C${cx.toFixed(1)},${s.y.toFixed(1)} ${cx.toFixed(1)},${nodeL.y.toFixed(1)} ${nodeL.x.toFixed(1)},${nodeL.y.toFixed(1)}`;
+      });
+      next.push(
+        `M${nodeR.x.toFixed(1)},${nodeR.y.toFixed(1)} L${outL.x.toFixed(1)},${outL.y.toFixed(1)}`
+      );
+    }
     setPaths(next);
     setDim({ w: dr.width, h: dr.height });
   }, []);
@@ -386,15 +409,16 @@ const css = `
 @keyframes rbw-fade{from{opacity:0}to{opacity:1}}
 
 @media (max-width:760px){
-  .rbw-diag{height:auto; display:flex; flex-direction:column; gap:14px; max-width:430px; text-align:left;}
-  .rbw-svg{display:none;}
+  .rbw-tabs{max-width:none;}
+  .rbw-tab{padding:11px 6px 14px; font-size:12.5px; gap:7px;}
+  .rbw-tab-num{font-size:13px;}
   .rbw-heads{display:none;}
-  .rbw-inputs,.rbw-output,.rbw-node{position:static; width:100%; height:auto; transform:none;}
-  .rbw-inputs{gap:10px;}
-  .rbw-node{margin:6px auto; padding:14px 24px; width:auto; height:auto;}
-  .rbw-node::before{content:"↓"; position:absolute; top:-22px; color:var(--accent); font-size:13px;}
-  .rbw-output{order:3;}
-  .rbw-tab{padding:12px 8px 14px; font-size:13px;}
+  /* Stacked column with the connector SVG threading down the gaps. */
+  .rbw-diag{height:auto; display:flex; flex-direction:column; gap:26px; max-width:412px; margin:0 auto; text-align:left;}
+  .rbw-svg{display:block;}
+  .rbw-inputs{position:static; width:100%; height:auto; display:flex; flex-direction:column; gap:26px;}
+  .rbw-output{position:static; width:100%; transform:none; order:3;}
+  .rbw-node{position:static; align-self:center; transform:none; width:auto; height:auto; margin:0; padding:14px 26px; font-size:18px;}
 }
 @media (prefers-reduced-motion:reduce){
   .rbw-lane,.rbw-in,.rbw-out{animation:none !important; opacity:1 !important;}
