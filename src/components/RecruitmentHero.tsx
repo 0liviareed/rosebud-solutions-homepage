@@ -62,7 +62,7 @@ const STAGES: Stage[] = [
     inputs: [
       { label: "Shortlist", detail: "Ranked candidates" },
       { label: "Calendars", detail: "Client + candidate availability" },
-      { label: "Interview templates", detail: "Confirmations, prep, reminders" },
+      { label: "Live ATS", detail: "Bullhorn, Vincere, JobAdder" },
     ],
     output: {
       chip: "Interviews booked",

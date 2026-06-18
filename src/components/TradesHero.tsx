@@ -44,7 +44,7 @@ const STAGES: Stage[] = [
   {
     tab: "Quote",
     inputs: [
-      { label: "Live diary", detail: "ServiceTitan, Jobber, FieldEdge" },
+      { label: "Live diary", detail: "ServiceM8, Jobber, Commusoft" },
       { label: "Survey booking", detail: "Right tech or estimator" },
       { label: "Quote follow-up", detail: "Structured cadence" },
     ],
