@@ -248,7 +248,7 @@ const css = `
 .rbh-h1 em{font-style:italic; color:var(--accent-soft); text-decoration:underline; text-decoration-color:var(--accent); text-decoration-thickness:2px; text-underline-offset:.1em;}
 
 .rbh-sub{max-width:640px; margin:0 auto 22px; font-size:clamp(15px,1.7vw,18px); line-height:1.55; color:var(--rb-bone-dim);}
-.rbh-sub-lead{display:block; color:var(--text); font-weight:500; margin-bottom:8px;}
+.rbh-sub-lead{display:block; margin-bottom:8px;}
 
 .rbh-cta-wrap{margin:0 auto clamp(16px,2.5vw,26px);}
 /* Tighten the shared glow CTA stage inside the hero — its default
