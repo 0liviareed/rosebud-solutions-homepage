@@ -327,10 +327,16 @@ const css = `
 .rbh-sub-lead{display:block; margin-bottom:8px;}
 
 .rbh-cta-wrap{margin:0 auto clamp(28px,4vw,44px);}
-/* Tighten the shared glow CTA stage inside the hero — its default
-   margin-top + tall padding open a big void above "Get started". The
-   radial glow is absolutely positioned, so trimming the box doesn't clip it. */
+/* Size the shared glow CTA to the design spec (~16-18px) rather than its
+   default 28-44px hero scale, and shrink the glow pedestal to match so it
+   stays proportionate to the smaller link. Trim the stage padding/margin
+   (the radial glow is absolutely positioned, so this never clips it). */
 .rbh .rb-book-stage{padding:clamp(0.5rem,1.5vw,1rem) 0; margin-top:0;}
+.rbh .rb-book-cta{font-size:clamp(15px,1.4vw,18px); padding:0.3rem 0.5rem 0.5rem; gap:0.5rem;}
+.rbh .rb-book-cta-arrow{transform:translateY(-0.12em);}
+.rbh .rb-book-cta-arrow svg{width:30px; height:11px;}
+.rbh .rb-book-glow{height:clamp(6rem,12vw,8.5rem);}
+.rbh .rb-book-glow-halo{height:clamp(4rem,8vw,6rem);}
 
 /* ---- tab line (no container; one line that slides + fills over the dwell) ---- */
 .rbw-tabs{position:relative; display:flex; max-width:1000px; margin:0 auto 32px;}
