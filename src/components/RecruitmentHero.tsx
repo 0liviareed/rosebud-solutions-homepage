@@ -244,7 +244,7 @@ const css = `
 .rbh-loc{font-size:12px; letter-spacing:.2em; text-transform:uppercase; color:var(--muted);}
 .rbh-loc i{font-family:var(--serif); font-style:italic; color:var(--accent); letter-spacing:0; margin-right:6px; text-transform:none;}
 
-.rbh-h1{font-family:var(--serif); font-weight:500; font-size:clamp(36px,5.5vw,64px); line-height:1.04; letter-spacing:-.02em; margin:0 auto 16px; max-width:14ch;}
+.rbh-h1{font-family:var(--serif); font-weight:500; font-size:clamp(44px,7vw,86px); line-height:1.03; letter-spacing:-.02em; margin:0 auto 20px; max-width:14ch;}
 .rbh-h1 em{font-style:italic; color:var(--accent-soft); text-decoration:underline; text-decoration-color:var(--accent); text-decoration-thickness:2px; text-underline-offset:.1em;}
 
 .rbh-sub{max-width:640px; margin:0 auto 22px; font-size:clamp(15px,1.7vw,18px); line-height:1.55; color:var(--rb-bone-dim);}
@@ -257,7 +257,7 @@ const css = `
 .rbh .rb-book-stage{padding:clamp(0.5rem,1.5vw,1rem) 0; margin-top:0;}
 
 /* ---- animation ---- */
-.rbw-tabs{display:flex; gap:8px; justify-content:center; flex-wrap:wrap; max-width:680px; margin:0 auto 26px;}
+.rbw-tabs{display:flex; gap:10px; justify-content:center; flex-wrap:wrap; max-width:780px; margin:0 auto 30px;}
 .rbw-tab{position:relative; display:flex; align-items:center; gap:11px; padding:11px 20px 12px; border:1px solid var(--card-bd); border-radius:6px; background:transparent; color:var(--muted); font-family:var(--sans); font-size:14px; font-weight:500; cursor:pointer; transition:color .35s, border-color .35s, background .35s; overflow:hidden;}
 .rbw-tab:hover{color:var(--text);}
 .rbw-tab.is-active{color:var(--text); border-color:rgba(184,174,219,.36); background:rgba(184,174,219,.05);}
@@ -266,7 +266,7 @@ const css = `
 @keyframes rbw-fill{from{transform:scaleX(0)}to{transform:scaleX(1)}}
 .rbw-tab:focus-visible{outline:2px solid var(--accent); outline-offset:2px;}
 
-.rbw-diag{position:relative; width:100%; max-width:920px; margin:0 auto; aspect-ratio:1000/420; text-align:left;}
+.rbw-diag{position:relative; width:100%; max-width:1080px; margin:0 auto; aspect-ratio:1000/400; text-align:left;}
 .rbw-svg{position:absolute; inset:0; width:100%; height:100%; pointer-events:none; z-index:1;}
 .rbw-lane{fill:none; stroke:var(--line); stroke-width:1.3; stroke-dasharray:2 7; stroke-linecap:round; animation:rbw-march 1.1s linear infinite;}
 .rbw-lane-out{stroke:rgba(184,174,219,.46);}
