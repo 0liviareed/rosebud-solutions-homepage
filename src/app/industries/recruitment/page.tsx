@@ -5,6 +5,7 @@ import SplitRoles, { type SplitRole } from "@/components/SplitRoles";
 import Voices from "@/components/Voices";
 import { VOICES } from "@/components/voices-data";
 import BuildSection from "@/components/BuildSection";
+import CalEmbed from "@/components/CalEmbed";
 
 // Reorder so recruitment-adjacent quotes (pipeline scoring, chasing deals,
 // fast build time) lead — the general operational ones follow.
@@ -290,8 +291,13 @@ export default function RecruitmentPage() {
           </div>
         </section>
 
-        {/* ===== BUILD THE FUTURE WITH AI — shared homepage section ===== */}
-        <BuildSection />
+        {/* ===== BUILD THE FUTURE WITH AI — shared homepage section, with
+             the cal.eu booking embed surfaced above the calculator entry ===== */}
+        <BuildSection>
+          <div id="rb-book" style={{ scrollMarginTop: "40px" }}>
+            <CalEmbed />
+          </div>
+        </BuildSection>
 
         {/* ===================== VI — FAQ ===================== */}
         <section className="rb-sec" data-rb-sec aria-label="Frequently asked questions">

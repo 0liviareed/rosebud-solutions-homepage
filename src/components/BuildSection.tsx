@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useState, useEffect, useRef, useCallback, type ReactNode } from "react";
 import Calculator from "./Calculator";
 
 const STEPS = [
@@ -26,7 +26,7 @@ const STEPS = [
 
 const DURATION = 4200;
 
-export default function BuildSection() {
+export default function BuildSection({ children }: { children?: ReactNode }) {
   const [active, setActive]     = useState(0);
   const [barKey, setBarKey]     = useState(0);
   const [calcOpen, setCalcOpen] = useState(false);
@@ -96,6 +96,17 @@ export default function BuildSection() {
                 />
               ))}
             </div>
+
+            {/* Optional slot — rendered above the calculator entry. Used on
+                industry pages to surface the cal.eu booking embed here. */}
+            {children ? (
+              <div
+                className="rb-build-slot"
+                style={{ margin: "clamp(2.5rem,5vw,4rem) 0 clamp(2rem,4vw,3rem)" }}
+              >
+                {children}
+              </div>
+            ) : null}
 
             {/* Calculator CTA — entry-block style */}
             <button
