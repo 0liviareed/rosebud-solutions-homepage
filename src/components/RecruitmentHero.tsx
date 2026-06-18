@@ -141,7 +141,7 @@ export default function RecruitmentHero({
         <BookDemoCTA
           href="https://www.cal.eu/rosebudsolutions/30min?overlayCalendar=true"
           label="Get started"
-          meta="30 minutes · Zoom · no prep required"
+          meta=""
           location="recruitment-hero"
         />
       </div>
@@ -235,25 +235,25 @@ const css = `
   --line:rgba(184,174,219,.26); --accent:var(--rb-purple); --accent-soft:#cfc6ec;
   --text:var(--rb-bone); --muted:var(--rb-bone-dim); --chip:rgba(184,174,219,.13);
   --serif:var(--font-cormorant),Georgia,serif; --sans:var(--font-dm-sans),-apple-system,BlinkMacSystemFont,sans-serif;
-  position:relative; padding:clamp(8rem,16vw,13rem) clamp(1.5rem,5vw,3rem) clamp(5rem,9vw,7rem); color:var(--text); font-family:var(--sans);
+  position:relative; padding:clamp(5rem,9vw,7.5rem) clamp(1.5rem,5vw,3rem) clamp(2.5rem,4vw,3.5rem); color:var(--text); font-family:var(--sans);
   background:transparent; overflow:hidden; text-align:center;
 }
 
-.rbh-eyebrow{display:flex; flex-direction:column; align-items:center; gap:10px; margin-bottom:26px;}
+.rbh-eyebrow{display:flex; flex-direction:column; align-items:center; gap:8px; margin-bottom:16px;}
 .rbh-over{font-size:12px; letter-spacing:.28em; text-transform:uppercase; color:var(--muted);}
 .rbh-loc{font-size:12px; letter-spacing:.2em; text-transform:uppercase; color:var(--muted);}
 .rbh-loc i{font-family:var(--serif); font-style:italic; color:var(--accent); letter-spacing:0; margin-right:6px; text-transform:none;}
 
-.rbh-h1{font-family:var(--serif); font-weight:500; font-size:clamp(40px,8vw,92px); line-height:1.02; letter-spacing:-.02em; margin:0 auto 28px; max-width:14ch;}
+.rbh-h1{font-family:var(--serif); font-weight:500; font-size:clamp(36px,5.5vw,64px); line-height:1.04; letter-spacing:-.02em; margin:0 auto 16px; max-width:14ch;}
 .rbh-h1 em{font-style:italic; color:var(--accent-soft); text-decoration:underline; text-decoration-color:var(--accent); text-decoration-thickness:2px; text-underline-offset:.1em;}
 
-.rbh-sub{max-width:640px; margin:0 auto 36px; font-size:clamp(16px,2vw,19px); line-height:1.6; color:var(--rb-bone-dim);}
+.rbh-sub{max-width:640px; margin:0 auto 22px; font-size:clamp(15px,1.7vw,18px); line-height:1.55; color:var(--rb-bone-dim);}
 .rbh-sub-lead{display:block; color:var(--text); font-weight:500; margin-bottom:8px;}
 
-.rbh-cta-wrap{margin:0 auto clamp(48px,7vw,70px);}
+.rbh-cta-wrap{margin:0 auto clamp(20px,3vw,32px);}
 
 /* ---- animation ---- */
-.rbw-tabs{display:flex; gap:8px; justify-content:center; flex-wrap:wrap; max-width:680px; margin:0 auto 44px;}
+.rbw-tabs{display:flex; gap:8px; justify-content:center; flex-wrap:wrap; max-width:680px; margin:0 auto 26px;}
 .rbw-tab{position:relative; display:flex; align-items:center; gap:11px; padding:11px 20px 12px; border:1px solid var(--card-bd); border-radius:6px; background:transparent; color:var(--muted); font-family:var(--sans); font-size:14px; font-weight:500; cursor:pointer; transition:color .35s, border-color .35s, background .35s; overflow:hidden;}
 .rbw-tab:hover{color:var(--text);}
 .rbw-tab.is-active{color:var(--text); border-color:rgba(184,174,219,.36); background:rgba(184,174,219,.05);}
@@ -262,7 +262,7 @@ const css = `
 @keyframes rbw-fill{from{transform:scaleX(0)}to{transform:scaleX(1)}}
 .rbw-tab:focus-visible{outline:2px solid var(--accent); outline-offset:2px;}
 
-.rbw-diag{position:relative; width:100%; max-width:1000px; margin:0 auto; aspect-ratio:1000/420; text-align:left;}
+.rbw-diag{position:relative; width:100%; max-width:920px; margin:0 auto; aspect-ratio:1000/420; text-align:left;}
 .rbw-svg{position:absolute; inset:0; width:100%; height:100%; pointer-events:none; z-index:1;}
 .rbw-lane{fill:none; stroke:var(--line); stroke-width:1.3; stroke-dasharray:2 7; stroke-linecap:round; animation:rbw-march 1.1s linear infinite;}
 .rbw-lane-out{stroke:rgba(184,174,219,.46);}

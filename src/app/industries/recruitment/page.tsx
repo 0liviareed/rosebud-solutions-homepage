@@ -1,13 +1,24 @@
 import type { Metadata } from "next";
 import RecruitmentHero from "@/components/RecruitmentHero";
 import RecruitmentFAQ from "@/components/RecruitmentFAQ";
+import SplitRoles, { type SplitRole } from "@/components/SplitRoles";
 import Voices from "@/components/Voices";
 import { VOICES } from "@/components/voices-data";
-import BookDemoCTA from "@/components/BookDemoCTA";
+import BuildSection from "@/components/BuildSection";
 
 // Reorder so recruitment-adjacent quotes (pipeline scoring, chasing deals,
 // fast build time) lead — the general operational ones follow.
 const RECRUITMENT_VOICES = [2, 0, 5, 3, 6, 1, 4, 7].map((i) => VOICES[i]);
+
+const RECRUITMENT_ROLES: SplitRole[] = [
+  { num: "I",   label: "Candidate Sourcing Engine",       body: "Targeted search across LinkedIn and sector networks, filtered against your ICP." },
+  { num: "II",  label: "CV Screening & Shortlisting",     body: "Agentic AI reading every profile against your criteria." },
+  { num: "III", label: "Automated Outreach Sequences",    body: "Multi-touch personalised sequences, sent without manual input." },
+  { num: "IV",  label: "CRM Auto-Population",             body: "Everything written directly into your CRM, nothing typed." },
+  { num: "V",   label: "Pipeline Management",             body: "Warm candidates tracked, re-engaged, ready when the next role opens." },
+  { num: "VI",  label: "Behaviour-Triggered Follow-Up",   body: "Re-engagement handled automatically." },
+  { num: "VII", label: "Operational Audit & Roadmap",     body: "Where your operation is losing time, and what to fix next." },
+];
 
 export const metadata: Metadata = {
   title: "Recruitment — AI Workflow for Agencies & In-House Teams",
@@ -156,9 +167,114 @@ export default function RecruitmentPage() {
       <RecruitmentHero />
 
       <main className="rb-content">
-        {/* NEW SECTION GOES HERE — sections I (seven-step loop), II (seven
-            roles), III (what changes day one + what lands in your CRM), and
-            IV (the honest filter) removed 2026-06-18, pending replacement. */}
+        {/* ===================== II — WHAT'S INCLUDED ===================== */}
+        <section className="rb-sec rb-sec-split" data-rb-sec aria-label="What's included">
+          <div className="rb-wrap rb-split">
+            {/* Left column — sticky-pinned heading + CTAs */}
+            <div className="rb-split-left">
+              <div className="rb-split-left-inner">
+                <p className="rb-eyebrow" data-rb-fade="0">
+                  <span className="rb-num">II</span>Every deployment includes
+                </p>
+                <h2 className="rb-h2" data-rb-fade="1">
+                  One system. <em>All seven roles.</em>
+                </h2>
+                <p className="rb-split-body" data-rb-fade="2">
+                  A custom system we build around your desks. One setup. One
+                  monthly figure. No per-seat pricing. Deployed in 5 weeks.
+                </p>
+                <p className="rb-split-body rb-split-body-quiet" data-rb-fade="3">
+                  Every deployment is built around your desks, your briefs,
+                  and your ICP. Seven roles run as one system — operated by
+                  us, handed to you.
+                </p>
+
+                <div className="rb-split-ctas" data-rb-fade="3">
+                  <a href="/pricing" className="rb-book-link">
+                    <span className="rb-book-link-label">Get started</span>
+                    <span className="rb-book-link-arrow" aria-hidden="true">
+                      <svg viewBox="0 0 36 12" width="36" height="12">
+                        <path
+                          className="rb-book-link-shaft"
+                          d="M0 6 L28 6"
+                          stroke="currentColor"
+                          strokeWidth="1.3"
+                          strokeLinecap="round"
+                          fill="none"
+                        />
+                        <path
+                          className="rb-book-link-head"
+                          d="M22 1.5 L28 6 L22 10.5"
+                          stroke="currentColor"
+                          strokeWidth="1.3"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          fill="none"
+                        />
+                      </svg>
+                    </span>
+                    <span className="rb-book-link-underline" aria-hidden="true" />
+                  </a>
+                  <span className="rb-split-cta-glow-wrap">
+                    <span
+                      className="rb-split-cta-glow rb-split-cta-glow-pedestal"
+                      aria-hidden="true"
+                    />
+                    <span
+                      className="rb-split-cta-glow rb-split-cta-glow-halo"
+                      aria-hidden="true"
+                    />
+                    <a
+                      href="https://www.cal.eu/rosebudsolutions/30min?overlayCalendar=true"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="rb-book-cta rb-book-cta-inline"
+                    >
+                      <span className="rb-book-cta-label">Schedule demo</span>
+                      <span className="rb-book-cta-arrow" aria-hidden="true">
+                        <svg viewBox="0 0 42 12" width="42" height="12">
+                          <path
+                            className="rb-book-cta-shaft"
+                            d="M0 6 L32 6"
+                            stroke="currentColor"
+                            strokeWidth="1.4"
+                            strokeLinecap="round"
+                            fill="none"
+                          />
+                          <path
+                            className="rb-book-cta-head"
+                            d="M26 1.5 L32 6 L26 10.5"
+                            stroke="currentColor"
+                            strokeWidth="1.4"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            fill="none"
+                          />
+                        </svg>
+                      </span>
+                      <span
+                        className="rb-book-cta-underline"
+                        aria-hidden="true"
+                      />
+                    </a>
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <SplitRoles
+              ariaLabel="Seven roles in every recruitment deployment"
+              roles={RECRUITMENT_ROLES}
+            />
+          </div>
+
+          <div className="rb-wrap">
+            <p className="rb-aftertext rb-aftertext-quiet" data-rb-fade="3">
+              Pricing shared on the demo call — scoped to the volume and
+              seniority of the roles you hire for.
+            </p>
+          </div>
+        </section>
 
         {/* ===================== VOICES ===================== */}
         <section className="rb-sec" data-rb-sec aria-label="Voices">
@@ -174,52 +290,8 @@ export default function RecruitmentPage() {
           </div>
         </section>
 
-        {/* ===================== V — BOOK A DEMO ===================== */}
-        <section
-          id="rb-book"
-          className="rb-sec"
-          data-rb-sec
-          aria-label="Request a demo"
-        >
-          <div className="rb-wrap">
-            <div className="rb-head">
-              <p className="rb-eyebrow" data-rb-fade="0">
-                <span className="rb-num">V</span>See it in action
-              </p>
-              <h2 className="rb-h2" data-rb-fade="1">
-                See how this runs for <em>your desks.</em>
-              </h2>
-              <p className="rb-sub" data-rb-fade="2">
-                A 30-minute walkthrough of the system mapped to the roles you
-                actually hire for. You&apos;ll see the sourcing, the screening
-                logic, and how candidates land in your calendar.
-              </p>
-            </div>
-
-            <div className="rb-demo-cards" data-rb-fade="3">
-              <div className="rb-demo-card">
-                <span className="rb-label">What to expect</span>
-                <p>
-                  A working system mapped to one of your open briefs. You&apos;ll
-                  see the candidate profiles, the screening decisions, and the
-                  pipeline view.
-                </p>
-              </div>
-              <div className="rb-demo-card">
-                <span className="rb-label">Duration</span>
-                <p>30 minutes. Zoom. No prep needed.</p>
-              </div>
-            </div>
-
-            <p className="rb-demo-reassure" data-rb-fade="3">
-              We build it. We run it. You own it. No lock-in. Cancel any time.
-            </p>
-
-            <div data-rb-fade="3">
-              <BookDemoCTA href="https://cal.eu/rosebudsolutions/30min" />
-            </div>
-          </div>
-        </section>
+        {/* ===== BUILD THE FUTURE WITH AI — shared homepage section ===== */}
+        <BuildSection />
 
         {/* ===================== VI — FAQ ===================== */}
         <section className="rb-sec" data-rb-sec aria-label="Frequently asked questions">

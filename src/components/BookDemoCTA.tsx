@@ -93,7 +93,7 @@ export default function BookDemoCTA({
         </a>
       </div>
 
-      <p className="rb-book-meta">{meta}</p>
+      {meta ? <p className="rb-book-meta">{meta}</p> : null}
     </div>
   );
 }
