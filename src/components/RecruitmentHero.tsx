@@ -235,7 +235,7 @@ const css = `
   --line:rgba(184,174,219,.26); --accent:var(--rb-purple); --accent-soft:#cfc6ec;
   --text:var(--rb-bone); --muted:var(--rb-bone-dim); --chip:rgba(184,174,219,.13);
   --serif:var(--font-cormorant),Georgia,serif; --sans:var(--font-dm-sans),-apple-system,BlinkMacSystemFont,sans-serif;
-  position:relative; padding:clamp(5rem,9vw,7.5rem) clamp(1.5rem,5vw,3rem) clamp(2.5rem,4vw,3.5rem); color:var(--text); font-family:var(--sans);
+  position:relative; padding:clamp(5rem,9vw,7.5rem) clamp(1.5rem,5vw,3rem) clamp(5.5rem,9vw,8rem); color:var(--text); font-family:var(--sans);
   background:transparent; overflow:hidden; text-align:center;
 }
 
@@ -250,7 +250,11 @@ const css = `
 .rbh-sub{max-width:640px; margin:0 auto 22px; font-size:clamp(15px,1.7vw,18px); line-height:1.55; color:var(--rb-bone-dim);}
 .rbh-sub-lead{display:block; color:var(--text); font-weight:500; margin-bottom:8px;}
 
-.rbh-cta-wrap{margin:0 auto clamp(20px,3vw,32px);}
+.rbh-cta-wrap{margin:0 auto clamp(16px,2.5vw,26px);}
+/* Tighten the shared glow CTA stage inside the hero — its default
+   margin-top + tall padding open a big void above "Get started". The
+   radial glow is absolutely positioned, so trimming the box doesn't clip it. */
+.rbh .rb-book-stage{padding:clamp(0.5rem,1.5vw,1rem) 0; margin-top:0;}
 
 /* ---- animation ---- */
 .rbw-tabs{display:flex; gap:8px; justify-content:center; flex-wrap:wrap; max-width:680px; margin:0 auto 26px;}
