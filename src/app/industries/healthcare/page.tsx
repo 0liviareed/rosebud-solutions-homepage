@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
+import HealthcareHero from "@/components/HealthcareHero";
 import HealthcareFAQ from "@/components/HealthcareFAQ";
-import SevenStepTimeline, { type TimelineStep } from "@/components/SevenStepTimeline";
 import SplitRoles, { type SplitRole } from "@/components/SplitRoles";
 import Voices from "@/components/Voices";
 import { VOICES } from "@/components/voices-data";
-import BookDemoCTA from "@/components/BookDemoCTA";
-import BookCTA from "@/components/BookCTA";
+import BuildSection from "@/components/BuildSection";
+import CalEmbed from "@/components/CalEmbed";
 
 const HEALTHCARE_ROLES: SplitRole[] = [
   { num: "I",   label: "Enquiry Intake",                    body: "Every enquiry across every channel — phone, Instagram DM, contact form, WhatsApp — answered the moment it lands. The aesthetic enquiry who messaged five clinics before bed gets a proper answer from yours. The dental patient calling on their lunch break hits a booking, not a voicemail." },
@@ -37,40 +37,6 @@ export const metadata: Metadata = {
     type: "website",
   },
 };
-
-/* Healthcare-specific seven-step loop. Same component as recruitment — passed
-   different step copy via the `steps` prop. Carousel behaviour, keyboard
-   navigation, swipe, and visual treatment are shared. */
-const HEALTHCARE_STEPS: TimelineStep[] = [
-  [
-    "Enquiry comes in",
-    "Instagram DM at 11pm. Contact form during a treatment. The practice line at lunch. Every channel, the same starting line.",
-  ],
-  [
-    "Qualify the patient",
-    "Suitable for treatment? Recent fillers, dental work, or contraindications? On blood thinners? Comparing other clinics? The screening conversation before a slot gets offered.",
-  ],
-  [
-    "Chase for records and consent",
-    "Medical history forms. Anti-wrinkle questionnaires. Pre-treatment photos for aesthetics. Finance applications for £4k Invisalign plans. The first email, then the second, then the third.",
-  ],
-  [
-    "Find a slot and book",
-    "Cross-checking Dentally, SOE, Pabau, Open Dental, or Aesthetic Nurse Software against practitioner availability, confirming with the patient, keying it in.",
-  ],
-  [
-    "Remind. Confirm. Reschedule.",
-    "24-hour reminder. Day-of confirmation. Reschedules when the patient pushes back. The admin loop that eats half a morning.",
-  ],
-  [
-    "Post-visit follow-up",
-    "Aftercare instructions. Treatment plan progress. Payment chases. The work that decides whether they come back.",
-  ],
-  [
-    "Recall — and the loop starts again",
-    "Three months for Botox. Six months for hygiene. Twelve months for Invisalign reviews. Until the cycle restarts.",
-  ],
-];
 
 /* JSON-LD schemas — Service (the patient-ops automation), FAQPage
    (the 9 FAQ items), BreadcrumbList. Rendered as <script type="application/ld+json">
@@ -210,103 +176,10 @@ export default function HealthcarePage() {
           __html: JSON.stringify(HEALTHCARE_BREADCRUMBS),
         }}
       />
-      {/* ========== PAGE HERO ========== */}
-      <section className="rb-page-hero">
-        <div className="rb-page-hero-inner">
-          <p className="rb-page-hero-eyebrow">Rosebud Solutions</p>
-          <p className="rb-page-hero-crumb">
-            <span className="rb-num">III</span>For Dental, Aesthetic &amp;
-            Private Healthcare
-          </p>
-          <h1 className="rb-page-hero-h1">
-            AI-Powered Patient <em>Operations Software.</em>
-          </h1>
-          <p className="rb-page-hero-sub">
-            Agentic patient orchestration — from first enquiry to long-term
-            loyalty. Autonomously answer calls, DMs, and contact forms, qualify
-            and book patients into your diary, and run the recall and aftercare
-            sequences that quietly keep them coming back. Coordinated across
-            your phones, inbox, social channels, and practice management
-            system.
-          </p>
-
-          {/* Stats row — inline beneath subhead. Four KPIs, each a big number
-              and a one-line label. Designed to scan in under five seconds. */}
-          <ul className="rb-hero-stats" aria-label="Key healthcare metrics">
-            <li className="rb-hero-stat">
-              <span className="rb-hero-stat-num">&lt; 60s</span>
-              <span className="rb-hero-stat-label">
-                Response time to every enquiry
-              </span>
-            </li>
-            <li className="rb-hero-stat">
-              <span className="rb-hero-stat-num">24/7</span>
-              <span className="rb-hero-stat-label">
-                Coverage across calls, DMs, and forms
-              </span>
-            </li>
-            <li className="rb-hero-stat">
-              <span className="rb-hero-stat-num">2–3 hrs / day</span>
-              <span className="rb-hero-stat-label">
-                Admin returned to each receptionist
-              </span>
-            </li>
-            <li className="rb-hero-stat">
-              <span className="rb-hero-stat-num">5 weeks</span>
-              <span className="rb-hero-stat-label">
-                From kickoff to live system
-              </span>
-            </li>
-          </ul>
-        </div>
-      </section>
+      {/* ========== PAGE HERO (animated workflow) ========== */}
+      <HealthcareHero />
 
       <main className="rb-content">
-        {/* ===================== I — SEVEN-STEP LOOP ===================== */}
-        <section className="rb-sec" data-rb-sec aria-label="Where the hours go">
-          <div className="rb-wrap">
-            <div className="rb-head">
-              <p className="rb-eyebrow" data-rb-fade="0">
-                <span className="rb-num">I</span>Sound familiar?
-              </p>
-              <h2 className="rb-h2" data-rb-fade="1">
-                Where the hours <em>go.</em>
-              </h2>
-              <p className="rb-sub" data-rb-fade="2">
-                Your clinicians spend the day with patients. Your front desk
-                spends theirs answering the same questions, chasing the same
-                documents, and rebooking the same recall list. We build the
-                system that takes the repetitive half off your team&rsquo;s
-                desk, so the patient-facing half gets its hours back.
-              </p>
-            </div>
-
-            <div data-rb-fade="2">
-              <SevenStepTimeline steps={HEALTHCARE_STEPS} />
-            </div>
-
-            <p className="rb-aftertext" data-rb-fade="3">
-              Every patient, the same loop. Every recall, the loop starts
-              again. And it all lands on the front desk who should be looking
-              after the patients in the building, not chasing the ones who
-              aren&rsquo;t.
-            </p>
-            <p className="rb-aftertext" data-rb-fade="3">
-              One missed aesthetic enquiry per day at £350 average treatment
-              value is £127K a year walking past your door. A 400-patient
-              hygiene recall list at £85 per visit is £68K of revenue that
-              depends entirely on whether someone remembers to chase it.
-            </p>
-            <p className="rb-aftertext rb-aftertext-bridge" data-rb-fade="3">
-              What if five of those seven steps ran without them?
-            </p>
-
-            <div data-rb-fade="3">
-              <BookCTA label="See what runs itself" />
-            </div>
-          </div>
-        </section>
-
         {/* ===================== II — WHAT'S INCLUDED ===================== */}
         <section className="rb-sec rb-sec-split" data-rb-sec aria-label="What's included">
           <div className="rb-wrap rb-split">
@@ -379,7 +252,7 @@ export default function HealthcarePage() {
           </div>
         </section>
 
-        {/* ===================== VOICES — between II & III ===================== */}
+        {/* ===================== VOICES ===================== */}
         <section className="rb-sec" data-rb-sec aria-label="Voices">
           <div className="rb-wrap">
             <div className="rb-head">
@@ -393,275 +266,13 @@ export default function HealthcarePage() {
           </div>
         </section>
 
-        {/* ===================== III — WHAT CHANGES DAY ONE ===================== */}
-        <section
-          className="rb-sec"
-          data-rb-sec
-          aria-label="What changes on day one"
-        >
-          <div className="rb-wrap">
-            <div className="rb-head">
-              <p className="rb-eyebrow" data-rb-fade="0">
-                <span className="rb-num">III</span>The difference
-              </p>
-              <h2 className="rb-h2" data-rb-fade="1">
-                What changes on <em>day one.</em>
-              </h2>
-            </div>
-
-            <div className="rb-compare" data-rb-fade="2">
-              <div className="rb-compare-head">
-                <span className="rb-compare-label rb-compare-label-manual">
-                  Manual &middot; the reality now
-                </span>
-                <span className="rb-compare-label rb-compare-label-rosebud">
-                  Rosebud runs it for you
-                </span>
-              </div>
-
-              {[
-                [
-                  "Instagram DMs sit unread until someone has time to check the inbox",
-                  "Every enquiry answered the moment it lands, across every channel",
-                ],
-                [
-                  "Calling and emailing patients three times for medical history and pre-treatment photos",
-                  "Documentation collected through structured conversation, no chasing required",
-                ],
-                [
-                  "Reception manually keying patient details into the practice management system",
-                  "Patient data filed into your PMS in the format it expects",
-                ],
-                [
-                  "Front desk juggling reminders and reschedules alongside walk-ins",
-                  "Reminders sent automatically, reschedules handled in-conversation",
-                ],
-                [
-                  "Recall lists running on a spreadsheet — or not at all",
-                  "Recall cycles triggered automatically at the right interval per treatment",
-                ],
-                [
-                  "Aftercare depending on which receptionist remembers to send it",
-                  "Aftercare sequenced from the appointment itself",
-                ],
-                [
-                  "Strategic guesswork on where the diary is leaking",
-                  "Every conversation logged, every booking tracked, every decision visible",
-                ],
-              ].map(([manual, rosebud], i) => (
-                <div key={i} className="rb-compare-row">
-                  <span className="rb-compare-cell rb-compare-cell-manual">
-                    <span
-                      className="rb-compare-mark rb-compare-mark-x"
-                      aria-hidden="true"
-                    >
-                      <svg viewBox="0 0 12 12" width="10" height="10">
-                        <path
-                          d="M2.5 2.5 L9.5 9.5 M9.5 2.5 L2.5 9.5"
-                          stroke="currentColor"
-                          strokeWidth="1.3"
-                          strokeLinecap="round"
-                        />
-                      </svg>
-                    </span>
-                    <span>{manual}</span>
-                  </span>
-                  <span className="rb-compare-cell rb-compare-cell-rosebud">
-                    <span
-                      className="rb-compare-mark rb-compare-mark-check"
-                      aria-hidden="true"
-                    >
-                      <svg viewBox="0 0 12 12" width="11" height="11">
-                        <path
-                          d="M2.25 6.25 L5 9 L9.75 3.25"
-                          stroke="currentColor"
-                          strokeWidth="1.4"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          fill="none"
-                        />
-                      </svg>
-                    </span>
-                    <span>{rosebud}</span>
-                  </span>
-                </div>
-              ))}
-            </div>
-
-            <div className="rb-before-after" data-rb-fade="3">
-              <p className="rb-before-after-eyebrow">What lands in your PMS</p>
-              <p className="rb-before-after-intro">
-                By the time a patient arrives, the qualifying conversation is
-                done, the records are in, and the appointment is ready.
-              </p>
-              <p className="rb-before-after-bridge">
-                Of the seven steps between enquiry and a patient in your chair,
-                your team runs two. We run the <em>other five.</em>
-              </p>
-
-              <div className="rb-before-after-cols">
-                <div className="rb-before-after-col">
-                  <span className="rb-label">Without Rosebud</span>
-                  <ul className="rb-before-after-list">
-                    <li>DMs and missed calls only</li>
-                    <li>Half-captured patient details</li>
-                    <li>Missing medical history and consent</li>
-                  </ul>
-                </div>
-                <div className="rb-before-after-col rb-before-after-col-after">
-                  <span className="rb-label">With Rosebud</span>
-                  <ul className="rb-before-after-list rb-before-after-list-after">
-                    <li>Full conversation logged</li>
-                    <li>Medical history and consent collected</li>
-                    <li>Treatment plan ready for sign-off</li>
-                    <li>Patient in the chair on time, fully briefed</li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-
-            <div data-rb-fade="3">
-              <BookCTA label="See how this runs for my practice" />
-            </div>
+        {/* ===== BUILD THE FUTURE WITH AI — shared homepage section, with
+             the cal.eu booking embed surfaced above the calculator entry ===== */}
+        <BuildSection>
+          <div id="rb-book" style={{ scrollMarginTop: "40px" }}>
+            <CalEmbed />
           </div>
-        </section>
-
-        {/* ===================== IV — WHO THIS IS FOR ===================== */}
-        <section className="rb-sec" data-rb-sec aria-label="Who this is for">
-          <div className="rb-wrap">
-            <div className="rb-head">
-              <p className="rb-eyebrow" data-rb-fade="0">
-                <span className="rb-num">IV</span>The honest filter
-              </p>
-              <h2 className="rb-h2" data-rb-fade="1">
-                Built for clinics <em>already busy.</em>
-              </h2>
-            </div>
-
-            <div className="rb-filter-cols" data-rb-fade="2">
-              <div className="rb-filter-col rb-filter-col-yes">
-                <span className="rb-filter-head">
-                  <span className="rb-filter-icon" aria-hidden="true">
-                    <svg viewBox="0 0 16 16" width="14" height="14">
-                      <path
-                        d="M3 8.5 L6.5 12 L13 5"
-                        stroke="currentColor"
-                        strokeWidth="1.5"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        fill="none"
-                      />
-                    </svg>
-                  </span>
-                  <span className="rb-label">This works for you if</span>
-                </span>
-                <ul className="rb-filter-list">
-                  <li>
-                    You&rsquo;re handling enquiry volume across multiple
-                    treatments or services
-                  </li>
-                  <li>
-                    Your front desk is drowning in repetitive inbound and
-                    recall
-                  </li>
-                  <li>
-                    You&rsquo;ve got a patient list with recurring treatments —
-                    hygiene checks, Botox top-ups, ortho reviews, treatment
-                    plans
-                  </li>
-                  <li>
-                    You&rsquo;re already using a practice management system,
-                    or you&rsquo;re open to adopting one
-                  </li>
-                  <li>
-                    You want your clinical team focused on patients, not
-                    paperwork
-                  </li>
-                </ul>
-              </div>
-              <div className="rb-filter-col rb-filter-col-no">
-                <span className="rb-filter-head">
-                  <span className="rb-filter-icon" aria-hidden="true">
-                    <svg viewBox="0 0 16 16" width="14" height="14">
-                      <path
-                        d="M4 4 L12 12 M12 4 L4 12"
-                        stroke="currentColor"
-                        strokeWidth="1.5"
-                        strokeLinecap="round"
-                      />
-                    </svg>
-                  </span>
-                  <span className="rb-label">This isn&rsquo;t for you if</span>
-                </span>
-                <ul className="rb-filter-list">
-                  <li>
-                    Your front desk has under 100 inbound enquiries a month —
-                    you don&rsquo;t have a volume problem yet
-                  </li>
-                  <li>
-                    You&rsquo;re a solo practitioner doing two days a week with
-                    no growth plans
-                  </li>
-                  <li>
-                    You&rsquo;re looking for a chatbot or a plug-in tool, not a
-                    system
-                  </li>
-                  <li>
-                    You want software to run yourself — this is a service, not
-                    a product
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* ===================== V — BOOK A DEMO ===================== */}
-        <section
-          id="rb-book"
-          className="rb-sec"
-          data-rb-sec
-          aria-label="Request a demo"
-        >
-          <div className="rb-wrap">
-            <div className="rb-head">
-              <p className="rb-eyebrow" data-rb-fade="0">
-                <span className="rb-num">V</span>See it in action
-              </p>
-              <h2 className="rb-h2" data-rb-fade="1">
-                Let&rsquo;s build <em>your system.</em>
-              </h2>
-              <p className="rb-sub" data-rb-fade="2">
-                A 30-minute call to understand how your practice runs and where
-                the revenue is leaking. You leave with a clear map of what to
-                automate and how.
-              </p>
-            </div>
-
-            <div className="rb-demo-cards" data-rb-fade="3">
-              <div className="rb-demo-card">
-                <span className="rb-label">What to expect</span>
-                <p>
-                  A working system mapped to the kind of patient you&rsquo;re
-                  handling every day. You&rsquo;ll see the conversation, the
-                  structured data, the PMS hand-off, and the pipeline view.
-                </p>
-              </div>
-              <div className="rb-demo-card">
-                <span className="rb-label">Duration</span>
-                <p>30 minutes. Zoom. No prep needed.</p>
-              </div>
-            </div>
-
-            <p className="rb-demo-reassure" data-rb-fade="3">
-              We build it. We run it. You own it. No lock-in. Cancel any time.
-            </p>
-
-            <div data-rb-fade="3">
-              <BookDemoCTA href="https://cal.eu/rosebudsolutions/30min" />
-            </div>
-          </div>
-        </section>
+        </BuildSection>
 
         {/* ===================== VI — FAQ ===================== */}
         <section
