@@ -1,4 +1,3 @@
-import BookCTA from "./BookCTA";
 import SevenStepTimeline, {
   type TimelineStep,
 } from "./SevenStepTimeline";
@@ -67,7 +66,7 @@ export default function DigitalTeam() {
         <div className="rb-wrap">
           <div className="rb-head rb-head-left">
             <p className="rb-eyebrow" data-rb-fade="0">
-              <span className="rb-num">I</span>What you actually get
+              <span className="rb-num">II</span>What you actually get
             </p>
             <h2 className="rb-h2" data-rb-fade="1">
               What you&apos;ll own by <em>week five.</em>
@@ -98,21 +97,6 @@ export default function DigitalTeam() {
           </div>
         </div>
       </section>
-
-      <div className="rb-dt-coda">
-        <div className="rb-wrap rb-dt-coda-inner">
-          <p className="rb-dt-coda-statement">
-            All five roles deploy as
-            <br />
-            one connected system.
-          </p>
-          <p className="rb-dt-coda-sub">
-            You don&apos;t add them one at a time — they go live together at
-            the end of week 5.
-          </p>
-          <BookCTA label="Start your 5-week build" />
-        </div>
-      </div>
     </>
   );
 }

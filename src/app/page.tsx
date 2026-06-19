@@ -16,24 +16,7 @@ export default function Home() {
         {/* ===================== · — IS THIS YOU ===================== */}
         <IsThisYou />
 
-        {/* ===================== I — DIGITAL TEAM ===================== */}
-        <DigitalTeam />
-
-        {/* ===================== II — VOICES ===================== */}
-        <section className="rb-sec rb-sec-voices" data-rb-sec aria-label="Voices">
-          <div className="rb-wrap">
-            <div className="rb-head" style={{ marginBottom: "clamp(2rem, 4vw, 3.5rem)" }}>
-              <p className="rb-eyebrow" data-rb-fade="0">
-                <span className="rb-num">II</span>Voices
-              </p>
-            </div>
-            <div data-rb-fade="1">
-              <Voices />
-            </div>
-          </div>
-        </section>
-
-        {/* ===================== III — METHOD ===================== */}
+        {/* ===================== I — METHOD ===================== */}
         <section className="rb-sec rb-sec-method" data-rb-sec aria-label="Method">
           <div className="rb-topo rb-topo-4" aria-hidden="true">
             <svg viewBox="0 0 480 340" preserveAspectRatio="none">
@@ -60,7 +43,7 @@ export default function Home() {
           <div className="rb-wrap">
             <div className="rb-head">
               <p className="rb-eyebrow" data-rb-fade="0">
-                <span className="rb-num">III</span>How we work
+                <span className="rb-num">I</span>How we work
               </p>
               <h2 className="rb-h2" data-rb-fade="1">
                 Three phases. Time back. <em>Revenue forward.</em>
@@ -105,6 +88,23 @@ export default function Home() {
                   </p>
                 </div>
               </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ===================== II — DIGITAL TEAM ===================== */}
+        <DigitalTeam />
+
+        {/* ===================== III — VOICES ===================== */}
+        <section className="rb-sec rb-sec-voices" data-rb-sec aria-label="Voices">
+          <div className="rb-wrap">
+            <div className="rb-head" style={{ marginBottom: "clamp(2rem, 4vw, 3.5rem)" }}>
+              <p className="rb-eyebrow" data-rb-fade="0">
+                <span className="rb-num">III</span>Voices
+              </p>
+            </div>
+            <div data-rb-fade="1">
+              <Voices />
             </div>
           </div>
         </section>
