@@ -1,7 +1,7 @@
 import Hero from "@/components/Hero";
 import IsThisYou from "@/components/IsThisYou";
 import HomepageFlow from "@/components/HomepageFlow";
-import DigitalTeam from "@/components/DigitalTeam";
+import HomepageOwn from "@/components/HomepageOwn";
 import BuildSection from "@/components/BuildSection";
 import CalEmbed from "@/components/CalEmbed";
 import Voices from "@/components/Voices";
@@ -37,8 +37,8 @@ export default function Home() {
           </div>
         </section>
 
-        {/* ===================== III — DIGITAL TEAM ===================== */}
-        <DigitalTeam />
+        {/* ===================== III — WHAT YOU ACTUALLY GET ===================== */}
+        <HomepageOwn marker="III" />
 
         {/* ===================== · — BUILD + STEPS ===================== */}
         <BuildSection />
