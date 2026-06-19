@@ -92,22 +92,25 @@ export default function Home() {
           </div>
         </section>
 
-        {/* ===================== II — DIGITAL TEAM ===================== */}
-        <DigitalTeam />
-
-        {/* ===================== III — VOICES ===================== */}
+        {/* ===================== II — VOICES ===================== */}
         <section className="rb-sec rb-sec-voices" data-rb-sec aria-label="Voices">
           <div className="rb-wrap">
             <div className="rb-head" style={{ marginBottom: "clamp(2rem, 4vw, 3.5rem)" }}>
               <p className="rb-eyebrow" data-rb-fade="0">
-                <span className="rb-num">III</span>Voices
+                <span className="rb-num">II</span>Voices
               </p>
+              <h2 className="rb-h2" data-rb-fade="1">
+                In their words, <em>not ours.</em>
+              </h2>
             </div>
-            <div data-rb-fade="1">
+            <div data-rb-fade="2">
               <Voices />
             </div>
           </div>
         </section>
+
+        {/* ===================== III — DIGITAL TEAM ===================== */}
+        <DigitalTeam />
 
         {/* ===================== · — BUILD + STEPS ===================== */}
         <BuildSection />

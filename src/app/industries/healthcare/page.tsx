@@ -259,8 +259,11 @@ export default function HealthcarePage() {
               <p className="rb-eyebrow" data-rb-fade="0">
                 <span className="rb-num">II&middot;V</span>Voices
               </p>
+              <h2 className="rb-h2" data-rb-fade="1">
+                In their words, <em>not ours.</em>
+              </h2>
             </div>
-            <div data-rb-fade="1">
+            <div data-rb-fade="2">
               <Voices voices={HEALTHCARE_VOICES} />
             </div>
           </div>

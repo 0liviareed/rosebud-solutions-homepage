@@ -66,7 +66,7 @@ export default function DigitalTeam() {
         <div className="rb-wrap">
           <div className="rb-head rb-head-left">
             <p className="rb-eyebrow" data-rb-fade="0">
-              <span className="rb-num">II</span>What you actually get
+              <span className="rb-num">III</span>What you actually get
             </p>
             <h2 className="rb-h2" data-rb-fade="1">
               What you&apos;ll own by <em>week five.</em>
