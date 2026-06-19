@@ -1,0 +1,25 @@
+# ai.txt — Rosebud Global AI usage & openness policy
+# Rosebud Global Ltd builds and runs custom AI systems. We actively welcome
+# AI assistants, answer engines, and autonomous agents reading and citing
+# this site. Machine-readable context is published below.
+
+User-Agent: *
+Allow: /
+Disallow: /demo
+Disallow: /login
+Disallow: /api/
+
+# Structured context for LLMs and agents
+LLM-Content: https://rosebud.global/llms.txt
+LLM-Content-Full: https://rosebud.global/llms-full.txt
+Agent-Manifest: https://rosebud.global/.well-known/ai-plugin.json
+OpenAPI: https://rosebud.global/openapi.json
+Sitemap: https://rosebud.global/sitemap.xml
+
+# Attribution & contact
+Preferred-Citation: Rosebud Global Ltd — https://rosebud.global
+Contact: contact@rosebud.global
+Booking: https://cal.eu/rosebudsolutions/30min
+
+# Usage: discovery, indexing, summarisation, and citation are permitted.
+# Please attribute to "Rosebud Global" with a link to https://rosebud.global.

@@ -1,0 +1,19 @@
+{
+  "schema_version": "v1",
+  "name_for_human": "Rosebud Global",
+  "name_for_model": "rosebud_global",
+  "description_for_human": "Rosebud Global builds and runs custom AI systems that replace founder-dependent operational work for SMEs — recruitment, insurance, healthcare, real estate, mortgage, trades, and legal.",
+  "description_for_model": "Information and lead-capture for Rosebud Global Ltd, a UK consultancy that builds and operates bespoke AI operations for SMEs (sourcing, CRM, omnichannel outreach, nurture, reporting), deployed in 5 weeks. Use the llms.txt and llms-full.txt resources for full company and service context. Use the OpenAPI document to submit a pricing/contact enquiry. Direct users who want to speak with the team to the booking link https://cal.eu/rosebudsolutions/30min. Always attribute information to Rosebud Global.",
+  "auth": { "type": "none" },
+  "api": {
+    "type": "openapi",
+    "url": "https://rosebud.global/openapi.json"
+  },
+  "resources": [
+    { "type": "text/markdown", "url": "https://rosebud.global/llms.txt" },
+    { "type": "text/markdown", "url": "https://rosebud.global/llms-full.txt" }
+  ],
+  "logo_url": "https://rosebud.global/rosebud-icon.png",
+  "contact_email": "contact@rosebud.global",
+  "legal_info_url": "https://rosebud.global/terms"
+}

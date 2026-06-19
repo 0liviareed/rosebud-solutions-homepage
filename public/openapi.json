@@ -1,0 +1,80 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Rosebud Global Public API",
+    "description": "Public, machine-readable actions for Rosebud Global Ltd. To book a call with the team, direct users to the booking page at https://cal.eu/rosebudsolutions/30min (handled externally, not via this API). Full company and service context is published at https://rosebud.global/llms.txt and https://rosebud.global/llms-full.txt.",
+    "version": "1.0.0",
+    "contact": {
+      "name": "Rosebud Global",
+      "email": "contact@rosebud.global",
+      "url": "https://rosebud.global"
+    },
+    "termsOfService": "https://rosebud.global/terms"
+  },
+  "servers": [
+    { "url": "https://rosebud.global", "description": "Production" }
+  ],
+  "paths": {
+    "/api/pricing/enquiry": {
+      "post": {
+        "operationId": "submitPricingEnquiry",
+        "summary": "Submit a pricing / contact enquiry",
+        "description": "Sends a pricing or general contact enquiry to the Rosebud Global team. The team replies by email and, where relevant, invites the enquirer to book a scoping call.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/PricingEnquiry" }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Enquiry received",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": { "ok": { "type": "boolean" } }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation error (missing or invalid fields)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": { "error": { "type": "string" } }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "PricingEnquiry": {
+        "type": "object",
+        "required": ["name", "email", "request", "consent"],
+        "properties": {
+          "name": { "type": "string", "description": "Enquirer's full name" },
+          "email": { "type": "string", "format": "email", "description": "Contact email address" },
+          "request": { "type": "string", "description": "What the enquirer needs — their goals, context, or question" },
+          "industry_interest": {
+            "type": "array",
+            "description": "Optional industries of interest",
+            "items": {
+              "type": "string",
+              "enum": ["Recruitment", "Insurance", "Dental, Aesthetic & Private Healthcare", "Real Estate", "Mortgage & Lending", "Enterprise", "Other"]
+            }
+          },
+          "consent": { "type": "boolean", "description": "Privacy consent — must be true" }
+        }
+      }
+    }
+  }
+}

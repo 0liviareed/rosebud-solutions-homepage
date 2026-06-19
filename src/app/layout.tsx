@@ -122,6 +122,17 @@ const ORGANIZATION_SCHEMA = {
   ],
 };
 
+const WEBSITE_SCHEMA = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  name: "Rosebud Global",
+  url: "https://rosebud.global",
+  inLanguage: "en-GB",
+  description:
+    "UK business systems consultancy building and running custom AI systems that replace founder-dependent operational work for SMEs.",
+  publisher: { "@type": "Organization", name: "Rosebud Global Ltd" },
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
@@ -138,6 +149,12 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{
             __html: JSON.stringify(ORGANIZATION_SCHEMA),
+          }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(WEBSITE_SCHEMA),
           }}
         />
         <LayoutChrome>{children}</LayoutChrome>
