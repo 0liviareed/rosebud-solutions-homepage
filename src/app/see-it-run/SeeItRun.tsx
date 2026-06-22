@@ -107,7 +107,7 @@ export default function SeeItRun() {
            ~66% so the active card sits full + the next peeks (~1.5 cards). */
         .rbd-pcarousel{display:flex;gap:18px;overflow-x:auto;overflow-y:hidden;position:relative;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none;-ms-overflow-style:none;padding-bottom:2px;margin:0 -2px;}
         .rbd-pcarousel::-webkit-scrollbar{display:none;}
-        .rbd-pcard{flex:0 0 66%;scroll-snap-align:start;scroll-snap-stop:always;background:var(--rbd-card);border:1px solid var(--rbd-glass-bd);color:var(--rb-bone);border-radius:16px;padding:30px;min-height:320px;display:flex;flex-direction:column;-webkit-backdrop-filter:blur(16px) saturate(1.2);backdrop-filter:blur(16px) saturate(1.2);box-shadow:0 10px 44px rgba(0,0,0,0.42),inset 0 1px 0 rgba(245,241,234,0.06);}
+        .rbd-pcard{flex:0 0 66%;scroll-snap-align:start;scroll-snap-stop:always;background:linear-gradient(180deg,rgba(245,241,234,0.07),rgba(245,241,234,0.032));border:1px solid var(--rbd-glass-bd);color:var(--rb-bone);border-radius:16px;padding:30px;min-height:320px;display:flex;flex-direction:column;-webkit-backdrop-filter:blur(16px) saturate(1.2);backdrop-filter:blur(16px) saturate(1.2);box-shadow:0 10px 44px rgba(0,0,0,0.42),inset 0 1px 0 rgba(245,241,234,0.06);}
         @media(max-width:520px){.rbd-pcard{flex-basis:82%;}}
         .rbd-bigq{font-family:var(--font-cormorant),serif;font-size:62px;line-height:0.7;color:var(--rb-purple);display:block;height:30px;}
         .rbd-pquote{font-family:var(--font-cormorant),serif;font-size:21px;line-height:1.4;margin:0 0 auto;color:var(--rb-bone);}
