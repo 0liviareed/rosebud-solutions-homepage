@@ -89,16 +89,14 @@ export default function SeeItRun() {
         .rbd *{box-sizing:border-box;}
         .rbd-glass{background:var(--rbd-glass);-webkit-backdrop-filter:blur(16px) saturate(1.25);backdrop-filter:blur(16px) saturate(1.25);
           border:1px solid var(--rbd-glass-bd);box-shadow:0 10px 44px rgba(0,0,0,0.42),inset 0 1px 0 rgba(245,241,234,0.06);}
-        .rbd-eyebrow{font-family:var(--font-jetbrains-mono),monospace;font-size:11px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--rb-purple);}
         .rbd-h{font-family:var(--font-cormorant),Georgia,serif;font-weight:400;line-height:1.04;letter-spacing:-.01em;margin:0;}
         .rbd-h em{font-style:italic;color:var(--rb-purple);}
 
         /* HERO */
-        .rbd-hero{display:grid;grid-template-columns:1fr 1fr;align-items:center;}
-        @media(max-width:980px){.rbd-hero{grid-template-columns:1fr;}}
-        .rbd-left{padding:clamp(48px,6vw,84px) clamp(24px,4vw,56px);display:flex;flex-direction:column;justify-content:center;}
-        .rbd-h1{font-size:clamp(42px,5vw,68px);margin:18px 0 18px;}
-        .rbd-sub{font-size:17px;color:var(--rb-bone-dim);line-height:1.55;max-width:42ch;margin:0 0 28px;}
+        .rbd-hero{display:grid;grid-template-columns:1fr 1fr;align-items:center;padding-top:clamp(112px,14vh,144px);}
+        @media(max-width:980px){.rbd-hero{grid-template-columns:1fr;padding-top:clamp(104px,16vw,132px);}}
+        .rbd-left{padding:0 clamp(24px,4vw,56px) clamp(48px,6vw,84px);display:flex;flex-direction:column;justify-content:center;}
+        .rbd-h1{font-size:clamp(42px,5vw,68px);margin:18px 0 26px;}
         .rbd-cal-wrap{border-radius:16px;overflow:hidden;}
         .rbd-note{font-size:13px;color:var(--rb-bone-dim);margin:16px 0 0;}
 
@@ -167,11 +165,10 @@ export default function SeeItRun() {
       {/* HERO */}
       <section className="rbd-hero">
         <div className="rbd-left">
-          <span className="rbd-eyebrow" data-rb-fade="0">Rosebud Solutions</span>
+          <span className="rb-eyebrow" data-rb-fade="0">Rosebud Solutions</span>
           <h1 className="rbd-h rbd-h1" data-rb-fade="1">You don&rsquo;t want a tool. You want the work <em>done.</em></h1>
-          <p className="rbd-sub" data-rb-fade="2">A 30-minute call. We map where your week goes and show you the first job we&rsquo;d hand back. Pick a time below.</p>
-          <div className="rbd-cal-wrap" id="rbd-book" data-rb-fade="3"><CalEmbed /></div>
-          <p className="rbd-note" data-rb-fade="4">No prep needed. Worth it whether or not we work together.</p>
+          <div className="rbd-cal-wrap" id="rbd-book" data-rb-fade="2"><CalEmbed /></div>
+          <p className="rbd-note" data-rb-fade="3">No prep needed. Worth it whether or not we work together.</p>
         </div>
 
         <div className="rbd-right">
@@ -204,7 +201,7 @@ export default function SeeItRun() {
       {/* BEFORE / AFTER */}
       <section className="rbd-band" data-rb-sec>
         <div className="rbd-sec">
-          <span className="rbd-eyebrow" data-rb-fade="0">The reality, before and after</span>
+          <span className="rb-eyebrow" data-rb-fade="0">The reality, before and after</span>
           <h2 className="rbd-h rbd-h2" data-rb-fade="1">You didn&rsquo;t start this to chase <em>paperwork.</em></h2>
           <div className="rbd-ba" data-rb-fade="2">
             <div className="rbd-ba-head rbd-ba-b">✕ Before</div>
@@ -222,7 +219,7 @@ export default function SeeItRun() {
       {/* OUTCOME + PROCESS */}
       <section className="rbd-band" data-rb-sec>
         <div className="rbd-sec">
-          <span className="rbd-eyebrow" data-rb-fade="0">The outcome</span>
+          <span className="rb-eyebrow" data-rb-fade="0">The outcome</span>
           <div className="rbd-out" data-rb-fade="1">
             <div>
               <h2 className="rbd-out-big">One job left.</h2>
