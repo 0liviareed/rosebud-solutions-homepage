@@ -1689,21 +1689,6 @@ button { font: inherit; color: inherit; }
   /* Reach to just before the chevron — the span containing 'Solutions' */
   width: calc(100% - 1.5rem);
 }
-/* Get-a-demo — direct link (no dropdown/chevron), purple-accent CTA that
-   reads as the action item beside the muted Solutions/Resources triggers. */
-.rb-nav-demo {
-  text-decoration: none;
-  color: var(--rb-purple);
-}
-.rb-nav-demo:hover,
-.rb-nav-demo:focus-visible {
-  color: var(--rb-bone);
-}
-.rb-nav-demo:hover::after,
-.rb-nav-demo:focus-visible::after {
-  /* No chevron here — let the hairline run the full label width. */
-  width: calc(100% - 0.3rem);
-}
 /* Chevron is now an inline SVG — clean V that rotates 180° on open.
    Uses currentColor so it inherits the trigger's color state. */
 .rb-nav-chevron {

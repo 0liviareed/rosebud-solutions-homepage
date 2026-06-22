@@ -313,13 +313,6 @@ export default function Header() {
                 </div>
               </div>
             </div>
-
-            {/* Get a demo — direct link beside Resources (no dropdown).
-                Plain /see-it-run with no UTM, so nav/direct traffic is
-                attributed as direct, not to the email campaign. */}
-            <Link href="/see-it-run" className="rb-nav-trigger rb-nav-demo">
-              Get a demo
-            </Link>
           </nav>
 
           {/* Mobile hamburger trigger */}
@@ -449,16 +442,6 @@ export default function Header() {
               <span className="rb-mobile-link-arrow" aria-hidden="true">→</span>
             </Link>
 
-            {/* Get a demo — plain /see-it-run, no UTM (direct attribution) */}
-            <Link
-              href="/see-it-run"
-              className="rb-mobile-link rb-mobile-link-demo"
-              onClick={closeMobile}
-            >
-              <span className="rb-mobile-link-title">Get a demo</span>
-              <span className="rb-mobile-link-desc">See it run for your business.</span>
-              <span className="rb-mobile-link-arrow" aria-hidden="true">→</span>
-            </Link>
           </div>
         </div>
       </div>

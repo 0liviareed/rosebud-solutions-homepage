@@ -71,10 +71,10 @@ export default function Footer() {
                 </a>
               </li>
               <li>
-                <a
-                  href="https://cal.eu/rosebudsolutions/30min"
-                  target="_blank"
-                  rel="noopener noreferrer"
+                {/* Internal link to the demo/booking page — plain /see-it-run,
+                    no UTM so footer/direct traffic isn't attributed to email. */}
+                <Link
+                  href="/see-it-run"
                   className="rb-footer-link rb-footer-link-editorial"
                 >
                   <span>Book a consultation</span>
@@ -100,7 +100,7 @@ export default function Footer() {
                     </svg>
                   </span>
                   <span className="rb-footer-link-underline" aria-hidden="true" />
-                </a>
+                </Link>
               </li>
             </ul>
           </div>
@@ -108,13 +108,6 @@ export default function Footer() {
           <div className="rb-footer-col">
             <p className="rb-footer-eyebrow">Company</p>
             <ul className="rb-footer-links">
-              <li>
-                {/* Plain /see-it-run, no UTM — footer/direct traffic stays
-                    "direct" rather than being attributed to the email. */}
-                <Link href="/see-it-run" className="rb-footer-link">
-                  Get a demo
-                </Link>
-              </li>
               <li>
                 <Link href="/about" className="rb-footer-link">
                   About
