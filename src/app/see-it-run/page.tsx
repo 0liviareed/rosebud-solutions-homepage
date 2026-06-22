@@ -10,12 +10,12 @@ import SeeItRun from "./SeeItRun";
 export const metadata: Metadata = {
   title: "Get a demo — See it run for your business",
   description:
-    "A 30-minute call. We map where your week goes and show you the first job we'd hand back. Book a time with Rosebud Solutions.",
+    "Book a call with Rosebud Solutions and see the first operational job we'd take off your desk — whether or not we work together.",
   alternates: { canonical: "/see-it-run" },
   openGraph: {
     title: "Get a demo — See it run for your business | Rosebud Global",
     description:
-      "A 30-minute call. We map where your week goes and show you the first job we'd hand back.",
+      "Book a call with Rosebud Solutions and see the first operational job we'd take off your desk.",
     url: "https://rosebud.global/see-it-run",
     type: "website",
   },
