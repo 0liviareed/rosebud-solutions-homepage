@@ -104,14 +104,17 @@ export default function SeeItRun() {
         .rbd-h em{font-style:italic;color:var(--rb-purple);}
 
         /* HERO */
-        .rbd-hero{display:grid;grid-template-columns:1fr 1fr;align-items:center;padding-top:clamp(112px,14vh,144px);}
-        @media(max-width:980px){.rbd-hero{grid-template-columns:1fr;padding-top:clamp(104px,16vw,132px);}}
-        .rbd-left{padding:0 clamp(24px,4vw,56px) clamp(48px,6vw,84px);display:flex;flex-direction:column;justify-content:center;}
+        /* minmax(0,1fr) + min-width:0 prevent grid blowout: the wide Cal iframe
+           would otherwise stop the column shrinking on mobile, overflowing the
+           viewport and forcing a zoomed-out desktop render. */
+        .rbd-hero{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);align-items:center;padding-top:clamp(112px,14vh,144px);}
+        @media(max-width:980px){.rbd-hero{grid-template-columns:minmax(0,1fr);padding-top:clamp(104px,16vw,132px);}}
+        .rbd-left{min-width:0;padding:0 clamp(24px,4vw,56px) clamp(48px,6vw,84px);display:flex;flex-direction:column;justify-content:center;}
         .rbd-h1{font-size:clamp(42px,5vw,68px);margin:18px 0 26px;}
         .rbd-cal-wrap{border-radius:16px;overflow:hidden;}
         .rbd-note{font-size:13px;color:var(--rb-bone-dim);margin:16px 0 0;}
 
-        .rbd-right{padding:clamp(40px,5vw,72px) clamp(24px,4vw,56px);display:flex;flex-direction:column;justify-content:center;border-left:1px solid var(--rbd-line);}
+        .rbd-right{min-width:0;padding:clamp(40px,5vw,72px) clamp(24px,4vw,56px);display:flex;flex-direction:column;justify-content:center;border-left:1px solid var(--rbd-line);}
         @media(max-width:980px){.rbd-right{border-left:none;border-top:1px solid var(--rbd-line);}}
         .rbd-right-h{font-size:16px;font-weight:500;color:var(--rb-bone);opacity:.78;margin:0 0 26px;font-family:var(--font-dm-sans),sans-serif;}
         /* Peeking carousel: horizontal scroll-snap viewport. Cards sized to
