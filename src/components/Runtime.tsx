@@ -512,7 +512,7 @@ export default function Runtime() {
             }
           });
         },
-        { threshold: 0.15, rootMargin: "0px 0px -10% 0px" }
+        { threshold: 0.1, rootMargin: "0px 0px 0% 0px" }
       );
       sections.forEach((s) => ioSec.observe(s));
       observers.push(ioSec);
@@ -526,7 +526,7 @@ export default function Runtime() {
             }
           });
         },
-        { threshold: 0.1, rootMargin: "0px 0px -22% 0px" }
+        { threshold: 0.1, rootMargin: "0px 0px -8% 0px" }
       );
       entries.forEach((el) => ioEntry.observe(el));
       observers.push(ioEntry);

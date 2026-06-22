@@ -112,19 +112,19 @@ button { font: inherit; color: inherit; }
 /* ========== Reveal machinery ========== */
 [data-rb-fade] {
   opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 1100ms var(--rb-ease), transform 1100ms var(--rb-ease);
+  transform: translateY(8px);
+  transition: opacity 450ms var(--rb-ease), transform 450ms var(--rb-ease);
 }
 .rb-in [data-rb-fade="0"] { transition-delay: 0ms;   opacity: 1; transform: translateY(0); }
-.rb-in [data-rb-fade="1"] { transition-delay: 250ms; opacity: 1; transform: translateY(0); }
-.rb-in [data-rb-fade="2"] { transition-delay: 500ms; opacity: 1; transform: translateY(0); }
-.rb-in [data-rb-fade="3"] { transition-delay: 700ms; opacity: 1; transform: translateY(0); }
-.rb-in [data-rb-fade="4"] { transition-delay: 900ms; opacity: 1; transform: translateY(0); }
+.rb-in [data-rb-fade="1"] { transition-delay: 70ms;  opacity: 1; transform: translateY(0); }
+.rb-in [data-rb-fade="2"] { transition-delay: 140ms; opacity: 1; transform: translateY(0); }
+.rb-in [data-rb-fade="3"] { transition-delay: 210ms; opacity: 1; transform: translateY(0); }
+.rb-in [data-rb-fade="4"] { transition-delay: 280ms; opacity: 1; transform: translateY(0); }
 
 .rb-entry, .rb-founder {
   opacity: 0;
-  transform: translateY(18px);
-  transition: opacity 950ms var(--rb-ease), transform 950ms var(--rb-ease);
+  transform: translateY(8px);
+  transition: opacity 450ms var(--rb-ease), transform 450ms var(--rb-ease);
 }
 .rb-entry.rb-entry-in, .rb-founder.rb-entry-in {
   opacity: 1;
@@ -3591,7 +3591,7 @@ button { font: inherit; color: inherit; }
   font-size: 10.5px;
   letter-spacing: 0.26em;
   text-transform: uppercase;
-  color: var(--rb-bone-faint);
+  color: var(--rb-bone-dim);
   margin: clamp(1.75rem, 3vw, 2.25rem) 0 0;
   text-align: center;
 }
