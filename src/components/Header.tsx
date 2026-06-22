@@ -21,6 +21,7 @@ export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false); // desktop Solutions dropdown
   const [resourcesOpen, setResourcesOpen] = useState(false); // desktop Resources dropdown
   const [mobileOpen, setMobileOpen] = useState(false); // mobile overlay
+  const [openSection, setOpenSection] = useState<string | null>(null); // mobile accordion (single-open)
   const itemRef = useRef<HTMLDivElement | null>(null);
   const resourcesRef = useRef<HTMLDivElement | null>(null);
 
@@ -97,7 +98,10 @@ export default function Header() {
 
   function closeMobile() {
     setMobileOpen(false);
+    setOpenSection(null);
   }
+  const toggleSection = (id: string) =>
+    setOpenSection((cur) => (cur === id ? null : id));
 
   return (
     <>
@@ -344,125 +348,80 @@ export default function Header() {
         aria-hidden={!mobileOpen}
       >
         <div className="rb-mobile-menu-inner">
-          {/* Get a demo — first item in the mobile menu. Plain /see-it-run,
-              no UTM (direct attribution). */}
-          <div className="rb-mobile-group">
-            <Link
-              href="/see-it-run"
-              className="rb-mobile-link"
-              onClick={closeMobile}
+          {/* Get a demo — level 1, direct link (no children). Plain
+              /see-it-run, no UTM (direct attribution). */}
+          <Link href="/see-it-run" className="rb-macc-link" onClick={closeMobile}>
+            Get a demo
+          </Link>
+
+          {/* Solutions — level 1, collapsible → industries (level 2) */}
+          <div className="rb-macc-section">
+            <button
+              type="button"
+              className="rb-macc-trigger"
+              onClick={() => toggleSection("solutions")}
+              aria-expanded={openSection === "solutions"}
+              aria-controls="rb-macc-solutions"
             >
-              <span className="rb-mobile-link-title">Get a demo</span>
-              <span className="rb-mobile-link-desc">See it run for your business.</span>
-              <span className="rb-mobile-link-arrow" aria-hidden="true">→</span>
-            </Link>
+              <span>Solutions</span>
+              <svg className="rb-macc-chevron" viewBox="0 0 10 6" width="13" height="13" aria-hidden="true">
+                <path d="M1 1 L5 5 L9 1" stroke="currentColor" strokeWidth="1.3" fill="none" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </button>
+            <div className="rb-macc-panel" id="rb-macc-solutions" data-open={openSection === "solutions"}>
+              <div className="rb-macc-panel-inner">
+                {[
+                  ["/industries/recruitment", "Recruitment", "Sourcing. Screening. Scheduling."],
+                  ["/industries/insurance", "Insurance", "Quotes. Claims. Renewals."],
+                  ["/industries/healthcare", "Dental, Aesthetic & Private Healthcare", "Intake. Scheduling. Recall."],
+                  ["/industries/real-estate", "Real Estate", "Inquiry. Showings. Nurture."],
+                  ["/industries/mortgage-lending", "Mortgage & Lending", "Inquiry. Conditions. Funded."],
+                  ["/industries/trades-home-services", "Trades & Home Services", "Inquiry. Quote. Paperwork. Repeat work."],
+                  ["/industries/family-law", "Family Law & Consumer Legal", "Intake. Deadlines. Documents. Billing."],
+                ].map(([href, title, desc]) => (
+                  <Link key={href} href={href} className="rb-macc-sublink" onClick={closeMobile}>
+                    <span className="rb-macc-sublink-text">
+                      <span className="rb-macc-sublink-title">{title}</span>
+                      <span className="rb-macc-sublink-desc">{desc}</span>
+                    </span>
+                    <span className="rb-macc-sublink-arrow" aria-hidden="true">→</span>
+                  </Link>
+                ))}
+              </div>
+            </div>
           </div>
 
-          <div className="rb-mobile-group">
-            <span className="rb-mobile-group-label">
-              <span className="rb-mobile-group-count" aria-hidden="true">I–VII</span>
-              <span>By Industry</span>
-            </span>
-
-            <Link
-              href="/industries/recruitment"
-              className="rb-mobile-link"
-              onClick={closeMobile}
+          {/* Resources — level 1, collapsible → About / Pricing (level 2) */}
+          <div className="rb-macc-section">
+            <button
+              type="button"
+              className="rb-macc-trigger"
+              onClick={() => toggleSection("resources")}
+              aria-expanded={openSection === "resources"}
+              aria-controls="rb-macc-resources"
             >
-              <span className="rb-mobile-link-title">Recruitment</span>
-              <span className="rb-mobile-link-desc">Sourcing. Screening. Scheduling.</span>
-              <span className="rb-mobile-link-arrow" aria-hidden="true">→</span>
-            </Link>
-
-            <Link
-              href="/industries/insurance"
-              className="rb-mobile-link"
-              onClick={closeMobile}
-            >
-              <span className="rb-mobile-link-title">Insurance</span>
-              <span className="rb-mobile-link-desc">Quotes. Claims. Renewals.</span>
-              <span className="rb-mobile-link-arrow" aria-hidden="true">→</span>
-            </Link>
-
-            <Link
-              href="/industries/healthcare"
-              className="rb-mobile-link"
-              onClick={closeMobile}
-            >
-              <span className="rb-mobile-link-title">
-                Dental, Aesthetic &amp; Private Healthcare
-              </span>
-              <span className="rb-mobile-link-desc">Intake. Scheduling. Recall.</span>
-              <span className="rb-mobile-link-arrow" aria-hidden="true">→</span>
-            </Link>
-
-            <Link
-              href="/industries/real-estate"
-              className="rb-mobile-link"
-              onClick={closeMobile}
-            >
-              <span className="rb-mobile-link-title">Real Estate</span>
-              <span className="rb-mobile-link-desc">Inquiry. Showings. Nurture.</span>
-              <span className="rb-mobile-link-arrow" aria-hidden="true">→</span>
-            </Link>
-
-            <Link
-              href="/industries/mortgage-lending"
-              className="rb-mobile-link"
-              onClick={closeMobile}
-            >
-              <span className="rb-mobile-link-title">Mortgage &amp; Lending</span>
-              <span className="rb-mobile-link-desc">Inquiry. Conditions. Funded.</span>
-              <span className="rb-mobile-link-arrow" aria-hidden="true">→</span>
-            </Link>
-
-            <Link
-              href="/industries/trades-home-services"
-              className="rb-mobile-link"
-              onClick={closeMobile}
-            >
-              <span className="rb-mobile-link-title">Trades &amp; Home Services</span>
-              <span className="rb-mobile-link-desc">Inquiry. Quote. Paperwork. Repeat work.</span>
-              <span className="rb-mobile-link-arrow" aria-hidden="true">→</span>
-            </Link>
-
-            <Link
-              href="/industries/family-law"
-              className="rb-mobile-link"
-              onClick={closeMobile}
-            >
-              <span className="rb-mobile-link-title">Family Law &amp; Consumer Legal</span>
-              <span className="rb-mobile-link-desc">Intake. Deadlines. Documents. Billing.</span>
-              <span className="rb-mobile-link-arrow" aria-hidden="true">→</span>
-            </Link>
-          </div>
-
-          {/* Resources group — sits below Industries on mobile */}
-          <div className="rb-mobile-group">
-            <span className="rb-mobile-group-label">
-              <span className="rb-mobile-group-count" aria-hidden="true">·</span>
               <span>Resources</span>
-            </span>
-
-            <Link
-              href="/about"
-              className="rb-mobile-link"
-              onClick={closeMobile}
-            >
-              <span className="rb-mobile-link-title">About</span>
-              <span className="rb-mobile-link-desc">Who we are. How we build.</span>
-              <span className="rb-mobile-link-arrow" aria-hidden="true">→</span>
-            </Link>
-
-            <Link
-              href="/pricing"
-              className="rb-mobile-link"
-              onClick={closeMobile}
-            >
-              <span className="rb-mobile-link-title">Pricing</span>
-              <span className="rb-mobile-link-arrow" aria-hidden="true">→</span>
-            </Link>
-
+              <svg className="rb-macc-chevron" viewBox="0 0 10 6" width="13" height="13" aria-hidden="true">
+                <path d="M1 1 L5 5 L9 1" stroke="currentColor" strokeWidth="1.3" fill="none" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </button>
+            <div className="rb-macc-panel" id="rb-macc-resources" data-open={openSection === "resources"}>
+              <div className="rb-macc-panel-inner">
+                <Link href="/about" className="rb-macc-sublink" onClick={closeMobile}>
+                  <span className="rb-macc-sublink-text">
+                    <span className="rb-macc-sublink-title">About</span>
+                    <span className="rb-macc-sublink-desc">Who we are. How we build.</span>
+                  </span>
+                  <span className="rb-macc-sublink-arrow" aria-hidden="true">→</span>
+                </Link>
+                <Link href="/pricing" className="rb-macc-sublink" onClick={closeMobile}>
+                  <span className="rb-macc-sublink-text">
+                    <span className="rb-macc-sublink-title">Pricing</span>
+                  </span>
+                  <span className="rb-macc-sublink-arrow" aria-hidden="true">→</span>
+                </Link>
+              </div>
+            </div>
           </div>
         </div>
       </div>
