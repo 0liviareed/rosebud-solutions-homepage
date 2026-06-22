@@ -78,7 +78,7 @@ export default function SeeItRun() {
   const bookClick = () => track("cta_click", { cta: "book_call", location: "see_it_run_close" });
 
   return (
-    <div className="rbd" data-rb-sec>
+    <div className="rbd">
       <style>{`
         .rbd{position:relative;z-index:1;color:var(--rb-bone);font-family:var(--font-dm-sans),system-ui,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden;
           --rbd-line:var(--rb-bone-hair);
@@ -165,10 +165,10 @@ export default function SeeItRun() {
       {/* HERO */}
       <section className="rbd-hero">
         <div className="rbd-left">
-          <span className="rb-eyebrow" data-rb-fade="0">Rosebud Solutions</span>
-          <h1 className="rbd-h rbd-h1" data-rb-fade="1">You don&rsquo;t want a tool. You want the work <em>done.</em></h1>
-          <div className="rbd-cal-wrap" id="rbd-book" data-rb-fade="2"><CalEmbed /></div>
-          <p className="rbd-note" data-rb-fade="3">No prep needed. Worth it whether or not we work together.</p>
+          <span className="rb-eyebrow">Rosebud Solutions</span>
+          <h1 className="rbd-h rbd-h1">You don&rsquo;t want a tool. You want the work <em>done.</em></h1>
+          <div className="rbd-cal-wrap" id="rbd-book"><CalEmbed /></div>
+          <p className="rbd-note">No prep needed. Worth it whether or not we work together.</p>
         </div>
 
         <div className="rbd-right">
@@ -199,11 +199,11 @@ export default function SeeItRun() {
       </section>
 
       {/* BEFORE / AFTER */}
-      <section className="rbd-band" data-rb-sec>
+      <section className="rbd-band">
         <div className="rbd-sec">
-          <span className="rb-eyebrow" data-rb-fade="0">The reality, before and after</span>
-          <h2 className="rbd-h rbd-h2" data-rb-fade="1">You didn&rsquo;t start this to chase <em>paperwork.</em></h2>
-          <div className="rbd-ba" data-rb-fade="2">
+          <span className="rb-eyebrow">The reality, before and after</span>
+          <h2 className="rbd-h rbd-h2">You didn&rsquo;t start this to chase <em>paperwork.</em></h2>
+          <div className="rbd-ba">
             <div className="rbd-ba-head rbd-ba-b">✕ Before</div>
             <div className="rbd-ba-head rbd-ba-a">✓ After</div>
             {BEFORE_AFTER.map(([b, a]) => (
@@ -217,10 +217,10 @@ export default function SeeItRun() {
       </section>
 
       {/* OUTCOME + PROCESS */}
-      <section className="rbd-band" data-rb-sec>
+      <section className="rbd-band">
         <div className="rbd-sec">
-          <span className="rb-eyebrow" data-rb-fade="0">The outcome</span>
-          <div className="rbd-out" data-rb-fade="1">
+          <span className="rb-eyebrow">The outcome</span>
+          <div className="rbd-out">
             <div>
               <h2 className="rbd-out-big">One job left.</h2>
               <p className="rbd-out-sub">Run the business. The system handles everything around it, from first enquiry to the moment it&rsquo;s ready for you.</p>
@@ -230,7 +230,7 @@ export default function SeeItRun() {
               <p className="rbd-out-sub">Back in the business, back in your hands.</p>
             </div>
           </div>
-          <div className="rbd-bar" data-rb-fade="2">
+          <div className="rbd-bar">
             {PROCESS.map((step, n) => (
               <div key={step} className={`rbd-bstep${n === 0 || n === PROCESS.length - 1 ? " on" : ""}`}>
                 <span className="n">{String(n + 1).padStart(2, "0")}</span>{step}
@@ -241,11 +241,11 @@ export default function SeeItRun() {
       </section>
 
       {/* CLOSE */}
-      <section className="rbd-band" data-rb-sec>
+      <section className="rbd-band">
         <div className="rbd-sec rbd-close">
-          <h2 className="rbd-h rbd-h2" style={{ marginTop: 0 }} data-rb-fade="0">See it run for <em>your business.</em></h2>
-          <p className="rbd-close-sub" data-rb-fade="1">Thirty minutes. We map where your week goes and show you the first job we&rsquo;d take off your desk, whether or not we work together.</p>
-          <a className="rbd-cta" href="#rbd-book" onClick={bookClick} data-rb-fade="2">Book your call</a>
+          <h2 className="rbd-h rbd-h2" style={{ marginTop: 0 }}>See it run for <em>your business.</em></h2>
+          <p className="rbd-close-sub">Thirty minutes. We map where your week goes and show you the first job we&rsquo;d take off your desk, whether or not we work together.</p>
+          <a className="rbd-cta" href="#rbd-book" onClick={bookClick}>Book your call</a>
         </div>
       </section>
     </div>
