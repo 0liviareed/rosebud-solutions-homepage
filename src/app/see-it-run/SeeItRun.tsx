@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import CalEmbed from "@/components/CalEmbed";
 import { track } from "@/lib/analytics";
 
@@ -43,8 +43,25 @@ const PROCESS = ["Enquiry in", "Auto response", "Qualified", "Confirmed", "Follo
 
 export default function SeeItRun() {
   const [p, setP] = useState(0);
-  const c = PROOF[p];
-  const go = (n: number) => setP((x) => (x + n + PROOF.length) % PROOF.length);
+  const viewportRef = useRef<HTMLDivElement | null>(null);
+
+  // Peeking carousel: a scroll-snap viewport sized so ~1.5 cards show, so the
+  // next card peeks and signals there's more to swipe. Arrows scroll-snap to a
+  // card; the counter syncs from scroll position so a finger-swipe updates it too.
+  const scrollToIndex = (idx: number) => {
+    const vp = viewportRef.current;
+    if (!vp) return;
+    const clamped = Math.max(0, Math.min(PROOF.length - 1, idx));
+    const card = vp.children[clamped] as HTMLElement | undefined;
+    if (card) vp.scrollTo({ left: card.offsetLeft, behavior: "smooth" });
+  };
+  const onScroll = () => {
+    const vp = viewportRef.current;
+    const first = vp?.firstElementChild as HTMLElement | null;
+    if (!vp || !first) return;
+    const step = first.offsetWidth + 18; // card width + flex gap
+    setP(Math.max(0, Math.min(PROOF.length - 1, Math.round(vp.scrollLeft / step))));
+  };
 
   // Fire an explicit, filterable event carrying the inbound UTMs so the
   // landing page is attributable on the /site dashboard even before a booking.
@@ -88,7 +105,12 @@ export default function SeeItRun() {
         .rbd-right{padding:clamp(40px,5vw,72px) clamp(24px,4vw,56px);display:flex;flex-direction:column;justify-content:center;border-left:1px solid var(--rbd-line);}
         @media(max-width:980px){.rbd-right{border-left:none;border-top:1px solid var(--rbd-line);}}
         .rbd-right-h{font-size:16px;font-weight:500;color:var(--rb-bone);opacity:.78;margin:0 0 26px;font-family:var(--font-dm-sans),sans-serif;}
-        .rbd-pcard{background:var(--rbd-card);border:1px solid var(--rbd-glass-bd);color:var(--rb-bone);border-radius:16px;padding:30px;min-height:320px;display:flex;flex-direction:column;-webkit-backdrop-filter:blur(16px) saturate(1.2);backdrop-filter:blur(16px) saturate(1.2);box-shadow:0 10px 44px rgba(0,0,0,0.42),inset 0 1px 0 rgba(245,241,234,0.06);}
+        /* Peeking carousel: horizontal scroll-snap viewport. Cards sized to
+           ~66% so the active card sits full + the next peeks (~1.5 cards). */
+        .rbd-pcarousel{display:flex;gap:18px;overflow-x:auto;overflow-y:hidden;position:relative;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none;-ms-overflow-style:none;padding-bottom:2px;margin:0 -2px;}
+        .rbd-pcarousel::-webkit-scrollbar{display:none;}
+        .rbd-pcard{flex:0 0 66%;scroll-snap-align:start;scroll-snap-stop:always;background:var(--rbd-card);border:1px solid var(--rbd-glass-bd);color:var(--rb-bone);border-radius:16px;padding:30px;min-height:320px;display:flex;flex-direction:column;-webkit-backdrop-filter:blur(16px) saturate(1.2);backdrop-filter:blur(16px) saturate(1.2);box-shadow:0 10px 44px rgba(0,0,0,0.42),inset 0 1px 0 rgba(245,241,234,0.06);}
+        @media(max-width:520px){.rbd-pcard{flex-basis:82%;}}
         .rbd-bigq{font-family:var(--font-cormorant),serif;font-size:62px;line-height:0.7;color:var(--rb-purple);display:block;height:30px;}
         .rbd-pquote{font-family:var(--font-cormorant),serif;font-size:21px;line-height:1.4;margin:0 0 auto;color:var(--rb-bone);}
         .rbd-pstat{margin-top:28px;}
@@ -154,18 +176,22 @@ export default function SeeItRun() {
 
         <div className="rbd-right">
           <p className="rbd-right-h">What owners like you got back with Rosebud Solutions</p>
-          <div className="rbd-pcard">
-            <span className="rbd-bigq">&ldquo;</span>
-            <p className="rbd-pquote">{c.quote}</p>
-            <div className="rbd-pstat">
-              <div className="rbd-pstat-n">{c.stat}</div>
-              <div className="rbd-pstat-u">{c.unit}</div>
-            </div>
-            <div className="rbd-pattr"><span className="rbd-pattr-n">{c.tag}</span> · {c.role}</div>
+          <div className="rbd-pcarousel" ref={viewportRef} onScroll={onScroll}>
+            {PROOF.map((item) => (
+              <div className="rbd-pcard" key={item.tag}>
+                <span className="rbd-bigq">&ldquo;</span>
+                <p className="rbd-pquote">{item.quote}</p>
+                <div className="rbd-pstat">
+                  <div className="rbd-pstat-n">{item.stat}</div>
+                  <div className="rbd-pstat-u">{item.unit}</div>
+                </div>
+                <div className="rbd-pattr"><span className="rbd-pattr-n">{item.tag}</span> · {item.role}</div>
+              </div>
+            ))}
           </div>
           <div className="rbd-pctrl">
-            <button className="rbd-arrow" onClick={() => go(-1)} aria-label="Previous">&larr;</button>
-            <button className="rbd-arrow" onClick={() => go(1)} aria-label="Next">&rarr;</button>
+            <button className="rbd-arrow" onClick={() => scrollToIndex(p - 1)} aria-label="Previous">&larr;</button>
+            <button className="rbd-arrow" onClick={() => scrollToIndex(p + 1)} aria-label="Next">&rarr;</button>
             <span className="rbd-pcount">{String(p + 1).padStart(2, "0")} / {String(PROOF.length).padStart(2, "0")}</span>
           </div>
           <div className="rbd-trust">
