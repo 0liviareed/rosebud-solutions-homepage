@@ -107,10 +107,13 @@ export default function SeeItRun() {
            ~66% so the active card sits full + the next peeks (~1.5 cards). */
         .rbd-pcarousel{display:flex;gap:18px;overflow-x:auto;overflow-y:hidden;position:relative;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none;-ms-overflow-style:none;padding-bottom:2px;margin:0 -2px;}
         .rbd-pcarousel::-webkit-scrollbar{display:none;}
-        .rbd-pcard{flex:0 0 66%;scroll-snap-align:start;scroll-snap-stop:always;background:var(--rbd-card);border:1px solid var(--rbd-glass-bd);color:var(--rb-bone);border-radius:16px;padding:30px;min-height:320px;display:flex;flex-direction:column;-webkit-backdrop-filter:blur(16px) saturate(1.2);backdrop-filter:blur(16px) saturate(1.2);box-shadow:0 10px 44px rgba(0,0,0,0.42),inset 0 1px 0 rgba(245,241,234,0.06);}
-        @media(max-width:520px){.rbd-pcard{flex-basis:82%;}}
+        /* Solid, elevated card so it carries the same visual weight as the
+           Cal widget on the left — gradient fill + crisp border + deep
+           shadow, and taller so its mass matches the calendar panel. */
+        .rbd-pcard{flex:0 0 66%;scroll-snap-align:start;scroll-snap-stop:always;background:linear-gradient(180deg,rgba(245,241,234,0.07),rgba(245,241,234,0.032));border:1px solid rgba(245,241,234,0.18);color:var(--rb-bone);border-radius:18px;padding:clamp(30px,2.4vw,38px);min-height:clamp(460px,52vh,560px);display:flex;flex-direction:column;-webkit-backdrop-filter:blur(20px) saturate(1.3);backdrop-filter:blur(20px) saturate(1.3);box-shadow:0 20px 64px rgba(0,0,0,0.55),inset 0 1px 0 rgba(245,241,234,0.1);}
+        @media(max-width:520px){.rbd-pcard{flex-basis:82%;min-height:clamp(420px,60vh,500px);}}
         .rbd-bigq{font-family:var(--font-cormorant),serif;font-size:62px;line-height:0.7;color:var(--rb-purple);display:block;height:30px;}
-        .rbd-pquote{font-family:var(--font-cormorant),serif;font-size:21px;line-height:1.4;margin:0 0 auto;color:var(--rb-bone);}
+        .rbd-pquote{font-family:var(--font-cormorant),serif;font-size:clamp(22px,1.6vw,25px);line-height:1.42;margin:0 0 auto;color:var(--rb-bone);}
         .rbd-pstat{margin-top:28px;}
         .rbd-pstat-n{font-family:var(--font-cormorant),serif;font-weight:500;font-size:clamp(52px,5.4vw,66px);line-height:0.95;letter-spacing:-0.02em;color:var(--rb-purple);}
         .rbd-pstat-u{font-size:13px;color:var(--rb-bone-dim);margin-top:10px;letter-spacing:.01em;}
