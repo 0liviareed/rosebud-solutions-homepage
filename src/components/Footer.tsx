@@ -109,6 +109,13 @@ export default function Footer() {
             <p className="rb-footer-eyebrow">Company</p>
             <ul className="rb-footer-links">
               <li>
+                {/* Plain /see-it-run, no UTM — footer/direct traffic stays
+                    "direct" rather than being attributed to the email. */}
+                <Link href="/see-it-run" className="rb-footer-link">
+                  Get a demo
+                </Link>
+              </li>
+              <li>
                 <Link href="/about" className="rb-footer-link">
                   About
                 </Link>
