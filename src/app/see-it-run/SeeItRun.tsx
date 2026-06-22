@@ -75,7 +75,18 @@ export default function SeeItRun() {
     });
   }, []);
 
-  const bookClick = () => track("cta_click", { cta: "book_call", location: "see_it_run_close" });
+  // Scroll up to the hero cal.eu embed (#rbd-book). Native hash-jumps don't work
+  // under Lenis, so use the site's exposed instance (window.__rbLenis), matching
+  // BookCTA; fall back to scrollIntoView for reduced-motion / no-Lenis.
+  const bookClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    track("cta_click", { cta: "book_call", location: "see_it_run_close" });
+    const target = document.getElementById("rbd-book");
+    if (!target) return;
+    e.preventDefault();
+    const lenis = (window as unknown as { __rbLenis?: { scrollTo: (t: Element, o?: object) => void } | null }).__rbLenis;
+    if (lenis) lenis.scrollTo(target, { offset: -100, duration: 1.4 });
+    else target.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
 
   return (
     <div className="rbd">
