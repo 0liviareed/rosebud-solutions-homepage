@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "About — Rosebud Solutions",
   description:
-    "The minds behind Rosebud Solutions. Two operators who built the system first, then packaged it for others.",
+    "Rosebud Solutions sells outcomes, not tools. We find where your business loses time, leads and money, build the system that closes the gap, then run it for you.",
   alternates: { canonical: "/about" },
 };
 
@@ -37,10 +37,18 @@ export default function AboutPage() {
           <div className="rb-head">
             <p className="rb-eyebrow" data-rb-fade="0">About</p>
             <h1 className="rb-h2" data-rb-fade="1">
-              The minds behind <em>Rosebud Solutions.</em>
+              An overview of <em>Rosebud Solutions.</em>
             </h1>
             <p className="rb-sub" data-rb-fade="2">
-              Two operators who built the system first, then packaged it for others.
+              Rosebud Solutions sells outcomes, not tools. You and your team came to do
+              work that needs a human, like closing, advising and building relationships,
+              not to spend the day chasing leads, re-keying the CRM and answering messages
+              by hand. So we take the busy work off you and give you back the result. We
+              start by finding where your business is losing time, leads and money, build
+              the system that closes the gap, then run it for you for as long as you&rsquo;re a
+              client. You keep your own data; we own and run the system that works it, so
+              your people spend their time where it actually counts. The diary full. The
+              leads worked. The pipeline moving.
             </p>
           </div>
 
