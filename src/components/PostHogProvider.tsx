@@ -15,6 +15,33 @@ function hasStatisticsConsent(): boolean {
   return !!c && c.categories.statistics === true
 }
 
+// First-touch UTM capture. The moment a visitor lands with UTMs (e.g. an email
+// CTA → /see-it-run), persist them so they survive navigation and attach to a
+// later conversion. register_once = first-touch wins (never overwritten by a
+// later visit); the localStorage copy is for any non-PostHog use (forms etc.).
+function persistFirstTouchUtm() {
+  if (typeof window === 'undefined') return
+  const p = new URLSearchParams(window.location.search)
+  const keys = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term'] as const
+  const utm: Record<string, string> = {}
+  for (const k of keys) { const v = p.get(k); if (v) utm[k] = v }
+  if (!utm.utm_source && !utm.utm_campaign) return // no campaign params → nothing to capture
+
+  // first-touch super properties on every subsequent event (ft_ prefix)
+  const ft: Record<string, string> = {}
+  for (const k of keys) { if (utm[k]) ft[`ft_${k}`] = utm[k] }
+  try { posthog.register_once(ft) } catch { /* posthog not ready */ }
+
+  // first-touch localStorage record (set-once)
+  try {
+    if (!window.localStorage.getItem('rb_ft_utm')) {
+      window.localStorage.setItem('rb_ft_utm', JSON.stringify({
+        ...utm, landing_path: window.location.pathname, captured_at: new Date().toISOString(),
+      }))
+    }
+  } catch { /* storage blocked */ }
+}
+
 function initOnce() {
   if (initialised) return
   if (!PH_KEY) return
@@ -37,6 +64,7 @@ function initOnce() {
     autocapture: false,
   })
   initialised = true
+  persistFirstTouchUtm() // landing UTMs, in case consent was granted after arrival
 }
 
 function teardown() {
@@ -70,6 +98,7 @@ export default function PostHogProvider() {
     if (!pathname) return
     const qs = search?.toString()
     const url = window.location.origin + pathname + (qs ? `?${qs}` : '')
+    persistFirstTouchUtm() // capture first-touch UTMs from the landing URL before the pageview
     posthog.capture('$pageview', { $current_url: url })
   }, [pathname, search])
 
