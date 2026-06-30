@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Rosebud Solutions — Live Operations</title>
+<title>Rosebud Solutions · Live Operations</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
@@ -65,7 +65,8 @@ body::before{
 /* TOP BAR */
 .topbar{display:grid;grid-template-columns:300px 1fr 300px;align-items:center;gap:18px;margin-bottom:30px}
 .brand{display:flex;align-items:center;gap:12px}
-.brand-mark{width:34px;height:34px;border-radius:50%;display:block;object-fit:contain;box-shadow:0 6px 16px -6px rgba(0,0,0,.45)}
+.brand-mark{width:34px;height:34px;border-radius:9px;background:var(--purple);display:grid;place-items:center;box-shadow:0 6px 16px -6px rgba(108,92,174,.7)}
+.brand-mark span{width:10px;height:10px;border-radius:50%;background:#fff;opacity:.9}
 .brand-name{font-family:var(--serif);font-size:23px;line-height:1}
 .brand-sub{font-weight:500;font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-3);margin-top:3px}
 .tabs{justify-self:center;display:flex;gap:4px;padding:5px;border-radius:13px}
@@ -144,6 +145,27 @@ body::before{
 .fbar{height:100%;border-radius:9px;background:linear-gradient(90deg,var(--purple),var(--purple-mid));display:flex;align-items:center;padding-left:15px;transition:width .9s cubic-bezier(.2,.7,.2,1)}
 .fbar-val{font-family:var(--serif);font-size:19px;color:#fff}
 .fpct{font-weight:500;font-size:12px;color:var(--ink-3);text-align:right}
+.fn-zone{position:relative}
+.fn-zone.acq{padding:16px 20px 18px;background:rgba(28,25,34,.022);border:1px solid var(--bd);border-radius:13px;margin-bottom:2px}
+.fn-zone.acq .fname{color:var(--ink-3)}
+.fn-zone.acq .fbar{background:linear-gradient(90deg,#a8a3b8,#c4c0cf)}
+.fn-zone.acq .fbar-val{color:#fff}
+.fn-zone.rb{margin:6px 0;padding:15px 0 8px 16px;border-left:2px solid var(--purple);background:linear-gradient(90deg,rgba(108,92,174,.06),transparent 45%);border-radius:7px}
+.fn-zone.cv{margin-top:2px;padding:16px 20px 18px;background:rgba(28,25,34,.022);border:1px solid var(--bd);border-radius:13px}
+.fn-zhead{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+.fn-zlabel{font-size:11.5px;font-weight:600;letter-spacing:.03em;color:var(--ink);display:flex;flex-direction:column;gap:2px}
+.fn-znote{font-size:10.5px;font-weight:400;letter-spacing:0;color:var(--ink-3);text-transform:none}
+.fn-owner{font-size:9px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;padding:4px 10px;border-radius:20px;white-space:nowrap}
+.fn-owner.rb{color:#fff;background:var(--purple)}
+.fn-owner.cv{color:var(--ink-3);background:rgba(28,25,34,.06)}
+.fn-handoff{display:flex;align-items:center;gap:12px;margin:16px 0 4px}
+.fn-handoff span{font-size:9px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--purple-deep);white-space:nowrap}
+.fn-handoff::before,.fn-handoff::after{content:"";height:1px;flex:1;background:var(--bd-purple)}
+.frow.untracked{display:flex;align-items:center;gap:14px;padding:8px 0}
+.frow.untracked .fname{color:var(--ink-2);flex:none}
+.fn-lead{flex:1;height:0;border-bottom:1px dotted var(--bd-purple);opacity:.55;transform:translateY(1px)}
+.fn-tag{font-size:10.5px;font-weight:500;letter-spacing:.02em;color:var(--purple-deep);background:var(--purple-soft);border:1px solid var(--bd-purple);border-radius:20px;padding:4px 12px;white-space:nowrap;flex:none}
+.fn-cv-note{font-size:11.5px;line-height:1.55;color:var(--ink-3);margin-top:15px;padding-top:13px;border-top:1px solid var(--bd);max-width:580px}
 
 /* sources */
 .src{display:flex;flex-direction:column}
@@ -211,7 +233,6 @@ body::before{
 .eng-head{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:26px}
 .eng-title{font-family:var(--serif);font-size:46px;line-height:1;color:var(--ink)}
 .eng-title em{font-style:italic;color:var(--purple)}
-.eng-sub{font-weight:500;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);margin-top:12px}
 .eng-stats{display:flex;gap:34px}
 .eng-stat-lbl{font-weight:500;font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3)}
 .eng-stat-val{font-family:var(--serif);font-size:26px;color:var(--ink);margin-top:4px}
@@ -231,6 +252,20 @@ body::before{
 .roster{display:flex;flex-direction:column}
 .rrow{display:flex;align-items:center;gap:10px;padding:9px 0;font-size:13px;color:var(--ink-2)}
 .rrow .rdot{width:7px;height:7px;border-radius:50%;background:var(--purple);box-shadow:0 0 7px rgba(108,92,174,.6)}
+.hl-row{display:flex;gap:10px;align-items:flex-start;padding:9px 0;border-top:1px solid var(--bd)}
+.hl-row:first-child{border-top:none}
+.hl-row.done{opacity:.6}
+.hl-dot{width:8px;height:8px;border-radius:50%;margin-top:4px;flex:none}
+.hl-dot.ok{background:var(--purple-deep);box-shadow:0 0 7px rgba(79,66,136,.5)}
+.hl-dot.warn{background:#bd8636;box-shadow:0 0 7px rgba(189,134,54,.5)}
+.hl-dot.crit{background:#b5514d;box-shadow:0 0 8px rgba(181,81,77,.6)}
+.hl-dot.resolved{background:transparent;border:1.5px solid var(--bd-2)}
+.hl-main{min-width:0}
+.hl-title{font-size:12.5px;font-weight:500;color:var(--ink);display:flex;align-items:center;gap:7px;line-height:1.2}
+.hl-tag{font-size:8.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3);background:rgba(28,25,34,.06);border-radius:20px;padding:2px 7px}
+.hl-detail{font-size:11px;color:var(--ink-3);margin-top:3px;line-height:1.35}
+.hl-cap{font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);margin-top:11px;padding-top:10px;border-top:1px solid var(--bd)}
+.side-h .badge.alert{background:#b5514d;color:#fff}
 
 .eng-chart-wrap{border-radius:16px;padding:30px 30px 30px;position:relative;min-height:560px;min-width:0}
 .eng-svg{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:1}
@@ -276,6 +311,23 @@ body::before{
 .nf{flex:1}
 .nf-v{font-family:var(--serif);font-size:17px;color:var(--ink);line-height:1}
 .nf-l{font-size:10px;color:var(--ink-3);margin-top:3px}
+.tier.executors{align-items:flex-start}
+.ex-col{flex:1 1 0;min-width:0;display:flex;flex-direction:column}
+.ex-col>.node.ex{flex:0 0 auto;width:auto}
+.kids{position:relative;margin-top:22px;padding-left:19px;display:flex;flex-direction:column;gap:9px}
+.kids::before{content:"";position:absolute;left:6px;top:-22px;bottom:14px;width:1.5px;background:linear-gradient(rgba(108,92,174,.3),rgba(108,92,174,.08));border-radius:2px}
+.kid-packet{position:absolute;left:6px;width:1.5px;height:20px;border-radius:2px;background:linear-gradient(rgba(108,92,174,0),var(--purple-deep));transform:translateX(-.25px);animation:kidpacket var(--D) linear infinite;animation-delay:calc(var(--col)*-0.62s)}
+@keyframes kidpacket{0%{top:-18px;opacity:0}12%{opacity:1}88%{opacity:1}100%{top:calc(100% - 16px);opacity:0}}
+.kid{position:relative;display:flex;align-items:center;gap:8px;background:rgba(255,255,255,.62);border:1px solid var(--bd);border-radius:10px;padding:8px 11px;box-shadow:0 1px 2px rgba(40,30,70,.05);animation:kidlite var(--D) ease-in-out infinite;animation-delay:calc(var(--i) / var(--n) * var(--D) + var(--col) * -0.62s)}
+.kid::before{content:"";position:absolute;left:-13px;top:50%;width:13px;height:1.5px;background:var(--bd-purple)}
+.kid .kdot{width:6px;height:6px;border-radius:50%;background:var(--purple-soft);border:1.5px solid var(--bd-purple);flex-shrink:0;animation:kdotlite var(--D) ease-in-out infinite;animation-delay:calc(var(--i) / var(--n) * var(--D) + var(--col) * -0.62s)}
+.kid .kname{font-size:11.5px;color:var(--ink-2);font-weight:500;line-height:1.2}
+@keyframes kidlite{0%,16%,100%{border-color:var(--bd);box-shadow:0 1px 2px rgba(40,30,70,.05)}6%{border-color:var(--bd-purple);box-shadow:0 0 0 3px rgba(108,92,174,.1),0 6px 16px -6px rgba(108,92,174,.5)}}
+@keyframes kdotlite{0%,16%,100%{background:var(--purple-soft);border-color:var(--bd-purple)}6%{background:var(--purple-deep);border-color:var(--purple-deep)}}
+.chart-grid.focus .ex-col:not(:has(.node.hl)){opacity:.4;filter:saturate(.6)}
+.chart-grid.focus .ex-col>.node.ex{opacity:1;filter:none}
+.chart-grid.focus .ex-col:not(:has(.node.hl)) .kid,.chart-grid.focus .ex-col:not(:has(.node.hl)) .kdot,.chart-grid.focus .ex-col:not(:has(.node.hl)) .kid-packet{animation-play-state:paused}
+@media (prefers-reduced-motion:reduce){.kid-packet{display:none}.kid,.kdot{animation:none}.kdot{background:var(--purple-mid);border-color:var(--purple-mid)}}
 .eng-legend{display:flex;justify-content:flex-end;gap:20px;margin-top:42px;font-weight:500;font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3)}
 .eng-legend span{display:flex;align-items:center;gap:7px}
 .lg-line{width:22px;height:0;border-top:1.5px solid var(--purple)}
@@ -309,8 +361,8 @@ body::before{
 
   <div class="topbar">
     <div class="brand">
-      <img class="brand-mark" src="/rosebud-brand-orb.png" alt="Rosebud Solutions">
-      <div><div class="brand-name">Rosebud Solutions</div><div class="brand-sub">Part of Rosebud Global</div></div>
+      <div class="brand-mark"><span></span></div>
+      <div><div class="brand-name">Rosebud Solutions</div><div class="brand-sub">Operations</div></div>
     </div>
     <div class="tabs glass">
       <button class="tab active" data-tab="ops">Live Operations</button>
@@ -337,28 +389,28 @@ body::before{
       </div>
       <div class="vb-cells">
         <div class="vb-cell">
-          <div class="vb-label">Standard</div>
+          <div class="vb-label">Standard<span class="info" tabindex="0">i<span class="tip">Measured against your service standard set at go-live: 14s median response, every follow-up sent, nothing to voicemail.</span></span></div>
           <div class="vb-val"><span class="tick">&#10003;</span>Met</div>
           <div class="vb-sub">14s median response · every follow-up sent · nothing to voicemail</div>
         </div>
         <div class="vb-cell">
-          <div class="vb-label">Work carried</div>
+          <div class="vb-label">Work carried<span class="info" tabindex="0">i<span class="tip">Total enquiries and sequences the system processed this month, counted directly from system logs.</span></span></div>
           <div class="vb-val">1,948</div>
           <div class="vb-sub">enquiries handled this month, every sequence on time</div>
         </div>
         <div class="vb-cell">
-          <div class="vb-label">Caught after hours or recovered</div>
+          <div class="vb-label">Answered after hours<span class="info" tabindex="0">i<span class="tip">Enquiries the system answered outside your working hours, counted from message timestamps. A count of what was answered, not a revenue figure.</span></span></div>
           <div class="vb-val">374</div>
-          <div class="vb-sub">handled while you were closed, or pulled back from a dropped call. None lost.</div>
+          <div class="vb-sub">enquiries answered while you were closed, every one logged and actioned</div>
         </div>
         <div class="vb-cell">
-          <div class="vb-label">Your time, run for you</div>
+          <div class="vb-label">Hours back<span class="info" tabindex="0">i<span class="tip">An estimate of the time you'd have spent doing this work by hand, now that the system handles it. Calculated from the volume we process, measured directly, and the per-task time you confirmed during setup, held conservative. It reflects work you used to do yourself. Not how fast the system runs, and not new work the system added on top. The figure shown here is illustrative, from sample data.</span></span></div>
           <div class="vb-val">~12<span class="u">hrs/wk</span></div>
-          <div class="vb-sub">the hours you estimated at kickoff, now handled by the system</div>
+          <div class="vb-sub">time you'd have spent on this by hand, now run by the system</div>
         </div>
       </div>
       <div class="vb-foot">
-        <div class="vb-foot-l">Since go-live, March 2026 — <b>6,240</b> enquiries handled · <b>1,140</b> showings booked · <b>0</b> missed overnight</div>
+        <div class="vb-foot-l">Since go-live, March 2026 · <b>6,240</b> enquiries handled · <b>1,140</b> showings booked · <b>0</b> went to voicemail overnight</div>
       </div>
     </div>
 
@@ -374,7 +426,7 @@ body::before{
     <div class="grid">
       <div class="col">
         <div class="panel glass"><div class="panel-head"><div class="panel-title">Conversion funnel<span class="info" tabindex="0">i<span class="tip">The operation captures, qualifies, books, and follows up. The close is your team&rsquo;s work.</span></span></div><div class="panel-tag" id="funnelTag">This week</div></div><div class="funnel" id="funnel"></div></div>
-        <div class="panel glass"><div class="panel-head"><div class="panel-title">Lead sources</div><div class="panel-tag">Volume · book rate · leads</div></div><div class="src" id="sources"></div></div>
+        <div class="panel glass"><div class="panel-head"><div class="panel-title">Lead sources</div><div class="panel-tag">Volume &middot; book rate &middot; leads</div></div><div class="src" id="sources"></div></div>
         <div class="panel glass"><div class="panel-head"><div class="panel-title">Team activity<span class="info" tabindex="0">i<span class="tip">These are the operation&rsquo;s own figures. Where an industry average appears, it is a published benchmark shown for reference.</span></span></div><div class="panel-tag" id="teamTag">This week</div></div><div class="tact" id="teamActivity"></div></div>
       </div>
       <div class="col">
@@ -389,7 +441,7 @@ body::before{
       <div class="hstat"><div class="hstat-val"><span class="hdot"></span>9 of 9</div><div class="hstat-lbl">Channels live</div></div>
       <div class="hstat"><div class="hstat-val">4m ago</div><div class="hstat-lbl">Last lead captured</div></div>
       <div class="hstat"><div class="hstat-val">99.8%</div><div class="hstat-lbl">Uptime<span class="info" tabindex="0">i<span class="tip">How much of the time the system is live and available, monitored day and night. 99.8% is about 1.5 hours of downtime across a month.</span></span></div></div>
-      <div class="hstat"><div class="hstat-val">0</div><div class="hstat-lbl">System issues</div></div>
+      <div class="hstat"><div class="hstat-val" id="sysIssues">0</div><div class="hstat-lbl">System issues</div></div>
     </div>
   </div>
 
@@ -398,7 +450,6 @@ body::before{
     <div class="eng-head">
       <div>
         <div class="eng-title">Operations <em>engine</em></div>
-        <div class="eng-sub">5-week deployment · always on</div>
       </div>
       <div class="eng-stats">
         <div><div class="eng-stat-lbl">Agents</div><div class="eng-stat-val">8 <small>live</small></div></div>
@@ -423,6 +474,11 @@ body::before{
           <div class="empty"><div class="tick">✓</div>No pending approvals</div>
         </div>
         <div class="side-block glass">
+          <div class="side-h">System health <span class="badge" id="healthCount">0</span></div>
+          <div id="healthList"></div>
+          <div class="hl-cap">Checked daily · 08:00 UTC</div>
+        </div>
+        <div class="side-block glass">
           <div class="side-h">Roster <span class="badge">8</span></div>
           <div class="roster" id="roster"></div>
         </div>
@@ -442,7 +498,7 @@ body::before{
             <div class="node-head"><div class="node-id"><span class="node-code">OPS</span><span class="node-name">Ops auditor</span></div><span class="node-badge"><span class="bdot"></span>Auto</span></div>
             <div class="node-role">Audit &amp; roadmap</div>
             <div class="succ-row"><span>Success</span><b>100%</b></div><div class="succ-track"><div class="succ-fill" style="width:100%"></div></div>
-            <div class="node-foot"><div class="nf"><div class="nf-v">31h<span style="font-size:11px">/wk</span></div><div class="nf-l">time saved<span class="info" tabindex="0">i<span class="tip">Against the hours you estimated at kickoff. Your figure, now run by the system, not a number we measured independently.</span></span></div></div><div class="nf"><div class="nf-v">1</div><div class="nf-l">flag open</div></div></div>
+            <div class="node-foot"><div class="nf"><div class="nf-v">~12h<span style="font-size:11px">/wk</span></div><div class="nf-l">Hours back<span class="info" tabindex="0">i<span class="tip">An estimate of the time you'd have spent doing this work by hand, now that the system handles it. Calculated from the volume we process (measured directly) and the per-task time you confirmed during setup (held conservative). It reflects work you used to do yourself. Not how fast the system runs, and not new work the system added on top.</span></span></div></div><div class="nf"><div class="nf-v">1</div><div class="nf-l">flag open</div></div></div>
           </div></div>
           <div class="tier executors" id="executors"></div>
         </div>
@@ -484,12 +540,12 @@ const DATA={
   }
 };
 const EXEC=[
-  {id:"cap",code:"CAP",name:"Lead capture",role:"Inbound across 9 channels",succ:100,a:["487","leads this wk"],b:["9","channels live"],blurb:"Captures every enquiry across all nine channels the moment it lands. Zero leakage. Each lead flows into the qualification layer."},
-  {id:"qal",code:"QAL",name:"Qualification",role:"Score &amp; route",succ:96,a:["421","conversations"],b:["189","qualified hot"],blurb:"Scores every lead against your criteria and routes hot, warm, or nurture. Only ready buyers reach an agent."},
-  {id:"bkg",code:"BKG",name:"Booking",role:"Showings &amp; calendars",succ:94,a:["89","showings booked"],b:["34","reschedules"],blurb:"Books showings straight into agent calendars and handles reschedules both ways, with no double-entry."},
-  {id:"nur",code:"NUR",name:"Nurture",role:"Warm pipeline",succ:99,a:["412","in pool"],b:["12","re-engaged"],blurb:"Keeps dormant leads in active rotation and re-engages on schedule when a matching listing lands."},
-  {id:"rmd",code:"RMD",name:"Reminders",role:"Confirmations &amp; no-shows",succ:98,a:["156","sent this wk"],b:["8%","no-show"],blurb:"Sends day-before confirmations on every showing, cutting no-shows well below the industry norm."},
-  {id:"crm",code:"CRM",name:"CRM sync",role:"Source of truth",succ:99,a:["286","records synced"],b:["0","duplicates"],blurb:"Writes every interaction to the CRM in real time, deduped, so the pipeline is always current for the whole team."}
+  {id:"cap",code:"CAP",name:"Lead capture",role:"Inbound across 9 channels",succ:100,a:["487","leads this wk"],b:["9","channels live"],blurb:"Captures every enquiry across all nine channels the moment it lands. Zero leakage. Each lead flows into the qualification layer.",subs:["Channel intake","Missed-call recovery","Dedup &amp; match","Speed-to-lead","Source attribution"]},
+  {id:"qal",code:"QAL",name:"Qualification",role:"Score &amp; route",succ:96,a:["421","conversations"],b:["189","qualified hot"],blurb:"Scores every lead against your criteria and routes hot, warm, or nurture. Only ready buyers reach an agent.",subs:["Intent scoring","Financing check","Hot / warm / cold tiering","Agent routing","Enrichment"]},
+  {id:"bkg",code:"BKG",name:"Booking",role:"Showings &amp; calendars",succ:94,a:["89","showings booked"],b:["34","reschedules"],blurb:"Books showings straight into agent calendars and handles reschedules both ways, with no double-entry.",subs:["Calendar sync","Showing scheduler","Reschedule handler","Confirmation","Double-book guard"]},
+  {id:"nur",code:"NUR",name:"Nurture",role:"Warm pipeline",succ:99,a:["412","in pool"],b:["12","re-engaged"],blurb:"Keeps dormant leads in active rotation and re-engages on schedule when a matching listing lands.",subs:["Follow-up sequence","Engagement tracking","Reply detection","Listing-match alerts","Holiday pause"]},
+  {id:"rmd",code:"RMD",name:"Reminders",role:"Confirmations &amp; no-shows",succ:98,a:["156","sent this wk"],b:["8%","no-show"],blurb:"Sends day-before confirmations on every showing, cutting no-shows well below the industry norm.",subs:["Day-before confirmation","Day-of reminder","No-show re-book","Post-showing follow-up"]},
+  {id:"crm",code:"CRM",name:"CRM sync",role:"Source of truth",succ:99,a:["286","records synced"],b:["0","duplicates"],blurb:"Writes every interaction to the CRM in real time, deduped, so the pipeline is always current for the whole team.",subs:["Record write","Status sync","List hygiene","Activity log","Write retry"]}
 ];
 const ROSTER=["lead","capture-agent","qualify-agent","booking-agent","nurture-agent","reminder-agent","crm-agent","ops-auditor"];
 const ENG_ACT=[
@@ -501,10 +557,10 @@ const ENG_ACT=[
   {t:"14:52:31",a:"capture-agent",act:"Missed call recovered · auto-text sent",m:"90s reply"}
 ];
 function overnight(){const h=new Date().getHours();const night=(h>=19||h<8);if(night){return{title:"Tonight so far",body:`Since 7pm, <b>9 leads</b> have come in. 7 qualified. 3 booked showings. 2 are in nurture. <b>0 went to voicemail.</b>`,stats:[{v:"9",l:"Captured"},{v:"7",l:"Qualified"},{v:"3",l:"Booked"},{v:"0",l:"Voicemail",zero:true}]};}return{title:"Last night",body:`Between 7pm and 8am, <b>14 leads</b> came in. 11 qualified. 4 booked showings. 3 are in nurture. <b>0 went to voicemail.</b>`,stats:[{v:"14",l:"Captured"},{v:"11",l:"Qualified"},{v:"4",l:"Booked"},{v:"0",l:"Voicemail",zero:true}]};}
-const FEED=[{v:"hot",t:`Zillow lead, qualified hot, routed to <b>Sarah</b> · 3-bed · $450-550k · 78704`},{v:"warm",t:`Realtor.com lead, qualified warm, routed to <b>Marcus</b> · Pre-approval pending`},{v:"sys",t:`Showing booked — <b>Jennifer T.</b>, Friday 3pm · 4502 Bouldin Ave`},{v:"hot",t:`SMS inquiry, qualified hot, routed to <b>David</b> · Cash buyer · 2-week close`},{v:"warm",t:`Nurture wake — <b>Patel family</b>, 4-month dormant · New listing match · 78745`},{v:"warm",t:`Facebook lead, qualified warm, routed to <b>Marcus</b> · Investor, ROI plays`},{v:"sys",t:`Showing booked — <b>Chen-Wright</b>, Saturday 11am · 1818 Goodrich St`},{v:"hot",t:`Missed call recovered — auto-text sent, 90s reply · Now qualifying`},{v:"sys",t:`Reschedule handled — <b>Ramirez</b> moved to Thu 5pm · Auto-confirmed both ways`},{v:"warm",t:`Instagram DM, qualified warm, routed to <b>Sarah</b> · First-time buyer · $300-380k`},{v:"hot",t:`IDX form, qualified hot, routed to <b>David</b> · Pre-approved at $625k`},{v:"sys",t:`Showing completed — <b>Okafor</b>, post-visit follow-up queued · 4502 Bouldin Ave`},{v:"sys",t:`Day-before reminder sent — <b>Thompson</b>, showing tomorrow · Confirmed 11min later`},{v:"cold",t:`Nurture move — <b>Lin</b> deferred, "spring 2026" · Re-check scheduled 14 weeks`}];
+const FEED=[{v:"hot",t:`Zillow lead, qualified hot, routed to <b>Sarah</b> · 3-bed · $450-550k · 78704`},{v:"warm",t:`Realtor.com lead, qualified warm, routed to <b>Marcus</b> · Pre-approval pending`},{v:"sys",t:`Showing booked · <b>Jennifer T.</b>, Friday 3pm · 4502 Bouldin Ave`},{v:"hot",t:`SMS inquiry, qualified hot, routed to <b>David</b> · Cash buyer · 2-week close`},{v:"warm",t:`Nurture wake · <b>Patel family</b>, 4-month dormant · New listing match · 78745`},{v:"warm",t:`Facebook lead, qualified warm, routed to <b>Marcus</b> · Investor, ROI plays`},{v:"sys",t:`Showing booked · <b>Chen-Wright</b>, Saturday 11am · 1818 Goodrich St`},{v:"hot",t:`Missed call recovered · auto-text sent, 90s reply · Now qualifying`},{v:"sys",t:`Reschedule handled · <b>Ramirez</b> moved to Thu 5pm · Auto-confirmed both ways`},{v:"warm",t:`Instagram DM, qualified warm, routed to <b>Sarah</b> · First-time buyer · $300-380k`},{v:"hot",t:`IDX form, qualified hot, routed to <b>David</b> · Pre-approved at $625k`},{v:"sys",t:`Showing completed · <b>Okafor</b>, post-visit follow-up queued · 4502 Bouldin Ave`},{v:"sys",t:`Day-before reminder sent · <b>Thompson</b>, showing tomorrow · Confirmed 11min later`},{v:"cold",t:`Nurture move · <b>Lin</b> deferred, "spring 2026" · Re-check scheduled 14 weeks`}];
 let period="week";
 function renderKpis(){const d=DATA[period];document.getElementById("kpiStrip").innerHTML=d.kpi.map(k=>`<div class="kpi glass"><div class="label">${k.label}</div><div class="kpi-val">${k.val}${k.unit?`<span class="unit">${k.unit}</span>`:""}</div><div class="kpi-foot"><span class="delta ${k.up?'up':'flat'}">${k.up?'↑ ':''}${k.delta}</span><span class="kpi-note">${k.note}</span></div></div>`).join("");}
-function renderFunnel(){const d=DATA[period];document.getElementById("funnel").innerHTML=d.funnel.map(f=>`<div class="frow"><div class="fname">${f.name}</div><div class="fbar-track"><div class="fbar" style="width:${f.w}%"><span class="fbar-val">${f.val}</span></div></div><div class="fpct">${f.pct||"—"}</div></div>`).join("");}
+function renderFunnel(){const d=DATA[period];const row=f=>`<div class="frow"><div class="fname">${f.name}</div><div class="fbar-track"><div class="fbar" style="width:${f.w}%"><span class="fbar-val">${f.val}</span></div></div><div class="fpct">${f.pct||""}</div></div>`;const html=`<div class="fn-zone acq"><div class="fn-zhead"><div class="fn-zlabel">Your acquisition<span class="fn-znote">leads in, from your channels</span></div><span class="fn-owner cv">You</span></div>${d.funnel.slice(0,1).map(row).join("")}</div><div class="fn-handoff"><span>We take it from here</span></div><div class="fn-zone rb"><div class="fn-zhead"><div class="fn-zlabel">Rosebud operations<span class="fn-znote">the middle funnel we run</span></div><span class="fn-owner rb">Rosebud</span></div>${d.funnel.slice(1,4).map(row).join("")}</div><div class="fn-handoff"><span>Handed back to your team</span></div><div class="fn-zone cv"><div class="fn-zhead"><div class="fn-zlabel">Your conversion<span class="fn-znote">your closers take it from here</span></div><span class="fn-owner cv">You</span></div>${d.funnel.slice(4).map(f=>`<div class="frow untracked"><div class="fname">${f.name}</div><div class="fn-lead"></div><div class="fn-tag">Yours to measure</div></div>`).join("")}<div class="fn-cv-note">Conversion is yours. The system hands over every qualified, booked lead; what happens at the showing and the close stays in your CRM, on your terms.</div></div>`;document.getElementById("funnel").innerHTML=html;}
 function renderSources(){const d=DATA[period];document.getElementById("sources").innerHTML=d.sources.map(s=>`<div class="srow ${s.hot?'hot':''}"><div class="sname">${s.name}</div><div class="svol-track"><div class="svol" style="width:${s.vol*2.4}%"></div></div><div class="sbook">${s.book}</div><div class="scount">${s.n}</div></div>`).join("");}
 function renderTeam(){const d=DATA[period];document.getElementById("teamActivity").innerHTML=d.team.map(t=>`<div class="trow"><div class="tcode">${t.code}</div><div class="tmain"><div class="tname">${t.name}</div><div class="tstat">${t.stat}</div></div><div class="tnote ${t.good?'good':''}">${t.note}</div></div>`).join("");}
 function renderOvernight(){const o=overnight();document.getElementById("overTitle").textContent=o.title;document.getElementById("overBody").innerHTML=o.body;document.getElementById("overStats").innerHTML=o.stats.map(s=>`<div class="ostat ${s.zero?'zero':''}"><div class="ostat-val">${s.v}</div><div class="ostat-lbl">${s.l}</div></div>`).join("");}
@@ -515,8 +571,21 @@ function pushFeed(){const f=FEED[feedIdx%FEED.length];feedIdx++;const el=documen
 function seedFeed(){for(let i=0;i<5;i++)pushFeed();}
 
 /* engine renders */
-function renderExecutors(){document.getElementById("executors").innerHTML=EXEC.map(e=>`<div class="node ex" data-agent="${e.id}"><div class="node-head"><div class="node-id"><span class="node-code">${e.code}</span><span class="node-name">${e.name}</span></div><span class="node-badge"><span class="bdot"></span>Auto</span></div><div class="node-role">${e.role}</div><div class="succ-row"><span>Success</span><b>${e.succ}%</b></div><div class="succ-track"><div class="succ-fill" style="width:${e.succ}%"></div></div><div class="node-foot"><div class="nf"><div class="nf-v">${e.a[0]}</div><div class="nf-l">${e.a[1]}</div></div><div class="nf"><div class="nf-v">${e.b[0]}</div><div class="nf-l">${e.b[1]}</div></div></div></div>`).join("");}
+function renderExecutors(){document.getElementById("executors").innerHTML=EXEC.map((e,ci)=>`<div class="ex-col" style="--col:${ci};--n:${e.subs.length};--D:3.4s"><div class="node ex" data-agent="${e.id}"><div class="node-head"><div class="node-id"><span class="node-code">${e.code}</span><span class="node-name">${e.name}</span></div><span class="node-badge"><span class="bdot"></span>Auto</span></div><div class="node-role">${e.role}</div><div class="succ-row"><span>Success</span><b>${e.succ}%</b></div><div class="succ-track"><div class="succ-fill" style="width:${e.succ}%"></div></div><div class="node-foot"><div class="nf"><div class="nf-v">${e.a[0]}</div><div class="nf-l">${e.a[1]}</div></div><div class="nf"><div class="nf-v">${e.b[0]}</div><div class="nf-l">${e.b[1]}</div></div></div></div><div class="kids"><span class="kid-packet"></span>${e.subs.map((s,i)=>`<div class="kid" style="--i:${i}"><span class="kdot"></span><span class="kname">${s}</span></div>`).join("")}</div></div>`).join("");}
 function renderRoster(){document.getElementById("roster").innerHTML=ROSTER.map(r=>`<div class="rrow"><span class="rdot"></span>${r}</div>`).join("");}
+const HEALTH=[
+  {sev:"ok",title:"Capture channels",detail:"All 9 channels live and reporting"},
+  {sev:"ok",title:"CRM sync",detail:"Writing in real time · 0 failed writes"},
+  {sev:"ok",title:"Lead follow-up",detail:"No leads overdue past their stage window"},
+  {sev:"ok",title:"Booking calendar",detail:"14 agent calendars connected"},
+  {sev:"resolved",title:"Zillow feed",detail:"6-min gap recovered automatically · 03:41"}
+];
+function renderHealth(){
+  const active=HEALTH.filter(h=>h.sev==="warn"||h.sev==="crit").length;
+  document.getElementById("healthList").innerHTML=HEALTH.map(h=>`<div class="hl-row${h.sev==="resolved"?" done":""}"><span class="hl-dot ${h.sev}"></span><div class="hl-main"><div class="hl-title">${h.title}${h.sev==="resolved"?`<span class="hl-tag">Resolved</span>`:""}</div><div class="hl-detail">${h.detail}</div></div></div>`).join("");
+  const badge=document.getElementById("healthCount");badge.textContent=active;badge.classList.toggle("alert",active>0);
+  const si=document.getElementById("sysIssues");if(si)si.textContent=active;
+}
 function renderEngActivity(){document.getElementById("engActivity").innerHTML=ENG_ACT.map(r=>`<div class="ea-row"><span class="ea-time">${r.t}</span><span class="ea-agent">${r.a}</span><span class="ea-act">${r.act}</span><span class="ea-meta">${r.m}</span></div>`).join("");}
 const HIER=[["lead","ops"],["ops","cap"],["ops","qal"],["ops","bkg"],["ops","nur"],["ops","rmd"],["ops","crm"]];
 const FLOW=[["cap","qal"],["qal","bkg"],["qal","nur"],["bkg","rmd"],["nur","crm"],["bkg","crm"]];
@@ -529,14 +598,14 @@ function drawConnectors(){
   const R=el=>{const r=el.getBoundingClientRect(),w=wrap.getBoundingClientRect();return{x:r.left-w.left,y:r.top-w.top,w:r.width,h:r.height};};
   const lead=R(document.getElementById("n-lead")),ops=R(document.getElementById("n-ops"));
   const exNodes=[...document.querySelectorAll("#executors .node")];
-  const ex=exNodes.map(R);const idIdx={};EXEC.forEach((e,i)=>idIdx[e.id]=i);
+  const ex=exNodes.map(R);const cols=[...document.querySelectorAll("#executors .ex-col")].map(R);const idIdx={};EXEC.forEach((e,i)=>idIdx[e.id]=i);
   CONN=[];let p="";
   const sLead={x:lead.x+lead.w/2,y:lead.y+lead.h},tOps={x:ops.x+ops.w/2,y:ops.y};
   p+=`<path id="h-lead" d="M${sLead.x},${sLead.y} C${sLead.x},${(sLead.y+tOps.y)/2} ${tOps.x},${(sLead.y+tOps.y)/2} ${tOps.x},${tOps.y}" fill="none" stroke="%236c5cae" stroke-width="1.5" opacity="0.55"/>`;
   CONN.push({id:"h-lead",a:"lead",b:"ops"});
   const sOps={x:ops.x+ops.w/2,y:ops.y+ops.h};
   ex.forEach((e,i)=>{const t={x:e.x+e.w/2,y:e.y};p+=`<path id="h-ex${i}" d="M${sOps.x},${sOps.y} C${sOps.x},${(sOps.y+t.y)/2} ${t.x},${(sOps.y+t.y)/2} ${t.x},${t.y}" fill="none" stroke="%236c5cae" stroke-width="1.5" opacity="0.45"/>`;CONN.push({id:"h-ex"+i,a:"ops",b:EXEC[i].id});});
-  FLOW.forEach(([fa,fb],j)=>{const a=ex[idIdx[fa]],b=ex[idIdx[fb]];if(!a||!b)return;const ax=a.x+a.w/2,bx=b.x+b.w/2,ya=a.y+a.h,yb=b.y+b.h;const dip=Math.max(ya,yb)+22+Math.abs(idIdx[fa]-idIdx[fb])*7;p+=`<path id="f${j}" d="M${ax},${ya} C${ax},${dip} ${bx},${dip} ${bx},${yb}" fill="none" stroke="%23938e9a" stroke-width="1.3" stroke-dasharray="4 5" opacity="0.5"/>`;CONN.push({id:"f"+j,a:fa,b:fb});});
+  FLOW.forEach(([fa,fb],j)=>{const a=cols[idIdx[fa]]||ex[idIdx[fa]],b=cols[idIdx[fb]]||ex[idIdx[fb]];if(!a||!b)return;const ax=a.x+a.w/2,bx=b.x+b.w/2,ya=a.y+a.h,yb=b.y+b.h;const dip=Math.max(ya,yb)+22+Math.abs(idIdx[fa]-idIdx[fb])*7;p+=`<path id="f${j}" d="M${ax},${ya} C${ax},${dip} ${bx},${dip} ${bx},${yb}" fill="none" stroke="%23938e9a" stroke-width="1.3" stroke-dasharray="4 5" opacity="0.5"/>`;CONN.push({id:"f"+j,a:fa,b:fb});});
   svg.innerHTML=p.replace(/%23/g,"#");
 }
 function focusAgent(id,node){
@@ -555,7 +624,7 @@ function unfocusAgent(){
 }
 const NODE_INFO={
   lead:{role:"Orchestrator",name:"lead",blurb:"Sets priority, holds the override, and receives every report. The seven agents below run autonomously.",foot:[["9","channels live"],["0","escalations"]]},
-  ops:{role:"Audit & roadmap",name:"ops-auditor",blurb:"Audits the operation for where it loses time and delivers the roadmap for what to build next.",foot:[["31h/wk","time saved"],["1","flag open"]]}
+  ops:{role:"Audit & roadmap",name:"ops-auditor",blurb:"Audits the operation for where it loses time and delivers the roadmap for what to build next.",foot:[["~12h/wk","Hours back"],["1","flag open"]]}
 };
 EXEC.forEach(e=>{NODE_INFO[e.id]={role:e.role,name:e.name,blurb:e.blurb,foot:[e.a,e.b]};});
 function showPopover(id,node){
@@ -601,7 +670,7 @@ function initTabs(){document.querySelectorAll(".tab").forEach(b=>{b.addEventList
 function initToggle(){document.getElementById("periodToggle").querySelectorAll("button").forEach(b=>{b.addEventListener("click",()=>{document.querySelectorAll("#periodToggle button").forEach(x=>x.classList.remove("active"));b.classList.add("active");period=b.dataset.period;renderAll();});});}
 function initEdit(){const pop=document.getElementById("editPop");const open=()=>{document.getElementById("inName").value=document.getElementById("brokerName").textContent.trim();pop.classList.add("open");};document.getElementById("clientBtn").addEventListener("click",open);document.getElementById("editCancel").addEventListener("click",()=>pop.classList.remove("open"));document.getElementById("editSave").addEventListener("click",()=>{const n=document.getElementById("inName").value.trim();const l=document.getElementById("inLogo").value.trim();if(n){document.getElementById("brokerName").textContent=n;document.getElementById("brokerLogo").textContent=n[0].toUpperCase();try{localStorage.setItem("rb_client_broker_name",n);}catch(e){}}if(l){document.getElementById("brokerLogo").innerHTML=`<img src="${l}" alt="">`;try{localStorage.setItem("rb_client_broker_logo",l);}catch(e){}}pop.classList.remove("open");});pop.addEventListener("click",e=>{if(e.target===pop)pop.classList.remove("open");});}
 function loadBroker(){try{const n=localStorage.getItem("rb_client_broker_name");const l=localStorage.getItem("rb_client_broker_logo");if(n){document.getElementById("brokerName").textContent=n;document.getElementById("brokerLogo").textContent=n[0].toUpperCase();}if(l){document.getElementById("brokerLogo").innerHTML=`<img src="${l}" alt="">`;}}catch(e){}}
-loadBroker();renderAll();renderOvernight();seedFeed();renderExecutors();initEngineHover();renderRoster();renderEngActivity();initTabs();initToggle();initEdit();
+loadBroker();renderAll();renderOvernight();seedFeed();renderExecutors();initEngineHover();renderRoster();renderHealth();renderEngActivity();initTabs();initToggle();initEdit();
 window.addEventListener("resize",()=>{if(document.getElementById("engineView").classList.contains("active"))drawConnectors();});
 setInterval(pushFeed,5500);
 </script>
