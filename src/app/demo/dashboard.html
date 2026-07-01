@@ -389,7 +389,7 @@ body::before{
       </div>
       <div class="vb-cells">
         <div class="vb-cell">
-          <div class="vb-label">Hours back<span class="info" tabindex="0">i<span class="tip">An estimate of the time you'd have spent doing this work by hand, now that the system handles it. Calculated from the volume we process, measured directly, and the per-task time you confirmed during setup, held conservative. It reflects work you used to do yourself. Not how fast the system runs, and not new work the system added on top. The figure shown here is illustrative, from sample data.</span></span></div>
+          <div class="vb-label">Time back<span class="info" tabindex="0">i<span class="tip">An estimate of the time you'd have spent doing this work by hand, now that the system handles it. Calculated from the volume we process, measured directly, and the per-task time you confirmed during setup, held conservative. It reflects work you used to do yourself. Not how fast the system runs, and not new work the system added on top. The figure shown here is illustrative, from sample data.</span></span></div>
           <div class="vb-val">~12<span class="u">hrs/wk</span></div>
           <div class="vb-sub">time you'd have spent on this by hand, now run by the system</div>
         </div>
@@ -493,7 +493,7 @@ body::before{
             <div class="node-head"><div class="node-id"><span class="node-code">OPS</span><span class="node-name">Ops auditor</span></div><span class="node-badge"><span class="bdot"></span>Auto</span></div>
             <div class="node-role">Audit &amp; roadmap</div>
             <div class="succ-row"><span>Success</span><b>100%</b></div><div class="succ-track"><div class="succ-fill" style="width:100%"></div></div>
-            <div class="node-foot"><div class="nf"><div class="nf-v">~12h<span style="font-size:11px">/wk</span></div><div class="nf-l">Hours back<span class="info" tabindex="0">i<span class="tip">An estimate of the time you'd have spent doing this work by hand, now that the system handles it. Calculated from the volume we process (measured directly) and the per-task time you confirmed during setup (held conservative). It reflects work you used to do yourself. Not how fast the system runs, and not new work the system added on top.</span></span></div></div><div class="nf"><div class="nf-v">1</div><div class="nf-l">flag open</div></div></div>
+            <div class="node-foot"><div class="nf"><div class="nf-v">~12h<span style="font-size:11px">/wk</span></div><div class="nf-l">Time back<span class="info" tabindex="0">i<span class="tip">An estimate of the time you'd have spent doing this work by hand, now that the system handles it. Calculated from the volume we process (measured directly) and the per-task time you confirmed during setup (held conservative). It reflects work you used to do yourself. Not how fast the system runs, and not new work the system added on top.</span></span></div></div><div class="nf"><div class="nf-v">1</div><div class="nf-l">flag open</div></div></div>
           </div></div>
           <div class="tier executors" id="executors"></div>
         </div>
@@ -619,7 +619,7 @@ function unfocusAgent(){
 }
 const NODE_INFO={
   lead:{role:"Orchestrator",name:"lead",blurb:"Sets priority, holds the override, and receives every report. The seven agents below run autonomously.",foot:[["9","channels live"],["0","escalations"]]},
-  ops:{role:"Audit & roadmap",name:"ops-auditor",blurb:"Audits the operation for where it loses time and delivers the roadmap for what to build next.",foot:[["~12h/wk","Hours back"],["1","flag open"]]}
+  ops:{role:"Audit & roadmap",name:"ops-auditor",blurb:"Audits the operation for where it loses time and delivers the roadmap for what to build next.",foot:[["~12h/wk","Time back"],["1","flag open"]]}
 };
 EXEC.forEach(e=>{NODE_INFO[e.id]={role:e.role,name:e.name,blurb:e.blurb,foot:[e.a,e.b]};});
 function showPopover(id,node){

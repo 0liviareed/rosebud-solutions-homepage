@@ -41,7 +41,7 @@ Four tiles plus a footer line. Each tile follows the **tooltip rule**: the on-fa
 | Standard | checkmark, "Met" | service standard set at go-live | measured against 14s median response, every follow-up sent, nothing to voicemail |
 | Work carried | 1,948 | system logs | total enquiries and sequences processed this month, counted directly from logs |
 | Answered after hours | 374 | message timestamps | enquiries answered outside working hours, a count of what was answered, not a revenue figure |
-| Hours back | ~12 hrs/wk | illustrative (see section 6) | the full derivation, ending with a note that the shown figure is illustrative, from sample data |
+| Time back | ~12 hrs/wk | illustrative (see section 6) | the full derivation, ending with a note that the shown figure is illustrative, from sample data |
 
 Footer: "Since go-live, March 2026 · 6,240 enquiries handled · 1,140 showings booked · 0 went to voicemail overnight." Note "went to voicemail" is provable from logs; the earlier "missed overnight" was not, and was removed. The earlier "Caught after hours or recovered" tile and its "None lost" claim were a recovered-value assertion with no client outcome data behind it. It was stripped back to a pure capture count.
 
@@ -86,7 +86,7 @@ Channels live, last lead captured, uptime, and System issues. The System issues 
 Three tiers, reporting upward, with a workflow layer beneath.
 
 - **Lead** (orchestrator, top).
-- **Ops auditor** (audit and roadmap). Carries the Hours back figure, labelled and tooltipped identically to the Live Operations tile, same value.
+- **Ops auditor** (audit and roadmap). Carries the Time back figure, labelled and tooltipped identically to the Live Operations tile, same value.
 - **Six executors:** Lead capture (CAP), Qualification (QAL), Booking (BKG), Nurture (NUR), Reminders (RMD), CRM sync (CRM).
 
 Connectors: solid lines for "reports to," dashed for "workflow." A work-packet pulse animates the reporting lines, and nodes flash as work passes, started on tab open.
@@ -107,14 +107,14 @@ Timestamped agent actions at the foot of the Engine tab.
 
 ---
 
-## 5. The Hours back metric
+## 5. The Time back metric
 
-The single output metric. "Hours back," not "time saved" (saved invites "saved versus what," which a sharp owner audits).
+The single output metric. "Time back," not "time saved" (saved invites "saved versus what," which a sharp owner audits).
 
 **Locked formula, per workflow:**
 
 ```
-Hours back = [ (V_success × M × C) − (V_flagged × M_flag) ] ÷ 60
+Time back = [ (V_success × M × C) − (V_flagged × M_flag) ] ÷ 60
 ```
 
 Run-tagged, so a given run is counted in exactly one of the two terms and the discount is never applied twice.
@@ -129,7 +129,7 @@ Sum across displacement workflows for the client total. A negative per-workflow 
 
 **Validator.** At each review, ask the owner "this says about X hours back, feel right?" The conservative construction is what makes a yes genuine rather than flattering.
 
-**Known soft spot.** Hours back multiplied by the owner's hourly value may land under the retainer. The defence is the conservative construction and the "you confirmed M" co-authorship, not the size of the number. Two rules follow: never inflate M to make the number prettier, and never place Hours back on the same surface as the retainer figure, because that invites the comparison that loses.
+**Known soft spot.** Time back multiplied by the owner's hourly value may land under the retainer. The defence is the conservative construction and the "you confirmed M" co-authorship, not the size of the number. Two rules follow: never inflate M to make the number prettier, and never place Time back on the same surface as the retainer figure, because that invites the comparison that loses.
 
 ---
 
@@ -155,7 +155,7 @@ The demo ships all-green, so System issues reads 0 and stays consistent with the
 Every figure on the board is exactly one of these. The live build must preserve the distinction.
 
 - **Measured (from logs).** Work carried, Answered after hours, capture / qualify / book volumes, channels live, system health checks, the Engine throughput and task counts. These wire to n8n and Supabase in the live build.
-- **Illustrative (sample, demo only).** Hours back (~12), and all Cedar & Park figures. Hours back is marked illustrative on its face (tilde) and in its tooltip. In the live build it is computed by the formula in section 5 from real logs.
+- **Illustrative (sample, demo only).** Time back (~12), and all Cedar & Park figures. Time back is marked illustrative on its face (tilde) and in its tooltip. In the live build it is computed by the formula in section 5 from real logs.
 - **Untracked (the client's, no Rosebud visibility).** Showing completed, Offer made, and all conversion outcomes. These never carry a number. If the board is ever wired to live data, these two stages must not be populated from any source that implies Rosebud measured them.
 
 ---
@@ -199,14 +199,14 @@ These are unresolved and should be closed before a client-facing release.
 3. **Missed-call recovery in Lead sources.** It is Rosebud-created net-new, not client acquisition, so it sits slightly oddly in a client-owned panel. Tag it as recovered by Rosebud, or move it.
 4. **Tooltip clipping.** Centered tooltips on the rightmost value-band tile can run close to the edge on narrow screens. Anchor right-side tooltips to open leftward if the board will be demoed on small laptops.
 5. **Extra health checks.** Deliverability spiral and queue starvation are scoped but not built.
-6. **M_flag sourcing.** Confirm M_flag is measured from flag timestamps for the live Hours back computation.
+6. **M_flag sourcing.** Confirm M_flag is measured from flag timestamps for the live Time back computation.
 7. **Real sub-agent names.** Confirm each node against the live n8n build.
 
 ---
 
 ## 11. Wiring notes for going live
 
-- Hours back, the health checks, and the measured KPIs all read from n8n and Supabase in the live build. The dashboard figures here are sample.
+- Time back, the health checks, and the measured KPIs all read from n8n and Supabase in the live build. The dashboard figures here are sample.
 - Keep client scope absolute. None of Rosebud's own acquisition workflows appear on a client board. The internal engine, if ever shown, is a separate asset for a separate audience.
 - The System issues count and the System Health panel must continue to read from one shared source.
 - Conversion stages stay unpopulated. The client owns and measures them.
