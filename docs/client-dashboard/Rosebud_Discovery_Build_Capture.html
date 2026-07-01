@@ -1,0 +1,276 @@
+<!doctype html><html><head><meta charset="utf-8"><style>
+@font-face{font-family:'Cormorant';src:url('/home/claude/fonts/CormorantGaramond.ttf');font-weight:300 700;}
+@font-face{font-family:'DM Sans';src:url('/home/claude/fonts/DMSans-Regular.ttf');font-weight:100 900;}
+@font-face{font-family:'DM Mono';src:url('/home/claude/fonts/DMMono-Medium.ttf');font-weight:500;}
+@page{size:A4 portrait;margin:0;}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{font-family:'DM Sans',sans-serif;color:#1c1922;}
+.page{position:relative;width:210mm;min-height:297mm;padding:16mm 15mm 14mm;page-break-after:always;}
+.page:last-child{page-break-after:auto;}
+b{font-weight:700;}
+code{font-family:'DM Mono',monospace;font-size:8.2px;background:#f3f1fb;border:1px solid rgba(108,92,174,.22);
+  border-radius:3px;padding:.5px 4px;color:#2D2691;white-space:nowrap;}
+.sym{font-family:'DM Mono',monospace;font-size:8.4px;color:#2D2691;font-weight:500;}
+.foot{position:absolute;left:15mm;right:15mm;bottom:8mm;display:flex;justify-content:space-between;
+  font-size:7.5px;letter-spacing:.03em;color:#8a8794;border-top:1px solid rgba(28,25,34,.10);padding-top:5px;}
+.foot.light{color:#9b97c9;border-top:1px solid rgba(255,255,255,.14);}
+
+/* cover */
+.cover{background:#100C3A;color:#fff;border-top:3px solid #2D2691;}
+.eyebrow{font-size:10px;font-weight:700;letter-spacing:.16em;color:#cfc9ee;}
+.kicker{font-size:9.5px;font-weight:700;letter-spacing:.18em;color:#9a93d6;margin-top:34mm;}
+.cover h1{font-family:'Cormorant';font-weight:500;font-size:62px;line-height:1.0;color:#fbfaff;margin-top:10px;}
+.cover .lede{font-size:12px;color:#c8c3e6;margin-top:14px;max-width:150mm;line-height:1.5;}
+.cover .rule{width:42mm;height:2px;background:#6c5cae;margin:16px 0 12px;}
+.cover .rev{font-size:8.5px;color:#7d77b0;}
+
+/* legend */
+h2.sec{font-family:'Cormorant';font-weight:600;font-size:27px;color:#1c1922;border-bottom:2px solid #2D2691;padding-bottom:4px;margin-bottom:10px;}
+.lead{font-size:9.5px;line-height:1.55;color:#2a2730;margin-bottom:12px;}
+.classgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px;}
+.classrow{display:flex;gap:8px;align-items:flex-start;font-size:9px;line-height:1.4;padding:8px 10px;border:1px solid rgba(28,25,34,.10);border-radius:5px;background:#fafafd;}
+.chip{display:inline-block;min-width:15px;text-align:center;color:#fff;font-weight:700;font-size:9px;border-radius:3px;padding:1px 5px;font-family:'DM Mono',monospace;}
+.formula{background:#f6f4fc;border:1px solid rgba(108,92,174,.28);border-radius:6px;padding:11px 14px;margin-bottom:10px;}
+.formula .ftitle{font-size:8.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#2D2691;margin-bottom:6px;}
+.formula code{display:inline-block;white-space:normal;font-size:8.6px;line-height:1.7;background:none;border:none;padding:0;}
+.formula .note{font-size:8.4px;color:#4a4754;line-height:1.45;margin-top:6px;}
+.keyline{font-size:8.6px;color:#3a3742;line-height:1.5;margin:3px 0;}
+.keyline .t{font-family:'DM Mono';font-weight:700;color:#1c1922;}
+
+/* questions */
+.q{border:1px solid rgba(28,25,34,.10);border-left:3px solid #2D2691;border-radius:5px;padding:9px 12px;margin-bottom:8px;break-inside:avoid;}
+.qhead{display:flex;align-items:center;gap:7px;margin-bottom:5px;}
+.qnum{font-family:'Cormorant';font-weight:700;font-size:19px;color:#2D2691;line-height:1;min-width:30px;}
+.qt{font-size:7px;font-weight:700;letter-spacing:.09em;color:#6c5cae;border:1px solid rgba(108,92,174,.4);border-radius:3px;padding:1px 5px;}
+.qt.core{color:#fff;background:#2D2691;border-color:#2D2691;}
+.qask{font-size:9.4px;line-height:1.5;color:#1c1922;margin-bottom:7px;}
+.ann{display:grid;grid-template-columns:1.15fr 1fr 1fr;gap:9px;border-top:1px solid rgba(28,25,34,.08);padding-top:6px;}
+.acell .alab{font-size:6.8px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#8a8794;margin-bottom:2px;}
+.acell .aval{font-size:8.2px;line-height:1.4;color:#2a2730;}
+.removed{font-size:8.4px;color:#6b7480;font-style:italic;background:#f6f6f9;border-radius:5px;padding:8px 11px;margin-top:6px;line-height:1.5;}
+
+/* price block */
+.ptable{width:100%;border-collapse:collapse;margin:8px 0 10px;border-top:2px solid #2D2691;}
+.ptable th{background:#2D2691;color:#fff;font-size:7.4px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;text-align:left;padding:6px 8px;}
+.ptable td{font-size:8.6px;padding:5px 8px;border-bottom:1px solid rgba(28,25,34,.09);}
+.ptable tr:nth-child(even){background:#F4F3FB;}
+.ptable .ent td{background:#FBF3E2;font-weight:700;}
+.rules li{font-size:9px;line-height:1.5;color:#2a2730;margin:0 0 5px 16px;}
+.rules li b{color:#2D2691;}
+</style></head><body><section class="page cover">
+  <div class="eyebrow">ROSEBUD SOLUTIONS</div>
+  <div style="font-size:8.5px;color:#7d77b0;margin-top:4px;">A E · I N T E R N A L · B U I L D C A P T U R E</div>
+  <div class="kicker">DISCOVERY → BUILD BRIEF</div>
+  <h1>Discovery Call,<br>typed to the build.</h1>
+  <div class="lede">The field-side companion to the discovery script. Every answer is captured as the exact variable a formula reads, so the call output drops straight into the build brief, no translation step.</div>
+  <div class="rule"></div>
+  <div class="rev">Revised 30 June 2026 · paired with the AE discovery script and the client dashboard build brief</div>
+  <div class="foot light"><span>Rosebud Solutions · Internal sales enablement · Discovery → Build Capture</span><span>AE · technical</span></div>
+</section><section class="page">
+  <h2 class="sec">How this sheet works</h2>
+  <p class="lead">The sell-side script produces a story and one confident number. This sheet produces <b>typed variables</b>. The build consumes per-workflow inputs, never an aggregate, so each question below is annotated with the symbol it produces, its unit, its constraint, and its <b>source class</b>. A captured field is only useful to the build if it carries a class.</p>
+
+  <div class="classgrid"><div class="classrow"><span class="chip" style="background:#2D2691">D</span><div><b>D</b> &nbsp;discovery-locked → becomes a build variable</div></div><div class="classrow"><span class="chip" style="background:#6c5cae">B</span><div><b>B</b> &nbsp;build-set → engineer fixes after the call</div></div><div class="classrow"><span class="chip" style="background:#6b7480">L</span><div><b>L</b> &nbsp;logs → fills from live data post go-live</div></div><div class="classrow"><span class="chip" style="background:#9a7b6b">C</span><div><b>C</b> &nbsp;client-owned → never measured by us</div></div></div>
+
+  <div class="formula">
+    <div class="ftitle">Computed output 1 · Hours back &nbsp;(client-facing)</div>
+    <code>Hours_back = sum_w [ ( V_success_w · M_w · C_w ) − ( V_flagged_w · M_flag_w ) ] / 60</code>
+    <div class="note">Discovery owns exactly one symbol: <span class="sym">M_w</span>, the owner’s minutes per task instance, per workflow, held ~20% conservative and locked on a per-task yes. <span class="sym">V_success_w</span> / <span class="sym">V_flagged_w</span> come from logs (L); <span class="sym">C_w</span> completeness and <span class="sym">M_flag_w</span> are build-set (B). Run per workflow, never as a lump: a negative per-workflow term is the signal that a workflow is not yet earning its oversight.</div>
+  </div>
+
+  <div class="formula">
+    <div class="ftitle">Computed output 2 · Price</div>
+    <code>Rev_m = u_val × u_pm &nbsp;&nbsp;|&nbsp;&nbsp; Tier = max( tier(Rev_m), tier(headcount) )</code><br>
+    <code>SetupFee = fixed(Tier) &nbsp;&nbsp;|&nbsp;&nbsp; Retainer = PartA(scope) + PartB(band(u_pm)) + PartC( 0.02 × Rev_m, cap £40k ) ; floor £2,500</code>
+    <div class="note">Every input here is a discovery-locked field: <span class="sym">u_val</span>, <span class="sym">u_pm</span> → <span class="sym">Rev_m</span> (Q11), <span class="sym">headcount</span> (setter brief), <span class="sym">scope</span> = the three confirmed pains (Q2 + reflect). Tier takes whichever signal points higher.</div>
+  </div>
+
+  <div style="margin-top:4px;">
+    <div class="keyline"><span class="t">ASK</span> &nbsp;a question, in your words. &nbsp; <span class="t">SAY</span> &nbsp;close to word-for-word. &nbsp; <span class="t">CORE</span> &nbsp;protect if the call runs short. &nbsp; <span class="t">NEW</span> &nbsp;not in the sell-side script.</div>
+  </div>
+  <div class="foot"><span>Rosebud Solutions · Internal sales enablement · Discovery → Build Capture</span><span>AE · technical · 2</span></div>
+</section><section class="page"><h2 class="sec">The questions, typed</h2><div class="q">
+  <div class="qhead"><span class="qnum">1</span><span class="qt ">ASK</span><span class="qt core">CORE</span></div>
+  <div class="qask">“Walk me through a normal Tuesday, start to finish. Where does it start, and what’s the last thing you do before you log off?”</div>
+  <div class="ann">
+    <div class="acell"><div class="alab">Produces</div><div class="aval">Task inventory → the in-scope workflows <span class="sym">w[ ]</span>; the unit-of-work word <span class="sym">word_unit</span> &nbsp;<span class="chip" style="background:#2D2691">D</span></div></div>
+    <div class="acell"><div class="alab">Constraint</div><div class="aval">Capture only tasks the build removes. The last thing before log-off is usually the bottleneck.</div></div>
+    <div class="acell"><div class="alab">Feeds</div><div class="aval">Selects the vertical’s primary three (Appendix A) → <span class="sym">Hours_back</span> terms + Engine nodes</div></div>
+  </div>
+</div><div class="q">
+  <div class="qhead"><span class="qnum">2</span><span class="qt ">ASK</span><span class="qt core">CORE</span></div>
+  <div class="qask">“And one that was painful. What was actually getting in the way? … Where did it stall?”</div>
+  <div class="ann">
+    <div class="acell"><div class="alab">Produces</div><div class="aval">Primary leak → confirms which <span class="sym">w</span> are in scope; <span class="sym">word_unit</span> / <span class="sym">word_appt</span> heard live &nbsp;<span class="chip" style="background:#2D2691">D</span></div></div>
+    <div class="acell"><div class="alab">Constraint</div><div class="aval">Don’t name the problem. Stay silent after asking; the leak surfaces in the pause.</div></div>
+    <div class="acell"><div class="alab">Feeds</div><div class="aval"><span class="sym">scope</span> (the three pains) → Part A retainer + the reflect-value beat</div></div>
+  </div>
+</div><div class="q">
+  <div class="qhead"><span class="qnum">3</span><span class="qt ">ASK</span><span class="qt core">CORE</span></div>
+  <div class="qask">“You came back to [the chasing / the end-of-day catch-up] a couple of times, say more about that?”</div>
+  <div class="ann">
+    <div class="acell"><div class="alab">Produces</div><div class="aval">Ownership transfer. No symbol; this is the tone-shift that makes the pain theirs.</div></div>
+    <div class="acell"><div class="alab">Constraint</div><div class="aval">Hand it back in their words, never as a claim.</div></div>
+    <div class="acell"><div class="alab">Feeds</div><div class="aval">Gates the reflect-the-value beat. Feeds no tile.</div></div>
+  </div>
+</div><div class="q">
+  <div class="qhead"><span class="qnum">4</span><span class="qt ">ASK</span><span class="qt core">CORE</span></div>
+  <div class="qask">“Last week, Monday to Friday: roughly how long on [task 1], and how many of those did you handle?”</div>
+  <div class="ann">
+    <div class="acell"><div class="alab">Produces</div><div class="aval"><span class="sym">m₁</span> minutes per instance · <span class="sym">v₁</span> instances per week &nbsp;<span class="chip" style="background:#2D2691">D</span></div></div>
+    <div class="acell"><div class="alab">Constraint</div><div class="aval">Two numbers per task, not one. Anchor to last week. Never suggest a number.</div></div>
+    <div class="acell"><div class="alab">Feeds</div><div class="aval"><span class="sym">M₁</span> (after conservatism) → <span class="sym">Hours_back</span></div></div>
+  </div>
+</div><div class="q">
+  <div class="qhead"><span class="qnum">5</span><span class="qt ">ASK</span><span class="qt core">CORE</span></div>
+  <div class="qask">“And [task 2] — how long, and how many?”</div>
+  <div class="ann">
+    <div class="acell"><div class="alab">Produces</div><div class="aval"><span class="sym">m₂</span> · <span class="sym">v₂</span> &nbsp;<span class="chip" style="background:#2D2691">D</span></div></div>
+    <div class="acell"><div class="alab">Constraint</div><div class="aval">The scattered one, most underestimated. Name the forms it takes so they count it.</div></div>
+    <div class="acell"><div class="alab">Feeds</div><div class="aval"><span class="sym">M₂</span> → <span class="sym">Hours_back</span></div></div>
+  </div>
+</div><div class="q">
+  <div class="qhead"><span class="qnum">6</span><span class="qt ">ASK</span><span class="qt core">CORE</span></div>
+  <div class="qask">“And [task 3] — same again, how long and how many?”</div>
+  <div class="ann">
+    <div class="acell"><div class="alab">Produces</div><div class="aval"><span class="sym">m₃</span> · <span class="sym">v₃</span> &nbsp;<span class="chip" style="background:#2D2691">D</span></div></div>
+    <div class="acell"><div class="alab">Constraint</div><div class="aval">Last input before you sum. Spell it out so they price the part that feels like “just the job.”</div></div>
+    <div class="acell"><div class="alab">Feeds</div><div class="aval"><span class="sym">M₃</span> → <span class="sym">Hours_back</span></div></div>
+  </div>
+</div><div class="q">
+  <div class="qhead"><span class="qnum">SAY</span><span class="qt ">SAY</span><span class="qt core">CORE</span></div>
+  <div class="qask">“So we’re looking at around [H] hours a week on this, before anything else. Sound about right?” &nbsp;(range → say the midpoint back)</div>
+  <div class="ann">
+    <div class="acell"><div class="alab">Produces</div><div class="aval">Per-task <span class="sym">M_w</span> locked on the yes; roll-up <span class="sym">H = sum_w( m_w · v_w )</span> &nbsp;<span class="chip" style="background:#2D2691">D</span></div></div>
+    <div class="acell"><div class="alab">Constraint</div><div class="aval">Conservatise each <span class="sym">m_w</span> ~20%. The yes is what makes <span class="sym">M_w</span> theirs. Record the midpoint.</div></div>
+    <div class="acell"><div class="alab">Feeds</div><div class="aval"><span class="sym">M_w</span> → <span class="sym">Hours_back</span>. <span class="sym">H</span> is the sell-side aggregate, derived, not itself a build input.</div></div>
+  </div>
+</div><div class="q">
+  <div class="qhead"><span class="qnum">7</span><span class="qt ">ASK</span><span class="qt core">CORE</span></div>
+  <div class="qask">“Where can an enquiry actually reach you? Name every one — your site, each portal, each social, text, phone.”</div>
+  <div class="ann">
+    <div class="acell"><div class="alab">Produces</div><div class="aval"><span class="sym">chan[ ]</span> — channel list, named &nbsp;<span class="chip" style="background:#2D2691">D</span></div></div>
+    <div class="acell"><div class="alab">Constraint</div><div class="aval">Platform names (Zillow, Rightmove, Instagram, SMS), not “online and phone.” Include the quiet channels.</div></div>
+    <div class="acell"><div class="alab">Feeds</div><div class="aval">Captured tile · Lead sources panel · channel-health strip</div></div>
+  </div>
+</div><div class="foot"><span>Rosebud Solutions · Internal sales enablement · Discovery → Build Capture</span><span>AE · technical · 3</span></div></section><section class="page"><div class="q">
+  <div class="qhead"><span class="qnum">8</span><span class="qt ">ASK</span><span class="qt core">CORE</span></div>
+  <div class="qask">“When a call comes in and nobody can grab it, what happens to that one right now?”</div>
+  <div class="ann">
+    <div class="acell"><div class="alab">Produces</div><div class="aval"><span class="sym">missed_call</span> — daytime overflow exists &nbsp;<span class="chip" style="background:#2D2691">D</span></div></div>
+    <div class="acell"><div class="alab">Constraint</div><div class="aval">This is the daytime miss (busy / on the tools). Distinct from the after-hours one below.</div></div>
+    <div class="acell"><div class="alab">Feeds</div><div class="aval">Missed-call recovery source</div></div>
+  </div>
+</div><div class="q">
+  <div class="qhead"><span class="qnum">9</span><span class="qt ">ASK</span><span class="qt core">CORE</span><span class="qt ">NEW</span></div>
+  <div class="qask">“When do these actually come in — evenings, weekends, after you’ve shut the laptop? What happens to a 9pm one now? And what hours are you open?”</div>
+  <div class="ann">
+    <div class="acell"><div class="alab">Produces</div><div class="aval"><span class="sym">[t_open, t_close]</span> + <span class="sym">days_open</span>; <span class="sym">after_hours</span> &nbsp;<span class="chip" style="background:#2D2691">D</span></div></div>
+    <div class="acell"><div class="alab">Constraint</div><div class="aval">REQUIRED. Without the open/close boundary the after-hours partition is undefined, and this is the tile you open the demo on.</div></div>
+    <div class="acell"><div class="alab">Feeds</div><div class="aval">Answered-after-hours partition · overnight panel · the “nothing to voicemail” half of Standard</div></div>
+  </div>
+</div><div class="q">
+  <div class="qhead"><span class="qnum">10</span><span class="qt ">ASK</span><span class="qt core">CORE</span></div>
+  <div class="qask">“And what are you running to manage all this — the CRM or system the team actually lives in, by name?”</div>
+  <div class="ann">
+    <div class="acell"><div class="alab">Produces</div><div class="aval"><span class="sym">sys</span> — exact product name &nbsp;<span class="chip" style="background:#2D2691">D</span></div></div>
+    <div class="acell"><div class="alab">Constraint</div><div class="aval">The product (“Follow Up Boss,” “Encompass”), not “a CRM.” Ten seconds; naming, not integrating.</div></div>
+    <div class="acell"><div class="alab">Feeds</div><div class="aval">CRM-sync node label</div></div>
+  </div>
+</div><div class="q">
+  <div class="qhead"><span class="qnum">11</span><span class="qt ">ASK</span><span class="qt core">CORE</span></div>
+  <div class="qask">Value read, built in order: “You’re placing around ten a month — what’s one worth when it lands?” → real same-niche comparator → “Ten at a thousand, ~£10k/mo from that line. Reflect your last couple of months?”</div>
+  <div class="ann">
+    <div class="acell"><div class="alab">Produces</div><div class="aval"><span class="sym">u_val</span> £/unit · <span class="sym">u_pm</span> units/mo → <span class="sym">Rev_m = u_val × u_pm</span> £/mo &nbsp;<span class="chip" style="background:#2D2691">D</span></div></div>
+    <div class="acell"><div class="alab">Constraint</div><div class="aval">Never ask revenue outright; build it from committed pieces. The comparator must be real and from their niche. Confirm Rev_m back.</div></div>
+    <div class="acell"><div class="alab">Feeds</div><div class="aval"><span class="sym">Tier</span> (max with headcount) + Part C retainer. The price anchor.</div></div>
+  </div>
+</div><div class="q">
+  <div class="qhead"><span class="qnum">12</span><span class="qt ">ASK</span></div>
+  <div class="qask">“What makes an enquiry worth your time versus one you’d pass on?”</div>
+  <div class="ann">
+    <div class="acell"><div class="alab">Produces</div><div class="aval"><span class="sym">Θ</span> ruleset {fields, cut, bands} + <span class="sym">route_map</span> &nbsp;<span class="chip" style="background:#2D2691">D</span>→<span class="chip" style="background:#6c5cae">B</span></div></div>
+    <div class="acell"><div class="alab">Constraint</div><div class="aval">Shape on the call; HARDEN in the 3-day build window (explicit handoff). Fields + thresholds, not every edge case.</div></div>
+    <div class="acell"><div class="alab">Feeds</div><div class="aval"><span class="sym">Qualified = count( score(lead,Θ) ≥ cut )</span> · routing</div></div>
+  </div>
+</div><div class="q">
+  <div class="qhead"><span class="qnum">13</span><span class="qt ">ASK</span></div>
+  <div class="qask">“How does a [appointment] actually get set right now — whose calendar, and how are reschedules handled?”</div>
+  <div class="ann">
+    <div class="acell"><div class="alab">Produces</div><div class="aval"><span class="sym">word_appt</span>; <span class="sym">calendar_owner</span>; <span class="sym">reschedule_flow</span> &nbsp;<span class="chip" style="background:#2D2691">D</span></div></div>
+    <div class="acell"><div class="alab">Constraint</div><div class="aval">Use and record their appointment word (showing / viewing / consult / survey). Reschedules are where the pain hides.</div></div>
+    <div class="acell"><div class="alab">Feeds</div><div class="aval">Showing-booked tile label + Booking node</div></div>
+  </div>
+</div><div class="foot"><span>Rosebud Solutions · Internal sales enablement · Discovery → Build Capture</span><span>AE · technical · 4</span></div></section><section class="page"><div class="q">
+  <div class="qhead"><span class="qnum">14</span><span class="qt ">ASK</span></div>
+  <div class="qask">“When does one of these go cold — after how long — and what would bring it back?”</div>
+  <div class="ann">
+    <div class="acell"><div class="alab">Produces</div><div class="aval"><span class="sym">T_dormant</span> window + <span class="sym">trig</span> condition &nbsp;<span class="chip" style="background:#2D2691">D</span></div></div>
+    <div class="acell"><div class="alab">Constraint</div><div class="aval">Land a concrete window and trigger (listing-match / renewal date / recall interval), not “it varies.”</div></div>
+    <div class="acell"><div class="alab">Feeds</div><div class="aval">Nurture wake feed</div></div>
+  </div>
+</div><div class="q">
+  <div class="qhead"><span class="qnum">15</span><span class="qt ">ASK</span></div>
+  <div class="qask">“How are confirmations and reminders handled today? What does your no-show situation look like?”</div>
+  <div class="ann">
+    <div class="acell"><div class="alab">Produces</div><div class="aval"><span class="sym">cadence</span>; <span class="sym">no_show_words</span> (qualitative) &nbsp;<span class="chip" style="background:#2D2691">D</span></div></div>
+    <div class="acell"><div class="alab">Constraint</div><div class="aval">Capture cadence. Do NOT record a no-show baseline number — you never claim a delta. Words only.</div></div>
+    <div class="acell"><div class="alab">Feeds</div><div class="aval">Reminders node (industry figure shown as benchmark, never their “before”)</div></div>
+  </div>
+</div><div class="q">
+  <div class="qhead"><span class="qnum">16</span><span class="qt ">ASK</span></div>
+  <div class="qask">“When a new one lands, who does it go to, and how do you split them?”</div>
+  <div class="ann">
+    <div class="acell"><div class="alab">Produces</div><div class="aval"><span class="sym">staff[ ]</span> + <span class="sym">split</span> &nbsp;<span class="chip" style="background:#2D2691">D</span></div></div>
+    <div class="acell"><div class="alab">Constraint</div><div class="aval">Actual first names. Doubles as quiet buyer-mapping.</div></div>
+    <div class="acell"><div class="alab">Feeds</div><div class="aval">Team activity · live feed “routed to [name]”</div></div>
+  </div>
+</div><div class="q">
+  <div class="qhead"><span class="qnum">16b</span><span class="qt ">ASK</span></div>
+  <div class="qask">“How much of this actually runs through you — are you in it day to day, or has the team got it without you?”</div>
+  <div class="ann">
+    <div class="acell"><div class="alab">Produces</div><div class="aval"><span class="sym">owner_dep</span> &nbsp;<span class="chip" style="background:#2D2691">D</span></div></div>
+    <div class="acell"><div class="alab">Constraint</div><div class="aval">Pain signal + qualifier. An owner who IS the operation is your strongest reason to build.</div></div>
+    <div class="acell"><div class="alab">Feeds</div><div class="aval">Build justification. Feeds no tile.</div></div>
+  </div>
+</div><div class="q">
+  <div class="qhead"><span class="qnum">17</span><span class="qt ">ASK</span><span class="qt core">CORE</span></div>
+  <div class="qask">“How’s the team set up day to day — who do you go to for what?”</div>
+  <div class="ann">
+    <div class="acell"><div class="alab">Produces</div><div class="aval"><span class="sym">buyer_map</span> &nbsp;<span class="chip" style="background:#2D2691">D</span></div></div>
+    <div class="acell"><div class="alab">Constraint</div><div class="aval">The order they name people is the hierarchy as they live it. You need everyone who holds a yes in the demo room.</div></div>
+    <div class="acell"><div class="alab">Feeds</div><div class="aval">Demo invite. Feeds no tile.</div></div>
+  </div>
+</div><div class="removed">Removed from the sell-side script: Q1 (role) folds into Q1-Tuesday · Q3 (smooth story, feeds no cell) · Q11 (volume, lands after the hours yes and only feeds an illustrative tile) · Q20 (prior tools, a refinement of the buyer map).</div><div class="foot"><span>Rosebud Solutions · Internal sales enablement · Discovery → Build Capture</span><span>AE · technical · 5</span></div></section><section class="page">
+  <h2 class="sec">Computed on the call · price</h2>
+  <p class="lead"><span class="sym">Q11</span> gives revenue, which confirms or lifts the setter’s headcount tier. Place by whichever signal points higher. Setup is fixed to the tier; the retainer is the flexible piece, seated as the three-number anchor and made exact for the demo. <b>Internal — never shown to the prospect.</b></p>
+  <table class="ptable">
+    <thead><tr><th>Tier</th><th>Est. monthly revenue (Rev_m)</th><th>Headcount</th><th>Setup fee</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td>£5k – £20k</td><td>1 – 3</td><td>£5,000</td></tr>
+      <tr><td>2</td><td>£20k – £35k</td><td>3 – 6</td><td>£7,500</td></tr>
+      <tr><td>3</td><td>£35k – £50k</td><td>6 – 10</td><td>£10,000</td></tr>
+      <tr><td>4</td><td>£50k – £70k</td><td>10 – 20</td><td>£13,500</td></tr>
+      <tr><td>5</td><td>£70k – £100k</td><td>20 – 40</td><td>£17,500</td></tr>
+      <tr><td>6</td><td>£100k – £250k</td><td>40 – 75</td><td>£22,500</td></tr>
+      <tr class="ent"><td>Enterprise</td><td>£250k+</td><td>75+</td><td>£35,000+ · escalate to Saj or Jay first</td></tr>
+    </tbody>
+  </table>
+  <div class="formula">
+    <div class="ftitle">Retainer · three-number anchor (rough on call, exact at demo)</div>
+    <code>Retainer = PartA(scope) + PartB(band(u_pm)) + PartC( 0.02 × Rev_m, cap £40k/mo ) ; absolute floor £2,500</code>
+    <div class="note">Part A is scope-based (£2k–£7k). Part B is the volume/profile surcharge band off <span class="sym">u_pm</span>. Part C is 2% of gross monthly revenue, capped £40k/mo. The axis you voice is scope (high / middle / low), not volume.</div>
+  </div>
+
+  <h2 class="sec" style="margin-top:14px;">Invariants</h2>
+  <ul class="rules">
+    <li><b>Capture m_w and v_w per task, never a lump.</b> You cannot recover per-workflow <span class="sym">M_w</span> from an aggregate, and per-workflow is mandatory — it is what lets the Ops auditor flag a workflow not earning its oversight.</li>
+    <li><b>One symbol is discovery’s on Hours back: M_w.</b> The V counts, completeness C, and M_flag are not yours to capture.</li>
+    <li><b>Named, not categorical.</b> Channels and system are product names (<span class="sym">chan[ ]</span>, <span class="sym">sys</span>), or the tile builds generic.</li>
+    <li><b>Shape now, harden in build.</b> The ruleset <span class="sym">Θ</span> leaves the call at shape-fidelity; fields and thresholds are hardened in the three-day window. Make that handoff explicit.</li>
+    <li><b>Never capture a baseline you will later claim a delta against.</b> Response speed and no-show are forward standards, not measured befores. Words only.</li>
+    <li><b>Never compute conversion.</b> Showing-completed and offer-made stay blank — class <span class="sym">C</span>, the client’s to measure, never ours.</li>
+    <li><b>Conservatise M_w ~20%.</b> The per-task “yes” is what locks it and makes the number theirs, not flattering.</li>
+  </ul>
+  <div class="foot"><span>Rosebud Solutions · Internal sales enablement · Discovery → Build Capture</span><span>AE · technical · 6</span></div>
+</section></body></html>
