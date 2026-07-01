@@ -112,7 +112,7 @@ body::before{
 .vb-head{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:20px}
 .vb-title{font-family:var(--serif);font-size:25px;color:var(--ink);display:flex;align-items:center}
 .vb-tag{font-weight:500;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--purple-deep)}
-.vb-cells{display:grid;grid-template-columns:repeat(4,1fr);gap:0}
+.vb-cells{display:grid;grid-template-columns:repeat(3,1fr);gap:0}
 .vb-cell{display:flex;flex-direction:column;gap:8px;padding:0 24px}
 .vb-cell:first-child{padding-left:0}
 .vb-cell+.vb-cell{border-left:1px solid var(--bd)}
@@ -384,14 +384,14 @@ body::before{
     </div>
     <div class="valueband">
       <div class="vb-head">
-        <div class="vb-title">Your operation, this month<span class="info" tabindex="0">i<span class="tip">The work the operation carried and the standard it held. Closings and revenue are your team&rsquo;s; we do not count them here.</span></span></div>
+        <div class="vb-title">Your operation, this month<span class="info" tabindex="0">i<span class="tip">The work the operation carried this month. Closings and revenue are your team&rsquo;s; we do not count them here.</span></span></div>
         <div class="vb-tag">Value · June 2026</div>
       </div>
       <div class="vb-cells">
         <div class="vb-cell">
-          <div class="vb-label">Standard<span class="info" tabindex="0">i<span class="tip">Measured against your service standard set at go-live: 14s median response, every follow-up sent, nothing to voicemail.</span></span></div>
-          <div class="vb-val"><span class="tick">&#10003;</span>Met</div>
-          <div class="vb-sub">14s median response · every follow-up sent · nothing to voicemail</div>
+          <div class="vb-label">Hours back<span class="info" tabindex="0">i<span class="tip">An estimate of the time you'd have spent doing this work by hand, now that the system handles it. Calculated from the volume we process, measured directly, and the per-task time you confirmed during setup, held conservative. It reflects work you used to do yourself. Not how fast the system runs, and not new work the system added on top. The figure shown here is illustrative, from sample data.</span></span></div>
+          <div class="vb-val">~12<span class="u">hrs/wk</span></div>
+          <div class="vb-sub">time you'd have spent on this by hand, now run by the system</div>
         </div>
         <div class="vb-cell">
           <div class="vb-label">Work carried<span class="info" tabindex="0">i<span class="tip">Total enquiries and sequences the system processed this month, counted directly from system logs.</span></span></div>
@@ -402,11 +402,6 @@ body::before{
           <div class="vb-label">Answered after hours<span class="info" tabindex="0">i<span class="tip">Enquiries the system answered outside your working hours, counted from message timestamps. A count of what was answered, not a revenue figure.</span></span></div>
           <div class="vb-val">374</div>
           <div class="vb-sub">enquiries answered while you were closed, every one logged and actioned</div>
-        </div>
-        <div class="vb-cell">
-          <div class="vb-label">Hours back<span class="info" tabindex="0">i<span class="tip">An estimate of the time you'd have spent doing this work by hand, now that the system handles it. Calculated from the volume we process, measured directly, and the per-task time you confirmed during setup, held conservative. It reflects work you used to do yourself. Not how fast the system runs, and not new work the system added on top. The figure shown here is illustrative, from sample data.</span></span></div>
-          <div class="vb-val">~12<span class="u">hrs/wk</span></div>
-          <div class="vb-sub">time you'd have spent on this by hand, now run by the system</div>
         </div>
       </div>
       <div class="vb-foot">
