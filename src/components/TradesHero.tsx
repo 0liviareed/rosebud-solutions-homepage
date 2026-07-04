@@ -200,7 +200,7 @@ export default function TradesHero({
         The admin your office team shouldn&apos;t be doing: answering every
         call, qualifying every job, chasing every quote, handling the
         paperwork, and following up past customers for repeat work. Built around
-        your job management system. We run it. You own it.
+        your job management system. We run it.
       </p>
 
       <div className="rbh-cta-wrap">

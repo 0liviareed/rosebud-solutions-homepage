@@ -41,7 +41,6 @@ const FAQ_SCHEMA = {
     { "@type": "Question", name: "Why isn't there a price on this page?", acceptedAnswer: { "@type": "Answer", text: "Every operation we build is scoped to the business we're building it for. A two-person dental practice and a fifteen-consultant recruitment agency need different systems, different integrations, and different operational load on our side. Templated pricing would mean templated systems." } },
     { "@type": "Question", name: "What determines the retainer figure?", acceptedAnswer: { "@type": "Answer", text: "Enquiry volume, number of integrations, workflow complexity, and the operational load of running the system on your behalf." } },
     { "@type": "Question", name: "What happens in the five-week build?", acceptedAnswer: { "@type": "Answer", text: "Week one is discovery. Weeks two to four are configuration and integration. Week five is testing and sign-off. On the Monday of week six, the system is live." } },
-    { "@type": "Question", name: "Do I own the system?", acceptedAnswer: { "@type": "Answer", text: "Yes. Full access, full credentials, full data. The IP and infrastructure sit in your accounts. We operate it during the engagement; you own it before, during, and after." } },
     { "@type": "Question", name: "Is there a minimum term?", acceptedAnswer: { "@type": "Answer", text: "Twelve months. The system needs time to learn your data, refine its logic, and produce compounding results." } },
   ],
 };

@@ -362,7 +362,7 @@ export default function MortgageLendingPage() {
 
           <div className="rb-wrap">
             <p className="rb-aftertext" data-rb-fade="3">
-              You own every system we build. No lock-in. Cancel any time.
+              No lock-in. Cancel any time.
             </p>
             <p className="rb-aftertext rb-aftertext-quiet" data-rb-fade="3">
               Pricing shared on the demo call — scoped to your monthly

@@ -41,23 +41,19 @@ const GROUPS: FAQGroup[] = [
     ],
   },
   {
-    label: "Ownership, risk, and exit",
+    label: "Risk and exit",
     items: [
-      {
-        q: "Do I own the system?",
-        a: "Yes. Full access, full credentials, full data. The IP and infrastructure sit in your accounts. We operate it during the engagement; you own it before, during, and after.",
-      },
       {
         q: "Is there a minimum term?",
         a: "Twelve months. The system needs time to learn your data, refine its logic, and produce compounding results. We don't take on engagements where the client expects to evaluate the work inside thirty days — that's not how operational systems work.",
       },
       {
         q: "What happens after the twelve-month term?",
-        a: "The engagement renews on a rolling monthly basis. Continue, scale up, scale down, or end with thirty days' notice after the initial term. The system itself stays yours either way.",
+        a: "The engagement renews on a rolling monthly basis. Continue, scale up, scale down, or end with thirty days' notice after the initial term.",
       },
       {
         q: "What if it doesn't work?",
-        a: "Every workflow is built and signed off with you before it goes live — so by the time the system is operating, you've already approved exactly what it does. If something needs refinement after launch, the retainer covers that. The “doesn't work” scenario most clients worry about is “what if it doesn't deliver enough”; in that case we're already inside a system you own, with a team operating it, and we adjust scope at the quarterly review.",
+        a: "Every workflow is built and signed off with you before it goes live — so by the time the system is operating, you've already approved exactly what it does. If something needs refinement after launch, the retainer covers that. The “doesn't work” scenario most clients worry about is “what if it doesn't deliver enough”; in that case we're already inside a system, with a team operating it, and we adjust scope at the quarterly review.",
       },
     ],
   },
