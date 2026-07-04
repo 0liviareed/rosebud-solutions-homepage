@@ -61,7 +61,7 @@ export default function DigitalTeam() {
       <section
         className="rb-sec rb-dt-sec"
         data-rb-sec
-        aria-label="What you'll own by week five"
+        aria-label="What you actually get"
       >
         <div className="rb-wrap">
           <div className="rb-head rb-head-left">
