@@ -170,8 +170,7 @@ export default function IsThisYou() {
           <p className="rb-nar-resolution-text">
             Because Rosebud isn&apos;t software you operate. It&apos;s a{" "}
             <em>custom AI operation we operate for you</em> — from first
-            enquiry to closed deal. Built around your business, run by us,
-            owned by you.
+            enquiry to closed deal. Built around your business, run by us.
           </p>
         </div>
 

@@ -74,7 +74,7 @@ export default function DigitalTeam() {
             <p className="rb-sub" data-rb-fade="2">
               Because this isn&apos;t software you operate. It&apos;s a custom
               AI operation we operate for you — from first enquiry to closed
-              deal. Built around your business, run by us, owned by you.
+              deal. Built around your business, run by us.
             </p>
           </div>
 
