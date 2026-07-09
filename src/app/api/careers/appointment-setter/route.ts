@@ -94,6 +94,7 @@ type Body = {
   email?: string;
   location?: string;
   linkedin_url?: string;
+  portfolio_url?: string;
   b2b_experience?: string[];
   commission_role_before?: boolean;
   commission_role_details?: string;
@@ -205,6 +206,14 @@ export async function POST(req: Request) {
     }
   }
 
+  // Optional portfolio URL (e.g. Loom video) — light validation
+  let portfolioUrl: string | null = null;
+  if (nonEmptyString(body.portfolio_url)) {
+    const u = body.portfolio_url.trim();
+    if (!/^https?:\/\//i.test(u)) return bad("Portfolio URL must start with http(s)://");
+    portfolioUrl = u;
+  }
+
   // Multiselects
   const b2b = validateArray(body.b2b_experience, B2B_OPTIONS);
   if (!b2b) return bad("Select at least one option for B2B experience");
@@ -300,6 +309,7 @@ export async function POST(req: Request) {
       email: body.email.trim(),
       location: body.location.trim(),
       linkedin_url: linkedinUrl,
+      portfolio_url: portfolioUrl,
       b2b_experience: b2b,
       commission_role_before: body.commission_role_before,
       commission_role_details: commissionDetails,

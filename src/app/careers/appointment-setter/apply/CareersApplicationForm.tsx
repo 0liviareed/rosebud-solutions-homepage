@@ -10,6 +10,7 @@ type Form = {
   email: string;
   location: string;
   linkedin_url: string;
+  portfolio_url: string;
   b2b_experience: string;
   commission_role_before: "yes" | "no" | "";
   commission_role_details: string;
@@ -37,6 +38,7 @@ const INITIAL: Form = {
   email: "",
   location: "",
   linkedin_url: "",
+  portfolio_url: "",
   b2b_experience: "",
   commission_role_before: "",
   commission_role_details: "",
@@ -197,6 +199,9 @@ export default function CareersApplicationForm() {
         return "";
       case "location":    return form.location.trim() ? "" : "Required.";
       case "linkedin_url":return form.linkedin_url.trim() ? "" : "Required — write 'N/A' if you don't have one.";
+      case "portfolio_url":
+        if (!form.portfolio_url.trim()) return "";
+        return /^https?:\/\//i.test(form.portfolio_url.trim()) ? "" : "Enter a valid URL starting with http.";
       case "b2b_experience":         return form.b2b_experience ? "" : "Please select an option.";
       case "commission_role_before": return form.commission_role_before ? "" : "Please select Yes or No.";
       case "commission_role_details":
@@ -301,6 +306,7 @@ export default function CareersApplicationForm() {
           email: form.email,
           location: form.location,
           linkedin_url: form.linkedin_url || undefined,
+          portfolio_url: form.portfolio_url || undefined,
           b2b_experience: [form.b2b_experience],
           commission_role_before: form.commission_role_before === "yes",
           commission_role_details: form.commission_role_details || undefined,
@@ -422,6 +428,22 @@ export default function CareersApplicationForm() {
             className="rb-app-input"
           />
           {renderFieldError("linkedin_url")}
+        </label>
+
+        <label className="rb-app-field" data-field="portfolio_url">
+          <span className="rb-app-label">
+            Portfolio URL{" "}
+            <span style={{ opacity: 0.55, fontWeight: 400 }}>(optional)</span>
+          </span>
+          <input
+            type="text"
+            placeholder="e.g. a Loom video, personal site, or work sample"
+            value={form.portfolio_url}
+            onChange={(e) => update("portfolio_url", e.target.value)}
+            onBlur={() => markTouched("portfolio_url")}
+            className="rb-app-input"
+          />
+          {renderFieldError("portfolio_url")}
         </label>
       </fieldset>
 
