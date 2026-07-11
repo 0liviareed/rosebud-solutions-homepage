@@ -154,7 +154,7 @@ export default function PrivacyPage() {
             <h2 className="rb-policy-h2">Job Applicants and Recruitment Data</h2>
             <p>
               When you apply for a role at Rosebud Solutions via our website
-              (including the appointment-setter application form), we collect
+              (including the Sales Development Representative application form), we collect
               and process the personal information you submit for the purpose
               of assessing your application and contacting you about it.
             </p>

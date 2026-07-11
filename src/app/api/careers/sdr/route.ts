@@ -5,7 +5,9 @@ export const dynamic = "force-dynamic";
 export const maxDuration = 15;
 
 /**
- * Custom appointment-setter application handler.
+ * Custom SDR (Sales Development Representative) application handler.
+ * (Applications are stored in the appointment_setter_applications table,
+ * kept under its original name — the SDR role supersedes the setter role.)
  *
  * Replaces the Brevo form embed (which kept breaking under styling
  * overrides). This is plain Next.js + Supabase + Telegram.
@@ -168,12 +170,12 @@ async function fireTelegram(name: string) {
         if (!r.ok) {
           const t = await r.text().catch(() => "");
           console.error(
-            `[appointment-setter] telegram send to ${chatId} failed status=${r.status} body=${t.slice(0, 200)}`
+            `[sdr] telegram send to ${chatId} failed status=${r.status} body=${t.slice(0, 200)}`
           );
         }
       } catch (e) {
         console.error(
-          `[appointment-setter] telegram send to ${chatId} threw:`,
+          `[sdr] telegram send to ${chatId} threw:`,
           e instanceof Error ? e.message : String(e)
         );
       }
@@ -294,7 +296,7 @@ export async function POST(req: Request) {
   // Insert into Supabase
   const { NEXT_PUBLIC_SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY } = process.env;
   if (!NEXT_PUBLIC_SUPABASE_URL || !SUPABASE_SERVICE_ROLE_KEY) {
-    console.error("[appointment-setter] missing Supabase env");
+    console.error("[sdr] missing Supabase env");
     return NextResponse.json({ error: "Server misconfigured" }, { status: 500 });
   }
   const supabase = createClient(NEXT_PUBLIC_SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY);
@@ -334,7 +336,7 @@ export async function POST(req: Request) {
     });
 
   if (insertErr) {
-    console.error("[appointment-setter] insert failed:", insertErr.message);
+    console.error("[sdr] insert failed:", insertErr.message);
     return NextResponse.json(
       { error: "Couldn't save your application. Please try again, or email contact@rosebud.global." },
       { status: 500 }

@@ -297,7 +297,7 @@ export default function CareersApplicationForm() {
 
     setState("submitting");
     try {
-      const res = await fetch("/api/careers/appointment-setter", {
+      const res = await fetch("/api/careers/sdr", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
