@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useRef, useState, type CSSProperties } from "react";
-import Lenis from "lenis";
+import Hero from "@/components/Hero";
 import BookDemoCTA from "./BookDemoCTA";
 import RevenueWorkflow from "./RevenueWorkflow";
 
@@ -77,9 +77,8 @@ const KEYFRAMES = `
   .rb-foot-grid{ grid-template-columns:1fr !important; gap:28px !important; }
   .rb-foot-legal{ text-align:left !important; }
   .rb-foot-legal-list{ align-items:flex-start !important; }
-  .rb-hero-h1{ font-size:clamp(34px,8vw,52px) !important; }
   .rb-navbar{ background:rgba(18,13,26,0.82) !important; -webkit-backdrop-filter:blur(16px) !important; backdrop-filter:blur(16px) !important; border-color:rgba(184,174,219,0.18) !important; max-width:none !important; }
-  .rb-hero-stage{ border-bottom-left-radius:26px !important; border-bottom-right-radius:26px !important; }
+  .rb-hero-pin{ border-bottom-left-radius:26px !important; border-bottom-right-radius:26px !important; overflow:hidden !important; }
   .rb-close-stage{ border-bottom-left-radius:26px !important; border-bottom-right-radius:26px !important; }
 }
 @media (max-width:520px){
@@ -145,56 +144,17 @@ const clamp = (v: number, lo: number, hi: number) => Math.max(lo, Math.min(hi, v
 const SERIF = "var(--font-cormorant), 'Cormorant Garamond', serif";
 
 export default function HomepageV2() {
-  const heroWrap = useRef<HTMLElement>(null);
-  const heroPin = useRef<HTMLDivElement>(null);
-  const heroStage = useRef<HTMLDivElement>(null);
-  const heroTopo = useRef<HTMLDivElement>(null);
-  const heroContours = useRef<SVGSVGElement>(null);
-  const heroLit = useRef<SVGPathElement>(null);
-  const heroDot = useRef<SVGGElement>(null);
-  const heroCue = useRef<HTMLDivElement>(null);
   const navBar = useRef<HTMLDivElement>(null);
-
-  const heroLen = useRef(0);
-  const heroCurP = useRef(0);
-  const heroTargetP = useRef(0);
-  const heroInView = useRef(true);
 
   const ucRef = useRef<HTMLElement>(null);
   const [active, setActive] = useState(0);
   const wfBox = useRef<HTMLDivElement>(null);
   const wfInner = useRef<HTMLDivElement>(null);
   const voiceTrack = useRef<HTMLDivElement>(null);
-  const closeWrap = useRef<HTMLElement>(null);
-  const closeStage = useRef<HTMLDivElement>(null);
   const [voiceIdx, setVoiceIdx] = useState(0);
   const [navOpen, setNavOpen] = useState(false);
-  const isMobileRef = useRef(false);
   const touchX = useRef<number | null>(null);
 
-  useEffect(() => {
-    const mq = window.matchMedia("(max-width: 860px)");
-    const on = () => { isMobileRef.current = mq.matches; };
-    on();
-    mq.addEventListener("change", on);
-    return () => mq.removeEventListener("change", on);
-  }, []);
-
-  // Smooth-scroll layer (Lenis) — same as the live site. Smooths wheel + touch
-  // so the pinned scroll-jack sections feel fluid instead of stiff/native.
-  useEffect(() => {
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    const lenis = new Lenis({
-      duration: 1.35,
-      easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -11 * t)),
-      smoothWheel: true,
-      syncTouch: true,
-    });
-    let raf = 0;
-    const loop = (time: number) => { lenis.raf(time); raf = requestAnimationFrame(loop); };
-    raf = requestAnimationFrame(loop);
-    return () => { cancelAnimationFrame(raf); lenis.destroy(); };
-  }, []);
 
   const jumpTo = (i: number) => {
     const el = ucRef.current;
@@ -276,88 +236,22 @@ export default function HomepageV2() {
     return () => { window.clearTimeout(id); window.removeEventListener("resize", apply); };
   }, [voiceIdx]);
 
-  // close section frames out into the footer as it scrolls (mirrors the hero)
+
+  // Nav solidifies once you scroll off the hero.
   useEffect(() => {
-    let ticking = false;
-    const compute = () => {
-      ticking = false;
-      const cw = closeWrap.current, cstage = closeStage.current;
-      if (!cw || !cstage) return;
-      const vh = window.innerHeight;
-      const r = cw.getBoundingClientRect();
-      if (r.bottom < 0 || r.top > vh) return;
-      const total = Math.max(1, cw.offsetHeight - vh);
-      const ct = clamp((clamp(-r.top / total, 0, 1) - 0.4) / 0.55, 0, 1);
-      cstage.style.transform = `scale(${1 - 0.14 * ct})`;
-      cstage.style.borderRadius = `${ct * 30}px`;
-      cstage.style.boxShadow = `0 ${40 + ct * 50}px ${120 + ct * 90}px -40px rgba(0,0,0,0.7), 0 0 ${ct * 80}px ${ct * 34}px rgba(0,0,0,0.5)`;
+    const onScroll = () => {
+      const bar = navBar.current;
+      if (!bar) return;
+      const solid = window.scrollY > window.innerHeight * 0.85;
+      bar.style.background = solid ? "linear-gradient(180deg, rgba(38,30,54,0.78) 0%, rgba(16,12,24,0.66) 100%)" : "transparent";
+      bar.style.backdropFilter = solid ? "blur(26px) saturate(1.4)" : "none";
+      bar.style.setProperty("-webkit-backdrop-filter", solid ? "blur(26px) saturate(1.4)" : "none");
+      bar.style.borderColor = solid ? "rgba(184,174,219,0.22)" : "transparent";
+      bar.style.boxShadow = solid ? "0 24px 60px -28px rgba(20,14,34,0.75), inset 0 1px 0 rgba(255,255,255,0.16)" : "none";
     };
-    const onScroll = () => { if (ticking) return; ticking = true; requestAnimationFrame(compute); };
     window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", onScroll);
-    compute();
-    return () => { window.removeEventListener("scroll", onScroll); window.removeEventListener("resize", onScroll); };
-  }, []);
-
-  useEffect(() => {
-    const lit = heroLit.current;
-    if (lit) {
-      heroLen.current = lit.getTotalLength();
-      lit.style.strokeDasharray = String(heroLen.current);
-      lit.style.strokeDashoffset = String(heroLen.current);
-      const pt = lit.getPointAtLength(0);
-      heroDot.current?.setAttribute("transform", `translate(${pt.x},${pt.y})`);
-    }
-    // Pause the hero's per-frame layout read/writes once it scrolls off-screen —
-    // otherwise it thrashes layout during the use-cases section (felt "sticky").
-    const io = new IntersectionObserver(
-      ([e]) => { heroInView.current = e.isIntersecting; },
-      { threshold: 0 }
-    );
-    if (heroWrap.current) io.observe(heroWrap.current);
-
-    let raf = 0;
-    const tick = () => {
-      if (!heroInView.current) { raf = requestAnimationFrame(tick); return; }
-      const l = heroLit.current, wrapEl = heroWrap.current;
-      if (l && wrapEl) {
-        const wr = wrapEl.getBoundingClientRect();
-        const wrange = Math.max(1, wrapEl.offsetHeight - window.innerHeight);
-        heroTargetP.current = clamp(-wr.top / wrange, 0, 1);
-        heroCurP.current += (heroTargetP.current - heroCurP.current) * 0.14;
-        const walked = heroLen.current * heroCurP.current;
-        const pt = l.getPointAtLength(walked);
-        const dot = heroDot.current;
-        if (dot) { dot.setAttribute("transform", `translate(${pt.x},${pt.y})`); dot.style.opacity = heroCurP.current > 0.94 ? "0" : "1"; }
-        l.style.strokeDashoffset = String(heroLen.current - walked);
-        const P = heroCurP.current;
-        if (heroTopo.current) heroTopo.current.style.transform = `translateY(${-150 * P}px) scale(${1 + 0.14 * P})`;
-        if (heroContours.current) { heroContours.current.style.transform = `translateY(${-60 * P}px)`; heroContours.current.style.opacity = String(1 - 0.65 * P); }
-        const stage = heroStage.current;
-        if (stage) {
-          const t = clamp((P - 0.8) / 0.2, 0, 1);
-          stage.style.transform = `scale(${1 - 0.14 * t})`;
-          stage.style.borderRadius = `${t * 28}px`;
-          stage.style.boxShadow = `0 ${40 + t * 40}px ${120 + t * 80}px -40px rgba(23,19,31,${0.28 + 0.16 * t}), 0 0 ${t * 90}px ${t * 55}px rgba(234,230,243,${t * 0.6})`;
-          if (heroPin.current) heroPin.current.style.background = `rgb(${Math.round(8 + 226 * t)},${Math.round(6 + 224 * t)},${Math.round(9 + 234 * t)})`;
-        }
-        const bar = navBar.current;
-        if (bar) {
-          const solid = P > 0.9;
-          bar.style.background = solid ? "linear-gradient(180deg, rgba(38,30,54,0.72) 0%, rgba(16,12,24,0.6) 100%)" : "transparent";
-          bar.style.backdropFilter = solid ? "blur(26px) saturate(1.4)" : "none";
-          bar.style.setProperty("-webkit-backdrop-filter", solid ? "blur(26px) saturate(1.4)" : "none");
-          bar.style.borderColor = solid ? "rgba(184,174,219,0.22)" : "transparent";
-          bar.style.boxShadow = solid ? "0 24px 60px -28px rgba(20,14,34,0.75), 0 2px 10px -4px rgba(139,125,216,0.28), inset 0 1px 0 rgba(255,255,255,0.16), inset 0 -1px 0 rgba(0,0,0,0.2)" : "none";
-          bar.style.maxWidth = solid ? "980px" : "1180px";
-          bar.style.padding = solid ? "9px 12px 9px 22px" : "12px 14px 12px 22px";
-        }
-        if (heroCue.current) heroCue.current.style.opacity = String(1 - clamp((P - 0.1) / 0.15, 0, 1));
-      }
-      raf = requestAnimationFrame(tick);
-    };
-    raf = requestAnimationFrame(tick);
-    return () => { cancelAnimationFrame(raf); io.disconnect(); };
+    onScroll();
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
   const navLink: CSSProperties = { display: "flex", alignItems: "center", gap: 7, color: "var(--nav-fg)" };
@@ -407,72 +301,17 @@ export default function HomepageV2() {
         </div>
       )}
 
-      {/* HERO */}
-      <section ref={heroWrap} className="rb-hero-sec" style={{ position: "relative", height: "300vh", background: "#EAE6F3", color: "#F5F1EA" }}>
-        <div ref={heroPin} style={{ position: "sticky", top: 0, height: "100vh", overflow: "hidden", background: "#080609" }}>
-          <div ref={heroStage} className="rb-hero-stage" style={{ position: "absolute", inset: 0, overflow: "hidden", display: "flex", flexDirection: "column", background: "#080609", transformOrigin: "center center", willChange: "transform", boxShadow: "0 60px 140px -50px rgba(23,19,31,0.45), 0 0 0 1px rgba(23,19,31,0.09)" }}>
-
-            <div ref={heroTopo} aria-hidden style={{ position: "absolute", inset: "-4%", willChange: "transform", animation: "rbWind 45s ease-in-out 2s infinite alternate" }}>
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/assets/topo.jpg" alt="" style={{ width: "100%", height: "100%", objectFit: "cover", filter: "brightness(0.68) saturate(0.92)" }} />
-            </div>
-
-            <svg ref={heroContours} viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice" style={{ position: "absolute", inset: 0, width: "100%", height: "100%", mixBlendMode: "screen", willChange: "transform" }}>
-              <g fill="none" stroke="rgba(245,241,234,0.18)" strokeWidth={1}>
-                {[[180, ".60s", "30s"], [240, ".72s", "32s"], [320, ".82s", "34s"], [420, ".92s", "36s"], [540, "1.02s", "34s"], [650, "1.12s", "32s"], [740, "1.22s", "30s"]].map(([y, dly, drift], i) => (
-                  <path key={i} style={{ strokeDasharray: 2400, strokeDashoffset: 2400, animation: `contourdraw 2s ease ${dly} forwards, contourdrift ${drift} ease-in-out 2.8s infinite alternate` }}
-                    d={`M -50 ${y} C ${200 + i * 20} ${(y as number) - 40}, ${420 + i * 20} ${(y as number) + 40}, ${640 + i * 20} ${y} S ${1080 + i * 20} ${(y as number) - 50}, ${1300 + i * 20} ${(y as number) + 10} S ${1580 + i * 20} ${(y as number) - 10}, 1680 ${(y as number) + 30}`} />
-                ))}
-              </g>
-            </svg>
-
-            <svg viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice" style={{ position: "absolute", inset: 0, width: "100%", height: "100%" }}>
-              <defs>
-                <linearGradient id="rb-trail" x1="0" y1="0" x2="1" y2="0">
-                  <stop offset="0%" stopColor="rgba(139,125,216,0)" /><stop offset="35%" stopColor="rgba(139,125,216,0.45)" />
-                  <stop offset="80%" stopColor="rgba(184,174,219,0.9)" /><stop offset="100%" stopColor="#ffffff" />
-                </linearGradient>
-                <filter id="rb-glow" x="-40%" y="-40%" width="180%" height="180%">
-                  <feGaussianBlur stdDeviation="8" result="b1" /><feGaussianBlur in="SourceGraphic" stdDeviation="3" result="b2" />
-                  <feMerge><feMergeNode in="b1" /><feMergeNode in="b2" /><feMergeNode in="SourceGraphic" /></feMerge>
-                </filter>
-              </defs>
-              <path d="M 1545 250 C 1250 330, 1120 560, 850 545 C 640 533, 520 430, 430 520 C 330 620, 300 780, 150 700" fill="none" stroke="rgba(245,241,234,0.14)" strokeWidth={1} strokeDasharray="2 5" strokeLinecap="round" />
-              <path ref={heroLit} d="M 1545 250 C 1250 330, 1120 560, 850 545 C 640 533, 520 430, 430 520 C 330 620, 300 780, 150 700" fill="none" stroke="url(#rb-trail)" strokeWidth={2.6} strokeLinecap="round" filter="url(#rb-glow)" />
-              <g fill="none" stroke="rgba(184,174,219,0.32)" strokeWidth={1}>
-                <circle cx={1545} cy={250} r={20} /><circle cx={1545} cy={250} r={3} fill="rgba(184,174,219,0.9)" stroke="none" />
-                <circle cx={850} cy={545} r={20} /><circle cx={850} cy={545} r={3} fill="rgba(184,174,219,0.9)" stroke="none" />
-                <circle cx={150} cy={700} r={20} /><circle cx={150} cy={700} r={3} fill="rgba(184,174,219,0.9)" stroke="none" />
-              </g>
-              <g ref={heroDot} style={{ filter: "drop-shadow(0 0 10px rgba(255,255,255,0.95)) drop-shadow(0 0 26px rgba(184,174,219,0.85)) drop-shadow(0 0 50px rgba(139,125,216,0.55))" }}>
-                <circle r={44} fill="rgba(139,125,216,0.08)" /><circle r={26} fill="rgba(184,174,219,0.22)" />
-                <circle r={8} fill="#F5F1EA" /><circle r={3} fill="#FFFFFF" />
-              </g>
-            </svg>
-
-            <div style={{ position: "absolute", inset: 0, background: "radial-gradient(75% 60% at 50% 46%, rgba(8,6,10,0.6) 0%, rgba(8,6,10,0.15) 42%, transparent 62%), radial-gradient(125% 95% at 50% 45%, transparent 40%, rgba(0,0,0,0.7) 100%)", pointerEvents: "none" }} />
-
-            <div style={{ position: "relative", zIndex: 10, flex: 1, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", textAlign: "center", padding: "120px 24px 80px" }}>
-              <div style={{ fontSize: 12, letterSpacing: ".34em", textTransform: "uppercase", color: "rgba(245,241,234,0.6)", marginBottom: 34 }}>Rosebud Solutions</div>
-              <h1 className="rb-hero-h1" style={{ fontFamily: SERIF, fontWeight: 400, fontSize: "clamp(40px,5vw,74px)", lineHeight: 1.06, letterSpacing: "-0.015em", margin: 0, maxWidth: "16ch", textShadow: "0 6px 50px rgba(0,0,0,0.85)" }}>
-                We close the gap between what you spend and what you <em style={{ fontStyle: "italic", fontWeight: 400, color: "#B8AEDB" }}>keep</em>.
-              </h1>
-              <p style={{ marginTop: 26, maxWidth: 640, fontSize: "clamp(16px,1.4vw,19px)", lineHeight: 1.6, color: "rgba(245,241,234,0.72)" }}>
-                Rosebud Solutions handles every enquiry from the moment it arrives until it becomes a booking, a conversation with the right person, or a customer worth keeping in touch with.
-              </p>
-              <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", justifyContent: "center", gap: 28, marginTop: 38 }}>
-                <BookDemoCTA label="Book free consultation" href="https://cal.eu/rosebudsolutions/demo" tone="dark" />
-                <a href="https://cal.eu/rosebudsolutions/30min" target="_blank" rel="noopener noreferrer" style={{ display: "inline-flex", alignItems: "center", background: "rgba(255,255,255,0.06)", backdropFilter: "blur(12px)", WebkitBackdropFilter: "blur(12px)", border: "1px solid rgba(255,255,255,0.2)", color: "#F5F1EA", padding: "14px 26px", borderRadius: 999, fontSize: 15, fontWeight: 500 }}>Contact sales</a>
-              </div>
-            </div>
-
-            <div ref={heroCue} style={{ position: "relative", zIndex: 10, display: "flex", flexDirection: "column", alignItems: "center", gap: 8, paddingBottom: 34 }}>
-              <div style={{ fontSize: 11, letterSpacing: ".32em", textTransform: "uppercase", color: "rgba(245,241,234,0.45)" }}>Scroll</div>
-              <div style={{ width: 1, height: 26, background: "linear-gradient(rgba(245,241,234,0.5), transparent)", animation: "scrollpulse 1.8s ease-in-out infinite" }} />
-            </div>
-          </div>
-        </div>
-      </section>
+      {/* HERO — live site component, new wording only */}
+      <Hero
+        headline={<>
+          <span className="rb-l1">We close the gap between</span>
+          <br />
+          <span className="rb-l2a">what you spend and what you&nbsp;</span>
+          <em className="rb-l2b">keep.</em>
+        </>}
+        sub="That needs to change."
+        caption="Every enquiry worked, from first contact to booked customer."
+      />
 
       {/* USE CASES (pinned, 8 stages cycle with scroll) */}
       <section ref={ucRef} style={{ position: "relative", background: "#F1EDE6", color: "#1A1720", height: "720vh" }}>
@@ -792,9 +631,8 @@ export default function HomepageV2() {
       </section>
 
       {/* CLOSE */}
-      <section ref={closeWrap} className="rb-close-sec" style={{ position: "relative", height: "200vh", background: "#000000" }}>
-        <div className="rb-close-pin" style={{ position: "sticky", top: 0, height: "100vh", overflow: "hidden", background: "#000000" }}>
-          <div ref={closeStage} className="rb-close-stage" style={{ position: "absolute", inset: 0, overflow: "hidden", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", textAlign: "center", padding: "80px 48px", background: "linear-gradient(150deg, #EFE7F1 0%, #F3E7DB 52%, #F8E0CE 100%)", color: "#241528", transformOrigin: "center center", willChange: "transform" }}>
+      <section style={{ position: "relative", background: "#000000" }}>
+          <div className="rb-close-stage" style={{ position: "relative", overflow: "hidden", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", textAlign: "center", padding: "120px 24px 132px", background: "linear-gradient(150deg, #EFE7F1 0%, #F3E7DB 52%, #F8E0CE 100%)", color: "#241528" }}>
             <svg viewBox="0 0 1440 500" preserveAspectRatio="xMidYMid slice" style={{ position: "absolute", inset: 0, width: "100%", height: "100%", opacity: 0.5 }}>
               <g fill="none" stroke="rgba(255,255,255,0.08)" strokeWidth="1" style={{ animation: "contourdrift 42s ease-in-out infinite alternate" }}>
                 <path d="M-40,180 C300,120 560,340 840,300 C1120,260 1260,120 1500,200" /><path d="M-40,360 C300,320 560,480 840,440 C1120,400 1260,320 1500,380" />
@@ -820,7 +658,6 @@ export default function HomepageV2() {
               </div>
             </div>
           </div>
-        </div>
       </section>
 
       {/* FOOTER */}
