@@ -47,7 +47,7 @@ const KEYFRAMES = `
   .rb-foot-grid{ grid-template-columns:1fr !important; gap:28px !important; }
   .rb-foot-legal{ text-align:left !important; }
   .rb-foot-legal-list{ align-items:flex-start !important; }
-  .rb-navbar{ background:rgba(18,13,26,0.82) !important; -webkit-backdrop-filter:blur(16px) !important; backdrop-filter:blur(16px) !important; border-color:rgba(184,174,219,0.18) !important; max-width:none !important; }
+  .rb-navbar{ background:rgba(12,11,14,0.82) !important; -webkit-backdrop-filter:blur(16px) !important; backdrop-filter:blur(16px) !important; border-color:rgba(255,255,255,0.1) !important; max-width:none !important; }
   .rb-hero-wrap{ background:#EAE6F3 !important; }
   .rb-hero-pin{ border-bottom-left-radius:26px !important; border-bottom-right-radius:26px !important; overflow:hidden !important; }
   .rb-close-stage{ border-bottom-left-radius:26px !important; border-bottom-right-radius:26px !important; }
@@ -203,7 +203,7 @@ export default function HomepageV2() {
             <a href="#" style={navLink}>Resources<span style={{ fontSize: 8, opacity: 0.7 }}>▼</span></a>
             <a href="https://cal.eu/rosebudsolutions/demo" target="_blank" rel="noopener noreferrer" style={{ padding: "9px 20px", borderRadius: 999, background: "rgba(139,125,216,0.18)", backdropFilter: "blur(14px)", WebkitBackdropFilter: "blur(14px)", border: "1px solid rgba(184,174,219,0.42)", color: "var(--nav-fg-strong)", fontWeight: 600, letterSpacing: ".1em", boxShadow: "0 6px 22px -10px rgba(139,125,216,0.5)" }}>Book free consultation</a>
           </div>
-          <button className="rb-nav-burger" aria-label="Menu" onClick={() => setNavOpen(true)} style={{ display: "none", width: 42, height: 42, borderRadius: 999, background: "rgba(139,125,216,0.18)", border: "1px solid rgba(184,174,219,0.42)", color: "var(--nav-fg-strong)", alignItems: "center", justifyContent: "center", cursor: "pointer" }}>
+          <button className="rb-nav-burger" aria-label="Menu" onClick={() => setNavOpen(true)} style={{ display: "none", width: 42, height: 42, borderRadius: 999, background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.16)", color: "var(--nav-fg-strong)", alignItems: "center", justifyContent: "center", cursor: "pointer" }}>
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"><path d="M4 7h16" /><path d="M4 12h16" /><path d="M4 17h16" /></svg>
           </button>
         </div>
@@ -211,7 +211,7 @@ export default function HomepageV2() {
 
       {/* mobile menu overlay */}
       {navOpen && (
-        <div style={{ position: "fixed", inset: 0, zIndex: 200, background: "rgba(18,13,26,0.55)", backdropFilter: "blur(32px) saturate(1.3)", WebkitBackdropFilter: "blur(32px) saturate(1.3)", borderBottom: "1px solid rgba(184,174,219,0.14)", display: "flex", flexDirection: "column", padding: 24 }}>
+        <div style={{ position: "fixed", inset: 0, zIndex: 200, background: "rgba(11,10,13,0.6)", backdropFilter: "blur(32px) saturate(1.1)", WebkitBackdropFilter: "blur(32px) saturate(1.1)", borderBottom: "1px solid rgba(255,255,255,0.08)", display: "flex", flexDirection: "column", padding: 24 }}>
           <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src="/assets/rosebud-logo.png" alt="Rosebud Solutions" width={36} height={36} style={{ display: "block", width: 36, height: 36 }} />
