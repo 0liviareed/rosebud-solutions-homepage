@@ -65,6 +65,32 @@ const INDUSTRIES = [
   { label: "Mortgage & Lending", img: "/assets/ind-mortgage.avif", href: "/industries/mortgage-lending" },
 ];
 
+const CHANNEL_CHIPS = [
+  { name: "CRM", d: ["M4 6h16", "M4 12h16", "M4 18h16"] },
+  { name: "Calendar", d: ["M4 6.5h16v13H4z", "M4 10h16", "M8 3.5v4", "M16 3.5v4"] },
+  { name: "Email", d: ["M3.5 6h17v12h-17z", "M4 7l8 6 8-6"] },
+  { name: "Social", d: ["M5 19l1.3-3.6a7 7 0 1 1 2.6 2.4z"] },
+  { name: "SMS", d: ["M4 5h16v10H8l-4 4z"] },
+  { name: "Web forms", d: ["M5 4h14v16H5z", "M8 8h8", "M8 12h8", "M8 16h5"] },
+];
+
+const STAYS = [
+  { num: "01", lead: "Your team closes.", line: "The system works your demand and stops at the booking." },
+  { num: "02", lead: "Your CRM stays the system of record.", line: "Your data lives in your system, not inside ours." },
+  { num: "03", lead: "Your media team owns the ad account.", line: "We produce the signal. They act on it." },
+];
+
+function Toggle({ on }: { on: boolean }) {
+  return (
+    <span style={{ position: "relative", width: 34, height: 20, borderRadius: 999, background: on ? "#8B7DD8" : "rgba(23,19,31,0.16)", flex: "none", boxShadow: on ? "inset 0 1px 3px rgba(0,0,0,0.18)" : undefined }}>
+      <span style={{ position: "absolute", top: 2, left: on ? 16 : 2, width: 16, height: 16, borderRadius: 999, background: "#fff", boxShadow: "0 1px 3px rgba(0,0,0,0.25)" }} />
+    </span>
+  );
+}
+function Verdict({ ok }: { ok: boolean }) {
+  return <span style={{ fontSize: 12, fontWeight: 600, padding: "4px 12px", borderRadius: 999, minWidth: 78, textAlign: "center", background: ok ? "rgba(78,138,104,0.15)" : "rgba(23,19,31,0.06)", color: ok ? "#3F7A57" : "rgba(23,19,31,0.42)" }}>{ok ? "Allowed" : "Not allowed"}</span>;
+}
+
 const clamp = (v: number, lo: number, hi: number) => Math.max(lo, Math.min(hi, v));
 const SERIF = "var(--font-cormorant), 'Cormorant Garamond', serif";
 
@@ -449,7 +475,117 @@ export default function HomepageV2() {
         </div>
       </section>
 
-      {/* more sections land next (security, voices, workflow, close) */}
+      {/* SECURITY / COMPLIANCE bento */}
+      <section style={{ position: "relative", overflow: "hidden", background: "#EDEBF3", color: "#17131F", padding: "120px 48px" }}>
+        <div style={{ position: "relative", zIndex: 1, maxWidth: 1180, margin: "0 auto" }}>
+          <div style={{ fontSize: 12, letterSpacing: ".28em", textTransform: "uppercase", color: "#8B7DD8", marginBottom: 18 }}>Security</div>
+          <h2 style={{ fontFamily: SERIF, fontWeight: 500, fontSize: "clamp(40px,5vw,74px)", lineHeight: 1.0, letterSpacing: "-0.01em", maxWidth: "20ch", margin: 0 }}>Your data stays yours, and your team stays in control</h2>
+
+          <div style={{ marginTop: 44, display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 16 }}>
+            {/* A — permissions */}
+            <div style={{ gridColumn: "span 2", background: "linear-gradient(150deg, rgba(139,125,216,0.2) 0%, rgba(184,174,216,0.08) 100%)", backdropFilter: "blur(16px)", WebkitBackdropFilter: "blur(16px)", border: "1px solid rgba(255,255,255,0.4)", boxShadow: "0 26px 60px -32px rgba(23,19,31,0.4), inset 0 1px 0 rgba(255,255,255,0.6)", borderRadius: 22, padding: 30, display: "flex", flexDirection: "column" }}>
+              <span style={{ width: 42, height: 42, borderRadius: 12, background: "rgba(139,125,216,0.18)", border: "1px solid rgba(139,125,216,0.28)", display: "flex", alignItems: "center", justifyContent: "center", color: "#5B4B9E" }}>
+                <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round"><path d="M12 12.5v3.5" /><path d="M8.5 12a3.5 3.5 0 0 1 7 0v2.5" /><path d="M5.5 12a6.5 6.5 0 0 1 13 0v3.5" /></svg>
+              </span>
+              <h3 style={{ fontFamily: SERIF, fontWeight: 500, fontSize: 29, lineHeight: 1.1, marginTop: 22, color: "#17131F" }}>Your team has full visibility</h3>
+              <p style={{ marginTop: 12, fontSize: 14.5, lineHeight: 1.6, color: "rgba(23,19,31,0.62)", maxWidth: "52ch" }}>Rosebud works through the access you grant. Every account it connects to is explicit, reviewable, and controlled by your team — it can do what you can do, and nothing you cannot.</p>
+              <div style={{ marginTop: 26, background: "rgba(255,255,255,0.82)", backdropFilter: "blur(10px)", WebkitBackdropFilter: "blur(10px)", border: "1px solid rgba(255,255,255,0.7)", borderRadius: 14, padding: "16px 18px", boxShadow: "0 22px 44px -28px rgba(23,19,31,0.45), inset 0 1px 0 rgba(255,255,255,0.9)" }}>
+                <div style={{ display: "flex", justifyContent: "space-between", paddingBottom: 12, borderBottom: "1px solid rgba(23,19,31,0.08)", fontSize: 11.5, letterSpacing: ".06em", textTransform: "uppercase", color: "rgba(91,75,158,0.7)" }}><span>Permission check</span><span>Access</span></div>
+                {[["CRM access", true], ["Send follow-up", true], ["Export records", false]].map(([label, ok], i) => (
+                  <div key={i} style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: i === 2 ? "13px 0 3px" : "13px 0", borderBottom: i === 2 ? "none" : "1px solid rgba(23,19,31,0.06)" }}>
+                    <span style={{ fontSize: 14, color: "#17131F" }}>{label as string}</span>
+                    <div style={{ display: "flex", alignItems: "center", gap: 10 }}><Toggle on={ok as boolean} /><Verdict ok={ok as boolean} /></div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* B — compliant by design */}
+            <div style={{ position: "relative", overflow: "hidden", background: "linear-gradient(180deg, rgba(8,10,14,0.5) 0%, rgba(8,10,14,0.84) 100%), url('/assets/sec-compliant.avif') center/cover", color: "#F5F1EA", border: "1px solid rgba(255,255,255,0.12)", boxShadow: "0 30px 66px -32px rgba(0,0,0,0.85), inset 0 1px 0 rgba(255,255,255,0.14)", borderRadius: 22, padding: 30, display: "flex", flexDirection: "column" }}>
+              <span style={{ width: 42, height: 42, borderRadius: 12, background: "rgba(255,255,255,0.12)", backdropFilter: "blur(8px)", WebkitBackdropFilter: "blur(8px)", border: "1px solid rgba(255,255,255,0.14)", display: "flex", alignItems: "center", justifyContent: "center", color: "#F5F1EA" }}>
+                <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round"><path d="M12 3l7 3v5c0 4.2-3 7.5-7 8.6C8 18.5 5 15.2 5 11V6l7-3z" /></svg>
+              </span>
+              <h3 style={{ fontFamily: SERIF, fontWeight: 500, fontSize: 26, lineHeight: 1.1, marginTop: 22, textShadow: "0 2px 18px rgba(0,0,0,0.5)" }}>Compliant by design</h3>
+              <p style={{ marginTop: 12, fontSize: 14, lineHeight: 1.55, color: "rgba(245,241,234,0.82)", textShadow: "0 1px 10px rgba(0,0,0,0.4)" }}>Built for sensitive revenue workflows and explicit team control — first-party records only.</p>
+              <div style={{ marginTop: 24, display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12, flex: 1, alignContent: "end" }}>
+                <div style={{ position: "relative", background: "rgba(255,255,255,0.08)", backdropFilter: "blur(10px)", WebkitBackdropFilter: "blur(10px)", border: "1px solid rgba(255,255,255,0.16)", borderRadius: 12, minHeight: 118, display: "flex", alignItems: "center", justifyContent: "center" }}>
+                  <svg width="46" height="52" viewBox="0 0 46 52" fill="none" stroke="rgba(255,255,255,0.7)" strokeWidth="1.1"><path d="M23 4l17 6.5v12c0 10-7.5 16.5-17 19.5C13.5 39 6 32.5 6 22.5v-12L23 4z" /></svg>
+                  <span style={{ position: "absolute", fontFamily: SERIF, fontWeight: 600, fontSize: 15, letterSpacing: ".04em", color: "#FFFFFF" }}>GDPR</span>
+                </div>
+                <div style={{ position: "relative", background: "rgba(255,255,255,0.08)", backdropFilter: "blur(10px)", WebkitBackdropFilter: "blur(10px)", border: "1px solid rgba(255,255,255,0.16)", borderRadius: 12, minHeight: 118, display: "flex", alignItems: "center", justifyContent: "center" }}>
+                  <svg width="52" height="52" viewBox="0 0 52 52" fill="none" stroke="rgba(255,255,255,0.7)" strokeWidth="1.1"><circle cx="26" cy="26" r="21" /><circle cx="26" cy="26" r="16.5" strokeDasharray="1 3.2" /></svg>
+                  <span style={{ position: "absolute", display: "flex", flexDirection: "column", alignItems: "center" }}><span style={{ fontFamily: SERIF, fontWeight: 600, fontSize: 14, color: "#FFFFFF" }}>CCPA</span><span style={{ fontSize: 6.5, letterSpacing: ".18em", color: "rgba(245,241,234,0.6)", marginTop: 2 }}>COMPLIANT</span></span>
+                </div>
+              </div>
+            </div>
+
+            {/* C — data stays in your systems */}
+            <div style={{ position: "relative", overflow: "hidden", background: "linear-gradient(180deg, rgba(8,10,14,0.46) 0%, rgba(8,10,14,0.82) 100%), url('/assets/sec-data.avif') center/cover", color: "#F5F1EA", border: "1px solid rgba(255,255,255,0.12)", boxShadow: "0 30px 66px -32px rgba(0,0,0,0.85), inset 0 1px 0 rgba(255,255,255,0.14)", borderRadius: 22, padding: 30, display: "flex", flexDirection: "column" }}>
+              <span style={{ width: 42, height: 42, borderRadius: 12, background: "rgba(255,255,255,0.12)", backdropFilter: "blur(8px)", WebkitBackdropFilter: "blur(8px)", border: "1px solid rgba(255,255,255,0.14)", display: "flex", alignItems: "center", justifyContent: "center", color: "#F5F1EA" }}>
+                <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round"><rect x="5" y="11" width="14" height="9" rx="2" /><path d="M8 11V8a4 4 0 0 1 8 0v3" /></svg>
+              </span>
+              <h3 style={{ fontFamily: SERIF, fontWeight: 500, fontSize: 26, lineHeight: 1.1, marginTop: 22, textShadow: "0 2px 18px rgba(0,0,0,0.5)" }}>Your data stays in your systems</h3>
+              <p style={{ marginTop: 12, fontSize: 14, lineHeight: 1.55, color: "rgba(245,241,234,0.82)", textShadow: "0 1px 10px rgba(0,0,0,0.4)" }}>Your customer records and enquiries live in your own CRM and calendar, exactly where they already are.</p>
+              <div style={{ marginTop: "auto", paddingTop: 24 }}>
+                <div style={{ background: "rgba(255,255,255,0.1)", backdropFilter: "blur(14px)", WebkitBackdropFilter: "blur(14px)", border: "1px solid rgba(255,255,255,0.2)", borderRadius: 12, padding: 15, boxShadow: "0 18px 40px -26px rgba(0,0,0,0.7)" }}>
+                  <div style={{ height: 7, width: "70%", borderRadius: 4, background: "rgba(255,255,255,0.4)" }} />
+                  <div style={{ height: 7, width: "90%", borderRadius: 4, background: "rgba(255,255,255,0.24)", marginTop: 9 }} />
+                  <div style={{ height: 7, width: "55%", borderRadius: 4, background: "rgba(255,255,255,0.24)", marginTop: 9 }} />
+                  <div style={{ display: "flex", gap: 8, marginTop: 14 }}>
+                    <span style={{ fontSize: 11, padding: "4px 11px", borderRadius: 999, border: "1px solid rgba(255,255,255,0.28)", color: "#F5F1EA" }}>CRM</span>
+                    <span style={{ fontSize: 11, padding: "4px 11px", borderRadius: 999, border: "1px solid rgba(255,255,255,0.28)", color: "#F5F1EA" }}>Calendar</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* D — no model training */}
+            <div style={{ gridColumn: "span 2", position: "relative", overflow: "hidden", background: "radial-gradient(120% 95% at 88% 0%, rgba(139,125,216,0.24) 0%, transparent 52%), radial-gradient(90% 80% at 5% 105%, rgba(232,129,74,0.14) 0%, transparent 55%), linear-gradient(158deg, rgba(30,23,42,0.9) 0%, rgba(12,9,16,0.92) 100%)", color: "#F5F1EA", border: "1px solid rgba(184,174,219,0.16)", boxShadow: "0 30px 66px -32px rgba(0,0,0,0.85), inset 0 1px 0 rgba(255,255,255,0.12)", borderRadius: 22, padding: 30, display: "flex", flexDirection: "column" }}>
+              <span style={{ width: 42, height: 42, borderRadius: 12, background: "rgba(139,125,216,0.16)", border: "1px solid rgba(184,174,219,0.24)", display: "flex", alignItems: "center", justifyContent: "center", color: "#B8AEDB" }}>
+                <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" strokeLinecap="round"><path d="M12 3l7 3v5c0 4.2-3 7.5-7 8.6C8 18.5 5 15.2 5 11V6l7-3z" /><path d="M9 11.5l2 2 4-4" /></svg>
+              </span>
+              <h3 style={{ fontFamily: SERIF, fontWeight: 500, fontSize: 29, lineHeight: 1.1, marginTop: 22 }}>{"We don't train any model on your data"}</h3>
+              <p style={{ marginTop: 12, fontSize: 14.5, lineHeight: 1.6, color: "rgba(245,241,234,0.66)", maxWidth: "60ch" }}>{"Your enquiries, your customers, your records stay private to your business — never used to train any model, ours or anyone else's."}</p>
+              <div style={{ marginTop: "auto", paddingTop: 26, display: "grid", gridTemplateColumns: "1.35fr 1fr", gap: 16, alignItems: "stretch" }}>
+                <div style={{ display: "grid", gridTemplateColumns: "repeat(2,1fr)", gap: 9 }}>
+                  {CHANNEL_CHIPS.map((c) => (
+                    <span key={c.name} style={{ display: "flex", alignItems: "center", gap: 10, fontSize: 13, padding: "11px 13px", borderRadius: 11, background: "rgba(255,255,255,0.05)", border: "1px solid rgba(184,174,219,0.16)", color: "#EDE9F5" }}>
+                      <span style={{ width: 26, height: 26, flex: "none", borderRadius: 8, background: "rgba(139,125,216,0.16)", border: "1px solid rgba(184,174,219,0.22)", display: "flex", alignItems: "center", justifyContent: "center", color: "#B8AEDB" }}>
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">{c.d.map((p, k) => <path key={k} d={p} />)}</svg>
+                      </span>{c.name}
+                    </span>
+                  ))}
+                </div>
+                <div style={{ position: "relative", overflow: "hidden", borderRadius: 14, background: "radial-gradient(120% 100% at 50% 0%, rgba(139,125,216,0.28) 0%, rgba(139,125,216,0.06) 60%, transparent 100%)", border: "1px solid rgba(184,174,219,0.3)", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", textAlign: "center", padding: "22px 18px", boxShadow: "inset 0 1px 0 rgba(255,255,255,0.12)" }}>
+                  <span style={{ width: 52, height: 52, borderRadius: 15, background: "rgba(139,125,216,0.22)", border: "1px solid rgba(184,174,219,0.36)", display: "flex", alignItems: "center", justifyContent: "center", color: "#EDE9F5", boxShadow: "0 0 30px rgba(139,125,216,0.4)" }}>
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"><rect x="5" y="11" width="14" height="9" rx="2" /><path d="M8 11V8a4 4 0 0 1 8 0v3" /><path d="M12 15v2" /></svg>
+                  </span>
+                  <div style={{ fontFamily: SERIF, fontSize: 23, lineHeight: 1.15, marginTop: 14, color: "#F5F1EA" }}>Sealed in your systems</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* what stays yours */}
+          <div style={{ marginTop: 60, paddingTop: 44, borderTop: "1px solid rgba(23,19,31,0.12)" }}>
+            <div style={{ display: "flex", alignItems: "baseline", justifyContent: "space-between", flexWrap: "wrap", gap: 12, marginBottom: 30 }}>
+              <div style={{ fontSize: 12, letterSpacing: ".28em", textTransform: "uppercase", color: "#8B7DD8" }}>What stays yours</div>
+              <div style={{ fontSize: 14, color: "rgba(23,19,31,0.5)", maxWidth: "34ch" }}>Rosebud runs the work. The outcomes, the records and the relationships remain yours.</div>
+            </div>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(260px,1fr))", gap: 44 }}>
+              {STAYS.map((y) => (
+                <div key={y.num} style={{ position: "relative", paddingTop: 22, borderTop: "2px solid rgba(139,125,216,0.4)" }}>
+                  <span style={{ fontFamily: SERIF, fontSize: 20, fontWeight: 500, color: "#8B7DD8", letterSpacing: ".04em" }}>{y.num}</span>
+                  <div style={{ fontFamily: SERIF, fontSize: 16, fontWeight: 600, lineHeight: 1.4, marginTop: 16, color: "#17131F" }}>{y.lead}</div>
+                  <div style={{ fontSize: 14, lineHeight: 1.62, color: "rgba(23,19,31,0.6)", marginTop: 8, maxWidth: "32ch" }}>{y.line}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* more sections land next (voices, close) */}
     </div>
   );
 }
