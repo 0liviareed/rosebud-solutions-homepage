@@ -77,6 +77,11 @@ const KEYFRAMES = `
   .rb-foot-legal{ text-align:left !important; }
   .rb-foot-legal-list{ align-items:flex-start !important; }
   .rb-hero-h1{ font-size:clamp(34px,8vw,52px) !important; }
+  .rb-hero-sec{ height:100vh !important; }
+  .rb-navbar{ background:rgba(18,13,26,0.82) !important; -webkit-backdrop-filter:blur(16px) !important; backdrop-filter:blur(16px) !important; border-color:rgba(184,174,219,0.18) !important; max-width:none !important; }
+  .rb-close-sec{ height:auto !important; }
+  .rb-close-pin{ position:relative !important; height:auto !important; overflow:visible !important; }
+  .rb-close-stage{ position:relative !important; inset:auto !important; transform:none !important; padding:64px 18px 76px !important; }
 }
 @media (max-width:520px){
   .rb-ind-grid{ grid-template-columns:1fr !important; }
@@ -165,6 +170,16 @@ export default function HomepageV2() {
   const closeStage = useRef<HTMLDivElement>(null);
   const [voiceIdx, setVoiceIdx] = useState(0);
   const [navOpen, setNavOpen] = useState(false);
+  const isMobileRef = useRef(false);
+  const touchX = useRef<number | null>(null);
+
+  useEffect(() => {
+    const mq = window.matchMedia("(max-width: 860px)");
+    const on = () => { isMobileRef.current = mq.matches; };
+    on();
+    mq.addEventListener("change", on);
+    return () => mq.removeEventListener("change", on);
+  }, []);
 
   const jumpTo = (i: number) => {
     const el = ucRef.current;
@@ -251,6 +266,7 @@ export default function HomepageV2() {
     let ticking = false;
     const compute = () => {
       ticking = false;
+      if (isMobileRef.current) return; // mobile: close section is un-pinned, no scale
       const cw = closeWrap.current, cstage = closeStage.current;
       if (!cw || !cstage) return;
       const vh = window.innerHeight;
@@ -291,6 +307,18 @@ export default function HomepageV2() {
       if (!heroInView.current) { raf = requestAnimationFrame(tick); return; }
       const l = heroLit.current, wrapEl = heroWrap.current;
       if (l && wrapEl) {
+        if (isMobileRef.current) {
+          // mobile: autoplay the guide trail (ambient), no scroll-jack / zoom
+          heroCurP.current += 0.0016;
+          if (heroCurP.current > 1) heroCurP.current = 0;
+          const w = heroLen.current * heroCurP.current;
+          const p = l.getPointAtLength(w);
+          const d = heroDot.current;
+          if (d) { d.setAttribute("transform", `translate(${p.x},${p.y})`); d.style.opacity = heroCurP.current > 0.94 ? "0" : "1"; }
+          l.style.strokeDashoffset = String(heroLen.current - w);
+          raf = requestAnimationFrame(tick);
+          return;
+        }
         const wr = wrapEl.getBoundingClientRect();
         const wrange = Math.max(1, wrapEl.offsetHeight - window.innerHeight);
         heroTargetP.current = clamp(-wr.top / wrange, 0, 1);
@@ -338,7 +366,7 @@ export default function HomepageV2() {
 
       {/* fixed nav */}
       <nav style={{ position: "fixed", top: 0, left: 0, right: 0, zIndex: 100, padding: "16px clamp(16px,3vw,40px)", transition: "padding .4s ease" }}>
-        <div ref={navBar} style={{ maxWidth: 1180, margin: "0 auto", display: "flex", alignItems: "center", justifyContent: "space-between", padding: "12px 14px 12px 22px", borderRadius: 999, background: "transparent", border: "1px solid transparent", transition: "background .45s ease, border-color .45s ease, box-shadow .45s ease, max-width .45s ease, padding .45s ease", ["--nav-fg" as string]: "rgba(245,241,234,0.72)", ["--nav-fg-strong" as string]: "#F5F1EA" } as CSSProperties}>
+        <div ref={navBar} className="rb-navbar" style={{ maxWidth: 1180, margin: "0 auto", display: "flex", alignItems: "center", justifyContent: "space-between", padding: "12px 14px 12px 22px", borderRadius: 999, background: "transparent", border: "1px solid transparent", transition: "background .45s ease, border-color .45s ease, box-shadow .45s ease, max-width .45s ease, padding .45s ease", ["--nav-fg" as string]: "rgba(245,241,234,0.72)", ["--nav-fg-strong" as string]: "#F5F1EA" } as CSSProperties}>
           <a href="/" aria-label="Rosebud Solutions" style={{ display: "flex", alignItems: "center" }}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src="/assets/rosebud-logo.png" alt="Rosebud Solutions" width={36} height={36} style={{ display: "block", width: 36, height: 36 }} />
@@ -378,7 +406,7 @@ export default function HomepageV2() {
       )}
 
       {/* HERO */}
-      <section ref={heroWrap} style={{ position: "relative", height: "300vh", background: "#EAE6F3", color: "#F5F1EA" }}>
+      <section ref={heroWrap} className="rb-hero-sec" style={{ position: "relative", height: "300vh", background: "#EAE6F3", color: "#F5F1EA" }}>
         <div ref={heroPin} style={{ position: "sticky", top: 0, height: "100vh", overflow: "hidden", background: "#080609" }}>
           <div ref={heroStage} style={{ position: "absolute", inset: 0, overflow: "hidden", display: "flex", flexDirection: "column", background: "#080609", transformOrigin: "center center", willChange: "transform", boxShadow: "0 60px 140px -50px rgba(23,19,31,0.45), 0 0 0 1px rgba(23,19,31,0.09)" }}>
 
@@ -720,7 +748,17 @@ export default function HomepageV2() {
               </button>
             </div>
           </div>
-          <div style={{ marginTop: 44, overflow: "hidden" }}>
+          <div
+            style={{ marginTop: 44, overflow: "hidden" }}
+            onTouchStart={(e) => { touchX.current = e.touches[0].clientX; }}
+            onTouchEnd={(e) => {
+              if (touchX.current == null) return;
+              const dx = e.changedTouches[0].clientX - touchX.current;
+              touchX.current = null;
+              if (dx < -40) setVoiceIdx((i) => Math.min(VOICES.length - 2, i + 1));
+              else if (dx > 40) setVoiceIdx((i) => Math.max(0, i - 1));
+            }}
+          >
             <div ref={voiceTrack} style={{ display: "flex", gap: 20, transition: "transform 0.7s cubic-bezier(.16,1,.3,1)" }}>
               {VOICES.map((v, i) => {
                 const focused = i === voiceIdx || i === voiceIdx + 1;
@@ -752,8 +790,8 @@ export default function HomepageV2() {
       </section>
 
       {/* CLOSE */}
-      <section ref={closeWrap} style={{ position: "relative", height: "200vh", background: "#000000" }}>
-        <div style={{ position: "sticky", top: 0, height: "100vh", overflow: "hidden", background: "#000000" }}>
+      <section ref={closeWrap} className="rb-close-sec" style={{ position: "relative", height: "200vh", background: "#000000" }}>
+        <div className="rb-close-pin" style={{ position: "sticky", top: 0, height: "100vh", overflow: "hidden", background: "#000000" }}>
           <div ref={closeStage} className="rb-close-stage" style={{ position: "absolute", inset: 0, overflow: "hidden", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", textAlign: "center", padding: "80px 48px", background: "linear-gradient(150deg, #EFE7F1 0%, #F3E7DB 52%, #F8E0CE 100%)", color: "#241528", transformOrigin: "center center", willChange: "transform" }}>
             <svg viewBox="0 0 1440 500" preserveAspectRatio="xMidYMid slice" style={{ position: "absolute", inset: 0, width: "100%", height: "100%", opacity: 0.5 }}>
               <g fill="none" stroke="rgba(255,255,255,0.08)" strokeWidth="1" style={{ animation: "contourdrift 42s ease-in-out infinite alternate" }}>
