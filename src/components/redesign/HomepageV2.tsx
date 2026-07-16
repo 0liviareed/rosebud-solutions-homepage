@@ -42,6 +42,7 @@ const KEYFRAMES = `
   .rb-ch-grid{ grid-template-columns:1fr !important; gap:30px !important; padding:32px 20px !important; }
   .rb-ind-grid{ grid-template-columns:1fr 1fr !important; gap:14px !important; }
   .rb-sec-grid{ grid-template-columns:1fr !important; }
+  .rb-sec-d-grid{ grid-template-columns:1fr !important; }
   .rb-sec-span2{ grid-column:auto !important; }
   .rb-voice-card{ flex:0 0 84% !important; }
   .rb-close-sec{ height:auto !important; }
@@ -375,7 +376,7 @@ export default function HomepageV2() {
               </span>
               <h3 style={{ fontFamily: SERIF, fontWeight: 500, fontSize: 29, lineHeight: 1.1, marginTop: 22 }}>{"We don't train any model on your data"}</h3>
               <p style={{ marginTop: 12, fontSize: 14.5, lineHeight: 1.6, color: "rgba(245,241,234,0.66)", maxWidth: "60ch" }}>{"Your enquiries, your customers, your records stay private to your business — never used to train any model, ours or anyone else's."}</p>
-              <div style={{ marginTop: "auto", paddingTop: 26, display: "grid", gridTemplateColumns: "1.35fr 1fr", gap: 16, alignItems: "stretch" }}>
+              <div className="rb-sec-d-grid" style={{ marginTop: "auto", paddingTop: 26, display: "grid", gridTemplateColumns: "1.35fr 1fr", gap: 16, alignItems: "stretch" }}>
                 <div style={{ display: "grid", gridTemplateColumns: "repeat(2,1fr)", gap: 9 }}>
                   {CHANNEL_CHIPS.map((c) => (
                     <span key={c.name} style={{ display: "flex", alignItems: "center", gap: 10, fontSize: 13, padding: "11px 13px", borderRadius: 11, background: "rgba(255,255,255,0.05)", border: "1px solid rgba(184,174,219,0.16)", color: "#EDE9F5" }}>
