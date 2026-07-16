@@ -56,6 +56,31 @@ const KEYFRAMES = `
 @keyframes rbwf-marchA { to { stroke-dashoffset:-22; } }
 @keyframes rbwf-breathe { 0%,100%{ box-shadow:0 10px 28px rgba(0,0,0,.55), inset 0 1px 0 rgba(255,255,255,.05); border-color:rgba(255,255,255,.075); } 50%{ box-shadow:0 10px 32px rgba(0,0,0,.55), 0 0 0 1px rgba(139,127,245,.22), inset 0 1px 0 rgba(255,255,255,.05); border-color:rgba(139,127,245,.30); } }
 @keyframes rbwf-syncdot { 0%,100%{ opacity:.25; transform:scale(.85); } 50%{ opacity:1; transform:scale(1); } }
+.rb-nav-burger{ display:none; }
+@media (max-width:860px){
+  .rb-nav-links{ display:none !important; }
+  .rb-nav-burger{ display:flex !important; }
+  .rb-pad{ padding-left:18px !important; padding-right:18px !important; padding-top:78px !important; padding-bottom:78px !important; }
+  .rb-uc-grid{ grid-template-columns:1fr !important; gap:28px !important; padding:0 18px !important; }
+  .rb-uc-left{ min-height:0 !important; }
+  .rb-uc-frame-outer{ padding:12px !important; border-radius:18px !important; }
+  .rb-uc-frame{ flex-direction:column !important; min-height:0 !important; }
+  .rb-uc-record{ display:none !important; }
+  .rb-uc-rail{ display:none !important; }
+  .rb-ch-grid{ grid-template-columns:1fr !important; gap:30px !important; padding:32px 20px !important; }
+  .rb-ind-grid{ grid-template-columns:1fr 1fr !important; gap:14px !important; }
+  .rb-sec-grid{ grid-template-columns:1fr !important; }
+  .rb-sec-span2{ grid-column:auto !important; }
+  .rb-voice-card{ flex:0 0 84% !important; }
+  .rb-close-stage{ padding:56px 18px !important; }
+  .rb-foot-grid{ grid-template-columns:1fr !important; gap:28px !important; }
+  .rb-foot-legal{ text-align:left !important; }
+  .rb-foot-legal-list{ align-items:flex-start !important; }
+  .rb-hero-h1{ font-size:clamp(34px,8vw,52px) !important; }
+}
+@media (max-width:520px){
+  .rb-ind-grid{ grid-template-columns:1fr !important; }
+}
 `;
 
 const INDUSTRIES = [
@@ -139,6 +164,7 @@ export default function HomepageV2() {
   const closeWrap = useRef<HTMLElement>(null);
   const closeStage = useRef<HTMLDivElement>(null);
   const [voiceIdx, setVoiceIdx] = useState(0);
+  const [navOpen, setNavOpen] = useState(false);
 
   const jumpTo = (i: number) => {
     const el = ucRef.current;
@@ -307,7 +333,7 @@ export default function HomepageV2() {
   const navLink: CSSProperties = { display: "flex", alignItems: "center", gap: 7, color: "var(--nav-fg)" };
 
   return (
-    <div style={{ fontFamily: "var(--font-dm-sans), system-ui, sans-serif", color: "#0B0A0C", background: "#0B0A0C" }}>
+    <div style={{ fontFamily: "var(--font-dm-sans), system-ui, sans-serif", color: "#0B0A0C", background: "#0B0A0C", overflowX: "hidden" }}>
       <style dangerouslySetInnerHTML={{ __html: KEYFRAMES }} />
 
       {/* fixed nav */}
@@ -317,13 +343,39 @@ export default function HomepageV2() {
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src="/assets/rosebud-logo.png" alt="Rosebud Solutions" width={36} height={36} style={{ display: "block", width: 36, height: 36 }} />
           </a>
-          <div style={{ display: "flex", alignItems: "center", gap: 34, fontSize: 13, letterSpacing: ".14em", textTransform: "uppercase" }}>
+          <div className="rb-nav-links" style={{ display: "flex", alignItems: "center", gap: 34, fontSize: 13, letterSpacing: ".14em", textTransform: "uppercase" }}>
             <a href="#" style={navLink}>Solutions<span style={{ fontSize: 8, opacity: 0.7 }}>▼</span></a>
             <a href="#" style={navLink}>Resources<span style={{ fontSize: 8, opacity: 0.7 }}>▼</span></a>
             <a href="https://cal.eu/rosebudsolutions/demo" target="_blank" rel="noopener noreferrer" style={{ padding: "9px 20px", borderRadius: 999, background: "rgba(139,125,216,0.18)", backdropFilter: "blur(14px)", WebkitBackdropFilter: "blur(14px)", border: "1px solid rgba(184,174,219,0.42)", color: "var(--nav-fg-strong)", fontWeight: 600, letterSpacing: ".1em", boxShadow: "0 6px 22px -10px rgba(139,125,216,0.5)" }}>Book free consultation</a>
           </div>
+          <button className="rb-nav-burger" aria-label="Menu" onClick={() => setNavOpen(true)} style={{ display: "none", width: 42, height: 42, borderRadius: 999, background: "rgba(139,125,216,0.18)", border: "1px solid rgba(184,174,219,0.42)", color: "var(--nav-fg-strong)", alignItems: "center", justifyContent: "center", cursor: "pointer" }}>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"><path d="M4 7h16" /><path d="M4 12h16" /><path d="M4 17h16" /></svg>
+          </button>
         </div>
       </nav>
+
+      {/* mobile menu overlay */}
+      {navOpen && (
+        <div style={{ position: "fixed", inset: 0, zIndex: 200, background: "rgba(8,6,10,0.97)", backdropFilter: "blur(20px)", WebkitBackdropFilter: "blur(20px)", display: "flex", flexDirection: "column", padding: 24 }}>
+          <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/assets/rosebud-logo.png" alt="Rosebud Solutions" width={36} height={36} style={{ display: "block", width: 36, height: 36 }} />
+            <button aria-label="Close menu" onClick={() => setNavOpen(false)} style={{ width: 42, height: 42, borderRadius: 999, background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.14)", color: "#F5F1EA", display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer" }}>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"><path d="M6 6l12 12" /><path d="M18 6L6 18" /></svg>
+            </button>
+          </div>
+          <div style={{ fontSize: 11, letterSpacing: ".28em", textTransform: "uppercase", color: "#8B7DD8", margin: "44px 0 8px" }}>Solutions</div>
+          <div style={{ display: "flex", flexDirection: "column" }}>
+            {INDUSTRIES.map((it) => (
+              <a key={it.href} href={it.href} onClick={() => setNavOpen(false)} style={{ fontFamily: SERIF, fontSize: 27, fontWeight: 500, color: "#F5F1EA", textDecoration: "none", padding: "12px 0", borderBottom: "1px solid rgba(255,255,255,0.08)" }}>{it.label}</a>
+            ))}
+          </div>
+          <div style={{ marginTop: "auto", display: "flex", flexDirection: "column", gap: 12 }}>
+            <a href="https://cal.eu/rosebudsolutions/demo" target="_blank" rel="noopener noreferrer" style={{ textAlign: "center", padding: 16, borderRadius: 999, background: "#8B7DD8", color: "#0B0A0C", fontWeight: 600, textDecoration: "none" }}>Book free consultation</a>
+            <a href="https://cal.eu/rosebudsolutions/30min" target="_blank" rel="noopener noreferrer" style={{ textAlign: "center", padding: 16, borderRadius: 999, background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.2)", color: "#F5F1EA", textDecoration: "none" }}>Contact sales</a>
+          </div>
+        </div>
+      )}
 
       {/* HERO */}
       <section ref={heroWrap} style={{ position: "relative", height: "300vh", background: "#EAE6F3", color: "#F5F1EA" }}>
@@ -372,7 +424,7 @@ export default function HomepageV2() {
 
             <div style={{ position: "relative", zIndex: 10, flex: 1, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", textAlign: "center", padding: "120px 24px 80px" }}>
               <div style={{ fontSize: 12, letterSpacing: ".34em", textTransform: "uppercase", color: "rgba(245,241,234,0.6)", marginBottom: 34 }}>Rosebud Solutions</div>
-              <h1 style={{ fontFamily: SERIF, fontWeight: 400, fontSize: "clamp(40px,5vw,74px)", lineHeight: 1.06, letterSpacing: "-0.015em", margin: 0, maxWidth: "16ch", textShadow: "0 6px 50px rgba(0,0,0,0.85)" }}>
+              <h1 className="rb-hero-h1" style={{ fontFamily: SERIF, fontWeight: 400, fontSize: "clamp(40px,5vw,74px)", lineHeight: 1.06, letterSpacing: "-0.015em", margin: 0, maxWidth: "16ch", textShadow: "0 6px 50px rgba(0,0,0,0.85)" }}>
                 We close the gap between what you spend and what you <em style={{ fontStyle: "italic", fontWeight: 400, color: "#B8AEDB" }}>keep</em>.
               </h1>
               <p style={{ marginTop: 26, maxWidth: 640, fontSize: "clamp(16px,1.4vw,19px)", lineHeight: 1.6, color: "rgba(245,241,234,0.72)" }}>
@@ -396,10 +448,10 @@ export default function HomepageV2() {
       <section ref={ucRef} style={{ position: "relative", background: "#F1EDE6", color: "#1A1720", height: "720vh" }}>
         <div style={{ position: "sticky", top: 0, height: "100vh", display: "flex", alignItems: "center", overflow: "hidden" }}>
           <div aria-hidden style={{ position: "absolute", inset: 0, zIndex: 0, background: UC_BG[active % 8], transition: "background 0.7s ease" }} />
-          <div style={{ position: "relative", zIndex: 1, width: "100%", maxWidth: 1220, margin: "0 auto", padding: "0 48px", display: "grid", gridTemplateColumns: "0.92fr 1.08fr", gap: 64, alignItems: "center" }}>
+          <div className="rb-uc-grid" style={{ position: "relative", zIndex: 1, width: "100%", maxWidth: 1220, margin: "0 auto", padding: "0 48px", display: "grid", gridTemplateColumns: "0.92fr 1.08fr", gap: 64, alignItems: "center" }}>
 
             {/* LEFT */}
-            <div style={{ display: "flex", flexDirection: "column", justifyContent: "space-between", minHeight: 460 }}>
+            <div className="rb-uc-left" style={{ display: "flex", flexDirection: "column", justifyContent: "space-between", minHeight: 460 }}>
               <div>
                 <div style={{ marginBottom: 26 }}><span style={{ fontSize: 12, letterSpacing: ".3em", textTransform: "uppercase", color: A }}>Use cases</span></div>
                 <h2 style={{ fontFamily: SERIF, fontWeight: 500, fontSize: "clamp(40px,5vw,74px)", lineHeight: 0.98, letterSpacing: "-0.02em", maxWidth: "12ch", margin: 0 }}>{CASES[active].name}</h2>
@@ -420,8 +472,8 @@ export default function HomepageV2() {
 
             {/* RIGHT: FRAME */}
             <div style={{ position: "relative" }}>
-              <div style={{ background: "url(/assets/usecase-frame-v2.avif) center center/cover no-repeat", borderRadius: 28, padding: 40 }}>
-                <div style={{ background: "linear-gradient(180deg,#1B1A24 0%,#121118 100%)", border: "1px solid rgba(255,255,255,0.08)", borderRadius: 18, display: "flex", minHeight: 408, overflow: "hidden", boxShadow: "inset 0 1px 0 rgba(255,255,255,0.06)" }}>
+              <div className="rb-uc-frame-outer" style={{ background: "url(/assets/usecase-frame-v2.avif) center center/cover no-repeat", borderRadius: 28, padding: 40 }}>
+                <div className="rb-uc-frame" style={{ background: "linear-gradient(180deg,#1B1A24 0%,#121118 100%)", border: "1px solid rgba(255,255,255,0.08)", borderRadius: 18, display: "flex", minHeight: 408, overflow: "hidden", boxShadow: "inset 0 1px 0 rgba(255,255,255,0.06)" }}>
                   {/* thread */}
                   <div style={{ flex: 1.2, display: "flex", flexDirection: "column", minWidth: 0 }}>
                     <div style={{ display: "flex", alignItems: "center", gap: 11, padding: "14px 16px", borderBottom: "1px solid rgba(255,255,255,0.06)" }}>
@@ -449,7 +501,7 @@ export default function HomepageV2() {
                     </div>
                   </div>
                   {/* record */}
-                  <div style={{ flex: 0.92, minWidth: 0, borderLeft: "1px solid rgba(255,255,255,0.07)", background: "rgba(255,255,255,0.02)", display: "flex", flexDirection: "column" }}>
+                  <div className="rb-uc-record" style={{ flex: 0.92, minWidth: 0, borderLeft: "1px solid rgba(255,255,255,0.07)", background: "rgba(255,255,255,0.02)", display: "flex", flexDirection: "column" }}>
                     <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "14px 16px", borderBottom: "1px solid rgba(255,255,255,0.06)" }}>
                       <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
                         <span style={{ width: 22, height: 22, borderRadius: 6, background: "rgba(139,125,216,0.22)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 11, color: "#B8AEDB" }}>▤</span>
@@ -473,7 +525,7 @@ export default function HomepageV2() {
           </div>
 
           {/* progress rail */}
-          <div style={{ position: "absolute", right: 34, top: "50%", transform: "translateY(-50%)", display: "flex", flexDirection: "column", gap: 11, zIndex: 5 }}>
+          <div className="rb-uc-rail" style={{ position: "absolute", right: 34, top: "50%", transform: "translateY(-50%)", display: "flex", flexDirection: "column", gap: 11, zIndex: 5 }}>
             {CASES.map((_, i) => (
               <button key={i} onClick={() => jumpTo(i)} aria-label={`Use case ${i + 1}`} style={{ width: 6, height: i === active ? 26 : 6, borderRadius: 999, border: "none", padding: 0, cursor: "pointer", display: "block", background: i === active ? A : "rgba(245,241,234,0.25)", transition: "all .3s ease" }} />
             ))}
@@ -482,7 +534,7 @@ export default function HomepageV2() {
       </section>
 
       {/* WHAT'S YOUR CHALLENGE */}
-      <section style={{ position: "relative", overflow: "hidden", background: "url('/assets/challenge-bg.avif') center/cover", color: "#F5F1EA", padding: "130px 48px" }}>
+      <section className="rb-pad" style={{ position: "relative", overflow: "hidden", background: "url('/assets/challenge-bg.avif') center/cover", color: "#F5F1EA", padding: "130px 48px" }}>
         <svg viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice" style={{ position: "absolute", top: 0, left: "-8%", width: "116%", height: "100%", opacity: 0.85 }}>
           <g fill="none" stroke="rgba(42,35,80,0.13)" strokeWidth={1} style={{ animation: "contourdrift 34s ease-in-out infinite alternate" }}>
             <path d="M -60 200 C 200 160, 420 240, 660 200 S 1120 150, 1360 210 S 1660 190, 1720 230" />
@@ -492,7 +544,7 @@ export default function HomepageV2() {
             <path d="M -60 700 C 300 660, 520 720, 760 690 S 1200 650, 1440 680 S 1660 680, 1720 700" />
           </g>
         </svg>
-        <div style={{ position: "relative", zIndex: 2, maxWidth: 1180, margin: "0 auto", display: "grid", gridTemplateColumns: "0.9fr 1.1fr", gap: 52, alignItems: "center", background: "rgba(12,9,16,0.55)", backdropFilter: "blur(26px)", WebkitBackdropFilter: "blur(26px)", border: "1px solid rgba(255,255,255,0.1)", borderRadius: 28, padding: "clamp(34px,4.5vw,60px)", boxShadow: "0 44px 110px -44px rgba(0,0,0,0.65), inset 0 1px 0 rgba(255,255,255,0.08)" }}>
+        <div className="rb-ch-grid" style={{ position: "relative", zIndex: 2, maxWidth: 1180, margin: "0 auto", display: "grid", gridTemplateColumns: "0.9fr 1.1fr", gap: 52, alignItems: "center", background: "rgba(12,9,16,0.55)", backdropFilter: "blur(26px)", WebkitBackdropFilter: "blur(26px)", border: "1px solid rgba(255,255,255,0.1)", borderRadius: 28, padding: "clamp(34px,4.5vw,60px)", boxShadow: "0 44px 110px -44px rgba(0,0,0,0.65), inset 0 1px 0 rgba(255,255,255,0.08)" }}>
           <div>
             <div style={{ fontSize: 12, letterSpacing: ".28em", textTransform: "uppercase", color: "#B8AEDB", marginBottom: 18, textShadow: "0 1px 14px rgba(0,0,0,0.5)" }}>Book your free consultation</div>
             <h2 style={{ fontFamily: SERIF, fontWeight: 500, fontSize: "clamp(40px,5vw,74px)", lineHeight: 1.0, letterSpacing: "-0.01em", textShadow: "0 2px 34px rgba(0,0,0,0.6)", margin: 0 }}>What&apos;s your<br />challenge?</h2>
@@ -509,11 +561,11 @@ export default function HomepageV2() {
       </section>
 
       {/* INDUSTRIES */}
-      <section style={{ position: "relative", overflow: "hidden", background: "#080609", color: "#F5F1EA", padding: "130px 48px" }}>
+      <section className="rb-pad" style={{ position: "relative", overflow: "hidden", background: "#080609", color: "#F5F1EA", padding: "130px 48px" }}>
         <div style={{ position: "relative", zIndex: 1, maxWidth: 1220, margin: "0 auto" }}>
           <div style={{ fontSize: 12, letterSpacing: ".28em", textTransform: "uppercase", color: "#B8AEDB", marginBottom: 18 }}>Industries</div>
           <h2 style={{ fontFamily: SERIF, fontWeight: 500, fontSize: "clamp(40px,5vw,74px)", lineHeight: 1.02, letterSpacing: "-0.01em", maxWidth: "16ch", margin: 0 }}>{"Where we've made the biggest difference"}</h2>
-          <div style={{ marginTop: 52, display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 22 }}>
+          <div className="rb-ind-grid" style={{ marginTop: 52, display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 22 }}>
             {INDUSTRIES.map((it) => (
               <a key={it.href} href={it.href} data-ind-card className="rb-ind-card"
                 style={{ position: "relative", display: "flex", flexDirection: "column", textDecoration: "none", color: "#F5F1EA", borderRadius: 22, padding: "9px 9px 4px", background: "rgba(255,255,255,0.05)", backdropFilter: "blur(18px)", WebkitBackdropFilter: "blur(18px)", border: "1px solid rgba(255,255,255,0.1)", boxShadow: "0 34px 74px -38px rgba(0,0,0,0.85), inset 0 1px 0 rgba(255,255,255,0.14)" }}>
@@ -538,14 +590,14 @@ export default function HomepageV2() {
       </section>
 
       {/* SECURITY / COMPLIANCE bento */}
-      <section style={{ position: "relative", overflow: "hidden", background: "#EDEBF3", color: "#17131F", padding: "120px 48px" }}>
+      <section className="rb-pad" style={{ position: "relative", overflow: "hidden", background: "#EDEBF3", color: "#17131F", padding: "120px 48px" }}>
         <div style={{ position: "relative", zIndex: 1, maxWidth: 1180, margin: "0 auto" }}>
           <div style={{ fontSize: 12, letterSpacing: ".28em", textTransform: "uppercase", color: "#8B7DD8", marginBottom: 18 }}>Security</div>
           <h2 style={{ fontFamily: SERIF, fontWeight: 500, fontSize: "clamp(40px,5vw,74px)", lineHeight: 1.0, letterSpacing: "-0.01em", maxWidth: "20ch", margin: 0 }}>Your data stays yours, and your team stays in control</h2>
 
-          <div style={{ marginTop: 44, display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 16 }}>
+          <div className="rb-sec-grid" style={{ marginTop: 44, display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 16 }}>
             {/* A — permissions */}
-            <div style={{ gridColumn: "span 2", background: "linear-gradient(150deg, rgba(139,125,216,0.2) 0%, rgba(184,174,216,0.08) 100%)", backdropFilter: "blur(16px)", WebkitBackdropFilter: "blur(16px)", border: "1px solid rgba(255,255,255,0.4)", boxShadow: "0 26px 60px -32px rgba(23,19,31,0.4), inset 0 1px 0 rgba(255,255,255,0.6)", borderRadius: 22, padding: 30, display: "flex", flexDirection: "column" }}>
+            <div className="rb-sec-span2" style={{ gridColumn: "span 2", background: "linear-gradient(150deg, rgba(139,125,216,0.2) 0%, rgba(184,174,216,0.08) 100%)", backdropFilter: "blur(16px)", WebkitBackdropFilter: "blur(16px)", border: "1px solid rgba(255,255,255,0.4)", boxShadow: "0 26px 60px -32px rgba(23,19,31,0.4), inset 0 1px 0 rgba(255,255,255,0.6)", borderRadius: 22, padding: 30, display: "flex", flexDirection: "column" }}>
               <span style={{ width: 42, height: 42, borderRadius: 12, background: "rgba(139,125,216,0.18)", border: "1px solid rgba(139,125,216,0.28)", display: "flex", alignItems: "center", justifyContent: "center", color: "#5B4B9E" }}>
                 <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round"><path d="M12 12.5v3.5" /><path d="M8.5 12a3.5 3.5 0 0 1 7 0v2.5" /><path d="M5.5 12a6.5 6.5 0 0 1 13 0v3.5" /></svg>
               </span>
@@ -602,7 +654,7 @@ export default function HomepageV2() {
             </div>
 
             {/* D — no model training */}
-            <div style={{ gridColumn: "span 2", position: "relative", overflow: "hidden", background: "radial-gradient(120% 95% at 88% 0%, rgba(139,125,216,0.24) 0%, transparent 52%), radial-gradient(90% 80% at 5% 105%, rgba(232,129,74,0.14) 0%, transparent 55%), linear-gradient(158deg, rgba(30,23,42,0.9) 0%, rgba(12,9,16,0.92) 100%)", color: "#F5F1EA", border: "1px solid rgba(184,174,219,0.16)", boxShadow: "0 30px 66px -32px rgba(0,0,0,0.85), inset 0 1px 0 rgba(255,255,255,0.12)", borderRadius: 22, padding: 30, display: "flex", flexDirection: "column" }}>
+            <div className="rb-sec-span2" style={{ gridColumn: "span 2", position: "relative", overflow: "hidden", background: "radial-gradient(120% 95% at 88% 0%, rgba(139,125,216,0.24) 0%, transparent 52%), radial-gradient(90% 80% at 5% 105%, rgba(232,129,74,0.14) 0%, transparent 55%), linear-gradient(158deg, rgba(30,23,42,0.9) 0%, rgba(12,9,16,0.92) 100%)", color: "#F5F1EA", border: "1px solid rgba(184,174,219,0.16)", boxShadow: "0 30px 66px -32px rgba(0,0,0,0.85), inset 0 1px 0 rgba(255,255,255,0.12)", borderRadius: 22, padding: 30, display: "flex", flexDirection: "column" }}>
               <span style={{ width: 42, height: 42, borderRadius: 12, background: "rgba(139,125,216,0.16)", border: "1px solid rgba(184,174,219,0.24)", display: "flex", alignItems: "center", justifyContent: "center", color: "#B8AEDB" }}>
                 <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" strokeLinecap="round"><path d="M12 3l7 3v5c0 4.2-3 7.5-7 8.6C8 18.5 5 15.2 5 11V6l7-3z" /><path d="M9 11.5l2 2 4-4" /></svg>
               </span>
@@ -648,7 +700,7 @@ export default function HomepageV2() {
       </section>
 
       {/* VOICES */}
-      <section style={{ position: "relative", overflow: "hidden", background: "#080609", color: "#F5F1EA", padding: "130px 48px" }}>
+      <section className="rb-pad" style={{ position: "relative", overflow: "hidden", background: "#080609", color: "#F5F1EA", padding: "130px 48px" }}>
         <div aria-hidden style={{ position: "absolute", inset: 0, overflow: "hidden" }}>
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src="/assets/topo.jpg" alt="" style={{ position: "absolute", inset: "-4%", width: "108%", height: "108%", objectFit: "cover", filter: "brightness(0.4) saturate(0.85)" }} />
@@ -673,7 +725,7 @@ export default function HomepageV2() {
               {VOICES.map((v, i) => {
                 const focused = i === voiceIdx || i === voiceIdx + 1;
                 return (
-                  <div key={i} style={{ flex: "0 0 46%", opacity: focused ? 1 : 0.42, transform: focused ? "none" : "scale(0.94)", transition: "opacity 0.5s ease, transform 0.5s ease", transformOrigin: "center" }}>
+                  <div key={i} className="rb-voice-card" style={{ flex: "0 0 46%", opacity: focused ? 1 : 0.42, transform: focused ? "none" : "scale(0.94)", transition: "opacity 0.5s ease, transform 0.5s ease", transformOrigin: "center" }}>
                     <div style={{ position: "relative", height: "100%", minHeight: 360, background: "rgba(20,16,26,0.55)", backdropFilter: "blur(16px)", WebkitBackdropFilter: "blur(16px)", border: "1px solid rgba(184,174,219,0.16)", boxShadow: "0 30px 66px -34px rgba(0,0,0,0.85), inset 0 1px 0 rgba(255,255,255,0.08)", borderRadius: 22, padding: "36px 34px", display: "flex", flexDirection: "column" }}>
                       <div style={{ fontFamily: SERIF, fontSize: 60, lineHeight: 0.8, color: "rgba(184,174,219,0.5)", height: 34 }}>&ldquo;</div>
                       <div style={{ fontFamily: SERIF, fontSize: 22, lineHeight: 1.4, color: "#EDE9F5", marginTop: 14, flex: 1 }}>{v.quote}</div>
@@ -702,7 +754,7 @@ export default function HomepageV2() {
       {/* CLOSE */}
       <section ref={closeWrap} style={{ position: "relative", height: "200vh", background: "#000000" }}>
         <div style={{ position: "sticky", top: 0, height: "100vh", overflow: "hidden", background: "#000000" }}>
-          <div ref={closeStage} style={{ position: "absolute", inset: 0, overflow: "hidden", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", textAlign: "center", padding: "80px 48px", background: "linear-gradient(150deg, #EFE7F1 0%, #F3E7DB 52%, #F8E0CE 100%)", color: "#241528", transformOrigin: "center center", willChange: "transform" }}>
+          <div ref={closeStage} className="rb-close-stage" style={{ position: "absolute", inset: 0, overflow: "hidden", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", textAlign: "center", padding: "80px 48px", background: "linear-gradient(150deg, #EFE7F1 0%, #F3E7DB 52%, #F8E0CE 100%)", color: "#241528", transformOrigin: "center center", willChange: "transform" }}>
             <svg viewBox="0 0 1440 500" preserveAspectRatio="xMidYMid slice" style={{ position: "absolute", inset: 0, width: "100%", height: "100%", opacity: 0.5 }}>
               <g fill="none" stroke="rgba(255,255,255,0.08)" strokeWidth="1" style={{ animation: "contourdrift 42s ease-in-out infinite alternate" }}>
                 <path d="M-40,180 C300,120 560,340 840,300 C1120,260 1260,120 1500,200" /><path d="M-40,360 C300,320 560,480 840,440 C1120,400 1260,320 1500,380" />
@@ -745,7 +797,7 @@ export default function HomepageV2() {
               <a href="https://www.instagram.com/rosebudglobal/" aria-label="Instagram" target="_blank" rel="noopener noreferrer" style={{ width: 44, height: 44, borderRadius: 999, background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.12)", display: "flex", alignItems: "center", justifyContent: "center", color: "#F5F1EA" }}><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"><rect x="3" y="3" width="18" height="18" rx="5" /><circle cx="12" cy="12" r="4" /><circle cx="17.2" cy="6.8" r="1.1" fill="currentColor" stroke="none" /></svg></a>
             </div>
           </div>
-          <div style={{ marginTop: 52, display: "grid", gridTemplateColumns: "1.4fr 1fr 1fr", gap: 40 }}>
+          <div className="rb-foot-grid" style={{ marginTop: 52, display: "grid", gridTemplateColumns: "1.4fr 1fr 1fr", gap: 40 }}>
             <div>
               <div style={{ fontSize: 12, letterSpacing: ".24em", textTransform: "uppercase", color: "rgba(245,241,234,0.45)", marginBottom: 20, fontFamily: SERIF }}>Contact</div>
               <a href="mailto:contact@rosebud.global" style={{ display: "inline-block", fontSize: 14, color: "#F5F1EA", textDecoration: "none", borderBottom: "1px solid rgba(245,241,234,0.25)", paddingBottom: 3 }}>contact@rosebud.global</a>
@@ -758,9 +810,9 @@ export default function HomepageV2() {
                 <a href="/pricing" style={{ fontSize: 14, color: "rgba(245,241,234,0.85)", textDecoration: "none" }}>Pricing</a>
               </div>
             </div>
-            <div style={{ textAlign: "right" }}>
+            <div className="rb-foot-legal" style={{ textAlign: "right" }}>
               <div style={{ fontSize: 12, letterSpacing: ".24em", textTransform: "uppercase", color: "rgba(245,241,234,0.45)", marginBottom: 20, fontFamily: SERIF }}>Legal</div>
-              <div style={{ display: "flex", flexDirection: "column", gap: 14, alignItems: "flex-end" }}>
+              <div className="rb-foot-legal-list" style={{ display: "flex", flexDirection: "column", gap: 14, alignItems: "flex-end" }}>
                 <a href="/privacy" style={{ fontSize: 14, color: "rgba(245,241,234,0.85)", textDecoration: "none" }}>Privacy Policy</a>
                 <a href="/terms" style={{ fontSize: 14, color: "rgba(245,241,234,0.85)", textDecoration: "none" }}>Terms of Service</a>
                 <a href="/privacy#cookies" onClick={(e) => { e.preventDefault(); window.dispatchEvent(new Event("rb:cookie-settings-open")); }} style={{ fontSize: 14, color: "rgba(245,241,234,0.85)", textDecoration: "none", cursor: "pointer" }}>Cookie settings</a>
