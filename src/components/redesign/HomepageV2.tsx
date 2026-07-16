@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useRef, useState, type CSSProperties } from "react";
 import BookDemoCTA from "./BookDemoCTA";
+import RevenueWorkflow from "./RevenueWorkflow";
 
 type Field = { k: string; v: string; good?: boolean };
 type Bubble = { from: "in" | "out"; text: string; time: string };
@@ -50,6 +51,11 @@ const KEYFRAMES = `
 .rb-ind-card:hover{ transform:translateY(-8px); box-shadow:0 50px 90px -40px rgba(0,0,0,0.95), inset 0 1px 0 rgba(255,255,255,0.2); }
 .rb-ind-img{ transition:transform .7s cubic-bezier(.16,1,.3,1); }
 .rb-ind-card:hover .rb-ind-img{ transform:scale(1.06); }
+.rbwf-march  { stroke-dasharray:4 7; animation:rbwf-marchA 1.05s linear infinite; }
+.rbwf-marchB { stroke-dasharray:3 8; animation:rbwf-marchA 1.4s linear infinite; }
+@keyframes rbwf-marchA { to { stroke-dashoffset:-22; } }
+@keyframes rbwf-breathe { 0%,100%{ box-shadow:0 10px 28px rgba(0,0,0,.55), inset 0 1px 0 rgba(255,255,255,.05); border-color:rgba(255,255,255,.075); } 50%{ box-shadow:0 10px 32px rgba(0,0,0,.55), 0 0 0 1px rgba(139,127,245,.22), inset 0 1px 0 rgba(255,255,255,.05); border-color:rgba(139,127,245,.30); } }
+@keyframes rbwf-syncdot { 0%,100%{ opacity:.25; transform:scale(.85); } 50%{ opacity:1; transform:scale(1); } }
 `;
 
 const INDUSTRIES = [
@@ -80,6 +86,8 @@ export default function HomepageV2() {
 
   const ucRef = useRef<HTMLElement>(null);
   const [active, setActive] = useState(0);
+  const wfBox = useRef<HTMLDivElement>(null);
+  const wfInner = useRef<HTMLDivElement>(null);
 
   const jumpTo = (i: number) => {
     const el = ucRef.current;
@@ -133,6 +141,18 @@ export default function HomepageV2() {
     }, { threshold: 0.18 });
     cards.forEach((c) => io.observe(c));
     return () => io.disconnect();
+  }, []);
+
+  // scale the fixed 920×580 workflow diagram to fit its column
+  useEffect(() => {
+    const scale = () => {
+      const box = wfBox.current, inner = wfInner.current;
+      if (box && inner) inner.style.transform = `scale(${box.clientWidth / 920})`;
+    };
+    const ro = new ResizeObserver(scale);
+    if (wfBox.current) ro.observe(wfBox.current);
+    scale();
+    return () => ro.disconnect();
   }, []);
 
   useEffect(() => {
@@ -373,7 +393,32 @@ export default function HomepageV2() {
         </div>
       </section>
 
-      {/* CHALLENGE section lands here next (with the Revenue Workflow diagram) */}
+      {/* WHAT'S YOUR CHALLENGE */}
+      <section style={{ position: "relative", overflow: "hidden", background: "url('/assets/challenge-bg.avif') center/cover", color: "#F5F1EA", padding: "130px 48px" }}>
+        <svg viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice" style={{ position: "absolute", top: 0, left: "-8%", width: "116%", height: "100%", opacity: 0.85 }}>
+          <g fill="none" stroke="rgba(42,35,80,0.13)" strokeWidth={1} style={{ animation: "contourdrift 34s ease-in-out infinite alternate" }}>
+            <path d="M -60 200 C 200 160, 420 240, 660 200 S 1120 150, 1360 210 S 1660 190, 1720 230" />
+            <path d="M -60 300 C 240 260, 460 340, 700 300 S 1140 250, 1380 300 S 1660 290, 1720 320" />
+            <path d="M -60 420 C 260 380, 480 460, 720 425 S 1160 360, 1400 420 S 1660 420, 1720 440" />
+            <path d="M -60 560 C 280 520, 500 580, 740 550 S 1180 490, 1420 540 S 1660 540, 1720 560" />
+            <path d="M -60 700 C 300 660, 520 720, 760 690 S 1200 650, 1440 680 S 1660 680, 1720 700" />
+          </g>
+        </svg>
+        <div style={{ position: "relative", zIndex: 2, maxWidth: 1180, margin: "0 auto", display: "grid", gridTemplateColumns: "0.9fr 1.1fr", gap: 52, alignItems: "center", background: "rgba(12,9,16,0.55)", backdropFilter: "blur(26px)", WebkitBackdropFilter: "blur(26px)", border: "1px solid rgba(255,255,255,0.1)", borderRadius: 28, padding: "clamp(34px,4.5vw,60px)", boxShadow: "0 44px 110px -44px rgba(0,0,0,0.65), inset 0 1px 0 rgba(255,255,255,0.08)" }}>
+          <div>
+            <div style={{ fontSize: 12, letterSpacing: ".28em", textTransform: "uppercase", color: "#B8AEDB", marginBottom: 18, textShadow: "0 1px 14px rgba(0,0,0,0.5)" }}>Book your free consultation</div>
+            <h2 style={{ fontFamily: SERIF, fontWeight: 500, fontSize: "clamp(40px,5vw,74px)", lineHeight: 1.0, letterSpacing: "-0.01em", textShadow: "0 2px 34px rgba(0,0,0,0.6)", margin: 0 }}>What&apos;s your<br />challenge?</h2>
+            <p style={{ marginTop: 30, fontSize: 17, lineHeight: 1.6, color: "rgba(245,241,234,0.85)", maxWidth: "44ch", textShadow: "0 1px 18px rgba(0,0,0,0.55)" }}>Enquiries nobody answered. Leads gone cold. No idea what happened to either.</p>
+            <p style={{ marginTop: 16, fontSize: 17, lineHeight: 1.6, color: "rgba(245,241,234,0.85)", maxWidth: "44ch", textShadow: "0 1px 18px rgba(0,0,0,0.55)" }}>We will map your funnel so your spend stops buying enquiries and starts buying customers.</p>
+            <div style={{ marginTop: 34 }}><BookDemoCTA label="Let's talk" href="https://cal.eu/rosebudsolutions/demo" tone="dark" /></div>
+          </div>
+          <div ref={wfBox} style={{ position: "relative", width: "100%", aspectRatio: "920 / 580" }}>
+            <div ref={wfInner} style={{ position: "absolute", top: 0, left: 0, width: 920, height: 580, transformOrigin: "top left" }}>
+              <RevenueWorkflow />
+            </div>
+          </div>
+        </div>
+      </section>
 
       {/* INDUSTRIES */}
       <section style={{ position: "relative", overflow: "hidden", background: "#080609", color: "#F5F1EA", padding: "130px 48px" }}>
