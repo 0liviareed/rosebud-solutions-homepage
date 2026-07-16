@@ -3,6 +3,7 @@ import { useEffect, useRef, useState, type CSSProperties } from "react";
 import Hero from "@/components/Hero";
 import BookDemoCTA from "./BookDemoCTA";
 import Capabilities from "./Capabilities";
+import Integrations from "./Integrations";
 import RevenueWorkflow from "./RevenueWorkflow";
 
 const A = "#8B7DD8";
@@ -411,6 +412,8 @@ export default function HomepageV2() {
           </div>
         </div>
       </section>
+
+      <Integrations />
 
       {/* VOICES */}
       <section className="rb-pad" style={{ position: "relative", overflow: "hidden", background: "#080609", color: "#F5F1EA", padding: "130px 48px" }}>
