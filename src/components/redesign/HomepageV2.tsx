@@ -320,7 +320,7 @@ export default function HomepageV2() {
           <div style={{ display: "flex", alignItems: "center", gap: 34, fontSize: 13, letterSpacing: ".14em", textTransform: "uppercase" }}>
             <a href="#" style={navLink}>Solutions<span style={{ fontSize: 8, opacity: 0.7 }}>▼</span></a>
             <a href="#" style={navLink}>Resources<span style={{ fontSize: 8, opacity: 0.7 }}>▼</span></a>
-            <a href="https://cal.eu/rosebudsolutions/demo" style={{ padding: "9px 20px", borderRadius: 999, background: "rgba(139,125,216,0.18)", backdropFilter: "blur(14px)", WebkitBackdropFilter: "blur(14px)", border: "1px solid rgba(184,174,219,0.42)", color: "var(--nav-fg-strong)", fontWeight: 600, letterSpacing: ".1em", boxShadow: "0 6px 22px -10px rgba(139,125,216,0.5)" }}>Book free consultation</a>
+            <a href="https://cal.eu/rosebudsolutions/demo" target="_blank" rel="noopener noreferrer" style={{ padding: "9px 20px", borderRadius: 999, background: "rgba(139,125,216,0.18)", backdropFilter: "blur(14px)", WebkitBackdropFilter: "blur(14px)", border: "1px solid rgba(184,174,219,0.42)", color: "var(--nav-fg-strong)", fontWeight: 600, letterSpacing: ".1em", boxShadow: "0 6px 22px -10px rgba(139,125,216,0.5)" }}>Book free consultation</a>
           </div>
         </div>
       </nav>
@@ -380,7 +380,7 @@ export default function HomepageV2() {
               </p>
               <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", justifyContent: "center", gap: 28, marginTop: 38 }}>
                 <BookDemoCTA label="Book free consultation" href="https://cal.eu/rosebudsolutions/demo" tone="dark" />
-                <a href="https://cal.eu/rosebudsolutions/30min" style={{ display: "inline-flex", alignItems: "center", background: "rgba(255,255,255,0.06)", backdropFilter: "blur(12px)", WebkitBackdropFilter: "blur(12px)", border: "1px solid rgba(255,255,255,0.2)", color: "#F5F1EA", padding: "14px 26px", borderRadius: 999, fontSize: 15, fontWeight: 500 }}>Contact sales</a>
+                <a href="https://cal.eu/rosebudsolutions/30min" target="_blank" rel="noopener noreferrer" style={{ display: "inline-flex", alignItems: "center", background: "rgba(255,255,255,0.06)", backdropFilter: "blur(12px)", WebkitBackdropFilter: "blur(12px)", border: "1px solid rgba(255,255,255,0.2)", color: "#F5F1EA", padding: "14px 26px", borderRadius: 999, fontSize: 15, fontWeight: 500 }}>Contact sales</a>
               </div>
             </div>
 
@@ -725,7 +725,7 @@ export default function HomepageV2() {
               </div>
               <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "center", gap: 14, marginTop: 40 }}>
                 <BookDemoCTA label="Book free consultation" href="https://cal.eu/rosebudsolutions/demo" tone="light" />
-                <a href="https://cal.eu/rosebudsolutions/30min" style={{ display: "inline-flex", alignItems: "center", background: "rgba(36,21,40,0.05)", backdropFilter: "blur(12px)", WebkitBackdropFilter: "blur(12px)", border: "1px solid rgba(36,21,40,0.2)", color: "#241528", padding: "14px 27px", borderRadius: 999, fontSize: 15, fontWeight: 500, textDecoration: "none" }}>Contact sales</a>
+                <a href="https://cal.eu/rosebudsolutions/30min" target="_blank" rel="noopener noreferrer" style={{ display: "inline-flex", alignItems: "center", background: "rgba(36,21,40,0.05)", backdropFilter: "blur(12px)", WebkitBackdropFilter: "blur(12px)", border: "1px solid rgba(36,21,40,0.2)", color: "#241528", padding: "14px 27px", borderRadius: 999, fontSize: 15, fontWeight: 500, textDecoration: "none" }}>Contact sales</a>
               </div>
             </div>
           </div>
@@ -749,7 +749,7 @@ export default function HomepageV2() {
             <div>
               <div style={{ fontSize: 12, letterSpacing: ".24em", textTransform: "uppercase", color: "rgba(245,241,234,0.45)", marginBottom: 20, fontFamily: SERIF }}>Contact</div>
               <a href="mailto:contact@rosebud.global" style={{ display: "inline-block", fontSize: 14, color: "#F5F1EA", textDecoration: "none", borderBottom: "1px solid rgba(245,241,234,0.25)", paddingBottom: 3 }}>contact@rosebud.global</a>
-              <div style={{ marginTop: 26 }}><a href="https://cal.eu/rosebudsolutions/demo" style={{ display: "inline-flex", alignItems: "center", gap: 9, fontSize: 14, color: "#F5F1EA", textDecoration: "none", borderBottom: "1px solid rgba(245,241,234,0.25)", paddingBottom: 3 }}>Book a consultation <svg viewBox="0 0 42 12" width="20" height="8" fill="none" style={{ overflow: "visible" }}><path d="M0 6 L32 6" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" /><path d="M26 1.5 L32 6 L26 10.5" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" /></svg></a></div>
+              <div style={{ marginTop: 26 }}><a href="https://cal.eu/rosebudsolutions/demo" target="_blank" rel="noopener noreferrer" style={{ display: "inline-flex", alignItems: "center", gap: 9, fontSize: 14, color: "#F5F1EA", textDecoration: "none", borderBottom: "1px solid rgba(245,241,234,0.25)", paddingBottom: 3 }}>Book a consultation <svg viewBox="0 0 42 12" width="20" height="8" fill="none" style={{ overflow: "visible" }}><path d="M0 6 L32 6" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" /><path d="M26 1.5 L32 6 L26 10.5" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" /></svg></a></div>
             </div>
             <div>
               <div style={{ fontSize: 12, letterSpacing: ".24em", textTransform: "uppercase", color: "rgba(245,241,234,0.45)", marginBottom: 20, fontFamily: SERIF }}>Company</div>
@@ -763,7 +763,7 @@ export default function HomepageV2() {
               <div style={{ display: "flex", flexDirection: "column", gap: 14, alignItems: "flex-end" }}>
                 <a href="/privacy" style={{ fontSize: 14, color: "rgba(245,241,234,0.85)", textDecoration: "none" }}>Privacy Policy</a>
                 <a href="/terms" style={{ fontSize: 14, color: "rgba(245,241,234,0.85)", textDecoration: "none" }}>Terms of Service</a>
-                <a href="#" style={{ fontSize: 14, color: "rgba(245,241,234,0.85)", textDecoration: "none" }}>Cookie settings</a>
+                <a href="/privacy#cookies" onClick={(e) => { e.preventDefault(); window.dispatchEvent(new Event("rb:cookie-settings-open")); }} style={{ fontSize: 14, color: "rgba(245,241,234,0.85)", textDecoration: "none", cursor: "pointer" }}>Cookie settings</a>
               </div>
             </div>
           </div>

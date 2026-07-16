@@ -52,7 +52,7 @@ export default function BookDemoCTA({
   return (
     <div style={{ display: "inline-flex", flexDirection: "column", alignItems: "center", gap: 12 }}>
       <div onMouseMove={onMove} onMouseEnter={() => setHover(true)} onMouseLeave={() => { setHover(false); setD({ dx: 0, dy: 0 }); }} style={{ position: "relative" }}>
-        <a ref={linkRef} href={href} style={btnStyle}>
+        <a ref={linkRef} href={href} target="_blank" rel="noopener noreferrer" style={btnStyle}>
           <span style={{ position: "relative", zIndex: 2 }}>{label}</span>
           <span aria-hidden style={{ position: "relative", zIndex: 2, display: "inline-flex", alignItems: "center" }}>
             <svg viewBox="0 0 42 12" width="38" height="11" style={{ overflow: "visible" }}>
