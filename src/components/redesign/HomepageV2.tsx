@@ -64,6 +64,7 @@ export default function HomepageV2() {
   const heroLen = useRef(0);
   const heroCurP = useRef(0);
   const heroTargetP = useRef(0);
+  const heroInView = useRef(true);
 
   const ucRef = useRef<HTMLElement>(null);
   const [active, setActive] = useState(0);
@@ -78,18 +79,26 @@ export default function HomepageV2() {
   };
 
   useEffect(() => {
-    const onScroll = () => {
+    let ticking = false;
+    const compute = () => {
+      ticking = false;
       const el = ucRef.current;
       if (!el) return;
       const rect = el.getBoundingClientRect();
+      if (rect.bottom < 0 || rect.top > window.innerHeight) return; // section off-screen — skip
       const total = el.offsetHeight - window.innerHeight;
       const p = clamp(total > 0 ? -rect.top / total : 0, 0, 0.9999);
       const a = Math.min(CASES.length - 1, Math.max(0, Math.floor(p * CASES.length)));
       setActive((prev) => (prev !== a ? a : prev));
     };
+    const onScroll = () => {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(compute);
+    };
     window.addEventListener("scroll", onScroll, { passive: true });
     window.addEventListener("resize", onScroll);
-    onScroll();
+    compute();
     return () => {
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("resize", onScroll);
@@ -105,8 +114,17 @@ export default function HomepageV2() {
       const pt = lit.getPointAtLength(0);
       heroDot.current?.setAttribute("transform", `translate(${pt.x},${pt.y})`);
     }
+    // Pause the hero's per-frame layout read/writes once it scrolls off-screen —
+    // otherwise it thrashes layout during the use-cases section (felt "sticky").
+    const io = new IntersectionObserver(
+      ([e]) => { heroInView.current = e.isIntersecting; },
+      { threshold: 0 }
+    );
+    if (heroWrap.current) io.observe(heroWrap.current);
+
     let raf = 0;
     const tick = () => {
+      if (!heroInView.current) { raf = requestAnimationFrame(tick); return; }
       const l = heroLit.current, wrapEl = heroWrap.current;
       if (l && wrapEl) {
         const wr = wrapEl.getBoundingClientRect();
@@ -145,7 +163,7 @@ export default function HomepageV2() {
       raf = requestAnimationFrame(tick);
     };
     raf = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(raf);
+    return () => { cancelAnimationFrame(raf); io.disconnect(); };
   }, []);
 
   const navLink: CSSProperties = { display: "flex", alignItems: "center", gap: 7, color: "var(--nav-fg)" };
