@@ -1,5 +1,6 @@
 "use client";
 import { useEffect, useRef, useState, type CSSProperties } from "react";
+import Lenis from "lenis";
 import BookDemoCTA from "./BookDemoCTA";
 import RevenueWorkflow from "./RevenueWorkflow";
 
@@ -77,11 +78,9 @@ const KEYFRAMES = `
   .rb-foot-legal{ text-align:left !important; }
   .rb-foot-legal-list{ align-items:flex-start !important; }
   .rb-hero-h1{ font-size:clamp(34px,8vw,52px) !important; }
-  .rb-hero-sec{ height:100vh !important; }
   .rb-navbar{ background:rgba(18,13,26,0.82) !important; -webkit-backdrop-filter:blur(16px) !important; backdrop-filter:blur(16px) !important; border-color:rgba(184,174,219,0.18) !important; max-width:none !important; }
-  .rb-close-sec{ height:auto !important; }
-  .rb-close-pin{ position:relative !important; height:auto !important; overflow:visible !important; }
-  .rb-close-stage{ position:relative !important; inset:auto !important; transform:none !important; padding:64px 18px 76px !important; }
+  .rb-hero-stage{ border-bottom-left-radius:26px !important; border-bottom-right-radius:26px !important; }
+  .rb-close-stage{ border-bottom-left-radius:26px !important; border-bottom-right-radius:26px !important; }
 }
 @media (max-width:520px){
   .rb-ind-grid{ grid-template-columns:1fr !important; }
@@ -181,6 +180,22 @@ export default function HomepageV2() {
     return () => mq.removeEventListener("change", on);
   }, []);
 
+  // Smooth-scroll layer (Lenis) — same as the live site. Smooths wheel + touch
+  // so the pinned scroll-jack sections feel fluid instead of stiff/native.
+  useEffect(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const lenis = new Lenis({
+      duration: 1.35,
+      easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -11 * t)),
+      smoothWheel: true,
+      syncTouch: true,
+    });
+    let raf = 0;
+    const loop = (time: number) => { lenis.raf(time); raf = requestAnimationFrame(loop); };
+    raf = requestAnimationFrame(loop);
+    return () => { cancelAnimationFrame(raf); lenis.destroy(); };
+  }, []);
+
   const jumpTo = (i: number) => {
     const el = ucRef.current;
     if (!el) return;
@@ -266,7 +281,6 @@ export default function HomepageV2() {
     let ticking = false;
     const compute = () => {
       ticking = false;
-      if (isMobileRef.current) return; // mobile: close section is un-pinned, no scale
       const cw = closeWrap.current, cstage = closeStage.current;
       if (!cw || !cstage) return;
       const vh = window.innerHeight;
@@ -307,18 +321,6 @@ export default function HomepageV2() {
       if (!heroInView.current) { raf = requestAnimationFrame(tick); return; }
       const l = heroLit.current, wrapEl = heroWrap.current;
       if (l && wrapEl) {
-        if (isMobileRef.current) {
-          // mobile: autoplay the guide trail (ambient), no scroll-jack / zoom
-          heroCurP.current += 0.0016;
-          if (heroCurP.current > 1) heroCurP.current = 0;
-          const w = heroLen.current * heroCurP.current;
-          const p = l.getPointAtLength(w);
-          const d = heroDot.current;
-          if (d) { d.setAttribute("transform", `translate(${p.x},${p.y})`); d.style.opacity = heroCurP.current > 0.94 ? "0" : "1"; }
-          l.style.strokeDashoffset = String(heroLen.current - w);
-          raf = requestAnimationFrame(tick);
-          return;
-        }
         const wr = wrapEl.getBoundingClientRect();
         const wrange = Math.max(1, wrapEl.offsetHeight - window.innerHeight);
         heroTargetP.current = clamp(-wr.top / wrange, 0, 1);
@@ -408,7 +410,7 @@ export default function HomepageV2() {
       {/* HERO */}
       <section ref={heroWrap} className="rb-hero-sec" style={{ position: "relative", height: "300vh", background: "#EAE6F3", color: "#F5F1EA" }}>
         <div ref={heroPin} style={{ position: "sticky", top: 0, height: "100vh", overflow: "hidden", background: "#080609" }}>
-          <div ref={heroStage} style={{ position: "absolute", inset: 0, overflow: "hidden", display: "flex", flexDirection: "column", background: "#080609", transformOrigin: "center center", willChange: "transform", boxShadow: "0 60px 140px -50px rgba(23,19,31,0.45), 0 0 0 1px rgba(23,19,31,0.09)" }}>
+          <div ref={heroStage} className="rb-hero-stage" style={{ position: "absolute", inset: 0, overflow: "hidden", display: "flex", flexDirection: "column", background: "#080609", transformOrigin: "center center", willChange: "transform", boxShadow: "0 60px 140px -50px rgba(23,19,31,0.45), 0 0 0 1px rgba(23,19,31,0.09)" }}>
 
             <div ref={heroTopo} aria-hidden style={{ position: "absolute", inset: "-4%", willChange: "transform", animation: "rbWind 45s ease-in-out 2s infinite alternate" }}>
               {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -481,7 +483,7 @@ export default function HomepageV2() {
             {/* LEFT */}
             <div className="rb-uc-left" style={{ display: "flex", flexDirection: "column", justifyContent: "space-between", minHeight: 460 }}>
               <div>
-                <div style={{ marginBottom: 26 }}><span style={{ fontSize: 12, letterSpacing: ".3em", textTransform: "uppercase", color: A }}>Use cases</span></div>
+                <div style={{ marginBottom: 26 }}><span style={{ fontSize: 12, letterSpacing: ".3em", textTransform: "uppercase", color: A }}>Capabilities</span></div>
                 <h2 style={{ fontFamily: SERIF, fontWeight: 500, fontSize: "clamp(40px,5vw,74px)", lineHeight: 0.98, letterSpacing: "-0.02em", maxWidth: "12ch", margin: 0 }}>{CASES[active].name}</h2>
                 <div style={{ marginTop: 30, position: "relative", width: 62, height: 62, flex: "none" }}>
                   <svg width={62} height={62} viewBox="0 0 54 54" style={{ position: "relative", transform: "rotate(-90deg)" }}>
@@ -800,7 +802,6 @@ export default function HomepageV2() {
             </svg>
             <div aria-hidden style={{ position: "absolute", top: "8%", left: "50%", transform: "translateX(-50%)", width: 900, height: 520, background: "radial-gradient(closest-side, rgba(139,125,216,0.28), rgba(139,125,216,0) 72%)", pointerEvents: "none" }} />
             <div style={{ position: "relative", zIndex: 2, maxWidth: 920, margin: "0 auto" }}>
-              <div style={{ fontSize: 12, letterSpacing: ".3em", textTransform: "uppercase", color: "#8B7DD8", marginBottom: 22 }}>{"The last system you'll set up"}</div>
               <h2 style={{ fontFamily: SERIF, fontWeight: 500, fontSize: "clamp(40px,5vw,74px)", lineHeight: 1.02, letterSpacing: "-0.01em", margin: 0 }}>Stop buying enquiries. Start buying <em style={{ color: A, fontStyle: "italic", fontWeight: 500 }}>customers</em>.</h2>
               <p style={{ marginTop: 26, fontSize: 18, lineHeight: 1.6, color: "rgba(36,21,40,0.66)", maxWidth: "56ch", marginLeft: "auto", marginRight: "auto" }}>See the system run on your own pipeline. Live in five weeks, working every enquiry from first contact to booked appointment.</p>
               <div style={{ marginTop: 44, display: "inline-flex", flexWrap: "wrap", justifyContent: "center", gap: "18px 26px", padding: "26px 34px", borderRadius: 24, background: "rgba(255,255,255,0.4)", backdropFilter: "blur(18px)", WebkitBackdropFilter: "blur(18px)", border: "1px solid rgba(255,255,255,0.6)", boxShadow: "0 30px 70px -40px rgba(36,21,40,0.5), inset 0 1px 0 rgba(255,255,255,0.7)" }}>
