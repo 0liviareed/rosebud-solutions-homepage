@@ -45,7 +45,19 @@ const KEYFRAMES = `
 @keyframes contourdrift { 0%{ transform:translate3d(0,0,0);} 100%{ transform:translate3d(-46px,12px,0);} }
 @keyframes rbWind { from{ transform:translate3d(0,0,0) scale(1.04);} to{ transform:translate3d(-1.6%,-0.5%,0) scale(1.07);} }
 @keyframes rb-glass-sheen { 0%{ transform:translateX(-120%);} 60%,100%{ transform:translateX(220%);} }
+.rb-ind-card{ opacity:0; transform:translateY(26px); transition:opacity .7s cubic-bezier(.16,1,.3,1), transform .7s cubic-bezier(.16,1,.3,1), box-shadow .4s ease; }
+.rb-ind-card.in{ opacity:1; transform:translateY(0); }
+.rb-ind-card:hover{ transform:translateY(-8px); box-shadow:0 50px 90px -40px rgba(0,0,0,0.95), inset 0 1px 0 rgba(255,255,255,0.2); }
+.rb-ind-img{ transition:transform .7s cubic-bezier(.16,1,.3,1); }
+.rb-ind-card:hover .rb-ind-img{ transform:scale(1.06); }
 `;
+
+const INDUSTRIES = [
+  { label: "Trades & Home Services", img: "/assets/ind-trades.webp", href: "/industries/trades-home-services" },
+  { label: "Dental, Aesthetics & Healthcare", img: "/assets/ind-healthcare-v2.avif", href: "/industries/healthcare" },
+  { label: "Legal & Professional", img: "/assets/ind-legal.avif", href: "/industries/family-law" },
+  { label: "Mortgage & Lending", img: "/assets/ind-mortgage.avif", href: "/industries/mortgage-lending" },
+];
 
 const clamp = (v: number, lo: number, hi: number) => Math.max(lo, Math.min(hi, v));
 const SERIF = "var(--font-cormorant), 'Cormorant Garamond', serif";
@@ -103,6 +115,24 @@ export default function HomepageV2() {
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("resize", onScroll);
     };
+  }, []);
+
+  // staggered reveal for industry cards
+  useEffect(() => {
+    const cards = Array.from(document.querySelectorAll<HTMLElement>("[data-ind-card]"));
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+        if (!e.isIntersecting) return;
+        const el = e.target as HTMLElement;
+        const idx = cards.indexOf(el);
+        el.style.transitionDelay = `${idx * 90}ms`;
+        el.classList.add("in");
+        window.setTimeout(() => { el.style.transitionDelay = "0ms"; }, idx * 90 + 800);
+        io.unobserve(el);
+      });
+    }, { threshold: 0.18 });
+    cards.forEach((c) => io.observe(c));
+    return () => io.disconnect();
   }, []);
 
   useEffect(() => {
@@ -343,7 +373,38 @@ export default function HomepageV2() {
         </div>
       </section>
 
-      {/* more sections land next (challenge, industries, security, voices, workflow, close) */}
+      {/* CHALLENGE section lands here next (with the Revenue Workflow diagram) */}
+
+      {/* INDUSTRIES */}
+      <section style={{ position: "relative", overflow: "hidden", background: "#080609", color: "#F5F1EA", padding: "130px 48px" }}>
+        <div style={{ position: "relative", zIndex: 1, maxWidth: 1220, margin: "0 auto" }}>
+          <div style={{ fontSize: 12, letterSpacing: ".28em", textTransform: "uppercase", color: "#B8AEDB", marginBottom: 18 }}>Industries</div>
+          <h2 style={{ fontFamily: SERIF, fontWeight: 500, fontSize: "clamp(40px,5vw,74px)", lineHeight: 1.02, letterSpacing: "-0.01em", maxWidth: "16ch", margin: 0 }}>{"Where we've made the biggest difference"}</h2>
+          <div style={{ marginTop: 52, display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 22 }}>
+            {INDUSTRIES.map((it) => (
+              <a key={it.href} href={it.href} data-ind-card className="rb-ind-card"
+                style={{ position: "relative", display: "flex", flexDirection: "column", textDecoration: "none", color: "#F5F1EA", borderRadius: 22, padding: "9px 9px 4px", background: "rgba(255,255,255,0.05)", backdropFilter: "blur(18px)", WebkitBackdropFilter: "blur(18px)", border: "1px solid rgba(255,255,255,0.1)", boxShadow: "0 34px 74px -38px rgba(0,0,0,0.85), inset 0 1px 0 rgba(255,255,255,0.14)" }}>
+                <div style={{ position: "relative", aspectRatio: "16 / 10", borderRadius: 15, overflow: "hidden", background: "#15121C" }}>
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img className="rb-ind-img" src={it.img} alt={it.label} style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover" }} />
+                  <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to top, rgba(8,6,10,0.35) 0%, transparent 42%)" }} />
+                </div>
+                <div style={{ padding: "20px 12px 16px", display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: 12 }}>
+                  <h3 style={{ fontFamily: SERIF, fontWeight: 500, fontSize: "clamp(23px,1.7vw,30px)", lineHeight: 1.1, letterSpacing: "-0.01em", color: "#F5F1EA", maxWidth: "13ch", margin: 0 }}>{it.label}</h3>
+                  <span style={{ flex: "none", marginTop: 4, width: 32, height: 32, borderRadius: 999, border: "1px solid rgba(255,255,255,0.18)", display: "flex", alignItems: "center", justifyContent: "center", color: "#B8AEDB" }}>
+                    <svg viewBox="0 0 42 12" width="19" height="8" fill="none" style={{ overflow: "visible" }}>
+                      <path d="M0 6 L32 6" stroke="currentColor" strokeWidth={1.4} strokeLinecap="round" />
+                      <path d="M26 1.5 L32 6 L26 10.5" stroke="currentColor" strokeWidth={1.4} strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
+                  </span>
+                </div>
+              </a>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* more sections land next (security, voices, workflow, close) */}
     </div>
   );
 }
