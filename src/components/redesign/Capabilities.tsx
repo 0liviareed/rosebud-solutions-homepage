@@ -40,13 +40,6 @@ const UC_BG = ["#EAE6F3", "#E4EEE8", "#F3EBE1", "#E7EDF5", "#F0E9F3", "#EBF0E2",
 export default function Capabilities() {
   const ucRef = useRef<HTMLElement>(null);
   const [active, setActive] = useState(0);
-  const wfBox = useRef<HTMLDivElement>(null);
-  const wfInner = useRef<HTMLDivElement>(null);
-  const voiceTrack = useRef<HTMLDivElement>(null);
-  const [voiceIdx, setVoiceIdx] = useState(0);
-  const [navOpen, setNavOpen] = useState(false);
-  const touchX = useRef<number | null>(null);
-
 
   const jumpTo = (i: number) => {
     const el = ucRef.current;
@@ -80,7 +73,7 @@ export default function Capabilities() {
   return (
     <>
       {/* USE CASES (pinned, 8 stages cycle with scroll) */}
-      <section ref={ucRef} style={{ position: "relative", background: "#F1EDE6", color: "#1A1720", height: "560vh" }}>
+      <section ref={ucRef} style={{ position: "relative", background: "#F1EDE6", color: "#1A1720", height: "720vh" }}>
         <div style={{ position: "sticky", top: 0, height: "100vh", display: "flex", alignItems: "center", overflow: "hidden" }}>
           <div aria-hidden style={{ position: "absolute", inset: 0, zIndex: 0, background: UC_BG[active % 8], transition: "background 0.7s ease" }} />
           <div className="rb-uc-grid" style={{ position: "relative", zIndex: 1, width: "100%", maxWidth: 1220, margin: "0 auto", padding: "0 48px", display: "grid", gridTemplateColumns: "0.92fr 1.08fr", gap: 64, alignItems: "center" }}>

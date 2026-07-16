@@ -44,7 +44,9 @@ const KEYFRAMES = `
   .rb-sec-grid{ grid-template-columns:1fr !important; }
   .rb-sec-span2{ grid-column:auto !important; }
   .rb-voice-card{ flex:0 0 84% !important; }
-  .rb-close-stage{ padding:56px 18px !important; }
+  .rb-close-sec{ height:auto !important; }
+  .rb-close-pin{ position:relative !important; height:auto !important; overflow:visible !important; }
+  .rb-close-stage{ position:relative !important; inset:auto !important; transform:none !important; box-shadow:none !important; padding:64px 18px 84px !important; }
   .rb-foot-grid{ grid-template-columns:1fr !important; gap:28px !important; }
   .rb-foot-legal{ text-align:left !important; }
   .rb-foot-legal-list{ align-items:flex-start !important; }
@@ -120,6 +122,8 @@ export default function HomepageV2() {
   const wfBox = useRef<HTMLDivElement>(null);
   const wfInner = useRef<HTMLDivElement>(null);
   const voiceTrack = useRef<HTMLDivElement>(null);
+  const closeWrap = useRef<HTMLElement>(null);
+  const closeStage = useRef<HTMLDivElement>(null);
   const [voiceIdx, setVoiceIdx] = useState(0);
   const [navOpen, setNavOpen] = useState(false);
   const touchX = useRef<number | null>(null);
@@ -175,7 +179,7 @@ export default function HomepageV2() {
       const bar = navBar.current;
       if (!bar) return;
       const solid = window.scrollY > window.innerHeight * 0.85;
-      bar.style.background = solid ? "linear-gradient(180deg, rgba(38,30,54,0.78) 0%, rgba(16,12,24,0.66) 100%)" : "transparent";
+      bar.style.background = solid ? "linear-gradient(180deg, rgba(18,17,21,0.86) 0%, rgba(10,9,12,0.76) 100%)" : "transparent";
       bar.style.backdropFilter = solid ? "blur(26px) saturate(1.4)" : "none";
       bar.style.setProperty("-webkit-backdrop-filter", solid ? "blur(26px) saturate(1.4)" : "none");
       bar.style.borderColor = solid ? "rgba(184,174,219,0.22)" : "transparent";
@@ -184,6 +188,30 @@ export default function HomepageV2() {
     window.addEventListener("scroll", onScroll, { passive: true });
     onScroll();
     return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  // Close section frames out into the footer — DESKTOP only (static on mobile).
+  useEffect(() => {
+    let ticking = false;
+    const compute = () => {
+      ticking = false;
+      if (window.matchMedia("(max-width: 860px)").matches) return;
+      const cw = closeWrap.current, cstage = closeStage.current;
+      if (!cw || !cstage) return;
+      const vh = window.innerHeight;
+      const r = cw.getBoundingClientRect();
+      if (r.bottom < 0 || r.top > vh) return;
+      const total = Math.max(1, cw.offsetHeight - vh);
+      const ct = clamp((clamp(-r.top / total, 0, 1) - 0.4) / 0.55, 0, 1);
+      cstage.style.transform = `scale(${1 - 0.14 * ct})`;
+      cstage.style.borderRadius = `${ct * 30}px`;
+      cstage.style.boxShadow = `0 ${40 + ct * 50}px ${120 + ct * 90}px -40px rgba(0,0,0,0.7), 0 0 ${ct * 80}px ${ct * 34}px rgba(0,0,0,0.5)`;
+    };
+    const onScroll = () => { if (ticking) return; ticking = true; requestAnimationFrame(compute); };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    compute();
+    return () => { window.removeEventListener("scroll", onScroll); window.removeEventListener("resize", onScroll); };
   }, []);
 
   const navLink: CSSProperties = { display: "flex", alignItems: "center", gap: 7, color: "var(--nav-fg)" };
@@ -478,8 +506,9 @@ export default function HomepageV2() {
       </section>
 
       {/* CLOSE */}
-      <section style={{ position: "relative", background: "#000000" }}>
-          <div className="rb-close-stage" style={{ position: "relative", overflow: "hidden", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", textAlign: "center", padding: "120px 24px 132px", background: "linear-gradient(150deg, #EFE7F1 0%, #F3E7DB 52%, #F8E0CE 100%)", color: "#241528" }}>
+      <section ref={closeWrap} className="rb-close-sec" style={{ position: "relative", height: "200vh", background: "#000000" }}>
+        <div className="rb-close-pin" style={{ position: "sticky", top: 0, height: "100vh", overflow: "hidden", background: "#000000" }}>
+          <div ref={closeStage} className="rb-close-stage" style={{ position: "absolute", inset: 0, overflow: "hidden", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", textAlign: "center", padding: "80px 48px", background: "linear-gradient(150deg, #EFE7F1 0%, #F3E7DB 52%, #F8E0CE 100%)", color: "#241528", transformOrigin: "center center", willChange: "transform" }}>
             <svg viewBox="0 0 1440 500" preserveAspectRatio="xMidYMid slice" style={{ position: "absolute", inset: 0, width: "100%", height: "100%", opacity: 0.5 }}>
               <g fill="none" stroke="rgba(255,255,255,0.08)" strokeWidth="1" style={{ animation: "contourdrift 42s ease-in-out infinite alternate" }}>
                 <path d="M-40,180 C300,120 560,340 840,300 C1120,260 1260,120 1500,200" /><path d="M-40,360 C300,320 560,480 840,440 C1120,400 1260,320 1500,380" />
@@ -505,6 +534,7 @@ export default function HomepageV2() {
               </div>
             </div>
           </div>
+        </div>
       </section>
 
       {/* FOOTER */}
