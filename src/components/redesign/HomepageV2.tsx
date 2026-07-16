@@ -91,6 +91,27 @@ function Verdict({ ok }: { ok: boolean }) {
   return <span style={{ fontSize: 12, fontWeight: 600, padding: "4px 12px", borderRadius: 999, minWidth: 78, textAlign: "center", background: ok ? "rgba(78,138,104,0.15)" : "rgba(23,19,31,0.06)", color: ok ? "#3F7A57" : "rgba(23,19,31,0.42)" }}>{ok ? "Allowed" : "Not allowed"}</span>;
 }
 
+const VOICES = [
+  { quote: "When something breaks, I message Anselm and he answers. That doesn't happen with agencies. You pay them and you're dealing with an account manager by week two.", name: "Eleanor Whitman", role: "Principal", ini: "EW" },
+  { quote: "This isn't just about automation. It's about creating a better, faster experience that still feels personal and thoughtful.", name: "James Holloway", role: "Multi-Site Operator", ini: "JH" },
+  { quote: "I used to do reporting on Sunday nights. I dreaded it. Now I open my laptop Monday morning and the week's already sorted. Honestly, getting my Sundays back was worth the fee on its own.", name: "Henry Caldwell", role: "Partner", ini: "HC" },
+  { quote: "I'd been telling myself I'd sort this out for two years. Five weeks with Rosebud and it was done. It's one of the only things I've paid for this year that made my job smaller instead of bigger.", name: "Richard Sinclair", role: "Operations Director", ini: "RS" },
+  { quote: "We had hundreds of leads sitting in a spreadsheet, not doing anything. Rosebud scored all of them, told us who was worth a call, and my team only talks to those ones now. It's obvious in hindsight but we'd never have built it ourselves.", name: "Margaret Ellsworth", role: "Founder & CEO", ini: "ME" },
+  { quote: "The thing that surprised me was the follow-ups sounded like me. Two people on calls last month mentioned how nice my emails were. I didn't write them — Rosebud did.", name: "Victoria Hastings", role: "Head of Marketing", ini: "VH" },
+  { quote: "I thought if I wasn't chasing, deals would die. But we closed two in the last quarter from people I'd given up on months ago. Rosebud was still in touch with them when I wasn't.", name: "Edward Harrington", role: "Managing Director", ini: "EH" },
+  { quote: "My phone used to ring before I'd finished my first coffee. Now I open my inbox and three calls are already on my calendar. I just read the notes and show up.", name: "Thomas Ashford", role: "Operations Director", ini: "TA" },
+];
+
+const SERVICES = [
+  { label: "Capture & respond", d: ["M4 14l2-8h12l2 8", "M4 14h4l1.5 2.5h5L16 14h4v5H4z"] },
+  { label: "Qualify & triage", d: ["M4 5h16l-6 7v6l-4 2v-8z"] },
+  { label: "Book into diary", d: ["M4 5.5h16v14H4z", "M4 9.5h16", "M8 3.5v4", "M16 3.5v4"] },
+  { label: "Remind & reschedule", d: ["M12 4a8 8 0 1 1-5.6 2.3", "M12 8v4l2.5 2", "M6.4 6.3L4.5 4.5", "M4.5 4.5V8h3.5"] },
+  { label: "Recall & nurture", d: ["M12 20s-7-4.5-7-9.6A3.9 3.9 0 0 1 12 8a3.9 3.9 0 0 1 7 2.4c0 5.1-7 9.6-7 9.6z"] },
+  { label: "Write to CRM", d: ["M12 3.4c3.9 0 7 1.1 7 2.5s-3.1 2.5-7 2.5-7-1.1-7-2.5 3.1-2.5 7-2.5z", "M5 5.9v12.2c0 1.4 3.1 2.5 7 2.5s7-1.1 7-2.5V5.9", "M5 12c0 1.4 3.1 2.5 7 2.5s7-1.1 7-2.5"] },
+  { label: "Closed-loop attribution", d: ["M12 4a8 8 0 1 1-5.6 2.3", "M4.5 4.5V8h3.5", "M12 8.5a3.5 3.5 0 1 1-2.5 1"] },
+];
+
 const clamp = (v: number, lo: number, hi: number) => Math.max(lo, Math.min(hi, v));
 const SERIF = "var(--font-cormorant), 'Cormorant Garamond', serif";
 
@@ -114,6 +135,10 @@ export default function HomepageV2() {
   const [active, setActive] = useState(0);
   const wfBox = useRef<HTMLDivElement>(null);
   const wfInner = useRef<HTMLDivElement>(null);
+  const voiceTrack = useRef<HTMLDivElement>(null);
+  const closeWrap = useRef<HTMLElement>(null);
+  const closeStage = useRef<HTMLDivElement>(null);
+  const [voiceIdx, setVoiceIdx] = useState(0);
 
   const jumpTo = (i: number) => {
     const el = ucRef.current;
@@ -179,6 +204,43 @@ export default function HomepageV2() {
     if (wfBox.current) ro.observe(wfBox.current);
     scale();
     return () => ro.disconnect();
+  }, []);
+
+  // voices carousel — slide the track to the active index
+  useEffect(() => {
+    const apply = () => {
+      const t = voiceTrack.current;
+      if (!t || !t.children.length) return;
+      const step = (t.children[0] as HTMLElement).getBoundingClientRect().width + 20;
+      t.style.transform = `translateX(-${voiceIdx * step}px)`;
+    };
+    apply();
+    const id = window.setTimeout(apply, 300);
+    window.addEventListener("resize", apply);
+    return () => { window.clearTimeout(id); window.removeEventListener("resize", apply); };
+  }, [voiceIdx]);
+
+  // close section frames out into the footer as it scrolls (mirrors the hero)
+  useEffect(() => {
+    let ticking = false;
+    const compute = () => {
+      ticking = false;
+      const cw = closeWrap.current, cstage = closeStage.current;
+      if (!cw || !cstage) return;
+      const vh = window.innerHeight;
+      const r = cw.getBoundingClientRect();
+      if (r.bottom < 0 || r.top > vh) return;
+      const total = Math.max(1, cw.offsetHeight - vh);
+      const ct = clamp((clamp(-r.top / total, 0, 1) - 0.4) / 0.55, 0, 1);
+      cstage.style.transform = `scale(${1 - 0.14 * ct})`;
+      cstage.style.borderRadius = `${ct * 30}px`;
+      cstage.style.boxShadow = `0 ${40 + ct * 50}px ${120 + ct * 90}px -40px rgba(0,0,0,0.7), 0 0 ${ct * 80}px ${ct * 34}px rgba(0,0,0,0.5)`;
+    };
+    const onScroll = () => { if (ticking) return; ticking = true; requestAnimationFrame(compute); };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    compute();
+    return () => { window.removeEventListener("scroll", onScroll); window.removeEventListener("resize", onScroll); };
   }, []);
 
   useEffect(() => {
@@ -585,7 +647,129 @@ export default function HomepageV2() {
         </div>
       </section>
 
-      {/* more sections land next (voices, close) */}
+      {/* VOICES */}
+      <section style={{ position: "relative", overflow: "hidden", background: "#080609", color: "#F5F1EA", padding: "130px 48px" }}>
+        <div aria-hidden style={{ position: "absolute", inset: 0, overflow: "hidden" }}>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/assets/topo.jpg" alt="" style={{ position: "absolute", inset: "-4%", width: "108%", height: "108%", objectFit: "cover", filter: "brightness(0.4) saturate(0.85)" }} />
+          <div style={{ position: "absolute", inset: 0, background: "radial-gradient(120% 90% at 50% 40%, rgba(8,6,10,0.55) 0%, rgba(8,6,10,0.82) 65%, #080609 100%)" }} />
+        </div>
+        <div style={{ position: "relative", zIndex: 1, maxWidth: 1220, margin: "0 auto" }}>
+          <div style={{ fontSize: 12, letterSpacing: ".28em", textTransform: "uppercase", color: "#B8AEDB", marginBottom: 18 }}>Voices</div>
+          <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between", gap: 24, flexWrap: "wrap" }}>
+            <h2 style={{ fontFamily: SERIF, fontWeight: 500, fontSize: "clamp(40px,5vw,74px)", lineHeight: 1.0, letterSpacing: "-0.01em", margin: 0 }}>In their words, not ours</h2>
+            <div style={{ display: "inline-flex", alignItems: "center", borderRadius: 999, background: "rgba(255,255,255,0.06)", backdropFilter: "blur(10px)", WebkitBackdropFilter: "blur(10px)", border: "1px solid rgba(255,255,255,0.16)", overflow: "hidden" }}>
+              <button type="button" onClick={() => setVoiceIdx((i) => Math.max(0, i - 1))} aria-label="Previous" style={{ width: 56, height: 50, background: "transparent", border: "none", color: "#B8AEDB", display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer", opacity: voiceIdx <= 0 ? 0.3 : 1 }}>
+                <svg viewBox="0 0 42 12" width="24" height="10" fill="none" style={{ overflow: "visible" }}><path d="M42 6 L10 6" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" /><path d="M16 1.5 L10 6 L16 10.5" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" /></svg>
+              </button>
+              <span style={{ width: 1, height: 26, background: "rgba(255,255,255,0.16)" }} />
+              <button type="button" onClick={() => setVoiceIdx((i) => Math.min(VOICES.length - 2, i + 1))} aria-label="Next" style={{ width: 56, height: 50, background: "transparent", border: "none", color: "#B8AEDB", display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer", opacity: voiceIdx >= VOICES.length - 2 ? 0.3 : 1 }}>
+                <svg viewBox="0 0 42 12" width="24" height="10" fill="none" style={{ overflow: "visible" }}><path d="M0 6 L32 6" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" /><path d="M26 1.5 L32 6 L26 10.5" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" /></svg>
+              </button>
+            </div>
+          </div>
+          <div style={{ marginTop: 44, overflow: "hidden" }}>
+            <div ref={voiceTrack} style={{ display: "flex", gap: 20, transition: "transform 0.7s cubic-bezier(.16,1,.3,1)" }}>
+              {VOICES.map((v, i) => {
+                const focused = i === voiceIdx || i === voiceIdx + 1;
+                return (
+                  <div key={i} style={{ flex: "0 0 46%", opacity: focused ? 1 : 0.42, transform: focused ? "none" : "scale(0.94)", transition: "opacity 0.5s ease, transform 0.5s ease", transformOrigin: "center" }}>
+                    <div style={{ position: "relative", height: "100%", minHeight: 360, background: "rgba(20,16,26,0.55)", backdropFilter: "blur(16px)", WebkitBackdropFilter: "blur(16px)", border: "1px solid rgba(184,174,219,0.16)", boxShadow: "0 30px 66px -34px rgba(0,0,0,0.85), inset 0 1px 0 rgba(255,255,255,0.08)", borderRadius: 22, padding: "36px 34px", display: "flex", flexDirection: "column" }}>
+                      <div style={{ fontFamily: SERIF, fontSize: 60, lineHeight: 0.8, color: "rgba(184,174,219,0.5)", height: 34 }}>&ldquo;</div>
+                      <div style={{ fontFamily: SERIF, fontSize: 22, lineHeight: 1.4, color: "#EDE9F5", marginTop: 14, flex: 1 }}>{v.quote}</div>
+                      <div style={{ marginTop: 30, paddingTop: 22, borderTop: "1px solid rgba(255,255,255,0.1)", display: "flex", alignItems: "center", gap: 14 }}>
+                        <span style={{ width: 44, height: 44, flex: "none", borderRadius: 999, background: "rgba(139,125,216,0.16)", border: "1px solid rgba(184,174,219,0.28)", display: "flex", alignItems: "center", justifyContent: "center", fontFamily: SERIF, fontStyle: "italic", fontSize: 15, color: "#C7BEE8" }}>{v.ini}</span>
+                        <div>
+                          <div style={{ fontSize: 12.5, letterSpacing: ".12em", textTransform: "uppercase", color: "#F5F1EA" }}>{v.name}</div>
+                          <div style={{ fontFamily: SERIF, fontStyle: "italic", fontSize: 14, color: "rgba(245,241,234,0.55)", marginTop: 3 }}>{v.role}</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+          <div style={{ marginTop: 34, display: "flex", alignItems: "center", gap: 18, justifyContent: "center" }}>
+            <div style={{ fontFamily: SERIF, fontSize: 20, letterSpacing: ".04em", color: "#B8AEDB" }}>{`${voiceIdx + 1 < 10 ? "0" : ""}${voiceIdx + 1} — 0${VOICES.length}`}</div>
+            <div style={{ width: 200, height: 2, background: "rgba(255,255,255,0.14)", borderRadius: 2, overflow: "hidden" }}>
+              <div style={{ height: "100%", background: "#B8AEDB", borderRadius: 2, width: `${((voiceIdx + 1) / (VOICES.length - 1)) * 100}%`, transition: "width 0.6s cubic-bezier(.16,1,.3,1)" }} />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* CLOSE */}
+      <section ref={closeWrap} style={{ position: "relative", height: "200vh", background: "#000000" }}>
+        <div style={{ position: "sticky", top: 0, height: "100vh", overflow: "hidden", background: "#000000" }}>
+          <div ref={closeStage} style={{ position: "absolute", inset: 0, overflow: "hidden", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", textAlign: "center", padding: "80px 48px", background: "linear-gradient(150deg, #EFE7F1 0%, #F3E7DB 52%, #F8E0CE 100%)", color: "#241528", transformOrigin: "center center", willChange: "transform" }}>
+            <svg viewBox="0 0 1440 500" preserveAspectRatio="xMidYMid slice" style={{ position: "absolute", inset: 0, width: "100%", height: "100%", opacity: 0.5 }}>
+              <g fill="none" stroke="rgba(255,255,255,0.08)" strokeWidth="1" style={{ animation: "contourdrift 42s ease-in-out infinite alternate" }}>
+                <path d="M-40,180 C300,120 560,340 840,300 C1120,260 1260,120 1500,200" /><path d="M-40,360 C300,320 560,480 840,440 C1120,400 1260,320 1500,380" />
+              </g>
+            </svg>
+            <div aria-hidden style={{ position: "absolute", top: "8%", left: "50%", transform: "translateX(-50%)", width: 900, height: 520, background: "radial-gradient(closest-side, rgba(139,125,216,0.28), rgba(139,125,216,0) 72%)", pointerEvents: "none" }} />
+            <div style={{ position: "relative", zIndex: 2, maxWidth: 920, margin: "0 auto" }}>
+              <div style={{ fontSize: 12, letterSpacing: ".3em", textTransform: "uppercase", color: "#8B7DD8", marginBottom: 22 }}>{"The last system you'll set up"}</div>
+              <h2 style={{ fontFamily: SERIF, fontWeight: 500, fontSize: "clamp(40px,5vw,74px)", lineHeight: 1.02, letterSpacing: "-0.01em", margin: 0 }}>Stop buying enquiries. Start buying <em style={{ color: A, fontStyle: "italic", fontWeight: 500 }}>customers</em>.</h2>
+              <p style={{ marginTop: 26, fontSize: 18, lineHeight: 1.6, color: "rgba(36,21,40,0.66)", maxWidth: "56ch", marginLeft: "auto", marginRight: "auto" }}>See the system run on your own pipeline. Live in five weeks, working every enquiry from first contact to booked appointment.</p>
+              <div style={{ marginTop: 44, display: "inline-flex", flexWrap: "wrap", justifyContent: "center", gap: "18px 26px", padding: "26px 34px", borderRadius: 24, background: "rgba(255,255,255,0.4)", backdropFilter: "blur(18px)", WebkitBackdropFilter: "blur(18px)", border: "1px solid rgba(255,255,255,0.6)", boxShadow: "0 30px 70px -40px rgba(36,21,40,0.5), inset 0 1px 0 rgba(255,255,255,0.7)" }}>
+                {SERVICES.map((s) => (
+                  <div key={s.label} style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 11, width: 92 }}>
+                    <div style={{ width: 46, height: 46, borderRadius: 14, display: "flex", alignItems: "center", justifyContent: "center", color: "#2E2033", background: "#FFFFFF", border: "1px solid rgba(36,21,40,0.08)", boxShadow: "0 10px 24px -14px rgba(36,21,40,0.55), inset 0 1px 0 rgba(255,255,255,0.9)" }}>
+                      <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">{s.d.map((p, k) => <path key={k} d={p} />)}</svg>
+                    </div>
+                    <div style={{ fontSize: 12, lineHeight: 1.3, color: "rgba(36,21,40,0.62)" }}>{s.label}</div>
+                  </div>
+                ))}
+              </div>
+              <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "center", gap: 14, marginTop: 40 }}>
+                <BookDemoCTA label="Book free consultation" href="https://cal.eu/rosebudsolutions/demo" tone="light" />
+                <a href="https://cal.eu/rosebudsolutions/30min" style={{ display: "inline-flex", alignItems: "center", background: "rgba(36,21,40,0.05)", backdropFilter: "blur(12px)", WebkitBackdropFilter: "blur(12px)", border: "1px solid rgba(36,21,40,0.2)", color: "#241528", padding: "14px 27px", borderRadius: 999, fontSize: 15, fontWeight: 500, textDecoration: "none" }}>Contact sales</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* FOOTER */}
+      <footer style={{ position: "relative", background: "#000000", color: "#F5F1EA", padding: "70px 48px 44px" }}>
+        <div style={{ maxWidth: 1220, margin: "0 auto" }}>
+          <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 20 }}>
+            <a href="/" aria-label="Rosebud Global" style={{ display: "flex", alignItems: "center" }}>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src="/assets/rosebud-logo.png" alt="Rosebud Global" width={40} height={40} style={{ display: "block", width: 40, height: 40 }} />
+            </a>
+            <div style={{ display: "flex", gap: 12 }}>
+              <a href="https://www.linkedin.com/company/108013298/" aria-label="LinkedIn" target="_blank" rel="noopener noreferrer" style={{ width: 44, height: 44, borderRadius: 999, background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.12)", display: "flex", alignItems: "center", justifyContent: "center", color: "#F5F1EA" }}><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5A2.5 2.5 0 1 1 0 3.5a2.5 2.5 0 0 1 4.98 0zM.25 8.25h4.5V23h-4.5zM8.5 8.25H12.8v2h.06c.6-1.05 2.07-2.16 4.26-2.16 4.56 0 5.4 3 5.4 6.9V23h-4.5v-6.2c0-1.48-.03-3.38-2.06-3.38-2.06 0-2.37 1.6-2.37 3.27V23H8.5z" /></svg></a>
+              <a href="https://www.instagram.com/rosebudglobal/" aria-label="Instagram" target="_blank" rel="noopener noreferrer" style={{ width: 44, height: 44, borderRadius: 999, background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.12)", display: "flex", alignItems: "center", justifyContent: "center", color: "#F5F1EA" }}><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"><rect x="3" y="3" width="18" height="18" rx="5" /><circle cx="12" cy="12" r="4" /><circle cx="17.2" cy="6.8" r="1.1" fill="currentColor" stroke="none" /></svg></a>
+            </div>
+          </div>
+          <div style={{ marginTop: 52, display: "grid", gridTemplateColumns: "1.4fr 1fr 1fr", gap: 40 }}>
+            <div>
+              <div style={{ fontSize: 12, letterSpacing: ".24em", textTransform: "uppercase", color: "rgba(245,241,234,0.45)", marginBottom: 20, fontFamily: SERIF }}>Contact</div>
+              <a href="mailto:contact@rosebud.global" style={{ display: "inline-block", fontSize: 14, color: "#F5F1EA", textDecoration: "none", borderBottom: "1px solid rgba(245,241,234,0.25)", paddingBottom: 3 }}>contact@rosebud.global</a>
+              <div style={{ marginTop: 26 }}><a href="https://cal.eu/rosebudsolutions/demo" style={{ display: "inline-flex", alignItems: "center", gap: 9, fontSize: 14, color: "#F5F1EA", textDecoration: "none", borderBottom: "1px solid rgba(245,241,234,0.25)", paddingBottom: 3 }}>Book a consultation <svg viewBox="0 0 42 12" width="20" height="8" fill="none" style={{ overflow: "visible" }}><path d="M0 6 L32 6" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" /><path d="M26 1.5 L32 6 L26 10.5" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" /></svg></a></div>
+            </div>
+            <div>
+              <div style={{ fontSize: 12, letterSpacing: ".24em", textTransform: "uppercase", color: "rgba(245,241,234,0.45)", marginBottom: 20, fontFamily: SERIF }}>Company</div>
+              <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
+                <a href="/about" style={{ fontSize: 14, color: "rgba(245,241,234,0.85)", textDecoration: "none" }}>About</a>
+                <a href="/pricing" style={{ fontSize: 14, color: "rgba(245,241,234,0.85)", textDecoration: "none" }}>Pricing</a>
+              </div>
+            </div>
+            <div style={{ textAlign: "right" }}>
+              <div style={{ fontSize: 12, letterSpacing: ".24em", textTransform: "uppercase", color: "rgba(245,241,234,0.45)", marginBottom: 20, fontFamily: SERIF }}>Legal</div>
+              <div style={{ display: "flex", flexDirection: "column", gap: 14, alignItems: "flex-end" }}>
+                <a href="/privacy" style={{ fontSize: 14, color: "rgba(245,241,234,0.85)", textDecoration: "none" }}>Privacy Policy</a>
+                <a href="/terms" style={{ fontSize: 14, color: "rgba(245,241,234,0.85)", textDecoration: "none" }}>Terms of Service</a>
+                <a href="#" style={{ fontSize: 14, color: "rgba(245,241,234,0.85)", textDecoration: "none" }}>Cookie settings</a>
+              </div>
+            </div>
+          </div>
+          <div style={{ marginTop: 44, textAlign: "center", fontSize: 12, letterSpacing: ".18em", textTransform: "uppercase", color: "rgba(245,241,234,0.4)" }}>Copyright © 2026 Rosebud Global. All rights reserved.</div>
+        </div>
+      </footer>
     </div>
   );
 }
