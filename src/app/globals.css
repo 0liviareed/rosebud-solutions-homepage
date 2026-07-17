@@ -512,8 +512,8 @@ button { font: inherit; color: inherit; }
 .rb-hero-h1 {
   font-family: var(--font-cormorant), serif;
   font-weight: 400;
-  font-size: clamp(3rem, 7vw, 5.5rem);
-  line-height: 1.02;
+  font-size: clamp(2.25rem, 5vw, 4rem);
+  line-height: 1.05;
   letter-spacing: -0.01em;
   color: var(--rb-bone);
   text-shadow: 0 6px 50px rgba(0,0,0,0.85);
@@ -525,6 +525,9 @@ button { font: inherit; color: inherit; }
   transform: translateY(24px);
   animation: rbRise 1400ms var(--rb-ease) forwards;
 }
+/* Redesign hero headline is a longer sentence than the live "you." hero, so
+   scale it down (scoped to .rb-v2 — the live/main hero keeps its size). */
+.rb-v2 .rb-hero-h1 { font-size: clamp(1.9rem, 3.7vw, 3.15rem); }
 .rb-hero-h1 em { font-style: italic; font-weight: 400; color: var(--rb-purple); }
 .rb-hero-h1 .rb-l1 { animation-delay: 450ms; }
 .rb-hero-h1 .rb-l2a { animation-delay: 720ms; }

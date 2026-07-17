@@ -270,7 +270,7 @@ export default function HomepageV2() {
   const navLink: CSSProperties = { display: "flex", alignItems: "center", gap: 7, color: "var(--nav-fg)" };
 
   return (
-    <div style={{ fontFamily: "var(--font-dm-sans), system-ui, sans-serif", color: "#0B0A0C", background: "#0B0A0C", overflowX: "clip" }}>
+    <div className="rb-v2" style={{ fontFamily: "var(--font-dm-sans), system-ui, sans-serif", color: "#0B0A0C", background: "#0B0A0C", overflowX: "clip" }}>
       <style dangerouslySetInnerHTML={{ __html: KEYFRAMES }} />
 
       {/* fixed nav */}
