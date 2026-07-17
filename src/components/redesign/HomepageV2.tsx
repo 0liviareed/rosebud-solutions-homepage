@@ -29,6 +29,7 @@ const KEYFRAMES = `
 @keyframes rbwf-breathe { 0%,100%{ box-shadow:0 10px 28px rgba(0,0,0,.55), inset 0 1px 0 rgba(255,255,255,.05); border-color:rgba(255,255,255,.075); } 50%{ box-shadow:0 10px 32px rgba(0,0,0,.55), 0 0 0 1px rgba(139,127,245,.22), inset 0 1px 0 rgba(255,255,255,.05); border-color:rgba(139,127,245,.30); } }
 @keyframes rbwf-syncdot { 0%,100%{ opacity:.25; transform:scale(.85); } 50%{ opacity:1; transform:scale(1); } }
 .rb-nav-burger{ display:none; }
+.rb-hero-wrap{ background:#EAE6F3 !important; }
 @media (max-width:860px){
   .rb-nav-links{ display:none !important; }
   .rb-nav-burger{ display:flex !important; }
