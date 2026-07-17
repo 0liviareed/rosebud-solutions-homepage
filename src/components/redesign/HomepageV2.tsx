@@ -374,8 +374,8 @@ export default function HomepageV2() {
       <Hero
         headline={<>
           <span className="rb-l1">We close the gap between</span>{" "}
-          <span className="rb-l2a">what you spend and what you&nbsp;</span>
-          <em className="rb-l2b">keep.</em>
+          <span className="rb-l2a">what you spend &amp; what you&nbsp;</span>
+          <em className="rb-l2b">keep</em>
         </>}
         sub=""
         caption=""
