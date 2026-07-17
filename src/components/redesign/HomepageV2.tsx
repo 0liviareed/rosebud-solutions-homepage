@@ -306,14 +306,12 @@ export default function HomepageV2() {
                   ))}
                 </div>
               </div>
-              <a href="/see-it-run" onClick={() => setOpenMenu(null)} className="rb-mega-item" style={{ flex: 1, minWidth: 0, display: "flex", flexDirection: "column", borderRadius: 16, overflow: "hidden", textDecoration: "none", background: "rgba(245,241,234,0.05)", border: "1px solid rgba(245,241,234,0.1)" }}>
-                <div style={{ position: "relative", height: 150, overflow: "hidden", background: "linear-gradient(135deg, rgba(139,125,216,0.4), rgba(184,174,219,0.15))" }}>
-                  <svg viewBox="0 0 320 150" preserveAspectRatio="none" style={{ position: "absolute", inset: 0, width: "100%", height: "100%" }}><path d="M0 100 C 80 60, 150 120, 320 40" fill="none" stroke="rgba(245,241,234,0.5)" strokeWidth="1.5" /></svg>
-                </div>
+              <a href="/pricing" onClick={() => setOpenMenu(null)} className="rb-mega-item" style={{ flex: 1, minWidth: 0, display: "flex", flexDirection: "column", borderRadius: 16, overflow: "hidden", textDecoration: "none", background: "rgba(245,241,234,0.05)", border: "1px solid rgba(245,241,234,0.1)" }}>
+                <div style={{ height: 150, background: "url(/assets/nav-featured.avif) center center / cover no-repeat" }} />
                 <div style={{ padding: "16px 18px 18px", display: "flex", flexDirection: "column", gap: 10 }}>
-                  <span style={{ fontSize: 10.5, letterSpacing: ".24em", textTransform: "uppercase", color: "rgba(245,241,234,0.5)" }}>Featured</span>
-                  <span style={{ fontFamily: SERIF, fontSize: 22, lineHeight: 1.2, color: "#F5F1EA" }}>See the whole system in motion</span>
-                  <span style={{ display: "inline-flex", alignItems: "center", gap: 7, marginTop: 4, fontSize: 12.5, color: "#B8AEDB" }}>Read more <span style={{ fontSize: 14 }}>→</span></span>
+                  <span style={{ fontSize: 10.5, letterSpacing: ".24em", textTransform: "uppercase", color: "rgba(245,241,234,0.5)" }}>Ready to get started?</span>
+                  <span style={{ fontFamily: SERIF, fontSize: 22, lineHeight: 1.2, color: "#F5F1EA" }}>Turn the demand you already pay for into paying customers.</span>
+                  <span style={{ display: "inline-flex", alignItems: "center", gap: 7, marginTop: 4, fontSize: 12.5, color: "#B8AEDB" }}>See pricing <span style={{ fontSize: 14 }}>→</span></span>
                 </div>
               </a>
             </div>
@@ -380,8 +378,15 @@ export default function HomepageV2() {
           <span className="rb-l2a">what you spend and what you&nbsp;</span>
           <em className="rb-l2b">keep.</em>
         </>}
-        sub="That needs to change."
-        caption="Every enquiry worked, from first contact to booked customer."
+        sub=""
+        caption=""
+        actions={<>
+          <p className="rb-hero-lead">Rosebud Solutions handles every enquiry from the moment it arrives until it becomes a booking, a conversation with the right person, or a customer worth keeping in touch with.</p>
+          <div className="rb-hero-actions">
+            <BookDemoCTA label="Book free consultation" href="https://cal.eu/rosebudsolutions/demo" tone="dark" />
+            <a className="rb-hero-contact" href="https://cal.eu/rosebudsolutions/30min" target="_blank" rel="noopener noreferrer">Contact sales</a>
+          </div>
+        </>}
       />
 
       <div id="capabilities" style={{ scrollMarginTop: 80 }}><Capabilities /></div>

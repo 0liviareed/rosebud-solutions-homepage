@@ -22,11 +22,13 @@ export default function Hero({
   headline,
   sub = "That needs to change.",
   caption = "Your digital team. Live in 5 weeks. Running for years.",
+  actions,
 }: {
   eyebrow?: string;
   headline?: ReactNode;
   sub?: string;
   caption?: string;
+  actions?: ReactNode;
 } = {}) {
   const wrapRef = useRef<HTMLElement | null>(null);
   const heroLitRef = useRef<SVGPathElement | null>(null);
@@ -350,8 +352,9 @@ export default function Hero({
                 </>
               )}
             </h1>
-            <p className="rb-hero-sub">{sub}</p>
-            <p className="rb-hero-caption">{caption}</p>
+            {sub ? <p className="rb-hero-sub">{sub}</p> : null}
+            {caption ? <p className="rb-hero-caption">{caption}</p> : null}
+            {actions}
           </div>
         </div>
 
