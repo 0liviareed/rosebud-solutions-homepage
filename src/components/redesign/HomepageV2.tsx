@@ -233,7 +233,7 @@ export default function HomepageV2() {
       pin.style.transformOrigin = "center center";
       pin.style.transform = `scale(${1 - 0.13 * t})`;
       pin.style.borderRadius = `${t * 28}px`;
-      pin.style.boxShadow = t > 0 ? `0 ${40 + t * 50}px ${120 + t * 90}px -40px rgba(0,0,0,0.72), 0 0 ${t * 80}px ${t * 34}px rgba(234,230,243,${t * 0.32})` : "";
+      pin.style.boxShadow = "none";
     };
     const onScroll = () => { if (ticking) return; ticking = true; requestAnimationFrame(compute); };
     window.addEventListener("scroll", onScroll, { passive: true });
