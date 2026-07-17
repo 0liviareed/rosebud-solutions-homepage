@@ -215,6 +215,32 @@ export default function HomepageV2() {
     return () => { window.removeEventListener("scroll", onScroll); window.removeEventListener("resize", onScroll); };
   }, []);
 
+  // Hero frames out into Capabilities on scroll — DESKTOP only (mirrors close).
+  useEffect(() => {
+    let ticking = false;
+    const compute = () => {
+      ticking = false;
+      const pin = document.querySelector<HTMLElement>(".rb-hero-pin");
+      const wrap = document.querySelector<HTMLElement>(".rb-hero-wrap");
+      if (!pin || !wrap) return;
+      if (window.matchMedia("(max-width: 860px)").matches) { pin.style.transform = ""; pin.style.borderRadius = ""; pin.style.boxShadow = ""; return; }
+      const vh = window.innerHeight;
+      const r = wrap.getBoundingClientRect();
+      if (r.bottom < 0 || r.top > vh) return;
+      const total = Math.max(1, wrap.offsetHeight - vh);
+      const t = clamp((clamp(-r.top / total, 0, 1) - 0.82) / 0.18, 0, 1); // frame out in the last ~18%
+      pin.style.transformOrigin = "center center";
+      pin.style.transform = `scale(${1 - 0.13 * t})`;
+      pin.style.borderRadius = `${t * 28}px`;
+      pin.style.boxShadow = t > 0 ? `0 ${40 + t * 50}px ${120 + t * 90}px -40px rgba(0,0,0,0.72), 0 0 ${t * 80}px ${t * 34}px rgba(234,230,243,${t * 0.32})` : "";
+    };
+    const onScroll = () => { if (ticking) return; ticking = true; requestAnimationFrame(compute); };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    compute();
+    return () => { window.removeEventListener("scroll", onScroll); window.removeEventListener("resize", onScroll); };
+  }, []);
+
   const navLink: CSSProperties = { display: "flex", alignItems: "center", gap: 7, color: "var(--nav-fg)" };
 
   return (
