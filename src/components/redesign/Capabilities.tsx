@@ -7,31 +7,31 @@ const clamp = (v: number, lo: number, hi: number) => Math.max(lo, Math.min(hi, v
 
 type Field = { k: string; v: string; good?: boolean };
 type Bubble = { from: "in" | "out"; text: string; time: string };
-type UseCase = { icon: string; name: string; line: string; channel: string; thread: Bubble[]; fields: Field[]; footer?: string };
+type UseCase = { icon: string; name: string; nav: string; line: string; channel: string; thread: Bubble[]; fields: Field[]; footer?: string };
 
 const CASES: UseCase[] = [
-  { icon: "◇", name: "Multi-channel intake", line: "Every enquiry, on every channel, answered and recorded in seconds.", channel: "WhatsApp",
+  { icon: "◇", name: "Multi-channel intake", nav: "Capture", line: "Every enquiry, on every channel, answered and recorded in seconds.", channel: "WhatsApp",
     thread: [{ from: "in", text: "Hi — do you have any availability this week?", time: "21:47" }, { from: "out", text: "Yes, happy to help. Can I take your name and postcode?", time: "21:47" }],
     fields: [{ k: "Contact", v: "New enquiry" }, { k: "Channel", v: "WhatsApp" }, { k: "Source", v: "Meta / paid" }, { k: "Click ID", v: "fb.1.87f3…" }], footer: "Record written 21:47 — the same second." },
-  { icon: "◈", name: "Qualification rules engine", line: "Every lead scored against your definition of a good one.", channel: "WhatsApp",
+  { icon: "◈", name: "Qualification rules engine", nav: "Qualify", line: "Every lead scored against your definition of a good one.", channel: "WhatsApp",
     thread: [{ from: "in", text: "SW7. Looking to start next month.", time: "21:48" }, { from: "out", text: "Great — that fits. Let me check the diary for you.", time: "21:48" }],
     fields: [{ k: "Rule fired", v: "Budget + location" }, { k: "Verdict", v: "Continue", good: true }, { k: "Expected value", v: "£4,200" }, { k: "Second enquiry", v: "Closed — out of area" }] },
-  { icon: "▤", name: "Real-time calendar management", line: "Booked into your diary at the moment of intent.", channel: "WhatsApp",
+  { icon: "▤", name: "Real-time calendar management", nav: "Book", line: "Booked into your diary at the moment of intent.", channel: "WhatsApp",
     thread: [{ from: "out", text: "I can offer Thu 10:00 or Fri 14:30 — which suits?", time: "21:50" }, { from: "in", text: "Thursday works.", time: "21:51" }, { from: "out", text: "Booked. Thu 10:00 — confirmation on its way.", time: "21:51" }],
     fields: [{ k: "Availability", v: "Live diary" }, { k: "Slot taken", v: "Thu 10:00" }, { k: "Calendar", v: "Entry written", good: true }, { k: "Elapsed", v: "3m 48s" }] },
-  { icon: "✓", name: "Multi-touch retention sequences", line: "Every booking confirmed, reminded, and kept.", channel: "WhatsApp",
+  { icon: "✓", name: "Multi-touch retention sequences", nav: "Retain", line: "Every booking confirmed, reminded, and kept.", channel: "WhatsApp",
     thread: [{ from: "out", text: "Confirmed for Thu 10:00. See you then.", time: "Mon" }, { from: "out", text: "Reminder — your appointment is tomorrow at 10:00.", time: "Wed" }, { from: "in", text: "Can we move to Friday?", time: "Wed" }, { from: "out", text: "Done — Fri 14:30. Confirmed.", time: "Wed" }],
     fields: [{ k: "Confirmation", v: "Sent" }, { k: "Day-before", v: "Sent" }, { k: "Reschedule", v: "Absorbed" }, { k: "Status", v: "Kept", good: true }] },
-  { icon: "↻", name: "Sequenced nurture and reactivation", line: "Dormant demand re-engaged until it acts.", channel: "Email",
+  { icon: "↻", name: "Sequenced nurture and reactivation", nav: "Reactivate", line: "Dormant demand re-engaged until it acts.", channel: "Email",
     thread: [{ from: "out", text: "Still thinking it over? Happy to hold a slot for you.", time: "Wk 11" }, { from: "in", text: "Actually — yes. What have you got?", time: "Wk 11" }],
     fields: [{ k: "Dormant", v: "11 weeks" }, { k: "Sequence", v: "Reactivation" }, { k: "Reply", v: "Received" }, { k: "Status", v: "Re-qualifying", good: true }] },
-  { icon: "⊞", name: "Follow-through engine", line: "Documents, updates, quotes and invoices, chased to completion.", channel: "Email",
+  { icon: "⊞", name: "Follow-through engine", nav: "Follow through", line: "Documents, updates, quotes and invoices, chased to completion.", channel: "Email",
     thread: [{ from: "out", text: "Just need the signed form to proceed.", time: "09:12" }, { from: "in", text: "Sent over.", time: "11:40" }, { from: "out", text: "Received — quote attached, invoice to follow.", time: "11:41" }],
     fields: [{ k: "Document", v: "Collected" }, { k: "Quote", v: "Accepted" }, { k: "Invoice", v: "Chased → Paid", good: true }] },
-  { icon: "⊙", name: "Two-way CRM synchronisation", line: "Every step mirrored into your CRM. It stays the system of record.", channel: "System",
+  { icon: "⊙", name: "Two-way CRM synchronisation", nav: "Sync", line: "Every step mirrored into your CRM. It stays the system of record.", channel: "System",
     thread: [{ from: "out", text: "All set — everything logged and synced.", time: "Done" }],
     fields: [{ k: "Origin", v: "WhatsApp / paid" }, { k: "Qualification", v: "Passed" }, { k: "Value", v: "£4,200" }, { k: "Booked", v: "Thu 10:00" }, { k: "Kept", v: "Yes", good: true }], footer: "Mirroring into your CRM — it stays the system of record." },
-  { icon: "◎", name: "Closed-loop attribution", line: "Every qualified outcome matched back to the ad click that created it.", channel: "Signal",
+  { icon: "◎", name: "Closed-loop attribution", nav: "Closed-loop attribution", line: "Every qualified outcome matched back to the ad click that created it.", channel: "Signal",
     thread: [{ from: "out", text: "Outcome matched to the original ad click.", time: "Done" }],
     fields: [{ k: "Enquiry", v: "#4821" }, { k: "Qualification", v: "Marker set" }, { k: "Click ID", v: "fb.1.87f3…" }, { k: "Signal file", v: "Handed over", good: true }], footer: "We produce the signal. You own the ad account." },
 ];
@@ -83,6 +83,7 @@ export default function Capabilities() {
               <div>
                 <div style={{ marginBottom: 26 }}><span style={{ fontSize: 12, letterSpacing: ".3em", textTransform: "uppercase", color: A }}>Capabilities</span></div>
                 <h2 style={{ fontFamily: SERIF, fontWeight: 500, fontSize: "clamp(40px,5vw,74px)", lineHeight: 0.98, letterSpacing: "-0.02em", maxWidth: "12ch", margin: 0 }}>{CASES[active].name}</h2>
+                <div style={{ marginTop: 16, fontSize: 19, lineHeight: 1.3, color: "rgba(23,19,31,0.5)" }}>{CASES[active].nav}</div>
                 <div style={{ marginTop: 30, position: "relative", width: 62, height: 62, flex: "none" }}>
                   <svg width={62} height={62} viewBox="0 0 54 54" style={{ position: "relative", transform: "rotate(-90deg)" }}>
                     <defs><linearGradient id="ucRingGrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stopColor="#C7BEE8" /><stop offset="100%" stopColor="#8B7DD8" /></linearGradient></defs>
