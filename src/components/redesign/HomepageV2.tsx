@@ -30,8 +30,11 @@ const KEYFRAMES = `
 @keyframes rbwf-syncdot { 0%,100%{ opacity:.25; transform:scale(.85); } 50%{ opacity:1; transform:scale(1); } }
 .rb-nav-burger{ display:none; }
 .rb-hero-wrap{ background:#EAE6F3 !important; }
+.rb-mega-item{ transition:background .25s ease; }
+.rb-mega-item:hover{ background:rgba(245,241,234,0.07); }
 @media (max-width:860px){
   .rb-nav-links{ display:none !important; }
+  .rb-nav-panels{ display:none !important; }
   .rb-nav-burger{ display:flex !important; }
   .rb-pad{ padding-left:18px !important; padding-right:18px !important; padding-top:78px !important; padding-bottom:78px !important; }
   .rb-uc-grid{ grid-template-columns:1fr !important; gap:28px !important; padding:0 18px !important; }
@@ -67,6 +70,21 @@ const INDUSTRIES = [
   { label: "Dental, Aesthetics & Healthcare", img: "/assets/ind-healthcare-v2.avif", href: "/industries/healthcare" },
   { label: "Legal & Professional", img: "/assets/ind-legal.avif", href: "/industries/family-law" },
   { label: "Mortgage & Lending", img: "/assets/ind-mortgage.avif", href: "/industries/mortgage-lending" },
+];
+
+// Nav "Product" mega-panel — the 7 capabilities (mirrors the Capabilities section).
+const NAV_CAPABILITIES = [
+  { head: "Capture", desc: "Speed-to-lead & omnichannel intake" },
+  { head: "Qualify", desc: "Lead scoring & routing" },
+  { head: "Book", desc: "Calendar automation" },
+  { head: "Retain", desc: "Automated reminders & no-show recovery" },
+  { head: "Reactivate", desc: "Lead nurture & database reactivation" },
+  { head: "Follow through", desc: "Workflow automation & AR chase" },
+  { head: "Closed-loop attribution", desc: "Conversion & value-based bidding" },
+];
+const NAV_RESOURCES = [
+  { head: "About", desc: "The company behind the system", href: "/about" },
+  { head: "Pricing", desc: "Discussed live on your consultation", href: "/pricing" },
 ];
 
 const CHANNEL_CHIPS = [
@@ -128,6 +146,13 @@ export default function HomepageV2() {
   const closeStage = useRef<HTMLDivElement>(null);
   const [voiceIdx, setVoiceIdx] = useState(0);
   const [navOpen, setNavOpen] = useState(false);
+  // Desktop hover menus (Product / Connections / Resources). A short close
+  // delay lets the pointer travel from the trigger into the panel.
+  const [openMenu, setOpenMenu] = useState<null | "product" | "connections" | "resources">(null);
+  const menuTimer = useRef<number | null>(null);
+  const openMenuNow = (m: "product" | "connections" | "resources") => { if (menuTimer.current) window.clearTimeout(menuTimer.current); setOpenMenu(m); };
+  const cancelClose = () => { if (menuTimer.current) window.clearTimeout(menuTimer.current); };
+  const scheduleClose = () => { if (menuTimer.current) window.clearTimeout(menuTimer.current); menuTimer.current = window.setTimeout(() => setOpenMenu(null), 140); };
   const touchX = useRef<number | null>(null);
 
   // staggered reveal for industry cards
@@ -256,13 +281,61 @@ export default function HomepageV2() {
             <img src="/assets/rosebud-logo.png" alt="Rosebud Solutions" width={36} height={36} style={{ display: "block", width: 36, height: 36 }} />
           </a>
           <div className="rb-nav-links" style={{ display: "flex", alignItems: "center", gap: 34, fontSize: 13, letterSpacing: ".14em", textTransform: "uppercase" }}>
-            <a href="#" style={navLink}>Solutions<span style={{ fontSize: 8, opacity: 0.7 }}>▼</span></a>
-            <a href="#" style={navLink}>Resources<span style={{ fontSize: 8, opacity: 0.7 }}>▼</span></a>
+            <a href="#capabilities" onMouseEnter={() => openMenuNow("product")} onMouseLeave={scheduleClose} style={navLink}>Product<span style={{ fontSize: 8, opacity: 0.7 }}>▼</span></a>
+            <a href="#integrations" onMouseEnter={() => openMenuNow("connections")} onMouseLeave={scheduleClose} style={navLink}>Connections<span style={{ fontSize: 8, opacity: 0.7 }}>▼</span></a>
+            <a href="/about" onMouseEnter={() => openMenuNow("resources")} onMouseLeave={scheduleClose} style={navLink}>Resources<span style={{ fontSize: 8, opacity: 0.7 }}>▼</span></a>
             <a href="https://cal.eu/rosebudsolutions/demo" target="_blank" rel="noopener noreferrer" style={{ padding: "9px 20px", borderRadius: 999, background: "rgba(139,125,216,0.18)", backdropFilter: "blur(14px)", WebkitBackdropFilter: "blur(14px)", border: "1px solid rgba(184,174,219,0.42)", color: "var(--nav-fg-strong)", fontWeight: 600, letterSpacing: ".1em", boxShadow: "0 6px 22px -10px rgba(139,125,216,0.5)" }}>Book free consultation</a>
           </div>
           <button className="rb-nav-burger" aria-label="Menu" onClick={() => setNavOpen(true)} style={{ display: "none", width: 42, height: 42, borderRadius: 999, background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.16)", color: "var(--nav-fg-strong)", alignItems: "center", justifyContent: "center", cursor: "pointer" }}>
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"><path d="M4 7h16" /><path d="M4 12h16" /><path d="M4 17h16" /></svg>
           </button>
+        </div>
+
+        {/* hover mega-panels (desktop only — hidden <860px) */}
+        <div className="rb-nav-panels">
+          {openMenu === "product" && (
+            <div onMouseEnter={cancelClose} onMouseLeave={scheduleClose} style={{ position: "absolute", top: 80, left: "50%", transform: "translateX(-50%)", width: "min(940px,calc(100vw - 40px))", padding: "26px 28px 28px", borderRadius: 22, background: "rgba(40,37,52,0.55)", backdropFilter: "blur(44px) saturate(1.5)", WebkitBackdropFilter: "blur(44px) saturate(1.5)", border: "1px solid rgba(245,241,234,0.12)", boxShadow: "0 28px 60px -30px rgba(0,0,0,0.6)", display: "flex", gap: 28 }}>
+              <div style={{ flex: 1.7, minWidth: 0 }}>
+                <div style={{ fontSize: 11, letterSpacing: ".28em", textTransform: "uppercase", color: "rgba(245,241,234,0.55)", marginBottom: 14 }}>Capabilities</div>
+                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "4px 22px" }}>
+                  {NAV_CAPABILITIES.map((c) => (
+                    <a key={c.head} href="#capabilities" className="rb-mega-item" onClick={() => setOpenMenu(null)} style={{ display: "flex", flexDirection: "column", gap: 3, padding: 12, borderRadius: 10, borderBottom: "1px solid rgba(245,241,234,0.1)", textDecoration: "none" }}>
+                      <span style={{ fontSize: 15, fontWeight: 600, color: "#F5F1EA" }}>{c.head}</span>
+                      <span style={{ fontSize: 12.5, color: "rgba(245,241,234,0.72)" }}>{c.desc}</span>
+                    </a>
+                  ))}
+                </div>
+              </div>
+              <a href="/see-it-run" onClick={() => setOpenMenu(null)} className="rb-mega-item" style={{ flex: 1, minWidth: 0, display: "flex", flexDirection: "column", borderRadius: 16, overflow: "hidden", textDecoration: "none", background: "rgba(245,241,234,0.05)", border: "1px solid rgba(245,241,234,0.1)" }}>
+                <div style={{ position: "relative", height: 150, overflow: "hidden", background: "linear-gradient(135deg, rgba(139,125,216,0.4), rgba(184,174,219,0.15))" }}>
+                  <svg viewBox="0 0 320 150" preserveAspectRatio="none" style={{ position: "absolute", inset: 0, width: "100%", height: "100%" }}><path d="M0 100 C 80 60, 150 120, 320 40" fill="none" stroke="rgba(245,241,234,0.5)" strokeWidth="1.5" /></svg>
+                </div>
+                <div style={{ padding: "16px 18px 18px", display: "flex", flexDirection: "column", gap: 10 }}>
+                  <span style={{ fontSize: 10.5, letterSpacing: ".24em", textTransform: "uppercase", color: "rgba(245,241,234,0.5)" }}>Featured</span>
+                  <span style={{ fontFamily: SERIF, fontSize: 22, lineHeight: 1.2, color: "#F5F1EA" }}>See the whole system in motion</span>
+                  <span style={{ display: "inline-flex", alignItems: "center", gap: 7, marginTop: 4, fontSize: 12.5, color: "#B8AEDB" }}>Read more <span style={{ fontSize: 14 }}>→</span></span>
+                </div>
+              </a>
+            </div>
+          )}
+          {openMenu === "connections" && (
+            <div onMouseEnter={cancelClose} onMouseLeave={scheduleClose} style={{ position: "absolute", top: 80, left: "50%", transform: "translateX(-50%)", width: "min(320px,calc(100vw - 40px))", padding: 12, borderRadius: 20, background: "rgba(40,37,52,0.55)", backdropFilter: "blur(44px) saturate(1.5)", WebkitBackdropFilter: "blur(44px) saturate(1.5)", border: "1px solid rgba(245,241,234,0.12)", boxShadow: "0 28px 60px -30px rgba(0,0,0,0.6)" }}>
+              <a href="#integrations" className="rb-mega-item" onClick={() => setOpenMenu(null)} style={{ display: "flex", flexDirection: "column", gap: 3, padding: "13px 14px", borderRadius: 13, textDecoration: "none" }}>
+                <span style={{ fontSize: 15, fontWeight: 600, color: "#F5F1EA" }}>Integrations</span>
+                <span style={{ fontSize: 12.5, color: "rgba(245,241,234,0.72)" }}>Connect to your tools effortlessly</span>
+              </a>
+            </div>
+          )}
+          {openMenu === "resources" && (
+            <div onMouseEnter={cancelClose} onMouseLeave={scheduleClose} style={{ position: "absolute", top: 80, left: "50%", transform: "translateX(-50%)", width: "min(300px,calc(100vw - 40px))", padding: 12, borderRadius: 20, background: "rgba(40,37,52,0.55)", backdropFilter: "blur(44px) saturate(1.5)", WebkitBackdropFilter: "blur(44px) saturate(1.5)", border: "1px solid rgba(245,241,234,0.12)", boxShadow: "0 28px 60px -30px rgba(0,0,0,0.6)" }}>
+              {NAV_RESOURCES.map((r) => (
+                <a key={r.head} href={r.href} className="rb-mega-item" onClick={() => setOpenMenu(null)} style={{ display: "flex", flexDirection: "column", gap: 3, padding: "12px 14px", borderRadius: 13, textDecoration: "none" }}>
+                  <span style={{ fontSize: 15, fontWeight: 600, color: "#F5F1EA" }}>{r.head}</span>
+                  <span style={{ fontSize: 12.5, color: "rgba(245,241,234,0.72)" }}>{r.desc}</span>
+                </a>
+              ))}
+            </div>
+          )}
         </div>
       </nav>
 
@@ -276,13 +349,23 @@ export default function HomepageV2() {
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"><path d="M6 6l12 12" /><path d="M18 6L6 18" /></svg>
             </button>
           </div>
-          <div style={{ fontSize: 11, letterSpacing: ".28em", textTransform: "uppercase", color: "#8B7DD8", margin: "44px 0 8px" }}>Solutions</div>
-          <div style={{ display: "flex", flexDirection: "column" }}>
+          <div style={{ flex: 1, overflowY: "auto", marginTop: 28 }}>
+            <div style={{ fontSize: 11, letterSpacing: ".28em", textTransform: "uppercase", color: "#8B7DD8", margin: "10px 0 2px" }}>Product</div>
+            {NAV_CAPABILITIES.map((c) => (
+              <a key={c.head} href="#capabilities" onClick={() => setNavOpen(false)} style={{ display: "block", fontFamily: SERIF, fontSize: 21, fontWeight: 500, color: "#F5F1EA", textDecoration: "none", padding: "8px 0", borderBottom: "1px solid rgba(255,255,255,0.08)" }}>{c.head}</a>
+            ))}
+            <div style={{ fontSize: 11, letterSpacing: ".28em", textTransform: "uppercase", color: "#8B7DD8", margin: "22px 0 2px" }}>Connections</div>
+            <a href="#integrations" onClick={() => setNavOpen(false)} style={{ display: "block", fontFamily: SERIF, fontSize: 21, fontWeight: 500, color: "#F5F1EA", textDecoration: "none", padding: "8px 0", borderBottom: "1px solid rgba(255,255,255,0.08)" }}>Integrations</a>
+            <div style={{ fontSize: 11, letterSpacing: ".28em", textTransform: "uppercase", color: "#8B7DD8", margin: "22px 0 2px" }}>Resources</div>
+            {NAV_RESOURCES.map((r) => (
+              <a key={r.head} href={r.href} onClick={() => setNavOpen(false)} style={{ display: "block", fontFamily: SERIF, fontSize: 21, fontWeight: 500, color: "#F5F1EA", textDecoration: "none", padding: "8px 0", borderBottom: "1px solid rgba(255,255,255,0.08)" }}>{r.head}</a>
+            ))}
+            <div style={{ fontSize: 11, letterSpacing: ".28em", textTransform: "uppercase", color: "#8B7DD8", margin: "22px 0 2px" }}>Industries</div>
             {INDUSTRIES.map((it) => (
-              <a key={it.href} href={it.href} onClick={() => setNavOpen(false)} style={{ fontFamily: SERIF, fontSize: 27, fontWeight: 500, color: "#F5F1EA", textDecoration: "none", padding: "12px 0", borderBottom: "1px solid rgba(255,255,255,0.08)" }}>{it.label}</a>
+              <a key={it.href} href={it.href} onClick={() => setNavOpen(false)} style={{ display: "block", fontFamily: SERIF, fontSize: 21, fontWeight: 500, color: "#F5F1EA", textDecoration: "none", padding: "8px 0", borderBottom: "1px solid rgba(255,255,255,0.08)" }}>{it.label}</a>
             ))}
           </div>
-          <div style={{ marginTop: "auto", display: "flex", flexDirection: "column", gap: 12 }}>
+          <div style={{ marginTop: 16, display: "flex", flexDirection: "column", gap: 12 }}>
             <a href="https://cal.eu/rosebudsolutions/demo" target="_blank" rel="noopener noreferrer" style={{ textAlign: "center", padding: 16, borderRadius: 999, background: "#8B7DD8", color: "#0B0A0C", fontWeight: 600, textDecoration: "none" }}>Book free consultation</a>
             <a href="https://cal.eu/rosebudsolutions/30min" target="_blank" rel="noopener noreferrer" style={{ textAlign: "center", padding: 16, borderRadius: 999, background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.2)", color: "#F5F1EA", textDecoration: "none" }}>Contact sales</a>
           </div>
@@ -301,7 +384,7 @@ export default function HomepageV2() {
         caption="Every enquiry worked, from first contact to booked customer."
       />
 
-      <Capabilities />
+      <div id="capabilities" style={{ scrollMarginTop: 80 }}><Capabilities /></div>
 
       {/* WHAT'S YOUR CHALLENGE */}
       <section className="rb-pad" style={{ position: "relative", overflow: "hidden", background: "url('/assets/challenge-bg.avif') center/cover", color: "#F5F1EA", padding: "130px 48px" }}>
@@ -330,7 +413,7 @@ export default function HomepageV2() {
         </div>
       </section>
 
-      <Integrations />
+      <div id="integrations" style={{ scrollMarginTop: 80 }}><Integrations /></div>
 
       {/* SECURITY / COMPLIANCE bento */}
       <section className="rb-pad" style={{ position: "relative", overflow: "hidden", background: "#EDEBF3", color: "#17131F", padding: "120px 48px" }}>
