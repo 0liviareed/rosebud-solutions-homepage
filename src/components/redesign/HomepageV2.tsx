@@ -73,14 +73,16 @@ const INDUSTRIES = [
 ];
 
 // Nav "Product" mega-panel — the 7 capabilities (mirrors the Capabilities section).
+// href: live capability pages link out to /capabilities/<slug>; the rest jump
+// to the on-page Capabilities section until their pages ship.
 const NAV_CAPABILITIES = [
-  { head: "Capture", desc: "Speed-to-lead & omnichannel intake" },
-  { head: "Qualify", desc: "Lead scoring & routing" },
-  { head: "Book", desc: "Calendar automation" },
-  { head: "Retain", desc: "Automated reminders & no-show recovery" },
-  { head: "Reactivate", desc: "Lead nurture & database reactivation" },
-  { head: "Follow through", desc: "Workflow automation & AR chase" },
-  { head: "Closed-loop attribution", desc: "Conversion & value-based bidding" },
+  { head: "Capture", desc: "Speed-to-lead & omnichannel intake", href: "/capabilities/capture" },
+  { head: "Qualify", desc: "Lead scoring & routing", href: "#capabilities" },
+  { head: "Book", desc: "Calendar automation", href: "#capabilities" },
+  { head: "Retain", desc: "Automated reminders & no-show recovery", href: "#capabilities" },
+  { head: "Reactivate", desc: "Lead nurture & database reactivation", href: "#capabilities" },
+  { head: "Follow through", desc: "Workflow automation & AR chase", href: "#capabilities" },
+  { head: "Closed-loop attribution", desc: "Conversion & value-based bidding", href: "#capabilities" },
 ];
 const NAV_RESOURCES = [
   { head: "About", desc: "The company behind the system", href: "/about" },
@@ -299,7 +301,7 @@ export default function HomepageV2() {
                 <div style={{ fontSize: 11, letterSpacing: ".28em", textTransform: "uppercase", color: "rgba(245,241,234,0.55)", marginBottom: 14 }}>Capabilities</div>
                 <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "4px 22px" }}>
                   {NAV_CAPABILITIES.map((c) => (
-                    <a key={c.head} href="#capabilities" className="rb-mega-item" onClick={() => setOpenMenu(null)} style={{ display: "flex", flexDirection: "column", gap: 3, padding: 12, borderRadius: 10, borderBottom: "1px solid rgba(245,241,234,0.1)", textDecoration: "none" }}>
+                    <a key={c.head} href={c.href} className="rb-mega-item" onClick={() => setOpenMenu(null)} style={{ display: "flex", flexDirection: "column", gap: 3, padding: 12, borderRadius: 10, borderBottom: "1px solid rgba(245,241,234,0.1)", textDecoration: "none" }}>
                       <span style={{ fontSize: 15, fontWeight: 600, color: "#F5F1EA" }}>{c.head}</span>
                       <span style={{ fontSize: 12.5, color: "rgba(245,241,234,0.72)" }}>{c.desc}</span>
                     </a>
@@ -350,7 +352,7 @@ export default function HomepageV2() {
           <div style={{ flex: 1, overflowY: "auto", marginTop: 28 }}>
             <div style={{ fontSize: 11, letterSpacing: ".28em", textTransform: "uppercase", color: "#8B7DD8", margin: "10px 0 2px" }}>Product</div>
             {NAV_CAPABILITIES.map((c) => (
-              <a key={c.head} href="#capabilities" onClick={() => setNavOpen(false)} style={{ display: "block", fontFamily: SERIF, fontSize: 21, fontWeight: 500, color: "#F5F1EA", textDecoration: "none", padding: "8px 0", borderBottom: "1px solid rgba(255,255,255,0.08)" }}>{c.head}</a>
+              <a key={c.head} href={c.href} onClick={() => setNavOpen(false)} style={{ display: "block", fontFamily: SERIF, fontSize: 21, fontWeight: 500, color: "#F5F1EA", textDecoration: "none", padding: "8px 0", borderBottom: "1px solid rgba(255,255,255,0.08)" }}>{c.head}</a>
             ))}
             <div style={{ fontSize: 11, letterSpacing: ".28em", textTransform: "uppercase", color: "#8B7DD8", margin: "22px 0 2px" }}>Connections</div>
             <a href="#integrations" onClick={() => setNavOpen(false)} style={{ display: "block", fontFamily: SERIF, fontSize: 21, fontWeight: 500, color: "#F5F1EA", textDecoration: "none", padding: "8px 0", borderBottom: "1px solid rgba(255,255,255,0.08)" }}>Integrations</a>
