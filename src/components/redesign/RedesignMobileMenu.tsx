@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
+import BookDemoCTA from "./BookDemoCTA";
 import { NAV_CAPABILITIES, NAV_RESOURCES, LIVE_SLUGS } from "./capabilityData";
 
 // Global mobile nav — hamburger + full-screen accordion, reusing the SAME
@@ -58,8 +59,6 @@ export default function RedesignMobileMenu() {
       </div>
 
       <div className="rb-mobile-menu-inner" style={{ flex: 1 }}>
-        <a href="/pricing" className="rb-macc-link" onClick={close}>Get started<span className="rb-macc-sublink-arrow" aria-hidden="true">→</span></a>
-
         {SECTIONS.map((s) => {
           const isOpen = section === s.key;
           return (
@@ -84,8 +83,14 @@ export default function RedesignMobileMenu() {
             </div>
           );
         })}
+      </div>
 
-        <a href="https://cal.eu/rosebudsolutions/demo" target="_blank" rel="noopener noreferrer" className="rb-macc-link" onClick={close}>Book free consultation<span className="rb-macc-sublink-arrow" aria-hidden="true">→</span></a>
+      {/* Stacked CTAs — same style as the hero banner buttons */}
+      <div style={{ padding: "20px 24px 32px", display: "flex", flexDirection: "column", gap: 14, alignItems: "stretch" }}>
+        <div onClick={close} style={{ display: "flex", justifyContent: "center" }}>
+          <BookDemoCTA label="Get started" href="/pricing" tone="dark" />
+        </div>
+        <a href="https://cal.eu/rosebudsolutions/demo" target="_blank" rel="noopener noreferrer" onClick={close} style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", background: "rgba(255,255,255,0.06)", backdropFilter: "blur(12px)", WebkitBackdropFilter: "blur(12px)", border: "1px solid rgba(255,255,255,0.2)", color: "#F5F1EA", padding: "15px 26px", borderRadius: 999, fontSize: 15, fontWeight: 500, textDecoration: "none" }}>Book free consultation</a>
       </div>
     </div>
   );
@@ -93,7 +98,7 @@ export default function RedesignMobileMenu() {
   return (
     <>
       <style dangerouslySetInnerHTML={{ __html: CSS }} />
-      <button className="rb-mnav-burger" aria-label="Menu" onClick={() => setOpen(true)} style={{ width: 42, height: 42, borderRadius: 999, background: "transparent", border: "1px solid var(--nav-fg)", color: "var(--nav-fg-strong)", alignItems: "center", justifyContent: "center", cursor: "pointer" }}>
+      <button className="rb-mnav-burger" aria-label="Menu" onClick={() => setOpen(true)} style={{ width: 42, height: 42, background: "transparent", border: "none", padding: 0, color: "var(--nav-fg-strong)", alignItems: "center", justifyContent: "center", cursor: "pointer" }}>
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"><path d="M4 7h16" /><path d="M4 12h16" /><path d="M4 17h16" /></svg>
       </button>
       {mounted && open ? createPortal(overlay, document.body) : null}

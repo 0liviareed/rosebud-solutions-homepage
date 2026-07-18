@@ -201,12 +201,13 @@ export default function HomepageV2() {
     const onScroll = () => {
       const bar = navBar.current;
       if (!bar) return;
+      // Transparent over the hero; a very light glass-morph once scrolled below it.
       const solid = window.scrollY > window.innerHeight * 0.85;
-      bar.style.background = solid ? "linear-gradient(180deg, rgba(18,17,21,0.86) 0%, rgba(10,9,12,0.76) 100%)" : "transparent";
-      bar.style.backdropFilter = solid ? "blur(26px) saturate(1.4)" : "none";
-      bar.style.setProperty("-webkit-backdrop-filter", solid ? "blur(26px) saturate(1.4)" : "none");
-      bar.style.borderColor = solid ? "rgba(184,174,219,0.22)" : "transparent";
-      bar.style.boxShadow = solid ? "0 24px 60px -28px rgba(20,14,34,0.75), inset 0 1px 0 rgba(255,255,255,0.16)" : "none";
+      bar.style.background = solid ? "rgba(12,11,16,0.16)" : "transparent";
+      bar.style.backdropFilter = solid ? "blur(30px) saturate(1.4)" : "none";
+      bar.style.setProperty("-webkit-backdrop-filter", solid ? "blur(30px) saturate(1.4)" : "none");
+      bar.style.borderColor = solid ? "rgba(184,174,219,0.14)" : "transparent";
+      bar.style.boxShadow = solid ? "0 20px 50px -34px rgba(20,14,34,0.6)" : "none";
     };
     window.addEventListener("scroll", onScroll, { passive: true });
     onScroll();

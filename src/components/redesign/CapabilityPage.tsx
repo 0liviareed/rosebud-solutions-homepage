@@ -47,12 +47,13 @@ export default function CapabilityPage({ data }: { data: CapabilityData }) {
     const onScroll = () => {
       const bar = navBar.current;
       if (!bar) return;
-      const solid = window.scrollY > 90;
-      bar.style.background = solid ? "rgba(8,7,11,0.3)" : "transparent";
-      bar.style.backdropFilter = solid ? "blur(56px) saturate(1.5)" : "none";
-      bar.style.setProperty("-webkit-backdrop-filter", solid ? "blur(56px) saturate(1.5)" : "none");
-      bar.style.borderColor = solid ? "rgba(245,241,234,0.12)" : "transparent";
-      bar.style.boxShadow = solid ? "0 16px 40px -30px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.12)" : "none";
+      // Transparent over the hero; a very light glass-morph once scrolled below it.
+      const solid = window.scrollY > window.innerHeight * 0.7;
+      bar.style.background = solid ? "rgba(8,7,11,0.12)" : "transparent";
+      bar.style.backdropFilter = solid ? "blur(30px) saturate(1.4)" : "none";
+      bar.style.setProperty("-webkit-backdrop-filter", solid ? "blur(30px) saturate(1.4)" : "none");
+      bar.style.borderColor = solid ? "rgba(245,241,234,0.1)" : "transparent";
+      bar.style.boxShadow = solid ? "0 16px 40px -34px rgba(0,0,0,0.3)" : "none";
       bar.style.maxWidth = solid ? "980px" : "1180px";
       bar.style.setProperty("--nav-fg", solid ? "rgba(245,241,234,0.9)" : "rgba(23,19,31,0.72)");
       bar.style.setProperty("--nav-fg-strong", solid ? "#F5F1EA" : "#17131F");
