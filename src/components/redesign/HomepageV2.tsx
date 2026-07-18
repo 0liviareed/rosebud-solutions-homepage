@@ -2,6 +2,7 @@
 import { useEffect, useRef, useState, type CSSProperties } from "react";
 import Hero from "@/components/Hero";
 import BookDemoCTA from "./BookDemoCTA";
+import RedesignMobileMenu from "./RedesignMobileMenu";
 import Capabilities from "./Capabilities";
 import Integrations from "./Integrations";
 import RevenueWorkflow from "./RevenueWorkflow";
@@ -65,12 +66,6 @@ const KEYFRAMES = `
 }
 `;
 
-const INDUSTRIES = [
-  { label: "Trades & Home Services", img: "/assets/ind-trades.webp", href: "/industries/trades-home-services" },
-  { label: "Dental, Aesthetics & Healthcare", img: "/assets/ind-healthcare-v2.avif", href: "/industries/healthcare" },
-  { label: "Legal & Professional", img: "/assets/ind-legal.avif", href: "/industries/family-law" },
-  { label: "Mortgage & Lending", img: "/assets/ind-mortgage.avif", href: "/industries/mortgage-lending" },
-];
 
 // Nav "Product" mega-panel — the 7 capabilities (mirrors the Capabilities section).
 // href: live capability pages link out to /capabilities/<slug>; the rest jump
@@ -147,7 +142,6 @@ export default function HomepageV2() {
   const closeWrap = useRef<HTMLElement>(null);
   const closeStage = useRef<HTMLDivElement>(null);
   const [voiceIdx, setVoiceIdx] = useState(0);
-  const [navOpen, setNavOpen] = useState(false);
   // Desktop hover menus (Product / Connections / Resources). A short close
   // delay lets the pointer travel from the trigger into the panel.
   const [openMenu, setOpenMenu] = useState<null | "product" | "connections" | "resources">(null);
@@ -288,9 +282,7 @@ export default function HomepageV2() {
             <a href="/about" onMouseEnter={() => openMenuNow("resources")} onMouseLeave={scheduleClose} style={navLink}>Resources<span style={{ fontSize: 8, opacity: 0.7 }}>▼</span></a>
             <a href="/pricing" style={{ padding: "9px 20px", borderRadius: 999, background: "rgba(139,125,216,0.18)", backdropFilter: "blur(14px)", WebkitBackdropFilter: "blur(14px)", border: "1px solid rgba(184,174,219,0.42)", color: "var(--nav-fg-strong)", fontWeight: 600, letterSpacing: ".1em", boxShadow: "0 6px 22px -10px rgba(139,125,216,0.5)" }}>Get started</a>
           </div>
-          <button className="rb-nav-burger" aria-label="Menu" onClick={() => setNavOpen(true)} style={{ display: "none", width: 42, height: 42, borderRadius: 999, background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.16)", color: "var(--nav-fg-strong)", alignItems: "center", justifyContent: "center", cursor: "pointer" }}>
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"><path d="M4 7h16" /><path d="M4 12h16" /><path d="M4 17h16" /></svg>
-          </button>
+          <RedesignMobileMenu />
         </div>
 
         {/* hover mega-panels (desktop only — hidden <860px) */}
@@ -338,39 +330,6 @@ export default function HomepageV2() {
           )}
         </div>
       </nav>
-
-      {/* mobile menu overlay */}
-      {navOpen && (
-        <div style={{ position: "fixed", inset: 0, zIndex: 200, background: "rgba(11,10,13,0.6)", backdropFilter: "blur(32px) saturate(1.1)", WebkitBackdropFilter: "blur(32px) saturate(1.1)", borderBottom: "1px solid rgba(255,255,255,0.08)", display: "flex", flexDirection: "column", padding: 24 }}>
-          <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/assets/rosebud-logo.png" alt="Rosebud Solutions" width={36} height={36} style={{ display: "block", width: 36, height: 36 }} />
-            <button aria-label="Close menu" onClick={() => setNavOpen(false)} style={{ width: 42, height: 42, borderRadius: 999, background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.14)", color: "#F5F1EA", display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer" }}>
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"><path d="M6 6l12 12" /><path d="M18 6L6 18" /></svg>
-            </button>
-          </div>
-          <div style={{ flex: 1, overflowY: "auto", marginTop: 28 }}>
-            <div style={{ fontSize: 11, letterSpacing: ".28em", textTransform: "uppercase", color: "#8B7DD8", margin: "10px 0 2px" }}>Product</div>
-            {NAV_CAPABILITIES.map((c) => (
-              <a key={c.head} href={c.href} onClick={() => setNavOpen(false)} style={{ display: "block", fontFamily: SERIF, fontSize: 21, fontWeight: 500, color: "#F5F1EA", textDecoration: "none", padding: "8px 0", borderBottom: "1px solid rgba(255,255,255,0.08)" }}>{c.head}</a>
-            ))}
-            <div style={{ fontSize: 11, letterSpacing: ".28em", textTransform: "uppercase", color: "#8B7DD8", margin: "22px 0 2px" }}>Connections</div>
-            <a href="#integrations" onClick={() => setNavOpen(false)} style={{ display: "block", fontFamily: SERIF, fontSize: 21, fontWeight: 500, color: "#F5F1EA", textDecoration: "none", padding: "8px 0", borderBottom: "1px solid rgba(255,255,255,0.08)" }}>Integrations</a>
-            <div style={{ fontSize: 11, letterSpacing: ".28em", textTransform: "uppercase", color: "#8B7DD8", margin: "22px 0 2px" }}>Resources</div>
-            {NAV_RESOURCES.map((r) => (
-              <a key={r.head} href={r.href} onClick={() => setNavOpen(false)} style={{ display: "block", fontFamily: SERIF, fontSize: 21, fontWeight: 500, color: "#F5F1EA", textDecoration: "none", padding: "8px 0", borderBottom: "1px solid rgba(255,255,255,0.08)" }}>{r.head}</a>
-            ))}
-            <div style={{ fontSize: 11, letterSpacing: ".28em", textTransform: "uppercase", color: "#8B7DD8", margin: "22px 0 2px" }}>Industries</div>
-            {INDUSTRIES.map((it) => (
-              <a key={it.href} href={it.href} onClick={() => setNavOpen(false)} style={{ display: "block", fontFamily: SERIF, fontSize: 21, fontWeight: 500, color: "#F5F1EA", textDecoration: "none", padding: "8px 0", borderBottom: "1px solid rgba(255,255,255,0.08)" }}>{it.label}</a>
-            ))}
-          </div>
-          <div style={{ marginTop: 16, display: "flex", flexDirection: "column", gap: 12 }}>
-            <a href="/pricing" onClick={() => setNavOpen(false)} style={{ textAlign: "center", padding: 16, borderRadius: 999, background: "#8B7DD8", color: "#0B0A0C", fontWeight: 600, textDecoration: "none" }}>Get started</a>
-            <a href="https://cal.eu/rosebudsolutions/demo" target="_blank" rel="noopener noreferrer" style={{ textAlign: "center", padding: 16, borderRadius: 999, background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.2)", color: "#F5F1EA", textDecoration: "none" }}>Book free consultation</a>
-          </div>
-        </div>
-      )}
 
       {/* HERO — live site component, new wording only */}
       <Hero

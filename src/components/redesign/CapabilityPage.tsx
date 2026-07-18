@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
 import BookDemoCTA from "./BookDemoCTA";
+import RedesignMobileMenu from "./RedesignMobileMenu";
 import {
   type CapabilityData,
   SIBLINGS, SIBLING_SUBLABEL, LIVE_SLUGS,
@@ -21,10 +22,11 @@ const CSS = `
   .rb-cap-hero-grid, .rb-cap-deep-grid { grid-template-columns: 1fr !important; gap: 40px !important; }
   .rb-cap-deep-graphic { order: 2; }
   .rb-cap-works-panels { grid-template-columns: 1fr !important; }
-  /* keep the logo + Get started button; drop only the hover dropdown links */
-  .rb-cap-navdrop { display: none !important; }
   .rb-cap-voicecard { flex: 0 0 84% !important; }
   .rb-cap-pad { padding-left: 20px !important; padding-right: 20px !important; }
+}
+@media (max-width: 860px){
+  .rb-cap-navlinks { display: none !important; } /* replaced by the global hamburger */
 }
 `;
 
@@ -97,6 +99,7 @@ export default function CapabilityPage({ data }: { data: CapabilityData }) {
             <a className="rb-cap-navdrop" href="/about" onMouseEnter={() => openNow("resources")} onMouseLeave={scheduleClose} style={navLink}>Resources<span style={{ fontSize: 8, opacity: 0.7 }}>▼</span></a>
             <a href="/pricing" style={{ padding: "9px 20px", borderRadius: 999, background: "var(--nav-pill-bg)", backdropFilter: "blur(20px) saturate(1.3)", WebkitBackdropFilter: "blur(20px) saturate(1.3)", border: "1px solid var(--nav-pill-border)", color: "var(--nav-fg-strong)", fontWeight: 600, letterSpacing: ".1em" }}>Get started</a>
           </div>
+          <RedesignMobileMenu />
         </div>
 
         {/* Product mega-panel */}
