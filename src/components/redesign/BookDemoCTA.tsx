@@ -19,6 +19,7 @@ export default function BookDemoCTA({
   const [d, setD] = useState({ dx: 0, dy: 0 });
   const light = tone === "light";
   const h = hover;
+  const external = /^https?:\/\//.test(href); // internal links (e.g. /pricing) open in the same tab
 
   const onMove = (e: React.MouseEvent) => {
     const el = linkRef.current;
@@ -52,7 +53,7 @@ export default function BookDemoCTA({
   return (
     <div style={{ display: "inline-flex", flexDirection: "column", alignItems: "center", gap: 12 }}>
       <div onMouseMove={onMove} onMouseEnter={() => setHover(true)} onMouseLeave={() => { setHover(false); setD({ dx: 0, dy: 0 }); }} style={{ position: "relative" }}>
-        <a ref={linkRef} href={href} target="_blank" rel="noopener noreferrer" style={btnStyle}>
+        <a ref={linkRef} href={href} target={external ? "_blank" : undefined} rel={external ? "noopener noreferrer" : undefined} style={btnStyle}>
           <span style={{ position: "relative", zIndex: 2 }}>{label}</span>
           <span aria-hidden style={{ position: "relative", zIndex: 2, display: "inline-flex", alignItems: "center" }}>
             <svg viewBox="0 0 42 12" width="38" height="11" style={{ overflow: "visible" }}>

@@ -284,7 +284,7 @@ export default function HomepageV2() {
             <a href="#capabilities" onMouseEnter={() => openMenuNow("product")} onMouseLeave={scheduleClose} style={navLink}>Product<span style={{ fontSize: 8, opacity: 0.7 }}>▼</span></a>
             <a href="#integrations" onMouseEnter={() => openMenuNow("connections")} onMouseLeave={scheduleClose} style={navLink}>Connections<span style={{ fontSize: 8, opacity: 0.7 }}>▼</span></a>
             <a href="/about" onMouseEnter={() => openMenuNow("resources")} onMouseLeave={scheduleClose} style={navLink}>Resources<span style={{ fontSize: 8, opacity: 0.7 }}>▼</span></a>
-            <a href="https://cal.eu/rosebudsolutions/demo" target="_blank" rel="noopener noreferrer" style={{ padding: "9px 20px", borderRadius: 999, background: "rgba(139,125,216,0.18)", backdropFilter: "blur(14px)", WebkitBackdropFilter: "blur(14px)", border: "1px solid rgba(184,174,219,0.42)", color: "var(--nav-fg-strong)", fontWeight: 600, letterSpacing: ".1em", boxShadow: "0 6px 22px -10px rgba(139,125,216,0.5)" }}>Book free consultation</a>
+            <a href="/pricing" style={{ padding: "9px 20px", borderRadius: 999, background: "rgba(139,125,216,0.18)", backdropFilter: "blur(14px)", WebkitBackdropFilter: "blur(14px)", border: "1px solid rgba(184,174,219,0.42)", color: "var(--nav-fg-strong)", fontWeight: 600, letterSpacing: ".1em", boxShadow: "0 6px 22px -10px rgba(139,125,216,0.5)" }}>Get started</a>
           </div>
           <button className="rb-nav-burger" aria-label="Menu" onClick={() => setNavOpen(true)} style={{ display: "none", width: 42, height: 42, borderRadius: 999, background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.16)", color: "var(--nav-fg-strong)", alignItems: "center", justifyContent: "center", cursor: "pointer" }}>
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"><path d="M4 7h16" /><path d="M4 12h16" /><path d="M4 17h16" /></svg>
@@ -364,8 +364,8 @@ export default function HomepageV2() {
             ))}
           </div>
           <div style={{ marginTop: 16, display: "flex", flexDirection: "column", gap: 12 }}>
-            <a href="https://cal.eu/rosebudsolutions/demo" target="_blank" rel="noopener noreferrer" style={{ textAlign: "center", padding: 16, borderRadius: 999, background: "#8B7DD8", color: "#0B0A0C", fontWeight: 600, textDecoration: "none" }}>Book free consultation</a>
-            <a href="https://cal.eu/rosebudsolutions/30min" target="_blank" rel="noopener noreferrer" style={{ textAlign: "center", padding: 16, borderRadius: 999, background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.2)", color: "#F5F1EA", textDecoration: "none" }}>Contact sales</a>
+            <a href="/pricing" onClick={() => setNavOpen(false)} style={{ textAlign: "center", padding: 16, borderRadius: 999, background: "#8B7DD8", color: "#0B0A0C", fontWeight: 600, textDecoration: "none" }}>Get started</a>
+            <a href="https://cal.eu/rosebudsolutions/demo" target="_blank" rel="noopener noreferrer" style={{ textAlign: "center", padding: 16, borderRadius: 999, background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.2)", color: "#F5F1EA", textDecoration: "none" }}>Book free consultation</a>
           </div>
         </div>
       )}
@@ -382,8 +382,8 @@ export default function HomepageV2() {
         actions={<>
           <p className="rb-hero-lead">Rosebud Solutions handles every enquiry from the moment it arrives until it becomes a booking, a conversation with the right person, or a customer worth keeping in touch with.</p>
           <div className="rb-hero-actions">
-            <BookDemoCTA label="Book free consultation" href="https://cal.eu/rosebudsolutions/demo" tone="dark" />
-            <a className="rb-hero-contact" href="https://cal.eu/rosebudsolutions/30min" target="_blank" rel="noopener noreferrer">Contact sales</a>
+            <BookDemoCTA label="Get started" href="/pricing" tone="dark" />
+            <a className="rb-hero-contact" href="https://cal.eu/rosebudsolutions/demo" target="_blank" rel="noopener noreferrer">Book free consultation</a>
           </div>
         </>}
       />
@@ -615,8 +615,8 @@ export default function HomepageV2() {
                 ))}
               </div>
               <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "center", gap: 14, marginTop: 40 }}>
-                <BookDemoCTA label="Book free consultation" href="https://cal.eu/rosebudsolutions/demo" tone="light" />
-                <a href="https://cal.eu/rosebudsolutions/30min" target="_blank" rel="noopener noreferrer" style={{ display: "inline-flex", alignItems: "center", background: "rgba(36,21,40,0.05)", backdropFilter: "blur(12px)", WebkitBackdropFilter: "blur(12px)", border: "1px solid rgba(36,21,40,0.2)", color: "#241528", padding: "14px 27px", borderRadius: 999, fontSize: 15, fontWeight: 500, textDecoration: "none" }}>Contact sales</a>
+                <BookDemoCTA label="Get started" href="/pricing" tone="light" />
+                <a href="https://cal.eu/rosebudsolutions/demo" target="_blank" rel="noopener noreferrer" style={{ display: "inline-flex", alignItems: "center", background: "rgba(36,21,40,0.05)", backdropFilter: "blur(12px)", WebkitBackdropFilter: "blur(12px)", border: "1px solid rgba(36,21,40,0.2)", color: "#241528", padding: "14px 27px", borderRadius: 999, fontSize: 15, fontWeight: 500, textDecoration: "none" }}>Book free consultation</a>
               </div>
             </div>
           </div>
