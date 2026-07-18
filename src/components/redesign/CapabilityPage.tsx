@@ -21,7 +21,9 @@ const CSS = `
   .rb-cap-hero-grid, .rb-cap-deep-grid { grid-template-columns: 1fr !important; gap: 40px !important; }
   .rb-cap-deep-graphic { order: 2; }
   .rb-cap-works-panels { grid-template-columns: 1fr !important; }
-  .rb-cap-navlinks { display: none !important; }
+  /* keep the logo + Get started button; drop only the hover dropdown links */
+  .rb-cap-navdrop { display: none !important; }
+  .rb-cap-voicecard { flex: 0 0 84% !important; }
   .rb-cap-pad { padding-left: 20px !important; padding-right: 20px !important; }
 }
 `;
@@ -90,9 +92,9 @@ export default function CapabilityPage({ data }: { data: CapabilityData }) {
             <img src="/assets/rosebud-logo.png" alt="Rosebud Solutions" width={36} height={36} style={{ display: "block", width: 36, height: 36 }} />
           </a>
           <div className="rb-cap-navlinks" style={{ display: "flex", alignItems: "center", gap: 34, fontSize: 13, letterSpacing: ".14em", textTransform: "uppercase" }}>
-            <a href={capHref("capture")} onMouseEnter={() => openNow("product")} onMouseLeave={scheduleClose} style={navLink}>Product<span style={{ fontSize: 8, opacity: 0.7 }}>▼</span></a>
-            <a href="/#integrations" onMouseEnter={() => openNow("connections")} onMouseLeave={scheduleClose} style={navLink}>Connections<span style={{ fontSize: 8, opacity: 0.7 }}>▼</span></a>
-            <a href="/about" onMouseEnter={() => openNow("resources")} onMouseLeave={scheduleClose} style={navLink}>Resources<span style={{ fontSize: 8, opacity: 0.7 }}>▼</span></a>
+            <a className="rb-cap-navdrop" href={capHref("capture")} onMouseEnter={() => openNow("product")} onMouseLeave={scheduleClose} style={navLink}>Product<span style={{ fontSize: 8, opacity: 0.7 }}>▼</span></a>
+            <a className="rb-cap-navdrop" href="/#integrations" onMouseEnter={() => openNow("connections")} onMouseLeave={scheduleClose} style={navLink}>Connections<span style={{ fontSize: 8, opacity: 0.7 }}>▼</span></a>
+            <a className="rb-cap-navdrop" href="/about" onMouseEnter={() => openNow("resources")} onMouseLeave={scheduleClose} style={navLink}>Resources<span style={{ fontSize: 8, opacity: 0.7 }}>▼</span></a>
             <a href="/pricing" style={{ padding: "9px 20px", borderRadius: 999, background: "var(--nav-pill-bg)", backdropFilter: "blur(20px) saturate(1.3)", WebkitBackdropFilter: "blur(20px) saturate(1.3)", border: "1px solid var(--nav-pill-border)", color: "var(--nav-fg-strong)", fontWeight: 600, letterSpacing: ".1em" }}>Get started</a>
           </div>
         </div>
@@ -326,7 +328,7 @@ export default function CapabilityPage({ data }: { data: CapabilityData }) {
               {VOICES.map((v, i) => {
                 const focused = i === voiceIdx || i === voiceIdx + 1;
                 return (
-                  <div key={i} style={{ flex: "0 0 46%", opacity: focused ? 1 : 0.42, transform: focused ? "none" : "scale(0.94)", transition: "opacity 0.5s ease, transform 0.5s ease" }}>
+                  <div key={i} className="rb-cap-voicecard" style={{ flex: "0 0 46%", opacity: focused ? 1 : 0.42, transform: focused ? "none" : "scale(0.94)", transition: "opacity 0.5s ease, transform 0.5s ease" }}>
                     <div style={{ position: "relative", height: "100%", minHeight: 360, background: "rgba(20,16,26,0.55)", backdropFilter: "blur(16px)", WebkitBackdropFilter: "blur(16px)", border: "1px solid rgba(184,174,219,0.16)", boxShadow: "0 30px 66px -34px rgba(0,0,0,0.85), inset 0 1px 0 rgba(255,255,255,0.08)", borderRadius: 22, padding: "36px 34px", display: "flex", flexDirection: "column" }}>
                       <div style={{ fontFamily: SERIF, fontSize: 60, lineHeight: 0.8, color: "rgba(184,174,219,0.5)", height: 34 }}>“</div>
                       <div style={{ fontFamily: SERIF, fontStyle: "italic", fontSize: 22, lineHeight: 1.4, color: "#EDE9F5", marginTop: 14, flex: 1 }}>{v.quote}</div>
