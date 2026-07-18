@@ -407,7 +407,7 @@ export default function HomepageV2() {
             <h2 style={{ fontFamily: SERIF, fontWeight: 500, fontSize: "clamp(40px,5vw,74px)", lineHeight: 1.0, letterSpacing: "-0.01em", textShadow: "0 2px 34px rgba(0,0,0,0.6)", margin: 0 }}>What&apos;s your<br />challenge?</h2>
             <p style={{ marginTop: 30, fontSize: 17, lineHeight: 1.6, color: "rgba(245,241,234,0.85)", maxWidth: "44ch", textShadow: "0 1px 18px rgba(0,0,0,0.55)" }}>Enquiries nobody answered. Leads gone cold. No idea what happened to either.</p>
             <p style={{ marginTop: 16, fontSize: 17, lineHeight: 1.6, color: "rgba(245,241,234,0.85)", maxWidth: "44ch", textShadow: "0 1px 18px rgba(0,0,0,0.55)" }}>We will map your funnel so your spend stops buying enquiries and starts buying customers.</p>
-            <div style={{ marginTop: 34 }}><BookDemoCTA label="Let's talk" href="https://cal.eu/rosebudsolutions/demo" tone="dark" /></div>
+            <div style={{ marginTop: 34 }}><BookDemoCTA label="Get started" href="/pricing" tone="dark" /></div>
           </div>
           <div ref={wfBox} style={{ position: "relative", width: "100%", aspectRatio: "920 / 580" }}>
             <div ref={wfInner} style={{ position: "absolute", top: 0, left: 0, width: 920, height: 580, transformOrigin: "top left" }}>
@@ -640,7 +640,7 @@ export default function HomepageV2() {
             <div>
               <div style={{ fontSize: 12, letterSpacing: ".24em", textTransform: "uppercase", color: "rgba(245,241,234,0.45)", marginBottom: 20, fontFamily: SERIF }}>Contact</div>
               <a href="mailto:contact@rosebud.global" style={{ display: "inline-block", fontSize: 14, color: "#F5F1EA", textDecoration: "none", borderBottom: "1px solid rgba(245,241,234,0.25)", paddingBottom: 3 }}>contact@rosebud.global</a>
-              <div style={{ marginTop: 26 }}><a href="https://cal.eu/rosebudsolutions/demo" target="_blank" rel="noopener noreferrer" style={{ display: "inline-flex", alignItems: "center", gap: 9, fontSize: 14, color: "#F5F1EA", textDecoration: "none", borderBottom: "1px solid rgba(245,241,234,0.25)", paddingBottom: 3 }}>Book a consultation <svg viewBox="0 0 42 12" width="20" height="8" fill="none" style={{ overflow: "visible" }}><path d="M0 6 L32 6" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" /><path d="M26 1.5 L32 6 L26 10.5" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" /></svg></a></div>
+              <div style={{ marginTop: 26 }}><a href="/pricing" style={{ display: "inline-flex", alignItems: "center", gap: 9, fontSize: 14, color: "#F5F1EA", textDecoration: "none", borderBottom: "1px solid rgba(245,241,234,0.25)", paddingBottom: 3 }}>Get started <svg viewBox="0 0 42 12" width="20" height="8" fill="none" style={{ overflow: "visible" }}><path d="M0 6 L32 6" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" /><path d="M26 1.5 L32 6 L26 10.5" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" /></svg></a></div>
             </div>
             <div>
               <div style={{ fontSize: 12, letterSpacing: ".24em", textTransform: "uppercase", color: "rgba(245,241,234,0.45)", marginBottom: 20, fontFamily: SERIF }}>Company</div>
