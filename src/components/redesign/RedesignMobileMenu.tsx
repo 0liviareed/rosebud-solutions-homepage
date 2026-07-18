@@ -1,30 +1,94 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 import { NAV_CAPABILITIES, NAV_RESOURCES, LIVE_SLUGS } from "./capabilityData";
 
-const SERIF = "var(--font-cormorant), 'Cormorant Garamond', serif";
-
-// Global mobile nav — the hamburger + full-screen accordion shared across the
-// homepage and every capability page. Top-level Product / Connections /
-// Resources expand on tap. All links are absolute so they resolve from any
-// route (capability pages have no #capabilities/#integrations anchors).
+// Global mobile nav — hamburger + full-screen accordion, reusing the SAME
+// styling that's live in production (.rb-mobile-menu-inner + .rb-macc-* in
+// globals.css): opaque overlay, single-open sections, Cormorant italic rows.
+// The overlay is portalled to <body> so the redesign nav's backdrop-filter
+// (which would otherwise trap a position:fixed child) can't break it.
 const capHref = (slug: string) => (LIVE_SLUGS.has(slug) ? `/capabilities/${slug}` : "/#capabilities");
 
-const SECTIONS: { key: string; label: string; items: { label: string; href: string }[] }[] = [
-  { key: "product", label: "Product", items: NAV_CAPABILITIES.map((c) => ({ label: c.head, href: capHref(c.slug) })) },
-  { key: "connections", label: "Connections", items: [{ label: "Integrations", href: "/#integrations" }] },
-  { key: "resources", label: "Resources", items: NAV_RESOURCES.map((r) => ({ label: r.head, href: r.href })) },
+type Section = { key: string; label: string; items: { title: string; desc?: string; href: string }[] };
+const SECTIONS: Section[] = [
+  { key: "product", label: "Product", items: NAV_CAPABILITIES.map((c) => ({ title: c.head, desc: c.desc, href: capHref(c.slug) })) },
+  { key: "connections", label: "Connections", items: [{ title: "Integrations", desc: "Connect to your tools effortlessly", href: "/#integrations" }] },
+  { key: "resources", label: "Resources", items: NAV_RESOURCES.map((r) => ({ title: r.head, desc: r.desc, href: r.href })) },
 ];
 
 const CSS = `
 .rb-mnav-burger { display: none; }
 @media (max-width: 860px){ .rb-mnav-burger { display: inline-flex !important; } }
+.rb-rmenu { position: fixed; inset: 0; z-index: 1000; background: rgba(0,0,0,0.96); -webkit-backdrop-filter: blur(24px) saturate(130%); backdrop-filter: blur(24px) saturate(130%); overflow-y: auto; display: flex; flex-direction: column; }
 `;
 
+const chevron = (
+  <svg className="rb-macc-chevron" viewBox="0 0 10 6" width="14" height="14" aria-hidden="true">
+    <path d="M1 1 L5 5 L9 1" stroke="currentColor" strokeWidth="1.3" fill="none" strokeLinecap="round" strokeLinejoin="round" />
+  </svg>
+);
+
 export default function RedesignMobileMenu() {
+  const [mounted, setMounted] = useState(false);
   const [open, setOpen] = useState(false);
-  const [expanded, setExpanded] = useState<string | null>("product");
-  const close = () => setOpen(false);
+  const [section, setSection] = useState<string | null>(null);
+  useEffect(() => setMounted(true), []);
+
+  // Body scroll-lock + Escape to close while open.
+  useEffect(() => {
+    if (!open) return;
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") setOpen(false); };
+    window.addEventListener("keydown", onKey);
+    return () => { document.body.style.overflow = prev; window.removeEventListener("keydown", onKey); };
+  }, [open]);
+
+  const close = () => { setOpen(false); setSection(null); };
+
+  const overlay = (
+    <div className="rb-rmenu" role="dialog" aria-modal="true">
+      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "20px 24px" }}>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src="/assets/rosebud-logo.png" alt="Rosebud Solutions" width={36} height={36} style={{ display: "block", width: 36, height: 36 }} />
+        <button aria-label="Close menu" onClick={close} style={{ width: 42, height: 42, borderRadius: 999, background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.14)", color: "#F5F1EA", display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer" }}>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"><path d="M6 6l12 12" /><path d="M18 6L6 18" /></svg>
+        </button>
+      </div>
+
+      <div className="rb-mobile-menu-inner" style={{ flex: 1 }}>
+        <a href="/pricing" className="rb-macc-link" onClick={close}>Get started<span className="rb-macc-sublink-arrow" aria-hidden="true">→</span></a>
+
+        {SECTIONS.map((s) => {
+          const isOpen = section === s.key;
+          return (
+            <div key={s.key} className="rb-macc-section">
+              <button type="button" className="rb-macc-trigger" aria-expanded={isOpen} onClick={() => setSection((c) => (c === s.key ? null : s.key))}>
+                <span>{s.label}</span>
+                {chevron}
+              </button>
+              <div className="rb-macc-panel" data-open={isOpen}>
+                <div className="rb-macc-panel-inner">
+                  {s.items.map((it) => (
+                    <a key={it.title + it.href} href={it.href} className="rb-macc-sublink" onClick={close}>
+                      <span className="rb-macc-sublink-text">
+                        <span className="rb-macc-sublink-title">{it.title}</span>
+                        {it.desc ? <span className="rb-macc-sublink-desc">{it.desc}</span> : null}
+                      </span>
+                      <span className="rb-macc-sublink-arrow" aria-hidden="true">→</span>
+                    </a>
+                  ))}
+                </div>
+              </div>
+            </div>
+          );
+        })}
+
+        <a href="https://cal.eu/rosebudsolutions/demo" target="_blank" rel="noopener noreferrer" className="rb-macc-link" onClick={close}>Book free consultation<span className="rb-macc-sublink-arrow" aria-hidden="true">→</span></a>
+      </div>
+    </div>
+  );
 
   return (
     <>
@@ -32,44 +96,7 @@ export default function RedesignMobileMenu() {
       <button className="rb-mnav-burger" aria-label="Menu" onClick={() => setOpen(true)} style={{ width: 42, height: 42, borderRadius: 999, background: "transparent", border: "1px solid var(--nav-fg)", color: "var(--nav-fg-strong)", alignItems: "center", justifyContent: "center", cursor: "pointer" }}>
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"><path d="M4 7h16" /><path d="M4 12h16" /><path d="M4 17h16" /></svg>
       </button>
-
-      {open && (
-        <div style={{ position: "fixed", inset: 0, zIndex: 300, background: "rgba(11,10,13,0.72)", backdropFilter: "blur(32px) saturate(1.1)", WebkitBackdropFilter: "blur(32px) saturate(1.1)", display: "flex", flexDirection: "column", padding: 24 }}>
-          <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/assets/rosebud-logo.png" alt="Rosebud Solutions" width={36} height={36} style={{ display: "block", width: 36, height: 36 }} />
-            <button aria-label="Close menu" onClick={close} style={{ width: 42, height: 42, borderRadius: 999, background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.14)", color: "#F5F1EA", display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer" }}>
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"><path d="M6 6l12 12" /><path d="M18 6L6 18" /></svg>
-            </button>
-          </div>
-
-          <div style={{ flex: 1, overflowY: "auto", marginTop: 30 }}>
-            {SECTIONS.map((s) => {
-              const isOpen = expanded === s.key;
-              return (
-                <div key={s.key} style={{ borderBottom: "1px solid rgba(255,255,255,0.08)" }}>
-                  <button onClick={() => setExpanded((e) => (e === s.key ? null : s.key))} aria-expanded={isOpen} style={{ width: "100%", display: "flex", alignItems: "center", justifyContent: "space-between", padding: "16px 0", background: "transparent", border: "none", cursor: "pointer", fontFamily: SERIF, fontSize: 26, fontWeight: 500, color: "#F5F1EA", textAlign: "left" }}>
-                    {s.label}
-                    <span style={{ fontSize: 12, color: "#8B7DD8", transition: "transform .25s ease", transform: isOpen ? "rotate(180deg)" : "rotate(0deg)" }}>▼</span>
-                  </button>
-                  {isOpen && (
-                    <div style={{ paddingBottom: 12, display: "flex", flexDirection: "column" }}>
-                      {s.items.map((it) => (
-                        <a key={it.label + it.href} href={it.href} onClick={close} style={{ display: "block", fontSize: 16, color: "rgba(245,241,234,0.82)", textDecoration: "none", padding: "9px 0 9px 4px" }}>{it.label}</a>
-                      ))}
-                    </div>
-                  )}
-                </div>
-              );
-            })}
-          </div>
-
-          <div style={{ marginTop: 16, display: "flex", flexDirection: "column", gap: 12 }}>
-            <a href="/pricing" onClick={close} style={{ textAlign: "center", padding: 16, borderRadius: 999, background: "#8B7DD8", color: "#0B0A0C", fontWeight: 600, textDecoration: "none" }}>Get started</a>
-            <a href="https://cal.eu/rosebudsolutions/demo" target="_blank" rel="noopener noreferrer" style={{ textAlign: "center", padding: 16, borderRadius: 999, background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.2)", color: "#F5F1EA", textDecoration: "none" }}>Book free consultation</a>
-          </div>
-        </div>
-      )}
+      {mounted && open ? createPortal(overlay, document.body) : null}
     </>
   );
 }
