@@ -41,8 +41,10 @@ export default function CapabilityPage({ data }: { data: CapabilityData }) {
   const [siblingOpen, setSiblingOpen] = useState(false);
   const [voiceIdx, setVoiceIdx] = useState(0);
   const menuTimer = useRef<number | null>(null);
+  const [menuAnchor, setMenuAnchor] = useState(0); // hovered trigger's left edge (viewport px)
 
-  const openNow = (m: "product" | "connections" | "resources") => { if (menuTimer.current) clearTimeout(menuTimer.current); setOpenMenu(m); };
+  const openNow = (m: "product" | "connections" | "resources", el?: HTMLElement) => { if (menuTimer.current) clearTimeout(menuTimer.current); if (el) setMenuAnchor(el.getBoundingClientRect().left); setOpenMenu(m); };
+  const panelLeft = (w: number) => { const vw = typeof window !== "undefined" ? window.innerWidth : 1440; const pw = Math.min(w, vw - 40); return Math.max(16, Math.min(menuAnchor - 14, vw - pw - 16)); };
   const cancelClose = () => { if (menuTimer.current) clearTimeout(menuTimer.current); };
   const scheduleClose = () => { if (menuTimer.current) clearTimeout(menuTimer.current); menuTimer.current = window.setTimeout(() => setOpenMenu(null), 140); };
 
@@ -99,9 +101,9 @@ export default function CapabilityPage({ data }: { data: CapabilityData }) {
             <img src="/assets/rosebud-logo.png" alt="Rosebud Solutions" width={36} height={36} style={{ display: "block", width: 36, height: 36 }} />
           </a>
           <div className="rb-cap-navlinks" style={{ display: "flex", alignItems: "center", gap: 34, fontSize: 13, letterSpacing: ".14em", textTransform: "uppercase" }}>
-            <a className="rb-cap-navdrop" href={capHref("capture")} onMouseEnter={() => openNow("product")} onMouseLeave={scheduleClose} style={navLink}>Product<span style={{ fontSize: 8, opacity: 0.7 }}>▼</span></a>
-            <a className="rb-cap-navdrop" href="/#integrations" onMouseEnter={() => openNow("connections")} onMouseLeave={scheduleClose} style={navLink}>Connections<span style={{ fontSize: 8, opacity: 0.7 }}>▼</span></a>
-            <a className="rb-cap-navdrop" href="/about" onMouseEnter={() => openNow("resources")} onMouseLeave={scheduleClose} style={navLink}>Resources<span style={{ fontSize: 8, opacity: 0.7 }}>▼</span></a>
+            <a className="rb-cap-navdrop" href={capHref("capture")} onMouseEnter={(e) => openNow("product", e.currentTarget)} onMouseLeave={scheduleClose} style={navLink}>Product<span style={{ fontSize: 8, opacity: 0.7 }}>▼</span></a>
+            <a className="rb-cap-navdrop" href="/#integrations" onMouseEnter={(e) => openNow("connections", e.currentTarget)} onMouseLeave={scheduleClose} style={navLink}>Connections<span style={{ fontSize: 8, opacity: 0.7 }}>▼</span></a>
+            <a className="rb-cap-navdrop" href="/about" onMouseEnter={(e) => openNow("resources", e.currentTarget)} onMouseLeave={scheduleClose} style={navLink}>Resources<span style={{ fontSize: 8, opacity: 0.7 }}>▼</span></a>
             <a href="/pricing" style={{ padding: "9px 20px", borderRadius: 999, background: "var(--nav-pill-bg)", backdropFilter: "blur(20px) saturate(1.3)", WebkitBackdropFilter: "blur(20px) saturate(1.3)", border: "1px solid var(--nav-pill-border)", color: "var(--nav-fg-strong)", fontWeight: 600, letterSpacing: ".1em" }}>Get started</a>
           </div>
           <RedesignMobileMenu />
@@ -109,7 +111,7 @@ export default function CapabilityPage({ data }: { data: CapabilityData }) {
 
         {/* Product mega-panel */}
         {openMenu === "product" && (
-          <div onMouseEnter={cancelClose} onMouseLeave={scheduleClose} style={{ ...glassPanel, top: 80, left: "50%", transform: "translateX(-50%)", width: "min(940px,calc(100vw - 40px))", padding: "26px 28px 28px", borderRadius: 22, display: "flex", gap: 28 }}>
+          <div onMouseEnter={cancelClose} onMouseLeave={scheduleClose} style={{ ...glassPanel, top: 80, left: panelLeft(940), width: "min(940px,calc(100vw - 40px))", padding: "26px 28px 28px", borderRadius: 22, display: "flex", gap: 28 }}>
             <div style={{ flex: 1.7, minWidth: 0 }}>
               <div style={{ fontSize: 11, letterSpacing: ".28em", textTransform: "uppercase", color: "rgba(245,241,234,0.55)", marginBottom: 14 }}>Capabilities</div>
               <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "4px 22px" }}>
@@ -132,7 +134,7 @@ export default function CapabilityPage({ data }: { data: CapabilityData }) {
           </div>
         )}
         {openMenu === "connections" && (
-          <div onMouseEnter={cancelClose} onMouseLeave={scheduleClose} style={{ ...glassPanel, top: 80, left: "50%", transform: "translateX(-50%)", width: "min(320px,calc(100vw - 40px))", borderRadius: 20 }}>
+          <div onMouseEnter={cancelClose} onMouseLeave={scheduleClose} style={{ ...glassPanel, top: 80, left: panelLeft(320), width: "min(320px,calc(100vw - 40px))", borderRadius: 20 }}>
             <a href="/#integrations" className="rb-mega-item" onClick={() => setOpenMenu(null)} style={{ display: "flex", flexDirection: "column", gap: 3, padding: "13px 14px", borderRadius: 13, textDecoration: "none" }}>
               <span style={{ fontSize: 15, fontWeight: 600, color: "#F5F1EA" }}>Integrations</span>
               <span style={{ fontSize: 12.5, color: "rgba(245,241,234,0.72)" }}>Connect to your tools effortlessly</span>
@@ -140,7 +142,7 @@ export default function CapabilityPage({ data }: { data: CapabilityData }) {
           </div>
         )}
         {openMenu === "resources" && (
-          <div onMouseEnter={cancelClose} onMouseLeave={scheduleClose} style={{ ...glassPanel, top: 80, left: "50%", transform: "translateX(-50%)", width: "min(300px,calc(100vw - 40px))", borderRadius: 20 }}>
+          <div onMouseEnter={cancelClose} onMouseLeave={scheduleClose} style={{ ...glassPanel, top: 80, left: panelLeft(300), width: "min(300px,calc(100vw - 40px))", borderRadius: 20 }}>
             {NAV_RESOURCES.map((r) => (
               <a key={r.head} href={r.href} className="rb-mega-item" onClick={() => setOpenMenu(null)} style={{ display: "flex", flexDirection: "column", gap: 3, padding: "12px 14px", borderRadius: 13, textDecoration: "none" }}>
                 <span style={{ fontSize: 15, fontWeight: 600, color: "#F5F1EA" }}>{r.head}</span>

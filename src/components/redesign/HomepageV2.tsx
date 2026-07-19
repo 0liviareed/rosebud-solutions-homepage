@@ -146,8 +146,11 @@ export default function HomepageV2() {
   // Desktop hover menus (Product / Connections / Resources). A short close
   // delay lets the pointer travel from the trigger into the panel.
   const [openMenu, setOpenMenu] = useState<null | "product" | "connections" | "resources">(null);
+  const [menuAnchor, setMenuAnchor] = useState(0); // hovered trigger's left edge (viewport px)
   const menuTimer = useRef<number | null>(null);
-  const openMenuNow = (m: "product" | "connections" | "resources") => { if (menuTimer.current) window.clearTimeout(menuTimer.current); setOpenMenu(m); };
+  const openMenuNow = (m: "product" | "connections" | "resources", el?: HTMLElement) => { if (menuTimer.current) window.clearTimeout(menuTimer.current); if (el) setMenuAnchor(el.getBoundingClientRect().left); setOpenMenu(m); };
+  // Left position for a panel of width w so it sits under its trigger, clamped on-screen.
+  const panelLeft = (w: number) => { const vw = typeof window !== "undefined" ? window.innerWidth : 1440; const pw = Math.min(w, vw - 40); return Math.max(16, Math.min(menuAnchor - 14, vw - pw - 16)); };
   const cancelClose = () => { if (menuTimer.current) window.clearTimeout(menuTimer.current); };
   const scheduleClose = () => { if (menuTimer.current) window.clearTimeout(menuTimer.current); menuTimer.current = window.setTimeout(() => setOpenMenu(null), 140); };
   const touchX = useRef<number | null>(null);
@@ -279,9 +282,9 @@ export default function HomepageV2() {
             <img src="/assets/rosebud-logo.png" alt="Rosebud Solutions" width={36} height={36} style={{ display: "block", width: 36, height: 36 }} />
           </a>
           <div className="rb-nav-links" style={{ display: "flex", alignItems: "center", gap: 34, fontSize: 13, letterSpacing: ".14em", textTransform: "uppercase" }}>
-            <a href="#capabilities" onMouseEnter={() => openMenuNow("product")} onMouseLeave={scheduleClose} style={navLink}>Product<span style={{ fontSize: 8, opacity: 0.7 }}>▼</span></a>
-            <a href="#integrations" onMouseEnter={() => openMenuNow("connections")} onMouseLeave={scheduleClose} style={navLink}>Connections<span style={{ fontSize: 8, opacity: 0.7 }}>▼</span></a>
-            <a href="/about" onMouseEnter={() => openMenuNow("resources")} onMouseLeave={scheduleClose} style={navLink}>Resources<span style={{ fontSize: 8, opacity: 0.7 }}>▼</span></a>
+            <a href="#capabilities" onMouseEnter={(e) => openMenuNow("product", e.currentTarget)} onMouseLeave={scheduleClose} style={navLink}>Product<span style={{ fontSize: 8, opacity: 0.7 }}>▼</span></a>
+            <a href="#integrations" onMouseEnter={(e) => openMenuNow("connections", e.currentTarget)} onMouseLeave={scheduleClose} style={navLink}>Connections<span style={{ fontSize: 8, opacity: 0.7 }}>▼</span></a>
+            <a href="/about" onMouseEnter={(e) => openMenuNow("resources", e.currentTarget)} onMouseLeave={scheduleClose} style={navLink}>Resources<span style={{ fontSize: 8, opacity: 0.7 }}>▼</span></a>
             <a href="/pricing" style={{ padding: "9px 20px", borderRadius: 999, background: "rgba(139,125,216,0.18)", backdropFilter: "blur(14px)", WebkitBackdropFilter: "blur(14px)", border: "1px solid rgba(184,174,219,0.42)", color: "var(--nav-fg-strong)", fontWeight: 600, letterSpacing: ".1em", boxShadow: "0 6px 22px -10px rgba(139,125,216,0.5)" }}>Get started</a>
           </div>
           <RedesignMobileMenu />
@@ -290,7 +293,7 @@ export default function HomepageV2() {
         {/* hover mega-panels (desktop only — hidden <860px) */}
         <div className="rb-nav-panels">
           {openMenu === "product" && (
-            <div onMouseEnter={cancelClose} onMouseLeave={scheduleClose} style={{ position: "absolute", top: 80, left: "50%", transform: "translateX(-50%)", width: "min(940px,calc(100vw - 40px))", padding: "26px 28px 28px", borderRadius: 22, background: "rgba(40,37,52,0.55)", backdropFilter: "blur(44px) saturate(1.5)", WebkitBackdropFilter: "blur(44px) saturate(1.5)", border: "1px solid rgba(245,241,234,0.12)", boxShadow: "0 28px 60px -30px rgba(0,0,0,0.6)", display: "flex", gap: 28 }}>
+            <div onMouseEnter={cancelClose} onMouseLeave={scheduleClose} style={{ position: "absolute", top: 80, left: panelLeft(940), width: "min(940px,calc(100vw - 40px))", padding: "26px 28px 28px", borderRadius: 22, background: "rgba(40,37,52,0.55)", backdropFilter: "blur(44px) saturate(1.5)", WebkitBackdropFilter: "blur(44px) saturate(1.5)", border: "1px solid rgba(245,241,234,0.12)", boxShadow: "0 28px 60px -30px rgba(0,0,0,0.6)", display: "flex", gap: 28 }}>
               <div style={{ flex: 1.7, minWidth: 0 }}>
                 <div style={{ fontSize: 11, letterSpacing: ".28em", textTransform: "uppercase", color: "rgba(245,241,234,0.55)", marginBottom: 14 }}>Capabilities</div>
                 <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "4px 22px" }}>
@@ -313,7 +316,7 @@ export default function HomepageV2() {
             </div>
           )}
           {openMenu === "connections" && (
-            <div onMouseEnter={cancelClose} onMouseLeave={scheduleClose} style={{ position: "absolute", top: 80, left: "50%", transform: "translateX(-50%)", width: "min(320px,calc(100vw - 40px))", padding: 12, borderRadius: 20, background: "rgba(40,37,52,0.55)", backdropFilter: "blur(44px) saturate(1.5)", WebkitBackdropFilter: "blur(44px) saturate(1.5)", border: "1px solid rgba(245,241,234,0.12)", boxShadow: "0 28px 60px -30px rgba(0,0,0,0.6)" }}>
+            <div onMouseEnter={cancelClose} onMouseLeave={scheduleClose} style={{ position: "absolute", top: 80, left: panelLeft(320), width: "min(320px,calc(100vw - 40px))", padding: 12, borderRadius: 20, background: "rgba(40,37,52,0.55)", backdropFilter: "blur(44px) saturate(1.5)", WebkitBackdropFilter: "blur(44px) saturate(1.5)", border: "1px solid rgba(245,241,234,0.12)", boxShadow: "0 28px 60px -30px rgba(0,0,0,0.6)" }}>
               <a href="#integrations" className="rb-mega-item" onClick={() => setOpenMenu(null)} style={{ display: "flex", flexDirection: "column", gap: 3, padding: "13px 14px", borderRadius: 13, textDecoration: "none" }}>
                 <span style={{ fontSize: 15, fontWeight: 600, color: "#F5F1EA" }}>Integrations</span>
                 <span style={{ fontSize: 12.5, color: "rgba(245,241,234,0.72)" }}>Connect to your tools effortlessly</span>
@@ -321,7 +324,7 @@ export default function HomepageV2() {
             </div>
           )}
           {openMenu === "resources" && (
-            <div onMouseEnter={cancelClose} onMouseLeave={scheduleClose} style={{ position: "absolute", top: 80, left: "50%", transform: "translateX(-50%)", width: "min(300px,calc(100vw - 40px))", padding: 12, borderRadius: 20, background: "rgba(40,37,52,0.55)", backdropFilter: "blur(44px) saturate(1.5)", WebkitBackdropFilter: "blur(44px) saturate(1.5)", border: "1px solid rgba(245,241,234,0.12)", boxShadow: "0 28px 60px -30px rgba(0,0,0,0.6)" }}>
+            <div onMouseEnter={cancelClose} onMouseLeave={scheduleClose} style={{ position: "absolute", top: 80, left: panelLeft(300), width: "min(300px,calc(100vw - 40px))", padding: 12, borderRadius: 20, background: "rgba(40,37,52,0.55)", backdropFilter: "blur(44px) saturate(1.5)", WebkitBackdropFilter: "blur(44px) saturate(1.5)", border: "1px solid rgba(245,241,234,0.12)", boxShadow: "0 28px 60px -30px rgba(0,0,0,0.6)" }}>
               {NAV_RESOURCES.map((r) => (
                 <a key={r.head} href={r.href} className="rb-mega-item" onClick={() => setOpenMenu(null)} style={{ display: "flex", flexDirection: "column", gap: 3, padding: "12px 14px", borderRadius: 13, textDecoration: "none" }}>
                   <span style={{ fontSize: 15, fontWeight: 600, color: "#F5F1EA" }}>{r.head}</span>
