@@ -5,6 +5,7 @@ import RedesignMobileMenu from "./RedesignMobileMenu";
 import {
   type CapabilityData,
   type DeepBlock,
+  DEEP_CTAS,
   SIBLINGS, SIBLING_SUBLABEL, LIVE_SLUGS,
   NAV_CAPABILITIES, NAV_RESOURCES, INT_LOGOS, INT_INDUSTRIES, VOICES,
 } from "./capabilityData";
@@ -245,7 +246,7 @@ export default function CapabilityPage({ data }: { data: CapabilityData }) {
         <div style={{ position: "relative", zIndex: 1, maxWidth: 1220, margin: "0 auto", background: "rgba(40,37,52,0.5)", backdropFilter: "blur(44px) saturate(1.5)", WebkitBackdropFilter: "blur(44px) saturate(1.5)", border: "1px solid rgba(245,241,234,0.12)", borderRadius: 28, padding: "clamp(34px,4.5vw,60px)", boxShadow: "0 44px 110px -44px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.1)" }}>
           <div style={{ maxWidth: 660 }}>
             <div style={{ fontSize: 12, letterSpacing: ".3em", textTransform: "uppercase", color: "#B8AEDB", marginBottom: 18 }}>How it works</div>
-            <h2 style={{ fontFamily: SERIF, fontWeight: 500, fontSize: "clamp(34px,4vw,56px)", lineHeight: 1.02, letterSpacing: "-0.02em", margin: 0, color: "#F5F1EA" }}>{data.works.headlinePre}<em style={{ fontStyle: "italic", color: "#C7BEE8" }}>{data.works.headlineEm}</em></h2>
+            <h2 style={{ fontFamily: SERIF, fontWeight: 500, fontSize: "clamp(34px,4vw,56px)", lineHeight: 1.02, letterSpacing: "-0.02em", margin: 0, color: "#F5F1EA" }}>{data.works.headlinePre}{data.works.headlineEm ? <em style={{ fontStyle: "italic", color: "#C7BEE8" }}>{data.works.headlineEm}</em> : null}</h2>
           </div>
           <div className="rb-cap-works-panels" style={{ marginTop: 52, display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 24 }}>
             {data.works.panels
@@ -308,7 +309,7 @@ export default function CapabilityPage({ data }: { data: CapabilityData }) {
                 <div style={{ display: "inline-flex", alignItems: "center", gap: 10, fontSize: 12, letterSpacing: ".24em", textTransform: "uppercase", color: A, marginBottom: 18 }}><span style={{ width: 22, height: 1, background: A }} />{b.num} — {b.kicker}</div>
                 <h3 style={{ fontFamily: SERIF, fontWeight: 500, fontSize: "clamp(28px,3.2vw,44px)", lineHeight: 1.04, letterSpacing: "-0.015em", margin: "0 0 18px" }}>{b.title}</h3>
                 <p style={{ fontSize: 16, lineHeight: 1.62, color: "rgba(23,19,31,0.66)", maxWidth: "48ch", margin: "0 0 28px" }}>{b.body}</p>
-                <BookDemoCTA label="See pricing & plans" href="/pricing" tone="light" />
+                <BookDemoCTA label={DEEP_CTAS[i].label} href={DEEP_CTAS[i].href} tone="light" />
               </div>
             );
             const graphic = <div className="rb-cap-deep-graphic">{deepMock(data, i, b)}</div>;

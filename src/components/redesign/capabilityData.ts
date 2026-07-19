@@ -15,6 +15,13 @@ export type CapabilityData = {
   close: { heading: string; subhead: string };
 };
 
+// Deep-dive CTAs by block position (consistent across every capability).
+export const DEEP_CTAS = [
+  { label: "See plans & pricing", href: "/pricing" },
+  { label: "Book a consultation", href: "https://cal.eu/rosebudsolutions/demo" },
+  { label: "Get your price", href: "/pricing" },
+];
+
 // ── Shared chrome data ───────────────────────────────────────────────────────
 export const SIBLINGS: { name: string; slug: string }[] = [
   { name: "Capture", slug: "capture" },
@@ -86,42 +93,45 @@ export const CAPABILITIES: Record<string, CapabilityData> = {
   capture: {
     slug: "capture", name: "Capture", accent: "#8B7DD8",
     hero: {
-      headlinePre: "Inbound enquiries answered & logged in seconds. On every channel. At every ",
-      headlineEm: "hour",
-      subhead: "The moment someone reaches out via web form, WhatsApp, SMS, email, or social, the system executes a programmed response and writes the record straight to your CRM. No manual triage delays, no out-of-hours gaps.",
+      headlinePre: "Answer every enquiry in seconds & catch leads before they go elsewhere", headlineEm: "",
+      subhead: "Stop losing enquiries to slow replies. The second someone messages you through your website, WhatsApp, SMS, email or social, the platform answers in your brand voice and writes the lead straight into your CRM. No queue, no opening hours, nobody dropping what they are doing to reply.",
     },
     works: {
-      headlinePre: "The intake layer, running as ", headlineEm: "one automated event",
-      panels: ["/assets/works-panel-1.png", "/assets/works-panel-2.png", "/assets/works-panel-3.png"],
+      headlinePre: "Catch every lead the moment it lands", headlineEm: "",
+      panelsText: [
+        { head: "One inbox for every channel", body: "Web forms, WhatsApp, SMS, email & social messages all arrive in one place as a single lead record." },
+        { head: "Instant replies in your voice", body: "Every enquiry gets an immediate answer trained on your tone and positioning, so it never reads like an autoresponder." },
+        { head: "A full record from the first touch", body: "Captures the contact, the channel, the source & the ad click that brought them, the second the enquiry arrives." },
+      ],
     },
-    integrationsSub: "Capture writes straight into the CRM, calendar, and messaging tools your team already lives in, with no new dashboard to learn.",
+    integrationsSub: "Capture writes new leads straight into the CRM, calendar & messaging tools your team already uses, with no new dashboard to learn",
     deep: [
-      { num: "01", kicker: "Listen", title: "Continuous intake listener", body: "After-hours enquiries are the ones a staffed team structurally cannot catch: the 9pm web form, the Sunday WhatsApp. The intake layer runs on a continuous listener, not a shift, so an out-of-hours submission triggers the same response-and-log sequence as a midday one. The demand you paid for at midnight is processed at midnight, not queued for Monday." },
-      { num: "02", kicker: "Bind", title: "Zero-latency response binding", body: "An enquiry that waits five minutes has already begun looking elsewhere. Capture and response are bound into a single event on the same trigger, so there is no triage queue to sit in. The reply fires on intake, generated against your brand voice, tone, and positioning rules. Sub-second response, in the voice of your best operator. First to respond enters the conversation first." },
-      { num: "03", kicker: "Record", title: "Structured record at source", body: "Every enquiry is written as a structured record at the moment of contact: contact, channel origin, source, and the ad click identifier where the lead came from paid media. That normalised record is the single object every downstream workflow reads from, so qualification, booking, reactivation, and attribution all build on the same clean foundation." },
+      { num: "01", kicker: "Listen", title: "Always-on lead capture", body: "The 9pm web form and the Sunday WhatsApp are the enquiries a staffed team can never catch. The platform does not work shifts, so a message at midnight gets the same instant answer as one at midday. You stop paying for leads that go cold overnight." },
+      { num: "02", kicker: "Bind", title: "Instant branded replies", body: "A lead who waits five minutes has already messaged someone else. Answering and capturing happen as one event, so there is no queue for the enquiry to sit in, and the message that goes back sounds like your best operator rather than a generic bot. First to reply usually wins the job." },
+      { num: "03", kicker: "Record", title: "Clean data from the start", body: "Every enquiry becomes a proper record the second it arrives, holding the contact, the channel, where they came from & the ad they clicked. Everything that happens next, from qualifying to booking to your reporting, builds on that one clean file." },
     ],
-    close: { heading: "Ready to stabilise your front office?", subhead: "We deploy, manage, and monitor the entire intake layer for you as an operated rental service, connecting directly to your existing CRM and calendars. The system handles the workflow up to the booking using your exact tone; your team closes the sale." },
+    close: { heading: "Ready to answer every enquiry the moment it lands?", subhead: "We deploy, manage & monitor the intake layer for you as an operated rental service that connects to your current CRM & calendars. The platform answers and logs every enquiry up to the booking using your tone; your team closes the sale." },
   },
 
   qualify: {
     slug: "qualify", name: "Qualify", accent: "#6B5CC4",
     hero: {
-      headlinePre: "Inbound enquiries scored against your criteria & routed three ways", headlineEm: "",
-      subhead: "Your specific definition of a good lead is held as configurable data rather than hard-coded software logic. Each record is evaluated automatically on arrival: qualified enquiries transition to booking, cases requiring human professional judgement escalate instantly, and records that do not qualify take the disposition you set at onboarding, whether that is a nurture track, a suppression flag, or a clean drop. An expected value attaches at the point of qualification.",
+      headlinePre: "Automatically filter out bad leads & only talk to the ones that matter", headlineEm: "",
+      subhead: "Stop wasting time on bad data. The platform checks every new enquiry against your operational rules the second it arrives. High-value leads go straight to your calendar, urgent cases jump to your team, and the rest are dropped, nurtured, or suppressed exactly how you want.",
     },
     works: {
-      headlinePre: "Your operational rules running as ", headlineEm: "live logic",
+      headlinePre: "Spend your days talking to real customers", headlineEm: "",
       panelsText: [
-        { head: "Configurable condition sets", body: "Budget, scope, location & fit criteria are stored as structured parameters, meaning your definition of a good lead is refined via settings rather than code rebuilds." },
-        { head: "Three-way outcome routing", body: "Every processed enquiry exits through one of three predefined tracks: direct calendar routing, immediate human escalation, or the not-qualified disposition you set at onboarding." },
-        { head: "Expected value mapping", body: "The value tiers established at onboarding attach an estimated financial weight to the data record the moment it qualifies, prior to human contact." },
+        { head: "Set your own filters", body: "Choose what makes a lead perfect for your business, from budget gaps to specific locations, and update them whenever you want." },
+        { head: "Route leads three ways", body: "Send good leads straight to booking, hand off emergency issues to a team member, or filter out poor fits instantly." },
+        { head: "Know what every lead is worth", body: "The system tags an estimated value to each enquiry on day one, before anyone on your team lifts a finger." },
       ],
     },
-    integrationsSub: "Qualify parses records against rules held in your configuration spine & writes the tier verdict, validation data & expected value straight into your CRM",
+    integrationsSub: "Qualify checks leads against your rules & writes the fit verdict, qualifying notes & estimated value straight into the CRM you already use",
     deep: [
-      { num: "01", kicker: "Evaluate", title: "Runtime evaluation engine", body: "A baseline lead definition cannot be templated, which is why your specific operational rules are held as data rather than code. Conditions are evaluated at runtime against every incoming record, allowing you to tighten your qualification criteria via your control panel the week you discover a pipeline leak, without engineering delays." },
-      { num: "02", kicker: "Escalate", title: "Human-in-the-loop escalation", body: "Matters requiring professional governance or specialised licenses route to your staff immediately. Escalation parameters fire instantly on matching entries, pushing the record to a designated team member while logging the handover as an auditable compliance log." },
-      { num: "03", kicker: "Tiers", title: "Expected value assignment", body: "The platform maps a financial estimate to a record the moment it passes your logic checks, allowing downstream media tracking & pipeline forecasting to read value from the earliest touch. Identifying unqualified records is handled with the same accuracy, keeping your advertising optimisation loop clean." },
+      { num: "01", kicker: "Evaluate", title: "Smart lead filtering", body: "You cannot use a generic template to define a good customer. You set the criteria at onboarding, and the system runs them against every incoming message. Change your rules in seconds through your dashboard whenever your pipeline needs a change, without any coding." },
+      { num: "02", kicker: "Escalate", title: "Instant human alerts", body: "Some enquiries cannot wait for an automation loop. When a high-priority issue or a complex file arrives, the system breaks the automation chain and alerts a specific person on your team instantly, keeping a permanent log of the handoff." },
+      { num: "03", kicker: "Tiers", title: "Automated revenue tracking", body: "Every qualified lead gets an estimated financial tier immediately. This gives you an instant view of what your pipeline is worth and sends clean tracking data back to your advertising, helping you stop paying for junk clicks." },
     ],
     close: { heading: "Ready to isolate the enquiries worth your time?", subhead: "We deploy, manage & monitor the qualification pipeline for you as an operated rental service that hooks into your current CRM. The system filters and structures every lead up to the booking using your rules; your team closes the sale." },
   },
@@ -129,22 +139,22 @@ export const CAPABILITIES: Record<string, CapabilityData> = {
   book: {
     slug: "book", name: "Book", accent: "#3B9EFF",
     hero: {
-      headlinePre: "Validated leads routed directly into your diary at the moment of intent", headlineEm: "",
-      subhead: "The pipeline queries your calendar in real time to reserve appointments against actual availability, applying your operational slot limits and travel buffers. The slot is secured within the active conversation thread while the lead is engaged, replicating your exact brand tone, rather than proposed via email delays.",
+      headlinePre: "Book qualified leads into your diary at the peak of their intent", headlineEm: "",
+      subhead: "Stop losing leads to slow callbacks. The platform links directly to your calendar to spot real openings, handles the chat using your brand voice, and books the appointment while the lead is active and paying attention.",
     },
     works: {
-      headlinePre: "Real-time availability booked as ", headlineEm: "one motion",
+      headlinePre: "Real-time availability booked as one motion", headlineEm: "",
       panelsText: [
-        { head: "Direct calendar sync", body: "The system connects directly to your Google Calendar, Outlook, Calendly or Cal.com infrastructure, reading true availability instead of an exported copy." },
-        { head: "Operational buffer logic", body: "Appointment durations, preparation windows & daily caps are mapped to your specifications, filling your diary exactly how your business operates." },
-        { head: "Sub-second slot reservation", body: "The chosen appointment time is locked instantly on selection, updating the workflow state & writing the timestamp to the central customer file." },
+        { head: "Direct calendar link", body: "Connects to Google, Outlook, Calendly or Cal.com to read actual availability, never an outdated copy." },
+        { head: "Dynamic travel & prep buffers", body: "Add automated padding for travel times, prep windows & daily booking caps so your team is never overwhelmed." },
+        { head: "Instant spot locking", body: "Secures the slot the microsecond a lead picks it, changes their pipeline status & stamps the confirmation time." },
       ],
     },
-    integrationsSub: "Book polls live availability from your team's production calendars, locks the slot & writes the confirmed appointment back into your diary & CRM",
+    integrationsSub: "Book polls live openings from your team's existing calendars, locks the slot & writes the confirmed appointment back into your diary & CRM",
     deep: [
-      { num: "01", kicker: "Live", title: "Real-time thread booking", body: "Standard flows propose static times and wait for a response, introducing a delay where intent drops off. The system checks live availability mid-conversation and logs the booking before the lead exits the thread, securing the commitment at the peak of intent." },
-      { num: "02", kicker: "Buffers", title: "Custom operational constraints", body: "Production capacity varies by industry; a clinical space, a site survey & a corporate consult require different rules. Durations, notice requirements & daily limits map to your constraints, ensuring the appointments generated match what your staff can work." },
-      { num: "03", kicker: "Logs", title: "State transitions & timestamping", body: "A booking is a data transition rather than a text confirmation. The lead record updates, a permanent timestamp is written, and the calendar invite maps to the original source file, giving downstream tracking an accurate, unedited starting log." },
+      { num: "01", kicker: "Live", title: "Chat thread booking", body: "Sending an email with suggested times creates gaps where leads wander off. The platform reads your diary mid-chat and locks in the spot before the user exits the thread, catching them when they are most ready to buy." },
+      { num: "02", kicker: "Buffers", title: "Custom schedule rules", body: "A site visit, a medical appointment & a finance consult all take different time blocks. We map out your exact time rules, prep buffers & notice windows at onboarding so your diary fills exactly how your business actually runs." },
+      { num: "03", kicker: "Logs", title: "Clean pipeline updates", body: "A booking is a data shift, not just a chat message. The system updates the customer record, creates a timeline stamp, and attaches the calendar data to the original ad link, giving your team perfect records." },
     ],
     close: { heading: "Ready to fill your calendar without the manual tracking?", subhead: "We deploy, manage & monitor the booking engine for you as an operated rental service that integrates with your production systems. The platform coordinates the schedule up to the booking; your team handles the closing meeting." },
   },
@@ -152,22 +162,22 @@ export const CAPABILITIES: Record<string, CapabilityData> = {
   retain: {
     slug: "retain", name: "Retain", accent: "#2E9E5B",
     hero: {
-      headlinePre: "Every appointment confirmed, reminded & kept", headlineEm: "",
-      subhead: "An automated multi-channel sequence initiates the moment an appointment is logged, operating across SMS, WhatsApp & email using your business's voice. Reschedule requests and cancellations are processed through your calendar rules automatically, and any slot that frees up is backfilled from your waiting list in priority order, holding your diary structure together without manual re-entry.",
+      headlinePre: "Protect your schedule & make sure every appointment is kept", headlineEm: "",
+      subhead: "Stop losing revenue to empty seats. The platform kicks off an automated reminder chain over WhatsApp, SMS & email using your exact brand tone the moment a slot is booked. It automatically handles changes and rebooks cancellations without you touching a thing.",
     },
     works: {
-      headlinePre: "The automated sequence that insulates ", headlineEm: "your diary",
+      headlinePre: "The automated sequence that insulates your diary", headlineEm: "",
       panelsText: [
-        { head: "Scheduled multi-channel touches", body: "Confirmation & reminder steps are locked to the appointment log and delivered across the specific channels your prospects already check." },
-        { head: "Day-before verification logic", body: "The final verification message operates on separate, specialised rules configured to your brand voice, designed specifically to lock in attendance." },
-        { head: "No-show, reschedule & backfill", body: "Missed slots switch the record to a recovery state instantly, inbound change requests are parsed and rebooked against current availability, and the vacated time is offered to your waiting list in priority order." },
+        { head: "Timed multi-channel alerts", body: "Sends confirmations & reminders at perfect intervals on the text and email channels your prospects check most." },
+        { head: "Day-before verification", body: "Fires a custom verification message the day before the meeting using your voice, built purely to make sure they show up." },
+        { head: "Smart no-show recovery", body: "Spots missed meetings instantly, flips their status, and reaches out to rebook them using your live calendar openings." },
       ],
     },
-    integrationsSub: "Retain coordinates communication across your clients' preferred messaging channels & syncs every confirmation, cancellation, backfill & change back to your calendar & CRM",
+    integrationsSub: "Retain coordinates reminders across your clients' preferred messaging apps & updates every cancellation or shift inside your CRM",
     deep: [
-      { num: "01", kicker: "Automatic", title: "Event-triggered communication", body: "The reminder sequence is tied directly to the calendar state change, not a manual list update. Every confirmed appointment enters the matching cadence automatically, meaning attendance management scales alongside your diary volume without taxing administrative staff." },
-      { num: "02", kicker: "Verify", title: "Day-before verification guardrails", body: "The message sent the day before determines attendance. Its timing, channel constraints & content run on separate rules tailored to match your precise brand guidelines, focusing entirely on making the appointment frictionless to keep." },
-      { num: "03", kicker: "Recover", title: "No-show recovery & priority backfill", body: "An unkept appointment is lost revenue, and recovering it is revenue the business had already earned once. When a slot is missed or released, the engine shifts that record into a recovery track to secure a new time rather than letting the lead exit the pipeline, and simultaneously offers the vacated slot to your waiting list in priority order. One cancellation resolves as two bookings held rather than one hour lost." },
+      { num: "01", kicker: "Automatic", title: "Instant event triggers", body: "The reminder chain starts the moment the calendar updates, not when a human remembers to copy a name over. This means your client protection scales effortlessly as your diary fills up, with zero extra admin work." },
+      { num: "02", kicker: "Verify", title: "High-intent confirmations", body: "The text sent the day before determines attendance. We separate this alert from standard reminders, matching your exact brand tone to make it incredibly simple for the customer to confirm, change, or clear their time." },
+      { num: "03", kicker: "Recover", title: "Rebook missed meetings", body: "A missed appointment is wasted marketing spend. If someone doesn't show, the system instantly drops them into a friendly recovery path to lock in a new time slot automatically, salvaging the lead before it goes cold." },
     ],
     close: { heading: "Ready to protect the bookings you already have?", subhead: "We deploy, manage & monitor the retention layer for you as an operated rental service, mapping directly to your calendars & messaging tools. The platform automates reminders and updates up to the appointment; your team handles the revenue conversation." },
   },
@@ -175,45 +185,45 @@ export const CAPABILITIES: Record<string, CapabilityData> = {
   reactivate: {
     slug: "reactivate", name: "Reactivate", accent: "#C77DFF",
     hero: {
-      headlinePre: "Dormant records re-engaged on a per-lead cadence until they ", headlineEm: "convert",
-      subhead: "Leads that went cold, prospects who were not ready, and customers due for recall are queried out of your database and loaded into re-engagement. A state engine tracks each record individually and decides the correct touch at the correct time across email, SMS & WhatsApp. Anyone who responds re-enters qualification automatically.",
+      headlinePre: "Turn the leads you gave up on into booked appointments", headlineEm: "",
+      subhead: "Stop writing off leads that never actually said no. The platform works your cold enquiries, the ones who were not ready yet, and past customers due a check-in, sending the right message at the right time over email, SMS & WhatsApp until they come back to you.",
     },
     works: {
-      headlinePre: "Paid-for demand, worked as ", headlineEm: "live state",
+      headlinePre: "The pipeline you already paid for, working again", headlineEm: "",
       panelsText: [
-        { head: "Dormant cohort querying", body: "Cold records, paused prospects & customers due for recall are surfaced against your dormancy and recall rules, then loaded into a re-engagement sequence." },
-        { head: "Per-lead state tracking", body: "Each record carries its own state, so the engine decides the correct touch at the correct time for that lead rather than pushing everyone through an identical timer." },
-        { head: "Automatic requalification", body: "A response flips the record to active and returns it to the qualification layer, where it is re-scored and re-valued before routing to booking." },
+        { head: "Find your dormant leads", body: "Pulls cold enquiries, paused prospects & customers due a recall out of your CRM automatically, against your own rules for what counts as cold." },
+        { head: "The right message at the right time", body: "Every lead is tracked on its own, so the system picks the next message for that person rather than blasting the whole list on the same day." },
+        { head: "Straight back into qualifying", body: "When someone replies, they go back through your rules, get a fresh value, and head for your calendar like a brand new lead." },
       ],
     },
-    integrationsSub: "Reactivate queries dormant records straight from your CRM, runs re-engagement through the channels your clients already use & writes every state change back",
+    integrationsSub: "Reactivate pulls dormant leads straight from your CRM, works them across the channels your customers actually use & writes every response back",
     deep: [
-      { num: "01", kicker: "Query", title: "Dormant cohort querying", body: "Most of a pipeline is not lost, it is dormant. The enquiries that were never wrong, only early, sit in the CRM in volumes no team can work by hand. The system queries those records against dormancy and recall rules, then loads the matching cohort into a re-engagement sequence, so the acquisition cost already spent is not written off to a stale database." },
-      { num: "02", kicker: "State", title: "Per-lead state engine", body: "A broadcast sends everyone the same message on the same timer. This does not. Every record carries its own state, and the engine reads that state to decide which touch that specific lead should receive and when, across email, SMS & WhatsApp. Delivery is decoupled from anyone's workload, so nothing is missed because the week got busy, and no lead is treated as a member of a batch." },
-      { num: "03", kicker: "Requalify", title: "Response-triggered requalification", body: "Reactivation is a state transition, not a campaign. A response flips the dormant record back to active, re-enters it into the qualification engine, re-scores it against your current rules & re-attaches an expected value before routing it toward a booking. Revival and requalification are a single automated motion, not a hand-off." },
+      { num: "01", kicker: "Query", title: "Find the leads sitting idle", body: "Most of your pipeline is not lost, it is just sitting there. The enquiries that were never wrong, only early, pile up in your CRM in numbers no team could ever work by hand. The platform finds them against your own rules and puts them back into play, so the money you already spent winning them is not written off to a stale database." },
+      { num: "02", kicker: "State", title: "One sequence per lead", body: "A mass email sends everybody the same thing on the same day. This does not. Every lead is tracked individually, so the system knows exactly which message that person should get and when, across email, SMS & WhatsApp. Nothing gets missed because the week got busy." },
+      { num: "03", kicker: "Requalify", title: "A reply puts them back in play", body: "When a dormant lead answers, they do not land in an inbox for somebody to deal with later. They go straight back through your qualifying rules, pick up a fresh estimated value, and move toward your calendar like any new enquiry. Waking them up and qualifying them is one motion, not a handover." },
     ],
-    close: { heading: "Ready to work the pipeline you have already paid for?", subhead: "We deploy, manage & monitor the re-engagement layer for you as an operated rental service that hooks into your current CRM & messaging channels. The system works dormant demand up to the booking using your tone; your team closes the sale." },
+    close: { heading: "Ready to work the pipeline you already paid for?", subhead: "We deploy, manage & monitor the re-engagement layer for you as an operated rental service that hooks into your current CRM & messaging channels. The platform works your dormant leads up to the booking using your tone; your team closes the sale." },
   },
 
   "follow-through": {
     slug: "follow-through", name: "Follow through", accent: "#E8814A",
     hero: {
-      headlinePre: "Document collection, updates, quotes & invoices driven to completion", headlineEm: "",
-      subhead: "Four workflow modules deploy on a single architecture, activated where your operations require them: file collection, stakeholder status updates, pipeline quote management & payment chasing with aged-debtor flags. It is configuration rather than a custom build, allowing disparate industries to share the same horizontal engine.",
+      headlinePre: "Drive files, updates, quotes & invoices to completion", headlineEm: "",
+      subhead: "Clear the paperwork bottleneck off your desk. Turn on the exact modules your business needs: chase missing customer documents, send automated project updates, track sent quotes to a firm yes, or follow up on unpaid invoices until they clear.",
     },
     works: {
-      headlinePre: "Four operational modules running on ", headlineEm: "one engine",
+      headlinePre: "Four operational modules running on one engine", headlineEm: "",
       panelsText: [
-        { head: "Settings-based activation", body: "Individual modules are enabled based on your specific operational workflow, utilising pre-built pipelines with zero custom engineering." },
-        { head: "Persistent follow-up logic", body: "Outbound requests run on programmatic sequences matching your brand tone until the file is received, the quote is decided, or the invoice clears. Inbound replies are detected and returned into the sequence, so a response redirects the chase instead of being talked over." },
-        { head: "Aged-debtor monitoring", body: "Unpaid invoices are tracked continuously against system age boundaries, triggering escalation steps before balances turn into bad debt." },
+        { head: "Switch on what you need", body: "Enable individual modules based on your exact workflow gaps, with zero custom software development or code required." },
+        { head: "Friendly, persistent chasing", body: "Sends clear follow-ups using your brand voice until the file is uploaded, the quote is signed, or the money hits your account." },
+        { head: "Flag late payments early", body: "Tracks outstanding cash balances dynamically and flags late accounts before they turn into permanent bad business debt." },
       ],
     },
-    integrationsSub: "Follow through drops received files, contract decisions & verified payments directly into your project management & accounting tools",
+    integrationsSub: "Follow through drops received documents, client decisions & verified payment dates directly into your existing back-office systems",
     deep: [
-      { num: "01", kicker: "Modular", title: "Infrastructure-level configuration", body: "The four operational modules are settings adjustments on a horizontal spine, not bespoke software builds. A professional firm activates document collection while a service company enables payment routing; both run on the identical infrastructure layer." },
-      { num: "02", kicker: "Paperwork", title: "Document chasing & status management", body: "Administrative bottlenecks occur when paperwork sits with clients and stakeholders are left uninformed. Automated chasers run until files are uploaded directly into your record system, while milestones trigger status updates using your brand voice. Reply detection reads what comes back and returns it into the sequence, so a client answering a question is handled rather than chased again, and anything genuinely needing a person is routed to your staff." },
-      { num: "03", kicker: "AR", title: "Quote collection & receivable flows", body: "Proposals and invoices require tracking to a definitive choice. Quote tracking runs persistent touchpoints until a choice is logged, while invoicing tracks outstanding records, reminds on a set schedule & surfaces collection flags as accounts age." },
+      { num: "01", kicker: "Modular", title: "Ready-made business modules", body: "These modules run on one unified backbone, not distinct custom builds. A law firm can use it to gather ID files while a trade business uses it to chase invoices; both switch them on via settings changes, keeping deployment fast." },
+      { num: "02", kicker: "Paperwork", title: "Clear files & client updates", body: "Projects slow down when you are waiting on client files or handling endless “where is my update” calls. The platform checks in automatically until documents are sent, saves them to your folders, and keeps clients updated in your brand voice." },
+      { num: "03", kicker: "AR", title: "Quote tracking & payment collection", body: "Every proposal and invoice needs an absolute answer. The platform tracks sent quotes until the client hits accept or decline, and handles invoice reminders seamlessly, removing the awkward cash conversations you hate starting." },
     ],
     close: { heading: "Ready to remove administrative chasing from your workload?", subhead: "We deploy, manage & monitor the follow-through layer for you as an operated rental service, anchoring into your CRM & accounting packages. The platform processes documents, quotes, status alerts & invoices to resolution; your team makes the business decisions." },
   },
