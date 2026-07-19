@@ -31,6 +31,13 @@ const CSS = `
 }
 @media (max-width: 860px){
   .rb-cap-navlinks { display: none !important; } /* replaced by the global hamburger */
+  /* disable the scroll "frame-out" boxes on mobile — plain stacked sections */
+  .rb-caphero-wrap { height: auto !important; }
+  .rb-caphero-pin { position: relative !important; overflow: visible !important; transform: none !important; border-radius: 0 !important; }
+  .rb-caphero-sec { min-height: 0 !important; display: block !important; }
+  .rb-capclose-sec { height: auto !important; }
+  .rb-capclose-pin { position: relative !important; height: auto !important; overflow: visible !important; }
+  .rb-capclose-stage { position: relative !important; inset: auto !important; transform: none !important; box-shadow: none !important; border-radius: 0 !important; padding: 64px 18px 84px !important; }
 }
 `;
 
@@ -42,6 +49,10 @@ export default function CapabilityPage({ data }: { data: CapabilityData }) {
   const [voiceIdx, setVoiceIdx] = useState(0);
   const menuTimer = useRef<number | null>(null);
   const [menuAnchor, setMenuAnchor] = useState(0); // hovered trigger's left edge (viewport px)
+  const heroWrap = useRef<HTMLDivElement>(null);
+  const heroPin = useRef<HTMLDivElement>(null);
+  const closeWrap = useRef<HTMLElement>(null);
+  const closeStage = useRef<HTMLDivElement>(null);
 
   const openNow = (m: "product" | "connections" | "resources", el?: HTMLElement) => { if (menuTimer.current) clearTimeout(menuTimer.current); if (el) setMenuAnchor(el.getBoundingClientRect().left); setOpenMenu(m); };
   const panelLeft = (w: number) => { const vw = typeof window !== "undefined" ? window.innerWidth : 1440; const pw = Math.min(w, vw - 40); return Math.max(16, Math.min(menuAnchor - 14, vw - pw - 16)); };
@@ -78,6 +89,49 @@ export default function CapabilityPage({ data }: { data: CapabilityData }) {
     const step = (t.children[0] as HTMLElement).getBoundingClientRect().width + 20;
     t.style.transform = `translateX(-${voiceIdx * step}px)`;
   }, [voiceIdx]);
+
+  // Scroll "frame-out" boxes — the hero and the close each scale down + round
+  // (and the close casts a growing shadow) as you scroll through, mirroring the
+  // homepage hero + pre-footer close.
+  useEffect(() => {
+    const cl = (v: number, a: number, b: number) => Math.min(b, Math.max(a, v));
+    let ticking = false;
+    const compute = () => {
+      ticking = false;
+      const mobile = window.matchMedia("(max-width: 860px)").matches;
+      const vh = window.innerHeight;
+      const hw = heroWrap.current, hp = heroPin.current;
+      if (hw && hp) {
+        if (mobile) { hp.style.transform = ""; hp.style.borderRadius = ""; }
+        else {
+          const r = hw.getBoundingClientRect();
+          const total = Math.max(1, hw.offsetHeight - vh);
+          const t = cl((cl(-r.top / total, 0, 1) - 0.82) / 0.18, 0, 1); // frame out in the last ~18%
+          hp.style.transform = `scale(${1 - 0.13 * t})`;
+          hp.style.borderRadius = `${t * 28}px`;
+        }
+      }
+      const cw = closeWrap.current, cs = closeStage.current;
+      if (cw && cs) {
+        if (mobile) { cs.style.transform = ""; cs.style.borderRadius = ""; cs.style.boxShadow = ""; }
+        else {
+          const r = cw.getBoundingClientRect();
+          if (!(r.bottom < 0 || r.top > vh)) {
+            const total = Math.max(1, cw.offsetHeight - vh);
+            const ct = cl((cl(-r.top / total, 0, 1) - 0.4) / 0.55, 0, 1);
+            cs.style.transform = `scale(${1 - 0.14 * ct})`;
+            cs.style.borderRadius = `${ct * 30}px`;
+            cs.style.boxShadow = `0 ${40 + ct * 50}px ${120 + ct * 90}px -40px rgba(0,0,0,0.7), 0 0 ${ct * 80}px ${ct * 34}px rgba(0,0,0,0.5)`;
+          }
+        }
+      }
+    };
+    const onScroll = () => { if (ticking) return; ticking = true; requestAnimationFrame(compute); };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    compute();
+    return () => { window.removeEventListener("scroll", onScroll); window.removeEventListener("resize", onScroll); };
+  }, []);
 
   const capHref = (slug: string) => (LIVE_SLUGS.has(slug) ? `/capabilities/${slug}` : "#");
   const navLink: CSSProperties = { display: "flex", alignItems: "center", gap: 7, color: "var(--nav-fg)", transition: "color .25s ease" };
@@ -153,8 +207,10 @@ export default function CapabilityPage({ data }: { data: CapabilityData }) {
         )}
       </nav>
 
-      {/* ===================== HERO ===================== */}
-      <section className="rb-cap-pad" style={{ position: "relative", overflow: "hidden", background: "#ECE7F7", color: "#17131F", padding: "172px 48px 108px" }}>
+      {/* ===================== HERO (frames out into a box on scroll) ===================== */}
+      <div ref={heroWrap} className="rb-caphero-wrap" style={{ position: "relative", height: "150vh", background: "#ECE7F7" }}>
+      <div ref={heroPin} className="rb-caphero-pin" style={{ position: "sticky", top: 0, overflow: "hidden", background: "#ECE7F7", transformOrigin: "center center", willChange: "transform" }}>
+      <section className="rb-cap-pad rb-caphero-sec" style={{ position: "relative", overflow: "hidden", background: "#ECE7F7", color: "#17131F", padding: "172px 48px 108px", minHeight: "100vh", display: "flex", flexDirection: "column", justifyContent: "center" }}>
         <div aria-hidden style={{ position: "absolute", inset: 0, background: "radial-gradient(120% 90% at 84% 0%, rgba(139,125,216,0.1) 0%, transparent 52%), radial-gradient(80% 70% at 0% 100%, rgba(232,129,74,0.06) 0%, transparent 55%)" }} />
         <div className="rb-cap-hero-grid" style={{ position: "relative", zIndex: 1, maxWidth: 1220, margin: "0 auto", display: "grid", gridTemplateColumns: "1.02fr 0.98fr", gap: 60, alignItems: "center" }}>
           <div>
@@ -246,6 +302,8 @@ export default function CapabilityPage({ data }: { data: CapabilityData }) {
           </div>
         </div>
       </section>
+      </div>
+      </div>
 
       {/* ===================== HOW IT WORKS ===================== */}
       <section className="rb-cap-pad" style={{ position: "relative", overflow: "hidden", background: "#ECE7F7", color: "#17131F", padding: "132px 48px" }}>
@@ -376,16 +434,20 @@ export default function CapabilityPage({ data }: { data: CapabilityData }) {
         </div>
       </section>
 
-      {/* ===================== CLOSE ===================== */}
-      <section id="pricing" className="rb-cap-pad" style={{ position: "relative", overflow: "hidden", background: "#F4EAE7", color: "#17131F", padding: "150px 48px" }}>
-        <div aria-hidden style={{ position: "absolute", inset: 0, background: "radial-gradient(70% 60% at 50% 118%, rgba(139,125,216,0.22) 0%, transparent 60%)" }} />
-        <div style={{ position: "relative", zIndex: 1, maxWidth: 760, margin: "0 auto", textAlign: "center" }}>
-          <div style={{ fontSize: 12, letterSpacing: ".32em", textTransform: "uppercase", color: A, marginBottom: 22 }}>The offer</div>
-          <h2 style={{ fontFamily: SERIF, fontWeight: 400, fontSize: "clamp(38px,4.8vw,68px)", lineHeight: 1.03, letterSpacing: "-0.015em", margin: 0 }}>{data.close.heading}</h2>
-          <p style={{ margin: "24px auto 0", maxWidth: 600, fontSize: 17, lineHeight: 1.62, color: "rgba(23,19,31,0.66)" }}>{data.close.subhead}</p>
-          <div style={{ marginTop: 36, display: "flex", flexWrap: "wrap", alignItems: "center", justifyContent: "center", gap: 16 }}>
-            <BookDemoCTA label="See pricing & choose your plan" href="/pricing" tone="light" />
-            <a href="https://cal.eu/rosebudsolutions/demo" target="_blank" rel="noopener noreferrer" style={{ display: "inline-flex", alignItems: "center", gap: 8, padding: "15px 26px", borderRadius: 999, border: "1px solid rgba(23,19,31,0.2)", color: "#17131F", fontSize: 15, fontWeight: 500, textDecoration: "none" }}>Book a consultation</a>
+      {/* ===================== CLOSE (frames into a box → footer) ===================== */}
+      <section id="pricing" ref={closeWrap} className="rb-capclose-sec" style={{ position: "relative", height: "190vh", background: "#000" }}>
+        <div className="rb-capclose-pin" style={{ position: "sticky", top: 0, height: "100vh", overflow: "hidden", background: "#000" }}>
+          <div ref={closeStage} className="rb-capclose-stage rb-cap-pad" style={{ position: "absolute", inset: 0, overflow: "hidden", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", textAlign: "center", background: "#F4EAE7", color: "#17131F", padding: "80px 48px", transformOrigin: "center center", willChange: "transform" }}>
+            <div aria-hidden style={{ position: "absolute", inset: 0, background: "radial-gradient(70% 60% at 50% 118%, rgba(139,125,216,0.22) 0%, transparent 60%)" }} />
+            <div style={{ position: "relative", zIndex: 1, maxWidth: 760, margin: "0 auto" }}>
+              <div style={{ fontSize: 12, letterSpacing: ".32em", textTransform: "uppercase", color: A, marginBottom: 22 }}>The offer</div>
+              <h2 style={{ fontFamily: SERIF, fontWeight: 400, fontSize: "clamp(38px,4.8vw,68px)", lineHeight: 1.03, letterSpacing: "-0.015em", margin: 0 }}>{data.close.heading}</h2>
+              <p style={{ margin: "24px auto 0", maxWidth: 600, fontSize: 17, lineHeight: 1.62, color: "rgba(23,19,31,0.66)" }}>{data.close.subhead}</p>
+              <div style={{ marginTop: 36, display: "flex", flexWrap: "wrap", alignItems: "center", justifyContent: "center", gap: 16 }}>
+                <BookDemoCTA label="See pricing & choose your plan" href="/pricing" tone="light" />
+                <a href="https://cal.eu/rosebudsolutions/demo" target="_blank" rel="noopener noreferrer" style={{ display: "inline-flex", alignItems: "center", gap: 8, padding: "15px 26px", borderRadius: 999, border: "1px solid rgba(23,19,31,0.2)", color: "#17131F", fontSize: 15, fontWeight: 500, textDecoration: "none" }}>Book a consultation</a>
+              </div>
+            </div>
           </div>
         </div>
       </section>
