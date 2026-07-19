@@ -98,9 +98,9 @@ function qualifyDeep(i: number, a: string): ReactNode {
 }
 
 // ── BOOK (reference style: provider node-flow + floating card + live table) ────
-function bLogo(src: string): ReactNode {
+function bLogo(src: string, w = 13): ReactNode {
   return (
-    <div style={{ width: "13cqw", height: "9cqw", borderRadius: "2.2cqw", background: "#fff", boxShadow: "0 2cqw 3.4cqw -1.4cqw rgba(23,19,31,.4)", display: "grid", placeItems: "center", padding: "1.8cqw", flexShrink: 0 }}>
+    <div style={{ width: `${w}cqw`, height: `${w * 0.72}cqw`, borderRadius: `${w * 0.16}cqw`, background: "#fff", boxShadow: "0 2cqw 3.4cqw -1.4cqw rgba(23,19,31,.4)", display: "grid", placeItems: "center", padding: `${w * 0.16}cqw`, flexShrink: 0 }}>
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img src={`/assets/integrations/${src}`} alt="" style={{ maxWidth: "100%", maxHeight: "100%", objectFit: "contain" }} />
     </div>
@@ -131,58 +131,69 @@ function bCard(a: string, title: string, status: string, children: ReactNode): R
   );
 }
 function bookHero(a: string): ReactNode {
-  const slots: [string, string, "open" | "booked" | "selected"][] = [["10:00", "Open", "open"], ["11:30", "Booked", "booked"], ["14:30", "Selected", "selected"], ["16:00", "Open", "open"]];
+  const days = ["Mon", "Tue", "Wed", "Thu"];
+  const times = ["09:00", "10:00", "11:00", "12:00", "13:00"];
+  const booked = new Set(["Mon-09:00", "Tue-11:00", "Wed-10:00", "Thu-13:00"]);
+  const sel = "Thu-10:00";
   return sq(a, <>
-    <div style={{ position: "absolute", left: "8%", right: "8%", top: "9%", display: "flex", alignItems: "center" }}>
-      {bLogo("google-calendar.png")}{bConn()}{bLogo("outlook.png")}{bConn()}{bLogo("cal-com.png")}
-    </div>
-    <div style={{ position: "absolute", left: "8%", right: "8%", top: "36%" }}>
-      {bCard(a, "Live availability", "Booking", (
-        <div style={{ padding: "0.6cqw 2.4cqw 1.4cqw" }}>
-          {slots.map(([t, s, kind]) => {
-            const sel = kind === "selected", bk = kind === "booked";
-            return (
-              <div key={t} style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "1.5cqw 1cqw", borderRadius: "1.2cqw", background: sel ? `${a}12` : "transparent", borderBottom: "1px solid #f4f5f7" }}>
-                <span style={{ fontWeight: 700, fontSize: "1.95cqw", color: bk ? "#b3b8bf" : "#17131F", textDecoration: bk ? "line-through" : "none" }}>{t}</span>
-                {pill(s, sel ? a : bk ? "#f0f1f4" : GREEN_BG, sel ? "#fff" : bk ? "#b3b8bf" : GREEN)}
-              </div>
-            );
-          })}
+    <div style={{ position: "absolute", left: "7%", right: "7%", top: "8%", ...CARD }}>
+      <div style={{ padding: "1.9cqw 2.4cqw", borderBottom: "1px solid #f2f3f5", display: "flex", alignItems: "center", gap: "1.2cqw" }}>
+        <span style={{ fontFamily: SERIF, fontWeight: 600, fontSize: "2.3cqw", color: "#17131F" }}>This week</span>
+        <span style={{ marginLeft: "auto", display: "inline-flex", alignItems: "center", gap: ".7cqw", padding: ".8cqw 1.6cqw", borderRadius: 999, background: `${a}14`, color: a, fontWeight: 700, fontSize: "1.4cqw" }}><span style={{ width: "1.1cqw", height: "1.1cqw", borderRadius: "50%", background: a }} />live diary</span>
+      </div>
+      <div style={{ padding: "1.4cqw 2cqw 2cqw" }}>
+        <div style={{ display: "grid", gridTemplateColumns: "6.5cqw repeat(4,1fr)", gap: "0.8cqw", alignItems: "center" }}>
+          <span />
+          {days.map((d) => <span key={d} style={{ textAlign: "center", fontSize: "1.4cqw", fontWeight: 700, color: "#9aa0a8", textTransform: "uppercase", letterSpacing: ".04em" }}>{d}</span>)}
+          {times.flatMap((t) => [
+            <span key={`${t}-l`} style={{ fontSize: "1.35cqw", fontWeight: 700, color: "#b3b8bf" }}>{t}</span>,
+            ...days.map((d) => {
+              const k = `${d}-${t}`, isSel = k === sel, isBk = booked.has(k);
+              return <div key={k} style={{ height: "5.2cqw", borderRadius: "1cqw", background: isSel ? a : isBk ? `${a}22` : "#f6f7f9", display: "grid", placeItems: "center", color: "#fff", fontWeight: 700, fontSize: "1.3cqw" }}>{isSel ? "New" : ""}</div>;
+            }),
+          ])}
         </div>
-      ))}
+      </div>
+    </div>
+    <div style={{ position: "absolute", right: "7%", bottom: "7%", ...CARD_SM, padding: "1.4cqw 2cqw", display: "flex", alignItems: "center", gap: "1.1cqw" }}>
+      <span style={{ width: "2.6cqw", height: "2.6cqw", borderRadius: ".7cqw", background: "#4ADE80", color: "#12331f", display: "grid", placeItems: "center", fontSize: "1.5cqw" }}>✓</span><span style={{ fontWeight: 700, fontSize: "1.7cqw", color: "#17131F" }}>Booked · Thu 10:00</span>
+    </div>
+    <div style={{ position: "absolute", left: "7%", bottom: "7%", ...CARD_SM, padding: "1.1cqw 1.5cqw", display: "flex", alignItems: "center", gap: "1cqw" }}>
+      <span style={{ fontSize: "1.35cqw", fontWeight: 700, color: "#9aa0a8" }}>Synced</span>
+      {bLogo("google-calendar.png", 6)}{bLogo("outlook.png", 6)}{bLogo("cal-com.png", 6)}
     </div>
   </>);
 }
 function bookDeep(i: number, a: string): ReactNode {
   if (i === 0) return sq(a, <>
-    <div style={{ position: "absolute", left: "9%", right: "9%", top: "10%", display: "flex", alignItems: "center" }}>
-      {bChip("Chat", a)}{bConn()}{bChip("Book", a, true)}{bConn()}{bLogo("google-calendar.png")}
-    </div>
-    <div style={{ position: "absolute", left: "8%", right: "8%", top: "38%" }}>
-      {bCard(a, "Locking the slot", "Locking", (
-        <div style={{ padding: "1.7cqw 2.4cqw 1.9cqw" }}>
-          <div style={{ ...CARD_SM, padding: "1.4cqw 1.7cqw", fontSize: "1.6cqw", marginBottom: "1.6cqw", background: "#DCF3E3", fontWeight: 600, color: "#17131F" }}>Thursday 10:00 works for me</div>
-          <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "1.5cqw 1.2cqw", borderRadius: "1.4cqw", background: `${a}12` }}>
-            <span style={{ fontWeight: 700, fontSize: "2cqw", color: "#17131F" }}>Thu 10:00</span>{pill("Locked ✓", a, "#fff")}
-          </div>
+    <div style={{ position: "absolute", left: "8%", right: "8%", top: "13%" }}>
+      {bCard(a, "In the conversation", "Replying", (
+        <div style={{ padding: "2cqw 2.2cqw", display: "flex", flexDirection: "column", gap: "1.4cqw" }}>
+          <div style={{ alignSelf: "flex-start", maxWidth: "78%", background: "#f1f2f4", borderRadius: "2cqw 2cqw 2cqw .5cqw", padding: "1.4cqw 1.8cqw", fontSize: "1.6cqw", color: "#17131F", fontWeight: 500 }}>Any chance of Thursday?</div>
+          <div style={{ alignSelf: "flex-end", maxWidth: "84%", background: a, color: "#fff", borderRadius: "2cqw 2cqw .5cqw 2cqw", padding: "1.4cqw 1.8cqw", fontSize: "1.6cqw", fontWeight: 500 }}>I&apos;ve got 10:00 or 14:30 — which suits?</div>
+          <div style={{ alignSelf: "flex-end", display: "flex", gap: "1cqw" }}>{pill("10:00", a, "#fff")}<span style={{ padding: ".7cqw 1.6cqw", borderRadius: 999, border: `0.3cqw solid ${a}55`, color: a, fontWeight: 700, fontSize: "1.4cqw" }}>14:30</span></div>
+          <div style={{ alignSelf: "flex-start", background: "#f1f2f4", borderRadius: "2cqw 2cqw 2cqw .5cqw", padding: "1.4cqw 1.8cqw", fontSize: "1.6cqw", fontWeight: 600, color: "#17131F" }}>10:00 please</div>
+          <div style={{ display: "flex", alignItems: "center", gap: "1.1cqw", background: "#DCF3E3", borderRadius: "1.4cqw", padding: "1.4cqw 1.8cqw" }}><span style={{ color: GREEN, fontWeight: 700, fontSize: "1.6cqw" }}>✓</span><span style={{ fontWeight: 700, fontSize: "1.6cqw", color: "#17131F" }}>Booked · Thu 10:00</span></div>
         </div>
       ))}
     </div>
   </>);
   if (i === 1) return sq(a, <>
-    <div style={{ position: "absolute", left: "9%", right: "9%", top: "10%", display: "flex", alignItems: "center", gap: "1.2cqw" }}>
-      {bChip("Clinic", a)}{bChip("Site visit", a)}{bConn()}{bChip("Diary", a, true)}
+    <div style={{ position: "absolute", left: "7%", top: "12%", width: "43%", ...CARD }}>
+      {hdr(a, "Clinic")}
+      <div style={{ padding: "1.6cqw", display: "flex", flexDirection: "column", gap: "1cqw" }}>
+        {([["09:00 Appointment", true], ["09:45 Appointment", true], ["Buffer", false], ["11:00 Appointment", true]] as [string, boolean][]).map(([l, on]) => (
+          <div key={l} style={{ padding: "1.4cqw", borderRadius: "1cqw", background: on ? `${a}14` : "#f4f5f7", color: on ? "#17131F" : "#b3b8bf", fontWeight: 700, fontSize: "1.4cqw", textAlign: on ? "left" : "center", fontStyle: on ? "normal" : "italic" }}>{l}</div>
+        ))}
+      </div>
     </div>
-    <div style={{ position: "absolute", left: "8%", right: "8%", top: "37%" }}>
-      {bCard(a, "Schedule rules", "Applied", (
-        <div style={{ padding: "0.6cqw 2.4cqw 1.4cqw" }}>
-          {[["Appointment", "45 min"], ["Prep buffer", "15 min"], ["Travel window", "30 min"], ["Daily cap", "8 bookings"]].map(([k, v]) => (
-            <div key={k} style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "1.6cqw 1cqw", borderBottom: "1px solid #f4f5f7" }}>
-              <span style={{ fontWeight: 600, fontSize: "1.85cqw", color: "#17131F" }}>{k}</span>{pill(v, `${a}14`, a)}
-            </div>
-          ))}
-        </div>
-      ))}
+    <div style={{ position: "absolute", right: "7%", top: "24%", width: "43%", ...CARD }}>
+      {hdr("#17131F", "Site visit")}
+      <div style={{ padding: "1.6cqw", display: "flex", flexDirection: "column", gap: "1cqw" }}>
+        {([["09:00–11:00 Visit", true], ["Travel", false], ["13:00–15:00 Visit", true]] as [string, boolean][]).map(([l, on]) => (
+          <div key={l} style={{ padding: "1.7cqw 1.4cqw", borderRadius: "1cqw", background: on ? `${a}14` : "#f4f5f7", color: on ? "#17131F" : "#b3b8bf", fontWeight: 700, fontSize: "1.4cqw", textAlign: on ? "left" : "center", fontStyle: on ? "normal" : "italic" }}>{l}</div>
+        ))}
+      </div>
     </div>
   </>);
   return sq(a, <>
