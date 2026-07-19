@@ -3,6 +3,7 @@ import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from 
 import BookDemoCTA from "./BookDemoCTA";
 import RedesignMobileMenu from "./RedesignMobileMenu";
 import { bespokeHero, bespokeDeep } from "./capabilityMocks";
+import RedesignFooter from "./RedesignFooter";
 import {
   type CapabilityData,
   type DeepBlock,
@@ -387,24 +388,8 @@ export default function CapabilityPage({ data }: { data: CapabilityData }) {
         </div>
       </section>
 
-      {/* ===================== FOOTER ===================== */}
-      <footer className="rb-cap-pad" style={{ position: "relative", background: "#000", color: "#F5F1EA", padding: "64px 48px 44px" }}>
-        <div style={{ maxWidth: 1220, margin: "0 auto" }}>
-          <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 20, flexWrap: "wrap" }}>
-            <a href="/" style={{ display: "flex", alignItems: "center", gap: 12 }}>
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/assets/rosebud-logo.png" alt="" width={30} height={30} style={{ display: "block" }} />
-              <span style={{ fontFamily: SERIF, fontSize: 20, fontWeight: 600, color: "#F5F1EA" }}>Rosebud</span>
-            </a>
-            <div style={{ display: "flex", gap: 28, fontSize: 13 }}>
-              <a href="/" style={{ color: "rgba(245,241,234,0.6)" }}>Home</a>
-              <a href="/pricing" style={{ color: "rgba(245,241,234,0.6)" }}>Pricing</a>
-              <a href="/about" style={{ color: "rgba(245,241,234,0.6)" }}>About</a>
-            </div>
-          </div>
-          <div style={{ marginTop: 40, paddingTop: 22, borderTop: "1px solid rgba(245,241,234,0.1)", textAlign: "center", fontSize: 12, letterSpacing: ".14em", textTransform: "uppercase", color: "rgba(245,241,234,0.4)" }}>Copyright © 2026 Rosebud Global. All rights reserved.</div>
-        </div>
-      </footer>
+      {/* ===================== FOOTER (global) ===================== */}
+      <RedesignFooter />
     </div>
   );
 }

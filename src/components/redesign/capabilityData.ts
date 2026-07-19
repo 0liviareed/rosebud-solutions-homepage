@@ -100,7 +100,7 @@ export const CAPABILITIES: Record<string, CapabilityData> = {
       headlinePre: "Catch every lead the moment it lands", headlineEm: "",
       panelsText: [
         { head: "One inbox for every channel", body: "Web forms, WhatsApp, SMS, email & social messages all arrive in one place as a single lead record." },
-        { head: "Instant replies in your voice", body: "Every enquiry gets an immediate answer trained on your tone and positioning, so it never reads like an autoresponder." },
+        { head: "Instant replies in your voice", body: "Every enquiry gets an immediate answer matched to your tone and positioning, so it never reads like an autoresponder." },
         { head: "A full record from the first touch", body: "Captures the contact, the channel, the source & the ad click that brought them, the second the enquiry arrives." },
       ],
     },
@@ -131,7 +131,7 @@ export const CAPABILITIES: Record<string, CapabilityData> = {
     deep: [
       { num: "01", kicker: "Evaluate", title: "Smart lead filtering", body: "You cannot use a generic template to define a good customer. You set the criteria at onboarding, and the system runs them against every incoming message. Change your rules in seconds through your dashboard whenever your pipeline needs a change, without any coding." },
       { num: "02", kicker: "Escalate", title: "Instant human alerts", body: "Some enquiries cannot wait for an automation loop. When a high-priority issue or a complex file arrives, the system breaks the automation chain and alerts a specific person on your team instantly, keeping a permanent log of the handoff." },
-      { num: "03", kicker: "Tiers", title: "Automated revenue tracking", body: "Every qualified lead gets an estimated financial tier immediately. This gives you an instant view of what your pipeline is worth and sends clean tracking data back to your advertising, helping you stop paying for junk clicks." },
+      { num: "03", kicker: "Tiers", title: "An estimated value on every lead", body: "Every qualified lead gets an estimated financial tier the moment it passes your rules, so you can see what your pipeline is worth before anyone has spoken to it. If you add closed-loop attribution, that same verdict is what gets sent back to your advertising." },
     ],
     close: { heading: "Ready to isolate the enquiries worth your time?", subhead: "We deploy, manage & monitor the qualification pipeline for you as an operated rental service that hooks into your current CRM. The system filters and structures every lead up to the booking using your rules; your team closes the sale." },
   },
@@ -147,14 +147,14 @@ export const CAPABILITIES: Record<string, CapabilityData> = {
       panelsText: [
         { head: "Direct calendar link", body: "Connects to Google, Outlook, Calendly or Cal.com to read actual availability, never an outdated copy." },
         { head: "Dynamic travel & prep buffers", body: "Add automated padding for travel times, prep windows & daily booking caps so your team is never overwhelmed." },
-        { head: "Instant spot locking", body: "Secures the slot the microsecond a lead picks it, changes their pipeline status & stamps the confirmation time." },
+        { head: "Instant spot locking", body: "Secures the slot the moment a lead picks it, changes their pipeline status & stamps the confirmation time." },
       ],
     },
     integrationsSub: "Book polls live openings from your team's existing calendars, locks the slot & writes the confirmed appointment back into your diary & CRM",
     deep: [
       { num: "01", kicker: "Live", title: "Chat thread booking", body: "Sending an email with suggested times creates gaps where leads wander off. The platform reads your diary mid-chat and locks in the spot before the user exits the thread, catching them when they are most ready to buy." },
       { num: "02", kicker: "Buffers", title: "Custom schedule rules", body: "A site visit, a medical appointment & a finance consult all take different time blocks. We map out your exact time rules, prep buffers & notice windows at onboarding so your diary fills exactly how your business actually runs." },
-      { num: "03", kicker: "Logs", title: "Clean pipeline updates", body: "A booking is a data shift, not just a chat message. The system updates the customer record, creates a timeline stamp, and attaches the calendar data to the original ad link, giving your team perfect records." },
+      { num: "03", kicker: "Logs", title: "Clean pipeline updates", body: "A booking is a data shift, not just a chat message. The system updates the customer record, stamps the time, and links the appointment back to the enquiry that created it, so your reporting reads what actually happened rather than somebody's memory of it." },
     ],
     close: { heading: "Ready to fill your calendar without the manual tracking?", subhead: "We deploy, manage & monitor the booking engine for you as an operated rental service that integrates with your production systems. The platform coordinates the schedule up to the booking; your team handles the closing meeting." },
   },
@@ -162,7 +162,7 @@ export const CAPABILITIES: Record<string, CapabilityData> = {
   retain: {
     slug: "retain", name: "Retain", accent: "#2E9E5B",
     hero: {
-      headlinePre: "Protect your schedule & make sure every appointment is kept", headlineEm: "",
+      headlinePre: "Protect your schedule & keep more of the appointments you book", headlineEm: "",
       subhead: "Stop losing revenue to empty seats. The platform kicks off an automated reminder chain over WhatsApp, SMS & email using your exact brand tone the moment a slot is booked. It automatically handles changes and rebooks cancellations without you touching a thing.",
     },
     works: {
@@ -170,7 +170,7 @@ export const CAPABILITIES: Record<string, CapabilityData> = {
       panelsText: [
         { head: "Timed multi-channel alerts", body: "Sends confirmations & reminders at perfect intervals on the text and email channels your prospects check most." },
         { head: "Day-before verification", body: "Fires a custom verification message the day before the meeting using your voice, built purely to make sure they show up." },
-        { head: "Smart no-show recovery", body: "Spots missed meetings instantly, flips their status, and reaches out to rebook them using your live calendar openings." },
+        { head: "Smart no-show recovery", body: "A missed meeting flips the record into recovery, and the system reaches out to rebook using your live calendar openings." },
       ],
     },
     integrationsSub: "Retain coordinates reminders across your clients' preferred messaging apps & updates every cancellation or shift inside your CRM",
@@ -219,12 +219,12 @@ export const CAPABILITIES: Record<string, CapabilityData> = {
         { head: "Flag late payments early", body: "Tracks outstanding cash balances dynamically and flags late accounts before they turn into permanent bad business debt." },
       ],
     },
-    integrationsSub: "Follow through drops received documents, client decisions & verified payment dates directly into your existing back-office systems",
+    integrationsSub: "Follow through drops received documents, client decisions & payment status directly into the CRM your team already uses",
     deep: [
       { num: "01", kicker: "Modular", title: "Ready-made business modules", body: "These modules run on one unified backbone, not distinct custom builds. A law firm can use it to gather ID files while a trade business uses it to chase invoices; both switch them on via settings changes, keeping deployment fast." },
-      { num: "02", kicker: "Paperwork", title: "Clear files & client updates", body: "Projects slow down when you are waiting on client files or handling endless “where is my update” calls. The platform checks in automatically until documents are sent, saves them to your folders, and keeps clients updated in your brand voice." },
+      { num: "02", kicker: "Paperwork", title: "Clear files & client updates", body: "Projects slow down when you are waiting on client files or handling endless “where is my update” calls. The platform checks in automatically until documents are sent, files them against the right record, and keeps clients updated in your brand voice." },
       { num: "03", kicker: "AR", title: "Quote tracking & payment collection", body: "Every proposal and invoice needs an absolute answer. The platform tracks sent quotes until the client hits accept or decline, and handles invoice reminders seamlessly, removing the awkward cash conversations you hate starting." },
     ],
-    close: { heading: "Ready to remove administrative chasing from your workload?", subhead: "We deploy, manage & monitor the follow-through layer for you as an operated rental service, anchoring into your CRM & accounting packages. The platform processes documents, quotes, status alerts & invoices to resolution; your team makes the business decisions." },
+    close: { heading: "Ready to remove administrative chasing from your workload?", subhead: "We deploy, manage & monitor the follow-through layer for you as an operated rental service, anchoring into the CRM you already use. The platform processes documents, quotes, status alerts & invoices to resolution; your team makes the business decisions." },
   },
 };
