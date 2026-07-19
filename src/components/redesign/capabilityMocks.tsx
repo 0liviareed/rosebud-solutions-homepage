@@ -413,11 +413,96 @@ function followThroughDeep(i: number, a: string): ReactNode {
   </>));
 }
 
+// ── CLOSED-LOOP ATTRIBUTION ───────────────────────────────────────────────────
+function clRow(k: string, v: ReactNode, mono = false): ReactNode {
+  return (
+    <div style={{ display: "flex", alignItems: "center", gap: "1.2cqw", padding: "1.5cqw 0", borderBottom: "1px solid #f2f3f5" }}>
+      <span style={{ width: "38%", fontSize: "1.35cqw", letterSpacing: ".04em", textTransform: "uppercase", color: "#9aa0a8", fontWeight: 700 }}>{k}</span>
+      <span style={{ flex: 1, fontWeight: 700, fontSize: "1.7cqw", color: "#17131F", fontFamily: mono ? "ui-monospace, monospace" : undefined, display: "flex", alignItems: "center", gap: ".8cqw" }}>{v}</span>
+    </div>
+  );
+}
+function closedLoopHero(a: string): ReactNode {
+  return sq(a, center(<>
+    <div style={{ ...CARD }}>
+      {hdr(a, "Rosebud core system", "inside the loop")}
+      <div style={{ padding: "0.4cqw 2.6cqw 1.2cqw" }}>
+        {clRow("Ad click", "gclid Cj0KaQ…", true)}
+        {clRow("Outcome", <>Qualified {pill("✓", GREEN_BG, GREEN)}</>)}
+        {clRow("Value", "£14.2k")}
+      </div>
+    </div>
+    <div style={{ display: "flex", alignItems: "center", gap: "1.2cqw" }}>
+      <span style={{ flex: 1, borderTop: "0.4cqw dashed #cbd0d6" }} />
+      {pill("outcome file ↑", `${a}1f`, a)}
+      <span style={{ flex: 1, borderTop: "0.4cqw dashed #cbd0d6" }} />
+    </div>
+    <div style={{ ...CARD_SM, padding: "1.6cqw 2cqw", display: "flex", alignItems: "center", gap: "1.4cqw" }}>
+      {bLogo("google-ads.png", 6)}
+      <div style={{ flex: 1 }}><div style={{ fontWeight: 700, fontSize: "1.7cqw", color: "#17131F" }}>Google Ads</div><div style={{ fontSize: "1.3cqw", color: "#8a9099" }}>Your team uploads · we never log in</div></div>
+      <span style={{ fontSize: "2cqw" }}>🔒</span>
+    </div>
+  </>));
+}
+function closedLoopDeep(i: number, a: string): ReactNode {
+  if (i === 0) return sq(a, center(
+    <div style={{ ...CARD }}>
+      {hdr(a, "Lead record", "still attached · 6 wks")}
+      <div style={{ padding: "1.8cqw 2.6cqw 0.6cqw" }}>
+        <div style={{ display: "flex", alignItems: "center", gap: "1.4cqw", marginBottom: "1.2cqw" }}>
+          {avatar("RB", `${a}22`, a, 4)}
+          <div style={{ flex: 1 }}><div style={{ fontWeight: 700, fontSize: "1.9cqw", color: "#17131F" }}>Rachel Byrne</div><div style={{ fontSize: "1.35cqw", color: "#8a9099" }}>Google / paid search</div></div>
+          {pill("Qualified ✓", GREEN_BG, GREEN)}
+        </div>
+        {clRow("Ad click", "gclid Cj0KaQ…", true)}
+        {clRow("Signal sent", <>Qualified {pill("✓", GREEN_BG, GREEN)}</>)}
+        {clRow("Value (CRM)", "est. £14.2k")}
+      </div>
+      <div style={{ padding: "1.4cqw 2.6cqw 1.8cqw", fontSize: "1.4cqw", fontWeight: 600, color: "#5a5566" }}>↻ The estimate becomes the real closed value when your CRM reports back</div>
+    </div>
+  ));
+  if (i === 1) return sq(a, center(
+    <div style={{ ...CARD }}>
+      {hdr(a, "Verdict sent back")}
+      <div style={{ padding: "0.8cqw 2.6cqw 1cqw" }}>
+        {([["Rachel Byrne", "Qualified", true], ["Cold enquiry", "No sale", false]] as [string, string, boolean][]).map(([n, v, ok]) => (
+          <div key={n} style={{ display: "flex", alignItems: "center", gap: "1.4cqw", padding: "1.8cqw 0", borderBottom: "1px solid #f2f3f5" }}>
+            {avatar(n.split(" ").map((w) => w[0]).join(""), ok ? `${a}22` : "#eeecf3", ok ? a : GREY, 3.6)}
+            <span style={{ flex: 1, fontWeight: 700, fontSize: "1.85cqw", color: "#17131F" }}>{n}</span>
+            {pill(ok ? `${v} ✓` : v, ok ? GREEN_BG : GREY_BG, ok ? GREEN : GREY)}
+          </div>
+        ))}
+      </div>
+      <div style={{ padding: "1.4cqw 2.6cqw 1.8cqw", fontSize: "1.4cqw", fontWeight: 600, color: "#5a5566" }}>Only the verdict goes back, so Google learns which clicks were worth it</div>
+    </div>
+  ));
+  return sq(a, center(
+    <div style={{ ...CARD }}>
+      {hdr(a, "outcomes.csv", "Google spec · hashed")}
+      <div style={{ padding: "1.6cqw 2.4cqw 1.2cqw" }}>
+        <div style={{ display: "grid", gridTemplateColumns: "1.5fr 1.2fr 0.8fr", alignItems: "center", columnGap: "1cqw" }}>
+          {["Click ID", "Outcome", "Value"].map((h) => <span key={h} style={{ fontSize: "1.25cqw", textTransform: "uppercase", letterSpacing: ".06em", color: "#9aa0a8", fontWeight: 700, paddingBottom: "1cqw", borderBottom: "1px solid #eef0f2" }}>{h}</span>)}
+          {([["Cj0KaQ…", "Qualified", "£14.2k", true], ["EAla9C…", "No sale", "—", false]] as [string, string, string, boolean][]).flatMap(([id, o, v, ok]) => [
+            <span key={id + "i"} style={{ fontFamily: "ui-monospace, monospace", fontWeight: 700, fontSize: "1.55cqw", color: "#17131F", padding: "1.4cqw 0", borderBottom: "1px solid #f6f7f9" }}>{id}</span>,
+            <span key={id + "o"} style={{ padding: "1.4cqw 0", borderBottom: "1px solid #f6f7f9" }}>{pill(o, ok ? GREEN_BG : GREY_BG, ok ? GREEN : GREY)}</span>,
+            <span key={id + "v"} style={{ fontWeight: 700, fontSize: "1.6cqw", color: ok ? "#17131F" : "#b3b8bf", padding: "1.4cqw 0", borderBottom: "1px solid #f6f7f9", textAlign: "right" }}>{v}</span>,
+          ])}
+        </div>
+      </div>
+      <div style={{ padding: "1.4cqw 2.4cqw 1.8cqw", display: "flex", alignItems: "center", gap: "1.2cqw" }}>
+        {pill("Every Monday", `${a}1f`, a)}
+        <span style={{ flex: 1, fontSize: "1.4cqw", fontWeight: 600, color: "#8a9099" }}>Your media team runs the upload</span>
+        <span style={{ fontSize: "1.8cqw" }}>🔒</span>
+      </div>
+    </div>
+  ));
+}
+
 const HEROES: Record<string, (a: string) => ReactNode> = {
-  qualify: qualifyHero, book: bookHero, retain: retainHero, reactivate: reactivateHero, "follow-through": followThroughHero,
+  qualify: qualifyHero, book: bookHero, retain: retainHero, reactivate: reactivateHero, "follow-through": followThroughHero, "closed-loop-attribution": closedLoopHero,
 };
 const DEEPS: Record<string, (i: number, a: string) => ReactNode> = {
-  qualify: qualifyDeep, book: bookDeep, retain: retainDeep, reactivate: reactivateDeep, "follow-through": followThroughDeep,
+  qualify: qualifyDeep, book: bookDeep, retain: retainDeep, reactivate: reactivateDeep, "follow-through": followThroughDeep, "closed-loop-attribution": closedLoopDeep,
 };
 
 export function bespokeHero(slug: string, accent: string): ReactNode | null {
