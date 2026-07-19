@@ -28,16 +28,16 @@ const CSS = `
   .rb-cap-works-panels { grid-template-columns: 1fr !important; }
   .rb-cap-voicecard { flex: 0 0 84% !important; }
   .rb-cap-pad { padding-left: 20px !important; padding-right: 20px !important; }
-}
-@media (max-width: 860px){
-  .rb-cap-navlinks { display: none !important; } /* replaced by the global hamburger */
-  /* disable the scroll "frame-out" boxes on mobile — plain stacked sections */
+  /* disable the scroll "frame-out" boxes below the desktop grid → plain stacked sections (no 100vh gaps) */
   .rb-caphero-wrap { height: auto !important; }
   .rb-caphero-pin { position: relative !important; overflow: visible !important; transform: none !important; border-radius: 0 !important; }
   .rb-caphero-sec { min-height: 0 !important; display: block !important; }
   .rb-capclose-sec { height: auto !important; }
   .rb-capclose-pin { position: relative !important; height: auto !important; overflow: visible !important; }
   .rb-capclose-stage { position: relative !important; inset: auto !important; transform: none !important; box-shadow: none !important; border-radius: 0 !important; padding: 64px 18px 84px !important; }
+}
+@media (max-width: 860px){
+  .rb-cap-navlinks { display: none !important; } /* replaced by the global hamburger */
 }
 `;
 
@@ -54,8 +54,8 @@ export default function CapabilityPage({ data }: { data: CapabilityData }) {
   const closeWrap = useRef<HTMLElement>(null);
   const closeStage = useRef<HTMLDivElement>(null);
 
-  const openNow = (m: "product" | "connections" | "resources", el?: HTMLElement) => { if (menuTimer.current) clearTimeout(menuTimer.current); if (el) setMenuAnchor(el.getBoundingClientRect().left); setOpenMenu(m); };
-  const panelLeft = (w: number) => { const vw = typeof window !== "undefined" ? window.innerWidth : 1440; const pw = Math.min(w, vw - 40); return Math.max(16, Math.min(menuAnchor - 14, vw - pw - 16)); };
+  const openNow = (m: "product" | "connections" | "resources", el?: HTMLElement) => { if (menuTimer.current) clearTimeout(menuTimer.current); if (el) { const r = el.getBoundingClientRect(); setMenuAnchor(r.left + r.width / 2); } setOpenMenu(m); };
+  const panelLeft = (w: number) => { const vw = typeof window !== "undefined" ? window.innerWidth : 1440; const half = Math.min(w, vw - 40) / 2; return Math.max(16 + half, Math.min(menuAnchor, vw - 16 - half)); };
   const cancelClose = () => { if (menuTimer.current) clearTimeout(menuTimer.current); };
   const scheduleClose = () => { if (menuTimer.current) clearTimeout(menuTimer.current); menuTimer.current = window.setTimeout(() => setOpenMenu(null), 140); };
 
@@ -98,7 +98,7 @@ export default function CapabilityPage({ data }: { data: CapabilityData }) {
     let ticking = false;
     const compute = () => {
       ticking = false;
-      const mobile = window.matchMedia("(max-width: 860px)").matches;
+      const mobile = window.matchMedia("(max-width: 900px)").matches;
       const vh = window.innerHeight;
       const hw = heroWrap.current, hp = heroPin.current;
       if (hw && hp) {
@@ -165,7 +165,7 @@ export default function CapabilityPage({ data }: { data: CapabilityData }) {
 
         {/* Product mega-panel */}
         {openMenu === "product" && (
-          <div onMouseEnter={cancelClose} onMouseLeave={scheduleClose} style={{ ...glassPanel, top: 80, left: panelLeft(940), width: "min(940px,calc(100vw - 40px))", padding: "26px 28px 28px", borderRadius: 22, display: "flex", gap: 28 }}>
+          <div onMouseEnter={cancelClose} onMouseLeave={scheduleClose} style={{ ...glassPanel, top: 80, left: panelLeft(940), transform: "translateX(-50%)", width: "min(940px,calc(100vw - 40px))", padding: "26px 28px 28px", borderRadius: 22, display: "flex", gap: 28 }}>
             <div style={{ flex: 1.7, minWidth: 0 }}>
               <div style={{ fontSize: 11, letterSpacing: ".28em", textTransform: "uppercase", color: "rgba(245,241,234,0.55)", marginBottom: 14 }}>Capabilities</div>
               <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "4px 22px" }}>
@@ -188,7 +188,7 @@ export default function CapabilityPage({ data }: { data: CapabilityData }) {
           </div>
         )}
         {openMenu === "connections" && (
-          <div onMouseEnter={cancelClose} onMouseLeave={scheduleClose} style={{ ...glassPanel, top: 80, left: panelLeft(320), width: "min(320px,calc(100vw - 40px))", borderRadius: 20 }}>
+          <div onMouseEnter={cancelClose} onMouseLeave={scheduleClose} style={{ ...glassPanel, top: 80, left: panelLeft(320), transform: "translateX(-50%)", width: "min(320px,calc(100vw - 40px))", borderRadius: 20 }}>
             <a href="/#integrations" className="rb-mega-item" onClick={() => setOpenMenu(null)} style={{ display: "flex", flexDirection: "column", gap: 3, padding: "13px 14px", borderRadius: 13, textDecoration: "none" }}>
               <span style={{ fontSize: 15, fontWeight: 600, color: "#F5F1EA" }}>Integrations</span>
               <span style={{ fontSize: 12.5, color: "rgba(245,241,234,0.72)" }}>Connect to your tools effortlessly</span>
@@ -196,7 +196,7 @@ export default function CapabilityPage({ data }: { data: CapabilityData }) {
           </div>
         )}
         {openMenu === "resources" && (
-          <div onMouseEnter={cancelClose} onMouseLeave={scheduleClose} style={{ ...glassPanel, top: 80, left: panelLeft(300), width: "min(300px,calc(100vw - 40px))", borderRadius: 20 }}>
+          <div onMouseEnter={cancelClose} onMouseLeave={scheduleClose} style={{ ...glassPanel, top: 80, left: panelLeft(300), transform: "translateX(-50%)", width: "min(300px,calc(100vw - 40px))", borderRadius: 20 }}>
             {NAV_RESOURCES.map((r) => (
               <a key={r.head} href={r.href} className="rb-mega-item" onClick={() => setOpenMenu(null)} style={{ display: "flex", flexDirection: "column", gap: 3, padding: "12px 14px", borderRadius: 13, textDecoration: "none" }}>
                 <span style={{ fontSize: 15, fontWeight: 600, color: "#F5F1EA" }}>{r.head}</span>

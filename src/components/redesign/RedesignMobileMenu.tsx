@@ -1,7 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
-import BookDemoCTA from "./BookDemoCTA";
 import { NAV_CAPABILITIES, NAV_RESOURCES, LIVE_SLUGS } from "./capabilityData";
 
 // Global mobile nav — hamburger + full-screen accordion, reusing the SAME
@@ -22,7 +21,11 @@ const CSS = `
 .rb-mnav-burger { display: none; }
 @media (max-width: 860px){ .rb-mnav-burger { display: inline-flex !important; } }
 .rb-rmenu { position: fixed; inset: 0; z-index: 1000; background: rgba(0,0,0,0.96); -webkit-backdrop-filter: blur(24px) saturate(130%); backdrop-filter: blur(24px) saturate(130%); overflow-y: auto; display: flex; flex-direction: column; }
+/* section headings in the same (sans) family as the CTA buttons, not Cormorant italic */
+.rb-rmenu .rb-macc-trigger { font-family: var(--font-dm-sans), system-ui, sans-serif !important; font-style: normal !important; font-weight: 600 !important; font-size: clamp(1.4rem, 5.5vw, 1.9rem) !important; letter-spacing: 0 !important; }
 `;
+
+const ctaBase: React.CSSProperties = { display: "flex", alignItems: "center", justifyContent: "center", width: "100%", boxSizing: "border-box", padding: "16px 26px", borderRadius: 999, fontSize: 15, fontWeight: 600, textDecoration: "none", backdropFilter: "blur(12px)", WebkitBackdropFilter: "blur(12px)" };
 
 const chevron = (
   <svg className="rb-macc-chevron" viewBox="0 0 10 6" width="14" height="14" aria-hidden="true">
@@ -85,12 +88,10 @@ export default function RedesignMobileMenu() {
         })}
       </div>
 
-      {/* Stacked CTAs — same style as the hero banner buttons */}
-      <div style={{ padding: "20px 24px 32px", display: "flex", flexDirection: "column", gap: 14, alignItems: "stretch" }}>
-        <div onClick={close} style={{ display: "flex", justifyContent: "center" }}>
-          <BookDemoCTA label="Get started" href="/pricing" tone="dark" />
-        </div>
-        <a href="https://cal.eu/rosebudsolutions/demo" target="_blank" rel="noopener noreferrer" onClick={close} style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", background: "rgba(255,255,255,0.06)", backdropFilter: "blur(12px)", WebkitBackdropFilter: "blur(12px)", border: "1px solid rgba(255,255,255,0.2)", color: "#F5F1EA", padding: "15px 26px", borderRadius: 999, fontSize: 15, fontWeight: 500, textDecoration: "none" }}>Book free consultation</a>
+      {/* Stacked CTAs — identical size, same sans family */}
+      <div style={{ padding: "20px 24px 32px", display: "flex", flexDirection: "column", gap: 12, alignItems: "stretch" }}>
+        <a href="/pricing" onClick={close} style={{ ...ctaBase, background: "rgba(139,125,216,0.18)", border: "1px solid rgba(184,174,219,0.42)", color: "#F5F1EA" }}>Get started</a>
+        <a href="https://cal.eu/rosebudsolutions/demo" target="_blank" rel="noopener noreferrer" onClick={close} style={{ ...ctaBase, background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.2)", color: "#F5F1EA" }}>Book free consultation</a>
       </div>
     </div>
   );
