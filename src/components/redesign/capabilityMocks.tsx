@@ -106,18 +106,6 @@ function bLogo(src: string, w = 13): ReactNode {
     </div>
   );
 }
-function bChip(label: string, a: string, filled = false): ReactNode {
-  return <div style={{ padding: "1.5cqw 2.3cqw", borderRadius: "2.2cqw", background: filled ? a : "#fff", color: filled ? "#fff" : "#17131F", boxShadow: "0 2cqw 3.4cqw -1.4cqw rgba(23,19,31,.4)", fontWeight: 700, fontSize: "1.7cqw", whiteSpace: "nowrap", flexShrink: 0 }}>{label}</div>;
-}
-function bConn(): ReactNode {
-  return (
-    <div style={{ flex: 1, position: "relative", height: "2cqw", minWidth: "3cqw" }}>
-      <div style={{ position: "absolute", top: "50%", left: 0, right: 0, borderTop: "0.45cqw dotted #c7c1b4" }} />
-      <span style={{ position: "absolute", top: "50%", left: "34%", transform: "translate(-50%,-50%)", width: "1.4cqw", height: "1.4cqw", borderRadius: "50%", background: "#4ADE80" }} />
-      <span style={{ position: "absolute", top: "50%", left: "66%", transform: "translate(-50%,-50%)", width: "1.4cqw", height: "1.4cqw", borderRadius: "50%", background: "#F5B94A" }} />
-    </div>
-  );
-}
 function bCard(a: string, title: string, status: string, children: ReactNode): ReactNode {
   return (
     <div style={{ ...CARD }}>
@@ -196,23 +184,34 @@ function bookDeep(i: number, a: string): ReactNode {
       </div>
     </div>
   </>);
-  return sq(a, <>
-    <div style={{ position: "absolute", left: "9%", right: "9%", top: "10%", display: "flex", alignItems: "center" }}>
-      {bChip("Enquiry", a)}{bConn()}{bChip("Qualified", a)}{bConn()}{bChip("Booked", a, true)}
+  return sq(a, (
+    <div style={{ position: "absolute", left: "7%", right: "7%", top: "9%", display: "flex", flexDirection: "column" }}>
+      <div style={{ alignSelf: "center", display: "flex", alignItems: "center", gap: "1.1cqw", background: a, color: "#fff", borderRadius: "2cqw", padding: "1.5cqw 2.2cqw", boxShadow: "0 2cqw 3.4cqw -1.4cqw rgba(23,19,31,.4)" }}>
+        <span style={{ width: "2.4cqw", height: "2.4cqw", borderRadius: ".6cqw", background: "rgba(255,255,255,.25)", display: "grid", placeItems: "center", fontSize: "1.5cqw" }}>✓</span>
+        <span style={{ fontWeight: 700, fontSize: "1.9cqw" }}>Booked · Thu 10:00</span>
+      </div>
+      <div style={{ position: "relative", height: "8.5cqw" }}>
+        <div style={{ position: "absolute", top: 0, left: "50%", marginLeft: "-0.2cqw", height: "44%", borderLeft: "0.4cqw dotted #c3bdb0" }} />
+        <div style={{ position: "absolute", top: "44%", left: "16.6%", right: "16.6%", borderTop: "0.4cqw dotted #c3bdb0" }} />
+        {[16.6, 50, 83.4].map((x) => <div key={x} style={{ position: "absolute", top: "44%", left: `${x}%`, marginLeft: "-0.2cqw", height: "56%", borderLeft: "0.4cqw dotted #c3bdb0" }} />)}
+        {([[16.6, "#4ADE80"], [50, "#F5B94A"], [83.4, "#4ADE80"]] as [number, string][]).map(([x, c]) => <span key={x} style={{ position: "absolute", top: "44%", left: `${x}%`, transform: "translate(-50%,-50%)", width: "1.4cqw", height: "1.4cqw", borderRadius: "50%", background: c }} />)}
+      </div>
+      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: "1.4cqw" }}>
+        {([["salesforce.png", "CRM"], ["whatsapp.png", "Reminders"], ["google-calendar.png", "Calendar"]] as [string, string][]).map(([src, label]) => (
+          <div key={label} style={{ ...CARD_SM, padding: "1.5cqw 1cqw", display: "flex", flexDirection: "column", alignItems: "center", gap: ".8cqw" }}>
+            {bLogo(src, 7)}
+            <span style={{ fontSize: "1.4cqw", fontWeight: 700, color: "#17131F" }}>{label}</span>
+            <span style={{ fontSize: "1.2cqw", fontWeight: 700, color: GREEN }}>Synced ✓</span>
+          </div>
+        ))}
+      </div>
+      <div style={{ marginTop: "2.2cqw", ...CARD_SM, padding: "1.5cqw 2cqw", display: "flex", alignItems: "center", gap: "1.2cqw" }}>
+        <span style={{ fontSize: "1.4cqw", fontWeight: 700, color: "#9aa0a8" }}>Logged</span>
+        <span style={{ fontWeight: 700, fontSize: "1.6cqw", color: "#17131F" }}>Booked · Thu 10:00</span>
+        <span style={{ marginLeft: "auto", fontSize: "1.45cqw", fontWeight: 700, color: "#9aa0a8" }}>21:51</span>
+      </div>
     </div>
-    <div style={{ position: "absolute", left: "8%", right: "8%", top: "37%" }}>
-      {bCard(a, "Event log", "Synced to CRM", (
-        <div style={{ padding: "0.6cqw 2.4cqw 1.4cqw" }}>
-          {[["Enquiry received", "21:47"], ["Qualified", "21:48"], ["Booked · Thu 10:00", "21:51"]].map(([l, t], j) => (
-            <div key={l} style={{ display: "flex", alignItems: "center", gap: "1.4cqw", padding: "1.7cqw 1cqw", borderBottom: "1px solid #f4f5f7" }}>
-              <span style={{ width: "3cqw", height: "3cqw", borderRadius: "50%", background: j === 2 ? "#4ADE80" : `${a}22`, color: j === 2 ? "#12331f" : a, display: "grid", placeItems: "center", fontSize: "1.4cqw", fontWeight: 700 }}>✓</span>
-              <span style={{ flex: 1, fontWeight: 700, fontSize: "1.8cqw", color: "#17131F" }}>{l}</span><span style={{ fontSize: "1.45cqw", color: "#9aa0a8", fontWeight: 700 }}>{t}</span>
-            </div>
-          ))}
-        </div>
-      ))}
-    </div>
-  </>);
+  ));
 }
 
 // ── RETAIN ────────────────────────────────────────────────────────────────────
