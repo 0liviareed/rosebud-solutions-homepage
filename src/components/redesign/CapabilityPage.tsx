@@ -4,6 +4,7 @@ import BookDemoCTA from "./BookDemoCTA";
 import RedesignMobileMenu from "./RedesignMobileMenu";
 import {
   type CapabilityData,
+  type DeepBlock,
   SIBLINGS, SIBLING_SUBLABEL, LIVE_SLUGS,
   NAV_CAPABILITIES, NAV_RESOURCES, INT_LOGOS, INT_INDUSTRIES, VOICES,
 } from "./capabilityData";
@@ -175,15 +176,16 @@ export default function CapabilityPage({ data }: { data: CapabilityData }) {
               )}
             </div>
 
-            <h1 style={{ fontFamily: SERIF, fontWeight: 400, fontSize: "clamp(38px,4.5vw,66px)", lineHeight: 1.04, letterSpacing: "-0.015em", margin: 0, maxWidth: "15ch", color: "#17131F" }}>{data.hero.headlinePre}<em style={{ fontStyle: "italic", color: "#6B5CC4" }}>{data.hero.headlineEm}</em></h1>
+            <h1 style={{ fontFamily: SERIF, fontWeight: 400, fontSize: "clamp(38px,4.5vw,66px)", lineHeight: 1.04, letterSpacing: "-0.015em", margin: 0, maxWidth: "15ch", color: "#17131F" }}>{data.hero.headlinePre}{data.hero.headlineEm ? <em style={{ fontStyle: "italic", color: "#6B5CC4" }}>{data.hero.headlineEm}</em> : null}</h1>
             <p style={{ marginTop: 26, maxWidth: 560, fontSize: "clamp(16px,1.3vw,18px)", lineHeight: 1.62, color: "rgba(23,19,31,0.66)" }}>{data.hero.subhead}</p>
             <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: 22, marginTop: 36 }}>
               <BookDemoCTA label="Get started" href="/pricing" tone="light" />
             </div>
           </div>
 
-          {/* intake moment mock */}
+          {/* hero visual — Capture keeps the bespoke intake mock; others use the generic mock */}
           <div style={{ position: "relative" }}>
+            {data.slug === "capture" ? (
             <div className="rb-cq" style={{ position: "relative", width: "100%", aspectRatio: "1/1", borderRadius: 24, overflow: "hidden", background: "linear-gradient(155deg,#DEDAF0,#C6CFEC)", boxShadow: "0 42px 84px -40px rgba(30,25,60,0.55)" }}>
               <div style={{ position: "absolute", inset: 0, background: "radial-gradient(80% 70% at 82% 6%, rgba(255,255,255,0.5), transparent 55%)" }} />
               {/* web form */}
@@ -233,6 +235,7 @@ export default function CapabilityPage({ data }: { data: CapabilityData }) {
                 <span style={{ color: "#9aa0a8", fontWeight: 600, fontSize: "1.7cqw" }}>powered by</span><span style={{ fontFamily: SERIF, fontWeight: 600, fontSize: "2.4cqw", letterSpacing: "-.01em", color: "#17131F" }}>Rosebud</span>
               </div>
             </div>
+            ) : heroMock(data)}
           </div>
         </div>
       </section>
@@ -245,12 +248,20 @@ export default function CapabilityPage({ data }: { data: CapabilityData }) {
             <h2 style={{ fontFamily: SERIF, fontWeight: 500, fontSize: "clamp(34px,4vw,56px)", lineHeight: 1.02, letterSpacing: "-0.02em", margin: 0, color: "#F5F1EA" }}>{data.works.headlinePre}<em style={{ fontStyle: "italic", color: "#C7BEE8" }}>{data.works.headlineEm}</em></h2>
           </div>
           <div className="rb-cap-works-panels" style={{ marginTop: 52, display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 24 }}>
-            {data.works.panels.map((src, i) => (
-              <div key={i} style={panelBox}>
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={src} alt="" style={{ display: "block", width: "100%", height: "auto" }} />
-              </div>
-            ))}
+            {data.works.panels
+              ? data.works.panels.map((src, i) => (
+                  <div key={i} style={panelBox}>
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img src={src} alt="" style={{ display: "block", width: "100%", height: "auto" }} />
+                  </div>
+                ))
+              : (data.works.panelsText ?? []).map((p, i) => (
+                  <div key={i} style={{ ...panelBox, padding: "30px 28px", minHeight: 230 }}>
+                    <div style={{ width: 30, height: 30, borderRadius: 9, background: `${data.accent}1a`, color: data.accent, display: "flex", alignItems: "center", justifyContent: "center", fontFamily: SERIF, fontWeight: 600, fontSize: 15, marginBottom: 16 }}>{i + 1}</div>
+                    <div style={{ fontFamily: SERIF, fontSize: 22, fontWeight: 500, color: "#17131F", lineHeight: 1.15, marginBottom: 12 }}>{p.head}</div>
+                    <div style={{ fontSize: 14.5, lineHeight: 1.6, color: "rgba(23,19,31,0.62)" }}>{p.body}</div>
+                  </div>
+                ))}
           </div>
         </div>
       </section>
@@ -300,7 +311,7 @@ export default function CapabilityPage({ data }: { data: CapabilityData }) {
                 <BookDemoCTA label="See pricing & plans" href="/pricing" tone="light" />
               </div>
             );
-            const graphic = <div className="rb-cap-deep-graphic">{deepMock(i)}</div>;
+            const graphic = <div className="rb-cap-deep-graphic">{deepMock(data, i, b)}</div>;
             return (
               <div key={b.num} className="rb-cap-deep-grid" style={{ display: "grid", gridTemplateColumns: textFirst ? "0.92fr 1.08fr" : "1.08fr 0.92fr", gap: 64, alignItems: "center" }}>
                 {textFirst ? <>{text}{graphic}</> : <>{graphic}{text}</>}
@@ -394,9 +405,52 @@ export default function CapabilityPage({ data }: { data: CapabilityData }) {
   );
 }
 
+// Deep-dive / hero graphic dispatcher. Capture has bespoke mocks; other pages
+// use a clean generic mock tinted to the capability's accent.
+function deepMock(data: CapabilityData, i: number, block: DeepBlock): ReactNode {
+  if (data.slug === "capture") return captureDeepMock(i);
+  return genericMock(data.accent, block.kicker);
+}
+function heroMock(data: CapabilityData): ReactNode {
+  return genericMock(data.accent, data.name);
+}
+
+// Generic tinted-square mock: a record card + a three-stage flow, keyed to the
+// capability accent and the block/capability label.
+function genericMock(accent: string, label: string): ReactNode {
+  const pill = (text: string, active: boolean) => (
+    <div style={{ background: active ? accent : "#fff", color: active ? "#fff" : "#17131F", borderRadius: "2.2cqw", padding: "1.3cqw 2cqw", boxShadow: "0 1.8cqw 3cqw -1.4cqw rgba(23,19,31,.4)", fontWeight: 700, fontSize: "1.6cqw", whiteSpace: "nowrap" }}>{text}</div>
+  );
+  const conn = <span style={{ flex: 1, height: 0, borderTop: "0.4cqw dotted rgba(23,19,31,.25)", margin: "0 .7cqw" }} />;
+  return (
+    <div className="rb-cq" style={{ position: "relative", width: "100%", aspectRatio: "1/1", borderRadius: 22, overflow: "hidden", background: `linear-gradient(155deg, ${accent}26, ${accent}0d)`, boxShadow: "0 34px 70px -30px rgba(23,19,31,0.35)" }}>
+      <div style={{ position: "absolute", inset: 0, background: "radial-gradient(80% 70% at 80% 8%, rgba(255,255,255,0.5), transparent 55%)" }} />
+      <div style={{ position: "absolute", left: "9%", right: "9%", top: "15%", background: "#fff", borderRadius: "3cqw", boxShadow: "0 3cqw 5cqw -1.6cqw rgba(23,19,31,.3)", overflow: "hidden" }}>
+        <div style={{ background: accent, color: "#fff", padding: "2.2cqw 2.8cqw", display: "flex", alignItems: "center", gap: "1.4cqw" }}>
+          <span style={{ width: "3.2cqw", height: "3.2cqw", borderRadius: "1cqw", background: "rgba(255,255,255,0.22)", display: "grid", placeItems: "center", fontWeight: 700, fontSize: "1.8cqw" }}>{label[0]}</span>
+          <span style={{ fontFamily: SERIF, fontWeight: 600, fontSize: "2.4cqw" }}>{label}</span>
+          <span style={{ marginLeft: "auto", width: "1.6cqw", height: "1.6cqw", borderRadius: "50%", background: "#4ADE80" }} />
+        </div>
+        <div style={{ padding: "1.6cqw 2.8cqw 2.4cqw" }}>
+          {[["Record", "Active"], ["Stage", label], ["Value", "Mapped"]].map(([k, v]) => (
+            <div key={k} style={{ display: "flex", alignItems: "center", gap: "1.2cqw", padding: "1.6cqw 0", borderBottom: "1px solid #f2f3f5" }}>
+              <span style={{ width: "34%", fontSize: "1.35cqw", letterSpacing: ".04em", textTransform: "uppercase", color: "#9aa0a8", fontWeight: 700 }}>{k}</span>
+              <span style={{ flex: 1, fontWeight: 700, fontSize: "1.85cqw", color: "#17131F" }}>{v}</span>
+              <span style={{ width: "1.4cqw", height: "1.4cqw", borderRadius: "50%", background: accent }} />
+            </div>
+          ))}
+        </div>
+      </div>
+      <div style={{ position: "absolute", left: "9%", right: "9%", bottom: "9%", display: "flex", alignItems: "center" }}>
+        {pill("Enters", false)}{conn}{pill(label, true)}{conn}{pill("Advances", false)}
+      </div>
+    </div>
+  );
+}
+
 // Capture deep-dive graphic mocks (per block index). Square tinted containers
 // with white cards in the design's visual language.
-function deepMock(i: number): ReactNode {
+function captureDeepMock(i: number): ReactNode {
   const sq = (bg: string, shadow: string, children: ReactNode) => (
     <div className="rb-cq" style={{ position: "relative", width: "100%", aspectRatio: "1/1", borderRadius: 22, overflow: "hidden", background: bg, boxShadow: shadow }}>{children}</div>
   );
