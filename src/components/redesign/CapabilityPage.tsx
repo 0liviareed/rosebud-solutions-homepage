@@ -157,10 +157,12 @@ export default function CapabilityPage({ data }: { data: CapabilityData }) {
           <div>
             {/* sibling switcher */}
             <div style={{ position: "relative", display: "inline-block", marginBottom: 30 }}>
-              <button type="button" onClick={() => setSiblingOpen((s) => !s)} style={{ display: "inline-flex", alignItems: "center", gap: 11, padding: "10px 16px 10px 19px", borderRadius: 999, background: "rgba(255,255,255,0.42)", backdropFilter: "blur(20px) saturate(1.5)", WebkitBackdropFilter: "blur(20px) saturate(1.5)", border: "1px solid rgba(255,255,255,0.6)", boxShadow: "0 10px 30px -16px rgba(23,19,31,0.35), inset 0 1px 0 rgba(255,255,255,0.6)", color: "#17131F", fontSize: 13, letterSpacing: ".04em", cursor: "pointer" }}>
+              <button type="button" onClick={() => setSiblingOpen((s) => !s)} style={{ display: "inline-flex", alignItems: "center", gap: 10, padding: "7px 8px 7px 18px", borderRadius: 999, background: "rgba(255,255,255,0.42)", backdropFilter: "blur(20px) saturate(1.5)", WebkitBackdropFilter: "blur(20px) saturate(1.5)", border: "1px solid rgba(255,255,255,0.6)", boxShadow: "0 10px 30px -16px rgba(23,19,31,0.35), inset 0 1px 0 rgba(255,255,255,0.6)", color: "#17131F", fontSize: 13, letterSpacing: ".04em", cursor: "pointer" }}>
                 <span style={{ color: "rgba(23,19,31,0.5)" }}>Rosebud for</span>
-                <span style={{ fontWeight: 600, color: "#17131F" }}>{data.name}</span>
-                <span style={{ fontSize: 9, color: A, display: "inline-block", transition: "transform .3s ease", transform: siblingOpen ? "rotate(180deg)" : "rotate(0deg)" }}>▼</span>
+                <span style={{ display: "inline-flex", alignItems: "center", gap: 8, padding: "6px 13px", borderRadius: 999, background: "#fff", boxShadow: "0 4px 12px -5px rgba(23,19,31,0.3)" }}>
+                  <span style={{ fontWeight: 700, color: "#17131F", fontSize: 14 }}>{data.name}</span>
+                  <span style={{ fontSize: 9, color: A, display: "inline-block", transition: "transform .3s ease", transform: siblingOpen ? "rotate(180deg)" : "rotate(0deg)" }}>▼</span>
+                </span>
               </button>
               {siblingOpen && (
                 <div style={{ position: "absolute", top: 54, left: 0, zIndex: 40, width: 290, padding: 8, borderRadius: 18, background: "rgba(40,37,52,0.55)", backdropFilter: "blur(44px) saturate(1.6)", WebkitBackdropFilter: "blur(44px) saturate(1.6)", border: "1px solid rgba(245,241,234,0.14)", boxShadow: "0 18px 44px -26px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.12)" }}>
