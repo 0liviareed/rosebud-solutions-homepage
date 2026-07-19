@@ -21,8 +21,10 @@ const CSS = `
 .rb-mnav-burger { display: none; }
 @media (max-width: 860px){ .rb-mnav-burger { display: inline-flex !important; } }
 .rb-rmenu { position: fixed; inset: 0; z-index: 1000; background: rgba(0,0,0,0.96); -webkit-backdrop-filter: blur(24px) saturate(130%); backdrop-filter: blur(24px) saturate(130%); overflow-y: auto; display: flex; flex-direction: column; }
-/* section headings in the same (sans) family as the CTA buttons, not Cormorant italic */
-.rb-rmenu .rb-macc-trigger { font-family: var(--font-dm-sans), system-ui, sans-serif !important; font-style: normal !important; font-weight: 600 !important; font-size: clamp(1.4rem, 5.5vw, 1.9rem) !important; letter-spacing: 0 !important; }
+/* mobile-menu typography → match the desktop nav (DM Sans, CTA-button size), not the big Cormorant editorial style */
+.rb-rmenu .rb-macc-trigger { font-family: var(--font-dm-sans), system-ui, sans-serif !important; font-style: normal !important; text-transform: uppercase !important; letter-spacing: .14em !important; font-weight: 600 !important; font-size: 15px !important; padding-top: 20px !important; padding-bottom: 20px !important; }
+.rb-rmenu .rb-macc-sublink-title { font-family: var(--font-dm-sans), system-ui, sans-serif !important; font-style: normal !important; font-weight: 600 !important; font-size: 15px !important; letter-spacing: 0 !important; }
+.rb-rmenu .rb-macc-sublink-desc { text-transform: none !important; letter-spacing: 0 !important; font-size: 12.5px !important; margin-top: 4px !important; }
 `;
 
 const ctaBase: React.CSSProperties = { display: "flex", alignItems: "center", justifyContent: "center", width: "100%", boxSizing: "border-box", padding: "16px 26px", borderRadius: 999, fontSize: 15, fontWeight: 600, textDecoration: "none", backdropFilter: "blur(12px)", WebkitBackdropFilter: "blur(12px)" };

@@ -206,17 +206,20 @@ export default function HomepageV2() {
     const onScroll = () => {
       const bar = navBar.current;
       if (!bar) return;
-      // Transparent over the hero; a very light glass-morph once scrolled below it.
-      const solid = window.scrollY > window.innerHeight * 0.85;
-      bar.style.background = solid ? "rgba(12,11,16,0.16)" : "transparent";
+      // Stay transparent through the entire hero; glass-morph only once you're
+      // past it (into the capabilities/content). Never a solid black fill or outline.
+      const hero = document.querySelector<HTMLElement>(".rb-hero-wrap");
+      const solid = hero ? hero.getBoundingClientRect().bottom <= 8 : window.scrollY > window.innerHeight * 0.85;
+      bar.style.background = solid ? "rgba(12,11,16,0.12)" : "transparent";
       bar.style.backdropFilter = solid ? "blur(30px) saturate(1.4)" : "none";
       bar.style.setProperty("-webkit-backdrop-filter", solid ? "blur(30px) saturate(1.4)" : "none");
-      bar.style.borderColor = solid ? "rgba(184,174,219,0.14)" : "transparent";
-      bar.style.boxShadow = solid ? "0 20px 50px -34px rgba(20,14,34,0.6)" : "none";
+      bar.style.borderColor = "transparent";
+      bar.style.boxShadow = solid ? "0 20px 50px -34px rgba(20,14,34,0.45)" : "none";
     };
     window.addEventListener("scroll", onScroll, { passive: true });
     onScroll();
-    return () => window.removeEventListener("scroll", onScroll);
+    window.addEventListener("resize", onScroll);
+    return () => { window.removeEventListener("scroll", onScroll); window.removeEventListener("resize", onScroll); };
   }, []);
 
   // Close section frames out into the footer — DESKTOP only (static on mobile).
