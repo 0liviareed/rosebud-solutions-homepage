@@ -97,68 +97,109 @@ function qualifyDeep(i: number, a: string): ReactNode {
   </>);
 }
 
-// ── BOOK ──────────────────────────────────────────────────────────────────────
-function miniCal(a: string, selected: string): ReactNode {
-  const slots = ["09:00", "10:00", "11:30", "14:30", "16:00", "17:00"];
-  const booked = new Set(["11:30", "16:00"]);
+// ── BOOK (reference style: provider node-flow + floating card + live table) ────
+function bLogo(src: string): ReactNode {
   return (
-    <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: "1cqw" }}>
-      {slots.map((s) => {
-        const isSel = s === selected, isBk = booked.has(s);
-        return <div key={s} style={{ textAlign: "center", padding: "1.3cqw 0", borderRadius: "1.4cqw", fontWeight: 700, fontSize: "1.5cqw", background: isSel ? a : isBk ? "#f0f1f4" : "#fff", color: isSel ? "#fff" : isBk ? "#b3b8bf" : "#17131F", border: isSel ? "none" : "1px solid #eef0f2", textDecoration: isBk ? "line-through" : "none" }}>{s}</div>;
-      })}
+    <div style={{ width: "13cqw", height: "9cqw", borderRadius: "2.2cqw", background: "#fff", boxShadow: "0 2cqw 3.4cqw -1.4cqw rgba(23,19,31,.4)", display: "grid", placeItems: "center", padding: "1.8cqw", flexShrink: 0 }}>
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img src={`/assets/integrations/${src}`} alt="" style={{ maxWidth: "100%", maxHeight: "100%", objectFit: "contain" }} />
+    </div>
+  );
+}
+function bChip(label: string, a: string, filled = false): ReactNode {
+  return <div style={{ padding: "1.5cqw 2.3cqw", borderRadius: "2.2cqw", background: filled ? a : "#fff", color: filled ? "#fff" : "#17131F", boxShadow: "0 2cqw 3.4cqw -1.4cqw rgba(23,19,31,.4)", fontWeight: 700, fontSize: "1.7cqw", whiteSpace: "nowrap", flexShrink: 0 }}>{label}</div>;
+}
+function bConn(): ReactNode {
+  return (
+    <div style={{ flex: 1, position: "relative", height: "2cqw", minWidth: "3cqw" }}>
+      <div style={{ position: "absolute", top: "50%", left: 0, right: 0, borderTop: "0.45cqw dotted #c7c1b4" }} />
+      <span style={{ position: "absolute", top: "50%", left: "34%", transform: "translate(-50%,-50%)", width: "1.4cqw", height: "1.4cqw", borderRadius: "50%", background: "#4ADE80" }} />
+      <span style={{ position: "absolute", top: "50%", left: "66%", transform: "translate(-50%,-50%)", width: "1.4cqw", height: "1.4cqw", borderRadius: "50%", background: "#F5B94A" }} />
+    </div>
+  );
+}
+function bCard(a: string, title: string, status: string, children: ReactNode): ReactNode {
+  return (
+    <div style={{ ...CARD }}>
+      <div style={{ padding: "1.9cqw 2.4cqw", borderBottom: "1px solid #f2f3f5", display: "flex", alignItems: "center", gap: "1.3cqw" }}>
+        <span style={{ width: "3.2cqw", height: "3.2cqw", borderRadius: "1cqw", background: `${a}18`, color: a, display: "grid", placeItems: "center", fontSize: "1.9cqw" }}>▤</span>
+        <span style={{ fontWeight: 700, fontSize: "2cqw", color: "#17131F" }}>{title}</span>
+        <span style={{ marginLeft: "auto", display: "inline-flex", alignItems: "center", gap: ".8cqw", padding: ".9cqw 1.8cqw", borderRadius: 999, background: a, color: "#fff", fontWeight: 700, fontSize: "1.45cqw" }}><span style={{ width: "1.1cqw", height: "1.1cqw", borderRadius: "50%", background: "#fff" }} />{status}</span>
+      </div>
+      {children}
     </div>
   );
 }
 function bookHero(a: string): ReactNode {
+  const slots: [string, string, "open" | "booked" | "selected"][] = [["10:00", "Open", "open"], ["11:30", "Booked", "booked"], ["14:30", "Selected", "selected"], ["16:00", "Open", "open"]];
   return sq(a, <>
-    <div style={{ position: "absolute", left: "8%", top: "7%", width: "84%", ...CARD }}>
-      {hdr(a, "Thursday · availability", "live diary")}
-      <div style={{ padding: "2cqw 2.4cqw" }}>{miniCal(a, "10:00")}</div>
+    <div style={{ position: "absolute", left: "8%", right: "8%", top: "9%", display: "flex", alignItems: "center" }}>
+      {bLogo("google-calendar.png")}{bConn()}{bLogo("outlook.png")}{bConn()}{bLogo("cal-com.png")}
     </div>
-    <div style={{ position: "absolute", left: "8%", right: "8%", bottom: "20%", ...CARD_SM, padding: "1.6cqw 2cqw", display: "flex", alignItems: "center", gap: "1.2cqw", background: "#DCF3E3" }}>
-      <span style={{ fontWeight: 700, fontSize: "1.6cqw", color: "#17131F", flex: 1 }}>Thursday 10:00 works</span><span style={{ fontSize: "1.3cqw", color: GREEN, fontWeight: 700 }}>auto ✓✓</span>
-    </div>
-    <div style={{ position: "absolute", left: "8%", bottom: "7%", display: "flex", alignItems: "center", gap: "1.2cqw", ...CARD_SM, padding: "1.4cqw 2.2cqw" }}>
-      <span style={{ width: "2.6cqw", height: "2.6cqw", borderRadius: ".8cqw", background: "#4ADE80", color: "#12331f", display: "grid", placeItems: "center", fontSize: "1.6cqw" }}>✓</span><span style={{ fontWeight: 700, fontSize: "1.7cqw", color: "#17131F" }}>Booked · Thu 10:00</span>
+    <div style={{ position: "absolute", left: "8%", right: "8%", top: "36%" }}>
+      {bCard(a, "Live availability", "Booking", (
+        <div style={{ padding: "0.6cqw 2.4cqw 1.4cqw" }}>
+          {slots.map(([t, s, kind]) => {
+            const sel = kind === "selected", bk = kind === "booked";
+            return (
+              <div key={t} style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "1.5cqw 1cqw", borderRadius: "1.2cqw", background: sel ? `${a}12` : "transparent", borderBottom: "1px solid #f4f5f7" }}>
+                <span style={{ fontWeight: 700, fontSize: "1.95cqw", color: bk ? "#b3b8bf" : "#17131F", textDecoration: bk ? "line-through" : "none" }}>{t}</span>
+                {pill(s, sel ? a : bk ? "#f0f1f4" : GREEN_BG, sel ? "#fff" : bk ? "#b3b8bf" : GREEN)}
+              </div>
+            );
+          })}
+        </div>
+      ))}
     </div>
   </>);
 }
 function bookDeep(i: number, a: string): ReactNode {
   if (i === 0) return sq(a, <>
-    <div style={{ position: "absolute", left: "9%", top: "9%", width: "82%", ...CARD }}>
-      {hdr(a, "Booking in the thread")}
-      <div style={{ padding: "1.8cqw 2.2cqw", background: "#EAF0FA" }}>
-        <div style={{ alignSelf: "flex-start", maxWidth: "82%", ...CARD_SM, padding: "1.3cqw 1.6cqw", fontSize: "1.55cqw", marginBottom: "1.3cqw" }}>I can do Thursday 10:00 or Friday 14:30 — which suits?</div>
-        <div style={{ marginTop: "1cqw" }}>{miniCal(a, "10:00")}</div>
-      </div>
+    <div style={{ position: "absolute", left: "9%", right: "9%", top: "10%", display: "flex", alignItems: "center" }}>
+      {bChip("Chat", a)}{bConn()}{bChip("Book", a, true)}{bConn()}{bLogo("google-calendar.png")}
+    </div>
+    <div style={{ position: "absolute", left: "8%", right: "8%", top: "38%" }}>
+      {bCard(a, "Locking the slot", "Locking", (
+        <div style={{ padding: "1.7cqw 2.4cqw 1.9cqw" }}>
+          <div style={{ ...CARD_SM, padding: "1.4cqw 1.7cqw", fontSize: "1.6cqw", marginBottom: "1.6cqw", background: "#DCF3E3", fontWeight: 600, color: "#17131F" }}>Thursday 10:00 works for me</div>
+          <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "1.5cqw 1.2cqw", borderRadius: "1.4cqw", background: `${a}12` }}>
+            <span style={{ fontWeight: 700, fontSize: "2cqw", color: "#17131F" }}>Thu 10:00</span>{pill("Locked ✓", a, "#fff")}
+          </div>
+        </div>
+      ))}
     </div>
   </>);
   if (i === 1) return sq(a, <>
-    <div style={{ position: "absolute", left: "8%", top: "12%", width: "40%", ...CARD }}>
-      {hdr(a, "Clinic")}
-      <div style={{ padding: "1.6cqw", display: "flex", flexDirection: "column", gap: "1cqw" }}>
-        {["09:00", "09:45", "—buffer—", "11:00"].map((s) => <div key={s} style={{ padding: "1.1cqw", borderRadius: "1cqw", background: s.includes("buffer") ? "#f4f5f7" : `${a}12`, color: s.includes("buffer") ? "#b3b8bf" : "#17131F", fontWeight: 700, fontSize: "1.4cqw", textAlign: "center" }}>{s}</div>)}
-      </div>
+    <div style={{ position: "absolute", left: "9%", right: "9%", top: "10%", display: "flex", alignItems: "center", gap: "1.2cqw" }}>
+      {bChip("Clinic", a)}{bChip("Site visit", a)}{bConn()}{bChip("Diary", a, true)}
     </div>
-    <div style={{ position: "absolute", right: "8%", top: "20%", width: "40%", ...CARD }}>
-      {hdr("#17131F", "Site visit")}
-      <div style={{ padding: "1.6cqw", display: "flex", flexDirection: "column", gap: "1cqw" }}>
-        {["09:00 – 11:00", "—travel—", "13:00 – 15:00"].map((s) => <div key={s} style={{ padding: "1.4cqw", borderRadius: "1cqw", background: s.includes("travel") ? "#f4f5f7" : `${a}12`, color: s.includes("travel") ? "#b3b8bf" : "#17131F", fontWeight: 700, fontSize: "1.4cqw", textAlign: "center" }}>{s}</div>)}
-      </div>
+    <div style={{ position: "absolute", left: "8%", right: "8%", top: "37%" }}>
+      {bCard(a, "Schedule rules", "Applied", (
+        <div style={{ padding: "0.6cqw 2.4cqw 1.4cqw" }}>
+          {[["Appointment", "45 min"], ["Prep buffer", "15 min"], ["Travel window", "30 min"], ["Daily cap", "8 bookings"]].map(([k, v]) => (
+            <div key={k} style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "1.6cqw 1cqw", borderBottom: "1px solid #f4f5f7" }}>
+              <span style={{ fontWeight: 600, fontSize: "1.85cqw", color: "#17131F" }}>{k}</span>{pill(v, `${a}14`, a)}
+            </div>
+          ))}
+        </div>
+      ))}
     </div>
   </>);
   return sq(a, <>
-    <div style={{ position: "absolute", left: "9%", top: "14%", width: "82%", ...CARD }}>
-      {hdr(a, "Event log")}
-      <div style={{ padding: "1.4cqw 2.6cqw 2cqw" }}>
-        {[["Enquiry received", "21:47"], ["Qualified", "21:48"], ["Booked · Thu 10:00", "21:51"]].map(([l, t], j) => (
-          <div key={l} style={{ display: "flex", alignItems: "center", gap: "1.4cqw", padding: "1.7cqw 0", borderBottom: "1px solid #f2f3f5" }}>
-            <span style={{ width: "3cqw", height: "3cqw", borderRadius: "50%", background: j === 2 ? "#4ADE80" : `${a}22`, color: j === 2 ? "#12331f" : a, display: "grid", placeItems: "center", fontSize: "1.4cqw", fontWeight: 700 }}>✓</span>
-            <span style={{ flex: 1, fontWeight: 700, fontSize: "1.75cqw", color: "#17131F" }}>{l}</span><span style={{ fontSize: "1.4cqw", color: "#9aa0a8", fontWeight: 700 }}>{t}</span>
-          </div>
-        ))}
-      </div>
+    <div style={{ position: "absolute", left: "9%", right: "9%", top: "10%", display: "flex", alignItems: "center" }}>
+      {bChip("Enquiry", a)}{bConn()}{bChip("Qualified", a)}{bConn()}{bChip("Booked", a, true)}
+    </div>
+    <div style={{ position: "absolute", left: "8%", right: "8%", top: "37%" }}>
+      {bCard(a, "Event log", "Synced to CRM", (
+        <div style={{ padding: "0.6cqw 2.4cqw 1.4cqw" }}>
+          {[["Enquiry received", "21:47"], ["Qualified", "21:48"], ["Booked · Thu 10:00", "21:51"]].map(([l, t], j) => (
+            <div key={l} style={{ display: "flex", alignItems: "center", gap: "1.4cqw", padding: "1.7cqw 1cqw", borderBottom: "1px solid #f4f5f7" }}>
+              <span style={{ width: "3cqw", height: "3cqw", borderRadius: "50%", background: j === 2 ? "#4ADE80" : `${a}22`, color: j === 2 ? "#12331f" : a, display: "grid", placeItems: "center", fontSize: "1.4cqw", fontWeight: 700 }}>✓</span>
+              <span style={{ flex: 1, fontWeight: 700, fontSize: "1.8cqw", color: "#17131F" }}>{l}</span><span style={{ fontSize: "1.45cqw", color: "#9aa0a8", fontWeight: 700 }}>{t}</span>
+            </div>
+          ))}
+        </div>
+      ))}
     </div>
   </>);
 }
