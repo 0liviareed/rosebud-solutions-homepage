@@ -2,6 +2,7 @@
 import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
 import BookDemoCTA from "./BookDemoCTA";
 import RedesignMobileMenu from "./RedesignMobileMenu";
+import { bespokeHero, bespokeDeep } from "./capabilityMocks";
 import {
   type CapabilityData,
   type DeepBlock,
@@ -410,10 +411,10 @@ export default function CapabilityPage({ data }: { data: CapabilityData }) {
 // use a clean generic mock tinted to the capability's accent.
 function deepMock(data: CapabilityData, i: number, block: DeepBlock): ReactNode {
   if (data.slug === "capture") return captureDeepMock(i);
-  return genericMock(data.accent, block.kicker);
+  return bespokeDeep(data.slug, i, data.accent) ?? genericMock(data.accent, block.kicker);
 }
 function heroMock(data: CapabilityData): ReactNode {
-  return genericMock(data.accent, data.name);
+  return bespokeHero(data.slug, data.accent) ?? genericMock(data.accent, data.name);
 }
 
 // Generic tinted-square mock: a record card + a three-stage flow, keyed to the
