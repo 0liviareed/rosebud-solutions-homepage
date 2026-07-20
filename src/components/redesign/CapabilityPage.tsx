@@ -4,6 +4,7 @@ import BookDemoCTA from "./BookDemoCTA";
 import RedesignMobileMenu from "./RedesignMobileMenu";
 import { bespokeHero, bespokeDeep, bespokePanel } from "./capabilityMocks";
 import RedesignFooter from "./RedesignFooter";
+import RedesignReveal from "./RedesignReveal";
 import {
   type CapabilityData,
   type DeepBlock,
@@ -333,7 +334,7 @@ export default function CapabilityPage({ data }: { data: CapabilityData }) {
 
       {/* ===================== HOW IT WORKS ===================== */}
       <section className="rb-cap-pad" style={{ position: "relative", overflow: "hidden", background: "#ECE7F7", color: "#17131F", padding: "132px 48px" }}>
-        <div style={{ position: "relative", zIndex: 1, maxWidth: 1220, margin: "0 auto", background: "rgba(40,37,52,0.5)", backdropFilter: "blur(44px) saturate(1.5)", WebkitBackdropFilter: "blur(44px) saturate(1.5)", border: "1px solid rgba(245,241,234,0.12)", borderRadius: 28, padding: "clamp(34px,4.5vw,60px)", boxShadow: "0 44px 110px -44px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.1)" }}>
+        <div data-reveal style={{ position: "relative", zIndex: 1, maxWidth: 1220, margin: "0 auto", background: "rgba(40,37,52,0.5)", backdropFilter: "blur(44px) saturate(1.5)", WebkitBackdropFilter: "blur(44px) saturate(1.5)", border: "1px solid rgba(245,241,234,0.12)", borderRadius: 28, padding: "clamp(34px,4.5vw,60px)", boxShadow: "0 44px 110px -44px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.1)" }}>
           <div style={{ maxWidth: 660 }}>
             <div style={{ fontSize: 12, letterSpacing: ".3em", textTransform: "uppercase", color: "#B8AEDB", marginBottom: 18 }}>How it works</div>
             <h2 style={{ fontFamily: SERIF, fontWeight: 500, fontSize: "clamp(34px,4vw,56px)", lineHeight: 1.02, letterSpacing: "-0.02em", margin: 0, color: "#F5F1EA" }}>{data.works.headlinePre}{data.works.headlineEm ? <em style={{ fontStyle: "italic", color: "#C7BEE8" }}>{data.works.headlineEm}</em> : null}</h2>
@@ -371,7 +372,7 @@ export default function CapabilityPage({ data }: { data: CapabilityData }) {
       <section style={{ position: "relative", overflow: "hidden", background: "#F6F3FB", color: "#17131F", padding: "132px 0" }}>
         <div aria-hidden style={{ position: "absolute", inset: 0, background: "radial-gradient(90% 70% at 50% -10%, rgba(139,125,216,0.08) 0%, transparent 55%)" }} />
         <div style={{ position: "relative", zIndex: 1 }}>
-          <div className="rb-cap-pad" style={{ maxWidth: 1180, margin: "0 auto", padding: "0 48px", textAlign: "center" }}>
+          <div data-reveal className="rb-cap-pad" style={{ maxWidth: 1180, margin: "0 auto", padding: "0 48px", textAlign: "center" }}>
             <div style={{ fontSize: 12, letterSpacing: ".28em", textTransform: "uppercase", color: A, marginBottom: 18 }}>Integrations</div>
             <h2 style={{ fontFamily: SERIF, fontWeight: 500, fontSize: "clamp(34px,4.4vw,60px)", lineHeight: 1.02, letterSpacing: "-0.015em", margin: "0 auto", maxWidth: "18ch" }}>Connect to the software you already use every day</h2>
             <p style={{ margin: "22px auto 0", maxWidth: "52ch", fontSize: 16, lineHeight: 1.6, color: "rgba(23,19,31,0.6)" }}>{data.integrationsSub}</p>
@@ -414,7 +415,7 @@ export default function CapabilityPage({ data }: { data: CapabilityData }) {
             );
             const graphic = <div className="rb-cap-deep-graphic">{deepMock(data, i, b)}</div>;
             return (
-              <div key={b.num} className="rb-cap-deep-grid" style={{ display: "grid", gridTemplateColumns: textFirst ? "0.92fr 1.08fr" : "1.08fr 0.92fr", gap: 64, alignItems: "center" }}>
+              <div key={b.num} data-reveal className="rb-cap-deep-grid" style={{ display: "grid", gridTemplateColumns: textFirst ? "0.92fr 1.08fr" : "1.08fr 0.92fr", gap: 64, alignItems: "center" }}>
                 {textFirst ? <>{text}{graphic}</> : <>{graphic}{text}</>}
               </div>
             );
@@ -489,6 +490,7 @@ export default function CapabilityPage({ data }: { data: CapabilityData }) {
       </section>
 
       {/* ===================== FOOTER (global) ===================== */}
+      <RedesignReveal />
       <RedesignFooter />
     </div>
   );

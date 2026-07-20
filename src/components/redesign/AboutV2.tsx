@@ -1,6 +1,7 @@
 import type { CSSProperties } from "react";
 import RedesignNav from "./RedesignNav";
 import RedesignFooter from "./RedesignFooter";
+import RedesignReveal from "./RedesignReveal";
 import BookDemoCTA from "./BookDemoCTA";
 
 const SERIF = "var(--font-cormorant), 'Cormorant Garamond', serif";
@@ -17,9 +18,8 @@ const PRINCIPLES: { num: string; head: string; body: string }[] = [
 ];
 
 const TEAM: { name: string; role: string; ini: string; photo?: string; linkedin: string; email: string }[] = [
-  // photo: drop headshots at /public/assets/team/anselm.jpg + sajni.jpg and set here.
-  { name: "Anselm Jr. Okojie", role: "Co-founder / CEO", ini: "AO", linkedin: "https://www.linkedin.com/in/anselmjrokojie/", email: "jayokojie@rosebud.global" },
-  { name: "Sajni Okojie", role: "Co-founder / COO", ini: "SO", linkedin: "https://www.linkedin.com/in/sajni-okojie/", email: "sajniokojie@rosebud.global" },
+  { name: "Anselm Jr. Okojie", role: "Co-founder / CEO", ini: "AO", photo: "/assets/team/anselm.jpg", linkedin: "https://www.linkedin.com/in/anselmjrokojie/", email: "jayokojie@rosebud.global" },
+  { name: "Sajni Okojie", role: "Co-founder / COO", ini: "SO", photo: "/assets/team/sajni.jpg", linkedin: "https://www.linkedin.com/in/sajni-okojie/", email: "sajniokojie@rosebud.global" },
 ];
 
 const LinkedIn = () => (
@@ -48,11 +48,12 @@ export default function AboutV2() {
       ` }} />
 
       <RedesignNav />
+      <RedesignReveal />
 
       {/* ===================== HERO ===================== */}
       <section className="rb-ab-pad" style={{ position: "relative", overflow: "hidden", background: "#ECE7F7", padding: "184px 48px 120px" }}>
         <div aria-hidden style={{ position: "absolute", inset: 0, background: "radial-gradient(120% 90% at 84% 0%, rgba(139,125,216,0.12) 0%, transparent 52%), radial-gradient(80% 70% at 0% 100%, rgba(232,129,74,0.06) 0%, transparent 55%)" }} />
-        <div style={{ position: "relative", zIndex: 1, maxWidth: 1180, margin: "0 auto" }}>
+        <div data-reveal style={{ position: "relative", zIndex: 1, maxWidth: 1180, margin: "0 auto" }}>
           <div style={eyebrow}>About Rosebud</div>
           <h1 style={{ fontFamily: SERIF, fontWeight: 400, fontSize: "clamp(40px,5vw,76px)", lineHeight: 1.03, letterSpacing: "-0.015em", margin: 0, maxWidth: "16ch" }}>
             The operating system between demand &amp; <em style={{ fontStyle: "italic", color: A }}>revenue</em>
@@ -65,7 +66,7 @@ export default function AboutV2() {
 
       {/* ===================== MISSION ===================== */}
       <section className="rb-ab-pad" style={{ position: "relative", background: "#F6F3FB", padding: "132px 48px" }}>
-        <div style={{ maxWidth: 1180, margin: "0 auto" }}>
+        <div data-reveal style={{ maxWidth: 1180, margin: "0 auto" }}>
           <div style={eyebrow}>Our mission</div>
           <h2 style={{ fontFamily: SERIF, fontWeight: 400, fontSize: "clamp(30px,3.6vw,52px)", lineHeight: 1.1, letterSpacing: "-0.015em", margin: "0 0 44px", maxWidth: "20ch" }}>
             Most businesses don&apos;t have a lead problem. They have a <em style={{ fontStyle: "italic", color: A }}>follow-up</em> problem, &amp; we exist to close it
@@ -79,7 +80,7 @@ export default function AboutV2() {
 
       {/* ===================== VALUES ===================== */}
       <section className="rb-ab-pad" style={{ position: "relative", background: "#ECE7F7", padding: "132px 48px" }}>
-        <div style={{ maxWidth: 1180, margin: "0 auto" }}>
+        <div data-reveal style={{ maxWidth: 1180, margin: "0 auto" }}>
           <div style={eyebrow}>Our values</div>
           <h2 style={{ fontFamily: SERIF, fontWeight: 400, fontSize: "clamp(30px,3.6vw,52px)", lineHeight: 1.05, letterSpacing: "-0.015em", margin: 0 }}>How we build &amp; operate</h2>
           <p style={{ ...bodyText, marginTop: 18, maxWidth: 560 }}>Four principles that decide every product call and every account we run.</p>
@@ -97,7 +98,7 @@ export default function AboutV2() {
 
       {/* ===================== TEAM ===================== */}
       <section className="rb-ab-pad" style={{ position: "relative", background: "#F6F3FB", padding: "132px 48px" }}>
-        <div style={{ maxWidth: 1180, margin: "0 auto" }}>
+        <div data-reveal style={{ maxWidth: 1180, margin: "0 auto" }}>
           <div style={eyebrow}>Our team</div>
           <h2 style={{ fontFamily: SERIF, fontWeight: 400, fontSize: "clamp(30px,3.6vw,52px)", lineHeight: 1.08, letterSpacing: "-0.015em", margin: 0, maxWidth: "18ch" }}>The team that owns the space between demand &amp; revenue</h2>
           <p style={{ ...bodyText, marginTop: 24, maxWidth: 640 }}>At Rosebud, we&apos;re building the best team to design and operate the layer between what a business spends to win attention &amp; what it actually keeps. If you want to answer every enquiry in seconds, take the chasing off your desk, and see results every day, we&apos;d love to chat.</p>
@@ -131,7 +132,7 @@ export default function AboutV2() {
       {/* ===================== CLOSE ===================== */}
       <section className="rb-ab-pad" style={{ position: "relative", overflow: "hidden", background: "#080609", color: "#F5F1EA", padding: "150px 48px" }}>
         <div aria-hidden style={{ position: "absolute", inset: 0, background: "radial-gradient(70% 60% at 50% 0%, rgba(139,125,216,0.22) 0%, transparent 60%)" }} />
-        <div style={{ position: "relative", zIndex: 1, maxWidth: 760, margin: "0 auto", textAlign: "center" }}>
+        <div data-reveal style={{ position: "relative", zIndex: 1, maxWidth: 760, margin: "0 auto", textAlign: "center" }}>
           <div style={{ fontSize: 12, letterSpacing: ".32em", textTransform: "uppercase", color: "#B8AEDB", marginBottom: 22 }}>The offer</div>
           <h2 style={{ fontFamily: SERIF, fontWeight: 400, fontSize: "clamp(38px,4.8vw,68px)", lineHeight: 1.03, letterSpacing: "-0.015em", margin: 0 }}>Ready to stabilise your front office?</h2>
           <p style={{ margin: "24px auto 0", maxWidth: 600, fontSize: 17, lineHeight: 1.62, color: "rgba(245,241,234,0.66)" }}>We deploy, manage, and monitor the entire intake layer for you as an operated rental service, connecting directly to your existing CRM and calendars. The system handles the workflow up to the booking using your exact tone; your team closes the sale.</p>
