@@ -211,11 +211,12 @@ export default function HomepageV2() {
       // past it (into the capabilities/content). Never a solid black fill or outline.
       const hero = document.querySelector<HTMLElement>(".rb-hero-wrap");
       const solid = hero ? hero.getBoundingClientRect().bottom <= 8 : window.scrollY > window.innerHeight * 0.85;
-      bar.style.background = solid ? "rgba(12,11,16,0.12)" : "transparent";
+      bar.style.background = solid ? "rgba(8,7,11,0.12)" : "transparent";
       bar.style.backdropFilter = solid ? "blur(30px) saturate(1.4)" : "none";
       bar.style.setProperty("-webkit-backdrop-filter", solid ? "blur(30px) saturate(1.4)" : "none");
-      bar.style.borderColor = "transparent";
-      bar.style.boxShadow = solid ? "0 20px 50px -34px rgba(20,14,34,0.45)" : "none";
+      bar.style.borderColor = solid ? "rgba(245,241,234,0.1)" : "transparent";
+      bar.style.boxShadow = solid ? "0 16px 40px -34px rgba(0,0,0,0.3)" : "none";
+      bar.style.maxWidth = solid ? "980px" : "1180px";
       // Text adapts to the section behind the nav so it stays readable over both
       // dark and light sections. Visual is unchanged — only the text colour.
       let fg = "rgba(245,241,234,0.72)", fgs = "#F5F1EA";
