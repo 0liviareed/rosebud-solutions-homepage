@@ -439,7 +439,7 @@ function closedLoopHero(a: string): ReactNode {
       {pill("outcome file ↑", "#fff", a)}
       <span style={{ flex: 1, borderTop: "0.4cqw dashed #cbc6dd" }} />
     </div>
-    <div style={{ borderRadius: "2.6cqw", padding: "1.8cqw 2cqw", background: `linear-gradient(120deg, ${a}, #4A3BB6)`, color: "#fff", boxShadow: `0 3cqw 5cqw -2cqw ${a}88` }}>
+    <div style={{ borderRadius: "2.6cqw", padding: "1.8cqw 2cqw", background: "linear-gradient(120deg, #8B7DD8, #4B3F86)", color: "#fff", boxShadow: `0 3cqw 5cqw -2cqw ${a}88` }}>
       <div style={{ display: "flex", alignItems: "baseline", gap: "1cqw", marginBottom: "1.4cqw" }}>
         <span style={{ fontSize: "1.15cqw", letterSpacing: ".14em", textTransform: "uppercase", opacity: 0.75, fontWeight: 700 }}>Add-on layer</span>
         <span style={{ fontFamily: SERIF, fontWeight: 600, fontSize: "1.9cqw" }}>Closed-loop attribution</span>
