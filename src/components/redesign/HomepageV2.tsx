@@ -224,17 +224,14 @@ export default function HomepageV2() {
         const y = bar.getBoundingClientRect().bottom + 6;
         const prevPE = bar.style.pointerEvents;
         bar.style.pointerEvents = "none";
-        let el: Element | null = document.elementFromPoint(Math.round(window.innerWidth / 2), Math.round(y));
+        const el = document.elementFromPoint(Math.round(window.innerWidth / 2), Math.round(y));
         bar.style.pointerEvents = prevPE;
-        let lum = 20;
-        for (let hop = 0; el && hop < 8; hop++, el = el.parentElement) {
-          const cs = getComputedStyle(el);
-          const gi = cs.backgroundImage;
-          if (gi && gi.indexOf("gradient") >= 0) { const gm = gi.match(/rgba?\((\d+),\s*(\d+),\s*(\d+)/); if (gm) { lum = 0.299 * +gm[1] + 0.587 * +gm[2] + 0.114 * +gm[3]; break; } }
-          const bm = cs.backgroundColor.match(/^rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*([\d.]+))?/);
-          if (bm && (bm[4] === undefined || parseFloat(bm[4]) > 0.5)) { lum = 0.299 * +bm[1] + 0.587 * +bm[2] + 0.114 * +bm[3]; break; }
-        }
-        if (lum >= 145) { fg = "rgba(23,19,31,0.72)"; fgs = "#17131F"; }
+        // Deterministic: each section declares the nav theme it needs via
+        // data-navtheme. Light background → dark text; dark (or untagged) → light.
+        // Pixel sampling is unreliable over the pinned Capabilities section
+        // (light bg, dark preview frame), so we read the declared theme instead.
+        const themed = el?.closest("[data-navtheme]") as HTMLElement | null;
+        if (themed?.dataset.navtheme === "light") { fg = "rgba(23,19,31,0.72)"; fgs = "#17131F"; }
       }
       bar.style.setProperty("--nav-fg", fg);
       bar.style.setProperty("--nav-fg-strong", fgs);
@@ -413,7 +410,7 @@ export default function HomepageV2() {
       <div id="integrations" style={{ scrollMarginTop: 80 }}><Integrations /></div>
 
       {/* SECURITY / COMPLIANCE bento */}
-      <section className="rb-pad" style={{ position: "relative", overflow: "hidden", background: "#EDEBF3", color: "#17131F", padding: "120px 48px" }}>
+      <section data-navtheme="light" className="rb-pad" style={{ position: "relative", overflow: "hidden", background: "#EDEBF3", color: "#17131F", padding: "120px 48px" }}>
         <div style={{ position: "relative", zIndex: 1, maxWidth: 1180, margin: "0 auto" }}>
           <div style={{ fontSize: 12, letterSpacing: ".28em", textTransform: "uppercase", color: "#8B7DD8", marginBottom: 18 }}>Security</div>
           <h2 style={{ fontFamily: SERIF, fontWeight: 500, fontSize: "clamp(40px,5vw,74px)", lineHeight: 1.0, letterSpacing: "-0.01em", maxWidth: "20ch", margin: 0 }}>Your data stays yours, and your team stays in control</h2>

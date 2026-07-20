@@ -73,7 +73,7 @@ export default function Capabilities() {
   return (
     <>
       {/* USE CASES (pinned, 8 stages cycle with scroll) */}
-      <section ref={ucRef} style={{ position: "relative", background: "#F1EDE6", color: "#1A1720", height: "720vh" }}>
+      <section ref={ucRef} data-navtheme="light" style={{ position: "relative", background: "#F1EDE6", color: "#1A1720", height: "720vh" }}>
         <div style={{ position: "sticky", top: 0, height: "100vh", display: "flex", alignItems: "center", overflow: "hidden" }}>
           <div aria-hidden style={{ position: "absolute", inset: 0, zIndex: 0, background: UC_BG[active % 8], transition: "background 0.7s ease" }} />
           <div className="rb-uc-grid" style={{ position: "relative", zIndex: 1, width: "100%", maxWidth: 1220, margin: "0 auto", padding: "0 48px", display: "grid", gridTemplateColumns: "0.92fr 1.08fr", gap: 64, alignItems: "center" }}>
@@ -101,7 +101,7 @@ export default function Capabilities() {
 
             {/* RIGHT: FRAME */}
             <div style={{ position: "relative" }}>
-              <div className="rb-uc-frame-outer" style={{ background: "url(/assets/usecase-frame-v2.avif) center center/cover no-repeat", borderRadius: 28, padding: 40 }}>
+              <div className="rb-uc-frame-outer" data-navtheme="dark" style={{ background: "url(/assets/usecase-frame-v2.avif) center center/cover no-repeat", borderRadius: 28, padding: 40 }}>
                 <div className="rb-uc-frame" style={{ background: "linear-gradient(180deg,#1B1A24 0%,#121118 100%)", border: "1px solid rgba(255,255,255,0.08)", borderRadius: 18, display: "flex", minHeight: 408, overflow: "hidden", boxShadow: "inset 0 1px 0 rgba(255,255,255,0.06)" }}>
                   {/* thread */}
                   <div style={{ flex: 1.2, display: "flex", flexDirection: "column", minWidth: 0 }}>
