@@ -575,3 +575,32 @@ export function bespokeHero(slug: string, accent: string): ReactNode | null {
 export function bespokeDeep(slug: string, i: number, accent: string): ReactNode | null {
   return DEEPS[slug] ? DEEPS[slug](i, accent) : null;
 }
+
+// Mini-mock shown at the top of each "How it works" panel (fixed px, not cqw).
+export function bespokePanel(slug: string, i: number, accent: string): ReactNode | null {
+  if (slug !== "closed-loop-attribution") return null;
+  const chip: React.CSSProperties = { display: "inline-flex", alignItems: "center", gap: 8, background: "#fff", borderRadius: 12, padding: "9px 13px", boxShadow: "0 12px 26px -16px rgba(0,0,0,.55)" };
+  if (i === 0) return (
+    <div style={chip}>
+      <span style={{ fontFamily: "ui-monospace, monospace", fontSize: 12, color: "#8a8496" }}>gclid</span>
+      <span style={{ color: accent, fontWeight: 700 }}>→</span>
+      <span style={{ fontWeight: 700, fontSize: 13, color: "#17131F" }}>£14.2k won</span>
+    </div>
+  );
+  if (i === 1) return (
+    <div style={{ display: "inline-flex", alignItems: "center", gap: 10 }}>
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img src="/assets/integrations/google-ads.png" alt="" width={34} height={34} style={{ display: "block", background: "#fff", borderRadius: 9, padding: 5, boxShadow: "0 12px 26px -16px rgba(0,0,0,.55)" }} />
+      <span style={{ background: accent, color: "#fff", borderRadius: 999, padding: "7px 14px", fontSize: 12.5, fontWeight: 700 }}>Qualified ✓</span>
+    </div>
+  );
+  return (
+    <div style={{ display: "inline-flex", alignItems: "center", gap: 10 }}>
+      <div style={chip}>
+        <span style={{ width: 18, height: 18, borderRadius: 4, background: "#E6F6EC", color: "#2E9E5B", display: "grid", placeItems: "center", fontSize: 11 }}>▤</span>
+        <span style={{ fontWeight: 700, fontSize: 13, color: "#17131F" }}>outcomes.csv</span>
+      </div>
+      <span style={{ width: 32, height: 32, borderRadius: "50%", background: "rgba(245,241,234,0.1)", border: "1px solid rgba(245,241,234,0.2)", display: "grid", placeItems: "center", color: "#F5F1EA", fontSize: 13 }}>👤</span>
+    </div>
+  );
+}

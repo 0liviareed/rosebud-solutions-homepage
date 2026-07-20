@@ -2,7 +2,7 @@
 import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
 import BookDemoCTA from "./BookDemoCTA";
 import RedesignMobileMenu from "./RedesignMobileMenu";
-import { bespokeHero, bespokeDeep } from "./capabilityMocks";
+import { bespokeHero, bespokeDeep, bespokePanel } from "./capabilityMocks";
 import RedesignFooter from "./RedesignFooter";
 import {
   type CapabilityData,
@@ -246,7 +246,7 @@ export default function CapabilityPage({ data }: { data: CapabilityData }) {
               )}
             </div>
 
-            <h1 style={{ fontFamily: SERIF, fontWeight: 400, fontSize: "clamp(38px,4.5vw,66px)", lineHeight: 1.04, letterSpacing: "-0.015em", margin: 0, maxWidth: "15ch", color: "#17131F" }}>{data.hero.headlinePre}{data.hero.headlineEm ? <em style={{ fontStyle: "italic", color: "#6B5CC4" }}>{data.hero.headlineEm}</em> : null}</h1>
+            <h1 style={{ fontFamily: SERIF, fontWeight: 400, fontSize: "clamp(38px,4.5vw,66px)", lineHeight: 1.04, letterSpacing: "-0.015em", margin: 0, maxWidth: "18ch", color: "#17131F" }}>{data.hero.headlinePre}{data.hero.headlineEm ? <em style={{ fontStyle: "italic", color: "#6B5CC4" }}>{data.hero.headlineEm}</em> : null}</h1>
             <p style={{ marginTop: 26, maxWidth: 560, fontSize: "clamp(16px,1.3vw,18px)", lineHeight: 1.62, color: "rgba(23,19,31,0.66)" }}>{data.hero.subhead}</p>
             <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: 22, marginTop: 36 }}>
               <BookDemoCTA label="Get started" href="/pricing" tone="light" />
@@ -327,13 +327,23 @@ export default function CapabilityPage({ data }: { data: CapabilityData }) {
                     <img src={src} alt="" style={{ display: "block", width: "100%", height: "auto" }} />
                   </div>
                 ))
-              : (data.works.panelsText ?? []).map((p, i) => (
-                  <div key={i} style={{ ...panelBox, padding: "30px 28px", minHeight: 230 }}>
-                    <div style={{ width: 30, height: 30, borderRadius: 9, background: `${data.accent}1a`, color: data.accent, display: "flex", alignItems: "center", justifyContent: "center", fontFamily: SERIF, fontWeight: 600, fontSize: 15, marginBottom: 16 }}>{i + 1}</div>
-                    <div style={{ fontFamily: SERIF, fontSize: 22, fontWeight: 500, color: "#17131F", lineHeight: 1.15, marginBottom: 12 }}>{p.head}</div>
-                    <div style={{ fontSize: 14.5, lineHeight: 1.6, color: "rgba(23,19,31,0.62)" }}>{p.body}</div>
-                  </div>
-                ))}
+              : (data.works.panelsText ?? []).map((p, i) => {
+                  const visual = bespokePanel(data.slug, i, data.accent);
+                  if (visual) return (
+                    <div key={i} style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(245,241,234,0.1)", borderRadius: 20, padding: "30px 28px", minHeight: 230, display: "flex", flexDirection: "column", boxShadow: "inset 0 1px 0 rgba(255,255,255,0.06)" }}>
+                      <div style={{ minHeight: 44, marginBottom: 24, display: "flex", alignItems: "center" }}>{visual}</div>
+                      <div style={{ fontFamily: SERIF, fontSize: 22, fontWeight: 500, color: "#F5F1EA", lineHeight: 1.15, marginBottom: 12 }}>{p.head}</div>
+                      <div style={{ fontSize: 14.5, lineHeight: 1.6, color: "rgba(245,241,234,0.66)" }}>{p.body}</div>
+                    </div>
+                  );
+                  return (
+                    <div key={i} style={{ ...panelBox, padding: "30px 28px", minHeight: 230 }}>
+                      <div style={{ width: 30, height: 30, borderRadius: 9, background: `${data.accent}1a`, color: data.accent, display: "flex", alignItems: "center", justifyContent: "center", fontFamily: SERIF, fontWeight: 600, fontSize: 15, marginBottom: 16 }}>{i + 1}</div>
+                      <div style={{ fontFamily: SERIF, fontSize: 22, fontWeight: 500, color: "#17131F", lineHeight: 1.15, marginBottom: 12 }}>{p.head}</div>
+                      <div style={{ fontSize: 14.5, lineHeight: 1.6, color: "rgba(23,19,31,0.62)" }}>{p.body}</div>
+                    </div>
+                  );
+                })}
           </div>
         </div>
       </section>
