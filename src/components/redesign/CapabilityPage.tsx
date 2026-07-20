@@ -76,9 +76,27 @@ export default function CapabilityPage({ data }: { data: CapabilityData }) {
       bar.style.borderColor = solid ? "rgba(245,241,234,0.1)" : "transparent";
       bar.style.boxShadow = solid ? "0 16px 40px -34px rgba(0,0,0,0.3)" : "none";
       bar.style.maxWidth = solid ? "980px" : "1180px";
-      // Only the text stays dark when solid (it was flipping to light → unreadable on the light pages).
-      bar.style.setProperty("--nav-fg", "rgba(23,19,31,0.72)");
-      bar.style.setProperty("--nav-fg-strong", "#17131F");
+      // Text adapts to the section behind the nav so it stays readable over both the
+      // light sections and the dark ones (voices/deep-dive). Visual is unchanged.
+      let fg = "rgba(23,19,31,0.72)", fgs = "#17131F";
+      if (solid) {
+        const y = bar.getBoundingClientRect().bottom + 6;
+        const prevPE = bar.style.pointerEvents;
+        bar.style.pointerEvents = "none";
+        let el: Element | null = document.elementFromPoint(Math.round(window.innerWidth / 2), Math.round(y));
+        bar.style.pointerEvents = prevPE;
+        let lum = 240;
+        for (let hop = 0; el && hop < 8; hop++, el = el.parentElement) {
+          const cs = getComputedStyle(el);
+          const gi = cs.backgroundImage;
+          if (gi && gi.indexOf("gradient") >= 0) { const gm = gi.match(/rgba?\((\d+),\s*(\d+),\s*(\d+)/); if (gm) { lum = 0.299 * +gm[1] + 0.587 * +gm[2] + 0.114 * +gm[3]; break; } }
+          const bm = cs.backgroundColor.match(/^rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*([\d.]+))?/);
+          if (bm && (bm[4] === undefined || parseFloat(bm[4]) > 0.5)) { lum = 0.299 * +bm[1] + 0.587 * +bm[2] + 0.114 * +bm[3]; break; }
+        }
+        if (lum < 145) { fg = "rgba(245,241,234,0.85)"; fgs = "#F5F1EA"; }
+      }
+      bar.style.setProperty("--nav-fg", fg);
+      bar.style.setProperty("--nav-fg-strong", fgs);
       bar.style.setProperty("--nav-pill-bg", solid ? "rgba(245,241,234,0.1)" : "rgba(23,19,31,0.06)");
       bar.style.setProperty("--nav-pill-border", solid ? "rgba(245,241,234,0.28)" : "rgba(23,19,31,0.18)");
     };

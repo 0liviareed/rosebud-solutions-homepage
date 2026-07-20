@@ -216,6 +216,27 @@ export default function HomepageV2() {
       bar.style.setProperty("-webkit-backdrop-filter", solid ? "blur(30px) saturate(1.4)" : "none");
       bar.style.borderColor = "transparent";
       bar.style.boxShadow = solid ? "0 20px 50px -34px rgba(20,14,34,0.45)" : "none";
+      // Text adapts to the section behind the nav so it stays readable over both
+      // dark and light sections. Visual is unchanged — only the text colour.
+      let fg = "rgba(245,241,234,0.72)", fgs = "#F5F1EA";
+      if (solid) {
+        const y = bar.getBoundingClientRect().bottom + 6;
+        const prevPE = bar.style.pointerEvents;
+        bar.style.pointerEvents = "none";
+        let el: Element | null = document.elementFromPoint(Math.round(window.innerWidth / 2), Math.round(y));
+        bar.style.pointerEvents = prevPE;
+        let lum = 20;
+        for (let hop = 0; el && hop < 8; hop++, el = el.parentElement) {
+          const cs = getComputedStyle(el);
+          const gi = cs.backgroundImage;
+          if (gi && gi.indexOf("gradient") >= 0) { const gm = gi.match(/rgba?\((\d+),\s*(\d+),\s*(\d+)/); if (gm) { lum = 0.299 * +gm[1] + 0.587 * +gm[2] + 0.114 * +gm[3]; break; } }
+          const bm = cs.backgroundColor.match(/^rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*([\d.]+))?/);
+          if (bm && (bm[4] === undefined || parseFloat(bm[4]) > 0.5)) { lum = 0.299 * +bm[1] + 0.587 * +bm[2] + 0.114 * +bm[3]; break; }
+        }
+        if (lum >= 145) { fg = "rgba(23,19,31,0.72)"; fgs = "#17131F"; }
+      }
+      bar.style.setProperty("--nav-fg", fg);
+      bar.style.setProperty("--nav-fg-strong", fgs);
     };
     window.addEventListener("scroll", onScroll, { passive: true });
     onScroll();
