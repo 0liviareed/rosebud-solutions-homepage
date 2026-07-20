@@ -12,6 +12,7 @@ export type CapabilityData = {
   works: { headlinePre: string; headlineEm: string; panels?: string[]; panelsText?: WorksPanelText[] };
   integrationsSub: string;
   deep: DeepBlock[];
+  deepCtas?: { label: string; href: string }[]; // per-page override for the deep-dive CTAs
   close: { heading: string; subhead: string };
 };
 
@@ -231,23 +232,28 @@ export const CAPABILITIES: Record<string, CapabilityData> = {
   "closed-loop-attribution": {
     slug: "closed-loop-attribution", name: "Closed-loop attribution", accent: "#8B7DD8",
     hero: {
-      headlinePre: "Show Google which ads bring real customers & let it find you more", headlineEm: "",
-      subhead: "Right now Google only sees that someone filled in a form, so it keeps chasing volume. Because the system handles that lead from first message to booking, it matches the final outcome straight back to the original click, and your bidding learns the difference, shifting spend toward real customers.",
+      headlinePre: "Show Google which ads bring real customers & let it find you ", headlineEm: "more",
+      subhead: "Stop wasting your ad spend on lookers instead of buyers. Right now, Google only sees that someone filled in a form, so it keeps chasing volume. Because the platform handles that lead from first message to booking, it matches the final outcome straight to the original click. Your ad bidding learns the difference and automatically shifts toward real customers.",
     },
     works: {
       headlinePre: "Your ad budget, focused purely on real buyers", headlineEm: "",
       panelsText: [
-        { head: "Track the whole journey", body: "The system runs your leads from first message to booking, keeping the original click details and the final result on a single record." },
-        { head: "Send clear signals back", body: "Your ad account finds out exactly which keywords and clicks brought in qualified business, removing the guesswork from every bid." },
-        { head: "Your media team stays in control", body: "We bundle the clean outcome file and hand it over. Your team runs the uploads, and we never touch your ad account." },
+        { head: "Track the whole journey", body: "The platform runs your leads from start to booking, keeping the original click details and the final result on a single record." },
+        { head: "Send clear signals back", body: "Your ad account finds out exactly which keywords and clicks brought in qualified business, removing the guesswork." },
+        { head: "Your media team stays in control", body: "We bundle the clean outcome file and hand it over to your team. They run the uploads, and we never touch your ad account." },
       ],
     },
-    integrationsSub: "Closed-loop attribution captures the click ID on every lead & hands your media team a clean, Google-spec outcome file to upload, without ever logging into your ad account",
-    deep: [
-      { num: "01", kicker: "Match", title: "Tie every lead to its click", body: "When somebody clicks your ad, Google tags it with an ID. The system saves that ID the second they message you, so a customer can be traced back to the exact ad and keyword that produced them. It's caught in a hidden field on your own form, with a tracking number doing the same for phone calls, and contact details are hashed before any matching, so the link holds even where the ID goes missing." },
-      { num: "02", kicker: "Tag", title: "Tell it which leads were any good", body: "Google only knows a form was filled in, so it can't tell a serious buyer from a time-waster. Because Rosebud filters and scores every lead against your rules, the answer is already on the file: this one qualified, that one didn't. That verdict is what goes back. And where your CRM reports a closed deal, the real figure replaces the estimate on the record." },
-      { num: "03", kicker: "Deliver", title: "Handed to your media team, never your account", body: "We format your data to Google's exact specifications and deliver the file to your marketing team on a set schedule. They handle the uploads and own campaign performance, and we never log into your ad tools. The system only processes leads from your own site, where visitors have given explicit consent." },
+    integrationsSub: "Closed-loop attribution matches qualified outcomes to the original Google click & hands your media team a file that is ready to upload",
+    deepCtas: [
+      { label: "Get started", href: "/pricing" },
+      { label: "Get started", href: "/pricing" },
+      { label: "Get started", href: "/pricing" },
     ],
-    close: { heading: "Ready to spend only on the clicks that become customers?", subhead: "We deploy, manage & monitor the attribution layer for you as an operated rental service that connects to your current CRM & site. The system ties every qualified outcome back to its click and hands the file to your media team; they own the ad account and the uploads." },
+    deep: [
+      { num: "01", kicker: "Match", title: "Tie every lead to its click", body: "When somebody clicks your ad, Google tags it with an ID. The platform saves this ID the second they message you, so a customer can be traced back to the exact ad and keyword that produced them. The ID is caught in a hidden field on your own form as the enquiry is submitted, with a tracking number doing the same job for phone calls. Contact details are hashed before any matching happens, so the link holds even where the ID goes missing." },
+      { num: "02", kicker: "Tag", title: "Tell it which leads were any good", body: "Google only knows that a form was filled in. It cannot tell a serious buyer from a time-waster. Because Rosebud filters and scores every lead using your rules, the answer is already on the file: this one qualified, that one did not. That verdict is what goes back, so your bidding stops treating every form the same. Where your CRM reports a closed deal back to us, the real figure replaces the estimate on the record." },
+      { num: "03", kicker: "Deliver", title: "Handed to your media team, never your account", body: "We format your data to Google's exact specifications and deliver the file to your marketing team on a set schedule. They handle the uploads and own the campaign performance, and we never log into your ad tools. The platform only processes leads from your own site where visitors have given explicit consent." },
+    ],
+    close: { heading: "Ready to maximise the return on your Google ad spend?", subhead: "This premium intelligence layer is an add-on that requires the full Rosebud system to operate, as it relies entirely on the data captured, qualified, and tracked by your core setup. To fuel the machine learning engine effectively, your campaigns should regularly generate 30 to 50 monthly conversions from your own website forms with standard consent checkboxes active. We will run a complete pipeline audit during your setup session to ensure your current ad volume is perfectly positioned to capture maximum scaling leverage." },
   },
 };

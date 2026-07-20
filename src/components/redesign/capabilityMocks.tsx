@@ -416,109 +416,150 @@ function followThroughDeep(i: number, a: string): ReactNode {
 // ── CLOSED-LOOP ATTRIBUTION ───────────────────────────────────────────────────
 function clRow(k: string, v: ReactNode, mono = false): ReactNode {
   return (
-    <div style={{ display: "flex", alignItems: "center", gap: "1.2cqw", padding: "1.5cqw 0", borderBottom: "1px solid #f2f3f5" }}>
-      <span style={{ width: "38%", fontSize: "1.35cqw", letterSpacing: ".04em", textTransform: "uppercase", color: "#9aa0a8", fontWeight: 700 }}>{k}</span>
-      <span style={{ flex: 1, fontWeight: 700, fontSize: "1.7cqw", color: "#17131F", fontFamily: mono ? "ui-monospace, monospace" : undefined, display: "flex", alignItems: "center", gap: ".8cqw" }}>{v}</span>
+    <div style={{ display: "flex", alignItems: "center", gap: "1.2cqw", padding: "1.4cqw 0", borderBottom: "1px solid #f2f3f5" }}>
+      <span style={{ width: "34%", fontSize: "1.2cqw", letterSpacing: ".06em", textTransform: "uppercase", color: "#9aa0a8", fontWeight: 700 }}>{k}</span>
+      <span style={{ flex: 1, fontWeight: 700, fontSize: "1.6cqw", color: "#17131F", fontFamily: mono ? "ui-monospace, monospace" : undefined, display: "flex", alignItems: "center", gap: ".8cqw" }}>{v}</span>
+    </div>
+  );
+}
+// Vertically-centred wrapper with no inter-child gap (the dashed connectors provide the spacing).
+function clWrap(children: ReactNode): ReactNode {
+  return <div style={{ position: "absolute", inset: 0, display: "flex", flexDirection: "column", justifyContent: "center", padding: "6%" }}>{children}</div>;
+}
+// Dashed vertical connector, optional floating pill label, arrowhead at the foot.
+function clConn(label?: string): ReactNode {
+  return (
+    <div style={{ display: "flex", flexDirection: "column", alignItems: "center", margin: "0.3cqw 0" }}>
+      <div style={{ height: "1.7cqw", borderLeft: "0.35cqw dashed #b3aacf" }} />
+      {label ? <span style={{ background: "#fff", border: "1px solid #e7e2f2", borderRadius: 999, padding: ".7cqw 1.5cqw", fontSize: "1.2cqw", fontWeight: 700, color: "#6b6480", boxShadow: "0 1cqw 2cqw -1.2cqw rgba(23,19,31,.25)" }}>{label}</span> : null}
+      <div style={{ height: "1.7cqw", borderLeft: "0.35cqw dashed #b3aacf" }} />
+      <span style={{ fontSize: "1.4cqw", lineHeight: 0.6, color: "#b3aacf" }}>▾</span>
+    </div>
+  );
+}
+// Dashed-border box with an uppercase label (Outside the loop / boundary).
+function clDashedBox(label: string, children: ReactNode, labelColor = "#9a94ad"): ReactNode {
+  return (
+    <div style={{ border: "0.3cqw dashed #b9b2d6", borderRadius: "2.2cqw", padding: "1.4cqw 1.6cqw" }}>
+      <div style={{ fontSize: "1.1cqw", letterSpacing: ".16em", textTransform: "uppercase", color: labelColor, fontWeight: 700, marginBottom: "1cqw" }}>{label}</div>
+      {children}
     </div>
   );
 }
 function closedLoopHero(a: string): ReactNode {
   const caps = ["Capture", "Qualify", "Book", "Retain", "Reactivate", "Follow through"];
-  const stages: [string, string][] = [["01", "Match"], ["02", "Tag"], ["03", "Deliver"]];
-  return sq(a, center(<>
-    <div style={{ ...CARD_SM, padding: "1.5cqw 2cqw", display: "flex", alignItems: "center", gap: "1.3cqw" }}>
-      {bLogo("google-ads.png", 5.4)}
-      <div style={{ flex: 1 }}>
-        <div style={{ fontSize: "1.15cqw", letterSpacing: ".14em", textTransform: "uppercase", color: "#b3b8bf", fontWeight: 700 }}>Outside the loop</div>
-        <div style={{ fontWeight: 700, fontSize: "1.65cqw", color: "#17131F" }}>Google Ads</div>
+  const stages: [string, string][] = [["Step 1", "Match"], ["Step 2", "Tag"], ["Step 3", "Deliver"]];
+  return sq(a, clWrap(<>
+    {clDashedBox("Outside the loop", (
+      <div style={{ ...CARD_SM, padding: "1.4cqw 1.6cqw", display: "flex", alignItems: "center", gap: "1.2cqw" }}>
+        {bLogo("google-ads.png", 4.6)}
+        <div style={{ flex: 1 }}><div style={{ fontWeight: 700, fontSize: "1.6cqw", color: "#17131F" }}>Google Ads</div><div style={{ fontSize: "1.15cqw", color: "#8a9099" }}>Your team uploads · we never log in</div></div>
       </div>
-      <span style={{ fontSize: "1.2cqw", color: "#8a9099", fontWeight: 600 }}>🔒 never log in</span>
-    </div>
-    <div style={{ display: "flex", alignItems: "center", gap: "1.2cqw" }}>
-      <span style={{ flex: 1, borderTop: "0.4cqw dashed #cbc6dd" }} />
-      {pill("outcome file ↑", "#fff", a)}
-      <span style={{ flex: 1, borderTop: "0.4cqw dashed #cbc6dd" }} />
-    </div>
-    <div style={{ borderRadius: "2.6cqw", padding: "1.8cqw 2cqw", background: "linear-gradient(120deg, #8B7DD8, #4B3F86)", color: "#fff", boxShadow: `0 3cqw 5cqw -2cqw ${a}88` }}>
-      <div style={{ display: "flex", alignItems: "baseline", gap: "1cqw", marginBottom: "1.4cqw" }}>
-        <span style={{ fontSize: "1.15cqw", letterSpacing: ".14em", textTransform: "uppercase", opacity: 0.75, fontWeight: 700 }}>Add-on layer</span>
-        <span style={{ fontFamily: SERIF, fontWeight: 600, fontSize: "1.9cqw" }}>Closed-loop attribution</span>
+    ))}
+    {clConn("outcome file ↑")}
+    <div style={{ borderRadius: "2.4cqw", padding: "1.6cqw 1.8cqw", background: "linear-gradient(120deg, #8B7DD8, #4B3F86)", color: "#fff", boxShadow: "0 3cqw 5cqw -2.4cqw rgba(75,63,134,.6)" }}>
+      <div style={{ display: "flex", alignItems: "baseline", justifyContent: "space-between", marginBottom: "1.2cqw" }}>
+        <span style={{ fontSize: "1.1cqw", letterSpacing: ".16em", textTransform: "uppercase", opacity: 0.72, fontWeight: 700 }}>Add-on layer</span>
+        <span style={{ fontFamily: SERIF, fontStyle: "italic", fontWeight: 600, fontSize: "1.85cqw" }}>Closed-loop attribution</span>
       </div>
       <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: "1cqw" }}>
         {stages.map(([n, l]) => (
-          <div key={n} style={{ background: "rgba(255,255,255,0.16)", borderRadius: "1.4cqw", padding: "1.1cqw", textAlign: "center" }}>
-            <div style={{ fontSize: "1.15cqw", opacity: 0.8, fontWeight: 700 }}>{n}</div>
+          <div key={n} style={{ background: "rgba(255,255,255,0.14)", borderRadius: "1.4cqw", padding: "1.2cqw .8cqw", textAlign: "center" }}>
+            <div style={{ fontSize: "1.05cqw", letterSpacing: ".08em", textTransform: "uppercase", opacity: 0.75, fontWeight: 700, marginBottom: ".3cqw" }}>{n}</div>
             <div style={{ fontWeight: 700, fontSize: "1.5cqw" }}>{l}</div>
           </div>
         ))}
       </div>
     </div>
-    <div style={{ ...CARD }}>
-      <div style={{ padding: "1.4cqw 2cqw 0.2cqw", fontSize: "1.2cqw", letterSpacing: ".14em", textTransform: "uppercase", color: "#9aa0a8", fontWeight: 700 }}>Rosebud core system</div>
-      <div style={{ padding: "1cqw 2cqw 1.6cqw", display: "flex", flexWrap: "wrap", gap: "0.8cqw" }}>
-        {caps.map((c) => <span key={c} style={{ background: `${a}12`, color: a, borderRadius: 999, padding: ".7cqw 1.3cqw", fontSize: "1.25cqw", fontWeight: 700 }}>{c}</span>)}
+    {clConn("click IDs + qualified outcomes ↑")}
+    <div style={{ ...CARD, padding: "1.4cqw 1.8cqw" }}>
+      <div style={{ display: "flex", alignItems: "center", gap: "1cqw", marginBottom: "1.1cqw" }}>
+        <span style={{ width: "2cqw", height: "2cqw", borderRadius: "50%", background: a, display: "grid", placeItems: "center" }}><span style={{ width: ".8cqw", height: ".8cqw", borderRadius: "50%", background: "#fff" }} /></span>
+        <span style={{ fontWeight: 700, fontSize: "1.6cqw", color: "#17131F" }}>Rosebud core system</span>
+      </div>
+      <div style={{ display: "flex", flexWrap: "wrap", gap: "0.7cqw" }}>
+        {caps.map((c) => <span key={c} style={{ background: `${a}14`, color: a, borderRadius: 999, padding: ".7cqw 1.2cqw", fontSize: "1.2cqw", fontWeight: 700 }}>{c}</span>)}
       </div>
     </div>
   </>));
 }
 function closedLoopDeep(i: number, a: string): ReactNode {
-  if (i === 0) return sq(a, center(<>
-    <div style={{ ...CARD_SM, padding: "1.5cqw 2cqw", display: "flex", alignItems: "center", gap: "1.2cqw" }}>
-      {bLogo("google-ads.png", 5)}
-      <div style={{ flex: 1 }}><div style={{ fontSize: "1.2cqw", color: "#8a9099", fontWeight: 700 }}>Ad click</div><div style={{ fontFamily: "ui-monospace, monospace", fontWeight: 700, fontSize: "1.6cqw", color: "#17131F" }}>gclid Cj0KaQ…</div></div>
-      <span style={{ fontSize: "1.5cqw", color: a }}>↓</span>
+  if (i === 0) return sq(a, clWrap(<>
+    <div style={{ alignSelf: "center", ...CARD_SM, padding: "1.3cqw 1.7cqw", display: "flex", alignItems: "center", gap: "1.1cqw" }}>
+      {bLogo("google-ads.png", 4.2)}
+      <div><div style={{ fontWeight: 700, fontSize: "1.55cqw", color: "#17131F" }}>Ad click</div><div style={{ fontFamily: "ui-monospace, monospace", fontSize: "1.3cqw", color: "#8a9099" }}>gclid = Cj0KaQ…</div></div>
     </div>
+    {clConn()}
     <div style={{ ...CARD }}>
-      {hdr(a, "Lead record", "still attached · 6 wks")}
-      <div style={{ padding: "1.6cqw 2.6cqw" }}>
-        <div style={{ display: "flex", alignItems: "center", gap: "1.4cqw", marginBottom: "1cqw" }}>
-          {avatar("RB", `${a}22`, a, 3.8)}
-          <div style={{ flex: 1 }}><div style={{ fontWeight: 700, fontSize: "1.85cqw", color: "#17131F" }}>Rachel Byrne</div><div style={{ fontSize: "1.3cqw", color: "#8a9099" }}>Google / paid search</div></div>
-          {pill("Qualified ✓", GREEN_BG, GREEN)}
-        </div>
-        {clRow("Ad click (gclid)", "Cj0KaQ…", true)}
-        {clRow("Source", "Google / paid search")}
+      <div style={{ background: "#4B3F86", color: "#fff", padding: "1.5cqw 2cqw", display: "flex", alignItems: "center", gap: "1cqw" }}>
+        <span style={{ width: "1.6cqw", height: "1.6cqw", borderRadius: "50%", background: "#4ADE80" }} />
+        <span style={{ fontFamily: SERIF, fontWeight: 600, fontSize: "1.9cqw" }}>Lead record</span>
       </div>
-      <div style={{ padding: "1.4cqw 2.6cqw 1.8cqw", fontSize: "1.35cqw", fontWeight: 600, color: "#5a5566" }}>Caught in a hidden field, hashed before matching, still linked 6 weeks on</div>
+      <div style={{ padding: "0.4cqw 2.4cqw 1cqw" }}>
+        {clRow("Contact", "Rachel Byrne")}
+        {clRow("Source", "Google / paid")}
+        {clRow("Click ID", "Cj0KaQ…", true)}
+      </div>
+      <div style={{ padding: "0 2.4cqw 1.8cqw" }}>
+        <span style={{ display: "inline-flex", alignItems: "center", gap: ".7cqw", background: GREEN_BG, color: GREEN, borderRadius: 999, padding: ".8cqw 1.4cqw", fontSize: "1.3cqw", fontWeight: 700 }}><span style={{ width: "1.1cqw", height: "1.1cqw", borderRadius: "50%", background: GREEN }} />Still attached · 6 weeks later</span>
+      </div>
     </div>
   </>));
-  if (i === 1) return sq(a, center(
+  if (i === 1) return softSq("linear-gradient(155deg,#F3EBE1,#EFE5D7)", clWrap(<>
     <div style={{ ...CARD }}>
-      {hdr(a, "Signal sent back", "● qualified")}
-      <div style={{ padding: "1.8cqw 2.6cqw 1cqw" }}>
-        <div style={{ display: "flex", alignItems: "center", gap: "1.4cqw", marginBottom: "1.4cqw" }}>
-          {avatar("RB", `${a}22`, a, 4)}
-          <div style={{ flex: 1 }}><div style={{ fontWeight: 700, fontSize: "1.9cqw", color: "#17131F" }}>Rachel Byrne</div><div style={{ fontSize: "1.3cqw", color: "#8a9099" }}>Google / paid search</div></div>
-          {pill("Qualified ✓", GREEN_BG, GREEN)}
-        </div>
-        {clRow("Verdict", <>Qualified {pill("✓", GREEN_BG, GREEN)}</>)}
-        {clRow("Value (CRM)", "est. £14.2k")}
+      <div style={{ padding: "1.6cqw 2cqw", borderBottom: "1px solid #f2f3f5", display: "flex", alignItems: "center", gap: "1.3cqw" }}>
+        {avatar("RB", a, "#fff", 4)}
+        <div style={{ flex: 1 }}><div style={{ fontWeight: 700, fontSize: "1.85cqw", color: "#17131F" }}>Rachel Byrne</div><div style={{ fontSize: "1.3cqw", color: "#8a9099" }}>from Google / paid search</div></div>
+        {pill("✓ Qualified", GREEN_BG, GREEN)}
       </div>
-      <div style={{ margin: "0.4cqw 1.8cqw 1.8cqw", background: "#17131F", color: "#F5F1EA", borderRadius: "1.6cqw", padding: "1.5cqw 2cqw", display: "flex", alignItems: "center", gap: "1cqw", fontSize: "1.4cqw", fontWeight: 600 }}>
-        <span style={{ fontSize: "1.6cqw" }}>↻</span> Estimate becomes the real closed value when your CRM reports back
+      <div style={{ padding: "1.6cqw 2cqw", display: "flex", gap: "1.4cqw" }}>
+        <div style={{ flex: 1, background: "#f6f7f9", borderRadius: "1.6cqw", padding: "1.4cqw 1.6cqw" }}>
+          <div style={{ fontSize: "1.1cqw", letterSpacing: ".1em", textTransform: "uppercase", color: "#9aa0a8", fontWeight: 700, marginBottom: ".6cqw" }}>Signal sent</div>
+          <div style={{ fontFamily: SERIF, fontWeight: 600, fontSize: "2.6cqw", color: "#17131F" }}>Qualified ✔</div>
+        </div>
+        <div style={{ flex: 1, background: `${a}14`, borderRadius: "1.6cqw", padding: "1.4cqw 1.6cqw" }}>
+          <div style={{ fontSize: "1.1cqw", letterSpacing: ".1em", textTransform: "uppercase", color: a, fontWeight: 700, marginBottom: ".6cqw" }}>Value (CRM)</div>
+          <div style={{ fontFamily: SERIF, fontWeight: 600, fontSize: "2.6cqw", color: a }}><span style={{ fontSize: "1.4cqw", color: "#b3b8bf", textDecoration: "line-through" }}>est.</span> £14.2k</div>
+        </div>
       </div>
     </div>
-  ));
-  return sq(a, center(
+    <div style={{ marginTop: "1.8cqw", background: "#17131F", color: "#F5F1EA", borderRadius: "1.8cqw", padding: "1.5cqw 2cqw", display: "flex", alignItems: "center", gap: "1cqw", fontSize: "1.4cqw", fontWeight: 600 }}>
+      <span style={{ fontSize: "1.5cqw" }}>↻</span> Estimate → real closed value, when your CRM reports back
+    </div>
+  </>));
+  return sq(a, clWrap(<>
     <div style={{ ...CARD }}>
-      {hdr(a, "outcomes.csv", "Google spec · hashed")}
-      <div style={{ padding: "1.6cqw 2.4cqw 1.2cqw" }}>
-        <div style={{ display: "grid", gridTemplateColumns: "1.5fr 1.2fr 0.8fr", alignItems: "center", columnGap: "1cqw" }}>
-          {["Click ID", "Outcome", "Value"].map((h) => <span key={h} style={{ fontSize: "1.25cqw", textTransform: "uppercase", letterSpacing: ".06em", color: "#9aa0a8", fontWeight: 700, paddingBottom: "1cqw", borderBottom: "1px solid #eef0f2" }}>{h}</span>)}
-          {([["Cj0KaQ…", "Qualified", "£14.2k", true], ["EAla9C…", "No sale", "—", false]] as [string, string, string, boolean][]).flatMap(([id, o, v, ok]) => [
-            <span key={id + "i"} style={{ fontFamily: "ui-monospace, monospace", fontWeight: 700, fontSize: "1.55cqw", color: "#17131F", padding: "1.4cqw 0", borderBottom: "1px solid #f6f7f9" }}>{id}</span>,
-            <span key={id + "o"} style={{ padding: "1.4cqw 0", borderBottom: "1px solid #f6f7f9" }}>{pill(o, ok ? GREEN_BG : GREY_BG, ok ? GREEN : GREY)}</span>,
-            <span key={id + "v"} style={{ fontWeight: 700, fontSize: "1.6cqw", color: ok ? "#17131F" : "#b3b8bf", padding: "1.4cqw 0", borderBottom: "1px solid #f6f7f9", textAlign: "right" }}>{v}</span>,
+      <div style={{ padding: "1.5cqw 2cqw", display: "flex", alignItems: "center", gap: "1.1cqw", borderBottom: "1px solid #f2f3f5" }}>
+        <span style={{ width: "2.6cqw", height: "2.6cqw", borderRadius: ".7cqw", background: GREEN_BG, color: GREEN, display: "grid", placeItems: "center", fontSize: "1.4cqw" }}>▤</span>
+        <div style={{ flex: 1 }}><div style={{ fontWeight: 700, fontSize: "1.65cqw", color: "#17131F" }}>outcomes.csv</div><div style={{ fontSize: "1.2cqw", color: "#8a9099" }}>Google spec · hashed</div></div>
+        {pill("● Every Monday", `${a}18`, a)}
+      </div>
+      <div style={{ padding: "1cqw 2cqw 1.4cqw" }}>
+        <div style={{ display: "grid", gridTemplateColumns: "1.5fr 1fr 0.7fr", alignItems: "center", columnGap: "1cqw" }}>
+          {["Click ID", "Outcome", "Value"].map((h, j) => <span key={h} style={{ fontSize: "1.1cqw", textTransform: "uppercase", letterSpacing: ".06em", color: "#9aa0a8", fontWeight: 700, paddingBottom: ".8cqw", textAlign: j === 2 ? "right" : "left" }}>{h}</span>)}
+          {([["Cj0KaQ…", "Qualified", "£14.2k", true], ["EA1a9C…", "No sale", "—", false]] as [string, string, string, boolean][]).flatMap(([id, o, v, ok]) => [
+            <span key={id + "i"} style={{ fontFamily: "ui-monospace, monospace", fontWeight: 700, fontSize: "1.4cqw", color: "#17131F", padding: "1cqw 0" }}>{id}</span>,
+            <span key={id + "o"} style={{ padding: "1cqw 0" }}>{pill(o, ok ? GREEN_BG : GREY_BG, ok ? GREEN : GREY)}</span>,
+            <span key={id + "v"} style={{ fontWeight: 700, fontSize: "1.45cqw", color: ok ? "#17131F" : "#b3b8bf", padding: "1cqw 0", textAlign: "right" }}>{v}</span>,
           ])}
         </div>
       </div>
-      <div style={{ padding: "1.4cqw 2.4cqw 1.8cqw", display: "flex", alignItems: "center", gap: "1.2cqw" }}>
-        {pill("Every Monday", `${a}1f`, a)}
-        <span style={{ flex: 1, fontSize: "1.4cqw", fontWeight: 600, color: "#8a9099" }}>Your media team runs the upload</span>
-        <span style={{ fontSize: "1.8cqw" }}>🔒</span>
-      </div>
     </div>
-  ));
+    {clConn("delivered to your team")}
+    <div style={{ background: "#0E0C12", color: "#F5F1EA", borderRadius: "2cqw", padding: "1.5cqw 1.8cqw", display: "flex", alignItems: "center", gap: "1.2cqw" }}>
+      <span style={{ width: "3cqw", height: "3cqw", borderRadius: ".8cqw", background: "rgba(255,255,255,0.1)", display: "grid", placeItems: "center", fontSize: "1.5cqw" }}>👥</span>
+      <div style={{ flex: 1 }}><div style={{ fontWeight: 700, fontSize: "1.6cqw" }}>Your media team</div><div style={{ fontSize: "1.2cqw", opacity: 0.7 }}>reviews & runs the upload</div></div>
+      <span style={{ background: a, color: "#fff", borderRadius: 999, padding: ".8cqw 1.5cqw", fontSize: "1.3cqw", fontWeight: 700 }}>Upload ↑</span>
+    </div>
+    {clConn()}
+    {clDashedBox("Outside the boundary", (
+      <div style={{ display: "flex", alignItems: "center", gap: "1.1cqw" }}>
+        {bLogo("google-ads.png", 4)}
+        <div style={{ flex: 1 }}><div style={{ fontWeight: 700, fontSize: "1.55cqw", color: "#17131F" }}>Google Ads account</div><div style={{ fontSize: "1.2cqw", color: "#8a9099" }}>We never log in</div></div>
+        <span style={{ fontSize: "1.6cqw" }}>🔒</span>
+      </div>
+    ), a)}
+  </>));
 }
 
 const HEROES: Record<string, (a: string) => ReactNode> = {
