@@ -229,7 +229,7 @@ export const CAPABILITIES: Record<string, CapabilityData> = {
   },
 
   "closed-loop-attribution": {
-    slug: "closed-loop-attribution", name: "Closed-loop attribution", accent: "#12A594",
+    slug: "closed-loop-attribution", name: "Closed-loop attribution", accent: "#6D5AE6",
     hero: {
       headlinePre: "Show Google which ads bring real customers & let it find you more", headlineEm: "",
       subhead: "Right now Google only sees that someone filled in a form, so it keeps chasing volume. Because the system handles that lead from first message to booking, it matches the final outcome straight back to the original click, and your bidding learns the difference, shifting spend toward real customers.",

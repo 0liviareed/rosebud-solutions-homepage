@@ -423,57 +423,80 @@ function clRow(k: string, v: ReactNode, mono = false): ReactNode {
   );
 }
 function closedLoopHero(a: string): ReactNode {
+  const caps = ["Capture", "Qualify", "Book", "Retain", "Reactivate", "Follow through"];
+  const stages: [string, string][] = [["01", "Match"], ["02", "Tag"], ["03", "Deliver"]];
   return sq(a, center(<>
-    <div style={{ ...CARD }}>
-      {hdr(a, "Rosebud core system", "inside the loop")}
-      <div style={{ padding: "0.4cqw 2.6cqw 1.2cqw" }}>
-        {clRow("Ad click", "gclid Cj0KaQ…", true)}
-        {clRow("Outcome", <>Qualified {pill("✓", GREEN_BG, GREEN)}</>)}
-        {clRow("Value", "£14.2k")}
+    <div style={{ ...CARD_SM, padding: "1.5cqw 2cqw", display: "flex", alignItems: "center", gap: "1.3cqw" }}>
+      {bLogo("google-ads.png", 5.4)}
+      <div style={{ flex: 1 }}>
+        <div style={{ fontSize: "1.15cqw", letterSpacing: ".14em", textTransform: "uppercase", color: "#b3b8bf", fontWeight: 700 }}>Outside the loop</div>
+        <div style={{ fontWeight: 700, fontSize: "1.65cqw", color: "#17131F" }}>Google Ads</div>
       </div>
+      <span style={{ fontSize: "1.2cqw", color: "#8a9099", fontWeight: 600 }}>🔒 never log in</span>
     </div>
     <div style={{ display: "flex", alignItems: "center", gap: "1.2cqw" }}>
-      <span style={{ flex: 1, borderTop: "0.4cqw dashed #cbd0d6" }} />
-      {pill("outcome file ↑", `${a}1f`, a)}
-      <span style={{ flex: 1, borderTop: "0.4cqw dashed #cbd0d6" }} />
+      <span style={{ flex: 1, borderTop: "0.4cqw dashed #cbc6dd" }} />
+      {pill("outcome file ↑", "#fff", a)}
+      <span style={{ flex: 1, borderTop: "0.4cqw dashed #cbc6dd" }} />
     </div>
-    <div style={{ ...CARD_SM, padding: "1.6cqw 2cqw", display: "flex", alignItems: "center", gap: "1.4cqw" }}>
-      {bLogo("google-ads.png", 6)}
-      <div style={{ flex: 1 }}><div style={{ fontWeight: 700, fontSize: "1.7cqw", color: "#17131F" }}>Google Ads</div><div style={{ fontSize: "1.3cqw", color: "#8a9099" }}>Your team uploads · we never log in</div></div>
-      <span style={{ fontSize: "2cqw" }}>🔒</span>
+    <div style={{ borderRadius: "2.6cqw", padding: "1.8cqw 2cqw", background: `linear-gradient(120deg, ${a}, #4A3BB6)`, color: "#fff", boxShadow: `0 3cqw 5cqw -2cqw ${a}88` }}>
+      <div style={{ display: "flex", alignItems: "baseline", gap: "1cqw", marginBottom: "1.4cqw" }}>
+        <span style={{ fontSize: "1.15cqw", letterSpacing: ".14em", textTransform: "uppercase", opacity: 0.75, fontWeight: 700 }}>Add-on layer</span>
+        <span style={{ fontFamily: SERIF, fontWeight: 600, fontSize: "1.9cqw" }}>Closed-loop attribution</span>
+      </div>
+      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: "1cqw" }}>
+        {stages.map(([n, l]) => (
+          <div key={n} style={{ background: "rgba(255,255,255,0.16)", borderRadius: "1.4cqw", padding: "1.1cqw", textAlign: "center" }}>
+            <div style={{ fontSize: "1.15cqw", opacity: 0.8, fontWeight: 700 }}>{n}</div>
+            <div style={{ fontWeight: 700, fontSize: "1.5cqw" }}>{l}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+    <div style={{ ...CARD }}>
+      <div style={{ padding: "1.4cqw 2cqw 0.2cqw", fontSize: "1.2cqw", letterSpacing: ".14em", textTransform: "uppercase", color: "#9aa0a8", fontWeight: 700 }}>Rosebud core system</div>
+      <div style={{ padding: "1cqw 2cqw 1.6cqw", display: "flex", flexWrap: "wrap", gap: "0.8cqw" }}>
+        {caps.map((c) => <span key={c} style={{ background: `${a}12`, color: a, borderRadius: 999, padding: ".7cqw 1.3cqw", fontSize: "1.25cqw", fontWeight: 700 }}>{c}</span>)}
+      </div>
     </div>
   </>));
 }
 function closedLoopDeep(i: number, a: string): ReactNode {
-  if (i === 0) return sq(a, center(
+  if (i === 0) return sq(a, center(<>
+    <div style={{ ...CARD_SM, padding: "1.5cqw 2cqw", display: "flex", alignItems: "center", gap: "1.2cqw" }}>
+      {bLogo("google-ads.png", 5)}
+      <div style={{ flex: 1 }}><div style={{ fontSize: "1.2cqw", color: "#8a9099", fontWeight: 700 }}>Ad click</div><div style={{ fontFamily: "ui-monospace, monospace", fontWeight: 700, fontSize: "1.6cqw", color: "#17131F" }}>gclid Cj0KaQ…</div></div>
+      <span style={{ fontSize: "1.5cqw", color: a }}>↓</span>
+    </div>
     <div style={{ ...CARD }}>
       {hdr(a, "Lead record", "still attached · 6 wks")}
-      <div style={{ padding: "1.8cqw 2.6cqw 0.6cqw" }}>
-        <div style={{ display: "flex", alignItems: "center", gap: "1.4cqw", marginBottom: "1.2cqw" }}>
-          {avatar("RB", `${a}22`, a, 4)}
-          <div style={{ flex: 1 }}><div style={{ fontWeight: 700, fontSize: "1.9cqw", color: "#17131F" }}>Rachel Byrne</div><div style={{ fontSize: "1.35cqw", color: "#8a9099" }}>Google / paid search</div></div>
+      <div style={{ padding: "1.6cqw 2.6cqw" }}>
+        <div style={{ display: "flex", alignItems: "center", gap: "1.4cqw", marginBottom: "1cqw" }}>
+          {avatar("RB", `${a}22`, a, 3.8)}
+          <div style={{ flex: 1 }}><div style={{ fontWeight: 700, fontSize: "1.85cqw", color: "#17131F" }}>Rachel Byrne</div><div style={{ fontSize: "1.3cqw", color: "#8a9099" }}>Google / paid search</div></div>
           {pill("Qualified ✓", GREEN_BG, GREEN)}
         </div>
-        {clRow("Ad click", "gclid Cj0KaQ…", true)}
-        {clRow("Signal sent", <>Qualified {pill("✓", GREEN_BG, GREEN)}</>)}
-        {clRow("Value (CRM)", "est. £14.2k")}
+        {clRow("Ad click (gclid)", "Cj0KaQ…", true)}
+        {clRow("Source", "Google / paid search")}
       </div>
-      <div style={{ padding: "1.4cqw 2.6cqw 1.8cqw", fontSize: "1.4cqw", fontWeight: 600, color: "#5a5566" }}>↻ The estimate becomes the real closed value when your CRM reports back</div>
+      <div style={{ padding: "1.4cqw 2.6cqw 1.8cqw", fontSize: "1.35cqw", fontWeight: 600, color: "#5a5566" }}>Caught in a hidden field, hashed before matching, still linked 6 weeks on</div>
     </div>
-  ));
+  </>));
   if (i === 1) return sq(a, center(
     <div style={{ ...CARD }}>
-      {hdr(a, "Verdict sent back")}
-      <div style={{ padding: "0.8cqw 2.6cqw 1cqw" }}>
-        {([["Rachel Byrne", "Qualified", true], ["Cold enquiry", "No sale", false]] as [string, string, boolean][]).map(([n, v, ok]) => (
-          <div key={n} style={{ display: "flex", alignItems: "center", gap: "1.4cqw", padding: "1.8cqw 0", borderBottom: "1px solid #f2f3f5" }}>
-            {avatar(n.split(" ").map((w) => w[0]).join(""), ok ? `${a}22` : "#eeecf3", ok ? a : GREY, 3.6)}
-            <span style={{ flex: 1, fontWeight: 700, fontSize: "1.85cqw", color: "#17131F" }}>{n}</span>
-            {pill(ok ? `${v} ✓` : v, ok ? GREEN_BG : GREY_BG, ok ? GREEN : GREY)}
-          </div>
-        ))}
+      {hdr(a, "Signal sent back", "● qualified")}
+      <div style={{ padding: "1.8cqw 2.6cqw 1cqw" }}>
+        <div style={{ display: "flex", alignItems: "center", gap: "1.4cqw", marginBottom: "1.4cqw" }}>
+          {avatar("RB", `${a}22`, a, 4)}
+          <div style={{ flex: 1 }}><div style={{ fontWeight: 700, fontSize: "1.9cqw", color: "#17131F" }}>Rachel Byrne</div><div style={{ fontSize: "1.3cqw", color: "#8a9099" }}>Google / paid search</div></div>
+          {pill("Qualified ✓", GREEN_BG, GREEN)}
+        </div>
+        {clRow("Verdict", <>Qualified {pill("✓", GREEN_BG, GREEN)}</>)}
+        {clRow("Value (CRM)", "est. £14.2k")}
       </div>
-      <div style={{ padding: "1.4cqw 2.6cqw 1.8cqw", fontSize: "1.4cqw", fontWeight: 600, color: "#5a5566" }}>Only the verdict goes back, so Google learns which clicks were worth it</div>
+      <div style={{ margin: "0.4cqw 1.8cqw 1.8cqw", background: "#17131F", color: "#F5F1EA", borderRadius: "1.6cqw", padding: "1.5cqw 2cqw", display: "flex", alignItems: "center", gap: "1cqw", fontSize: "1.4cqw", fontWeight: 600 }}>
+        <span style={{ fontSize: "1.6cqw" }}>↻</span> Estimate becomes the real closed value when your CRM reports back
+      </div>
     </div>
   ));
   return sq(a, center(
