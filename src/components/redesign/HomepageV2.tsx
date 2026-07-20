@@ -125,12 +125,12 @@ const VOICES = [
 ];
 
 const SERVICES = [
-  { label: "Capture & respond", d: ["M4 14l2-8h12l2 8", "M4 14h4l1.5 2.5h5L16 14h4v5H4z"] },
-  { label: "Qualify & triage", d: ["M4 5h16l-6 7v6l-4 2v-8z"] },
-  { label: "Book into diary", d: ["M4 5.5h16v14H4z", "M4 9.5h16", "M8 3.5v4", "M16 3.5v4"] },
-  { label: "Remind & reschedule", d: ["M12 4a8 8 0 1 1-5.6 2.3", "M12 8v4l2.5 2", "M6.4 6.3L4.5 4.5", "M4.5 4.5V8h3.5"] },
-  { label: "Recall & nurture", d: ["M12 20s-7-4.5-7-9.6A3.9 3.9 0 0 1 12 8a3.9 3.9 0 0 1 7 2.4c0 5.1-7 9.6-7 9.6z"] },
-  { label: "Write to CRM", d: ["M12 3.4c3.9 0 7 1.1 7 2.5s-3.1 2.5-7 2.5-7-1.1-7-2.5 3.1-2.5 7-2.5z", "M5 5.9v12.2c0 1.4 3.1 2.5 7 2.5s7-1.1 7-2.5V5.9", "M5 12c0 1.4 3.1 2.5 7 2.5s7-1.1 7-2.5"] },
+  { label: "Capture", d: ["M4 14l2-8h12l2 8", "M4 14h4l1.5 2.5h5L16 14h4v5H4z"] },
+  { label: "Qualify", d: ["M4 5h16l-6 7v6l-4 2v-8z"] },
+  { label: "Book", d: ["M4 5.5h16v14H4z", "M4 9.5h16", "M8 3.5v4", "M16 3.5v4"] },
+  { label: "Retain", d: ["M12 4a8 8 0 1 1-5.6 2.3", "M12 8v4l2.5 2", "M6.4 6.3L4.5 4.5", "M4.5 4.5V8h3.5"] },
+  { label: "Reactivate", d: ["M12 20s-7-4.5-7-9.6A3.9 3.9 0 0 1 12 8a3.9 3.9 0 0 1 7 2.4c0 5.1-7 9.6-7 9.6z"] },
+  { label: "Follow through", d: ["M12 3.4c3.9 0 7 1.1 7 2.5s-3.1 2.5-7 2.5-7-1.1-7-2.5 3.1-2.5 7-2.5z", "M5 5.9v12.2c0 1.4 3.1 2.5 7 2.5s7-1.1 7-2.5V5.9", "M5 12c0 1.4 3.1 2.5 7 2.5s7-1.1 7-2.5"] },
   { label: "Closed-loop attribution", d: ["M12 4a8 8 0 1 1-5.6 2.3", "M4.5 4.5V8h3.5", "M12 8.5a3.5 3.5 0 1 1-2.5 1"] },
 ];
 
@@ -573,8 +573,8 @@ export default function HomepageV2() {
             </svg>
             <div aria-hidden style={{ position: "absolute", top: "8%", left: "50%", transform: "translateX(-50%)", width: 900, height: 520, background: "radial-gradient(closest-side, rgba(139,125,216,0.28), rgba(139,125,216,0) 72%)", pointerEvents: "none" }} />
             <div style={{ position: "relative", zIndex: 2, maxWidth: 920, margin: "0 auto" }}>
-              <h2 style={{ fontFamily: SERIF, fontWeight: 500, fontSize: "clamp(40px,5vw,74px)", lineHeight: 1.02, letterSpacing: "-0.01em", margin: 0 }}>Stop buying enquiries. Start buying <em style={{ color: A, fontStyle: "italic", fontWeight: 500 }}>customers</em>.</h2>
-              <p style={{ marginTop: 26, fontSize: 18, lineHeight: 1.6, color: "rgba(36,21,40,0.66)", maxWidth: "56ch", marginLeft: "auto", marginRight: "auto" }}>See the system run on your own pipeline. Live in five weeks, working every enquiry from first contact to booked appointment.</p>
+              <h2 style={{ fontFamily: SERIF, fontWeight: 500, fontSize: "clamp(40px,5vw,74px)", lineHeight: 1.02, letterSpacing: "-0.01em", margin: 0 }}>Stop buying enquiries. Start buying <em style={{ color: A, fontStyle: "italic", fontWeight: 500 }}>customers</em></h2>
+              <p style={{ marginTop: 26, fontSize: 18, lineHeight: 1.6, color: "rgba(36,21,40,0.66)", maxWidth: "56ch", marginLeft: "auto", marginRight: "auto" }}>See the system run on your own pipeline. Every enquiry, from the first message to a name in your diary.</p>
               <div style={{ marginTop: 44, display: "inline-flex", flexWrap: "wrap", justifyContent: "center", gap: "18px 26px", padding: "26px 34px", borderRadius: 24, background: "rgba(255,255,255,0.4)", backdropFilter: "blur(18px)", WebkitBackdropFilter: "blur(18px)", border: "1px solid rgba(255,255,255,0.6)", boxShadow: "0 30px 70px -40px rgba(36,21,40,0.5), inset 0 1px 0 rgba(255,255,255,0.7)" }}>
                 {SERVICES.map((s) => (
                   <div key={s.label} style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 11, width: 92 }}>
