@@ -238,7 +238,10 @@ export default function CapabilityPage({ data }: { data: CapabilityData }) {
                       </a>
                     );
                   })}
-                  <div style={{ margin: "6px 8px 4px", paddingTop: 11, borderTop: "1px solid rgba(245,241,234,0.1)", fontSize: 10.5, letterSpacing: ".18em", textTransform: "uppercase", color: "rgba(245,241,234,0.42)" }}>{SIBLING_SUBLABEL}</div>
+                  <a href={capHref("closed-loop-attribution")} onClick={() => setSiblingOpen(false)} className={data.slug === "closed-loop-attribution" ? "" : "rb-mega-item"} style={{ display: "flex", alignItems: "center", justifyContent: "space-between", margin: "6px 0 2px", padding: "11px 14px 8px", borderTop: "1px solid rgba(245,241,234,0.1)", borderRadius: 11, textDecoration: "none", color: data.slug === "closed-loop-attribution" ? "#F5F1EA" : "rgba(245,241,234,0.55)" }}>
+                    <span style={{ fontSize: 10.5, letterSpacing: ".18em", textTransform: "uppercase", fontWeight: 700 }}>{SIBLING_SUBLABEL}</span>
+                    {data.slug === "closed-loop-attribution" ? <span style={{ color: "#B8AEDB", fontSize: 13 }}>✓</span> : <span style={{ fontSize: 13, opacity: 0.55 }}>→</span>}
+                  </a>
                 </div>
               )}
             </div>

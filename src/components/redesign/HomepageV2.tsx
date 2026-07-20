@@ -75,12 +75,12 @@ const KEYFRAMES = `
 // to the on-page Capabilities section until their pages ship.
 const NAV_CAPABILITIES = [
   { head: "Capture", desc: "Speed-to-lead & omnichannel intake", href: "/capabilities/capture" },
-  { head: "Qualify", desc: "Lead scoring & routing", href: "#capabilities" },
-  { head: "Book", desc: "Calendar automation", href: "#capabilities" },
-  { head: "Retain", desc: "Automated reminders & no-show recovery", href: "#capabilities" },
-  { head: "Reactivate", desc: "Lead nurture & database reactivation", href: "#capabilities" },
-  { head: "Follow through", desc: "Workflow automation & AR chase", href: "#capabilities" },
-  { head: "Closed-loop attribution", desc: "Conversion & value-based bidding", href: "#capabilities" },
+  { head: "Qualify", desc: "Lead scoring & routing", href: "/capabilities/qualify" },
+  { head: "Book", desc: "Calendar automation", href: "/capabilities/book" },
+  { head: "Retain", desc: "Automated reminders & no-show recovery", href: "/capabilities/retain" },
+  { head: "Reactivate", desc: "Lead nurture & database reactivation", href: "/capabilities/reactivate" },
+  { head: "Follow through", desc: "Workflow automation & AR chase", href: "/capabilities/follow-through" },
+  { head: "Closed-loop attribution", desc: "Conversion & value-based bidding", href: "/capabilities/closed-loop-attribution" },
 ];
 const NAV_RESOURCES = [
   { head: "About", desc: "The company behind the system", href: "/about" },
