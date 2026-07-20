@@ -9,6 +9,9 @@ import { useEffect } from "react";
  * industry cards (cubic-bezier(.16,1,.3,1)). Optional per-element stagger
  * via `data-reveal-delay="120"` (ms). Respects prefers-reduced-motion.
  *
+ * Add `data-reveal-repeat` to animate BOTH ways — in when the block enters the
+ * viewport, back out when it leaves — instead of the default one-shot reveal.
+ *
  * Render <RedesignReveal /> once per page (it injects its own CSS) and add
  * `data-reveal` to the blocks you want to animate.
  */
@@ -25,13 +28,20 @@ export default function RedesignReveal() {
     const io = new IntersectionObserver(
       (entries) => {
         entries.forEach((e) => {
-          if (!e.isIntersecting) return;
           const el = e.target as HTMLElement;
-          const delay = Number(el.dataset.revealDelay || 0);
-          el.style.transitionDelay = `${delay}ms`;
-          el.classList.add("in");
-          window.setTimeout(() => { el.style.transitionDelay = "0ms"; }, delay + 800);
-          io.unobserve(el);
+          const repeat = el.dataset.revealRepeat !== undefined;
+          if (e.isIntersecting) {
+            const delay = Number(el.dataset.revealDelay || 0);
+            el.style.transitionDelay = `${delay}ms`;
+            el.classList.add("in");
+            if (!repeat) {
+              window.setTimeout(() => { el.style.transitionDelay = "0ms"; }, delay + 800);
+              io.unobserve(el);
+            }
+          } else if (repeat) {
+            el.style.transitionDelay = "0ms";
+            el.classList.remove("in");
+          }
         });
       },
       { threshold: 0.12, rootMargin: "0px 0px -8% 0px" }
