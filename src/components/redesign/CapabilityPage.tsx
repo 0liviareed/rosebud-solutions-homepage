@@ -70,18 +70,17 @@ export default function CapabilityPage({ data }: { data: CapabilityData }) {
       // Transparent through the whole hero; glass-morph only once past it.
       const heroWrapEl = document.querySelector<HTMLElement>(".rb-caphero-wrap");
       const solid = heroWrapEl ? heroWrapEl.getBoundingClientRect().bottom <= 8 : window.scrollY > window.innerHeight * 0.7;
-      // Capability pages are light-themed, so the solidified nav is a light frosted
-      // glass with DARK text (readable over every section) — never light-on-light.
-      bar.style.background = solid ? "rgba(250,248,253,0.72)" : "transparent";
+      bar.style.background = solid ? "rgba(8,7,11,0.12)" : "transparent";
       bar.style.backdropFilter = solid ? "blur(30px) saturate(1.4)" : "none";
       bar.style.setProperty("-webkit-backdrop-filter", solid ? "blur(30px) saturate(1.4)" : "none");
-      bar.style.borderColor = solid ? "rgba(23,19,31,0.08)" : "transparent";
-      bar.style.boxShadow = solid ? "0 16px 40px -34px rgba(23,19,31,0.32)" : "none";
+      bar.style.borderColor = solid ? "rgba(245,241,234,0.1)" : "transparent";
+      bar.style.boxShadow = solid ? "0 16px 40px -34px rgba(0,0,0,0.3)" : "none";
       bar.style.maxWidth = solid ? "980px" : "1180px";
+      // Only the text stays dark when solid (it was flipping to light → unreadable on the light pages).
       bar.style.setProperty("--nav-fg", "rgba(23,19,31,0.72)");
       bar.style.setProperty("--nav-fg-strong", "#17131F");
-      bar.style.setProperty("--nav-pill-bg", "rgba(23,19,31,0.06)");
-      bar.style.setProperty("--nav-pill-border", "rgba(23,19,31,0.18)");
+      bar.style.setProperty("--nav-pill-bg", solid ? "rgba(245,241,234,0.1)" : "rgba(23,19,31,0.06)");
+      bar.style.setProperty("--nav-pill-border", solid ? "rgba(245,241,234,0.28)" : "rgba(23,19,31,0.18)");
     };
     window.addEventListener("scroll", onScroll, { passive: true });
     onScroll();
