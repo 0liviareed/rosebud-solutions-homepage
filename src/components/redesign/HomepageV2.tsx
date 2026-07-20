@@ -83,8 +83,8 @@ const NAV_CAPABILITIES = [
   { head: "Closed-loop attribution", desc: "Conversion & value-based bidding", href: "/capabilities/closed-loop-attribution" },
 ];
 const NAV_RESOURCES = [
-  { head: "About", desc: "The company behind the system", href: "/about" },
   { head: "Pricing", desc: "Discussed live on your consultation", href: "/pricing" },
+  { head: "About", desc: "The company behind the system", href: "/about" },
 ];
 
 const CHANNEL_CHIPS = [

@@ -45,8 +45,8 @@ export const NAV_CAPABILITIES = [
   { head: "Closed-loop attribution", desc: "Conversion & value-based bidding", slug: "closed-loop-attribution" },
 ];
 export const NAV_RESOURCES = [
-  { head: "About", desc: "The company behind the system", href: "/about" },
   { head: "Pricing", desc: "Discussed live on your consultation", href: "/pricing" },
+  { head: "About", desc: "The company behind the system", href: "/about" },
 ];
 
 export const INT_LOGOS: { name: string; src: string; h: number }[] = [
