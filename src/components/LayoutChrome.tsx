@@ -16,6 +16,7 @@ const BARE_ROUTES: readonly string[] = [
   "/jay-waitlist",
   "/founders-stack",
   "/capabilities",
+  "/about",
 ];
 
 /**
