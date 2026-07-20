@@ -38,6 +38,9 @@ const CSS = `
 }
 @media (max-width: 860px){
   .rb-cap-navlinks { display: none !important; } /* replaced by the global hamburger */
+  /* nav flush to the top of the browser, full-width (no floating pill) — matches the live site */
+  .rb-cap-nav { padding: 0 !important; }
+  .rb-cap-navbar { max-width: none !important; border-radius: 0 !important; padding: 14px 18px !important; }
 }
 `;
 
@@ -64,8 +67,9 @@ export default function CapabilityPage({ data }: { data: CapabilityData }) {
     const onScroll = () => {
       const bar = navBar.current;
       if (!bar) return;
-      // Transparent over the hero; a very light glass-morph once scrolled below it.
-      const solid = window.scrollY > window.innerHeight * 0.7;
+      // Transparent through the whole hero; glass-morph only once past it.
+      const heroWrapEl = document.querySelector<HTMLElement>(".rb-caphero-wrap");
+      const solid = heroWrapEl ? heroWrapEl.getBoundingClientRect().bottom <= 8 : window.scrollY > window.innerHeight * 0.7;
       bar.style.background = solid ? "rgba(8,7,11,0.12)" : "transparent";
       bar.style.backdropFilter = solid ? "blur(30px) saturate(1.4)" : "none";
       bar.style.setProperty("-webkit-backdrop-filter", solid ? "blur(30px) saturate(1.4)" : "none");
@@ -148,8 +152,8 @@ export default function CapabilityPage({ data }: { data: CapabilityData }) {
       <style dangerouslySetInnerHTML={{ __html: CSS }} />
 
       {/* ===================== NAV ===================== */}
-      <nav style={{ position: "fixed", top: 0, left: 0, right: 0, zIndex: 100, padding: "16px clamp(16px,3vw,40px)", transition: "padding .4s ease" }}>
-        <div ref={navBar} style={{ maxWidth: 1180, margin: "0 auto", display: "flex", alignItems: "center", justifyContent: "space-between", padding: "12px 14px 12px 22px", borderRadius: 999, background: "transparent", border: "1px solid transparent", transition: "background .45s ease, border-color .45s ease, box-shadow .45s ease, max-width .45s ease, padding .45s ease", ["--nav-fg" as string]: "rgba(23,19,31,0.72)", ["--nav-fg-strong" as string]: "#17131F", ["--nav-pill-bg" as string]: "rgba(23,19,31,0.06)", ["--nav-pill-border" as string]: "rgba(23,19,31,0.18)" } as CSSProperties}>
+      <nav className="rb-cap-nav" style={{ position: "fixed", top: 0, left: 0, right: 0, zIndex: 100, padding: "16px clamp(16px,3vw,40px)", transition: "padding .4s ease" }}>
+        <div ref={navBar} className="rb-cap-navbar" style={{ maxWidth: 1180, margin: "0 auto", display: "flex", alignItems: "center", justifyContent: "space-between", padding: "12px 14px 12px 22px", borderRadius: 999, background: "transparent", border: "1px solid transparent", transition: "background .45s ease, border-color .45s ease, box-shadow .45s ease, max-width .45s ease, padding .45s ease", ["--nav-fg" as string]: "rgba(23,19,31,0.72)", ["--nav-fg-strong" as string]: "#17131F", ["--nav-pill-bg" as string]: "rgba(23,19,31,0.06)", ["--nav-pill-border" as string]: "rgba(23,19,31,0.18)" } as CSSProperties}>
           <a href="/" aria-label="Rosebud Solutions" style={{ display: "flex", alignItems: "center" }}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src="/assets/rosebud-logo.png" alt="Rosebud Solutions" width={36} height={36} style={{ display: "block", width: 36, height: 36 }} />

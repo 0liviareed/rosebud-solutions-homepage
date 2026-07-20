@@ -57,8 +57,9 @@ const KEYFRAMES = `
   .rb-foot-grid{ grid-template-columns:1fr !important; gap:28px !important; }
   .rb-foot-legal{ text-align:left !important; }
   .rb-foot-legal-list{ align-items:flex-start !important; }
-  /* full-width bar, no pill; the JS scroll handler drives the transparent→glass morph (matches product pages + live site) */
-  .rb-navbar{ max-width:none !important; border-radius:0 !important; padding-left:18px !important; padding-right:18px !important; }
+  /* full-width bar flush to the top of the browser, no pill; JS drives the transparent→glass morph (matches product pages + live site) */
+  .rb-nav-fixed{ padding:0 !important; }
+  .rb-navbar{ max-width:none !important; border-radius:0 !important; padding:14px 18px !important; }
   .rb-hero-wrap{ background:#EAE6F3 !important; }
   .rb-hero-pin{ border-bottom-left-radius:26px !important; border-bottom-right-radius:26px !important; overflow:hidden !important; }
   .rb-close-stage{ border-bottom-left-radius:26px !important; border-bottom-right-radius:26px !important; }
@@ -279,7 +280,7 @@ export default function HomepageV2() {
       <style dangerouslySetInnerHTML={{ __html: KEYFRAMES }} />
 
       {/* fixed nav */}
-      <nav style={{ position: "fixed", top: 0, left: 0, right: 0, zIndex: 100, padding: "16px clamp(16px,3vw,40px)", transition: "padding .4s ease" }}>
+      <nav className="rb-nav-fixed" style={{ position: "fixed", top: 0, left: 0, right: 0, zIndex: 100, padding: "16px clamp(16px,3vw,40px)", transition: "padding .4s ease" }}>
         <div ref={navBar} className="rb-navbar" style={{ maxWidth: 1180, margin: "0 auto", display: "flex", alignItems: "center", justifyContent: "space-between", padding: "12px 14px 12px 22px", borderRadius: 999, background: "transparent", border: "1px solid transparent", transition: "background .45s ease, border-color .45s ease, box-shadow .45s ease, max-width .45s ease, padding .45s ease", ["--nav-fg" as string]: "rgba(245,241,234,0.72)", ["--nav-fg-strong" as string]: "#F5F1EA" } as CSSProperties}>
           <a href="/" aria-label="Rosebud Solutions" style={{ display: "flex", alignItems: "center" }}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
