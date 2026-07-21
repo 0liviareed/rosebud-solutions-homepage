@@ -29,13 +29,13 @@ type Plan = {
 
 const PLANS: Plan[] = [
   { key: "start", name: "Start", rec: false, price: { GBP: 660, USD: 850 }, leads: "Up to 500 leads / mo", leadNum: "Up to 500", selfServe: true, desc: "For solo operators getting their first automations live.", bestFor: "Best for getting started", baseSeats: 2, seatCap: 4, nextName: "Grow", nextSeats: 5, claDefault: false,
-    feats: ["Channels: Email, SMS", "Nurture: 2 touches", "No-show recovery: 1 attempt", "Reminder cadence: 1 reminder", "Modules: none"] },
+    feats: ["Channels: Email, SMS", "Nurture: 2 touches", "No-show recovery: 1 attempt", "Reminder cadence: 1 reminder"] },
   { key: "grow", name: "Grow", rec: true, price: { GBP: 1650, USD: 2100 }, leads: "600 – 1,800 leads / mo", leadNum: "600 – 1,800", selfServe: true, desc: "For growing teams qualifying and booking across channels.", bestFor: "Best value for most teams", baseSeats: 5, seatCap: 9, nextName: "Expand", nextSeats: 10, claDefault: false,
-    feats: ["Channels: Email, SMS, WhatsApp", "Nurture: 3 touches", "No-show recovery: 1 attempt", "Reminder cadence: 2 reminders", "Modules: 1 included"] },
+    feats: ["Channels: Email, SMS, WhatsApp", "Nurture: 3 touches", "No-show recovery: 1 attempt", "Reminder cadence: 2 reminders"] },
   { key: "expand", name: "Expand", rec: false, price: { GBP: 2500, USD: 3200 }, leads: "2,000 – 3,500 leads / mo", leadNum: "2,000 – 3,500", selfServe: true, desc: "For busy teams scaling volume with attribution built in.", bestFor: "Best for scaling", baseSeats: 10, seatCap: 19, nextName: "Scale", nextSeats: 20, claDefault: true,
-    feats: ["Channels: Email, SMS, WhatsApp", "Nurture: 4 touches", "No-show recovery: 2 attempts", "Reminder cadence: 2 reminders", "Modules: 2 included"] },
+    feats: ["Channels: Email, SMS, WhatsApp", "Nurture: 4 touches", "No-show recovery: 2 attempts", "Reminder cadence: 2 reminders"] },
   { key: "scale", name: "Scale", rec: false, price: { GBP: 4900, USD: 6300 }, leads: "4,000 leads / mo", leadNum: "4,000", selfServe: true, desc: "For high-volume operations that need every channel.", bestFor: "Best for high volume", baseSeats: 20, seatCap: 20, nextName: null, nextSeats: null, claDefault: true,
-    feats: ["Channels: Email, SMS, WhatsApp, Instagram", "Nurture: 5 touches", "No-show recovery: 3 attempts", "Reminder cadence: 3 reminders", "Modules: all 4 included"] },
+    feats: ["Channels: Email, SMS, WhatsApp, Instagram", "Nurture: 5 touches", "No-show recovery: 3 attempts", "Reminder cadence: 3 reminders"] },
 ];
 
 const BANDS: { tier: PlanKey; vals: number[] }[] = [
@@ -50,10 +50,11 @@ BANDS.forEach((b) => b.vals.forEach((v) => (VAL_TIER[v] = b.tier)));
 const FLOWS_FULL = ["Omnichannel lead capture", "Qualification rules engine", "Calendar automation", "Follow-through engine", "Retention & reactivation sequences", "CRM synchronisation"];
 const specOf = (p: Plan) => {
   const val = (label: string) => { const f = p.feats.find((x) => x.indexOf(label + ":") === 0); return f ? f.slice(label.length + 2) : ""; };
-  const m = val("Modules");
-  return { channels: val("Channels"), nurture: val("Nurture"), noshow: val("No-show recovery"), reminders: val("Reminder cadence"), modules: m === "none" ? "None" : m };
+  return { channels: val("Channels"), nurture: val("Nurture"), noshow: val("No-show recovery"), reminders: val("Reminder cadence") };
 };
-const MOD_MAP: Record<string, string> = { "1 included": "1 add-on module included", "2 included": "2 add-on modules included", "all 4 included": "All 4 add-on modules included" };
+// Modules are individually-priced add-ons on ANY plan (configured at checkout);
+// the comparison shows the "from" anchor = cheapest module (Status updates).
+const MOD_FROM: Record<Cur, number> = { GBP: 50, USD: 65 };
 const CAL = "https://cal.eu/rosebudsolutions/demo";
 
 export default function PricingV2() {
@@ -152,10 +153,10 @@ export default function PricingV2() {
     { label: "Sequenced nurture", values: PLANS.map((p) => txt(specOf(p).nurture)) },
     { label: "No-show recovery", values: PLANS.map((p) => txt(specOf(p).noshow)) },
     { label: "Reminder cadence", values: PLANS.map((p) => txt(specOf(p).reminders)) },
-    { label: "Modules included", tip: "You don’t choose a module at checkout — the plan simply sets how many module slots you get (Grow 1, Expand 2, Scale all 4). During your five-week onboarding we switch on the right ones for your workflow — e.g. invoice chase for a trades business, document collection for a law firm. It’s configuration, not a new build, so you can swap a module later; needing more than your slot count at once is the trigger to move up a tier.", values: PLANS.map((p) => txt(specOf(p).modules)) },
     { label: "Team seats", values: PLANS.map((p) => txt(seatCount(p) + (p.seatCap > p.baseSeats ? ` (up to ${p.seatCap})` : ""))) },
     { head: "Add-ons" },
     { label: "Closed-loop attribution", link: true, values: PLANS.map((p) => (p.key === "expand" || p.key === "scale") ? txt(`+${fmt(cfg.cla)} · default on`) : txt(`+${fmt(cfg.cla)}`)) },
+    { label: "Optional modules", tip: "Every plan runs the six core capabilities end to end. Modules extend the system beyond that — document & records collection, status updates, quote & proposal follow-up, invoicing & payment chase, and a custom CRM build. Each can be added to any plan for an additional monthly price, at onboarding or any time after.", values: PLANS.map(() => txt(`from ${fmt(MOD_FROM[currency])}/mo`)) },
   ];
 
   return (
@@ -170,7 +171,7 @@ export default function PricingV2() {
         <section style={{ position: "relative", maxWidth: 820, margin: "0 auto", padding: "0 24px", textAlign: "center" }}>
           <div style={{ fontSize: 12, letterSpacing: ".32em", textTransform: "uppercase", color: A, marginBottom: 20 }}>Pricing</div>
           <h1 style={{ fontFamily: SERIF, fontWeight: 400, fontSize: "clamp(40px,5.4vw,72px)", lineHeight: 1.02, letterSpacing: "-0.015em", margin: 0 }}>Pricing that scales with the <em style={{ fontStyle: "italic", color: AD }}>leads you already pay for</em></h1>
-          <p style={{ margin: "26px auto 0", maxWidth: 600, fontSize: 17, lineHeight: 1.62, color: "rgba(23,19,31,0.62)" }}>Every plan runs all six flows end to end. Closed-loop attribution is an optional add-on — on by default for Expand &amp; Scale, and available on any plan.</p>
+          <p style={{ margin: "26px auto 0", maxWidth: 600, fontSize: 17, lineHeight: 1.62, color: "rgba(23,19,31,0.62)" }}>Every plan runs all six core capabilities end to end. Modules and closed-loop attribution are optional add-ons on any plan — closed-loop is on by default for Expand &amp; Scale.</p>
         </section>
 
         {/* CYCLE TOGGLE */}
@@ -216,8 +217,7 @@ export default function PricingV2() {
               const fixed = p.seatCap <= p.baseSeats;
               const capped = atCap(p);
               const spec = specOf(p);
-              const modulesLine = MOD_MAP[spec.modules] || null;
-              const included = ["6 core automation flows", `Channels: ${spec.channels}`, ...(modulesLine ? [modulesLine] : [])];
+              const included = ["6 core automation flows", `Channels: ${spec.channels}`];
               const billExtra = extraSeats[p.key] > 0 ? `+${extraSeats[p.key]} seat${extraSeats[p.key] > 1 ? "s" : ""} ${fmt(seatCost(p))}` : "";
               return (
                 <div key={p.key} style={{ display: "flex" }}>
@@ -363,8 +363,8 @@ export default function PricingV2() {
             </div>
           </div>
           <div style={{ maxWidth: 920, margin: "22px auto 0", textAlign: "center", fontSize: 12.5, lineHeight: 1.7, color: "rgba(23,19,31,0.55)" }}>
-            <b style={{ color: "rgba(23,19,31,0.72)" }}>Every plan includes all six flows:</b> Capture &amp; Respond · Qualify &amp; Triage · Book into Diary · Remind &amp; Reschedule · Recall &amp; Nurture · Write to CRM.<br />
-            <b style={{ color: "rgba(23,19,31,0.72)" }}>Modules (optional add-ons):</b> document / records collection · status updates · quote / proposal follow-up · invoicing &amp; payment chase.
+            <b style={{ color: "rgba(23,19,31,0.72)" }}>Every plan includes all six core capabilities:</b> Capture &amp; Respond · Qualify &amp; Triage · Book into Diary · Remind &amp; Reschedule · Recall &amp; Nurture · Write to CRM.<br />
+            <b style={{ color: "rgba(23,19,31,0.72)" }}>Optional modules (added to any plan):</b> status updates · document / records collection · quote / proposal follow-up · invoicing &amp; payment chase · custom CRM build.
           </div>
         </section>
       </main>
