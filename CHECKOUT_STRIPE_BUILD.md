@@ -1,0 +1,96 @@
+# Checkout, Stripe & Accounts — build checklist
+
+Everything to take the pricing page from "Choose [plan]" through payment, account
+creation, transactional emails, and onboarding. Scoped from build brief v1 (Stripe
+object model / data model / webhooks / entitlements / security), v2 (auth, signup,
+purchase flow), v3 (interface — `rosebud-frontend-build-brief-v3`). Reference design:
+`Pricing Page.dc.html` (checkout + success views).
+
+Legend: `[ ]` todo · `[~]` in progress · `[x]` done · **DECISION** = needs a call before building.
+
+The pricing page (`/pricing`, `PricingV2.tsx`) is **done** and hands config to
+`/checkout?plan&cycle&currency&seats&cla`. Everything below is what `/checkout` needs.
+
+---
+
+## Phase 0 — Decisions to settle first
+- [ ] **DECISION: where accounts live.** Supabase (same as war-room/dialler + the rosebud.global forms) is the default — orgs, users, memberships, subscriptions, leads. Confirm one project vs a new "rosebud-app" project.
+- [ ] **DECISION: auth mechanism.** Email + password at checkout (brief §5.1). Supabase Auth (email/password, breached-password check) vs custom. Session cookie + middleware for `/app/*`. (Brief v2 holds the auth decision — confirm it matches Supabase Auth.)
+- [ ] **DECISION: transactional email provider.** Brevo was retired on rosebud.global (2026-05-29). Options: Resend, Zoho Mail SMTP, Postmark, or re-enable Brevo transactional API. Needs: templated HTML, deliverability, attachments (PDF invoice). **This gates all the emails below.**
+- [ ] **DECISION: Stripe account + entity.** Which Stripe account (Rosebud Global Ltd), live vs test keys, GBP + USD, UK VAT registration + Stripe Tax on/off.
+- [ ] **DECISION: billing model at go-live.** Brief says "billing paused until go-live" in places, but the reference checkout/success copy says "charged today, full refund before onboarding." **Reconcile:** charge today + refund window, OR save card + delay first invoice to go-live. Pick one — it changes the Stripe object (subscription vs setup intent) and every email.
+
+---
+
+## Phase 1 — Stripe setup
+- [ ] Create Products in Stripe: **Start / Grow / Expand / Scale** (Enterprise is sales-only, no product).
+- [ ] Prices per product: monthly + yearly (yearly = round(monthly × 0.90)), in **GBP and USD**. Yearly billed annually.
+- [ ] **Closed-loop attribution** as a separate recurring Price (£750 / $950 flat, **never discounted** on yearly) — added as a line item, not folded into the plan.
+- [ ] **Extra seats** as a metered/quantity Price (£10 / $13 per seat, flat) — quantity = extraSeats.
+- [ ] Stripe Tax (or manual VAT): UK VAT 20%, reverse-charge for EU business with a valid VAT number, US sales tax by state.
+- [ ] Webhook endpoint + signing secret. Handle: `checkout.session.completed`, `customer.subscription.created/updated/deleted`, `invoice.paid`, `invoice.payment_failed`.
+- [ ] Billing Portal configuration (manage payment method, cancel).
+- [ ] Test-mode keys in Vercel env; live keys gated behind go-live.
+
+## Phase 2 — Data model (Supabase)
+- [ ] `plans` — key, name, price_gbp, price_usd, lead_cap, base_seats, seat_cap, cla_default, self_serve, stripe_price ids. **Single source** — pricing page + checkout + billing all read this (brief §4.2, §11).
+- [ ] `orgs` — id, name, country, vat_number, stripe_customer_id, created_at.
+- [ ] `users` — id (Supabase auth), email, first_name, last_name, phone.
+- [ ] `org_members` — org_id, user_id, role (owner/admin/member). Middleware resolves org server-side; client never supplies org_id (brief §1).
+- [ ] `subscriptions` — org_id, plan_key, cycle, seats, cla_on, stripe_subscription_id, state (pending/active/past_due/suspended/cancelled), current_period_end, go_live_date.
+- [ ] `onboarding` — org_id, stage, blocked_on, target_go_live (drives the timeline, brief §6.1).
+- [ ] **`checkout_leads`** — the abandoned-capture table (see Phase 5). first_name, last_name, email, phone, plan_intent, cycle, currency, seats, cla, stage_reached, created_at, converted_org_id.
+- [ ] RLS: service-role for writes; org-scoped reads for `/app/*`.
+
+## Phase 3 — Checkout flow (`/checkout`)
+- [ ] Read config from query (`plan, cycle, currency, seats, cla`); keep editable in the order summary throughout (brief §5.3). A summary edit must never wipe typed form fields (§5.3, §11).
+- [ ] **Step 1 — Create account:** first name, last name, work email (uniqueness on blur), password (≥10, breached check, strength bar guides not rejects), company, phone, marketing opt-in. Validation on blur (brief §5.1).
+- [ ] **Step 2 — Payment:** Stripe Checkout (hosted) or Payment Element; country + optional VAT (valid non-UK VAT → reverse charge live); billing address; invoice email; mandate line. "What happens next" block (§5.2).
+- [ ] Order summary: base, CLA if on, extra seats, subtotal, annual subtotal on yearly, VAT, **Due** line. Sticky desktop / above form mobile. Editable cycle + seats + CLA with the seat-ceiling nudge (§5.3).
+- [ ] One shared **price function** imported by pricing page + summary + billing (§4.1, §11). Unit tests: 4 tiers × 2 cycles × CLA on/off × seat counts.
+- [ ] Success page (`/checkout/success`): plan, renewal date, confirmation no., "what happens next", onboarding booking CTA.
+- [ ] **Sales-issued links** `/checkout/link/[token]`: config **read-only**, quoted price is charged; expired/used token → explanation + contact, never falls back to self-serve (§5.4).
+
+## Phase 4 — Account creation, auth & entitlements
+- [ ] `POST /api/signup` — creates user + org + owner membership in **one transaction** (§10). Idempotent, keyed on client request id.
+- [ ] `POST /api/checkout/session` — Stripe Checkout session for the config.
+- [ ] Webhook → on `checkout.session.completed`: mark subscription active/pending, set go_live/renewal, link stripe_customer_id, flip the `checkout_leads` row to converted.
+- [ ] Session + middleware for `/app/*`; org context resolved server-side.
+- [ ] Entitlement state machine (plan → caps/seats/modules/CLA) per brief v1.
+
+## Phase 5 — Abandoned-checkout lead capture  ← explicitly requested
+- [ ] Capture **first name, last name, email, phone** to `checkout_leads` on **blur / step-advance, BEFORE payment** (the build note in the reference HTML: "an abandoned checkout still leaves us a qualified lead — do not gate capture on completeCheckout").
+- [ ] Upsert as they type more (keyed on email); record `stage_reached` and the plan they were configuring.
+- [ ] Feed these into the same lead pipeline as the site forms (Supabase + Telegram alert via `@RosebudWarRoom_bot`, per the existing rosebud.global forms pattern).
+- [ ] On successful checkout, mark the lead converted (don't double-count).
+- [ ] Optional: abandoned-checkout follow-up email/sequence (decide with the email provider).
+
+## Phase 6 — Transactional emails  ← explicitly requested
+*(All gated on the Phase 0 email-provider decision. Each needs an HTML template + trigger.)*
+- [ ] **Account-creation confirmation** — sent on signup: "your account is created", set expectations, link to sign in.
+- [ ] **Receipt / invoice** — on payment: itemised (base, CLA, seats, VAT), PDF attach or Stripe-hosted invoice link, business details for accounting. Stripe can auto-send receipts + host invoices — decide Stripe-native vs our own template.
+- [ ] **Book your onboarding** — the cal.eu onboarding link (`https://cal.eu/rosebudsolutions/onboarding`) as the primary next step (brief moved "next steps" into this email, §4.2).
+- [ ] Optional: payment-failed / card-expiring dunning (Stripe can handle) and abandoned-checkout nudge.
+- [ ] From-address + domain auth (SPF/DKIM/DMARC) for whatever provider is chosen so these land in inbox.
+
+## Phase 7 — Account surfaces (`/app/*`, brief §6)
+- [ ] `/app/onboarding` — 5-step timeline driven by `onboarding.stage` + `blocked_on` (names the blocker by name).
+- [ ] `/app/billing` — plan + state pill, line-item breakdown, next invoice / go-live date, Stripe Billing Portal link, change plan, **usage meter** (amber ≥90%, names next tier, never a lockout), CLA panel, cancel copy.
+- [ ] `/app/team` — seat counter + stepper, member table, invite field. **Seat cap enforced server-side at the invite endpoint** (§6.3, §11) — stepper is a courtesy.
+
+## Phase 8 — Analytics, a11y, DoD
+- [ ] PostHog events (§9): `pricing_viewed`, `cycle_toggled`, `leads_selected`, `seat_changed`, `cla_toggled`, `cla_modal_opened`, `plan_selected`, `checkout_step_viewed`, `checkout_field_error` (by field), `account_created`, `checkout_completed`, `sales_link_opened/expired`.
+- [ ] Accessibility (§8): every field labelled + `aria-describedby` errors, `role="switch"` toggles, stepper `aria-label`s, modal focus trap, keyboard-completable, colour never the sole signal, `prefers-reduced-motion`.
+- [ ] Copy review (§4.5): never place Rosebud in the ad account · no monetary-value claim at launch · no "months later" (window is 63 days) · gate stated **per campaign** (30–50) · closed-loop **never "Included"** (always "+£750 · on by default") · no "front office" · no un-live integration named.
+- [ ] Definition of done (§11): one price fn everywhere + tests · seat ceiling enforced at stepper **and** invite endpoint · CLA never yearly-discounted · every price shows VAT · pre-go-live screens say nothing charged · summary edits never wipe form · expired sales link never self-serves · full flow keyboard + screen-reader clean.
+
+---
+
+### Suggested build order
+1. Phase 0 decisions (esp. billing model + email provider — they gate everything).
+2. Stripe setup + `plans`/data model (Phase 1–2).
+3. `/checkout` UI from the reference HTML + shared price fn (Phase 3) — **with abandoned capture wired from the first keystroke (Phase 5)**, since that's live value even before payment works.
+4. Signup + session + Stripe session + webhook (Phase 4).
+5. Transactional emails (Phase 6).
+6. `/app/*` account surfaces (Phase 7).
+7. Analytics + a11y + DoD pass (Phase 8).
