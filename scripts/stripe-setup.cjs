@@ -46,6 +46,13 @@ const CATALOGUE = [
   { key: "scale",  name: "Scale",  monthly: { gbp: p(4900), usd: p(6300) }, yearly: { gbp: p(ym(4900) * 12), usd: p(ym(6300) * 12) } },
   { key: "cla",    name: "Closed-loop attribution", monthly: { gbp: p(750), usd: p(950) }, yearly: { gbp: p(750 * 12), usd: p(950 * 12) } },
   { key: "seat",   name: "Extra seat",              monthly: { gbp: p(10),  usd: p(13)  }, yearly: { gbp: p(10 * 12),  usd: p(13 * 12)  } },
+  // Optional modules — flat add-ons on any plan (no yearly discount). Plus the 5-module bundle.
+  { key: "mod_status",  name: "Module — Status updates",                     monthly: { gbp: p(50),  usd: p(65)  }, yearly: { gbp: p(50 * 12),  usd: p(65 * 12)  } },
+  { key: "mod_docs",    name: "Module — Document / records collection & chase", monthly: { gbp: p(75),  usd: p(95)  }, yearly: { gbp: p(75 * 12),  usd: p(95 * 12)  } },
+  { key: "mod_quote",   name: "Module — Quote / proposal follow-up",         monthly: { gbp: p(75),  usd: p(95)  }, yearly: { gbp: p(75 * 12),  usd: p(95 * 12)  } },
+  { key: "mod_invoice", name: "Module — Invoicing & payment chase",          monthly: { gbp: p(100), usd: p(130) }, yearly: { gbp: p(100 * 12), usd: p(130 * 12) } },
+  { key: "mod_crm",     name: "Module — Custom CRM build",                   monthly: { gbp: p(150), usd: p(195) }, yearly: { gbp: p(150 * 12), usd: p(195 * 12) } },
+  { key: "mod_bundle",  name: "Module bundle (all 5)",                       monthly: { gbp: p(300), usd: p(390) }, yearly: { gbp: p(300 * 12), usd: p(390 * 12) } },
 ];
 
 async function findOrCreateProduct(key, name) {

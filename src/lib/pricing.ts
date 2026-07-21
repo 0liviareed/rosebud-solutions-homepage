@@ -29,7 +29,23 @@ export const PLANS: Plan[] = [
 
 export const planByKey = (k: string): Plan | undefined => PLANS.find((p) => p.key === k);
 
-export type Config = { plan: Plan; cycle: Cycle; currency: Cur; seats: number; claOn: boolean };
+// Optional modules — flat add-ons on ANY plan (no yearly discount). All five → the
+// bundle rate (cheaper than the sum). Keep in sync with scripts/stripe-setup.cjs.
+export type ModuleKey = "status" | "docs" | "quote" | "invoice" | "crm";
+export const MODULES: { key: ModuleKey; name: string; price: Record<Cur, number> }[] = [
+  { key: "status",  name: "Status updates",                         price: { GBP: 50, USD: 65 } },
+  { key: "docs",    name: "Document / records collection & chase",  price: { GBP: 75, USD: 95 } },
+  { key: "quote",   name: "Quote / proposal follow-up",             price: { GBP: 75, USD: 95 } },
+  { key: "invoice", name: "Invoicing & payment chase",              price: { GBP: 100, USD: 130 } },
+  { key: "crm",     name: "Custom CRM build",                       price: { GBP: 150, USD: 195 } },
+];
+export const MODULE_BUNDLE: Record<Cur, number> = { GBP: 300, USD: 390 };
+export function moduleCost(mods: ModuleKey[], currency: Cur): number {
+  if (mods.length >= MODULES.length) return MODULE_BUNDLE[currency]; // all 5 → bundle
+  return mods.reduce((s, k) => s + (MODULES.find((m) => m.key === k)?.price[currency] ?? 0), 0);
+}
+
+export type Config = { plan: Plan; cycle: Cycle; currency: Cur; seats: number; claOn: boolean; modules?: ModuleKey[] };
 
 // ── the maths ────────────────────────────────────────────────────────────────
 /** Per-month base for the plan (yearly shows the discounted monthly rate). */
@@ -48,13 +64,13 @@ export function extraSeats(plan: Plan, seats: number): number {
 export function seatCost(plan: Plan, seats: number, currency: Cur): number {
   return extraSeats(plan, seats) * CUR[currency].seat;
 }
-/** Displayed monthly total: base + CLA + seats. */
+/** Displayed monthly total: base + CLA + seats + modules. */
 export function monthlyTotal(c: Config): number {
-  return basePrice(c.plan, c.cycle, c.currency) + claAmount(c.currency, c.claOn) + seatCost(c.plan, c.seats, c.currency);
+  return basePrice(c.plan, c.cycle, c.currency) + claAmount(c.currency, c.claOn) + seatCost(c.plan, c.seats, c.currency) + moduleCost(c.modules ?? [], c.currency);
 }
 
 export type Totals = {
-  base: number; cla: number; seats: number; extraSeatCount: number;
+  base: number; cla: number; seats: number; extraSeatCount: number; modules: number;
   monthlySubtotal: number; annualSubtotal: number | null; vat: number; dueToday: number; currency: Cur; cycle: Cycle;
 };
 
@@ -64,14 +80,15 @@ export function computeTotals(c: Config, opts: { vatApplicable?: boolean } = {})
   const base = basePrice(c.plan, c.cycle, c.currency);
   const cla = claAmount(c.currency, c.claOn);
   const seats = seatCost(c.plan, c.seats, c.currency);
-  const monthlySubtotal = base + cla + seats;
+  const modules = moduleCost(c.modules ?? [], c.currency);
+  const monthlySubtotal = base + cla + seats + modules;
   const annualSubtotal = c.cycle === "yearly" ? monthlySubtotal * 12 : null;
   const chargeable = annualSubtotal ?? monthlySubtotal;
   const vatRate = CUR[c.currency].vat;
   const vatApplicable = opts.vatApplicable ?? vatRate > 0;
   const vat = vatApplicable ? chargeable * vatRate : 0;
   return {
-    base, cla, seats, extraSeatCount: extraSeats(c.plan, c.seats),
+    base, cla, seats, extraSeatCount: extraSeats(c.plan, c.seats), modules,
     monthlySubtotal, annualSubtotal, vat, dueToday: chargeable + vat, currency: c.currency, cycle: c.cycle,
   };
 }
