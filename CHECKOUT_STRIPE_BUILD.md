@@ -111,9 +111,22 @@ Tasks:
 
 **Resend sends (branded React templates, fired from the webhook / app logic):**
 - [ ] **Account-creation confirmation** — on signup: "your account is live", set expectations, link to sign in.
-- [ ] **Book your onboarding** — the cal.eu onboarding link (`https://cal.eu/rosebudsolutions/onboarding`) as the primary next step (brief moved "next steps" into this email, §4.2). Triggered on `checkout.session.completed`.
+- [ ] **Book your onboarding** — a **unique per-customer signed booking link** (NOT the public cal event) as the primary next step, triggered on `checkout.session.completed`. See "Onboarding booking & discovery form" below for the security + schema requirements.
 - [ ] **Abandoned-checkout nudge** (optional) — to `checkout_leads` who didn't convert.
 - [ ] Resend domain verified (SPF/DKIM/DMARC) on the sending subdomain so these inbox.
+
+## Onboarding booking & discovery form — secured + structured  ← design note (2026-07-21)
+
+**Gate the booking to paying customers — don't publish the onboarding event.**
+- [ ] On `checkout.session.completed`, generate a **unique per-customer booking link with a signed token** (carries `customer_id` + `subscription_id`), delivered **only in the confirmation email**. The onboarding cal event is **not** public (replaces the plain `cal.eu/onboarding` link).
+- [ ] Prefill `customer_id` + `subscription_id` as **hidden fields** on the Cal booking.
+- [ ] On the **Cal booking webhook**, verify the subscription is **active in Stripe** *before* the booking is confirmed. Fail → **cancel the booking + route to sales**.
+- [ ] Visible fields = **context, not gatekeeping**: company, primary contact, phone, timezone, who else is attending, CRM, calendar, channels active, monthly enquiry volume.
+
+**Every discovery field must be machine-checkable** (managed → tool consequence).
+- On a call you can push back on a vague answer in real time; a form can't. So no free-text-you-intend-to-interpret-later — use **banded selects, enums, validated formats** from the start.
+- [ ] Example — "good-lead definition" is structured, not a text box: **budget threshold (number)** · **timeline (enum)** · **service type (multi-select from their own list)** · **+ one** free-text field for anything the structure misses.
+- [ ] Rule: anything a human would have interpreted on a call needs a checkable shape now, or it becomes the thing that blocks self-serve. Design the whole discovery schema this way.
 
 ## Phase 7 — Account surfaces (`/app/*`, brief §6)
 - [ ] `/app/onboarding` — 5-step timeline driven by `onboarding.stage` + `blocked_on` (names the blocker by name).
