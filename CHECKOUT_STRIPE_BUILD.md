@@ -23,12 +23,15 @@ The pricing page (`/pricing`, `PricingV2.tsx`) is **done** and hands config to
 
 ---
 
-## Phase 0 — Decisions to settle first
-- [ ] **DECISION: where accounts live.** Supabase (same as war-room/dialler + the rosebud.global forms) is the default — orgs, users, memberships, subscriptions, leads. Confirm one project vs a new "rosebud-app" project.
-- [ ] **DECISION: auth mechanism.** Email + password at checkout (brief §5.1). Supabase Auth (email/password, breached-password check) vs custom. Session cookie + middleware for `/app/*`. (Brief v2 holds the auth decision — confirm it matches Supabase Auth.)
-- [ ] **DECISION: transactional email provider.** Brevo was retired on rosebud.global (2026-05-29). Options: Resend, Zoho Mail SMTP, Postmark, or re-enable Brevo transactional API. Needs: templated HTML, deliverability, attachments (PDF invoice). **This gates all the emails below.**
-- [ ] **DECISION: Stripe account + entity.** Which Stripe account (Rosebud Global Ltd), live vs test keys, GBP + USD, UK VAT registration + Stripe Tax on/off.
-- [ ] **DECISION: billing model at go-live.** Brief says "billing paused until go-live" in places, but the reference checkout/success copy says "charged today, full refund before onboarding." **Reconcile:** charge today + refund window, OR save card + delay first invoice to go-live. Pick one — it changes the Stripe object (subscription vs setup intent) and every email.
+## Phase 0 — Decisions  ✅ SETTLED (2026-07-21)
+- [x] **Where accounts live → NEW dedicated Supabase project** ("rosebud-app"). Isolates customer PII + billing from the internal war-room/dialler + marketing-forms data. Holds orgs, users, memberships, subscriptions, `checkout_leads`.
+- [x] **Auth → Supabase Auth** (email/password at checkout, breached-password check on, session cookie + middleware for `/app/*`). Same stack as the dialler.
+- [x] **Billing model → CHARGE TODAY + refund window.** Subscription starts at checkout; card charged immediately; renewal date = today; full refund if they cancel before the onboarding session. (Resolves the brief's conflict — the reference checkout/success copy already matches this.) → Stripe **Subscription** (not SetupIntent).
+- [x] **Tax → Stripe Tax (automatic).** UK VAT, EU reverse-charge on valid VAT number, US sales tax by state — feeds Stripe's compliant invoices.
+- [x] **Email → Resend + Stripe split:**
+  - **Stripe sends** the payment **receipt** and the **VAT invoice (PDF)** — compliant invoicing (sequential numbers, VAT no., tax breakdown) for free; enable in Stripe settings, brand with logo/domain.
+  - **Resend sends** the lifecycle emails Stripe doesn't know about — **account-creation confirmation**, **"book your onboarding"** (cal.eu link), and the optional **abandoned-checkout nudge** — fired from the webhook / app logic with branded React templates.
+- [ ] **Prerequisite (you):** a Stripe account under the Rosebud Global entity with **GBP + USD** enabled, and a **Resend** account with the sending domain verified (SPF/DKIM/DMARC).
 
 ---
 
@@ -37,12 +40,12 @@ The pricing page (`/pricing`, `PricingV2.tsx`) is **done** and hands config to
 - [ ] Prices per product: monthly + yearly (yearly = round(monthly × 0.90)), in **GBP and USD**. Yearly billed annually.
 - [ ] **Closed-loop attribution** as a separate recurring Price (£750 / $950 flat, **never discounted** on yearly) — added as a line item, not folded into the plan.
 - [ ] **Extra seats** as a metered/quantity Price (£10 / $13 per seat, flat) — quantity = extraSeats.
-- [ ] Stripe Tax (or manual VAT): UK VAT 20%, reverse-charge for EU business with a valid VAT number, US sales tax by state.
+- [ ] **Stripe Tax** on (decided): UK VAT 20%, reverse-charge for EU business with a valid VAT number, US sales tax by state — registered origin address + tax settings configured.
 - [ ] Webhook endpoint + signing secret. Handle: `checkout.session.completed`, `customer.subscription.created/updated/deleted`, `invoice.paid`, `invoice.payment_failed`.
 - [ ] Billing Portal configuration (manage payment method, cancel).
 - [ ] Test-mode keys in Vercel env; live keys gated behind go-live.
 
-## Phase 2 — Data model (Supabase)
+## Phase 2 — Data model (new dedicated "rosebud-app" Supabase project)
 - [ ] `plans` — key, name, price_gbp, price_usd, lead_cap, base_seats, seat_cap, cla_default, self_serve, stripe_price ids. **Single source** — pricing page + checkout + billing all read this (brief §4.2, §11).
 - [ ] `orgs` — id, name, country, vat_number, stripe_customer_id, created_at.
 - [ ] `users` — id (Supabase auth), email, first_name, last_name, phone.
@@ -75,13 +78,17 @@ The pricing page (`/pricing`, `PricingV2.tsx`) is **done** and hands config to
 - [ ] On successful checkout, mark the lead converted (don't double-count).
 - [ ] Optional: abandoned-checkout follow-up email/sequence (decide with the email provider).
 
-## Phase 6 — Transactional emails  ← explicitly requested
-*(All gated on the Phase 0 email-provider decision. Each needs an HTML template + trigger.)*
-- [ ] **Account-creation confirmation** — sent on signup: "your account is created", set expectations, link to sign in.
-- [ ] **Receipt / invoice** — on payment: itemised (base, CLA, seats, VAT), PDF attach or Stripe-hosted invoice link, business details for accounting. Stripe can auto-send receipts + host invoices — decide Stripe-native vs our own template.
-- [ ] **Book your onboarding** — the cal.eu onboarding link (`https://cal.eu/rosebudsolutions/onboarding`) as the primary next step (brief moved "next steps" into this email, §4.2).
-- [ ] Optional: payment-failed / card-expiring dunning (Stripe can handle) and abandoned-checkout nudge.
-- [ ] From-address + domain auth (SPF/DKIM/DMARC) for whatever provider is chosen so these land in inbox.
+## Phase 6 — Transactional emails  ← explicitly requested · **Stripe + Resend split**
+**Stripe sends (enable in Stripe settings, brand with logo/domain):**
+- [ ] **Payment receipt** — auto on successful charge.
+- [ ] **VAT invoice (PDF)** — Stripe-hosted, compliant (sequential invoice no., VAT no., tax breakdown from Stripe Tax). Itemised base + CLA + seats + VAT. *Don't hand-roll this — Stripe's is legally correct.*
+- [ ] Payment-failed / card-expiring dunning — Stripe Smart Retries + emails.
+
+**Resend sends (branded React templates, fired from the webhook / app logic):**
+- [ ] **Account-creation confirmation** — on signup: "your account is live", set expectations, link to sign in.
+- [ ] **Book your onboarding** — the cal.eu onboarding link (`https://cal.eu/rosebudsolutions/onboarding`) as the primary next step (brief moved "next steps" into this email, §4.2). Triggered on `checkout.session.completed`.
+- [ ] **Abandoned-checkout nudge** (optional) — to `checkout_leads` who didn't convert.
+- [ ] Resend domain verified (SPF/DKIM/DMARC) on the sending subdomain so these inbox.
 
 ## Phase 7 — Account surfaces (`/app/*`, brief §6)
 - [ ] `/app/onboarding` — 5-step timeline driven by `onboarding.stage` + `blocked_on` (names the blocker by name).
