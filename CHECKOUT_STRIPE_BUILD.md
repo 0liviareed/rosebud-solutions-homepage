@@ -1,5 +1,15 @@
 # Checkout, Stripe & Accounts — build checklist
 
+> ## ⛔ PRODUCTION GATE — do not ship `/pricing` to production yet
+> The new pricing page (`PricingV2`) lives on the **`redesign`** branch, which is
+> a Vercel **preview** — it is **not** in production. Production (`main`,
+> rosebud.global) still serves the old pricing page. **`/pricing` must not reach
+> `main` until checkout works behind it**, or "Choose [plan]" leads to a dead
+> `/checkout`. When the redesign merges to `main`, either (a) checkout is built
+> (Phases 1–6 below), or (b) temporarily gate `/pricing` — redirect to the old
+> page / a "pricing coming soon" / keep the old route — so the redesign can ship
+> without exposing a broken buy flow. Un-gate once checkout is live-tested.
+
 Everything to take the pricing page from "Choose [plan]" through payment, account
 creation, transactional emails, and onboarding. Scoped from build brief v1 (Stripe
 object model / data model / webhooks / entitlements / security), v2 (auth, signup,
