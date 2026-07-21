@@ -4,7 +4,7 @@ import AboutV2 from "@/components/redesign/AboutV2";
 export const metadata: Metadata = {
   title: "About — Rosebud Global",
   description:
-    "The operating system between demand and revenue. Seven capabilities, one engine, carrying every enquiry from the second it lands to a booked appointment, then run for you, every day.",
+    "Rosebud Solutions is a Demand Capture & Conversion Infrastructure company, providing seven capabilities on one engine that carry every enquiry through to a booked appointment.",
   alternates: { canonical: "/about" },
 };
 
