@@ -72,11 +72,17 @@ The pricing page (`/pricing`, `PricingV2.tsx`) is **done** and hands config to
 - [ ] Entitlement state machine (plan → caps/seats/modules/CLA) per brief v1.
 
 ## Phase 5 — Abandoned-checkout lead capture  ← explicitly requested
-- [ ] Capture **first name, last name, email, phone** to `checkout_leads` on **blur / step-advance, BEFORE payment** (the build note in the reference HTML: "an abandoned checkout still leaves us a qualified lead — do not gate capture on completeCheckout").
-- [ ] Upsert as they type more (keyed on email); record `stage_reached` and the plan they were configuring.
-- [ ] Feed these into the same lead pipeline as the site forms (Supabase + Telegram alert via `@RosebudWarRoom_bot`, per the existing rosebud.global forms pattern).
-- [ ] On successful checkout, mark the lead converted (don't double-count).
-- [ ] Optional: abandoned-checkout follow-up email/sequence (decide with the email provider).
+**Where it lives — the split (a customer ≠ a lead):**
+- **`rosebud-app.checkout_leads`** = the transient capture *buffer* (checkout-session state: stage_reached, plan config). Owned by the checkout lifecycle — resume, convert, link to account on success. **Not** the CRM's job.
+- **The CRM `leads` table** (canonical war-room store) = the sales pipeline. On abandonment the lead is **forwarded** here so a setter can call it — owned in the pool, `lead_status = Not Contacted`, with a **Telegram alert** (`@RosebudWarRoom_bot`), same route as the site forms.
+
+Tasks:
+- [ ] Capture **first name, last name, email, phone** to `rosebud-app.checkout_leads` on **blur / step-advance, BEFORE payment** (reference HTML build note: "an abandoned checkout still leaves us a qualified lead — do not gate capture on completeCheckout").
+- [ ] Upsert as they type more (keyed on email); record `stage_reached` + plan config.
+- [ ] **Forward abandoned rows to the CRM `leads` pipeline + Telegram** (dedupe on email so it doesn't double-fire; a prospect who started checkout is a hot, callable lead).
+- [ ] On successful checkout, mark the buffer row converted → it exits the lead pipeline and becomes a customer in rosebud-app (don't double-count / don't keep chasing).
+- [ ] **CONFIRM: do the current site forms write to the war-room CRM Supabase (→ dialler-callable) or a separate marketing Supabase?** Points the forward at the right project.
+- [ ] Optional: Resend "you left something behind" nudge to non-converted `checkout_leads`.
 
 ## Phase 6 — Transactional emails  ← explicitly requested · **Stripe + Resend split**
 **Stripe sends (enable in Stripe settings, brand with logo/domain):**
