@@ -48,7 +48,7 @@ export default function CalEmbed() {
     Cal("init", "rb-30min", { origin: "https://cal.eu" });
     Cal.ns["rb-30min"]("inline", {
       elementOrSelector: "#rb-cal-inline",
-      calLink: "rosebudsolutions/30min",
+      calLink: "rosebudsolutions/demo",
       layout: "month_view",
     });
     Cal.ns["rb-30min"]("ui", {
