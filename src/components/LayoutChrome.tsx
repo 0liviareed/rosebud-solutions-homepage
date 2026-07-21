@@ -17,6 +17,7 @@ const BARE_ROUTES: readonly string[] = [
   "/founders-stack",
   "/capabilities",
   "/about",
+  "/pricing",
 ];
 
 /**
