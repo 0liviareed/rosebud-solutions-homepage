@@ -35,6 +35,21 @@ The pricing page (`/pricing`, `PricingV2.tsx`) is **done** and hands config to
 
 ---
 
+## Credentials & env vars (where the keys go)
+**Store in Vercel env vars** on the rosebud.global project (Production + Preview + Development) — never in git. You add them in the dashboard; code reads them by name. Local dev: `vercel env pull` → `.env.local` (gitignored). Use **Stripe test keys** until go-live.
+
+| Env var | From | Notes |
+|---|---|---|
+| `STRIPE_SECRET_KEY` | Stripe | `sk_test_…` now, `sk_live_…` at go-live. **Server only.** |
+| `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY` | Stripe | `pk_test_…`. Safe to expose. |
+| `STRIPE_WEBHOOK_SECRET` | Stripe (webhook endpoint) | `whsec_…`. **Server only.** |
+| `RESEND_API_KEY` | Resend | **Server only.** |
+| `NEXT_PUBLIC_APP_SUPABASE_URL` | new rosebud-app Supabase | namespaced `APP_` so it never clashes with the existing forms/war-room Supabase. |
+| `NEXT_PUBLIC_APP_SUPABASE_ANON_KEY` | new rosebud-app Supabase | Safe to expose. |
+| `APP_SUPABASE_SERVICE_ROLE_KEY` | new rosebud-app Supabase | **Server only.** |
+
+Reused (already exist for the site forms — for the abandoned-lead → CRM/Telegram forward): the war-room CRM Supabase key + the `@RosebudWarRoom_bot` Telegram token/chat id. Confirm which project the forms use (Phase 5).
+
 ## Phase 1 — Stripe setup
 - [ ] Create Products in Stripe: **Start / Grow / Expand / Scale** (Enterprise is sales-only, no product).
 - [ ] Prices per product: monthly + yearly (yearly = round(monthly × 0.90)), in **GBP and USD**. Yearly billed annually.
