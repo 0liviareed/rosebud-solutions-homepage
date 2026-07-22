@@ -209,9 +209,6 @@ function CheckoutInner() {
               </div>
             </div>
           </div>
-          <div style={{ padding: "13px 22px 16px", background: "rgba(139,125,216,0.06)", borderTop: "1px solid rgba(23,19,31,0.1)", fontSize: 12, color: "rgba(23,19,31,0.62)" }}>
-            <b style={{ color: INK }}>Charged today.</b> Full refund if you cancel before your onboarding session. Renews {cycle} · cancel anytime.
-          </div>
         </aside>
       </main>
     </div>
