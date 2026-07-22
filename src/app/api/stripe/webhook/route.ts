@@ -76,7 +76,9 @@ export async function POST(request: Request) {
             const planKey = subInfo?.plan_key ?? "";
             const planName = planKey ? planKey.charAt(0).toUpperCase() + planKey.slice(1) : "your";
             const site = process.env.NEXT_PUBLIC_SITE_URL ?? "https://rosebud.global";
-            await sendWelcomeOnboarding({ email, firstName: prof?.first_name ?? null, planName, bookingUrl: `${site}/onboarding/${token}` });
+            const emailRes = await sendWelcomeOnboarding({ email, firstName: prof?.first_name ?? null, planName, bookingUrl: `${site}/onboarding/${token}` });
+            if (!emailRes.ok) console.error("welcome email NOT sent:", emailRes.error);
+            else console.log("welcome email sent id:", emailRes.id);
           }
         }
         break;
