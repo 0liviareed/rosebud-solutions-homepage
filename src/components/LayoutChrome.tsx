@@ -19,6 +19,7 @@ const BARE_ROUTES: readonly string[] = [
   "/about",
   "/pricing",
   "/checkout",
+  "/onboarding",
 ];
 
 /**
