@@ -39,29 +39,6 @@ export default function DpaPage() {
 
       <main className="rb-policy">
         <div className="rb-policy-wrap">
-          {/* DRAFT notice */}
-          <div
-            className="rb-policy-section"
-            style={{
-              border: "1px solid rgba(139,125,216,0.4)",
-              background: "rgba(139,125,216,0.08)",
-              borderRadius: 14,
-              padding: "18px 20px",
-              marginBottom: 8,
-            }}
-          >
-            <p style={{ margin: 0, fontWeight: 600 }}>
-              Draft &mdash; pending legal review.
-            </p>
-            <p style={{ margin: "8px 0 0" }}>
-              This Data Processing Agreement is being finalised and is{" "}
-              <strong>not yet in force</strong>. It is published here so that,
-              once finalised, it can be incorporated into our Terms of Service and
-              accepted at checkout. Items shown in square brackets are still to be
-              confirmed.
-            </p>
-          </div>
-
           {/* Intro */}
           <p className="rb-policy-intro">
             This Data Processing Agreement (&ldquo;DPA&rdquo;) forms part of, and
