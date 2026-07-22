@@ -143,7 +143,7 @@ function CheckoutInner() {
           <button type="button" onClick={submit} disabled={submitting} style={{ width: "100%", marginTop: 24, background: A, color: "#fff", border: "none", padding: 16, borderRadius: 13, fontSize: 15, fontWeight: 700, cursor: submitting ? "default" : "pointer", opacity: submitting ? 0.6 : 1, boxShadow: "0 16px 38px -16px rgba(139,125,216,0.8)" }}>
             {submitting ? "Taking you to payment…" : "Continue to payment"}
           </button>
-          <div style={{ fontSize: 12, color: "rgba(23,19,31,0.5)", textAlign: "center", marginTop: 14 }}>By creating an account you agree to the <a href="/terms" style={{ color: AD, fontWeight: 600 }}>Terms</a> and <a href="/privacy" style={{ color: AD, fontWeight: 600 }}>Privacy Policy</a>.</div>
+          <div style={{ fontSize: 12, color: "rgba(23,19,31,0.5)", textAlign: "center", marginTop: 14 }}>By creating an account you agree to the <a href="/terms" style={{ color: AD, fontWeight: 600 }}>Terms</a>, <a href="/privacy" style={{ color: AD, fontWeight: 600 }}>Privacy Policy</a>, and <a href="/dpa" style={{ color: AD, fontWeight: 600 }}>Data Processing Agreement</a>.</div>
         </div>
 
         {/* ORDER SUMMARY */}

@@ -135,6 +135,11 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
+                <Link href="/dpa" className="rb-footer-link">
+                  Data Processing Agreement
+                </Link>
+              </li>
+              <li>
                 <CookieSettingsLink />
               </li>
             </ul>

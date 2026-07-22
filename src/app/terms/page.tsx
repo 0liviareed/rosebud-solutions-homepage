@@ -251,6 +251,13 @@ export default function TermsPage() {
               data-protection and marketing laws.
             </p>
             <p>
+              Our processing of that data on your behalf is governed by our{" "}
+              <a href="/dpa" className="rb-policy-link">
+                Data Processing Agreement
+              </a>
+              , which forms part of these Terms.
+            </p>
+            <p>
               You must not use the Platform to process unlawful content, to
               contact individuals without a lawful basis, or in any way that
               infringes the rights of others.
