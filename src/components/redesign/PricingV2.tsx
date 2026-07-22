@@ -109,7 +109,7 @@ export default function PricingV2() {
   const buy = (p: Plan) => {
     if (!p.selfServe) { window.location.href = CAL; return; }
     // Hand the configuration to checkout (checkout is the next build).
-    router.push(`/checkout?plan=${p.key}&cycle=${cycle}&currency=${currency}&seats=${seatCount(p)}&cla=${cla[p.key]}`);
+    router.push(`/checkout/configure?plan=${p.key}&cycle=${cycle}&currency=${currency}&seats=${seatCount(p)}&cla=${cla[p.key]}`);
   };
   const openModal = (tier: PlanKey | null) => (e: React.MouseEvent) => { e.preventDefault(); lastTrigger.current = e.currentTarget as HTMLElement; setModalTier(tier); };
   const addClaFromModal = () => {
@@ -118,7 +118,7 @@ export default function PricingV2() {
     setCla((s) => ({ ...s, [tier]: true }));
     setModalTier(undefined);
     const p = PLANS.find((x) => x.key === tier)!;
-    router.push(`/checkout?plan=${tier}&cycle=${cycle}&currency=${currency}&seats=${seatCount(p)}&cla=true`);
+    router.push(`/checkout/configure?plan=${tier}&cycle=${cycle}&currency=${currency}&seats=${seatCount(p)}&cla=true`);
   };
 
   const onPick = (v: string) => {
