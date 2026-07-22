@@ -128,6 +128,24 @@ Tasks:
 - [ ] Example — "good-lead definition" is structured, not a text box: **budget threshold (number)** · **timeline (enum)** · **service type (multi-select from their own list)** · **+ one** free-text field for anything the structure misses.
 - [ ] Rule: anything a human would have interpreted on a call needs a checkable shape now, or it becomes the thing that blocks self-serve. Design the whole discovery schema this way.
 
+## Overage & operational kill-switch  ← MUST BUILD (2026-07-22) · **overrides brief §6.2**
+Supersedes the brief's "never an overage charge — plan band, not metered." Overage **is** billed now, with a kill-switch.
+
+**The rules (exact):**
+- **90% — soft alert.** At 90% of the plan's monthly lead volume, notify the client: "you're approaching your limit — [next tier] includes more." Upgrade nudge, **no interruption**. (This is the §6.2 usage meter going amber.)
+- **100% + Auto-Overage ON (default).** Auto-bill **£0.25 per extra lead, in blocks of 50 (£12.50/block)**. Service continues uninterrupted — a busy month never stops the funnels.
+- **100% + Auto-Overage OFF, or card fails/declines.** **Operational kill-switch fires instantly** — forms, widget responders, and active booking sequences **pause immediately**. Everything resumes the moment the plan is upgraded or the balance is cleared. An upgrade prompt **at the wall**, not silent failure — protects server, DB and API cost.
+- **Rate logic.** £0.25/lead overage is priced above the committed in-tier rate (~£0.20/lead) — no commitment, more per lead. A client consistently in overage is cheaper on the next tier up → that's the renewal conversation.
+
+**Build pieces:**
+- [ ] Data model (`subscriptions`): `auto_overage boolean default true`, `lead_usage integer default 0` (this period), `operational_status text default 'active'` (active|paused). Reset `lead_usage` at each billing-period rollover.
+- [ ] Lead metering: increment `lead_usage` per qualifying lead; compare against `plans.lead_cap`.
+- [ ] Stripe: a **metered price** for overage — £12.50 per unit, unit = a block of 50 leads; report `ceil(overage / 50)` at period end. Attach as a metered line item on the subscription.
+- [ ] 90% alert: cron/trigger at ≥90% → nudge (Resend / Telegram / in-app) naming the next tier, once per period.
+- [ ] Kill-switch: when `(auto_overage=false AND lead_usage≥cap)` OR a payment fails → set `operational_status='paused'`; on upgrade / balance cleared / payment recovered → back to `'active'`.
+- [ ] **Integration (the hard part):** forms, widget responders, and booking sequences must check `operational_status` before processing and pause when paused. That's the actual product runtime (n8n / war-room infra), not just UI — the kill-switch has to gate it.
+- [ ] Account page (§6.2): usage meter (amber ≥90%, names the next tier), an **Auto-Overage toggle** (on by default, with the £0.25/lead-in-50s note), and the "paused — upgrade to resume" wall state. Replace the old "never an overage charge" copy.
+
 ## Phase 7 — Account surfaces (`/app/*`, brief §6)
 - [ ] `/app/onboarding` — 5-step timeline driven by `onboarding.stage` + `blocked_on` (names the blocker by name).
 - [ ] `/app/billing` — plan + state pill, line-item breakdown, next invoice / go-live date, Stripe Billing Portal link, change plan, **usage meter** (amber ≥90%, names next tier, never a lockout), CLA panel, cancel copy.
