@@ -4,6 +4,8 @@ import { Resend } from "resend";
 // sends the lifecycle emails Stripe doesn't know about). From-address is a verified
 // Resend sending domain — set RESEND_FROM in Vercel, else a sensible default.
 const FROM = process.env.RESEND_FROM ?? "Rosebud Solutions <hello@rosebud.global>";
+// Replies land in a monitored Zoho inbox (hello@ is send-only / may not exist).
+const REPLY_TO = process.env.RESEND_REPLY_TO ?? "contact@rosebud.global";
 const A = "#8B7DD8";
 
 function shell(inner: string): string {
@@ -31,7 +33,7 @@ export async function sendWelcomeOnboarding(opts: { email: string; firstName?: s
   `);
   try {
     const resend = new Resend(key);
-    await resend.emails.send({ from: FROM, to: opts.email, subject: `You're on the ${opts.planName} plan — let's book your onboarding`, html });
+    await resend.emails.send({ from: FROM, replyTo: REPLY_TO, to: opts.email, subject: `You're on the ${opts.planName} plan — let's book your onboarding`, html });
   } catch (err) {
     console.error("sendWelcomeOnboarding failed:", err instanceof Error ? err.message : String(err));
   }
@@ -48,7 +50,7 @@ export async function sendAbandonedNudge(opts: { email: string; firstName?: stri
   `);
   try {
     const resend = new Resend(key);
-    await resend.emails.send({ from: FROM, to: opts.email, subject: "You left something behind", html });
+    await resend.emails.send({ from: FROM, replyTo: REPLY_TO, to: opts.email, subject: "You left something behind", html });
   } catch (err) {
     console.error("sendAbandonedNudge failed:", err instanceof Error ? err.message : String(err));
   }
