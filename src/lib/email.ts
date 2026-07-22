@@ -88,7 +88,7 @@ export async function sendWelcomeOnboarding(opts: { email: string; firstName?: s
 
               <tr>
                 <td class="px" style="padding:22px 52px 0 52px; font-family:Helvetica, Arial, sans-serif; font-size:15px; line-height:26px; mso-line-height-rule:exactly; color:#6b6e8a;">
-                  Welcome${name}. Your account is live and your subscription is active. Your receipt and VAT invoice arrive separately from Stripe.
+                  Welcome${name}. Your account is live and your subscription is active. Your receipt arrives separately from Stripe.
                 </td>
               </tr>
 
