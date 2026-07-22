@@ -77,15 +77,19 @@ export async function POST(request: Request) {
     const origin = new URL(request.url).origin;
     // Stripe Tax (automatic_tax) requires Tax to be activated + an origin address in
     // the dashboard. Opt in via env so a not-yet-configured account doesn't hard-fail
-    // checkout; flip STRIPE_TAX_ENABLED=true once Tax is set up.
+    // checkout; flip STRIPE_TAX_ENABLED=true once Tax is set up. Billing-address and
+    // VAT-number collection do NOT need Tax, so they run regardless.
     const taxOn = process.env.STRIPE_TAX_ENABLED === "true";
     const session = await stripe.checkout.sessions.create({
       mode: "subscription",
       customer: customerId,
       line_items,
       currency: currency.toLowerCase(),
+      payment_method_types: ["card"],          // card only — no Klarna / BNPL
+      billing_address_collection: "required",  // always collect a billing address
+      tax_id_collection: { enabled: true },    // optional VAT / tax-ID field
+      customer_update: { address: "auto", name: "auto" }, // persist address + name to the customer
       automatic_tax: { enabled: taxOn },
-      ...(taxOn ? { customer_update: { address: "auto", name: "auto" }, tax_id_collection: { enabled: true } } : {}),
       subscription_data: { metadata: { org_id: b.org_id, subscription_id: sub.id } },
       metadata: { org_id: b.org_id, subscription_id: sub.id },
       success_url: `${origin}/checkout/success?session_id={CHECKOUT_SESSION_ID}`,

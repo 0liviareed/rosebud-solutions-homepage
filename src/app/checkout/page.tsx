@@ -97,9 +97,11 @@ function CheckoutInner() {
   }
 
   const cfgCur = CUR[currency];
-  const field = (label: string, key: keyof typeof form, type = "text", ph = "", auto = "") => (
+  const field = (label: string, key: keyof typeof form, type = "text", ph = "", auto = "", required = true) => (
     <label style={{ display: "block" }}>
-      <span style={lblStyle}>{label}<span style={{ color: "#c0392b", marginLeft: 2 }}>*</span></span>
+      <span style={lblStyle}>{label}{required
+        ? <span style={{ color: "#c0392b", marginLeft: 2 }}>*</span>
+        : <span style={{ color: "rgba(23,19,31,0.4)", marginLeft: 5, fontWeight: 400, textTransform: "none", letterSpacing: 0 }}>(optional)</span>}</span>
       <input type={type} autoComplete={auto} placeholder={ph} value={form[key]} className="ck-in"
         onChange={(e) => setForm((f) => ({ ...f, [key]: e.target.value }))} onBlur={() => capture("step1_partial")} />
     </label>
@@ -124,7 +126,7 @@ function CheckoutInner() {
               {field("Last name", "last_name", "text", "Doyle", "family-name")}
             </div>
             {field("Work email", "email", "email", "alex@doyle-partners.co.uk", "email")}
-            {field("Phone", "phone", "tel", "+44 7700 900123", "tel")}
+            {field("Phone", "phone", "tel", "+44 7700 900123", "tel", false)}
             <label style={{ display: "block" }}>
               <span style={lblStyle}>Password<span style={{ color: "#c0392b", marginLeft: 2 }}>*</span></span>
               <div style={{ position: "relative" }}>

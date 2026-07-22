@@ -25,7 +25,11 @@ export async function GET(request: Request) {
       if (sub?.plan_key) planName = (sub.plan_key as string).charAt(0).toUpperCase() + (sub.plan_key as string).slice(1);
       if (sub?.current_period_end) renewalDate = new Date(sub.current_period_end as string).toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" });
     }
-    return NextResponse.json({ ok: true, paid, planName, email, renewalDate, orderNo: sessionId.slice(-10).toUpperCase() });
+    // Stable all-digits confirmation number derived from the session id (same
+    // session → same number). Formatted as RB-######## for readability.
+    let h = 7; for (const c of sessionId) h = (h * 31 + c.charCodeAt(0)) % 100000000;
+    const orderNo = `RB-${h.toString().padStart(8, "0")}`;
+    return NextResponse.json({ ok: true, paid, planName, email, renewalDate, orderNo });
   } catch {
     return NextResponse.json({ ok: false }, { status: 200 });
   }
