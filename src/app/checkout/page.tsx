@@ -61,6 +61,7 @@ function CheckoutInner() {
     setError(null);
     if (!form.first_name.trim() || !form.last_name.trim()) return setError("We need your name.");
     if (!form.email.includes("@")) return setError("Enter a valid work email.");
+    if (form.phone.replace(/\D/g, "").length < 7) return setError("We need a valid phone number.");
     if (form.password.length < 10) return setError("A little longer — 10 characters minimum.");
     if (!form.company.trim()) return setError("We need a company name.");
     setSubmitting(true);
@@ -126,7 +127,7 @@ function CheckoutInner() {
               {field("Last name", "last_name", "text", "Doyle", "family-name")}
             </div>
             {field("Work email", "email", "email", "alex@doyle-partners.co.uk", "email")}
-            {field("Phone", "phone", "tel", "+44 7700 900123", "tel", false)}
+            {field("Phone", "phone", "tel", "+44 7700 900123", "tel")}
             <label style={{ display: "block" }}>
               <span style={lblStyle}>Password<span style={{ color: "#c0392b", marginLeft: 2 }}>*</span></span>
               <div style={{ position: "relative" }}>
