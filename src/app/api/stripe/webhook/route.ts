@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import Stripe from "stripe";
 import { appSupabaseAdmin } from "@/lib/appSupabase";
+import { sendWelcomeOnboarding } from "@/lib/email";
 
 export const dynamic = "force-dynamic";
 
@@ -64,12 +65,20 @@ export async function POST(request: Request) {
           // Seed onboarding + a signed booking token (used by the gated onboarding link).
           const token = crypto.randomUUID().replace(/-/g, "") + crypto.randomUUID().replace(/-/g, "");
           await sb.from("onboarding").upsert({ org_id: orgId, stage: "plan_chosen", booking_token: token, updated_at: new Date().toISOString() }, { onConflict: "org_id" });
-          // Mark the checkout lead converted (belt-and-braces; signup does it too).
-          if (s.customer_details?.email) {
-            await sb.from("checkout_leads").update({ converted_org_id: orgId, stage_reached: "converted", updated_at: new Date().toISOString() }).eq("email", s.customer_details.email.toLowerCase());
+
+          const email = s.customer_details?.email?.toLowerCase() ?? null;
+          if (email) {
+            // Mark the checkout lead converted (belt-and-braces; signup does it too).
+            await sb.from("checkout_leads").update({ converted_org_id: orgId, stage_reached: "converted", updated_at: new Date().toISOString() }).eq("email", email);
+            // Welcome + book-onboarding email (Resend). Stripe sends receipt/invoice separately.
+            const { data: subInfo } = await sb.from("subscriptions").select("plan_key").eq("id", subRowId ?? "").maybeSingle();
+            const { data: prof } = await sb.from("profiles").select("first_name").eq("email", email).maybeSingle();
+            const planKey = subInfo?.plan_key ?? "";
+            const planName = planKey ? planKey.charAt(0).toUpperCase() + planKey.slice(1) : "your";
+            const site = process.env.NEXT_PUBLIC_SITE_URL ?? "https://rosebud.global";
+            await sendWelcomeOnboarding({ email, firstName: prof?.first_name ?? null, planName, bookingUrl: `${site}/onboarding/${token}` });
           }
         }
-        // TODO(emails): fire Resend welcome + onboarding-booking (signed link) here.
         break;
       }
 
