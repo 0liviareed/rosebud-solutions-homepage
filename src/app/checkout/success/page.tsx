@@ -7,7 +7,6 @@ const SERIF = "var(--font-cormorant), 'Cormorant Garamond', serif";
 const A = "#8B7DD8";
 const AD = "#6E5FB8";
 const INK = "#17131F";
-const ONBOARDING = "https://cal.eu/rosebudsolutions/demo";
 
 type Status = { planName: string; email: string | null; renewalDate: string | null; orderNo: string } | null;
 
@@ -56,8 +55,11 @@ function SuccessInner() {
           </ol>
         </div>
 
-        <div style={{ marginTop: 30 }}>
-          <a href={ONBOARDING} target="_blank" rel="noopener noreferrer" style={{ display: "inline-block", background: A, color: "#fff", textDecoration: "none", fontWeight: 700, fontSize: 15, padding: "15px 28px", borderRadius: 13, boxShadow: "0 16px 38px -16px rgba(139,125,216,0.8)" }}>Book your onboarding session</a>
+        <div style={{ margin: "30px auto 0", maxWidth: 500, display: "flex", alignItems: "flex-start", gap: 12, textAlign: "left", background: "rgba(139,125,216,0.09)", border: "1px solid rgba(139,125,216,0.22)", borderRadius: 14, padding: "16px 18px" }}>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke={AD} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ flex: "none", marginTop: 1 }}><rect x="2" y="4" width="20" height="16" rx="2" /><path d="m22 7-10 6L2 7" /></svg>
+          <div style={{ fontSize: 13.5, lineHeight: 1.55, color: "rgba(23,19,31,0.72)" }}>
+            <b style={{ color: INK }}>Your onboarding booking link is in your email{st?.email ? ` (${st.email})` : ""}.</b> It&apos;s a private link tied to your subscription — book from there when you&apos;re ready.
+          </div>
         </div>
         <div style={{ marginTop: 22, fontSize: 12.5, color: "rgba(23,19,31,0.5)" }}>Full refund if you cancel before your onboarding session.</div>
       </main>
