@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { checkBotId } from "botid/server";
 import { createClient } from "@supabase/supabase-js";
 
 export const dynamic = "force-dynamic";
@@ -184,6 +185,9 @@ async function fireTelegram(name: string) {
 }
 
 export async function POST(req: Request) {
+  const bot = await checkBotId();
+  if (bot.isBot) return NextResponse.json({ error: "Request blocked." }, { status: 403 });
+
   let body: Body;
   try {
     body = (await req.json()) as Body;

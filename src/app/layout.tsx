@@ -7,7 +7,18 @@ import {
   JetBrains_Mono,
 } from "next/font/google";
 import LayoutChrome from "@/components/LayoutChrome";
+import { BotIdClient } from "botid/client";
 import { Analytics } from "@vercel/analytics/next";
+
+// Vercel BotID — invisible bot protection. Instruments the client so the matching
+// server routes can verify with checkBotId(). Protects the abusable POST endpoints.
+const BOTID_PROTECTED = [
+  { path: "/api/signup", method: "POST" },
+  { path: "/api/checkout/session", method: "POST" },
+  { path: "/api/pricing/enquiry", method: "POST" },
+  { path: "/api/careers/sdr", method: "POST" },
+  { path: "/api/login", method: "POST" },
+];
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import PostHogProvider from "@/components/PostHogProvider";
 import CookieBanner from "@/components/CookieBanner";
@@ -141,6 +152,9 @@ export default function RootLayout({
       lang="en-GB"
       className={`${cormorant.variable} ${dmSans.variable} ${sora.variable} ${outfit.variable} ${jetbrainsMono.variable}`}
     >
+      <head>
+        <BotIdClient protect={BOTID_PROTECTED} />
+      </head>
       <body>
         <a href="#rb-main" className="rb-skip-link">
           Skip to content

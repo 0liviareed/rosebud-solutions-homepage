@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { checkBotId } from "botid/server";
 import { appSupabaseAdmin } from "@/lib/appSupabase";
 import { isValidPhone } from "@/lib/phone";
 
@@ -16,6 +17,9 @@ type Body = {
 const clean = (v: unknown) => { const s = typeof v === "string" ? v.trim() : ""; return s.length ? s : null; };
 
 export async function POST(request: Request) {
+  const bot = await checkBotId();
+  if (bot.isBot) return NextResponse.json({ error: "Request blocked." }, { status: 403 });
+
   let body: Body;
   try { body = (await request.json()) as Body; } catch { return NextResponse.json({ error: "Invalid request" }, { status: 400 }); }
 

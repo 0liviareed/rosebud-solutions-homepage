@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import Stripe from "stripe";
+import { checkBotId } from "botid/server";
 import { appSupabaseAdmin } from "@/lib/appSupabase";
 import { planByKey, extraSeats, MODULES, type Cur, type Cycle, type ModuleKey } from "@/lib/pricing";
 
@@ -16,6 +17,9 @@ type Body = {
 };
 
 export async function POST(request: Request) {
+  const bot = await checkBotId();
+  if (bot.isBot) return NextResponse.json({ error: "Request blocked." }, { status: 403 });
+
   const { STRIPE_SECRET_KEY } = process.env;
   if (!STRIPE_SECRET_KEY) return NextResponse.json({ error: "Stripe not configured" }, { status: 500 });
 

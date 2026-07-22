@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import crypto from 'crypto';
+import { checkBotId } from 'botid/server';
 
 /*
  * engine.rosebud.global login — mirrors the warroom auth contract.
@@ -66,6 +67,9 @@ function verifyTotp(code: string, secret: string, window = 1): boolean {
 }
 
 export async function POST(request: NextRequest) {
+  const bot = await checkBotId();
+  if (bot.isBot) return NextResponse.json({ ok: false, reason: 'blocked' }, { status: 403 });
+
   let body: { password?: string; code?: string };
   try {
     body = await request.json();
