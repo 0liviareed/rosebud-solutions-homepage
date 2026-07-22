@@ -64,6 +64,9 @@ function CheckoutInner() {
     if (form.password.length < 10) return setError("A little longer — 10 characters minimum.");
     if (!form.company.trim()) return setError("We need a company name.");
     setSubmitting(true);
+    // Parse a response body even when the server returns a non-JSON error page (a
+    // crashed route → 500 with no JSON). Never let that surface as a blind message.
+    const readJson = async (r: Response) => { try { return await r.json(); } catch { return {}; } };
     try {
       const su = await fetch("/api/signup", {
         method: "POST", headers: { "Content-Type": "application/json" },
@@ -72,18 +75,23 @@ function CheckoutInner() {
           phone: form.phone, password: form.password, company: form.company, country: currency === "GBP" ? "GB" : "US",
         }),
       });
-      const sud = await su.json();
-      if (!su.ok) { setError(sud.error ?? "Couldn't create your account."); setSubmitting(false); return; }
+      const sud = await readJson(su);
+      if (!su.ok) {
+        // Already registered → guide them to sign in rather than a generic error.
+        if (su.status === 409 || sud.code === "exists") setError("You already have an account with this email — please sign in instead.");
+        else setError(sud.error ?? `Couldn't create your account.${su.status ? ` (${su.status})` : ""}`);
+        setSubmitting(false); return;
+      }
 
       const ss = await fetch("/api/checkout/session", {
         method: "POST", headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ org_id: sud.org_id, email: form.email.trim().toLowerCase(), plan: plan.key, cycle, currency, seats, cla: claOn, modules: mods }),
       });
-      const ssd = await ss.json();
-      if (!ss.ok || !ssd.url) { setError(ssd.error ?? "Couldn't start payment. Please retry."); setSubmitting(false); return; }
+      const ssd = await readJson(ss);
+      if (!ss.ok || !ssd.url) { setError(ssd.error ?? `Couldn't start payment. Please retry.${ss.status ? ` (${ss.status})` : ""}`); setSubmitting(false); return; }
       window.location.href = ssd.url; // → Stripe hosted checkout
     } catch {
-      setError("Something went wrong. Please retry.");
+      setError("Couldn't reach the server. Check your connection and retry.");
       setSubmitting(false);
     }
   }

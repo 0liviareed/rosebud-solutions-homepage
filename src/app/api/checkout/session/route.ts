@@ -57,36 +57,45 @@ export async function POST(request: Request) {
   if (allMods) { const id = priceOf("mod_bundle"); if (id) line_items.push({ price: id, quantity: 1 }); }
   else for (const m of mods) { const id = priceOf(`mod_${m}`); if (id) line_items.push({ price: id, quantity: 1 }); }
 
-  // Reuse the org's Stripe customer if it has one, else create + persist.
-  const { data: org } = await sb.from("orgs").select("stripe_customer_id, name").eq("id", b.org_id).maybeSingle();
-  let customerId = org?.stripe_customer_id ?? null;
-  if (!customerId) {
-    const customer = await stripe.customers.create({ email: b.email, name: org?.name ?? undefined, metadata: { org_id: b.org_id } });
-    customerId = customer.id;
-    await sb.from("orgs").update({ stripe_customer_id: customerId }).eq("id", b.org_id);
+  try {
+    // Reuse the org's Stripe customer if it has one, else create + persist.
+    const { data: org } = await sb.from("orgs").select("stripe_customer_id, name").eq("id", b.org_id).maybeSingle();
+    let customerId = org?.stripe_customer_id ?? null;
+    if (!customerId) {
+      const customer = await stripe.customers.create({ email: b.email, name: org?.name ?? undefined, metadata: { org_id: b.org_id } });
+      customerId = customer.id;
+      await sb.from("orgs").update({ stripe_customer_id: customerId }).eq("id", b.org_id);
+    }
+
+    // Pending subscription row — the webhook flips it to active on completion.
+    const { data: sub, error: sErr } = await sb.from("subscriptions").insert({
+      org_id: b.org_id, plan_key: plan.key, cycle, currency, seats, cla_on: cla, modules: mods,
+      stripe_customer_id: customerId, status: "pending",
+    }).select("id").single();
+    if (sErr || !sub) return NextResponse.json({ error: sErr?.message ?? "subscription create failed" }, { status: 500 });
+
+    const origin = new URL(request.url).origin;
+    // Stripe Tax (automatic_tax) requires Tax to be activated + an origin address in
+    // the dashboard. Opt in via env so a not-yet-configured account doesn't hard-fail
+    // checkout; flip STRIPE_TAX_ENABLED=true once Tax is set up.
+    const taxOn = process.env.STRIPE_TAX_ENABLED === "true";
+    const session = await stripe.checkout.sessions.create({
+      mode: "subscription",
+      customer: customerId,
+      line_items,
+      currency: currency.toLowerCase(),
+      automatic_tax: { enabled: taxOn },
+      ...(taxOn ? { customer_update: { address: "auto", name: "auto" }, tax_id_collection: { enabled: true } } : {}),
+      subscription_data: { metadata: { org_id: b.org_id, subscription_id: sub.id } },
+      metadata: { org_id: b.org_id, subscription_id: sub.id },
+      success_url: `${origin}/checkout/success?session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: `${origin}/checkout?plan=${plan.key}&cycle=${cycle}&currency=${currency}&seats=${seats}&cla=${cla}`,
+    });
+
+    return NextResponse.json({ url: session.url });
+  } catch (err) {
+    const msg = err instanceof Error ? err.message : String(err);
+    console.error("checkout session create failed:", msg);
+    return NextResponse.json({ error: msg }, { status: 500 });
   }
-
-  // Pending subscription row — the webhook flips it to active on completion.
-  const { data: sub, error: sErr } = await sb.from("subscriptions").insert({
-    org_id: b.org_id, plan_key: plan.key, cycle, currency, seats, cla_on: cla, modules: mods,
-    stripe_customer_id: customerId, status: "pending",
-  }).select("id").single();
-  if (sErr || !sub) return NextResponse.json({ error: sErr?.message ?? "subscription create failed" }, { status: 500 });
-
-  const origin = new URL(request.url).origin;
-  const session = await stripe.checkout.sessions.create({
-    mode: "subscription",
-    customer: customerId,
-    line_items,
-    currency: currency.toLowerCase(),
-    automatic_tax: { enabled: true },
-    customer_update: { address: "auto", name: "auto" },
-    tax_id_collection: { enabled: true },
-    subscription_data: { metadata: { org_id: b.org_id, subscription_id: sub.id } },
-    metadata: { org_id: b.org_id, subscription_id: sub.id },
-    success_url: `${origin}/checkout/success?session_id={CHECKOUT_SESSION_ID}`,
-    cancel_url: `${origin}/checkout?plan=${plan.key}&cycle=${cycle}&currency=${currency}&seats=${seats}&cla=${cla}`,
-  });
-
-  return NextResponse.json({ url: session.url });
 }
