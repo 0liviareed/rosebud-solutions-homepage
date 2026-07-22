@@ -49,8 +49,9 @@ export default function TermsPage() {
             >
               https://rosebud.global
             </a>{" "}
-            and any related services provided by Rosebud Global Ltd (trading
-            as &ldquo;Rosebud Solutions&rdquo;, &ldquo;Rosebud Global&rdquo;,
+            and any related services provided by Rosebud Global Ltd (company
+            number 16623472, trading as &ldquo;Rosebud Solutions&rdquo;,
+            &ldquo;Rosebud Global&rdquo;,
             &ldquo;Rosebud,&rdquo; &ldquo;we,&rdquo; &ldquo;us,&rdquo; or
             &ldquo;our&rdquo;).
           </p>
@@ -64,6 +65,7 @@ export default function TermsPage() {
             <div className="rb-policy-contact">
               <p>Rosebud Global Ltd</p>
               <p>Trading as: Rosebud Solutions</p>
+              <p>Company number: 16623472</p>
               <p>London, United Kingdom</p>
               <p>
                 Email:{" "}

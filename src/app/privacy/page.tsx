@@ -41,8 +41,9 @@ export default function PrivacyPage() {
         <div className="rb-policy-wrap">
           {/* Intro */}
           <p className="rb-policy-intro">
-            Rosebud Global Ltd (trading as &ldquo;Rosebud Solutions&rdquo;,
-            &ldquo;Rosebud Global&rdquo;, &ldquo;Rosebud&rdquo;, &ldquo;we,&rdquo;
+            Rosebud Global Ltd (company number 16623472, trading as
+            &ldquo;Rosebud Solutions&rdquo;, &ldquo;Rosebud Global&rdquo;,
+            &ldquo;Rosebud&rdquo;, &ldquo;we,&rdquo;
             &ldquo;us,&rdquo; or &ldquo;our&rdquo;) respects your privacy and is
             committed to protecting the personal information of individuals
             (&ldquo;you,&rdquo; &ldquo;your,&rdquo; or &ldquo;user&rdquo;) who
@@ -171,66 +172,123 @@ export default function PrivacyPage() {
 
           <section className="rb-policy-section">
             <h2 className="rb-policy-h2">
-              Payments, Subscriptions and Service Providers
+              The Rosebud Solutions Service &mdash; Our Two Roles
             </h2>
             <p>
-              To run our subscription service we rely on a small number of
-              trusted providers who process personal data on our behalf (or, for
-              payments, as an independent controller for their own compliance
-              purposes). Each is contractually required to protect your data and
-              use it only as instructed.
+              <strong>Controller &mdash; our own account, site and payment
+              data.</strong> We are the controller of personal data about our
+              account holders, their users, our website visitors, and people who
+              enquire about Rosebud. The rest of this Privacy Policy governs that
+              data.
             </p>
-
-            <h3 className="rb-policy-h3">Payments (Stripe)</h3>
             <p>
-              Payments are processed by Stripe (Stripe Payments Europe, Ltd. and
-              its affiliates). When you subscribe, your card details are entered
-              on Stripe&rsquo;s secure checkout and are sent directly to Stripe
-              &mdash; we never see or store your full card number. Stripe
-              processes your payment and billing information to take payment,
-              prevent fraud, and issue receipts and VAT invoices. Stripe acts as
-              our processor for taking payment and as an independent controller
-              for its own fraud-prevention and legal obligations. Stripe&rsquo;s
-              privacy notice is available at{" "}
-              <a
-                href="https://stripe.com/privacy"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="rb-policy-link"
-              >
-                https://stripe.com/privacy
-              </a>
-              .
+              <strong>Processor &mdash; data the operated service handles.</strong>{" "}
+              When you are a client, the Service processes personal data about
+              your leads, enquirers and customers (&ldquo;Contact Data&rdquo;) on
+              your behalf and on your documented instructions. For that data you
+              are the controller and we are your processor, under a data
+              processing agreement. An individual whose data sits in a
+              client&rsquo;s system should exercise their rights with that client
+              as controller; we assist the client as that agreement requires.
             </p>
 
             <h3 className="rb-policy-h3">
-              Account and Subscription Storage (Supabase)
+              What the Service does with Contact Data
             </h3>
             <p>
-              Your account details (name, email, phone, company, and a securely
-              hashed password) and your subscription records are stored in a
-              private Supabase database hosted in the European Union, with access
-              restricted to authorised members of the Rosebud Solutions team.
+              As processor, and only to provide the Service on the
+              client&rsquo;s instructions, we:
+            </p>
+            <ul className="rb-policy-list">
+              <li>
+                capture enquiries across the client&rsquo;s active channels
+                &mdash; web form, email, SMS, WhatsApp and Instagram &mdash; into
+                a single record;
+              </li>
+              <li>
+                score each record against the client&rsquo;s own qualification
+                rules and route it (continue, escalate to the client&rsquo;s
+                staff, or apply the client&rsquo;s not-qualified disposition);
+              </li>
+              <li>
+                book appointments into the client&rsquo;s calendar and send
+                confirmations, reminders and reschedule messages;
+              </li>
+              <li>
+                run re-engagement sequences to contacts that have gone cold or
+                are due for recall;
+              </li>
+              <li>
+                synchronise the record into the client&rsquo;s CRM, which remains
+                the client&rsquo;s system of record; and
+              </li>
+              <li>
+                for attribution clients only, produce a consented first-party
+                outcome signal (see below).
+              </li>
+            </ul>
+            <p>
+              Categories of data subject: the client&rsquo;s leads, enquirers,
+              prospects and customers. Categories of data: contact identifiers,
+              enquiry content and channel, qualification fields and status,
+              appointment and engagement events, and &mdash; where the client
+              provides it &mdash; an expected or actual value. We do not enrich
+              Contact Data with third-party or sourced data as part of the
+              Service.
             </p>
 
-            <h3 className="rb-policy-h3">Transactional Email (Resend)</h3>
+            <h3 className="rb-policy-h3">Online payment data</h3>
             <p>
-              We use Resend (Resend, Inc.) to send service emails, such as your
-              welcome and onboarding email. Resend processes your email address
-              and the content of those messages on our behalf. Your payment
-              receipt and VAT invoice are sent separately by Stripe.
+              Payments are processed by Stripe as our payment processor. We do
+              not receive or store full card numbers; we receive confirmation of
+              payment and limited transaction metadata to manage billing. Stripe
+              processes payment data as its own controller under its terms.
             </p>
 
             <h3 className="rb-policy-h3">
-              Hosting, Delivery and Bot Protection
+              Advertising outcome signal (attribution add-on)
             </h3>
             <p>
-              Our website and application are hosted on Vercel (Vercel, Inc.),
-              and DNS and content delivery are provided by Cloudflare. To protect
-              our forms and checkout from automated abuse, we use Vercel BotID
-              (powered by Kasada), which analyses technical signals from your
-              browser and device to tell humans and bots apart. This is used
-              solely for security and is not used for advertising or profiling.
+              For clients on the attribution add-on, we produce a lead-outcome
+              signal from Contact Data the Service already holds and deliver it to
+              the client&rsquo;s media team for the client to upload to its
+              advertising platform. Only first-party records carrying a valid
+              consent to advertising-platform use are ever included; third-party,
+              sourced, purchased or enriched data is never used for this purpose
+              or uploaded to an advertising platform. We deliver a file only; we
+              do not access or operate any advertising account, and the controller
+              relationship with the advertising platform sits with the client.
+            </p>
+
+            <h3 className="rb-policy-h3">AI processing</h3>
+            <p>
+              To provide the Service we use third-party AI model providers as
+              subprocessors to qualify records and generate response and
+              follow-up content. Contact Data and account data may be processed by
+              these providers for that purpose, under contract and on our
+              instructions.
+            </p>
+
+            <h3 className="rb-policy-h3">Subprocessors</h3>
+            <p>
+              We use subprocessors across these categories to operate the Service:
+              hosting and database infrastructure; the client&rsquo;s CRM and
+              calendar; messaging delivery (email, SMS, WhatsApp and Instagram);
+              AI model providers; payment processing; security and bot detection;
+              and product and website analytics. A named subprocessor register
+              &mdash; provider, purpose, data categories and processing region
+              &mdash; is maintained and available to clients on request.
+            </p>
+
+            <h3 className="rb-policy-h3">Retention of operated data</h3>
+            <p>
+              Contact Data held within the Service is retained for as long as
+              needed to provide the Service and in line with the client&rsquo;s
+              instructions and the data processing agreement. On termination,
+              records are made available for export within the export window and
+              then deleted or anonymised, save where retention is required by
+              law. Data already written into the client&rsquo;s own CRM is
+              unaffected and remains under the client&rsquo;s control.
             </p>
           </section>
 
@@ -488,12 +546,13 @@ export default function PrivacyPage() {
             </p>
             <ul className="rb-policy-list">
               <li>
-                To affiliates, service providers, and partners who support our
-                operations &mdash; including Stripe (payments), Supabase (account
-                and subscription storage), Resend (transactional email), Cal.com
-                (onboarding scheduling), Vercel and Cloudflare (hosting and
-                delivery), and, for our other activities, Vantage, Klaviyo, FX
-                Blue, MyFXBook, ManyChat, Google, and Telegram.
+                To service providers and partners who support our operations
+                &mdash; including our payment processor (Stripe) and providers of
+                hosting and database infrastructure, transactional email,
+                scheduling, security, and analytics, and, for our other
+                activities, Vantage, Klaviyo, FX Blue, MyFXBook, ManyChat,
+                Google, and Telegram. A named subprocessor register for the
+                Rosebud Solutions service is available to clients on request.
               </li>
               <li>
                 To regulators, courts, or authorities when legally required.
