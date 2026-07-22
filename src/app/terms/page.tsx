@@ -33,7 +33,7 @@ export default function TermsPage() {
           <h1 className="rb-page-hero-h1">
             Terms of <em>Service.</em>
           </h1>
-          <p className="rb-page-hero-caption">Last update: April 24, 2026</p>
+          <p className="rb-page-hero-caption">Last update: July 22, 2026</p>
         </div>
       </section>
 
@@ -109,6 +109,149 @@ export default function TermsPage() {
             <p>
               No guarantees are made regarding revenue increases, performance
               improvements, or specific business outcomes.
+            </p>
+          </section>
+
+          <section className="rb-policy-section">
+            <h2 className="rb-policy-h2">The Rosebud Solutions Platform</h2>
+            <p>
+              In addition to consultation and advisory services, Rosebud
+              Solutions offers a subscription-based demand-capture and
+              conversion platform (the &ldquo;Platform&rdquo;) that captures
+              enquiries from your channels, qualifies them, and books
+              appointments into your calendar and CRM. The specific capabilities
+              and any optional modules available to you depend on the plan you
+              select at checkout.
+            </p>
+            <p>
+              Access to the Platform is provided on a subscription basis and is
+              subject to these Terms. We may improve, modify, or discontinue
+              features from time to time; where a change materially reduces core
+              functionality of your plan, we will give you reasonable notice.
+            </p>
+          </section>
+
+          <section className="rb-policy-section">
+            <h2 className="rb-policy-h2">Your Account</h2>
+            <p>
+              To purchase a subscription you must create an account with a valid
+              email address, a password, and accurate business details. You are
+              responsible for keeping your login credentials secure and for all
+              activity that occurs under your account.
+            </p>
+            <p>
+              You agree to provide accurate, current, and complete information
+              and to keep it up to date. We may suspend or terminate accounts
+              that are used in breach of these Terms, that contain false
+              information, or where required for legal, security, or operational
+              reasons.
+            </p>
+          </section>
+
+          <section className="rb-policy-section">
+            <h2 className="rb-policy-h2">Plans, Fees and Billing</h2>
+            <ul className="rb-policy-list">
+              <li>
+                Subscriptions are offered on tiered plans, billed either monthly
+                or annually, in the currency (GBP or USD) shown at checkout.
+                Optional add-ons &mdash; including closed-loop attribution,
+                additional seats, and capability modules &mdash; may be added to
+                your plan for the fees shown at checkout.
+              </li>
+              <li>
+                Fees are charged at the time of purchase and, for recurring
+                subscriptions, automatically at the start of each renewal period
+                until you cancel. Annual plans are billed for the full year in
+                advance; monthly plans renew each month.
+              </li>
+              <li>
+                Prices are exclusive of applicable taxes (such as VAT), which are
+                added at checkout where required by law.
+              </li>
+              <li>
+                We may change our prices. Any change will apply from your next
+                renewal, and we will give you reasonable advance notice.
+              </li>
+              <li>
+                Payments are processed by Stripe. By subscribing, you authorise
+                us, through Stripe, to charge your chosen payment method for your
+                plan and any add-ons on a recurring basis. We do not store your
+                full card details &mdash; see our Privacy Policy and the
+                Third-Party Services section below.
+              </li>
+            </ul>
+          </section>
+
+          <section className="rb-policy-section">
+            <h2 className="rb-policy-h2">Onboarding</h2>
+            <p>
+              Each subscription includes an onboarding session, which you can
+              book using a private link provided to you after purchase. The
+              onboarding booking is available only to customers with an active
+              subscription. During onboarding we agree how the Platform will
+              qualify and handle enquiries for your business and connect your
+              tools.
+            </p>
+          </section>
+
+          <section className="rb-policy-section">
+            <h2 className="rb-policy-h2">Cancellation and Refunds</h2>
+            <p>
+              You may cancel your subscription at any time from your account or
+              by contacting us at{" "}
+              <a href="mailto:contact@rosebud.global" className="rb-policy-link">
+                contact@rosebud.global
+              </a>
+              . When you cancel, your subscription remains active until the end
+              of the current billing period and will not renew after that.
+            </p>
+            <p>
+              <strong>Refunds.</strong> If you cancel before your onboarding
+              session has taken place, you are entitled to a full refund of the
+              fees paid for the current period. Once your onboarding session has
+              taken place, fees are non-refundable, and we do not provide
+              refunds for partial or unused periods, except where a refund is
+              required by law.
+            </p>
+          </section>
+
+          <section className="rb-policy-section">
+            <h2 className="rb-policy-h2">Consumer Cancellation Rights</h2>
+            <p>
+              Our services are intended for businesses. If you are a
+              &ldquo;consumer&rdquo; under UK law (for example, a sole trader
+              purchasing outside your trade), you may have a statutory right
+              under the Consumer Contracts (Information, Cancellation and
+              Additional Charges) Regulations 2013 to cancel within 14 days of
+              purchase.
+            </p>
+            <p>
+              Because our services begin promptly, by purchasing and asking us to
+              begin &mdash; including by booking or attending your onboarding
+              session &mdash; within that 14-day period, you expressly request
+              that we start during the cancellation period and acknowledge that
+              you lose the right to cancel once the service has been fully
+              performed. This does not affect any other statutory rights you may
+              have, and our refund policy above continues to apply.
+            </p>
+          </section>
+
+          <section className="rb-policy-section">
+            <h2 className="rb-policy-h2">
+              Your Responsibilities for Data You Process
+            </h2>
+            <p>
+              When you use the Platform to capture and process enquiries, you are
+              the controller of that personal data and we act as your processor.
+              You are responsible for ensuring you have a lawful basis and any
+              necessary consents to collect and process the enquiry data you run
+              through the Platform, and for complying with applicable
+              data-protection and marketing laws.
+            </p>
+            <p>
+              You must not use the Platform to process unlawful content, to
+              contact individuals without a lawful basis, or in any way that
+              infringes the rights of others.
             </p>
           </section>
 
@@ -198,13 +341,17 @@ export default function TermsPage() {
           <section className="rb-policy-section">
             <h2 className="rb-policy-h2">Third-Party Services</h2>
             <p>
-              Our website and services may integrate with third-party providers
-              (e.g., analytics platforms, CRM systems, messaging services,
-              automation tools).
+              Our website and services integrate with third-party providers,
+              including Stripe for payment processing, and analytics platforms,
+              CRM systems, messaging services, and automation tools. Payments are
+              handled by Stripe and are subject to Stripe&rsquo;s own terms; your
+              card details are provided directly to Stripe and are not stored by
+              us.
             </p>
             <p>
               We are not responsible for the policies, practices, or content of
-              third-party platforms.
+              third-party platforms. The personal data we share with these
+              providers is described in our Privacy Policy.
             </p>
           </section>
 

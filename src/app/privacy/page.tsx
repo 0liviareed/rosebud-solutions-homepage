@@ -33,7 +33,7 @@ export default function PrivacyPage() {
           <h1 className="rb-page-hero-h1">
             Privacy <em>Notice.</em>
           </h1>
-          <p className="rb-page-hero-caption">Last update: May 29, 2026</p>
+          <p className="rb-page-hero-caption">Last update: July 22, 2026</p>
         </div>
       </section>
 
@@ -72,6 +72,15 @@ export default function PrivacyPage() {
               <li>
                 <strong>Account and login information</strong> &mdash;
                 usernames, passwords, and settings to access Rosebud platforms.
+              </li>
+              <li>
+                <strong>Payment and billing information</strong> &mdash; when you
+                subscribe, your billing name and address, any VAT or tax ID, your
+                chosen plan and add-ons, and transaction records. Your card
+                details are provided directly to our payment processor, Stripe,
+                and are not stored by us; we receive only limited information such
+                as the card brand, the last four digits, billing country, and
+                payment status.
               </li>
               <li>
                 <strong>Financial and trading activity data</strong> &mdash;
@@ -122,6 +131,16 @@ export default function PrivacyPage() {
             <ul className="rb-policy-list">
               <li>To provide educational resources, tools, and services.</li>
               <li>
+                To create and manage your account, take payment, and administer
+                your subscription and billing (including renewals, cancellations,
+                and refunds).
+              </li>
+              <li>
+                To send you service and transactional messages &mdash; such as
+                your welcome and onboarding email, receipts, and important
+                account notices.
+              </li>
+              <li>
                 To deliver and improve our systems, platforms, and internal
                 processes.
               </li>
@@ -148,6 +167,71 @@ export default function PrivacyPage() {
                 To manage recruitment, applications, and partnerships.
               </li>
             </ul>
+          </section>
+
+          <section className="rb-policy-section">
+            <h2 className="rb-policy-h2">
+              Payments, Subscriptions and Service Providers
+            </h2>
+            <p>
+              To run our subscription service we rely on a small number of
+              trusted providers who process personal data on our behalf (or, for
+              payments, as an independent controller for their own compliance
+              purposes). Each is contractually required to protect your data and
+              use it only as instructed.
+            </p>
+
+            <h3 className="rb-policy-h3">Payments (Stripe)</h3>
+            <p>
+              Payments are processed by Stripe (Stripe Payments Europe, Ltd. and
+              its affiliates). When you subscribe, your card details are entered
+              on Stripe&rsquo;s secure checkout and are sent directly to Stripe
+              &mdash; we never see or store your full card number. Stripe
+              processes your payment and billing information to take payment,
+              prevent fraud, and issue receipts and VAT invoices. Stripe acts as
+              our processor for taking payment and as an independent controller
+              for its own fraud-prevention and legal obligations. Stripe&rsquo;s
+              privacy notice is available at{" "}
+              <a
+                href="https://stripe.com/privacy"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="rb-policy-link"
+              >
+                https://stripe.com/privacy
+              </a>
+              .
+            </p>
+
+            <h3 className="rb-policy-h3">
+              Account and Subscription Storage (Supabase)
+            </h3>
+            <p>
+              Your account details (name, email, phone, company, and a securely
+              hashed password) and your subscription records are stored in a
+              private Supabase database hosted in the European Union, with access
+              restricted to authorised members of the Rosebud Solutions team.
+            </p>
+
+            <h3 className="rb-policy-h3">Transactional Email (Resend)</h3>
+            <p>
+              We use Resend (Resend, Inc.) to send service emails, such as your
+              welcome and onboarding email. Resend processes your email address
+              and the content of those messages on our behalf. Your payment
+              receipt and VAT invoice are sent separately by Stripe.
+            </p>
+
+            <h3 className="rb-policy-h3">
+              Hosting, Delivery and Bot Protection
+            </h3>
+            <p>
+              Our website and application are hosted on Vercel (Vercel, Inc.),
+              and DNS and content delivery are provided by Cloudflare. To protect
+              our forms and checkout from automated abuse, we use Vercel BotID
+              (powered by Kasada), which analyses technical signals from your
+              browser and device to tell humans and bots apart. This is used
+              solely for security and is not used for advertising or profiling.
+            </p>
           </section>
 
           <section className="rb-policy-section">
@@ -405,8 +489,11 @@ export default function PrivacyPage() {
             <ul className="rb-policy-list">
               <li>
                 To affiliates, service providers, and partners who support our
-                operations (including Vantage, Klaviyo, FX Blue, MyFXBook,
-                ManyChat, Google, and Telegram).
+                operations &mdash; including Stripe (payments), Supabase (account
+                and subscription storage), Resend (transactional email), Cal.com
+                (onboarding scheduling), Vercel and Cloudflare (hosting and
+                delivery), and, for our other activities, Vantage, Klaviyo, FX
+                Blue, MyFXBook, ManyChat, Google, and Telegram.
               </li>
               <li>
                 To regulators, courts, or authorities when legally required.
