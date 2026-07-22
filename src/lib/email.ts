@@ -64,8 +64,8 @@ export async function sendWelcomeOnboarding(opts: { email: string; firstName?: s
           <td class="px" style="padding:6px 10px 22px 10px;" align="left">
             <table role="presentation" cellpadding="0" cellspacing="0" border="0">
               <tr>
-                <td width="30" style="width:30px;"><a href="${SITE}"><img src="${LOGO}" alt="Rosebud Global" width="30" height="30" style="display:block; width:30px; height:30px; border-radius:50%; border:0;"></a></td>
-                <td style="padding-left:10px; font-family:Georgia, 'Times New Roman', serif; font-size:19px; color:#22243c;"><a href="${SITE}" style="color:#22243c; text-decoration:none;">Rosebud Global</a></td>
+                <td width="30" style="width:30px;"><a href="${SITE}"><img src="${LOGO}" alt="Rosebud Solutions" width="30" height="30" style="display:block; width:30px; height:30px; border-radius:50%; border:0;"></a></td>
+                <td style="padding-left:10px; font-family:Georgia, 'Times New Roman', serif; font-size:19px; color:#22243c;"><a href="${SITE}" style="color:#22243c; text-decoration:none;">Rosebud Solutions</a></td>
               </tr>
             </table>
           </td>
@@ -140,7 +140,7 @@ export async function sendWelcomeOnboarding(opts: { email: string; firstName?: s
         <!-- Footer -->
         <tr>
           <td class="px" align="center" style="padding:28px 10px 8px 10px; font-family:Helvetica, Arial, sans-serif; font-size:12px; line-height:19px; mso-line-height-rule:exactly; color:#8a87a6;">
-            Rosebud Global Ltd &middot; You're receiving this because you created an account at <a href="${SITE}" style="color:#5877e8; text-decoration:none;">rosebud.global</a>.<br>
+            Rosebud Solutions &middot; You're receiving this because you created an account at <a href="${SITE}" style="color:#5877e8; text-decoration:none;">rosebud.global</a>.<br>
             Questions? Reply to this email or write to <a href="mailto:contact@rosebud.global" style="color:#5877e8; text-decoration:none;">contact@rosebud.global</a>.
           </td>
         </tr>
