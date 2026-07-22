@@ -42,9 +42,11 @@ export async function POST(request: Request) {
   if (allMods) needed.add("mod_bundle");
   else for (const m of mods) needed.add(`mod_${m}`);
 
-  // Resolve price ids for this cycle.
+  // Resolve price ids for this cycle, in the SAME mode as the active key — so a
+  // live deployment reads live price ids and preview reads test ids from one table.
+  const livemode = STRIPE_SECRET_KEY.startsWith("sk_live_");
   const { data: priceRows, error: pErr } = await sb.from("stripe_prices")
-    .select("product, stripe_price_id").eq("cycle", cycle).in("product", [...needed]);
+    .select("product, stripe_price_id").eq("cycle", cycle).eq("livemode", livemode).in("product", [...needed]);
   if (pErr) return NextResponse.json({ error: pErr.message }, { status: 500 });
   const priceOf = (product: string) => priceRows?.find((r) => r.product === product)?.stripe_price_id;
 

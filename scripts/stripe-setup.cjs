@@ -29,7 +29,8 @@ const SB_URL = process.env.NEXT_PUBLIC_APP_SUPABASE_URL;
 const SB_KEY = process.env.APP_SUPABASE_SERVICE_ROLE_KEY;
 if (!SK) throw new Error("STRIPE_SECRET_KEY missing");
 if (!SB_URL || !SB_KEY) throw new Error("NEXT_PUBLIC_APP_SUPABASE_URL / APP_SUPABASE_SERVICE_ROLE_KEY missing");
-if (!SK.startsWith("sk_test_")) console.warn("⚠️  STRIPE_SECRET_KEY is not a test key — you are creating LIVE products.");
+const LIVEMODE = SK.startsWith("sk_live_");
+console.log(LIVEMODE ? "⚠️  LIVE key — creating LIVE products/prices (livemode=true rows)." : "Test key — creating test products/prices (livemode=false rows).");
 
 const Stripe = require("stripe");
 const stripe = new Stripe(SK);
@@ -82,7 +83,7 @@ async function main() {
     const product = await findOrCreateProduct(c.key, c.name);
     for (const cycle of ["monthly", "yearly"]) {
       const price = await findOrCreatePrice(product.id, c.key, cycle, c[cycle]);
-      rows.push({ product: c.key, cycle, stripe_price_id: price.id });
+      rows.push({ product: c.key, cycle, stripe_price_id: price.id, livemode: LIVEMODE });
       console.log(`  ${c.key.padEnd(7)} ${cycle.padEnd(7)} → ${price.id}`);
     }
   }
