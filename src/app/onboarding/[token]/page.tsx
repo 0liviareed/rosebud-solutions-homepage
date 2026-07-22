@@ -62,7 +62,7 @@ export default async function OnboardingPage({ params }: { params: Promise<{ tok
               </h1>
               <p style={{ margin: "18px auto 0", maxWidth: 560, fontSize: 15.5, lineHeight: 1.6, color: "rgba(23,19,31,0.62)" }}>
                 You&apos;re on the <b style={{ color: INK }}>{planName}</b> plan. Pick a time below — we&apos;ll agree your good-lead
-                definition, connect your CRM &amp; calendar, and set your escalation rules. Full refund if you cancel before the session.
+                definition, connect your CRM &amp; calendar, and set your escalation rules.
               </p>
             </>
           ) : (

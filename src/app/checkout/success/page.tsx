@@ -61,7 +61,6 @@ function SuccessInner() {
             <b style={{ color: INK }}>Your onboarding booking link is in your email{st?.email ? ` (${st.email})` : ""}.</b> It&apos;s a private link tied to your subscription — book from there when you&apos;re ready.
           </div>
         </div>
-        <div style={{ marginTop: 22, fontSize: 12.5, color: "rgba(23,19,31,0.5)" }}>Full refund if you cancel before your onboarding session.</div>
       </main>
     </div>
   );
