@@ -38,8 +38,9 @@ export async function POST(request: Request) {
   let body: CalBody;
   try { body = JSON.parse(raw) as CalBody; } catch { return NextResponse.json({ error: "invalid json" }, { status: 400 }); }
 
-  // Only act on new bookings.
-  if (body.triggerEvent && body.triggerEvent !== "BOOKING_CREATED") {
+  // Act on new bookings and reschedules — both should require an active subscription.
+  const handled = ["BOOKING_CREATED", "BOOKING_RESCHEDULED"];
+  if (body.triggerEvent && !handled.includes(body.triggerEvent)) {
     return NextResponse.json({ received: true, ignored: body.triggerEvent });
   }
 
