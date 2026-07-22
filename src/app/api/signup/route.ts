@@ -21,6 +21,8 @@ export async function POST(request: Request) {
   const email = clean(body.email)?.toLowerCase();
   const password = clean(body.password);
   const company = clean(body.company);
+  const firstName = clean(body.first_name);
+  if (!firstName) return NextResponse.json({ error: "We need your first name." }, { status: 400 });
   if (!email) return NextResponse.json({ error: "We need a work email." }, { status: 400 });
   if (!password || password.length < 10) return NextResponse.json({ error: "A little longer — 10 characters minimum." }, { status: 400 });
   if (!company) return NextResponse.json({ error: "We need a company name." }, { status: 400 });
