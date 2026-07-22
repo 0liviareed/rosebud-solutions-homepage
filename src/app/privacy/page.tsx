@@ -213,7 +213,7 @@ export default function PrivacyPage() {
           </section>
 
           <section className="rb-policy-section">
-            <h2 className="rb-policy-h2">Cookies, Tracking, and Analytics</h2>
+            <h2 id="cookies" className="rb-policy-h2" style={{ scrollMarginTop: "90px" }}>Cookies, Tracking, and Analytics</h2>
             <p>
               We use cookies, tracking pixels, and analytics tools to collect
               technical and usage data. This helps us:

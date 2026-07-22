@@ -30,6 +30,7 @@ export default function BookDemoCTA({
   };
 
   const linkRef = useRef<HTMLAnchorElement>(null);
+  const external = /^https?:\/\//.test(href); // internal links (e.g. /pricing) open in the same tab
 
   const onMove = (e: MouseEvent<HTMLDivElement>) => {
     const el = linkRef.current;
@@ -62,8 +63,8 @@ export default function BookDemoCTA({
         <a
           ref={linkRef}
           href={href}
-          target="_blank"
-          rel="noopener noreferrer"
+          target={external ? "_blank" : undefined}
+          rel={external ? "noopener noreferrer" : undefined}
           className="rb-book-cta"
           onClick={onClick}
         >

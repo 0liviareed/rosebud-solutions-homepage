@@ -204,7 +204,7 @@ export default function InsurancePage() {
                     <span className="rb-split-cta-glow rb-split-cta-glow-pedestal" aria-hidden="true" />
                     <span className="rb-split-cta-glow rb-split-cta-glow-halo" aria-hidden="true" />
                     <a
-                      href="https://www.cal.eu/rosebudsolutions/30min?overlayCalendar=true"
+                      href="https://cal.eu/rosebudsolutions/demo"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="rb-book-cta rb-book-cta-inline"

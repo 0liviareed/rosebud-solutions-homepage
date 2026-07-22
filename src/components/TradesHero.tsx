@@ -205,7 +205,7 @@ export default function TradesHero({
 
       <div className="rbh-cta-wrap">
         <BookDemoCTA
-          href="https://www.cal.eu/rosebudsolutions/30min?overlayCalendar=true"
+          href="/pricing"
           label="Get started"
           meta=""
           location="trades-hero"

@@ -273,7 +273,7 @@ export default function TradesHomeServicesPage() {
                       aria-hidden="true"
                     />
                     <a
-                      href="https://www.cal.eu/rosebudsolutions/30min?overlayCalendar=true"
+                      href="https://cal.eu/rosebudsolutions/demo"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="rb-book-cta rb-book-cta-inline"

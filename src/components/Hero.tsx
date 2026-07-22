@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, type ReactNode } from "react";
 import Image from "next/image";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
@@ -17,7 +17,19 @@ if (typeof window !== "undefined") {
 
 const MOBILE_BREAKPOINT = 820;
 
-export default function Hero() {
+export default function Hero({
+  eyebrow = "Rosebud Solutions",
+  headline,
+  sub = "That needs to change.",
+  caption = "Your digital team. Live in 5 weeks. Running for years.",
+  actions,
+}: {
+  eyebrow?: string;
+  headline?: ReactNode;
+  sub?: string;
+  caption?: string;
+  actions?: ReactNode;
+} = {}) {
   const wrapRef = useRef<HTMLElement | null>(null);
   const heroLitRef = useRef<SVGPathElement | null>(null);
   const heroGuideRef = useRef<SVGPathElement | null>(null);
@@ -329,17 +341,20 @@ export default function Hero() {
 
         <div className="rb-hero-inner">
           <div className="rb-hero-stack">
-            <p className="rb-hero-eyebrow">Rosebud Solutions</p>
+            <p className="rb-hero-eyebrow">{eyebrow}</p>
             <h1 className="rb-hero-h1">
-              <span className="rb-l1">Your business runs</span>
-              <br />
-              <span className="rb-l2a">on&nbsp;</span>
-              <em className="rb-l2b">you.</em>
+              {headline ?? (
+                <>
+                  <span className="rb-l1">Your business runs</span>
+                  <br />
+                  <span className="rb-l2a">on&nbsp;</span>
+                  <em className="rb-l2b">you.</em>
+                </>
+              )}
             </h1>
-            <p className="rb-hero-sub">That needs to change.</p>
-            <p className="rb-hero-caption">
-              Your digital team. Live in 5 weeks. Running for years.
-            </p>
+            {sub ? <p className="rb-hero-sub">{sub}</p> : null}
+            {caption ? <p className="rb-hero-caption">{caption}</p> : null}
+            {actions}
           </div>
         </div>
 

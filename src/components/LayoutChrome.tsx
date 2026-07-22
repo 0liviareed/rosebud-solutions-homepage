@@ -15,6 +15,11 @@ import FloatingPaths from "./FloatingPaths";
 const BARE_ROUTES: readonly string[] = [
   "/jay-waitlist",
   "/founders-stack",
+  "/capabilities",
+  "/about",
+  "/pricing",
+  "/checkout",
+  "/onboarding",
 ];
 
 /**
@@ -31,6 +36,9 @@ const LITE_ROUTES: readonly string[] = [
 
 function isBareRoute(pathname: string | null): boolean {
   if (!pathname) return false;
+  // Homepage redesign (tool launch) ships its own nav + self-contained scroll
+  // choreography — opt it out of global Header/Footer + Runtime.
+  if (pathname === "/") return true;
   return BARE_ROUTES.some(
     (r) => pathname === r || pathname.startsWith(r + "/")
   );
