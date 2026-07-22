@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { appSupabaseAdmin } from "@/lib/appSupabase";
+import { isValidPhone } from "@/lib/phone";
 
 export const dynamic = "force-dynamic";
 
@@ -25,7 +26,7 @@ export async function POST(request: Request) {
   const phone = clean(body.phone);
   if (!firstName) return NextResponse.json({ error: "We need your first name." }, { status: 400 });
   if (!email) return NextResponse.json({ error: "We need a work email." }, { status: 400 });
-  if (!phone || phone.replace(/\D/g, "").length < 7) return NextResponse.json({ error: "We need a valid phone number." }, { status: 400 });
+  if (!phone || !isValidPhone(phone)) return NextResponse.json({ error: "Enter a valid UK or US phone number." }, { status: 400 });
   if (!password || password.length < 10) return NextResponse.json({ error: "A little longer — 10 characters minimum." }, { status: 400 });
   if (!company) return NextResponse.json({ error: "We need a company name." }, { status: 400 });
 
