@@ -115,18 +115,17 @@ Tasks:
 - [ ] **Abandoned-checkout nudge** (optional) — to `checkout_leads` who didn't convert.
 - [ ] Resend domain verified (SPF/DKIM/DMARC) on the sending subdomain so these inbox.
 
-## Onboarding booking & discovery form — secured + structured  ← design note (2026-07-21)
+## Onboarding booking — secured  ← design note 2026-07-21, updated 2026-07-22
 
 **Gate the booking to paying customers — don't publish the onboarding event.**
-- [ ] On `checkout.session.completed`, generate a **unique per-customer booking link with a signed token** (carries `customer_id` + `subscription_id`), delivered **only in the confirmation email**. The onboarding cal event is **not** public (replaces the plain `cal.eu/onboarding` link).
-- [ ] Prefill `customer_id` + `subscription_id` as **hidden fields** on the Cal booking.
-- [ ] On the **Cal booking webhook**, verify the subscription is **active in Stripe** *before* the booking is confirmed. Fail → **cancel the booking + route to sales**.
-- [ ] Visible fields = **context, not gatekeeping**: company, primary contact, phone, timezone, who else is attending, CRM, calendar, channels active, monthly enquiry volume.
+- [x] On `checkout.session.completed`, generate a **unique per-customer booking link with a signed token**, delivered **only in the confirmation email**. The onboarding cal event is **not** public. → `/onboarding/[token]`, server-verifies subscription **active** before rendering the Cal embed.
+- [x] Prefill `customer_id` + `subscription_id` as **hidden metadata** on the Cal booking. → passed via embed `config["metadata[...]"]`.
+- [x] On the **Cal booking webhook**, verify the subscription is **active** *before* the booking stands. Fail → **cancel the booking + route to sales**. → `/api/cal/webhook` (cancel is best-effort, gated on `CAL_API_KEY`).
+- Cal-side config still owned by operator: create `rosebudsolutions/onboarding` event, availability **America/New_York 4–8pm** (= 20:00–00:00 UTC = 9pm–1am BST / 4–8pm ET / 1–5pm PT), add Booking-Created webhook + `CAL_WEBHOOK_SECRET`.
 
-**Every discovery field must be machine-checkable** (managed → tool consequence).
-- On a call you can push back on a vague answer in real time; a form can't. So no free-text-you-intend-to-interpret-later — use **banded selects, enums, validated formats** from the start.
-- [ ] Example — "good-lead definition" is structured, not a text box: **budget threshold (number)** · **timeline (enum)** · **service type (multi-select from their own list)** · **+ one** free-text field for anything the structure misses.
-- [ ] Rule: anything a human would have interpreted on a call needs a checkable shape now, or it becomes the thing that blocks self-serve. Design the whole discovery schema this way.
+**Structured discovery form — DESCOPED (decision 2026-07-22).**
+- Onboarding is still a **human call**, so the good-lead definition, escalation rules, value tiers, CRM/calendar and channel context are **gathered live on the call** — not collected as machine-checkable form fields. Booking form stays to Cal's default name + email only.
+- The original "every field machine-checkable / structure-it-now" note only bites if/when onboarding becomes **fully self-serve** (no call). Revisit the structured schema (budget number · timeline enum · service-type multiselect · one free-text) **then**, not now.
 
 ## Overage & operational kill-switch  ← MUST BUILD (2026-07-22) · **overrides brief §6.2**
 Supersedes the brief's "never an overage charge — plan band, not metered." Overage **is** billed now, with a kill-switch.
