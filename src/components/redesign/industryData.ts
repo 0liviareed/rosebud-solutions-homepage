@@ -56,7 +56,7 @@ export const TRADES: IndustryData = {
     headlinePre: "Your office runs the business. ",
     headlineEm: "We run the office.",
     subhead:
-      "The admin your office team shouldn't be doing: answering every call, qualifying every job, chasing every quote, handling the paperwork, and following up past customers for repeat work. Built around your job management system. We run it.",
+      "The admin your office team shouldn't be doing: texting back every missed call, qualifying every job, chasing every quote, handling the paperwork, and following up past customers for repeat work. Built around your job management system. We run it.",
   },
   deploy: {
     h2Pre: "One system. ",
@@ -72,16 +72,16 @@ export const TRADES: IndustryData = {
     { num: "III", label: "Survey & Quote Booking", body: "Slots offered against live diary. Right tech sent to the right job. Office stops being the bottleneck." },
     { num: "IV", label: "Quote Follow-Up & Conversion", body: "Most trades send quotes and hope. We run the quote like a sales pipeline. The 48-hour follow-up. The “let me think about it” nurture. The price objection handled before it kills the job. Conversion on the quotes you already send — doubles or triples." },
     { num: "V", label: "Paperwork & Documentation Chase", body: "Deposit invoices, signed quotes, site photos, insurance docs, building control sign-off — collected in conversation, not chased by email. Filed straight into your system." },
-    { num: "VI", label: "Status Updates to Customers", body: "“When are the lads arriving?” answered before it's asked. Daily or job-stage updates sent automatically. Office only involved when a human is genuinely needed." },
+    { num: "VI", label: "Status Updates to Customers", body: "“When are you arriving?” answered before it's asked. Daily or job-stage updates sent automatically. Office only involved when a human is genuinely needed." },
     { num: "VII", label: "Invoicing, Payment Chase & Customer Follow-Up", body: "Invoices out automatically. Payment reminders on the cadence that gets you paid. Then — the part most trades skip — every customer followed up at 3, 6, 12 months. Repeat work and referrals stop being accidental." },
   ],
   faqs: [
-    { q: "How fast does the system respond to a new inquiry?", a: "Under 60 seconds, every time. Most calls land while your team is on a job. We answer immediately, qualify, and either book, dispatch, or hand back with full context." },
+    { q: "How fast does the system respond to a new inquiry?", a: "Under 60 seconds, every time. Most calls land while your team is on a job — the ones that ring out get a text back in seconds, qualified, then booked, dispatched, or handed back with full context." },
     { q: "How does the system qualify a job before it reaches my office?", a: "Type of work, property type, urgency, budget, access — captured in conversation. Emergencies flagged. Time-wasters answered without reaching your team." },
     { q: "How are jobs routed to the right person or trade?", a: "We read the conversation, identify fit, and route to the right estimator, dispatcher, or tech with full context." },
     { q: "How does the system chase quotes?", a: "Every quote followed up on a structured cadence — 24 hours, 48 hours, 7 days. The \"let me think about it\" gets a nurture sequence. Price objections handled before they kill the job." },
     { q: "How does the system handle paperwork chase?", a: "Through guided conversation, not email. Each document requested at the right point, walked through with the customer, filed into your system." },
-    { q: "How does the system handle \"when are you arriving\" calls?", a: "Daily or job-stage updates sent automatically. Office only involved when something genuinely needs a human." },
+    { q: "How does the system handle \"when are you arriving\" messages?", a: "Daily or job-stage updates sent automatically. Office only involved when something genuinely needs a human." },
     { q: "How does the system handle invoicing and payment chase?", a: "Invoices out at completion. Reminders on the cadence that gets you paid. Aged debtor reports surfaced before they become a problem." },
     { q: "How does the system bring back past customers?", a: "Every customer followed up at 3, 6, 12 months. Service reminders, annual inspections, next projects. Repeat work stops being accidental." },
     { q: "Which job management systems do you integrate with?", a: "ServiceTitan, Housecall Pro, Jobber, FieldEdge, Service Fusion, Workiz, Tradify, simPRO, ServiceM8 — and most platforms trades businesses actually run." },
@@ -100,7 +100,7 @@ export const TRADES: IndustryData = {
     serviceType: "AI Automation System for Trades & Home Services Offices",
     areaServed: "United Kingdom",
     serviceDescription:
-      "Custom system that captures every customer inquiry across phone, web, and social channels, qualifies each job, books surveys, chases quotes and paperwork, sends status updates, and follows up past customers for repeat work. Built around your job management system. Built and run by Rosebud for trades and home services businesses.",
+      "Custom system that captures every customer inquiry across missed calls, web, and social channels, qualifies each job, books surveys, chases quotes and paperwork, sends status updates, and follows up past customers for repeat work. Built around your job management system. Built and run by Rosebud for trades and home services businesses.",
     offerCurrency: "GBP",
     offerDescription: "Pricing scoped to job volume and the size of your office team. Shared on demo call.",
     breadcrumbName: "Trades & Home Services",
