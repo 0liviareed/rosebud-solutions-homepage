@@ -32,7 +32,7 @@ const STAGES: Stage[] = [
   {
     tab: "Intake",
     inputs: [
-      { label: "Enquiry channels", detail: "Calls, Instagram DMs, contact forms" },
+      { label: "Enquiry channels", detail: "Missed calls, Instagram DMs, contact forms" },
       { label: "Triage rules", detail: "Suitability, urgency, your criteria" },
       { label: "Records + consent", detail: "Medical history, photos, forms" },
     ],
@@ -54,7 +54,7 @@ const STAGES: Stage[] = [
       chip: "Booked into the diary",
       q: "How does the diary stay full while the desk is busy?",
       a: "Slots offered against live availability and written into your PMS, confirmations and reschedules handled in-conversation. The diary stays tight without anyone working it.",
-      metric: { value: "24/7", label: "across calls, DMs, and forms" },
+      metric: { value: "24/7", label: "across missed calls, DMs, and forms" },
     },
   },
   {
@@ -200,9 +200,9 @@ export default function HealthcareHero({
 
       <p className="rbh-sub">
         <span className="rbh-sub-lead">From first enquiry to recall, handled.</span>
-        We answer every call, DM, and form, qualify and book patients into your
-        diary, and run the recall that keeps them coming back. Your team stays
-        with the patients in the building.
+        Every missed call, DM, and form gets a reply in seconds — patients
+        qualified and booked into your diary, and the recall run that keeps them
+        coming back. Your team stays with the patients in the building.
       </p>
 
       <div className="rbh-cta-wrap">

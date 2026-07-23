@@ -33,14 +33,14 @@ const STAGES: Stage[] = [
   {
     tab: "Intake",
     inputs: [
-      { label: "Inquiry channels", detail: "Calls and forms" },
+      { label: "Inquiry channels", detail: "Missed calls, forms, SMS" },
       { label: "Conflict inputs", detail: "Matter, opposing party, jurisdiction" },
       { label: "PMS sync", detail: "Clio, MyCase, PracticePanther" },
     ],
     output: {
       chip: "Intake captured",
-      q: "What happens to the intake call that hits voicemail?",
-      a: "Answered in seconds, with matter type, opposing party and jurisdiction captured for your conflict-check review. Once you accept the matter, the engagement letter goes out and the retainer is tracked. The acceptance stays yours.",
+      q: "What happens to the intake call that rings out to voicemail?",
+      a: "Texted back in seconds, with matter type, opposing party and jurisdiction captured for your conflict-check review. Once you accept the matter, the engagement letter goes out and the retainer is tracked. The acceptance stays yours.",
       metric: { value: "< 60s", label: "response to every new inquiry" },
     },
   },
@@ -55,7 +55,7 @@ const STAGES: Stage[] = [
       chip: "Deadline tracked",
       q: "Who's watching the 21-day response clock?",
       a: "Every deadline computed off its trigger and fired automatically, client documents and third-party records tracked in one view, depositions and mediations coordinated across every calendar. Nothing left in an Outlook reminder nobody checks.",
-      metric: { value: "24/7", label: "across calls and forms" },
+      metric: { value: "24/7", label: "across missed calls and forms" },
     },
   },
   {

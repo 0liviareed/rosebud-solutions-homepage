@@ -30,14 +30,14 @@ const STAGES: Stage[] = [
   {
     tab: "Inquiry",
     inputs: [
-      { label: "Inquiry channels", detail: "Calls, web, Facebook, missed calls" },
+      { label: "Inquiry channels", detail: "Missed calls, web forms, WhatsApp, SMS" },
       { label: "Job triage", detail: "Type, urgency, budget, access" },
       { label: "Routing", detail: "Emergencies to dispatch" },
     ],
     output: {
       chip: "Job qualified",
-      q: "What happens to the boiler call at 7am?",
-      a: "Answered in seconds and qualified on work type, urgency, budget and access. Emergencies routed to dispatch, quote jobs triaged by size, time-wasters handled before they reach your office.",
+      q: "What happens to the boiler call at 7am that rings out?",
+      a: "Texted back in seconds and qualified on work type, urgency, budget and access. Emergencies routed to dispatch, quote jobs triaged by size, time-wasters handled before they reach your office.",
       metric: { value: "< 60s", label: "response to every inquiry" },
     },
   },
@@ -52,19 +52,19 @@ const STAGES: Stage[] = [
       chip: "Quote followed up",
       q: "Who chases the quote sent Thursday with no reply?",
       a: "Survey booked into your job management system, then the quote run like a pipeline, with project photos, price anchoring, and objections handled before they kill the job. Not sent and forgotten.",
-      metric: { value: "24/7", label: "across calls, texts, and forms" },
+      metric: { value: "24/7", label: "across missed calls, texts, and forms" },
     },
   },
   {
     tab: "Repeat work",
     inputs: [
       { label: "Paperwork chase", detail: "Deposits, photos, sign-off" },
-      { label: "Status updates", detail: '"When are the lads coming?"' },
+      { label: "Status updates", detail: '"When are you arriving?"' },
       { label: "Repeat follow-up", detail: "3, 6, 12 months" },
     ],
     output: {
       chip: "Past customer brought back",
-      q: "Who calls the customer whose boiler dies in March?",
+      q: "Who follows up the customer whose boiler dies in March?",
       a: "Deposit invoices and site photos collected in conversation, status questions answered before they're asked, and every finished customer followed up at 3, 6 and 12 months. Repeat work and referrals stop being accidental.",
       metric: { value: "2–3 hrs / day", label: "admin back to each office staffer" },
     },
@@ -197,8 +197,8 @@ export default function TradesHero({
       </h1>
 
       <p className="rbh-sub">
-        The admin your office team shouldn&apos;t be doing: answering every
-        call, qualifying every job, chasing every quote, handling the
+        The admin your office team shouldn&apos;t be doing: texting back every
+        missed call, qualifying every job, chasing every quote, handling the
         paperwork, and following up past customers for repeat work. Built around
         your job management system. We run it.
       </p>

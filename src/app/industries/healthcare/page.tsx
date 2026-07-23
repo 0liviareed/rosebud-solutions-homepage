@@ -8,7 +8,7 @@ import BuildSection from "@/components/BuildSection";
 import CalEmbed from "@/components/CalEmbed";
 
 const HEALTHCARE_ROLES: SplitRole[] = [
-  { num: "I",   label: "Enquiry Intake",                    body: "Every enquiry across every channel — phone, Instagram DM, contact form, WhatsApp — answered the moment it lands. The aesthetic enquiry who messaged five clinics before bed gets a proper answer from yours. The dental patient calling on their lunch break hits a booking, not a voicemail." },
+  { num: "I",   label: "Enquiry Intake",                    body: "Every enquiry across every channel — a missed call, an Instagram DM, a contact form, a WhatsApp message — gets a reply the moment it lands. The aesthetic enquiry who messaged five clinics before bed gets a proper answer from yours. The dental patient whose lunch-break call rings out gets a booking link by text, not a voicemail." },
   { num: "II",  label: "Patient Triage & Qualification",    body: "Treatment needs, suitability flags, urgency, and finance questions captured through structured conversation. Routine queries get answered without clinical input; anything that needs clinical eyes — a dental emergency at 9pm, a post-treatment patient worried about swelling — gets escalated the moment the agent recognises it." },
   { num: "III", label: "Records & Documentation Collection", body: "Medical history, pre-treatment photos, consent paperwork, finance details — collected through guided conversation, not chased over email. Filed straight into your practice management system so the clinician walks in with the full picture." },
   { num: "IV",  label: "Booking & Diary Management",        body: "Slots offered against live practitioner availability, confirmed in real time, written into your PMS. Slots fill while your team is on the floor." },
@@ -26,13 +26,13 @@ const HEALTHCARE_VOICES = [3, 5, 1, 7, 0, 4, 6, 2].map((i) => VOICES[i]);
 export const metadata: Metadata = {
   title: "Dental, Aesthetic & Private Healthcare — AI-Powered Patient Operations",
   description:
-    "AI for dental, aesthetic & private healthcare: answers every enquiry across calls, DMs, forms, books patients into Dentally / SOE / Pabau, runs recall.",
+    "AI for dental, aesthetic & private healthcare: replies to every enquiry across missed calls, DMs, forms, books patients into Dentally / SOE / Pabau, runs recall.",
   alternates: { canonical: "/industries/healthcare" },
   openGraph: {
     title:
       "Dental, Aesthetic & Private Healthcare — AI-Powered Patient Operations | Rosebud Global",
     description:
-      "Agentic patient orchestration — from first enquiry to long-term loyalty. Autonomously answer calls, DMs, and contact forms, qualify and book patients into your diary, and run the recall sequences that keep them coming back.",
+      "Agentic patient orchestration — from first enquiry to long-term loyalty. Autonomously reply to missed calls, DMs, and contact forms, qualify and book patients into your diary, and run the recall sequences that keep them coming back.",
     url: "https://rosebud.global/industries/healthcare",
     type: "website",
   },

@@ -11,7 +11,7 @@ const GROUPS: FAQGroup[] = [
     items: [
       {
         q: "How fast does the system respond to a new inquiry?",
-        a: "Under 60 seconds, every time. Most calls land while your team is on a job. We answer immediately, qualify, and either book, dispatch, or hand back with full context.",
+        a: "Under 60 seconds, every time. Most calls land while your team is on a job — the ones that ring out get a text back in seconds, qualified, then booked, dispatched, or handed back with full context.",
       },
       {
         q: "How does the system qualify a job before it reaches my office?",
@@ -35,7 +35,7 @@ const GROUPS: FAQGroup[] = [
         a: "Through guided conversation, not email. Each document requested at the right point, walked through with the customer, filed into your system.",
       },
       {
-        q: "How does the system handle “when are you arriving” calls?",
+        q: "How does the system handle “when are you arriving” messages?",
         a: "Daily or job-stage updates sent automatically. Office only involved when something genuinely needs a human.",
       },
     ],
