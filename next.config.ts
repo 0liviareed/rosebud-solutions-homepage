@@ -17,6 +17,20 @@ const nextConfig: NextConfig = {
         destination: "/careers/sdr/apply",
         permanent: true,
       },
+      // GSC "Not found (404)" drilldown fixes (2026-07-23). /agents/recruitment
+      // and /web3-waitlist are deliberately left (recruitment goes 410 with the
+      // rest of recruitment; web3-waitlist stays a 404).
+      {
+        source: "/agents/insurance",
+        destination: "/industries/insurance",
+        permanent: true,
+      },
+      {
+        // No capability index route exists (/capabilities is [slug]-only) → homepage.
+        source: "/solutions",
+        destination: "/",
+        permanent: true,
+      },
     ];
   },
 };

@@ -36,6 +36,19 @@ export const INDUSTRY_SIBLINGS: { name: string; slug: string }[] = [
   { name: "Recruitment", slug: "recruitment" },
 ];
 
+// The in-scope industry links for the two crawl-route locations (capability-page
+// bottoms + the integrations-page footer). Recruitment is EXCLUDED — it is a 410.
+// Single source of truth: at the healthcare→dental-aesthetic slug change, edit the
+// one slug here and both link sets update. (commercial-cleaning is added when built.)
+export const INDUSTRY_LINKS: { name: string; slug: string }[] = [
+  { name: "Dental, Aesthetic & Private Healthcare", slug: "healthcare" },
+  { name: "Family Law & Consumer Legal", slug: "family-law" },
+  { name: "Mortgage & Lending", slug: "mortgage-lending" },
+  { name: "Insurance", slug: "insurance" },
+  { name: "Real Estate", slug: "real-estate" },
+  { name: "Trades & Home Services", slug: "trades-home-services" },
+];
+
 // ── /industries/trades-home-services — verbatim port (reference page) ──────────
 // Copy is IDENTICAL to the June page. No retarget, no US re-vocab, no voice scrub.
 // This page exists to prove the template holds the old content without loss.

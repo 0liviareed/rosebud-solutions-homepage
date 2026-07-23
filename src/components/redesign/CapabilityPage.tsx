@@ -12,6 +12,7 @@ import {
   SIBLINGS, SIBLING_SUBLABEL, LIVE_SLUGS,
   NAV_CAPABILITIES, NAV_RESOURCES, INT_LOGOS, INT_INDUSTRIES, VOICES,
 } from "./capabilityData";
+import { INDUSTRY_LINKS } from "./industryData";
 
 const SERIF = "var(--font-cormorant), 'Cormorant Garamond', serif";
 const A = "#8B7DD8";
@@ -467,6 +468,23 @@ export default function CapabilityPage({ data }: { data: CapabilityData }) {
             <div style={{ width: 200, height: 2, background: "rgba(255,255,255,0.14)", borderRadius: 2, overflow: "hidden" }}>
               <div style={{ height: "100%", background: "#B8AEDB", borderRadius: 2, width: `${((voiceIdx + 1) / maxIdx) * 100}%`, transition: "width 0.6s cubic-bezier(.16,1,.3,1)" }} />
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ===================== BY INDUSTRY (in-content crawl route to industry pages) ===================== */}
+      <section className="rb-cap-pad" style={{ background: "#F6F3FB", color: "#17131F", padding: "120px 48px" }}>
+        <div data-reveal style={{ maxWidth: 1180, margin: "0 auto" }}>
+          <div style={{ fontSize: 12, letterSpacing: ".28em", textTransform: "uppercase", color: A, marginBottom: 18 }}>By industry</div>
+          <h2 style={{ fontFamily: SERIF, fontWeight: 500, fontSize: "clamp(30px,3.6vw,48px)", lineHeight: 1.04, letterSpacing: "-0.015em", margin: "0 0 14px", maxWidth: "20ch" }}>How <em style={{ fontStyle: "italic", color: "#6B5CC4" }}>{data.name}</em> works in your industry</h2>
+          <p style={{ margin: "0 0 40px", maxWidth: "56ch", fontSize: 16, lineHeight: 1.6, color: "rgba(23,19,31,0.6)" }}>The same capability, built around how each sector actually runs — its channels, its systems, its rules.</p>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(300px,1fr))", gap: 14 }}>
+            {INDUSTRY_LINKS.map((ind) => (
+              <a key={ind.slug} href={`/industries/${ind.slug}`} style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12, background: "#fff", border: "1px solid rgba(23,19,31,0.08)", borderRadius: 14, padding: "18px 22px", textDecoration: "none", color: "#17131F", boxShadow: "0 16px 40px -34px rgba(23,19,31,0.4)" }}>
+                <span style={{ fontSize: 15.5, fontWeight: 600 }}>{ind.name}</span>
+                <span style={{ color: A, fontSize: 16 }} aria-hidden="true">→</span>
+              </a>
+            ))}
           </div>
         </div>
       </section>
