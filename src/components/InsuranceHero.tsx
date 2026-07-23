@@ -32,14 +32,14 @@ const STAGES: Stage[] = [
   {
     tab: "Intake",
     inputs: [
-      { label: "Enquiry channels", detail: "Phone, web forms, email" },
+      { label: "Enquiry channels", detail: "Missed calls, web forms, email, SMS" },
       { label: "After-hours window", detail: "Evenings and weekends" },
       { label: "Missed-call recovery", detail: "Calls that hit voicemail" },
     ],
     output: {
       chip: "Enquiry answered",
       q: "What happens to the enquiry that lands at 9pm?",
-      a: "Answered in seconds across every channel, after hours included, with the qualifying questions asked before an advisor picks it up.",
+      a: "Replied to in seconds across every channel, after hours included, with the qualifying questions asked before an advisor takes it on.",
       metric: { value: "< 60s", label: "response to every new enquiry" },
     },
   },
@@ -54,13 +54,13 @@ const STAGES: Stage[] = [
       chip: "Risk prepped",
       q: "Which accounts are ready to quote?",
       a: "Risk details and documents captured through structured conversation, prepped in each carrier's format, and routed to the right advisor, not the whole team.",
-      metric: { value: "24/7", label: "across calls, emails, and portals" },
+      metric: { value: "24/7", label: "across missed calls, emails, and portals" },
     },
   },
   {
     tab: "Booked",
     inputs: [
-      { label: "Qualified accounts", detail: "Ready for callback" },
+      { label: "Qualified accounts", detail: "Ready for the advisor" },
       { label: "Advisor calendars", detail: "Availability across the desk" },
       { label: "Renewal diary", detail: "Renewals and MTAs due" },
     ],

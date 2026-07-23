@@ -52,7 +52,7 @@ const STAGES: Stage[] = [
       chip: "File processor-ready",
       q: "Who chases the W-2 that never comes back?",
       a: "The 1003 walked through, documents collected in conversation, and everything filed into your LOS. Your LO opens a processor-ready file, not a half-filled 1003.",
-      metric: { value: "24/7", label: "across calls, texts, and forms" },
+      metric: { value: "24/7", label: "across missed calls, texts, and forms" },
     },
   },
   {

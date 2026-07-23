@@ -52,7 +52,7 @@ const STAGES: Stage[] = [
       chip: "Showing booked",
       q: "How do showings get booked while you're at a closing?",
       a: "Slots offered against live availability and written into your CRM, confirmations and reschedules handled in-conversation. Your calendar fills while your agents are on the floor.",
-      metric: { value: "24/7", label: "across calls, texts, and forms" },
+      metric: { value: "24/7", label: "across missed calls, texts, and forms" },
     },
   },
   {

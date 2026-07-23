@@ -48,7 +48,7 @@ const REAL_ESTATE_ROLES: SplitRole[] = [
   {
     num: "I",
     label: "Lead Capture Engine",
-    body: "Every inquiry across every channel — Zillow, Realtor.com, Redfin, Homes.com, your IDX, Facebook, Instagram, SMS, missed calls — answered the moment it lands. The Zillow lead who filled out three forms before bed gets their first call back from you. The buyer who texted at 9pm hits a qualified conversation, not a “we'll get back to you Monday.”",
+    body: "Every inquiry across every channel — Zillow, Realtor.com, Redfin, Homes.com, your IDX, Facebook, Instagram, SMS, missed calls — gets a reply the moment it lands. The Zillow lead who filled out three forms before bed gets a text back from you first. The buyer who texted at 9pm hits a qualified conversation, not a “we'll get back to you Monday.”",
   },
   {
     num: "II",

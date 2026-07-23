@@ -41,7 +41,7 @@ const TRADES_ROLES: SplitRole[] = [
     num: "VI",
     label: "Status Updates to Customers",
     body:
-      "“When are the lads arriving?” answered before it's asked. Daily or job-stage updates sent automatically. Office only involved when a human is genuinely needed.",
+      "“When are you arriving?” answered before it's asked. Daily or job-stage updates sent automatically. Office only involved when a human is genuinely needed.",
   },
   {
     num: "VII",
@@ -75,7 +75,7 @@ const SERVICE_SCHEMA = {
   provider: { "@type": "Organization", name: "Rosebud Global Ltd" },
   areaServed: { "@type": "Country", name: "United Kingdom" },
   description:
-    "Custom system that captures every customer inquiry across phone, web, and social channels, qualifies each job, books surveys, chases quotes and paperwork, sends status updates, and follows up past customers for repeat work. Built around your job management system. Built and run by Rosebud for trades and home services businesses.",
+    "Custom system that captures every customer inquiry across missed calls, web, and social channels, qualifies each job, books surveys, chases quotes and paperwork, sends status updates, and follows up past customers for repeat work. Built around your job management system. Built and run by Rosebud for trades and home services businesses.",
   offers: {
     "@type": "Offer",
     priceCurrency: "GBP",
@@ -94,7 +94,7 @@ const TRADES_FAQ_SCHEMA = {
       acceptedAnswer: {
         "@type": "Answer",
         text:
-          "Under 60 seconds, every time. Most calls land while your team is on a job. We answer immediately, qualify, and either book, dispatch, or hand back with full context.",
+          "Under 60 seconds, every time. Most calls land while your team is on a job — the ones that ring out get a text back in seconds, qualified, then booked, dispatched, or handed back with full context.",
       },
     },
     {
@@ -135,7 +135,7 @@ const TRADES_FAQ_SCHEMA = {
     },
     {
       "@type": "Question",
-      name: "How does the system handle \"when are you arriving\" calls?",
+      name: "How does the system handle \"when are you arriving\" messages?",
       acceptedAnswer: {
         "@type": "Answer",
         text:

@@ -72,7 +72,7 @@ const MORTGAGE_ROLES: SplitRole[] = [
     num: "V",
     label: "Status Updates to Borrower, Realtor & Referral Partners",
     body:
-      "“Where are we on the appraisal?” answered before it's asked. Daily or weekly updates to the borrower, both agents, and the referral source. The morning that used to disappear to status calls — recovered.",
+      "“Where are we on the appraisal?” answered before it's asked. Daily or weekly updates to the borrower, both agents, and the referral source. The morning that used to disappear to status chasing — recovered.",
   },
   {
     num: "VI",
