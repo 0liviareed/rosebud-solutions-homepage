@@ -158,7 +158,7 @@ async function fireTelegram(name: string) {
   // characters Markdown/HTML treats as markup (underscores in emails,
   // ampersands in companies, etc.) which return 400 from Telegram and
   // silently fail. Plain text is bulletproof.
-  const msg = `New application: ${name}`;
+  const msg = `New SDR application: ${name}`;
 
   await Promise.all(
     chats.map(async (chatId) => {

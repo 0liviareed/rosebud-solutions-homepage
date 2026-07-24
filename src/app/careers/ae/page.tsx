@@ -122,7 +122,11 @@ export default function AePage() {
               </p>
               <p>
                 You work <strong>one market, UK or US</strong>, in that
-                market&rsquo;s local business hours, weekdays only.
+                market&rsquo;s local business hours, weekdays only. Plan for a
+                minimum of <strong>25 hours a week</strong> &mdash; reachable
+                across the working day so the demos SDRs book actually land
+                &mdash; running around <strong>15&ndash;20 demos a week</strong>{" "}
+                once you&rsquo;re ramped.
               </p>
             </section>
 
@@ -179,11 +183,15 @@ export default function AePage() {
               <ul className="rb-job-list">
                 <li>
                   <strong>
-                    Demonstrable closing experience in a B2B sales role &mdash;
-                    this is the key requirement.
+                    At least 12 months of B2B closing experience &mdash; this is
+                    the key requirement.
                   </strong>{" "}
-                  You&rsquo;ve owned deals from pitch to signature against
-                  commercial targets, not just booked meetings for someone else.
+                  You&rsquo;ve run your own demos or sales calls and closed them,
+                  owning deals from pitch to signature against commercial targets
+                  &mdash; not just booked meetings for someone else &mdash; with
+                  closed deals worth at least <strong>£5,000</strong> in annual or
+                  total contract value. Two-plus years and recurring or
+                  subscription deals preferred.
                 </li>
                 <li>
                   Comfortable running a consultative demo live: diagnosing a
