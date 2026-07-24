@@ -134,9 +134,9 @@ function HeroArc() {
           </span>
         );
       })}
-      <span style={{ position: "absolute", left: "50%", top: "70px", transform: "translate(-50%,-50%)", width: 78, height: 78, borderRadius: "50%", background: "#2c2f4a", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 3, boxShadow: "0 22px 44px -16px rgba(44,47,74,.75), 0 0 0 10px rgba(255,255,255,.55)", zIndex: 2 }}>
-        <span style={{ width: 16, height: 16, borderRadius: "50%", background: "#fff" }} />
-        <span style={{ fontFamily: SERIF, fontSize: 13, color: "#fff", letterSpacing: ".3px" }}>Rosebud</span>
+      <span style={{ position: "absolute", left: "50%", top: "70px", transform: "translate(-50%,-50%)", width: 78, height: 78, borderRadius: "50%", overflow: "hidden", boxShadow: "0 22px 44px -16px rgba(44,47,74,.75), 0 0 0 10px rgba(255,255,255,.55)", zIndex: 2 }}>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src="/assets/rosebud-logo.png" alt="Rosebud" style={{ display: "block", width: "100%", height: "100%", objectFit: "cover" }} />
       </span>
     </div>
   );
