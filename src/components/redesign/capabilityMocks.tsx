@@ -126,116 +126,19 @@ function softSq(bg: string, children: ReactNode): ReactNode {
 function avatar(initials: string, bg: string, fg: string, size = 3.4): ReactNode {
   return <span style={{ width: `${size}cqw`, height: `${size}cqw`, borderRadius: "50%", background: bg, color: fg, display: "grid", placeItems: "center", fontWeight: 700, fontSize: `${size * 0.42}cqw`, flexShrink: 0 }}>{initials}</span>;
 }
-function bookHero(a: string): ReactNode {
-  return softSq("linear-gradient(158deg,#F5F3FC,#EAF1FE)", <>
-    <div style={{ position: "absolute", left: "5%", top: "11%", width: "60%", ...CARD }}>
-      <div style={{ background: BK_WA, color: "#fff", padding: "1.5cqw 1.9cqw", display: "flex", alignItems: "center", gap: "1.2cqw" }}>
-        <span style={{ width: "3.4cqw", height: "3.4cqw", borderRadius: "50%", background: "rgba(255,255,255,.22)", display: "grid", placeItems: "center", fontSize: "1.8cqw" }}>✆</span>
-        <div style={{ lineHeight: 1.15 }}><div style={{ fontWeight: 700, fontSize: "1.75cqw" }}>WhatsApp</div><div style={{ fontSize: "1.25cqw", opacity: 0.85 }}>Sunday · 21:47</div></div>
-      </div>
-      <div style={{ padding: "1.7cqw 1.6cqw", display: "flex", flexDirection: "column", gap: "1.2cqw", background: "#ECE5DD" }}>
-        <div style={{ alignSelf: "flex-start", maxWidth: "88%", background: "#fff", borderRadius: "1.4cqw 1.4cqw 1.4cqw .4cqw", padding: "1.2cqw 1.5cqw", fontSize: "1.5cqw", color: "#17131F", boxShadow: "0 1cqw 2cqw -1.2cqw rgba(0,0,0,.3)" }}>Any 2 leads free to view this week?</div>
-        <div style={{ alignSelf: "flex-end", maxWidth: "92%", background: "#DCF8C6", borderRadius: "1.4cqw 1.4cqw .4cqw 1.4cqw", padding: "1.2cqw 1.5cqw", fontSize: "1.5cqw", color: "#17131F", boxShadow: "0 1cqw 2cqw -1.2cqw rgba(0,0,0,.25)" }}>Yes — Thursday 3:30pm is open. Shall I hold it for you?</div>
-      </div>
+function bookImg(src: string): ReactNode {
+  return (
+    <div style={{ width: "100%", borderRadius: 22, overflow: "hidden", boxShadow: "0 34px 70px -30px rgba(30,25,60,0.5)" }}>
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img src={`/assets/capabilities/book/${src}`} alt="" style={{ display: "block", width: "100%", height: "auto" }} />
     </div>
-    <div style={{ position: "absolute", right: "4.5%", bottom: "8%", width: "66%", ...CARD }}>
-      <div style={{ background: BK_INDIGO, color: "#fff", padding: "1.5cqw 2cqw", display: "flex", alignItems: "center", gap: "1cqw" }}>
-        <span style={{ fontSize: "1.7cqw" }}>▦</span><span style={{ fontWeight: 700, fontSize: "1.75cqw" }}>Your diary</span><span style={{ marginLeft: "auto", fontSize: "1.3cqw", opacity: 0.85 }}>Thu 19 Jun</span>
-      </div>
-      <div style={{ padding: "1.2cqw 1.8cqw 1.6cqw" }}>
-        {(["12:00", "13:30"]).map((t) => (
-          <div key={t} style={{ display: "flex", alignItems: "center", gap: "1.4cqw", padding: "1cqw 0", borderBottom: "1px solid #f2f3f5" }}>
-            <span style={{ width: "6cqw", fontSize: "1.35cqw", fontWeight: 700, color: "#b3b8bf" }}>{t}</span><span style={{ flex: 1, height: "0.3cqw", background: "#f0f1f3", borderRadius: 999 }} />
-          </div>
-        ))}
-        <div style={{ display: "flex", alignItems: "stretch", gap: "1.4cqw", padding: "1cqw 0" }}>
-          <span style={{ width: "6cqw", fontSize: "1.35cqw", fontWeight: 700, color: BK_INDIGO, alignSelf: "center" }}>14:30</span>
-          <div style={{ flex: 1, background: `${BK_INDIGO}12`, borderLeft: `0.6cqw solid ${BK_INDIGO}`, borderRadius: "1cqw", padding: "1.2cqw 1.5cqw", display: "flex", alignItems: "center", gap: "1cqw" }}>
-            {avatar("DP", `${BK_INDIGO}22`, BK_INDIGO, 3.4)}
-            <div style={{ flex: 1 }}><div style={{ fontWeight: 700, fontSize: "1.6cqw", color: "#17131F" }}>Daniel Pryce</div><div style={{ fontSize: "1.25cqw", color: "#8a8496" }}>2-bed viewing · 30 min</div></div>
-            {pill("Booked ✓", "#E6F6EC", GREEN)}
-          </div>
-        </div>
-        {(["15:30", "16:30"]).map((t) => (
-          <div key={t} style={{ display: "flex", alignItems: "center", gap: "1.4cqw", padding: "1cqw 0", borderTop: "1px solid #f2f3f5" }}>
-            <span style={{ width: "6cqw", fontSize: "1.35cqw", fontWeight: 700, color: "#b3b8bf" }}>{t}</span><span style={{ flex: 1, height: "0.3cqw", background: "#f0f1f3", borderRadius: 999 }} />
-          </div>
-        ))}
-      </div>
-    </div>
-  </>);
+  );
 }
-function bookDeep(i: number, a: string): ReactNode {
-  if (i === 0) return softSq("linear-gradient(158deg,#EEF3FE,#F5F3FC)", center(
-    <div style={{ ...CARD }}>
-      <div style={{ background: BK_INDIGO, color: "#fff", padding: "1.6cqw 2.2cqw", display: "flex", alignItems: "center", gap: "1cqw" }}>
-        <span style={{ width: "2cqw", height: "2cqw", borderRadius: "50%", background: "#4ADE80" }} />
-        <span style={{ fontWeight: 700, fontSize: "1.85cqw" }}>Live availability</span>
-        <span style={{ marginLeft: "auto", fontSize: "1.3cqw", opacity: 0.85 }}>checked just now</span>
-      </div>
-      <div style={{ padding: "0.8cqw 2.2cqw 1.8cqw" }}>
-        {([["15:00", "Open", "open"], ["15:30", "Holding · 4:58", "hold"], ["16:00", "Booked", "booked"], ["16:30", "Open", "open"]] as [string, string, string][]).map(([t, s, kind]) => {
-          const bk = kind === "booked", hold = kind === "hold";
-          return (
-            <div key={t} style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "1.5cqw 0", borderBottom: "1px solid #f2f3f5" }}>
-              <span style={{ fontWeight: 700, fontSize: "1.9cqw", color: bk ? "#b3b8bf" : "#17131F", textDecoration: bk ? "line-through" : "none" }}>{t}</span>
-              {pill(s, hold ? "#FBEEDD" : bk ? "#f0f1f4" : "#E6F6EC", hold ? "#B5761A" : bk ? "#b3b8bf" : GREEN)}
-            </div>
-          );
-        })}
-        <div style={{ marginTop: "1.3cqw", fontSize: "1.35cqw", fontWeight: 600, color: "#8a8496" }}>Reserved against your real calendar — no double-booking.</div>
-      </div>
-    </div>
-  ));
-  if (i === 1) return softSq("linear-gradient(158deg,#F7F3EA,#F1F0FB)", center(
-    <div style={{ ...CARD }}>
-      <div style={{ background: BK_INDIGO, color: "#fff", padding: "1.6cqw 2.2cqw", display: "flex", alignItems: "center", gap: "1cqw" }}>
-        <span style={{ fontWeight: 700, fontSize: "1.85cqw" }}>Appointment types</span>
-        <span style={{ marginLeft: "auto" }}>{pill("Property", "rgba(255,255,255,.22)", "#fff")}</span>
-      </div>
-      <div style={{ padding: "0.8cqw 2.2cqw 1.8cqw" }}>
-        {([["Site survey", "60 min"], ["Consultation", "45 min"], ["Prep buffer", "15 min"]] as [string, string][]).map(([k, v]) => (
-          <div key={k} style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "1.5cqw 0", borderBottom: "1px solid #f2f3f5" }}>
-            <span style={{ fontWeight: 700, fontSize: "1.9cqw", color: "#17131F" }}>{k}</span>{pill(v, `${BK_INDIGO}14`, BK_INDIGO)}
-          </div>
-        ))}
-        <div style={{ marginTop: "1.7cqw", display: "flex", alignItems: "center", gap: "1.2cqw" }}>
-          <span style={{ fontSize: "1.4cqw", fontWeight: 700, color: "#8a8496", whiteSpace: "nowrap" }}>6 / 8 booked</span>
-          <div style={{ flex: 1, height: "1.6cqw", borderRadius: 999, background: "#ecebf0", overflow: "hidden" }}><div style={{ width: "75%", height: "100%", background: BK_INDIGO, borderRadius: 999 }} /></div>
-        </div>
-      </div>
-    </div>
-  ));
-  const iconWrap = (glyph: string): ReactNode => <span style={{ width: "3cqw", height: "3cqw", borderRadius: ".8cqw", background: "#f3f2fb", display: "grid", placeItems: "center", color: BK_INDIGO, fontSize: "1.7cqw", flexShrink: 0 }}>{glyph}</span>;
-  const nodes: [ReactNode, string, string, string][] = [
-    [iconWrap("▤"), "CRM record", "Stage → Booked", "Updated"],
-    [bLogo("google-calendar.png", 3), "Calendar", "Event created", "Synced"],
-    [iconWrap("◫"), "Source file", "orig_8842", "Stamped"],
-  ];
-  return softSq("linear-gradient(158deg,#ECEAFB,#F3F2FD)", center(
-    <div style={{ display: "flex", flexDirection: "column", width: "100%" }}>
-      <div style={{ display: "flex", alignItems: "center", gap: "1.2cqw", background: BK_INDIGO, color: "#fff", borderRadius: "1.8cqw", padding: "1.5cqw 2cqw", boxShadow: "0 2cqw 3.4cqw -1.4cqw rgba(79,70,229,.5)" }}>
-        <span style={{ width: "2.4cqw", height: "2.4cqw", borderRadius: "50%", background: "#4ADE80", color: "#12331f", display: "grid", placeItems: "center", fontSize: "1.4cqw" }}>✓</span>
-        <div style={{ lineHeight: 1.2 }}><div style={{ fontWeight: 700, fontSize: "1.75cqw" }}>Booking confirmed</div><div style={{ fontSize: "1.25cqw", opacity: 0.85 }}>Thu 12 Jun · 14:30</div></div>
-        <span style={{ marginLeft: "auto", display: "inline-flex", alignItems: "center", gap: ".7cqw", padding: ".8cqw 1.5cqw", borderRadius: 999, background: "rgba(255,255,255,.2)", fontWeight: 700, fontSize: "1.3cqw", whiteSpace: "nowrap" }}>writing to 3 systems</span>
-      </div>
-      <div style={{ position: "relative", height: "8cqw" }}>
-        <div style={{ position: "absolute", top: 0, left: "50%", marginLeft: "-0.2cqw", height: "42%", borderLeft: "0.4cqw dotted #c7c3e0" }} />
-        <div style={{ position: "absolute", top: "42%", left: "16.6%", right: "16.6%", borderTop: "0.4cqw dotted #c7c3e0" }} />
-        {[16.6, 50, 83.4].map((x) => <div key={x} style={{ position: "absolute", top: "42%", left: `${x}%`, marginLeft: "-0.2cqw", height: "58%", borderLeft: "0.4cqw dotted #c7c3e0" }} />)}
-        {([[16.6, "#22C55E"], [50, "#2DD4BF"], [83.4, "#F5B94A"]] as [number, string][]).map(([x, c]) => <span key={x} style={{ position: "absolute", top: "42%", left: `${x}%`, transform: "translate(-50%,-50%)", width: "1.5cqw", height: "1.5cqw", borderRadius: "50%", background: c, boxShadow: `0 0 0 0.5cqw ${c}33` }} />)}
-      </div>
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: "1.3cqw" }}>
-        {nodes.map(([icon, title, sub, status]) => (
-          <div key={title} style={{ ...CARD_SM, padding: "1.4cqw 1.3cqw", display: "flex", flexDirection: "column", gap: ".9cqw" }}>
-            <div style={{ display: "flex", alignItems: "center", gap: ".8cqw" }}>{icon}<span style={{ fontWeight: 700, fontSize: "1.4cqw", color: "#17131F" }}>{title}</span></div>
-            <span style={{ fontSize: "1.3cqw", color: "#8a8496", fontWeight: 600 }}>{sub}</span>
-            <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>{pill(`${status} ✓`, "#E6F6EC", GREEN)}<span style={{ fontSize: "1.2cqw", color: "#b3b8bf", fontWeight: 700 }}>21:48</span></div>
-          </div>
-        ))}
-      </div>
-    </div>
-  ));
+function bookHero(_a: string): ReactNode {
+  return bookImg("scene-hero-book.png");
+}
+function bookDeep(i: number, _a: string): ReactNode {
+  return bookImg(["scene-01-live.png", "scene-02-buffers.png", "scene-03-logs.png"][i] ?? "scene-01-live.png");
 }
 
 // ── RETAIN ────────────────────────────────────────────────────────────────────
