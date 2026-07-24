@@ -194,11 +194,55 @@ function legalRecordScene(): ReactNode {
   );
 }
 
+// ── Generic placeholders (verticals whose bespoke scene PNGs aren't in yet) ──
+function genericIntakeScene(): ReactNode {
+  return (
+    <Stage tone="lilac">
+      <WhatsApp initials="RB" when="Sunday · 20:41" them="Hi — are you available to help with this?" us="Yes — I can book you in. A couple of quick questions first so the right person picks it up." usTime="20:41" style={{ left: "4%", top: "6%" }} />
+      <div style={{ position: "absolute", right: "5%", top: "10%", display: "flex", flexDirection: "column", gap: "1.4cqw", zIndex: 3 }}>
+        <span style={{ display: "inline-flex", alignItems: "center", gap: "1cqw", background: "#fff", borderRadius: "2cqw", padding: "1.1cqw 1.8cqw", boxShadow: "0 2cqw 3.4cqw -1.4cqw rgba(40,44,90,.45)", fontSize: "1.4cqw", fontWeight: 700, color: "#2c2f4a" }}><span style={{ width: "1.6cqw", height: "1.6cqw", borderRadius: "50%", background: "#4fc3d1", boxShadow: "0 0 0 .4cqw rgba(79,195,209,.3)" }} />Details captured</span>
+        <span style={{ display: "inline-flex", alignItems: "center", gap: "1cqw", background: "#fff", borderRadius: "2cqw", padding: "1.1cqw 1.8cqw", boxShadow: "0 2cqw 3.4cqw -1.4cqw rgba(40,44,90,.45)", fontSize: "1.4cqw", fontWeight: 700, color: "#2c2f4a" }}><span style={{ width: "1.6cqw", height: "1.6cqw", borderRadius: "50%", background: "#e8b84f", boxShadow: "0 0 0 .4cqw rgba(232,184,79,.3)" }} />Qualified for review</span>
+      </div>
+      <RowCard title="Captured up front" style={{ right: "5%", bottom: "8%", width: "54%" }} rows={[["Contact", "Captured ✓"], ["Enquiry type", "Identified"], ["Review", "Your team runs it", "#c07a3f"]]} />
+      <Chip color="#4fd18a" label="Answered in seconds · day or night" style={{ left: "4%", bottom: "9%" }} />
+    </Stage>
+  );
+}
+
+function genericRecordScene(): ReactNode {
+  return (
+    <Stage tone="peach">
+      <div style={{ ...cardBase, left: "5%", top: "7%", width: "56%", borderRadius: "2.6cqw", boxShadow: "0 3cqw 5cqw -1.8cqw rgba(120,80,50,.5)" }}>
+        <div style={{ padding: "2cqw 2.2cqw 1.4cqw", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+          <span style={{ fontWeight: 700, fontSize: "1.8cqw", color: "#2c2f4a" }}>New record</span>
+          <span style={{ fontSize: "1.2cqw", fontWeight: 700, color: "#2f7a4f", background: "#d3efdd", padding: ".5cqw 1.3cqw", borderRadius: "1.2cqw" }}>Complete ✓</span>
+        </div>
+        <div style={{ padding: "0 2.2cqw 1.8cqw" }}>
+          {[["Contact", "Captured", "#4a4d68"], ["Type", "Identified", "#4a4d68"], ["Details", "Attached", "#8a8ea6"], ["Appointment", "Booked", "#4a4d68"]].map(([k, v, c]) => (
+            <div key={k} style={{ display: "flex", justifyContent: "space-between", fontSize: "1.45cqw", fontWeight: 600, color: "#4a4d68", padding: "1cqw 0", borderTop: "1px solid #f2f3f7" }}><span>{k}</span><span style={{ color: c }}>{v}</span></div>
+          ))}
+        </div>
+      </div>
+      <Chip color="#4fd18a" label="Written to your system" style={{ right: "5%", top: "13%" }} />
+      <div style={{ ...cardBase, right: "4%", bottom: "8%", width: "52%", borderRadius: "2.6cqw", boxShadow: "0 3cqw 5cqw -1.8cqw rgba(120,80,50,.5)", padding: "2cqw 2.2cqw" }}>
+        <div style={{ fontSize: "1.25cqw", fontWeight: 700, letterSpacing: ".06em", textTransform: "uppercase", color: "#a7abc4", marginBottom: "1.2cqw" }}>Syncs with</div>
+        <div style={{ display: "flex", flexWrap: "wrap", gap: "1cqw" }}>
+          {["Your CRM", "Your calendar", "Your inbox"].map((s) => (
+            <span key={s} style={{ background: "#eef1fb", color: "#3a3d5c", fontSize: "1.35cqw", fontWeight: 700, padding: ".8cqw 1.6cqw", borderRadius: "1.4cqw" }}>{s}</span>
+          ))}
+        </div>
+      </div>
+    </Stage>
+  );
+}
+
 const SCENES: Record<string, () => ReactNode> = {
   "trades-win": tradesWinScene,
   "trades-paid": tradesPaidScene,
   "legal-intake": legalIntakeScene,
   "legal-record": legalRecordScene,
+  "generic-intake": genericIntakeScene,
+  "generic-record": genericRecordScene,
 };
 
 /** Render a stage scene by id (code-drawn fallback). */

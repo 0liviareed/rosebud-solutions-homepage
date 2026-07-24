@@ -25,6 +25,10 @@ const BARE_ROUTES: readonly string[] = [
   // the new template). Un-ported pages still rely on the global chrome.
   "/industries/trades-home-services",
   "/industries/family-law",
+  "/industries/healthcare",
+  "/industries/insurance",
+  "/industries/real-estate",
+  "/industries/mortgage-lending",
 ];
 
 /**
