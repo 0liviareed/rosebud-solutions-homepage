@@ -9,14 +9,13 @@ import { PLANS, CUR, YEARLY, MOD_FROM } from "./pricingData";
 const SERIF = "var(--font-cormorant), 'Cormorant Garamond', serif";
 
 const gbp = (n: number) => "£" + Math.round(n).toLocaleString("en-GB");
-const usd = (n: number) => "$" + Math.round(n).toLocaleString("en-US");
 const annual = (m: number) => Math.round(m * YEARLY * 12); // billed yearly, 10% off
 
 // ── FAQ (answer-first: complete answer in the first 40–60 words) ──────────────
 const FAQ: { q: string; a: string }[] = [
   {
     q: "What does Rosebud cost?",
-    a: "Rosebud runs on four self-serve monthly plans: Start at £660 / $850, Grow at £1,650 / $2,100, Expand at £2,500 / $3,200 and Scale at £4,900 / $6,300 per month. Annual billing takes 10% off. You choose the plan by your monthly lead volume, and every plan runs all six core flows end to end.",
+    a: "Rosebud runs on four self-serve monthly plans: Start at £660, Grow at £1,650, Expand at £2,500 and Scale at £4,900 per month. Annual billing takes 10% off. You choose the plan by your monthly lead volume, and every plan runs all six core flows end to end.",
   },
   {
     q: "Is there a setup fee?",
@@ -32,32 +31,31 @@ const FAQ: { q: string; a: string }[] = [
   },
   {
     q: "How are seats priced?",
-    a: "Each plan includes a set number of users — 2 on Start, 5 on Grow, 10 on Expand and 20 on Scale. Extra users are £10 / $13 per user per month above that, up to each plan's cap. Seats are not billed separately from the plan; they are an add-on to it.",
+    a: "Each plan includes a set number of users — 2 on Start, 5 on Grow, 10 on Expand and 20 on Scale. Extra users are £10 per user per month above that, up to each plan's cap. Seats are not billed separately from the plan; they are an add-on to it.",
   },
   {
     q: "Do all plans include every capability?",
-    a: "Yes. Every plan runs all six core flows — lead capture, qualification, booking, follow-through, retention and CRM sync — end to end. Higher plans add channels, more nurture touches and higher lead volume. Optional modules (from £50 / $65 per month) and closed-loop attribution (+£750 / +$950 per month) are add-ons on any plan.",
+    a: "Yes. Every plan runs all six core flows — lead capture, qualification, booking, follow-through, retention and CRM sync — end to end. Higher plans add channels, more nurture touches and higher lead volume. Optional modules (from £50 per month) and closed-loop attribution (+£750 per month) are add-ons on any plan.",
   },
 ];
 
 // ── Schema: Offer per tier (monthly, both currencies) + FAQPage ──────────────
 function offersJson() {
-  const offers = PLANS.flatMap((p) =>
-    (["GBP", "USD"] as const).map((cur) => ({
-      "@type": "Offer",
-      name: `${p.name} — monthly`,
-      price: String(p.price[cur]),
-      priceCurrency: cur,
-      url: "https://rosebud.global/pricing",
-      availability: "https://schema.org/InStock",
-      priceSpecification: {
-        "@type": "UnitPriceSpecification",
-        price: p.price[cur],
-        priceCurrency: cur,
-        referenceQuantity: { "@type": "QuantitativeValue", value: 1, unitCode: "MON" },
-      },
-    })),
-  );
+  // GBP only — the real committed price list. No converted / floating USD values.
+  const offers = PLANS.map((p) => ({
+    "@type": "Offer",
+    name: `${p.name} — monthly`,
+    price: String(p.price.GBP),
+    priceCurrency: "GBP",
+    url: "https://rosebud.global/pricing",
+    availability: "https://schema.org/InStock",
+    priceSpecification: {
+      "@type": "UnitPriceSpecification",
+      price: p.price.GBP,
+      priceCurrency: "GBP",
+      referenceQuantity: { "@type": "QuantitativeValue", value: 1, unitCode: "MON" },
+    },
+  }));
   return {
     "@context": "https://schema.org",
     "@type": "Product",
@@ -87,13 +85,13 @@ const rowLabel: React.CSSProperties = { ...td, fontWeight: 600, color: "#17131F"
 
 export default function PricingSeo() {
   const rows: [string, (p: (typeof PLANS)[number]) => string][] = [
-    ["Monthly price", (p) => `${gbp(p.price.GBP)} / ${usd(p.price.USD)}`],
-    ["Annual (billed yearly, 10% off)", (p) => `${gbp(annual(p.price.GBP))} / ${usd(annual(p.price.USD))}`],
-    ["Leads / month", (p) => p.leads.replace(" leads / mo", "").replace("Up to ", "Up to ")],
+    ["Monthly price", (p) => `${gbp(p.price.GBP)} / mo`],
+    ["Annual (billed yearly, 10% off)", (p) => `${gbp(annual(p.price.GBP))} / yr`],
+    ["Leads / month", (p) => p.leads.replace(" leads / mo", "")],
     ["Users included", (p) => `${p.baseSeats}${p.seatCap > p.baseSeats ? ` (up to ${p.seatCap})` : ""}`],
-    ["Extra users", () => `${CUR.GBP.sym}${CUR.GBP.seat} / ${CUR.USD.sym}${CUR.USD.seat} per user / mo`],
-    ["Closed-loop attribution", (p) => `+${gbp(CUR.GBP.cla)} / +${usd(CUR.USD.cla)} per mo${p.claDefault ? " · on by default" : ""}`],
-    ["Optional modules", () => `from ${gbp(MOD_FROM.GBP)} / ${usd(MOD_FROM.USD)} per mo`],
+    ["Extra users", () => `${gbp(CUR.GBP.seat)} per user / mo`],
+    ["Closed-loop attribution", (p) => `+${gbp(CUR.GBP.cla)} per mo${p.claDefault ? " · on by default" : ""}`],
+    ["Optional modules", () => `from ${gbp(MOD_FROM.GBP)} per mo`],
   ];
 
   return (

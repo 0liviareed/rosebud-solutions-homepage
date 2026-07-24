@@ -32,7 +32,9 @@ const CAL = "https://cal.eu/rosebudsolutions/demo";
 export default function PricingV2({ seoContent }: { seoContent?: React.ReactNode }) {
   const router = useRouter();
   const [cycle, setCycle] = useState<"monthly" | "yearly">("yearly");
-  const [currency, setCurrency] = useState<Cur>("GBP");
+  // GBP is the only displayed currency. USD was a rough conversion, not a
+  // committed price list — removed until a real fixed USD list is decided.
+  const currency: Cur = "GBP";
   const [selectedTier, setSelectedTier] = useState<PlanKey | "enterprise" | null>(null);
   const [selectedVal, setSelectedVal] = useState<number | null>(null);
   const [extraSeats, setExtraSeats] = useState<Record<PlanKey, number>>({ start: 0, grow: 0, expand: 0, scale: 0 });
@@ -169,12 +171,6 @@ export default function PricingV2({ seoContent }: { seoContent?: React.ReactNode
                 const p = PLANS.find((x) => x.key === selectedTier)!;
                 return <span>For ~<b style={{ color: AD }}>{selectedVal?.toLocaleString("en-GB")}</b> leads a month → the <b style={{ color: AD }}>{p.name}</b> plan at <b style={{ color: AD }}>{fmt(total(p))}/mo</b>{claAmt(p) ? " (incl. closed-loop attribution)." : "."}</span>;
               })()}
-            </div>
-          </div>
-          <div style={{ display: "flex", justifyContent: "center", marginTop: 18 }}>
-            <div style={pill}>
-              <button type="button" onClick={() => setCurrency("GBP")} style={segBtn(currency === "GBP")}>£ GBP</button>
-              <button type="button" onClick={() => setCurrency("USD")} style={segBtn(currency === "USD")}>$ USD</button>
             </div>
           </div>
         </div>
