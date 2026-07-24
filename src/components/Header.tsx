@@ -5,24 +5,22 @@ import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 
 /**
- * Sticky site navigation.
+ * Sticky site navigation (legacy global chrome — shown only on pages not on
+ * the redesign template, which ship their own RedesignNav). The Solutions /
+ * industries menu was removed at launch (Gate 2): the industry pages carry
+ * their own nav + switcher, and the crawl paths are the integrations-page and
+ * capability→industry link sets.
  *
- * Desktop (>820px): logo left, Solutions dropdown right (editorial
- * popup with staggered link reveal).
- *
- * Mobile (≤820px): logo left, asymmetric hamburger right that morphs
- * into an X on open; tap opens a full-screen overlay with the same
- * Industries content in editorial scale.
+ * Desktop (>820px): logo left, Resources dropdown right.
+ * Mobile (≤820px): logo left, hamburger → overlay with Get a demo + Resources.
  *
  * Transparent over the hero, blurred semi-opaque once past it.
  */
 export default function Header() {
   const [scrolled, setScrolled] = useState(false);
-  const [menuOpen, setMenuOpen] = useState(false); // desktop Solutions dropdown
   const [resourcesOpen, setResourcesOpen] = useState(false); // desktop Resources dropdown
   const [mobileOpen, setMobileOpen] = useState(false); // mobile overlay
   const [openSection, setOpenSection] = useState<string | null>(null); // mobile accordion (single-open)
-  const itemRef = useRef<HTMLDivElement | null>(null);
   const resourcesRef = useRef<HTMLDivElement | null>(null);
 
   // Scrolled state
@@ -45,24 +43,17 @@ export default function Header() {
     };
   }, []);
 
-  // Close desktop dropdown on outside click / Escape (Solutions + Resources
-  // share the same handler — clicking outside either container closes both)
+  // Close the Resources dropdown on outside click / Escape.
   useEffect(() => {
-    if (!menuOpen && !resourcesOpen) return;
+    if (!resourcesOpen) return;
     function onDocClick(e: MouseEvent) {
       const target = e.target as Node;
-      if (itemRef.current && !itemRef.current.contains(target)) {
-        setMenuOpen(false);
-      }
       if (resourcesRef.current && !resourcesRef.current.contains(target)) {
         setResourcesOpen(false);
       }
     }
     function onKey(e: KeyboardEvent) {
-      if (e.key === "Escape") {
-        setMenuOpen(false);
-        setResourcesOpen(false);
-      }
+      if (e.key === "Escape") setResourcesOpen(false);
     }
     document.addEventListener("click", onDocClick);
     document.addEventListener("keydown", onKey);
@@ -70,7 +61,7 @@ export default function Header() {
       document.removeEventListener("click", onDocClick);
       document.removeEventListener("keydown", onKey);
     };
-  }, [menuOpen, resourcesOpen]);
+  }, [resourcesOpen]);
 
   // Mobile menu: body scroll lock + Escape to close
   useEffect(() => {
@@ -125,120 +116,6 @@ export default function Header() {
 
           {/* Desktop menu */}
           <nav className="rb-nav-menu" aria-label="Primary">
-            <div
-              ref={itemRef}
-              className={`rb-nav-item ${menuOpen ? "rb-nav-item-open" : ""}`}
-              onMouseEnter={() => setMenuOpen(true)}
-              onMouseLeave={() => setMenuOpen(false)}
-            >
-              <button
-                type="button"
-                className="rb-nav-trigger"
-                onClick={() => setMenuOpen((v) => !v)}
-                aria-expanded={menuOpen}
-                aria-haspopup="true"
-              >
-                <span>Solutions</span>
-                <svg
-                  className="rb-nav-chevron"
-                  aria-hidden="true"
-                  viewBox="0 0 10 6"
-                  width="10"
-                  height="6"
-                >
-                  <path
-                    d="M1 1 L5 5 L9 1"
-                    stroke="currentColor"
-                    strokeWidth="1.2"
-                    fill="none"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
-              </button>
-
-              <div
-                className="rb-nav-dropdown"
-                role="menu"
-                aria-hidden={!menuOpen}
-              >
-                <div className="rb-nav-group">
-                  <span className="rb-nav-group-label">
-                    <span className="rb-nav-group-count" aria-hidden="true">I–VI</span>
-                    <span>By Industry</span>
-                  </span>
-
-                  <Link
-                    href="/industries/insurance"
-                    className="rb-nav-link"
-                    role="menuitem"
-                    onClick={() => setMenuOpen(false)}
-                  >
-                    <span className="rb-nav-link-title">Insurance</span>
-                    <span className="rb-nav-link-desc">Quotes. Claims. Renewals.</span>
-                    <span className="rb-nav-link-arrow" aria-hidden="true">→</span>
-                  </Link>
-
-                  <Link
-                    href="/industries/dental-aesthetic"
-                    className="rb-nav-link"
-                    role="menuitem"
-                    onClick={() => setMenuOpen(false)}
-                  >
-                    <span className="rb-nav-link-title">
-                      Dental, Aesthetic &amp; Private Healthcare
-                    </span>
-                    <span className="rb-nav-link-desc">Intake. Scheduling. Recall.</span>
-                    <span className="rb-nav-link-arrow" aria-hidden="true">→</span>
-                  </Link>
-
-                  <Link
-                    href="/industries/real-estate"
-                    className="rb-nav-link"
-                    role="menuitem"
-                    onClick={() => setMenuOpen(false)}
-                  >
-                    <span className="rb-nav-link-title">Real Estate</span>
-                    <span className="rb-nav-link-desc">Inquiry. Showings. Nurture.</span>
-                    <span className="rb-nav-link-arrow" aria-hidden="true">→</span>
-                  </Link>
-
-                  <Link
-                    href="/industries/mortgage-lending"
-                    className="rb-nav-link"
-                    role="menuitem"
-                    onClick={() => setMenuOpen(false)}
-                  >
-                    <span className="rb-nav-link-title">Mortgage &amp; Lending</span>
-                    <span className="rb-nav-link-desc">Inquiry. Conditions. Funded.</span>
-                    <span className="rb-nav-link-arrow" aria-hidden="true">→</span>
-                  </Link>
-
-                  <Link
-                    href="/industries/trades-home-services"
-                    className="rb-nav-link"
-                    role="menuitem"
-                    onClick={() => setMenuOpen(false)}
-                  >
-                    <span className="rb-nav-link-title">Trades &amp; Home Services</span>
-                    <span className="rb-nav-link-desc">Inquiry. Quote. Paperwork. Repeat work.</span>
-                    <span className="rb-nav-link-arrow" aria-hidden="true">→</span>
-                  </Link>
-
-                  <Link
-                    href="/industries/family-law"
-                    className="rb-nav-link"
-                    role="menuitem"
-                    onClick={() => setMenuOpen(false)}
-                  >
-                    <span className="rb-nav-link-title">Family Law &amp; Consumer Legal</span>
-                    <span className="rb-nav-link-desc">Intake. Deadlines. Documents. Billing.</span>
-                    <span className="rb-nav-link-arrow" aria-hidden="true">→</span>
-                  </Link>
-                </div>
-              </div>
-            </div>
-
             {/* Resources dropdown — sits to the right of Solutions */}
             <div
               ref={resourcesRef}
@@ -342,42 +219,6 @@ export default function Header() {
           <Link href="/see-it-run" className="rb-macc-link" onClick={closeMobile}>
             Get a demo
           </Link>
-
-          {/* Solutions — level 1, collapsible → industries (level 2) */}
-          <div className="rb-macc-section">
-            <button
-              type="button"
-              className="rb-macc-trigger"
-              onClick={() => toggleSection("solutions")}
-              aria-expanded={openSection === "solutions"}
-              aria-controls="rb-macc-solutions"
-            >
-              <span>Solutions</span>
-              <svg className="rb-macc-chevron" viewBox="0 0 10 6" width="13" height="13" aria-hidden="true">
-                <path d="M1 1 L5 5 L9 1" stroke="currentColor" strokeWidth="1.3" fill="none" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
-            </button>
-            <div className="rb-macc-panel" id="rb-macc-solutions" data-open={openSection === "solutions"}>
-              <div className="rb-macc-panel-inner">
-                {[
-                  ["/industries/insurance", "Insurance", "Quotes. Claims. Renewals."],
-                  ["/industries/dental-aesthetic", "Dental, Aesthetic & Private Healthcare", "Intake. Scheduling. Recall."],
-                  ["/industries/real-estate", "Real Estate", "Inquiry. Showings. Nurture."],
-                  ["/industries/mortgage-lending", "Mortgage & Lending", "Inquiry. Conditions. Funded."],
-                  ["/industries/trades-home-services", "Trades & Home Services", "Inquiry. Quote. Paperwork. Repeat work."],
-                  ["/industries/family-law", "Family Law & Consumer Legal", "Intake. Deadlines. Documents. Billing."],
-                ].map(([href, title, desc]) => (
-                  <Link key={href} href={href} className="rb-macc-sublink" onClick={closeMobile}>
-                    <span className="rb-macc-sublink-text">
-                      <span className="rb-macc-sublink-title">{title}</span>
-                      <span className="rb-macc-sublink-desc">{desc}</span>
-                    </span>
-                    <span className="rb-macc-sublink-arrow" aria-hidden="true">→</span>
-                  </Link>
-                ))}
-              </div>
-            </div>
-          </div>
 
           {/* Resources — level 1, collapsible → About / Pricing (level 2) */}
           <div className="rb-macc-section">
