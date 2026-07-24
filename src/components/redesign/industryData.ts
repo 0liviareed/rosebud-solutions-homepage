@@ -34,7 +34,6 @@ export const INDUSTRY_SIBLINGS: { name: string; slug: string }[] = [
   { name: "Insurance", slug: "insurance" },
   { name: "Real Estate", slug: "real-estate" },
   { name: "Trades & Home Services", slug: "trades-home-services" },
-  { name: "Recruitment", slug: "recruitment" },
 ];
 
 // In-scope industry links for the two crawl-route locations (capability-page

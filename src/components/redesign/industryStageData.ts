@@ -150,7 +150,7 @@ export const FAMILY_LAW_STAGE: IndustryStageData = {
       { title: "Every inquiry answered in seconds", body: "A family law inquiry lands at an urgent, emotional moment — and it calls the next firm on the list if unanswered. Missed calls get a text back with an intake link; web forms get an immediate answer." },
       { title: "Matter details captured up front", body: "Matter type, opposing party & jurisdiction — captured before the prospect moves on, prepared for your conflict-check review." },
     ],
-    scene: { id: "legal-intake", tone: "lilac" },
+    scene: { id: "legal-intake", tone: "lilac", img: "scene-01.png" },
   },
   stage2: {
     index: "02",
@@ -171,7 +171,7 @@ export const FAMILY_LAW_STAGE: IndustryStageData = {
       { title: "Writes into your case management", body: "Contact, matter, conflict inputs & engagement status synced into the system you already run. Clio is a system we feed, not one we replace." },
       { title: "Priced per plan, not per seat", body: "Scoped to your matter volume & firm size — tiers published on the pricing page, no lock-in, cancel any time." },
     ],
-    scene: { id: "legal-record", tone: "peach" },
+    scene: { id: "legal-record", tone: "peach", img: "scene-02.png" },
   },
   boundary: {
     eyebrow: "Where the line is",
@@ -242,7 +242,7 @@ export const HEALTHCARE_STAGE: IndustryStageData = {
       { title: "Every enquiry answered in seconds", body: "A missed call gets a text back with a booking link; web forms and DMs get an immediate reply. The implant or whitening enquiry books with you before it books with the practice down the road." },
       { title: "Reason for visit captured up front", body: "Treatment interest, urgency & preferred times — captured before the front desk picks up, so the diary fills with the right appointments." },
     ],
-    scene: { id: "generic-intake", tone: "lilac" },
+    scene: { id: "generic-intake", tone: "lilac", img: "scene-01.png" },
   },
   stage2: {
     index: "02",
@@ -263,7 +263,7 @@ export const HEALTHCARE_STAGE: IndustryStageData = {
       { title: "Writes into your practice management", body: "Patient, treatment interest & appointment status synced into Dentally, SOE, Cliniko or your PMS. A system we feed, not one we replace." },
       { title: "Priced per plan, not per seat", body: "Scoped to your patient volume & practice size — tiers published on the pricing page, no lock-in, cancel any time." },
     ],
-    scene: { id: "generic-record", tone: "peach" },
+    scene: { id: "generic-record", tone: "peach", img: "scene-02.png" },
   },
   boundary: {
     eyebrow: "Where the line is",
@@ -333,7 +333,7 @@ export const INSURANCE_STAGE: IndustryStageData = {
       { title: "Every quote request answered in seconds", body: "A missed call gets a text back; web forms and comparison-site leads get an immediate reply. The auto or home lead books with you before it goes cold." },
       { title: "Risk details captured up front", body: "Coverage type, effective date, prior carrier & the details your producers rate on — captured before the lead shops elsewhere." },
     ],
-    scene: { id: "generic-intake", tone: "lilac" },
+    scene: { id: "generic-intake", tone: "lilac", img: "scene-01.png" },
   },
   stage2: {
     index: "02",
@@ -354,7 +354,7 @@ export const INSURANCE_STAGE: IndustryStageData = {
       { title: "Writes into your agency management", body: "Contact, risk details & quote status synced into AMS360, Applied Epic, HawkSoft or your system. A system we feed, not one we replace." },
       { title: "Priced per plan, not per seat", body: "Scoped to your lead volume & agency size — tiers published on the pricing page, no lock-in, cancel any time." },
     ],
-    scene: { id: "generic-record", tone: "peach" },
+    scene: { id: "generic-record", tone: "peach", img: "scene-02.png" },
   },
   boundary: {
     eyebrow: "Where the line is",
@@ -424,7 +424,7 @@ export const REAL_ESTATE_STAGE: IndustryStageData = {
       { title: "Every inquiry answered in seconds", body: "A missed call gets a text back with a booking link; portal leads from Zillow and Realtor.com get an immediate reply. The buyer books a showing with you before the next agent calls back." },
       { title: "Buyer & seller details captured up front", body: "Price range, timeline, financing & area — captured before the lead moves on, ready for you to work." },
     ],
-    scene: { id: "generic-intake", tone: "lilac" },
+    scene: { id: "generic-intake", tone: "lilac", img: "scene-01.png" },
   },
   stage2: {
     index: "02",
@@ -445,7 +445,7 @@ export const REAL_ESTATE_STAGE: IndustryStageData = {
       { title: "Writes into your CRM", body: "Contact, criteria & appointment status synced into Follow Up Boss, kvCORE, Sierra Interactive or your CRM. A system we feed, not one we replace." },
       { title: "Priced per plan, not per seat", body: "Scoped to your lead volume & team size — tiers published on the pricing page, no lock-in, cancel any time." },
     ],
-    scene: { id: "generic-record", tone: "peach" },
+    scene: { id: "generic-record", tone: "peach", img: "scene-02.png" },
   },
   boundary: {
     eyebrow: "Where the line is",
@@ -515,7 +515,7 @@ export const MORTGAGE_STAGE: IndustryStageData = {
       { title: "Every inquiry answered in seconds", body: "A missed call gets a text back; web and portal leads get an immediate reply. The refinance or purchase lead books with you before rates move them elsewhere." },
       { title: "Borrower details captured up front", body: "Loan purpose, price range, timeline & the details your LOs work on — captured before the lead shops rates elsewhere." },
     ],
-    scene: { id: "generic-intake", tone: "lilac" },
+    scene: { id: "generic-intake", tone: "lilac", img: "scene-01.png" },
   },
   stage2: {
     index: "02",
@@ -536,7 +536,7 @@ export const MORTGAGE_STAGE: IndustryStageData = {
       { title: "Writes into your LOS or CRM", body: "Contact, loan details & status synced into Encompass, Arive or your CRM. A system we feed, not one we replace." },
       { title: "Priced per plan, not per seat", body: "Scoped to your lead volume & team size — tiers published on the pricing page, no lock-in, cancel any time." },
     ],
-    scene: { id: "generic-record", tone: "peach" },
+    scene: { id: "generic-record", tone: "peach", img: "scene-02.png" },
   },
   boundary: {
     eyebrow: "Where the line is",

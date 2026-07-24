@@ -164,20 +164,9 @@ export default function Header() {
               >
                 <div className="rb-nav-group">
                   <span className="rb-nav-group-label">
-                    <span className="rb-nav-group-count" aria-hidden="true">I–VII</span>
+                    <span className="rb-nav-group-count" aria-hidden="true">I–VI</span>
                     <span>By Industry</span>
                   </span>
-
-                  <Link
-                    href="/industries/recruitment"
-                    className="rb-nav-link"
-                    role="menuitem"
-                    onClick={() => setMenuOpen(false)}
-                  >
-                    <span className="rb-nav-link-title">Recruitment</span>
-                    <span className="rb-nav-link-desc">Sourcing. Screening. Scheduling.</span>
-                    <span className="rb-nav-link-arrow" aria-hidden="true">→</span>
-                  </Link>
 
                   <Link
                     href="/industries/insurance"
@@ -371,7 +360,6 @@ export default function Header() {
             <div className="rb-macc-panel" id="rb-macc-solutions" data-open={openSection === "solutions"}>
               <div className="rb-macc-panel-inner">
                 {[
-                  ["/industries/recruitment", "Recruitment", "Sourcing. Screening. Scheduling."],
                   ["/industries/insurance", "Insurance", "Quotes. Claims. Renewals."],
                   ["/industries/healthcare", "Dental, Aesthetic & Private Healthcare", "Intake. Scheduling. Recall."],
                   ["/industries/real-estate", "Real Estate", "Inquiry. Showings. Nurture."],
