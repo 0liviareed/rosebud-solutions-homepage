@@ -392,12 +392,12 @@ export default function CapabilityPage({ data }: { data: CapabilityData }) {
               </div>
             ))}
           </div>
-          <div className="rb-cap-pad" style={{ maxWidth: 1180, margin: "52px auto 0", padding: "0 48px" }}>
-            <div style={{ fontSize: 12, letterSpacing: ".28em", textTransform: "uppercase", color: "#9B93B4", marginBottom: 16 }}>How businesses like yours use Rosebud</div>
-            <div style={{ display: "flex", flexWrap: "wrap", gap: 10 }}>
+          <div className="rb-cap-pad" style={{ maxWidth: 1180, margin: "52px auto 0", padding: "0 48px", textAlign: "center" }}>
+            <div style={{ fontSize: 12, letterSpacing: ".28em", textTransform: "uppercase", color: "#9B93B4", marginBottom: 18 }}>How businesses like yours use Rosebud</div>
+            <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "center", gap: "12px 28px" }}>
               {INDUSTRY_LINKS.map((ind) => (
-                <a key={ind.slug} href={`/industries/${ind.slug}`} className="rb-mega-item" style={{ display: "inline-flex", alignItems: "center", gap: 8, fontSize: 14, fontWeight: 500, letterSpacing: ".01em", color: "#4B4363", textDecoration: "none", background: "#fff", border: "1px solid rgba(23,19,31,0.1)", borderRadius: 999, padding: "9px 16px", boxShadow: "0 10px 26px -22px rgba(23,19,31,0.4)" }}>
-                  {ind.name}<span style={{ color: A, fontSize: 13 }} aria-hidden="true">→</span>
+                <a key={ind.slug} href={`/industries/${ind.slug}`} style={{ fontSize: 14.5, fontWeight: 500, letterSpacing: ".01em", color: "#4B4363", textDecoration: "underline", textUnderlineOffset: "4px", textDecorationColor: "rgba(139,125,216,0.55)", textDecorationThickness: "1px" }}>
+                  {ind.name}
                 </a>
               ))}
             </div>
