@@ -126,19 +126,21 @@ function softSq(bg: string, children: ReactNode): ReactNode {
 function avatar(initials: string, bg: string, fg: string, size = 3.4): ReactNode {
   return <span style={{ width: `${size}cqw`, height: `${size}cqw`, borderRadius: "50%", background: bg, color: fg, display: "grid", placeItems: "center", fontWeight: 700, fontSize: `${size * 0.42}cqw`, flexShrink: 0 }}>{initials}</span>;
 }
-function bookImg(src: string): ReactNode {
+// Shared image scene for capability pages whose hero + deep-dive visuals are
+// supplied as artwork rather than code-drawn mocks (book, reactivate, …).
+function capImg(folder: string, file: string): ReactNode {
   return (
     <div style={{ width: "100%", borderRadius: 22, overflow: "hidden", boxShadow: "0 34px 70px -30px rgba(30,25,60,0.5)" }}>
       {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img src={`/assets/capabilities/book/${src}`} alt="" style={{ display: "block", width: "100%", height: "auto" }} />
+      <img src={`/assets/capabilities/${folder}/${file}`} alt="" style={{ display: "block", width: "100%", height: "auto" }} />
     </div>
   );
 }
 function bookHero(_a: string): ReactNode {
-  return bookImg("scene-hero-book.png");
+  return capImg("book", "scene-hero-book.png");
 }
 function bookDeep(i: number, _a: string): ReactNode {
-  return bookImg(["scene-01-live.png", "scene-02-buffers.png", "scene-03-logs.png"][i] ?? "scene-01-live.png");
+  return capImg("book", ["scene-01-live.png", "scene-02-buffers.png", "scene-03-logs.png"][i] ?? "scene-01-live.png");
 }
 
 // ── RETAIN ────────────────────────────────────────────────────────────────────
@@ -195,62 +197,11 @@ function retainDeep(i: number, a: string): ReactNode {
 }
 
 // ── REACTIVATE ────────────────────────────────────────────────────────────────
-function reactivateHero(a: string): ReactNode {
-  return sq(a, center(<>
-    <div style={{ ...CARD_SM, padding: "1.6cqw 2.2cqw", display: "flex", alignItems: "center", gap: "1.2cqw" }}>
-      <span style={{ width: "3.4cqw", height: "3.4cqw", borderRadius: "50%", background: "#e7e2f2", color: a, display: "grid", placeItems: "center", fontWeight: 700, fontSize: "1.5cqw" }}>RB</span>
-      <div style={{ flex: 1 }}><div style={{ fontWeight: 700, fontSize: "1.7cqw", color: "#17131F" }}>Rachel Byrne</div></div>{pill("Dormant · 214d", GREY_BG, GREY)}
-    </div>
-    <div style={{ ...CARD }}>
-      {hdr(a, "Back in play")}
-      <div style={{ padding: "1.4cqw 2.6cqw 2cqw" }}>
-        {frow("Touch sent", "Wk 11 · email", a)}{frow("Reply", "Received", a)}{frow("Status", "Re-qualifying", a)}
-      </div>
-    </div>
-  </>));
+function reactivateHero(_a: string): ReactNode {
+  return capImg("reactivate", "reactivate-hero.png");
 }
-function reactivateDeep(i: number, a: string): ReactNode {
-  if (i === 0) {
-    const rows = [["Priya Nair", "8 mo", "Matched"], ["Tom Alvarez", "11 mo", "Matched"], ["Dani Kohl", "3 mo", "Dormant"], ["Léa Mercier", "14 mo", "Matched"]];
-    return sq(a, center(
-      <div style={{ ...CARD }}>
-        {hdr(a, "Dormant cohort", "2,418 records")}
-        <div style={{ padding: "1cqw 2.4cqw 1.8cqw" }}>
-          {rows.map(([n, t, s]) => (
-            <div key={n} style={{ display: "flex", alignItems: "center", gap: "1.2cqw", padding: "1.4cqw 0", borderBottom: "1px solid #f2f3f5" }}>
-              <span style={{ width: "3cqw", height: "3cqw", borderRadius: "50%", background: `${a}22`, color: a, display: "grid", placeItems: "center", fontSize: "1.3cqw", fontWeight: 700 }}>{n.split(" ").map((w) => w[0]).join("")}</span>
-              <span style={{ flex: 1, fontWeight: 600, fontSize: "1.65cqw", color: "#17131F" }}>{n}</span>
-              <span style={{ fontSize: "1.4cqw", color: "#8a9099" }}>{t}</span>{pill(s, s === "Matched" ? `${a}18` : "#f4f5f7", s === "Matched" ? a : "#8a9099")}
-            </div>
-          ))}
-        </div>
-      </div>
-    ));
-  }
-  if (i === 1) return sq(a, center(
-    <div style={{ ...CARD }}>
-      {hdr(a, "One sequence per lead")}
-      <div style={{ padding: "1.4cqw 2.6cqw 2cqw" }}>
-        {[["Day 0", "@", "Email", GREEN], ["Day 2", "SMS", "SMS", GREEN], ["Day 5", "WA", "WhatsApp", AMBER]].map(([d, ch, l, c]) => (
-          <div key={d} style={{ display: "flex", alignItems: "center", gap: "1.4cqw", padding: "1.6cqw 0", borderBottom: "1px solid #f2f3f5" }}>
-            <span style={{ width: "6cqw", fontSize: "1.4cqw", color: "#9aa0a8", fontWeight: 700 }}>{d}</span>
-            <span style={{ width: "3.6cqw", height: "3.6cqw", borderRadius: "1cqw", background: a, color: "#fff", display: "grid", placeItems: "center", fontWeight: 700, fontSize: "1.3cqw" }}>{ch}</span>
-            <span style={{ flex: 1, fontWeight: 600, fontSize: "1.75cqw", color: "#17131F" }}>{l} touch</span>
-            <span style={{ width: "1.5cqw", height: "1.5cqw", borderRadius: "50%", background: c as string }} />
-          </div>
-        ))}
-      </div>
-    </div>
-  ));
-  return sq(a, center(
-    <div style={{ ...CARD }}>
-      {hdr(a, "Requalified", "● reply received")}
-      <div style={{ padding: "2cqw 2.6cqw", display: "flex", gap: "1.6cqw" }}>
-        <div style={{ flex: 1, background: "#f6f7f9", borderRadius: "1.8cqw", padding: "1.8cqw" }}><div style={{ fontSize: "1.3cqw", textTransform: "uppercase", color: "#9aa0a8", fontWeight: 700, marginBottom: ".6cqw" }}>Score</div><div style={{ fontFamily: SERIF, fontSize: "3.4cqw", fontWeight: 600 }}>82<span style={{ fontSize: "1.5cqw", color: "#b3b8bf" }}>/100</span></div></div>
-        <div style={{ flex: 1, background: `${a}14`, borderRadius: "1.8cqw", padding: "1.8cqw" }}><div style={{ fontSize: "1.3cqw", textTransform: "uppercase", color: a, fontWeight: 700, marginBottom: ".6cqw" }}>Value</div><div style={{ fontFamily: SERIF, fontSize: "3.4cqw", fontWeight: 600, color: a }}>£14.2k</div></div>
-      </div>
-    </div>
-  ));
+function reactivateDeep(i: number, _a: string): ReactNode {
+  return capImg("reactivate", ["reactivate-01.png", "reactivate-02.png", "reactivate-03.png"][i] ?? "reactivate-01.png");
 }
 
 // ── FOLLOW THROUGH ────────────────────────────────────────────────────────────
