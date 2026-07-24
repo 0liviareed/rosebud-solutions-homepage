@@ -2,6 +2,17 @@ import type { NextConfig } from "next";
 import { withBotId } from "botid/next/config";
 
 const nextConfig: NextConfig = {
+  async headers() {
+    return [
+      {
+        // Keep build-hashed static assets (with their ?dpl= query noise) out of
+        // the index so the GSC coverage report stays readable. Do NOT robots.txt
+        // disallow these — Google must be able to crawl them to see the noindex.
+        source: "/_next/static/:path*",
+        headers: [{ key: "X-Robots-Tag", value: "noindex" }],
+      },
+    ];
+  },
   async redirects() {
     return [
       // The setter role was renamed to Sales Development Representative and the
