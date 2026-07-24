@@ -183,7 +183,7 @@ export default function IndustryStagePage({ data }: { data: IndustryStageData })
 
       {/* ===================== PULL STAT ===================== */}
       <section style={{ background: "#f4f1ea", padding: "64px 0" }}>
-        <div style={{ maxWidth: 820, margin: "0 auto", padding: "0 40px", textAlign: "center" }}>
+        <div style={{ maxWidth: 820, margin: "0 auto", padding: "0 clamp(22px,5vw,40px)", textAlign: "center" }}>
           <div style={{ height: 1, background: "rgba(60,66,120,.16)", marginBottom: 44 }} />
           <p style={{ fontFamily: SERIF, fontWeight: 400, fontSize: "clamp(26px,3.4vw,34px)", lineHeight: 1.3, color: "#22243c", margin: 0 }}>{data.pullStat.pre}<em style={{ fontStyle: "italic", color: "#5877e8" }}>{data.pullStat.accent}</em></p>
           <div style={{ height: 1, background: "rgba(60,66,120,.16)", marginTop: 44 }} />
@@ -205,7 +205,7 @@ export default function IndustryStagePage({ data }: { data: IndustryStageData })
       {/* ===================== WHAT STAYS WITH YOU (optional) ===================== */}
       {data.boundary && (
         <section style={{ background: "#ece7de", padding: "84px 0 90px" }}>
-          <div style={{ maxWidth: 900, margin: "0 auto", padding: "0 40px" }} data-reveal>
+          <div style={{ maxWidth: 900, margin: "0 auto", padding: "0 clamp(22px,5vw,40px)" }} data-reveal>
             <span style={{ fontSize: 11, fontWeight: 600, letterSpacing: "2px", color: "#a7a1c0", textTransform: "uppercase" }}>{data.boundary.eyebrow}</span>
             <h2 style={{ fontFamily: SERIF, fontWeight: 400, fontSize: "clamp(28px,3.4vw,34px)", color: "#22243c", margin: "14px 0 32px" }}>{data.boundary.heading}</h2>
             <div className="rb-bound" style={{ borderTop: "1px solid rgba(60,66,120,.16)" }}>
@@ -224,7 +224,7 @@ export default function IndustryStagePage({ data }: { data: IndustryStageData })
       {/* ===================== FAQ + FAQPage schema ===================== */}
       <section style={{ position: "relative", background: "#0a0a0d", padding: "84px 0 90px", overflow: "hidden" }}>
         <div aria-hidden style={{ position: "absolute", inset: 0, background: "radial-gradient(80% 60% at 90% 20%,rgba(120,110,180,.14),transparent 60%),radial-gradient(60% 50% at 5% 90%,rgba(90,110,200,.1),transparent 60%)" }} />
-        <div style={{ position: "relative", maxWidth: 900, margin: "0 auto", padding: "0 40px" }}>
+        <div style={{ position: "relative", maxWidth: 900, margin: "0 auto", padding: "0 clamp(22px,5vw,40px)" }}>
           <span style={{ fontSize: 11, fontWeight: 600, letterSpacing: "2.5px", color: "rgba(255,255,255,.4)", textTransform: "uppercase" }}>FAQs</span>
           <h2 style={{ fontFamily: SERIF, fontWeight: 400, fontSize: "clamp(30px,4vw,38px)", color: "#fff", margin: "16px 0 34px" }}>The questions we get on <em style={{ fontStyle: "italic", color: "#c9c3e8" }}>every demo call.</em></h2>
           <div>{data.faqs.map((f) => <FaqItem key={f.q} q={f.q} a={f.a} />)}</div>
@@ -249,7 +249,7 @@ export default function IndustryStagePage({ data }: { data: IndustryStageData })
 
       {/* ===================== OFFER CTA ===================== */}
       <section id="pricing" style={{ background: "#ece7de", padding: "90px 0 100px", textAlign: "center" }}>
-        <div style={{ maxWidth: 640, margin: "0 auto", padding: "0 40px" }}>
+        <div style={{ maxWidth: 640, margin: "0 auto", padding: "0 clamp(22px,5vw,40px)" }}>
           <span style={{ fontSize: 11, fontWeight: 600, letterSpacing: "2.5px", color: "#a7a1c0", textTransform: "uppercase" }}>The offer</span>
           <h2 style={{ fontFamily: SERIF, fontWeight: 400, fontSize: "clamp(32px,4.4vw,42px)", lineHeight: 1.12, color: "#22243c", margin: "18px 0 18px" }}>{data.close.heading}</h2>
           <p style={{ fontSize: 14, lineHeight: 1.7, color: "#6b6e8a", maxWidth: 480, margin: "0 auto 34px" }}>{data.close.subhead}</p>
