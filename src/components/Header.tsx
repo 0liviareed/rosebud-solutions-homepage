@@ -180,7 +180,7 @@ export default function Header() {
                   </Link>
 
                   <Link
-                    href="/industries/healthcare"
+                    href="/industries/dental-aesthetic"
                     className="rb-nav-link"
                     role="menuitem"
                     onClick={() => setMenuOpen(false)}
@@ -361,7 +361,7 @@ export default function Header() {
               <div className="rb-macc-panel-inner">
                 {[
                   ["/industries/insurance", "Insurance", "Quotes. Claims. Renewals."],
-                  ["/industries/healthcare", "Dental, Aesthetic & Private Healthcare", "Intake. Scheduling. Recall."],
+                  ["/industries/dental-aesthetic", "Dental, Aesthetic & Private Healthcare", "Intake. Scheduling. Recall."],
                   ["/industries/real-estate", "Real Estate", "Inquiry. Showings. Nurture."],
                   ["/industries/mortgage-lending", "Mortgage & Lending", "Inquiry. Conditions. Funded."],
                   ["/industries/trades-home-services", "Trades & Home Services", "Inquiry. Quote. Paperwork. Repeat work."],

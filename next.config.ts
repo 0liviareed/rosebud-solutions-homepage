@@ -31,6 +31,13 @@ const nextConfig: NextConfig = {
         destination: "/",
         permanent: true,
       },
+      {
+        // Industry slug renamed healthcare → dental-aesthetic (US vertical +
+        // primary term "patient intake software"). Keep old links alive.
+        source: "/industries/healthcare",
+        destination: "/industries/dental-aesthetic",
+        permanent: true,
+      },
     ];
   },
 };

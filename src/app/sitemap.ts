@@ -18,7 +18,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.9,
     },
     {
-      url: `${BASE}/industries/healthcare`,
+      url: `${BASE}/industries/dental-aesthetic`,
       lastModified: now,
       changeFrequency: "monthly",
       priority: 0.9,

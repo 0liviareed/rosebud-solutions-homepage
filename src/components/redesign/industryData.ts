@@ -28,7 +28,7 @@ export type IndustryData = {
 
 // "Rosebud for [industry]" hero switcher — the interlinked cluster (canonical order).
 export const INDUSTRY_SIBLINGS: { name: string; slug: string }[] = [
-  { name: "Dental, Aesthetic & Private Healthcare", slug: "healthcare" },
+  { name: "Dental, Aesthetic & Private Healthcare", slug: "dental-aesthetic" },
   { name: "Family Law & Consumer Legal", slug: "family-law" },
   { name: "Mortgage & Lending", slug: "mortgage-lending" },
   { name: "Insurance", slug: "insurance" },
@@ -40,7 +40,7 @@ export const INDUSTRY_SIBLINGS: { name: string; slug: string }[] = [
 // integrations row + the integrations-page footer). Recruitment EXCLUDED (410).
 // Single source of truth: edit the one slug at healthcare→dental-aesthetic.
 export const INDUSTRY_LINKS: { name: string; slug: string }[] = [
-  { name: "Dental, Aesthetic & Private Healthcare", slug: "healthcare" },
+  { name: "Dental, Aesthetic & Private Healthcare", slug: "dental-aesthetic" },
   { name: "Family Law & Consumer Legal", slug: "family-law" },
   { name: "Mortgage & Lending", slug: "mortgage-lending" },
   { name: "Insurance", slug: "insurance" },

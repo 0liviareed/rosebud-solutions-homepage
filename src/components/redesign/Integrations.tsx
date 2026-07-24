@@ -33,7 +33,7 @@ const ROW_B = LOGOS.slice(MID);
 
 const VERTICALS = [
   { label: "Trades & Home Services", href: "/industries/trades-home-services" },
-  { label: "Dental, Aesthetics & Healthcare", href: "/industries/healthcare" },
+  { label: "Dental, Aesthetics & Healthcare", href: "/industries/dental-aesthetic" },
   { label: "Legal & Professional", href: "/industries/family-law" },
   { label: "Mortgage & Lending", href: "/industries/mortgage-lending" },
 ];

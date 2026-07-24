@@ -17,6 +17,18 @@ const CARD_TONE: Record<StageCardTone, { bg: string; fg: string }> = {
   teal: { bg: "#e4f4f6", fg: "#3a9aa8" },
 };
 
+// Up-links to the capability pages — the vertical link the cluster was missing
+// (all seven are live: see LIVE_SLUGS in capabilityData).
+const CAPABILITIES: { name: string; slug: string }[] = [
+  { name: "Capture", slug: "capture" },
+  { name: "Qualify", slug: "qualify" },
+  { name: "Book", slug: "book" },
+  { name: "Retain", slug: "retain" },
+  { name: "Reactivate", slug: "reactivate" },
+  { name: "Follow through", slug: "follow-through" },
+  { name: "Closed-loop attribution", slug: "closed-loop-attribution" },
+];
+
 function PricingCTA() {
   return (
     <a href={CTA} style={{ display: "inline-flex", alignItems: "center", gap: 12, background: "#2c2f4a", color: "#fff", fontSize: 14, fontWeight: 600, padding: "14px 26px", borderRadius: 26, boxShadow: "0 14px 30px -14px rgba(44,47,74,.8)", textDecoration: "none" }}>
@@ -53,7 +65,12 @@ function StageEyebrow({ index, label }: { index: string; label: string }) {
 }
 
 function StageH2({ children }: { children: React.ReactNode }) {
-  return <h2 style={{ fontFamily: SERIF, fontWeight: 500, fontSize: "clamp(26px,3.4vw,36px)", lineHeight: 1.12, letterSpacing: "-0.01em", color: "#22243c", margin: "14px 0 26px" }}>{children}</h2>;
+  return <h2 style={{ fontFamily: SERIF, fontWeight: 500, fontSize: "clamp(26px,3.4vw,36px)", lineHeight: 1.12, letterSpacing: "-0.01em", color: "#22243c", margin: "14px 0 14px" }}>{children}</h2>;
+}
+
+// The 40–60 word answer-first paragraph under each question H2 — the AEO layer.
+function StageAnswer({ children }: { children: React.ReactNode }) {
+  return <p style={{ fontSize: 16, lineHeight: 1.66, color: "#4a4360", margin: "0 0 26px", maxWidth: "60ch" }}>{children}</p>;
 }
 
 function ItemList({ items }: { items: StageSplit["items"] }) {
@@ -153,6 +170,7 @@ export default function IndustryStagePage({ data }: { data: IndustryStageData })
           <div data-reveal>
             <StageEyebrow index={data.stage1.index} label={data.stage1.eyebrow} />
             <StageH2>{data.stage1.h2}</StageH2>
+            <StageAnswer>{data.stage1.answer}</StageAnswer>
             <ItemList items={data.stage1.items} />
           </div>
           <div className="rb-scene-cell" data-reveal><Scene slug={data.slug} scene={data.stage1.scene} /></div>
@@ -165,6 +183,7 @@ export default function IndustryStagePage({ data }: { data: IndustryStageData })
           <div data-reveal>
             <StageEyebrow index={data.stage2.index} label={data.stage2.eyebrow} />
             <StageH2>{data.stage2.h2}</StageH2>
+            <StageAnswer>{data.stage2.answer}</StageAnswer>
           </div>
           <div className="rb-cards">
             {data.stage2.cards.map((c) => {
@@ -197,6 +216,7 @@ export default function IndustryStagePage({ data }: { data: IndustryStageData })
           <div data-reveal>
             <StageEyebrow index={data.stage3.index} label={data.stage3.eyebrow} />
             <StageH2>{data.stage3.h2}</StageH2>
+            <StageAnswer>{data.stage3.answer}</StageAnswer>
             <ItemList items={data.stage3.items} />
           </div>
         </div>
@@ -229,6 +249,21 @@ export default function IndustryStagePage({ data }: { data: IndustryStageData })
           <h2 style={{ fontFamily: SERIF, fontWeight: 400, fontSize: "clamp(30px,4vw,38px)", color: "#fff", margin: "16px 0 34px" }}>The questions we get on <em style={{ fontStyle: "italic", color: "#c9c3e8" }}>every demo call.</em></h2>
           <div>{data.faqs.map((f) => <FaqItem key={f.q} q={f.q} a={f.a} />)}</div>
           <div style={{ borderTop: "1px solid rgba(255,255,255,0.12)" }} />
+        </div>
+      </section>
+
+      {/* ===================== THE CAPABILITIES BEHIND IT (up-links) ===================== */}
+      <section style={{ background: "#f4f1ea", padding: "64px 0" }}>
+        <div className="rb-ind-wrap">
+          <span style={{ fontSize: 11, fontWeight: 600, letterSpacing: "2px", color: "#a7a1c0", textTransform: "uppercase" }}>The capabilities behind it</span>
+          <p style={{ fontFamily: SERIF, fontWeight: 500, fontSize: "clamp(22px,2.6vw,28px)", color: "#22243c", margin: "12px 0 22px", maxWidth: "40ch" }}>Every plan runs all seven flows end to end.</p>
+          <div style={{ display: "flex", flexWrap: "wrap", gap: 10 }}>
+            {CAPABILITIES.map((c) => (
+              <a key={c.slug} href={`/capabilities/${c.slug}`} style={{ display: "inline-flex", alignItems: "center", gap: 8, background: "#fff", borderRadius: 999, padding: "10px 18px", fontSize: 14, fontWeight: 600, color: "#3a3d5c", boxShadow: "0 10px 24px -18px rgba(60,66,120,.6)", textDecoration: "none" }}>
+                {c.name} <span style={{ color: "#a7a1c0", fontSize: 13 }}>→</span>
+              </a>
+            ))}
+          </div>
         </div>
       </section>
 
