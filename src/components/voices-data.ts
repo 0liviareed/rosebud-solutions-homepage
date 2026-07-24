@@ -50,3 +50,17 @@ export const VOICES: Voice[] = [
     role: "Multi-Site Operator",
   },
 ];
+
+// A deterministic window into a testimonial pool, keyed per surface (page slug),
+// so each page shows a DIFFERENT slice of the same real quotes rather than the
+// identical set everywhere. Generic over the pool element type because different
+// surfaces carry slightly different Voice shapes (e.g. an avatar `ini` field).
+// Same key + pool → same slice, stable across renders.
+export function voicesSlice<T>(pool: T[], key: string, count = 4): T[] {
+  if (pool.length === 0) return [];
+  let h = 0;
+  for (let i = 0; i < key.length; i++) h = (h * 31 + key.charCodeAt(i)) >>> 0;
+  const start = h % pool.length;
+  const n = Math.min(count, pool.length);
+  return Array.from({ length: n }, (_, i) => pool[(start + i) % pool.length]);
+}

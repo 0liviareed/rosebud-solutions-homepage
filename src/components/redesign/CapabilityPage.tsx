@@ -166,7 +166,12 @@ export default function CapabilityPage({ data }: { data: CapabilityData }) {
   const logosA = INT_LOGOS.slice(0, Math.ceil(INT_LOGOS.length / 2));
   const logosB = INT_LOGOS.slice(Math.ceil(INT_LOGOS.length / 2));
 
-  const maxIdx = VOICES.length - 2;
+  // Per-capability window into the testimonial pool. Start from the capability's
+  // position (not a hash) so every capability page gets a DISTINCT slice — with
+  // only 8 quotes a hash collides mod-length (capture/reactivate landed identical).
+  const ci = Math.max(0, [...LIVE_SLUGS].indexOf(data.slug));
+  const voices = Array.from({ length: Math.min(6, VOICES.length) }, (_, i) => VOICES[(ci + i) % VOICES.length]);
+  const maxIdx = voices.length - 2;
 
   return (
     <div style={{ fontFamily: "var(--font-dm-sans), system-ui, sans-serif", color: "#F5F1EA", background: "#ECE7F7", overflowX: "clip" }}>
@@ -397,7 +402,7 @@ export default function CapabilityPage({ data }: { data: CapabilityData }) {
           </div>
           <div style={{ marginTop: 28, overflow: "hidden" }}>
             <div ref={voiceTrack} style={{ display: "flex", gap: 20, transition: "transform 0.7s cubic-bezier(.16,1,.3,1)" }}>
-              {VOICES.map((v, i) => {
+              {voices.map((v, i) => {
                 const focused = i === voiceIdx || i === voiceIdx + 1;
                 return (
                   <div key={i} className="rb-cap-voicecard" style={{ flex: "0 0 46%", opacity: focused ? 1 : 0.42, transform: focused ? "none" : "scale(0.94)", transition: "opacity 0.5s ease, transform 0.5s ease" }}>
@@ -418,7 +423,7 @@ export default function CapabilityPage({ data }: { data: CapabilityData }) {
             </div>
           </div>
           <div style={{ marginTop: 34, display: "flex", alignItems: "center", gap: 18, justifyContent: "center" }}>
-            <div style={{ fontFamily: SERIF, fontSize: 20, letterSpacing: ".04em", color: "#B8AEDB" }}>{String(voiceIdx + 1).padStart(2, "0")} — {String(VOICES.length).padStart(2, "0")}</div>
+            <div style={{ fontFamily: SERIF, fontSize: 20, letterSpacing: ".04em", color: "#B8AEDB" }}>{String(voiceIdx + 1).padStart(2, "0")} — {String(voices.length).padStart(2, "0")}</div>
             <div style={{ width: 200, height: 2, background: "rgba(255,255,255,0.14)", borderRadius: 2, overflow: "hidden" }}>
               <div style={{ height: "100%", background: "#B8AEDB", borderRadius: 2, width: `${((voiceIdx + 1) / maxIdx) * 100}%`, transition: "width 0.6s cubic-bezier(.16,1,.3,1)" }} />
             </div>
