@@ -1,22 +1,23 @@
 import type { Metadata } from "next";
-import IndustryPage from "@/components/redesign/IndustryPage";
-import { FAMILY_LAW } from "@/components/redesign/industryData";
+import IndustryStagePage from "@/components/redesign/IndustryStagePage";
+import { FAMILY_LAW_STAGE } from "@/components/redesign/industryStageData";
 
-// RETARGET DRAFT (reference) — /industries/family-law on the §5 template, retargeted
-// to "legal intake software". Copy is a draft off the current live page; it does NOT
-// ship until Saj + Jay have edited it. Preview only until then.
+// /industries/family-law on the new staged design (Dora "Legal" mockup),
+// retargeted to "legal intake software" and keeping the "what stays with you"
+// boundary block. Copy is drafted off the approved mockup; it does NOT ship to
+// production (main) until Saj + Jay sign off. Preview (redesign branch) only.
 export const metadata: Metadata = {
-  title: FAMILY_LAW.seo.title,
-  description: FAMILY_LAW.seo.description,
+  title: FAMILY_LAW_STAGE.seo.title,
+  description: FAMILY_LAW_STAGE.seo.description,
   alternates: { canonical: "/industries/family-law" },
   openGraph: {
-    title: FAMILY_LAW.seo.ogTitle,
-    description: FAMILY_LAW.seo.ogDescription,
+    title: FAMILY_LAW_STAGE.seo.ogTitle,
+    description: FAMILY_LAW_STAGE.seo.ogDescription,
     url: "https://rosebud.global/industries/family-law",
     type: "website",
   },
 };
 
 export default function FamilyLawPage() {
-  return <IndustryPage data={FAMILY_LAW} />;
+  return <IndustryStagePage data={FAMILY_LAW_STAGE} />;
 }
