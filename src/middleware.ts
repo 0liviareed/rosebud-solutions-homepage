@@ -13,6 +13,16 @@ export function middleware(request: NextRequest) {
     return NextResponse.redirect('https://engine.rosebud.global/', 301);
   }
 
+  // The recruitment industry page has been permanently removed. Return 410 Gone
+  // (not 404) so search engines drop it from the index rather than keep retrying.
+  // Applies on every host, ahead of the engine gate.
+  if (path === '/industries/recruitment' || path.startsWith('/industries/recruitment/')) {
+    return new NextResponse(
+      '<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="robots" content="noindex"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Gone</title></head><body style="font-family:system-ui,-apple-system,sans-serif;max-width:34rem;margin:16vh auto;padding:0 1.5rem;color:#17131F"><h1 style="font-weight:600;font-size:1.6rem;margin:0 0 .6rem">410 — Gone</h1><p style="color:#57506b;line-height:1.6;margin:0 0 1.4rem">This page has been permanently removed.</p><a href="/" style="color:#6B5CC4;text-decoration:none;font-weight:600">← Back to rosebud.global</a></body></html>',
+      { status: 410, headers: { 'Content-Type': 'text/html; charset=utf-8' } },
+    );
+  }
+
   // Only gate the engine subdomain. Everything else (rosebud.global, previews,
   // localhost) is unaffected — local dev intentionally bypasses the gate.
   if (host !== ENGINE_HOST) {
