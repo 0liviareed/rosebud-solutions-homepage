@@ -442,7 +442,9 @@ function panelImg(folder: string, file: string): ReactNode {
   );
 }
 export function bespokePanel(slug: string, i: number, accent: string): ReactNode | null {
-  if (slug === "capture") return panelImg("capture", ["multi-channel-convergence.png", "automated-response.png", "baseline-record.png"][i] ?? "multi-channel-convergence.png");
+  // Capture's "how it works" panels stay as clean number-badge cards — the
+  // supplied panel PNGs bake their own headings in and stacked awkwardly over
+  // the live copy. Book keeps its panel images.
   if (slug === "book") return panelImg("book", ["book-how-01-calendar-sync.png", "book-how-02-buffer-logic.png", "book-how-03-slot-lock.png"][i] ?? "book-how-01-calendar-sync.png");
   if (slug !== "closed-loop-attribution") return null;
   const chip: React.CSSProperties = { display: "inline-flex", alignItems: "center", gap: 8, background: "#fff", borderRadius: 12, padding: "9px 13px", boxShadow: "0 12px 26px -16px rgba(0,0,0,.55)" };
