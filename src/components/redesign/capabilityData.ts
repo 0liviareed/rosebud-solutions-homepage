@@ -257,3 +257,51 @@ export const CAPABILITIES: Record<string, CapabilityData> = {
     close: { heading: "Ready to spend on customers instead of clicks?", subhead: "Closed-loop attribution runs on top of the Rosebud system, because the outcome it sends back is produced by the system working the lead. It earns its place when you are running Google lead generation at volume, roughly thirty to fifty conversions per campaign per month, on your own site with consent on your forms. Below that, the gain is marginal and we will tell you so on the call rather than sell it to you." },
   },
 };
+
+// ── Per-capability FAQs (visible block + FAQPage schema on each capability page).
+// Answer-first: the complete answer sits in the first 40–60 words. Closed-loop
+// follows its own standing rules (no em dashes, Google-only, British English).
+export const CAP_FAQS: Record<string, { q: string; a: string }[]> = {
+  capture: [
+    { q: "How fast does Rosebud respond to a new lead?", a: "In seconds, day or night. A missed call gets a text back, and web forms, WhatsApp and social messages get an immediate reply in your brand voice. The lead is answered before it goes cold, and the whole thread is captured on one record from the first message." },
+    { q: "Which channels does it capture leads from?", a: "Every channel your enquiries actually arrive on — phone, web forms, WhatsApp, SMS, email and social DMs — pulled into one record. Nothing sits unanswered in a separate inbox, and no enquiry is lost because it came in on a channel nobody was watching." },
+    { q: "Does it work outside business hours?", a: "Yes. Capture runs day and night, so the 9pm enquiry and the weekend missed call get the same instant, on-brand reply as one at 11am. Out-of-hours leads are the ones most likely to be lost, and they are exactly the ones this recovers." },
+    { q: "Does the reply sound automated?", a: "No. Every reply is written to your tone and positioning, so it reads like your best receptionist on their best day, not an autoresponder. The goal is a real, useful first answer that moves the enquiry toward a booking." },
+  ],
+  qualify: [
+    { q: "How does Rosebud qualify a lead?", a: "Through structured conversation against your own rules — budget, timeline, job type, location, whatever you screen on. The answers are captured and scored before anyone on your team picks up, so your people spend their time on the leads worth their time, not on triage." },
+    { q: "Can I set my own qualifying criteria?", a: "Yes. The rules are yours — you decide what makes a lead worth pursuing, and Rosebud asks for exactly that, consistently, on every enquiry. Nothing is qualified against a generic template; it screens on the facts your business actually cares about." },
+    { q: "What happens to a lead that qualifies?", a: "It is routed to the right person with full context attached — the answers, the score and the channel it came from — so your team opens a complete file, not a name and a number. Time-sensitive or high-value leads are flagged to reach someone immediately." },
+    { q: "What about leads that don't qualify?", a: "They are handled without taking up your team's time — kept warm, nurtured, or politely set aside per your rules. Nothing is dropped; it just doesn't land on a person who should be talking to buyers. You set the threshold." },
+  ],
+  book: [
+    { q: "How does Rosebud book appointments?", a: "It offers real slots from your live calendar and holds the appointment the moment the lead picks one — no back-and-forth, no double-booking. The booking is written into the diary your team already runs from, so what a lead sees is always your genuine availability." },
+    { q: "Will it double-book my team?", a: "No. Availability is read live from your working calendar and the slot is reserved in real time, so two people can't take the same one. Buffers, travel time and the rules you set are respected, so the diary stays workable rather than just full." },
+    { q: "Which calendars does it work with?", a: "The calendar your team already runs its week from — Rosebud books into it rather than asking anyone to check a second diary. Your calendar stays the single source of truth; bookings, reschedules and cancellations all flow back into it automatically." },
+    { q: "What if a lead needs to reschedule?", a: "They can, without phoning the office — the reschedule is offered against live availability and the diary updates itself. The slot they free up is opened back up automatically, so a change of plan doesn't cost you a booking or a phone call." },
+  ],
+  retain: [
+    { q: "How does Rosebud reduce no-shows?", a: "Every booked appointment gets reminders on the cadence that actually lands — timed, on-brand, on the channel the customer reads. When someone looks likely to miss, they are prompted to confirm or rebook before the slot is wasted, so the diary you filled stays full." },
+    { q: "What happens when someone no-shows anyway?", a: "They are followed up automatically to rebook, rather than written off. A no-show is usually a reschedule waiting to happen, so Retain reaches out while intent is still warm and puts the appointment back in the diary without anyone in the office chasing it." },
+    { q: "Does it handle reminders across channels?", a: "Yes — reminders go out on the channels your customers actually check, not just email. The cadence and wording are set to your business, so reminders feel like a helpful nudge from you rather than spam, which is what keeps them working." },
+    { q: "Will reminders annoy my customers?", a: "No. The cadence is tuned to be useful, not relentless — enough to cut no-shows, not so much that people tune out. Everything is in your voice and stops the moment it should, so it reads as good service rather than nagging." },
+  ],
+  reactivate: [
+    { q: "What does Reactivate do with old leads?", a: "It works the leads already sitting in your database — the quotes that went quiet, the enquiries you never closed — with a nurture sequence in your voice. Deals you had written off get reopened while you sleep, without your team re-dialling a cold list by hand." },
+    { q: "Are these leads I already paid for?", a: "Usually, yes. Most businesses have hundreds of past enquiries that cost money to generate and were never converted. Reactivate turns that dormant list into booked work, which is why it is often the cheapest pipeline you have — you paid to acquire it once already." },
+    { q: "How is the nurture kept from feeling spammy?", a: "It is paced and written to your tone, so a reactivation message reads like a genuine check-in, not a blast. The sequence stops the moment someone re-engages and hands them to your team warm, so people feel remembered rather than marketed at." },
+    { q: "How long does reactivation run?", a: "As long as it is productive. Leads are nurtured on a cadence that keeps them warm without wearing them out, and anyone who responds is routed to a person immediately. The rest stay in a gentle long-term sequence, so a 'not now' doesn't become a 'never'." },
+  ],
+  "follow-through": [
+    { q: "What does Follow through handle?", a: "The work that happens after the booking — document collection, status updates, invoicing and the payment chase — run automatically end to end. The jobs that usually slip because everyone is busy get done on time, without someone in the office remembering to do them." },
+    { q: "How does it chase unpaid invoices?", a: "Invoices go out on completion and reminders run on the cadence that gets them paid, escalating politely until they are settled. The accounts-receivable chase that normally waits for a quiet afternoon happens on its own, so cash comes in faster without an awkward phone call." },
+    { q: "Does it collect paperwork and documents?", a: "Yes — the forms, photos, sign-offs and documents a job needs are requested in the conversation and filed automatically, rather than chased by email. Nothing stalls waiting on a missing document, and your records stay complete without manual data entry." },
+    { q: "How does it keep customers updated?", a: "Status updates go out at each stage automatically, so customers know what is happening without calling in. The office phone stops ringing with 'any update?' and only rings for new work, while every update stays consistent and on-brand." },
+  ],
+  "closed-loop-attribution": [
+    { q: "What does closed-loop attribution send back to Google?", a: "A verdict on each lead, tied to the exact click that produced it. At launch that verdict is whether the lead qualified against your rules. Where your CRM reports a closed deal back to us, the real value replaces the estimate. Your bidding learns from booked business rather than web forms." },
+    { q: "Do you touch our Google Ads account?", a: "No. We produce a first-party outcome file, formatted to Google's own specification, and hand it to whoever runs your media on a set schedule. They run the uploads and own campaign performance. We never log into your ad tools." },
+    { q: "Is the data first-party?", a: "Yes. Every outcome was generated by a real person on your own site, with consent recorded against it. Nothing is bought, scraped or modelled to fill a gap. That is the difference between data an ad platform can learn from and data that gets an account suspended." },
+    { q: "How much ad volume do we need for it to be worth it?", a: "It earns its place when you are running Google lead generation at volume, roughly thirty to fifty conversions per campaign per month, on your own site with consent on your forms. Below that the gain is marginal, and we will tell you so rather than sell it to you." },
+  ],
+};

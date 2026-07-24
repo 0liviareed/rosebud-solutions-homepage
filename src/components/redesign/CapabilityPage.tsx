@@ -10,7 +10,7 @@ import {
   type DeepBlock,
   DEEP_CTAS,
   SIBLINGS, SIBLING_SUBLABEL, LIVE_SLUGS,
-  NAV_CAPABILITIES, NAV_RESOURCES, INT_LOGOS, VOICES,
+  NAV_CAPABILITIES, NAV_RESOURCES, INT_LOGOS, VOICES, CAP_FAQS,
 } from "./capabilityData";
 import { INDUSTRY_LINKS } from "./industryData";
 
@@ -173,8 +173,30 @@ export default function CapabilityPage({ data }: { data: CapabilityData }) {
   const voices = VOICES.map((_, i) => VOICES[(ci + i) % VOICES.length]);
   const maxIdx = voices.length - 2;
 
+  const faqs = CAP_FAQS[data.slug] ?? [];
+  const serviceSchema = {
+    "@context": "https://schema.org", "@type": "Service", name: `Rosebud ${data.name}`, serviceType: data.name,
+    provider: { "@type": "Organization", name: "Rosebud Global Ltd" },
+    areaServed: { "@type": "Country", name: "United States" },
+    description: data.hero.subhead,
+  };
+  const faqSchema = {
+    "@context": "https://schema.org", "@type": "FAQPage",
+    mainEntity: faqs.map((f) => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a } })),
+  };
+  const breadcrumbSchema = {
+    "@context": "https://schema.org", "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: "https://rosebud.global/" },
+      { "@type": "ListItem", position: 2, name: data.name, item: `https://rosebud.global/capabilities/${data.slug}` },
+    ],
+  };
+
   return (
     <div style={{ fontFamily: "var(--font-dm-sans), system-ui, sans-serif", color: "#F5F1EA", background: "#ECE7F7", overflowX: "clip" }}>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }} />
+      {faqs.length > 0 && <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />}
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
       <style dangerouslySetInnerHTML={{ __html: CSS }} />
 
       {/* ===================== NAV ===================== */}
@@ -432,6 +454,24 @@ export default function CapabilityPage({ data }: { data: CapabilityData }) {
           </div>
         </div>
       </section>
+
+      {/* ===================== FAQ + FAQPage schema ===================== */}
+      {faqs.length > 0 && (
+        <section className="rb-cap-pad" style={{ position: "relative", background: "#080609", padding: "132px 48px" }}>
+          <div style={{ maxWidth: 900, margin: "0 auto" }}>
+            <div style={{ fontSize: 12, letterSpacing: ".28em", textTransform: "uppercase", color: "#B8AEDB", marginBottom: 18 }}>FAQs</div>
+            <h2 style={{ fontFamily: SERIF, fontWeight: 500, fontSize: "clamp(30px,4vw,50px)", lineHeight: 1.04, letterSpacing: "-0.015em", margin: "0 0 40px", color: "#F5F1EA" }}>{data.name}, answered plainly</h2>
+            <div>
+              {faqs.map((f) => (
+                <div key={f.q} style={{ padding: "26px 0", borderTop: "1px solid rgba(245,241,234,0.12)" }}>
+                  <h3 style={{ fontFamily: SERIF, fontWeight: 500, fontSize: "clamp(19px,2vw,24px)", lineHeight: 1.25, margin: "0 0 12px", color: "#F5F1EA" }}>{f.q}</h3>
+                  <p style={{ margin: 0, maxWidth: "74ch", fontSize: 15.5, lineHeight: 1.64, color: "rgba(245,241,234,0.66)" }}>{f.a}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* ===================== CLOSE (frames into a box → footer) ===================== */}
       <section id="pricing" ref={closeWrap} className="rb-capclose-sec" style={{ position: "relative", height: "190vh", background: "#000" }}>
