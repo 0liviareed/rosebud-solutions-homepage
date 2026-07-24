@@ -18,6 +18,7 @@ const BARE_ROUTES: readonly string[] = [
   "/capabilities",
   "/about",
   "/pricing",
+  "/integrations",
   "/checkout",
   "/onboarding",
   // Industry pages ported to the redesign template ship their own RedesignNav/Footer

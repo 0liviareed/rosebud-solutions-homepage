@@ -13,7 +13,7 @@ const capHref = (slug: string) => (LIVE_SLUGS.has(slug) ? `/capabilities/${slug}
 type Section = { key: string; label: string; items: { title: string; desc?: string; href: string }[] };
 const SECTIONS: Section[] = [
   { key: "product", label: "Product", items: NAV_CAPABILITIES.map((c) => ({ title: c.head, desc: c.desc, href: capHref(c.slug) })) },
-  { key: "connections", label: "Connections", items: [{ title: "Integrations", desc: "Connect to your tools effortlessly", href: "/#integrations" }] },
+  { key: "connections", label: "Connections", items: [{ title: "Integrations", desc: "Connect to your tools effortlessly", href: "/integrations" }] },
   { key: "resources", label: "Resources", items: NAV_RESOURCES.map((r) => ({ title: r.head, desc: r.desc, href: r.href })) },
 ];
 
