@@ -128,7 +128,7 @@ function avatar(initials: string, bg: string, fg: string, size = 3.4): ReactNode
 }
 // Shared image scene for capability pages whose hero + deep-dive visuals are
 // supplied as artwork rather than code-drawn mocks (book, reactivate, …).
-function capImg(folder: string, file: string): ReactNode {
+export function capImg(folder: string, file: string): ReactNode {
   return (
     <div style={{ width: "100%", borderRadius: 22, overflow: "hidden", boxShadow: "0 34px 70px -30px rgba(30,25,60,0.5)" }}>
       {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -431,7 +431,19 @@ export function bespokeDeep(slug: string, i: number, accent: string): ReactNode 
 }
 
 // Mini-mock shown at the top of each "How it works" panel (fixed px, not cqw).
+// Panel visual = a 1.62:1 image filling the card's top slot; the head/body copy
+// stays live HTML underneath (never baked into the image).
+function panelImg(folder: string, file: string): ReactNode {
+  return (
+    <div style={{ width: "100%", borderRadius: 12, overflow: "hidden" }}>
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img src={`/assets/capabilities/${folder}/${file}`} alt="" style={{ display: "block", width: "100%", height: "auto" }} />
+    </div>
+  );
+}
 export function bespokePanel(slug: string, i: number, accent: string): ReactNode | null {
+  if (slug === "capture") return panelImg("capture", ["multi-channel-convergence.png", "automated-response.png", "baseline-record.png"][i] ?? "multi-channel-convergence.png");
+  if (slug === "book") return panelImg("book", ["book-how-01-calendar-sync.png", "book-how-02-buffer-logic.png", "book-how-03-slot-lock.png"][i] ?? "book-how-01-calendar-sync.png");
   if (slug !== "closed-loop-attribution") return null;
   const chip: React.CSSProperties = { display: "inline-flex", alignItems: "center", gap: 8, background: "#fff", borderRadius: 12, padding: "9px 13px", boxShadow: "0 12px 26px -16px rgba(0,0,0,.55)" };
   if (i === 0) return (

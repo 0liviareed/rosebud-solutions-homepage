@@ -2,7 +2,7 @@
 import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
 import BookDemoCTA from "./BookDemoCTA";
 import RedesignMobileMenu from "./RedesignMobileMenu";
-import { bespokeHero, bespokeDeep, bespokePanel } from "./capabilityMocks";
+import { bespokeHero, bespokeDeep, bespokePanel, capImg } from "./capabilityMocks";
 import RedesignFooter from "./RedesignFooter";
 import RedesignReveal from "./RedesignReveal";
 import {
@@ -274,59 +274,9 @@ export default function CapabilityPage({ data }: { data: CapabilityData }) {
             </div>
           </div>
 
-          {/* hero visual — Capture keeps the bespoke intake mock; others use the generic mock */}
+          {/* hero visual — Capture uses its supplied hero scene; others use the generic mock */}
           <div style={{ position: "relative" }}>
-            {data.slug === "capture" ? (
-            <div className="rb-cq" style={{ position: "relative", width: "100%", aspectRatio: "1/1", borderRadius: 24, overflow: "hidden", background: "linear-gradient(155deg,#DEDAF0,#C6CFEC)", boxShadow: "0 42px 84px -40px rgba(30,25,60,0.55)" }}>
-              <div style={{ position: "absolute", inset: 0, background: "radial-gradient(80% 70% at 82% 6%, rgba(255,255,255,0.5), transparent 55%)" }} />
-              {/* web form */}
-              <div style={{ position: "absolute", left: "4%", top: "5%", width: "50%", background: "#fff", borderRadius: "2.4cqw", boxShadow: "0 2.4cqw 4cqw -1.6cqw rgba(30,25,60,.4)", overflow: "hidden" }}>
-                <div style={{ display: "flex", alignItems: "center", gap: "1cqw", padding: "1.3cqw 1.8cqw", borderBottom: "1px solid #f2f3f5" }}>
-                  {["#4ADE80", "#F5B94A", "#F06A5B"].map((c) => <span key={c} style={{ width: "1.3cqw", height: "1.3cqw", borderRadius: "50%", background: c }} />)}
-                  <span style={{ marginLeft: "auto", fontSize: "1.3cqw", fontWeight: 700, color: "#9aa0a8" }}>Web form · 21:47</span>
-                </div>
-                <div style={{ padding: "1.8cqw", display: "flex", flexDirection: "column", gap: "1.2cqw" }}>
-                  <div style={{ fontSize: "1.3cqw", color: "#9aa0a8", fontWeight: 700 }}>Full name</div>
-                  <div style={{ background: "#f4f5f7", borderRadius: "1cqw", padding: "1.2cqw 1.4cqw", fontSize: "1.7cqw", fontWeight: 700 }}>Daniel Pryce</div>
-                  <div style={{ fontSize: "1.3cqw", color: "#9aa0a8", fontWeight: 700 }}>Enquiry</div>
-                  <div style={{ background: "#f4f5f7", borderRadius: "1cqw", padding: "1.2cqw 1.4cqw", fontSize: "1.7cqw", fontWeight: 700 }}>2-bed · viewing this week</div>
-                  <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "1cqw", background: "#6B5CC4", color: "#fff", fontWeight: 700, fontSize: "1.7cqw", padding: "1.4cqw", borderRadius: "1.1cqw", marginTop: ".4cqw" }}>Submit ✓</div>
-                </div>
-              </div>
-              {/* WhatsApp */}
-              <div style={{ position: "absolute", left: "3%", top: "47%", width: "53%", background: "#fff", borderRadius: "2.4cqw", boxShadow: "0 2.4cqw 4cqw -1.6cqw rgba(30,25,60,.4)", overflow: "hidden" }}>
-                <div style={{ background: "#1EA85C", color: "#fff", padding: "1.4cqw 1.8cqw", display: "flex", alignItems: "center", gap: "1.2cqw" }}>
-                  <span style={{ width: "3.2cqw", height: "3.2cqw", borderRadius: "50%", background: "rgba(255,255,255,.25)", display: "grid", placeItems: "center", fontWeight: 700, fontSize: "1.5cqw" }}>DP</span>
-                  <div style={{ lineHeight: 1.15 }}><div style={{ fontWeight: 700, fontSize: "1.7cqw" }}>WhatsApp</div><div style={{ fontSize: "1.25cqw", opacity: .85 }}>Sunday · 21:47</div></div>
-                </div>
-                <div style={{ padding: "1.8cqw", background: "#EAF6EE", display: "flex", flexDirection: "column", gap: "1.3cqw" }}>
-                  <div style={{ alignSelf: "flex-start", maxWidth: "86%", background: "#fff", borderRadius: "1.4cqw 1.4cqw 1.4cqw .3cqw", padding: "1.3cqw 1.5cqw", boxShadow: "0 .6cqw 1.2cqw -.6cqw rgba(0,0,0,.18)", fontSize: "1.6cqw", lineHeight: 1.35 }}>Any 2-beds free to view this week?<div style={{ textAlign: "right", fontSize: "1.15cqw", color: "#9aa0a8", marginTop: ".4cqw" }}>21:47</div></div>
-                  <div style={{ alignSelf: "flex-end", maxWidth: "88%", background: "#DCF3E3", borderRadius: "1.4cqw 1.4cqw .3cqw 1.4cqw", padding: "1.3cqw 1.5cqw", fontSize: "1.6cqw", lineHeight: 1.35 }}>Yes — two are open. I can hold a viewing slot now. What day suits?<div style={{ textAlign: "right", fontSize: "1.15cqw", color: "#2E9E5B", marginTop: ".4cqw" }}>21:47 · auto ✓✓</div></div>
-                </div>
-              </div>
-              {/* CRM record */}
-              <div style={{ position: "absolute", right: "2%", top: "28%", width: "52%", background: "#fff", borderRadius: "2.6cqw", boxShadow: "0 3cqw 5.4cqw -1.6cqw rgba(30,25,60,.5)", overflow: "hidden" }}>
-                <div style={{ background: "#4B3F86", color: "#fff", padding: "1.8cqw 2.2cqw", display: "flex", alignItems: "center", gap: "1.3cqw" }}>
-                  <span style={{ width: "3cqw", height: "3cqw", borderRadius: ".9cqw", background: "#4ADE80", color: "#12331f", display: "grid", placeItems: "center", fontSize: "1.7cqw" }}>✓</span>
-                  <span style={{ fontFamily: SERIF, fontWeight: 600, fontSize: "2.3cqw" }}>Written to CRM</span>
-                  <span style={{ marginLeft: "auto", fontSize: "1.3cqw", fontWeight: 600, opacity: .85 }}>live</span>
-                </div>
-                <div style={{ padding: "1.6cqw 2.2cqw 2cqw" }}>
-                  {[["Name", "Daniel Pryce"], ["Channel", "Form + WhatsApp"], ["Enquiry", "2-bed · viewing"], ["Response", "Sent · brand voice"], ["Stage", "New — to qualify"]].map(([k, v]) => (
-                    <div key={k} style={{ display: "flex", alignItems: "center", gap: "1.2cqw", padding: "1.2cqw 0", borderBottom: "1px solid #f2f3f5" }}>
-                      <span style={{ width: "32%", fontSize: "1.25cqw", letterSpacing: ".04em", textTransform: "uppercase", color: "#9aa0a8", fontWeight: 700 }}>{k}</span>
-                      <span style={{ flex: 1, fontWeight: 700, fontSize: "1.65cqw" }}>{v}</span>
-                      <span style={{ display: "inline-flex", alignItems: "center", gap: ".5cqw", fontSize: "1.2cqw", fontWeight: 700, color: "#2E9E5B" }}><span style={{ width: "1.2cqw", height: "1.2cqw", borderRadius: "50%", background: "#4ADE80" }} />21:47</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-              {/* powered by */}
-              <div style={{ position: "absolute", left: "5%", bottom: "6%", display: "flex", alignItems: "center", gap: "1.2cqw", background: "#fff", borderRadius: "2.4cqw", padding: "1.6cqw 2.6cqw", boxShadow: "0 2cqw 3.4cqw -1.4cqw rgba(30,25,60,.45)" }}>
-                <span style={{ color: "#9aa0a8", fontWeight: 600, fontSize: "1.7cqw" }}>powered by</span><span style={{ fontFamily: SERIF, fontWeight: 600, fontSize: "2.4cqw", letterSpacing: "-.01em", color: "#17131F" }}>Rosebud</span>
-              </div>
-            </div>
-            ) : heroMock(data)}
+            {data.slug === "capture" ? capImg("capture", "hero-banner.png") : heroMock(data)}
           </div>
         </div>
       </section>
@@ -547,64 +497,6 @@ function genericMock(accent: string, label: string): ReactNode {
 // Capture deep-dive graphic mocks (per block index). Square tinted containers
 // with white cards in the design's visual language.
 function captureDeepMock(i: number): ReactNode {
-  const sq = (bg: string, shadow: string, children: ReactNode) => (
-    <div className="rb-cq" style={{ position: "relative", width: "100%", aspectRatio: "1/1", borderRadius: 22, overflow: "hidden", background: bg, boxShadow: shadow }}>{children}</div>
-  );
-  const card: CSSProperties = { background: "#fff", borderRadius: "3cqw", boxShadow: "0 3cqw 5cqw -1.6cqw rgba(23,19,31,.32)", overflow: "hidden" };
-  const cardHead: CSSProperties = { background: "#4B3F86", color: "#fff", padding: "2cqw 2.6cqw", display: "flex", alignItems: "center", gap: "1.3cqw", fontFamily: SERIF, fontWeight: 600, fontSize: "2.3cqw" };
-
-  if (i === 0) {
-    // 01 LISTEN — out-of-hours workflow executing at 21:47, office offline.
-    return sq("#DED8EF", "0 34px 70px -30px rgba(23,19,31,0.4)", <>
-      <div style={{ position: "absolute", left: "7%", top: "8%", display: "flex", alignItems: "center", gap: "1.3cqw", background: "#26282e", color: "#c7cad0", borderRadius: "2.6cqw", padding: "1.6cqw 2.2cqw", boxShadow: "0 2cqw 3.4cqw -1.4cqw rgba(20,10,40,.5)", fontWeight: 600, fontSize: "1.7cqw" }}>
-        <span style={{ width: "1.6cqw", height: "1.6cqw", borderRadius: "50%", background: "#565a63" }} />Office closed · Sun 21:47
-      </div>
-      <div style={{ position: "absolute", left: "10%", top: "27%", width: "80%", ...card }}>
-        <div style={cardHead}><span style={{ width: "2.4cqw", height: "2.4cqw", borderRadius: "50%", background: "#4ADE80" }} />Continuous listener · live</div>
-        <div style={{ padding: "1.4cqw 2.6cqw 2.4cqw" }}>
-          {[["Enquiry received", "21:47", "#2E9E5B"], ["Auto-response sent", "21:47", "#2E9E5B"], ["Written to CRM", "21:47", "#2E9E5B"]].map(([l, t, c]) => (
-            <div key={l} style={{ display: "flex", alignItems: "center", gap: "1.6cqw", padding: "1.9cqw 0", borderBottom: "1px solid #f2f3f5" }}>
-              <span style={{ width: "3.4cqw", height: "3.4cqw", borderRadius: "1cqw", background: "#EDE9F7", color: "#6B5CC4", display: "grid", placeItems: "center", fontWeight: 700, fontSize: "1.7cqw" }}>✓</span>
-              <span style={{ flex: 1, fontWeight: 600, fontSize: "1.95cqw", color: "#17131F" }}>{l}</span>
-              <span style={{ display: "inline-flex", alignItems: "center", gap: ".7cqw", padding: ".7cqw 1.5cqw", borderRadius: 999, fontWeight: 700, fontSize: "1.4cqw", background: "#E6F6EC", color: c as string }}>{t}</span>
-            </div>
-          ))}
-        </div>
-      </div>
-    </>);
-  }
-  if (i === 1) {
-    // 02 BIND — two timelines: manual triage vs sub-second.
-    const bar = (label: string, val: string, fill: string, w: string, bg: string, fg: string) => (
-      <div style={{ ...card, padding: "2.2cqw 2.6cqw", boxShadow: "0 2.4cqw 4cqw -1.6cqw rgba(23,19,31,.3)" }}>
-        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "1.4cqw" }}>
-          <span style={{ fontWeight: 700, fontSize: "1.8cqw", color: "#17131F" }}>{label}</span>
-          <span style={{ padding: ".6cqw 1.5cqw", borderRadius: 999, fontWeight: 700, fontSize: "1.5cqw", background: bg, color: fg }}>{val}</span>
-        </div>
-        <div style={{ height: "2.4cqw", borderRadius: 999, background: "#eef0f2", overflow: "hidden" }}><div style={{ height: "100%", width: w, background: fill, borderRadius: 999 }} /></div>
-      </div>
-    );
-    return sq("#EEE9E0", "0 34px 70px -30px rgba(23,19,31,0.3)", <>
-      <div style={{ position: "absolute", left: "9%", right: "9%", top: "20%", display: "flex", flexDirection: "column", gap: "3cqw" }}>
-        {bar("Manual triage", "3h 12m", "#E8A24A", "88%", "#FBEEDD", "#B5761A")}
-        {bar("Rosebud · bound", "0.4s", "#4ADE80", "6%", "#E6F6EC", "#2E9E5B")}
-      </div>
-    </>);
-  }
-  // 03 RECORD — structured record parsing parameters.
-  return sq("#6B5CC4", "0 34px 70px -30px rgba(40,20,80,0.55)", <>
-    <div style={{ position: "absolute", inset: 0, background: "radial-gradient(90% 80% at 20% 10%, rgba(255,255,255,0.14), transparent 60%)" }} />
-    <div style={{ position: "absolute", left: "10%", top: "16%", width: "80%", ...card }}>
-      <div style={cardHead}><span style={{ width: "2.4cqw", height: "2.4cqw", borderRadius: "50%", background: "#4ADE80" }} />Structured record</div>
-      <div style={{ padding: "1.6cqw 2.6cqw 2.2cqw" }}>
-        {[["Contact", "Daniel Pryce"], ["Channel origin", "WhatsApp"], ["Source", "Meta / paid"], ["Ad click ID", "fb.1.87f3…"], ["Timestamp", "21:47"]].map(([k, v]) => (
-          <div key={k} style={{ display: "flex", alignItems: "center", gap: "1.2cqw", padding: "1.4cqw 0", borderBottom: "1px solid #f2f3f5" }}>
-            <span style={{ width: "38%", fontSize: "1.3cqw", letterSpacing: ".04em", textTransform: "uppercase", color: "#9aa0a8", fontWeight: 700 }}>{k}</span>
-            <span style={{ flex: 1, fontWeight: 700, fontSize: "1.75cqw", color: "#17131F" }}>{v}</span>
-            <span style={{ width: "1.4cqw", height: "1.4cqw", borderRadius: "50%", background: "#4ADE80" }} />
-          </div>
-        ))}
-      </div>
-    </div>
-  </>);
+  // Full-square supplied scenes (2× PNGs) — 01 routes, 02 response, 03 record.
+  return capImg("capture", ["capture-01-routes.png", "capture-02-response.png", "capture-03-record.png"][i] ?? "capture-01-routes.png");
 }
