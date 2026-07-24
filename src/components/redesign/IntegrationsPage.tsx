@@ -7,9 +7,9 @@ import BookDemoCTA from "./BookDemoCTA";
 import { INDUSTRY_LINKS, DEMO } from "./industryData";
 import { VOICES as VOICES_POOL, voicesSlice } from "@/components/voices-data";
 
-// A distinct slice of the global testimonial pool for this surface, so the
-// integrations page doesn't echo the capability pages' voices.
-const VOICES = voicesSlice(VOICES_POOL, "integrations", 4);
+// Same full testimonial set as everywhere else, just rotated to a different
+// starting point for this surface so it doesn't read in the identical order.
+const VOICES = voicesSlice(VOICES_POOL, "integrations", VOICES_POOL.length);
 
 const SERIF = "var(--font-cormorant), 'Cormorant Garamond', serif";
 

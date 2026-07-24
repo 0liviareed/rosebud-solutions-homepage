@@ -166,11 +166,11 @@ export default function CapabilityPage({ data }: { data: CapabilityData }) {
   const logosA = INT_LOGOS.slice(0, Math.ceil(INT_LOGOS.length / 2));
   const logosB = INT_LOGOS.slice(Math.ceil(INT_LOGOS.length / 2));
 
-  // Per-capability window into the testimonial pool. Start from the capability's
-  // position (not a hash) so every capability page gets a DISTINCT slice — with
-  // only 8 quotes a hash collides mod-length (capture/reactivate landed identical).
+  // Same full testimonial set on every capability page, just rotated to a
+  // different starting point (by the capability's position) so the order varies
+  // page to page rather than reading identically everywhere.
   const ci = Math.max(0, [...LIVE_SLUGS].indexOf(data.slug));
-  const voices = Array.from({ length: Math.min(6, VOICES.length) }, (_, i) => VOICES[(ci + i) % VOICES.length]);
+  const voices = VOICES.map((_, i) => VOICES[(ci + i) % VOICES.length]);
   const maxIdx = voices.length - 2;
 
   return (
