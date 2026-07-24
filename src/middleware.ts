@@ -7,10 +7,38 @@ export function middleware(request: NextRequest) {
   const host = request.headers.get('host') || '';
   const path = request.nextUrl.pathname;
 
+  // www → apex, 301, site-wide. Canonicalise every www request to the bare
+  // domain (path + query preserved) so ranking signals consolidate on one host.
+  // Runs first so all downstream logic sees the apex.
+  if (host === 'www.rosebud.global') {
+    const url = request.nextUrl.clone();
+    url.host = 'rosebud.global';
+    url.protocol = 'https:';
+    url.port = '';
+    return NextResponse.redirect(url, 301);
+  }
+
   // Old URL on the apex → redirect to the engine subdomain (matches both
   // /demo and /demo/* so any links already shared keep working).
-  if ((host === 'rosebud.global' || host === 'www.rosebud.global') && path.startsWith('/demo')) {
+  if (host === 'rosebud.global' && path.startsWith('/demo')) {
     return NextResponse.redirect('https://engine.rosebud.global/', 301);
+  }
+
+  // Launch redirects — literal 301 (next.config `permanent` emits 308). Exact
+  // path match, query preserved.
+  //   /industries/healthcare → /industries/dental-aesthetic  (slug rename)
+  //   /agents/insurance      → /industries/insurance         (GSC 404 fix)
+  //   /solutions             → /                              (no capability index)
+  const LAUNCH_301: Record<string, string> = {
+    '/industries/healthcare': '/industries/dental-aesthetic',
+    '/agents/insurance': '/industries/insurance',
+    '/solutions': '/',
+  };
+  const dest = LAUNCH_301[path];
+  if (dest) {
+    const url = request.nextUrl.clone();
+    url.pathname = dest;
+    return NextResponse.redirect(url, 301);
   }
 
   // The recruitment industry page has been permanently removed. Return 410 Gone

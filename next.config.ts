@@ -28,27 +28,10 @@ const nextConfig: NextConfig = {
         destination: "/careers/sdr/apply",
         permanent: true,
       },
-      // GSC "Not found (404)" drilldown fixes (2026-07-23). /agents/recruitment
-      // and /web3-waitlist are deliberately left (recruitment goes 410 with the
-      // rest of recruitment; web3-waitlist stays a 404).
-      {
-        source: "/agents/insurance",
-        destination: "/industries/insurance",
-        permanent: true,
-      },
-      {
-        // No capability index route exists (/capabilities is [slug]-only) → homepage.
-        source: "/solutions",
-        destination: "/",
-        permanent: true,
-      },
-      {
-        // Industry slug renamed healthcare → dental-aesthetic (US vertical +
-        // primary term "patient intake software"). Keep old links alive.
-        source: "/industries/healthcare",
-        destination: "/industries/dental-aesthetic",
-        permanent: true,
-      },
+      // NOTE: the launch redirects (/agents/insurance, /solutions,
+      // /industries/healthcare) live in middleware.ts, emitted as literal 301s
+      // (next.config `permanent: true` emits 308). Keep them there, not here, so
+      // every launch redirect is a uniform 301 for the launch verification step.
     ];
   },
 };

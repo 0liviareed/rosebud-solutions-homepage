@@ -130,6 +130,7 @@ const ORGANIZATION_SCHEMA = {
   sameAs: [
     "https://www.linkedin.com/company/rosebudglobal",
     "https://www.instagram.com/rosebud.global/",
+    "https://www.tiktok.com/@rosebudglobal",
     "https://find-and-update.company-information.service.gov.uk/company/16623472",
   ],
 };
