@@ -15,7 +15,7 @@ const colLink: React.CSSProperties = { fontSize: 14, color: "rgba(245,241,234,0.
 
 const NAV_COLUMNS: { label: string; items: { title: string; href: string }[] }[] = [
   { label: "Product", items: NAV_CAPABILITIES.map((c) => ({ title: c.head, href: capHref(c.slug) })) },
-  { label: "Connections", items: [{ title: "Integrations", href: "/#integrations" }] },
+  { label: "Connections", items: [{ title: "Integrations", href: "/integrations" }] },
   { label: "Resources", items: NAV_RESOURCES.map((r) => ({ title: r.head, href: r.href })) },
 ];
 

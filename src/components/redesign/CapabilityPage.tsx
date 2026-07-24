@@ -181,7 +181,7 @@ export default function CapabilityPage({ data }: { data: CapabilityData }) {
           </a>
           <div className="rb-cap-navlinks" style={{ display: "flex", alignItems: "center", gap: 34, fontSize: 13, letterSpacing: ".14em", textTransform: "uppercase" }}>
             <a className="rb-cap-navdrop" href={capHref("capture")} onMouseEnter={(e) => openNow("product", e.currentTarget)} onMouseLeave={scheduleClose} style={navLink}>Product<span style={{ fontSize: 8, opacity: 0.7 }}>▼</span></a>
-            <a className="rb-cap-navdrop" href="/#integrations" onMouseEnter={(e) => openNow("connections", e.currentTarget)} onMouseLeave={scheduleClose} style={navLink}>Connections<span style={{ fontSize: 8, opacity: 0.7 }}>▼</span></a>
+            <a className="rb-cap-navdrop" href="/integrations" onMouseEnter={(e) => openNow("connections", e.currentTarget)} onMouseLeave={scheduleClose} style={navLink}>Connections<span style={{ fontSize: 8, opacity: 0.7 }}>▼</span></a>
             <a className="rb-cap-navdrop" href="/about" onMouseEnter={(e) => openNow("resources", e.currentTarget)} onMouseLeave={scheduleClose} style={navLink}>Resources<span style={{ fontSize: 8, opacity: 0.7 }}>▼</span></a>
             <a href="/pricing" style={{ padding: "9px 20px", borderRadius: 999, background: "var(--nav-pill-bg)", backdropFilter: "blur(20px) saturate(1.3)", WebkitBackdropFilter: "blur(20px) saturate(1.3)", border: "1px solid var(--nav-pill-border)", color: "var(--nav-fg-strong)", fontWeight: 600, letterSpacing: ".1em" }}>Get started</a>
           </div>
@@ -214,7 +214,7 @@ export default function CapabilityPage({ data }: { data: CapabilityData }) {
         )}
         {openMenu === "connections" && (
           <div onMouseEnter={cancelClose} onMouseLeave={scheduleClose} style={{ ...glassPanel, top: 80, left: panelLeft(320), transform: "translateX(-50%)", width: "min(320px,calc(100vw - 40px))", borderRadius: 20 }}>
-            <a href="/#integrations" className="rb-mega-item" onClick={() => setOpenMenu(null)} style={{ display: "flex", flexDirection: "column", gap: 3, padding: "13px 14px", borderRadius: 13, textDecoration: "none" }}>
+            <a href="/integrations" className="rb-mega-item" onClick={() => setOpenMenu(null)} style={{ display: "flex", flexDirection: "column", gap: 3, padding: "13px 14px", borderRadius: 13, textDecoration: "none" }}>
               <span style={{ fontSize: 15, fontWeight: 600, color: "#F5F1EA" }}>Integrations</span>
               <span style={{ fontSize: 12.5, color: "rgba(245,241,234,0.72)" }}>Connect to your tools effortlessly</span>
             </a>

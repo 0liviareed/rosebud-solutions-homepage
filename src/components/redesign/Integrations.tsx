@@ -31,12 +31,6 @@ const MID = Math.ceil(LOGOS.length / 2);
 const ROW_A = LOGOS.slice(0, MID);
 const ROW_B = LOGOS.slice(MID);
 
-const VERTICALS = [
-  { label: "Trades & Home Services", href: "/industries/trades-home-services" },
-  { label: "Dental, Aesthetics & Healthcare", href: "/industries/dental-aesthetic" },
-  { label: "Legal & Professional", href: "/industries/family-law" },
-  { label: "Mortgage & Lending", href: "/industries/mortgage-lending" },
-];
 
 const MARQUEE_CSS = `
 @keyframes rbMarquee { from{ transform:translateX(0); } to{ transform:translateX(-50%); } }
@@ -70,15 +64,6 @@ export default function Integrations() {
             <div style={{ display: "flex", width: "max-content", gap: 16, animation: "rbMarqueeR 52s linear infinite" }}>
               {[...ROW_B, ...ROW_B].map((l, i) => <Tile key={`b${i}`} l={l} />)}
             </div>
-          </div>
-        </div>
-
-        <div style={{ marginTop: 44 }}>
-          <div style={{ fontSize: 12, letterSpacing: ".28em", textTransform: "uppercase", color: "#6E6784", marginBottom: 14 }}>How businesses like yours use Rosebud</div>
-          <div style={{ display: "flex", flexWrap: "wrap", alignItems: "baseline", gap: "8px 18px" }}>
-            {VERTICALS.map((p) => (
-              <a key={p.href} href={p.href} style={{ fontSize: 14, letterSpacing: ".01em", color: "#8F86B0", textDecoration: "none" }}>{p.label}</a>
-            ))}
           </div>
         </div>
       </div>
