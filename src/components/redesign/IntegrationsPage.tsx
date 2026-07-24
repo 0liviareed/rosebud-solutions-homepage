@@ -1,15 +1,10 @@
 "use client";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import RedesignNav from "./RedesignNav";
 import RedesignFooter from "./RedesignFooter";
 import RedesignReveal from "./RedesignReveal";
 import BookDemoCTA from "./BookDemoCTA";
 import { INDUSTRY_LINKS, DEMO } from "./industryData";
-import { VOICES as VOICES_POOL, voicesSlice } from "@/components/voices-data";
-
-// Same full testimonial set as everywhere else, just rotated to a different
-// starting point for this surface so it doesn't read in the identical order.
-const VOICES = voicesSlice(VOICES_POOL, "integrations", VOICES_POOL.length);
 
 const SERIF = "var(--font-cormorant), 'Cormorant Garamond', serif";
 
@@ -142,48 +137,6 @@ function HeroArc() {
   );
 }
 
-// ── Voices carousel (dark) ────────────────────────────────────────────
-function Voices() {
-  const [i, setI] = useState(0);
-  const pairs = Math.ceil(VOICES.length / 2);
-  const shown = useMemo(() => [VOICES[(i * 2) % VOICES.length], VOICES[(i * 2 + 1) % VOICES.length]], [i]);
-  const arrow = (dir: -1 | 1, primary: boolean) => (
-    <button type="button" aria-label={dir === 1 ? "Next" : "Previous"} onClick={() => setI((v) => (v + dir + pairs) % pairs)} style={{ width: 44, height: 44, borderRadius: "50%", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", background: primary ? "rgba(255,255,255,.1)" : "transparent", border: primary ? "none" : "1px solid rgba(255,255,255,.2)", color: primary ? "#fff" : "rgba(255,255,255,.5)" }}>{dir === 1 ? "→" : "←"}</button>
-  );
-  return (
-    <section style={{ position: "relative", background: "#0a0a0d", padding: "84px 0 90px", overflow: "hidden" }}>
-      <div aria-hidden style={{ position: "absolute", inset: 0, background: "radial-gradient(80% 60% at 90% 20%,rgba(120,110,180,.14),transparent 60%),radial-gradient(60% 50% at 5% 90%,rgba(90,110,200,.1),transparent 60%)" }} />
-      <div className="rb-int-wrap" style={{ position: "relative" }}>
-        <span style={{ fontSize: 11, fontWeight: 600, letterSpacing: "2.5px", color: "rgba(255,255,255,.4)", textTransform: "uppercase" }}>Voices</span>
-        <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between", margin: "16px 0 40px", gap: 20 }}>
-          <h2 style={{ fontFamily: SERIF, fontWeight: 400, fontSize: "clamp(28px,3.6vw,40px)", color: "#fff", margin: 0 }}>In their words, not ours</h2>
-          <div style={{ display: "flex", gap: 10, flex: "none" }}>{arrow(-1, false)}{arrow(1, true)}</div>
-        </div>
-        <div className="rb-int-voices">
-          {shown.map((q) => (
-            <div key={q.name} style={{ background: "linear-gradient(160deg,rgba(30,30,38,.9),rgba(16,16,22,.9))", border: "1px solid rgba(255,255,255,.07)", borderRadius: 20, padding: "34px 32px" }}>
-              <span style={{ fontFamily: SERIF, fontSize: 44, color: "rgba(255,255,255,.18)", lineHeight: 0.6, display: "block", height: 22 }}>“</span>
-              <p style={{ fontFamily: SERIF, fontStyle: "italic", fontSize: 18, lineHeight: 1.6, color: "rgba(255,255,255,.82)", margin: "14px 0 30px" }}>{q.quote}</p>
-              <div style={{ display: "flex", alignItems: "center", gap: 12, borderTop: "1px solid rgba(255,255,255,.08)", paddingTop: 20 }}>
-                <span style={{ width: 36, height: 36, borderRadius: "50%", background: "rgba(255,255,255,.1)" }} />
-                <div>
-                  <div style={{ fontSize: 11, fontWeight: 600, letterSpacing: "1.5px", color: "#fff", textTransform: "uppercase" }}>{q.name}</div>
-                  <div style={{ fontSize: 11.5, color: "rgba(255,255,255,.45)", marginTop: 3 }}>{q.role}</div>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-        <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 14, marginTop: 38, color: "rgba(255,255,255,.4)", fontSize: 12 }}>
-          <span>{String(i + 1).padStart(2, "0")}</span>
-          <span style={{ width: 60, height: 1, background: "rgba(255,255,255,.2)", position: "relative" }}><span style={{ position: "absolute", left: 0, top: 0, width: `${((i + 1) / pairs) * 100}%`, height: 1, background: "rgba(255,255,255,.7)" }} /></span>
-          <span>{String(pairs).padStart(2, "0")}</span>
-        </div>
-      </div>
-    </section>
-  );
-}
-
 export default function IntegrationsPage() {
   const [filter, setFilter] = useState("All");
   const visible = filter === "All" ? ALL : ALL.filter((c) => c.cat === filter);
@@ -247,9 +200,6 @@ export default function IntegrationsPage() {
           </div>
         </div>
       </section>
-
-      {/* ===================== VOICES ===================== */}
-      <Voices />
 
       {/* ===================== NO CRM ===================== */}
       <section style={{ background: "#f4f1ea", padding: "90px 0 84px" }}>
