@@ -78,15 +78,18 @@ export default function SdrPage() {
             <section className="rb-job-sec">
               <h2 className="rb-job-h2">About Rosebud Solutions</h2>
               <p>
-                Rosebud Solutions is the consultancy arm of Rosebud Global Ltd, a
-                UK business systems consultancy. We sell outcomes, not tools: we
-                find where a business is losing time, leads and money, build the
-                custom AI system that closes the gap, then run it for them &mdash;
-                from first enquiry to booked appointment, live in five weeks. Our
-                clients are owner-operated SMEs across Recruitment, Insurance,
-                Dental, Aesthetic &amp; Private Healthcare, Real Estate, Mortgage
-                &amp; Lending, Trades &amp; Home Services, and Family Law &amp;
-                Consumer Legal.
+                Rosebud Solutions owns the space between demand and revenue. We
+                build one system that answers every enquiry in seconds, scores it
+                against a business&rsquo;s own rules, books it into their diary,
+                and works it again when it goes quiet, then run that system for
+                them every day, connected to the CRM and calendars they already
+                use. The rest of the market sells software and wishes you luck; we
+                took the harder route on purpose and operate the whole intake
+                layer ourselves, so an owner&rsquo;s team is free for the work
+                only people can do. Our clients are owner-operated SMEs across
+                Insurance, Dental, Aesthetic &amp; Private Healthcare, Real Estate,
+                Mortgage &amp; Lending, Trades &amp; Home Services, and Family Law
+                &amp; Consumer Legal.
               </p>
             </section>
 
@@ -106,7 +109,7 @@ export default function SdrPage() {
                 because you dial.
               </p>
               <p>
-                The role is <strong>commission-only</strong> &mdash; no base
+                The role is <strong>commission-only</strong>{" "}&mdash; no base
                 salary, no hourly pay. You earn a percentage of the setup fee when
                 a deal closes; if nothing closes, you&rsquo;re not paid. Full
                 earning scenarios are sent before interview.
