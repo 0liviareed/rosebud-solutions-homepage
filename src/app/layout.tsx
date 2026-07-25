@@ -76,12 +76,12 @@ export const metadata: Metadata = {
     template: "%s | Rosebud Global",
   },
   description:
-    "UK business systems consultancy. We build and run custom AI systems that replace founder-dependent work. Deployed in 5 weeks.",
+    "Rosebud Solutions is the operated intake layer for owner-operated businesses: answer every enquiry in seconds, qualify, book and follow up — run for you, every day, connected to the CRM and calendars you already use.",
   alternates: { canonical: "/" },
   openGraph: {
     title: "Rosebud Global — Custom AI Systems for SME Operations",
     description:
-      "UK business systems consultancy. We build and run custom AI systems that replace founder-dependent work. Deployed in 5 weeks.",
+      "Rosebud Solutions is the operated intake layer for owner-operated businesses: answer every enquiry in seconds, qualify, book and follow up — run for you, every day, connected to the CRM and calendars you already use.",
     url: "https://rosebud.global",
     siteName: "Rosebud Global",
     locale: "en_GB",
@@ -91,7 +91,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Rosebud Global — Custom AI Systems for SME Operations",
     description:
-      "We build and run custom AI systems that replace founder-dependent work. Deployed in 5 weeks.",
+      "The operated intake layer for owner-operated businesses: answer every enquiry in seconds, qualify, book and follow up — run for you, every day.",
   },
 };
 
@@ -103,7 +103,7 @@ const ORGANIZATION_SCHEMA = {
   url: "https://rosebud.global",
   logo: "https://rosebud.global/rosebud-icon.png",
   description:
-    "UK business systems consultancy building custom AI systems that replace founder-dependent operational work.",
+    "Rosebud Solutions is the operated intake layer for owner-operated businesses — it answers every enquiry in seconds, qualifies and books it against the business's own rules, and connects to the CRM and calendars they already use. Rosebud Global Ltd builds and operates the system rather than licensing software.",
   foundingDate: "2025",
   founders: [
     {
@@ -142,7 +142,7 @@ const WEBSITE_SCHEMA = {
   url: "https://rosebud.global",
   inLanguage: "en-GB",
   description:
-    "UK business systems consultancy building and running custom AI systems that replace founder-dependent operational work for SMEs.",
+    "Rosebud Solutions is the operated intake and enquiry-handling layer for owner-operated businesses: it answers, qualifies, books and follows up every enquiry, run day to day by Rosebud and connected to the tools the business already uses.",
   publisher: { "@type": "Organization", name: "Rosebud Global Ltd" },
 };
 
