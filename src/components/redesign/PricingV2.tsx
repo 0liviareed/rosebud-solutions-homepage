@@ -282,7 +282,7 @@ export default function PricingV2({ seoContent }: { seoContent?: React.ReactNode
           <h2 style={{ fontFamily: SERIF, fontWeight: 400, fontSize: "clamp(30px,3.6vw,48px)", lineHeight: 1.05, margin: "0 0 30px" }}>We&apos;ll map your funnel and tell you which plan fits — <em style={{ fontStyle: "italic", color: AD }}>or that none of them does</em></h2>
           <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 16 }}>
             <BookDemoCTA label="Book a free consultation" href={CAL} tone="light" />
-            <a href="#" onClick={goToPicker} style={{ fontSize: 14, fontWeight: 600, color: AD, borderBottom: "1px dashed rgba(110,95,184,0.5)" }}>Or take the 2-minute fit quiz →</a>
+            <a href="/plan-finder" style={{ fontSize: 14, fontWeight: 600, color: AD, borderBottom: "1px dashed rgba(110,95,184,0.5)" }}>Or take the 2-minute fit quiz →</a>
           </div>
         </section>
 

@@ -34,6 +34,13 @@ const nextConfig: NextConfig = {
       // every launch redirect is a uniform 301 for the launch verification step.
     ];
   },
+  async rewrites() {
+    return [
+      // Serve the static plan-finder quiz (public/plan-finder.html) at a clean
+      // URL. Linked from the pricing page's "take the 2-minute fit quiz" CTA.
+      { source: "/plan-finder", destination: "/plan-finder.html" },
+    ];
+  },
 };
 
 export default withBotId(nextConfig);
