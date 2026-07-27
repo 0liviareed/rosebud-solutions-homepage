@@ -4,7 +4,7 @@ import IntegrationsPage from "@/components/redesign/IntegrationsPage";
 export const metadata: Metadata = {
   title: "Integrations — Connect Rosebud to the software you already use | Rosebud Solutions",
   description:
-    "Rosebud connects to the CRM, calendar, messaging and industry systems you already run — HubSpot, Salesforce, Zoho, Google Calendar, Cal.com, WhatsApp, Clio, ServiceM8 and more. No second dashboard, no rip-and-replace.",
+    "Rosebud connects to the CRM, calendar and messaging you already run — including Zoho, Google Calendar, Cal.com, Brevo and Twilio — with more on the roadmap. No second dashboard, no rip-and-replace.",
   alternates: { canonical: "/integrations" },
   openGraph: {
     title: "Integrations — Rosebud Solutions",

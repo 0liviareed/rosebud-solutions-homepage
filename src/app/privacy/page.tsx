@@ -5,6 +5,13 @@ export const metadata: Metadata = {
   description:
     "How Rosebud Global Ltd collects, uses, and safeguards personal information under UK GDPR.",
   alternates: { canonical: "/privacy" },
+  openGraph: {
+    title: "Privacy Notice | Rosebud Global",
+    description:
+      "How Rosebud Global Ltd collects, uses, and safeguards personal information under UK GDPR.",
+    url: "https://rosebud.global/privacy",
+    type: "website",
+  },
 };
 
 const BREADCRUMBS = {

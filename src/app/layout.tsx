@@ -72,16 +72,16 @@ const jetbrainsMono = JetBrains_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL("https://rosebud.global"),
   title: {
-    default: "Rosebud Global — Custom AI Systems for SME Operations",
+    default: "Customer Communication Platform for SMEs — Capture, Qualify & Book | Rosebud Solutions",
     template: "%s | Rosebud Global",
   },
   description:
-    "Rosebud Solutions is the operated intake layer for owner-operated businesses: answer every enquiry in seconds, qualify, book and follow up — run for you, every day, connected to the CRM and calendars you already use.",
+    "Rosebud Solutions is a customer communication platform that carries every enquiry through to a booked appointment — seven capabilities on one engine, run for you and connected to the CRM and calendars you already use.",
   alternates: { canonical: "/" },
   openGraph: {
-    title: "Rosebud Global — Custom AI Systems for SME Operations",
+    title: "Customer Communication Platform for SMEs — Capture, Qualify & Book | Rosebud Solutions",
     description:
-      "Rosebud Solutions is the operated intake layer for owner-operated businesses: answer every enquiry in seconds, qualify, book and follow up — run for you, every day, connected to the CRM and calendars you already use.",
+      "Rosebud Solutions is a customer communication platform that carries every enquiry through to a booked appointment — seven capabilities on one engine, run for you and connected to the CRM and calendars you already use.",
     url: "https://rosebud.global",
     siteName: "Rosebud Global",
     locale: "en_GB",
@@ -89,9 +89,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Rosebud Global — Custom AI Systems for SME Operations",
+    title: "Customer Communication Platform for SMEs — Capture, Qualify & Book | Rosebud Solutions",
     description:
-      "The operated intake layer for owner-operated businesses: answer every enquiry in seconds, qualify, book and follow up — run for you, every day.",
+      "Rosebud Solutions is a customer communication platform that carries every enquiry through to a booked appointment — seven capabilities on one engine, run for you and connected to the CRM and calendars you already use.",
   },
 };
 

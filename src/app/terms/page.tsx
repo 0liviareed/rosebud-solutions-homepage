@@ -5,6 +5,13 @@ export const metadata: Metadata = {
   description:
     "Terms of Service governing use of the Rosebud Global Ltd website and services.",
   alternates: { canonical: "/terms" },
+  openGraph: {
+    title: "Terms of Service | Rosebud Global",
+    description:
+      "Terms of Service governing use of the Rosebud Global Ltd website and services.",
+    url: "https://rosebud.global/terms",
+    type: "website",
+  },
 };
 
 const BREADCRUMBS = {
