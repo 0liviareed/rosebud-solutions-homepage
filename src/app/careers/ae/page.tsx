@@ -4,7 +4,7 @@ import Link from "next/link";
 export const metadata: Metadata = {
   title: "Account Executive — Rosebud Solutions",
   description:
-    "Remote · Independent contractor · Commission-only · Closing. You run the demo as a free consultation, close in the same session, and manage the client after they sign. Recurring commission on every client's monthly retainer. No base salary.",
+    "Remote · Independent contractor · Commission-only · Closing. You run the demo, close in the same session, and manage the client after they sign. Recurring commission on every client's monthly retainer. No base salary.",
   alternates: { canonical: "/careers/ae" },
   openGraph: {
     title: "Account Executive — Rosebud Solutions",
@@ -26,7 +26,7 @@ const JOB_POSTING_SCHEMA = {
   "@type": "JobPosting",
   title: "Account Executive",
   description:
-    "Full-cycle Account Executive for Rosebud Solutions. Commission-only. You run demos as free consultations, soft-qualify live, pitch and close in the same session, then account-manage every client you sign for the life of the relationship. Demos reach you booked by SDRs or sourced from your own network. You work one market, UK or US, in its local business hours, weekdays only. No base salary; you earn a recurring percentage of each client's monthly retainer.",
+    "Full-cycle Account Executive for Rosebud Solutions. Commission-only. You run demos as working sessions, soft-qualify live, pitch and close in the same session, then account-manage every client you sign for the life of the relationship. Demos reach you booked by SDRs or sourced from your own network. You work one market, UK or US, in its local business hours, weekdays only. No base salary; you earn a recurring percentage of each client's monthly retainer.",
   datePosted: "2026-07-25",
   employmentType: "CONTRACTOR",
   hiringOrganization: {
@@ -98,8 +98,8 @@ export default function AePage() {
               <p>
                 You sit at the close end of the pipeline. Demos reach you two ways
                 &mdash; booked for you by an SDR, or sourced by you from your own
-                network &mdash; and you run the demo as a free consultation:
-                soft-qualify the prospect live, surface where their team is
+                network &mdash; and you run the demo: soft-qualify the
+                prospect live, surface where their team is
                 bottlenecked, show how Rosebud fits or doesn&rsquo;t, then pitch
                 and close in the same session. There is no separate discovery
                 call. You own the pricing conversation, the close and the
@@ -137,7 +137,7 @@ export default function AePage() {
               <h2 className="rb-job-h2">What you&rsquo;ll do</h2>
               <ul className="rb-job-list">
                 <li>
-                  Run demos as free consultations &mdash; soft-qualify live,
+                  Run demos as working sessions &mdash; soft-qualify live,
                   diagnose where the prospect&rsquo;s team is losing time and
                   leads, and show how the system we&rsquo;d build fits their
                   operation or doesn&rsquo;t.
