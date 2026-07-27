@@ -59,7 +59,7 @@ export default function AboutV2() {
             The operating system between demand &amp; <em style={{ fontStyle: "italic", color: A }}>revenue</em>
           </h1>
           <p style={{ ...bodyText, marginTop: 28, maxWidth: 620, fontSize: 19 }}>
-            Rosebud Solutions is a Demand Capture &amp; Conversion Infrastructure company, providing seven capabilities on one engine that carry every enquiry through to a booked appointment.
+            Rosebud Solutions is a customer communication platform built on demand capture &amp; conversion infrastructure. We provide seven capabilities on one engine that carry every enquiry through to a booked appointment.
           </p>
         </div>
       </section>

@@ -370,7 +370,7 @@ export default function HomepageV2() {
         sub=""
         caption=""
         actions={<>
-          <p className="rb-hero-lead">Rosebud Solutions handles every enquiry from the moment it arrives until it becomes a booking, a conversation with the right person, or a customer worth keeping in touch with.</p>
+          <p className="rb-hero-lead">Rosebud Solutions is a customer communication platform built on demand capture &amp; conversion infrastructure. We provide seven capabilities on one engine that carry every enquiry through to a booked appointment.</p>
           <div className="rb-hero-actions">
             <BookDemoCTA label="Get started" href="/pricing" tone="dark" />
             <a className="rb-hero-contact" href="https://cal.eu/rosebudsolutions/demo" target="_blank" rel="noopener noreferrer">Book free consultation</a>
