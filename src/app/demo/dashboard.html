@@ -228,6 +228,33 @@ body[data-sys="off"] .sys-panel{display:none}
   display:grid;place-items:center;margin:0 auto 13px;color:var(--purple-deep);font-family:var(--sans);font-size:17px}
 .done-t{font-family:var(--serif);font-size:22px;color:var(--ink)}
 .done-s{font-size:12.5px;color:var(--ink-3);margin-top:6px;line-height:1.55}
+
+/* add-on upsell */
+.md-upsell{width:100%;max-width:560px;border-radius:22px;border:1px solid var(--bd-2);
+  box-shadow:var(--sh-3);overflow:hidden;position:relative;
+  background:linear-gradient(180deg,var(--purple-soft) 0%,var(--panel-2) 280px)}
+.upsell-x{position:absolute;top:16px;right:16px;font-family:var(--sans);font-size:15px;color:var(--ink-4);
+  padding:4px 8px;border-radius:8px;z-index:1}
+.upsell-x:hover{background:rgba(255,255,255,.6);color:var(--ink)}
+.upsell-body{padding:34px 34px 30px;text-align:center}
+.upsell-eyebrow{font-family:var(--sans);font-size:11px;font-weight:600;letter-spacing:.08em;
+  color:var(--purple-deep);text-transform:uppercase}
+.upsell-h{font-family:var(--serif);font-size:27px;line-height:1.28;color:var(--ink);
+  letter-spacing:-.005em;margin:16px 0}
+.upsell-s{font-size:13.5px;color:var(--ink-3);line-height:1.65;max-width:420px;margin:0 auto 22px}
+.upsell-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:20px;text-align:left}
+.upsell-card{background:var(--purple-soft-2);border:1px solid var(--bd-purple);border-radius:14px;
+  padding:14px;font-size:12.5px;color:var(--ink-2);line-height:1.4}
+.upsell-card i{display:block;font-style:normal;color:var(--purple-deep);font-size:15px;margin-bottom:6px}
+.upsell-note{font-size:12px;color:var(--ink-4);margin-bottom:20px}
+.upsell-cta{width:100%;background:var(--purple);color:#fff;font-size:14px;font-weight:600;
+  border-radius:12px;padding:15px;box-shadow:0 8px 20px -10px color-mix(in oklab,var(--purple) 60%,transparent);
+  transition:background .14s}
+.upsell-cta:hover{background:var(--purple-deep)}
+.upsell-link{display:block;margin-top:14px;font-size:12.5px;color:var(--ink-3);
+  text-decoration:underline;text-underline-offset:3px}
+.upsell-link:hover{color:var(--purple-deep)}
+@media (max-width:640px){.upsell-cards{grid-template-columns:1fr}}
 .tr{display:grid;grid-template-columns:1fr auto;gap:12px;align-items:center;padding:11px 0;border-top:1px solid var(--bd)}
 .tr:first-child{border-top:0}
 .tr-n{font-size:13px;color:var(--ink);line-height:1.35}
@@ -1126,6 +1153,18 @@ var ADDONS=[
 {id:'cla',code:'CLA',name:'Closed-loop attribution',tech:'Conversion &amp; value-based bidding',
  vol:'0',state:'Not running',gate:1,
  infoUrl:'https://rosebud.global/capabilities/closed-loop-attribution',
+ upsell:{
+   price:'+£140/mo',avail:'Available on Expand &amp; Scale',
+   headline:'Same ad budget — more of the customers who actually book.',
+   body:'When Google can see which enquiries became paying customers, not just who filled in a form, it spends your budget finding more people like them. Lower cost per booking, from the same spend, with nothing extra for you to run.',
+   cards:['Every enquiry tied back to its real outcome in Zoho',
+          'That outcome fed back to Google Ads as the signal',
+          'Bidding shifts toward booked customers, not clicks'],
+   note:'Needs Google Ads connected. We do that for you, in about a week.',
+   cta:'Add closed-loop to my plan',
+   doneTitle:'Request sent',
+   doneBody:'Sebastian will reach out to get Google Ads connected — usually within about a week. Closed-loop attribution goes live as soon as that’s done.'
+ },
  sub:'Show Google which ads bring real customers, and let it find you more.',
  ch:{l:'Ad platform',n:0,off:'not connected',list:[['Google Ads',0]]},
  cfg:[['Status','Not running'],['Waiting on','Paid search at volume']],
@@ -1273,7 +1312,7 @@ function navBtn(v,host,opt){
     '<span class="nv-n">'+(v.nav||v.name)+'</span>'+
     '<span class="nv-v" id="nv-'+v.id+'">'+(opt.right||'')+'</span>';
   b.onclick=function(){
-    if(v.gate) openRequest({preselect:'Add-ons: '+v.name,infoUrl:v.infoUrl});
+    if(v.gate) openAddonUpsell(v);
     else if(BILL.cardDeclined && CAPS.indexOf(v)!==-1){ STAB='billing'; go('settings'); }
     else go(v.id);
   };
@@ -2322,6 +2361,40 @@ function openBuy(after){
       };
     }
   });
+}
+
+/* add-on upsell */
+function openAddonUpsell(addon){
+  var u=addon.upsell;if(!u){openRequest({preselect:'Add-ons: '+addon.name,infoUrl:addon.infoUrl});return;}
+  var ov=document.createElement('div');ov.className='ov';ov.id='upsellOv';
+  ov.innerHTML='<div class="md-upsell" role="dialog" aria-modal="true">'+
+    '<button class="upsell-x" type="button" data-x="1" aria-label="Close">✕</button>'+
+    '<div class="upsell-body" data-body="1">'+
+      '<div class="upsell-eyebrow">'+addon.name.toUpperCase()+' · '+u.price+' · '+u.avail+'</div>'+
+      '<div class="upsell-h">'+u.headline+'</div>'+
+      '<div class="upsell-s">'+u.body+'</div>'+
+      '<div class="upsell-cards">'+u.cards.map(function(c){
+        return '<div class="upsell-card"><i>→</i>'+c+'</div>';}).join('')+'</div>'+
+      '<div class="upsell-note">'+u.note+'</div>'+
+      '<button class="upsell-cta" type="button" id="upsellCta">'+u.cta+'</button>'+
+      '<a class="upsell-link" href="#" id="upsellAsk">Ask your account executive</a>'+
+    '</div></div>';
+  document.body.appendChild(ov);
+  var onKey=function(e){if(e.key==='Escape')close();};
+  function close(){ov.remove();document.removeEventListener('keydown',onKey);}
+  document.addEventListener('keydown',onKey);
+  ov.onclick=function(e){if(e.target===ov)close();};
+  ov.querySelector('[data-x]').onclick=close;
+  ov.querySelector('#upsellAsk').onclick=function(e){
+    e.preventDefault();close();openRequest({preselect:'Add-ons: '+addon.name,infoUrl:addon.infoUrl});
+  };
+  ov.querySelector('#upsellCta').onclick=function(){
+    var body=ov.querySelector('[data-body]');
+    body.innerHTML='<div class="done" style="padding:8px 0 4px"><div class="done-m">✓</div>'+
+      '<div class="done-t">'+u.doneTitle+'</div><div class="done-s">'+u.doneBody+'</div></div>'+
+      '<button class="upsell-cta" type="button" style="margin-top:20px" data-close="1">Close</button>';
+    body.querySelector('[data-close]').onclick=close;
+  };
 }
 
 /* request a change */
