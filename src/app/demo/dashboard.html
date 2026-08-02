@@ -1161,9 +1161,7 @@ var ADDONS=[
           'That outcome fed back to Google Ads as the signal',
           'Bidding shifts toward booked customers, not clicks'],
    note:'Needs Google Ads connected. We do that for you, in about a week.',
-   cta:'Add closed-loop to my plan',
-   doneTitle:'Request sent',
-   doneBody:'Sebastian will reach out to get Google Ads connected — usually within about a week. Closed-loop attribution goes live as soon as that’s done.'
+   cta:'Add closed-loop to my plan'
  },
  sub:'Show Google which ads bring real customers, and let it find you more.',
  ch:{l:'Ad platform',n:0,off:'not connected',list:[['Google Ads',0]]},
@@ -2377,7 +2375,7 @@ function openAddonUpsell(addon){
         return '<div class="upsell-card"><i>→</i>'+c+'</div>';}).join('')+'</div>'+
       '<div class="upsell-note">'+u.note+'</div>'+
       '<button class="upsell-cta" type="button" id="upsellCta">'+u.cta+'</button>'+
-      '<a class="upsell-link" href="#" id="upsellAsk">Ask your account executive</a>'+
+      '<a class="upsell-link" href="'+addon.infoUrl+'" target="_blank" rel="noopener">Learn more about '+addon.name.toLowerCase()+' →</a>'+
     '</div></div>';
   document.body.appendChild(ov);
   var onKey=function(e){if(e.key==='Escape')close();};
@@ -2385,15 +2383,8 @@ function openAddonUpsell(addon){
   document.addEventListener('keydown',onKey);
   ov.onclick=function(e){if(e.target===ov)close();};
   ov.querySelector('[data-x]').onclick=close;
-  ov.querySelector('#upsellAsk').onclick=function(e){
-    e.preventDefault();close();openRequest({preselect:'Add-ons: '+addon.name,infoUrl:addon.infoUrl});
-  };
   ov.querySelector('#upsellCta').onclick=function(){
-    var body=ov.querySelector('[data-body]');
-    body.innerHTML='<div class="done" style="padding:8px 0 4px"><div class="done-m">✓</div>'+
-      '<div class="done-t">'+u.doneTitle+'</div><div class="done-s">'+u.doneBody+'</div></div>'+
-      '<button class="upsell-cta" type="button" style="margin-top:20px" data-close="1">Close</button>';
-    body.querySelector('[data-close]').onclick=close;
+    close();openRequest({preselect:'Add-ons: '+addon.name,infoUrl:addon.infoUrl});
   };
 }
 
