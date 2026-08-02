@@ -1119,6 +1119,7 @@ var CAPS=[
 var ADDONS=[
 {id:'cla',code:'CLA',name:'Closed-loop attribution',tech:'Conversion &amp; value-based bidding',
  vol:'0',state:'Not running',gate:1,
+ infoUrl:'https://rosebud.global/capabilities/closed-loop-attribution',
  sub:'Show Google which ads bring real customers, and let it find you more.',
  ch:{l:'Ad platform',n:0,off:'not connected',list:[['Google Ads',0]]},
  cfg:[['Status','Not running'],['Waiting on','Paid search at volume']],
@@ -1265,7 +1266,11 @@ function navBtn(v,host,opt){
   b.innerHTML='<span class="nv-i">'+(ICON[v.id]||'')+'</span>'+
     '<span class="nv-n">'+(v.nav||v.name)+'</span>'+
     '<span class="nv-v" id="nv-'+v.id+'">'+(opt.right||'')+'</span>';
-  b.onclick=function(){go(v.id)};host.appendChild(b);return b;
+  b.onclick=function(){
+    if(v.gate) openRequest({preselect:'Add-ons: '+v.name,infoUrl:v.infoUrl});
+    else go(v.id);
+  };
+  host.appendChild(b);return b;
 }
 function grp(host,t,cnt){
   var d=document.createElement('div');d.className='grp'+(host.children.length?' sep':'');
@@ -1278,8 +1283,9 @@ navHost.innerHTML='';
 grp(navHost,'Main menu');
 var g0=wrap();navBtn(OPERATION,g0);
 
-var RUNNING=CAPS.concat(ADDONS.filter(function(a){return !a.gate;}));
-grp(navHost,'Automation',RUNNING.length+' running');
+var RUNNING=CAPS.concat(ADDONS);
+var RUNNING_COUNT=RUNNING.filter(function(c){return !c.gate;}).length;
+grp(navHost,'Automation',RUNNING_COUNT+' running');
 var g1=wrap();
 RUNNING.forEach(function(c){
   var b=navBtn(c,g1,{dim:!!c.gate,right:c.gate?'off':''});
@@ -1592,7 +1598,12 @@ var TIPS={
  ooh:'Enquiries the system answered outside your working hours, counted from message timestamps. A count of what was answered, not a revenue figure.'
 };
 
-var NIGHT={since:'7pm',captured:9,qualified:7,booked:3,nurture:2,voicemail:0};
+function nightData(){
+  var h=new Date().getHours(), isNight=(h>=19||h<8);
+  return isNight
+    ? {title:'Tonight so far',lbl:'since 7pm',lead:'Since 7pm',captured:9,qualified:7,booked:3,nurture:2,voicemail:0}
+    : {title:'Last night',lbl:'7pm to 8am',lead:'Between 7pm and 8am',captured:14,qualified:11,booked:4,nurture:3,voicemail:0};
+}
 var FEED=[
  ['Realtor.com lead, qualified warm, routed to <b>Marcus</b> \u00b7 Pre-approval pending',0],
  ['Zillow lead, qualified hot, routed to <b>Sarah</b> \u00b7 3-bed \u00b7 $450-550k \u00b7 78704',0],
@@ -1631,6 +1642,7 @@ function startFeed(){
 function viewOperation(v){
   var per={today:'today',week:'this week',month:'this month'}[PERIOD];
   var c=C(), sr=SERIES[PERIOD], n=QUEUE.filter(function(q){return q.now||q.block}).length;
+  var NIGHT=nightData();
   var stages=[['Qualified',c.qualified,c.captured],['Conversation started',c.convo,c.qualified],
               ['Showing booked',c.booked,c.convo]];
   var tb=pv(v.hero[0].v), tbu=pv(v.hero[0].u);
@@ -1678,9 +1690,9 @@ function viewOperation(v){
     '<div class="pl"><div class="pl-h"><span class="pl-t">Live activity</span>'+
     '<span class="lbl strm"><i></i>STREAMING</span></div>'+
     '<div class="pl-b" id="feed"></div></div>'+
-    '<div class="pl"><div class="pl-h"><span class="pl-t">Out of hours</span>'+
-    '<span class="lbl">since '+NIGHT.since+'</span></div><div class="pl-b">'+
-    '<div class="tn-c">Since '+NIGHT.since+', <b>'+NIGHT.captured+' leads</b> have come in. '+
+    '<div class="pl"><div class="pl-h"><span class="pl-t">'+NIGHT.title+'</span>'+
+    '<span class="lbl">'+NIGHT.lbl+'</span></div><div class="pl-b">'+
+    '<div class="tn-c">'+NIGHT.lead+', <b>'+NIGHT.captured+' leads</b> have come in. '+
     NIGHT.qualified+' qualified. '+NIGHT.booked+' booked showings. '+NIGHT.nurture+' are in nurture. '+
     '<b>'+NIGHT.voicemail+' went to voicemail.</b></div>'+
     '<div class="tn-s">'+
@@ -2186,12 +2198,14 @@ function settingsInsp(v){
 }
 
 /* request a change */
-function openRequest(){
+function openRequest(opts){
+  opts=opts||{};
   var items=[];
   SETTINGS.groups.forEach(function(g){g.rows.forEach(function(r){items.push(g.t+': '+r[0]);});});
   SETTINGS.rules.forEach(function(r){items.push('Your rules: '+r[0]);});
   SETTINGS.systems.forEach(function(r){items.push('Integrations: '+r[0]);});
   items.push('Plan or seats');items.push('Something else');
+  if(opts.preselect && items.indexOf(opts.preselect)===-1) items.unshift(opts.preselect);
 
   var ov=document.createElement('div');ov.className='ov';ov.id='reqOv';
   ov.innerHTML='<div class="md" role="dialog" aria-modal="true" aria-labelledby="reqT">'+
@@ -2202,9 +2216,10 @@ function openRequest(){
       '<div class="am"><span class="am-a">S</span><span><span class="am-n">Sebastian Scott</span>'+
       '<span class="am-m">Account executive</span></span></div>'+
       '<div class="fld"><label for="reqWhat">What would you like changed</label>'+
-      '<select id="reqWhat">'+items.map(function(i){return '<option>'+i+'</option>';}).join('')+'</select></div>'+
-      '<div class="fld"><label for="reqNote">What should it be instead</label>'+
+      '<select id="reqWhat">'+items.map(function(i){return '<option'+(i===opts.preselect?' selected':'')+'>'+i+'</option>';}).join('')+'</select></div>'+
+      '<div class="fld" style="margin-bottom:'+(opts.infoUrl?'8px':'0')+'"><label for="reqNote">What should it be instead</label>'+
       '<textarea id="reqNote" placeholder="For example: add Outlook for the two agents who do not use Google."></textarea></div>'+
+      (opts.infoUrl?'<a href="'+opts.infoUrl+'" target="_blank" rel="noopener" style="font-size:12.5px">More information about this \u2192</a>':'')+
     '</div>'+
     '<div class="md-f" id="reqFoot"><button class="btn ghost" type="button" id="reqCancel">Cancel</button>'+
     '<button class="btn" type="button" id="reqSend">Send request</button></div></div>';
