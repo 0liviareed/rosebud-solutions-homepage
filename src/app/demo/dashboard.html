@@ -213,10 +213,10 @@ body[data-sys="off"] .sys-panel{display:none}
 .md-f{padding:14px 20px;border-top:1px solid var(--bd);display:flex;justify-content:flex-end;gap:9px;background:var(--panel)}
 .fld{margin-bottom:14px}
 .fld label{display:block;font-family:var(--sans);font-size:11px;font-weight:500;letter-spacing:.01em;color:var(--ink-3);margin-bottom:6px}
-.fld select,.fld textarea{width:100%;font-family:var(--sans);font-size:13px;color:var(--ink);
+.fld select,.fld textarea,.fld input{width:100%;font-family:var(--sans);font-size:13px;color:var(--ink);
   border:1px solid var(--bd-2);border-radius:var(--r-ctl);padding:10px 12px;background:#fff;resize:vertical}
 .fld textarea{min-height:88px;line-height:1.55}
-.fld select:focus,.fld textarea:focus{outline:2px solid var(--purple);outline-offset:-1px;border-color:var(--purple)}
+.fld select:focus,.fld textarea:focus,.fld input:focus{outline:2px solid var(--purple);outline-offset:-1px;border-color:var(--purple)}
 .am{display:flex;align-items:center;gap:11px;padding:12px 14px;background:var(--panel);border:1px solid var(--bd);
   border-radius:var(--r-ctl);margin-bottom:15px}
 .am-a{width:32px;height:32px;border-radius:10px;background:var(--purple-soft);border:1px solid var(--bd-purple);
@@ -624,8 +624,13 @@ body[data-sys="off"] .sys-panel{display:none}
 .btn.warn{color:#9a4a2c;background:#fbeeea;border:1px solid #f0d9d0;box-shadow:none}
 .btn.warn:hover{background:#f8e2db}
 .card-l{display:flex;align-items:center;gap:11px}
-.card-m{width:30px;height:21px;border-radius:4px;background:linear-gradient(135deg,#eb001b 46%,#f79e1b 46%);flex:none;
-  box-shadow:0 1px 3px rgba(40,30,70,.2)}
+.card-m{width:30px;height:21px;border-radius:4px;flex:none;box-shadow:0 1px 3px rgba(40,30,70,.2);
+  background:linear-gradient(135deg,#eb001b 46%,#f79e1b 46%)}
+.card-m.visa{background:#1a1f71;position:relative}
+.card-m.visa::after{content:'VISA';position:absolute;inset:0;display:grid;place-items:center;
+  font-family:var(--sans);font-size:7.5px;font-weight:700;letter-spacing:.06em;color:#fff}
+.card-m.generic{background:var(--chrome-2);border:1px solid var(--bd-2);position:relative}
+.card-m.generic::after{content:'';position:absolute;left:0;right:0;top:6px;height:4px;background:var(--bd-2)}
 
 /* profile */
 .pf{display:grid;grid-template-columns:1fr 1fr;gap:14px 16px}
@@ -781,7 +786,8 @@ var OVER={on:true, rate:0.25, block:50, blockPrice:12.50, balance:0, autoReload:
 function gbp(n){return '£'+n.toFixed(2);}
 
 var BILL={plan:'Expand',planNote:'Up to 3,500 enquiries a month · 10 seats included',
-  price:'£890 / month',renews:'Renews 10 Sep 2026',card:'Mastercard •••• 3051',cardExp:'Expires 04 / 29',
+  price:'£890 / month',renews:'Renews 10 Sep 2026',
+  card:'Mastercard •••• 3051',brand:'mc',cardExp:'Expires 04 / 29',cardDeclined:false,
   invoices:[['10 Aug 2026','£890.00','Paid'],['10 Jul 2026','£902.50','Paid'],['10 Jun 2026','£890.00','Paid'],
             ['10 May 2026','£927.50','Paid'],['10 Apr 2026','£890.00','Paid'],['10 Mar 2026','£890.00','Paid']],
   invNote:'Months above £890 include overage blocks. Every invoice itemises the enquiries they covered.'};
@@ -1268,6 +1274,7 @@ function navBtn(v,host,opt){
     '<span class="nv-v" id="nv-'+v.id+'">'+(opt.right||'')+'</span>';
   b.onclick=function(){
     if(v.gate) openRequest({preselect:'Add-ons: '+v.name,infoUrl:v.infoUrl});
+    else if(BILL.cardDeclined && CAPS.indexOf(v)!==-1){ STAB='billing'; go('settings'); }
     else go(v.id);
   };
   host.appendChild(b);return b;
@@ -1284,11 +1291,12 @@ grp(navHost,'Main menu');
 var g0=wrap();navBtn(OPERATION,g0);
 
 var RUNNING=CAPS.concat(ADDONS);
-var RUNNING_COUNT=RUNNING.filter(function(c){return !c.gate;}).length;
+var RUNNING_COUNT=BILL.cardDeclined?0:RUNNING.filter(function(c){return !c.gate;}).length;
 grp(navHost,'Automation',RUNNING_COUNT+' running');
 var g1=wrap();
 RUNNING.forEach(function(c){
-  var b=navBtn(c,g1,{dim:!!c.gate,right:c.gate?'off':''});
+  var disabled=!!c.gate||(BILL.cardDeclined&&CAPS.indexOf(c)!==-1);
+  var b=navBtn(c,g1,{dim:disabled,right:disabled?'off':''});
   b.classList.add('two');
   b.querySelector('.nv-n').innerHTML=(c.nav||c.name)+'<s>'+c.tech+'</s>';
 });
@@ -1921,7 +1929,7 @@ function wireUsage(v){
   if(g('arSw'))g('arSw').onclick=function(){OVER.autoReload=!OVER.autoReload;re();};
   if(g('blkD'))g('blkD').onclick=function(){OVER.buy=Math.max(1,OVER.buy-1);re();};
   if(g('blkU'))g('blkU').onclick=function(){OVER.buy=Math.min(20,OVER.buy+1);re();};
-  if(g('blkBuy'))g('blkBuy').onclick=function(){OVER.balance+=OVER.buy*OVER.blockPrice;re();};
+  if(g('blkBuy'))g('blkBuy').onclick=function(){openBuy(re);};
   if(g('capReq'))g('capReq').onclick=function(){openRequest();};
   var ub=g('useReq');if(ub)ub.onclick=function(){openRequest()};
 }
@@ -1990,7 +1998,8 @@ function viewSettings(v){
     b.onclick=function(){STAB=b.getAttribute('data-t');viewSettings(v);};});
   Array.prototype.forEach.call(document.querySelectorAll('[data-req]'),function(b){
     b.onclick=function(){openRequest();};});
-  var gu=document.getElementById('goUsage');if(gu)gu.onclick=function(){go('usage')};
+  var gu=document.getElementById('buyBtn');if(gu)gu.onclick=function(){openBuy(function(){viewSettings(v);})};
+  var cu=document.getElementById('cardUpd');if(cu)cu.onclick=function(){openCard(function(){viewSettings(v);})};
   Array.prototype.forEach.call(scroll.querySelectorAll('[data-bind]'),function(inp){
     inp.oninput=function(){
       var k=inp.getAttribute('data-bind');
@@ -2069,11 +2078,13 @@ function stabBilling(){
     '<button class="btn sm quiet" type="button" data-req="1">Change plan</button></div></div></div>';
 
   h+='<div class="pl"><div class="pl-h"><span class="pl-t">Payment method</span>'+
-    '<span class="lbl">charged on the 10th</span></div><div class="pl-b">'+
-    '<div class="mrow"><div class="card-l"><span class="card-m"></span>'+
+    '<span class="'+(BILL.cardDeclined?'log-s warn':'lbl')+'">'+(BILL.cardDeclined?'declined':'charged on the 10th')+'</span></div><div class="pl-b">'+
+    '<div class="mrow"><div class="card-l"><span class="card-m '+BILL.brand+'"></span>'+
     '<span><span class="mrow-n">'+BILL.card+'</span><span class="mrow-s">'+BILL.cardExp+'</span></span></div>'+
-    '<button class="btn sm quiet" type="button" data-req="1">Update</button></div>'+
-    '<div class="note">If this card declines while you are past your allowance, the kill-switch fires and capture pauses until it clears.</div>'+
+    '<button class="btn sm quiet" type="button" id="cardUpd">Update</button></div>'+
+    '<div class="note">'+(BILL.cardDeclined
+      ?'This card declined, so capture is paused until it clears — every capability is switched off in the sidebar until then.'
+      :'If this card declines while you are past your allowance, the kill-switch fires and capture pauses until it clears.')+'</div>'+
     '</div></div>';
 
   h+='<div class="pl"><div class="pl-h"><span class="pl-t">Usage credits</span>'+
@@ -2081,7 +2092,7 @@ function stabBilling(){
     '<div class="mrow"><div><div class="mrow-v">'+gbp(OVER.balance)+'</div>'+
     '<div class="mrow-s">Credit balance · Auto-Overage '+(OVER.on?'on':'off')+
     ' · Auto-reload '+(OVER.autoReload?'on':'off')+'</div></div>'+
-    '<button class="btn sm ghost" type="button" id="goUsage">Buy credits</button></div>'+
+    '<button class="btn sm ghost" type="button" id="buyBtn">Buy credits</button></div>'+
     '<div class="mrow"><div><div class="mrow-n">Monthly overage cap · '+gbp(OVER.spendCap)+'</div>'+
     '<div class="mrow-s">The most that can be billed above your plan in one month.</div></div>'+
     '<button class="btn sm quiet" type="button" data-req="1">Adjust</button></div></div></div>';
@@ -2195,6 +2206,122 @@ function settingsInsp(v){
       '<div class="v">Instagram DM opens on Scale. Closed-loop attribution needs paid search running at volume.</div></div>';
   }
   return head+body;
+}
+
+/* generic modal shell */
+function openModal(o){
+  var ov=document.createElement('div');ov.className='ov';
+  ov.innerHTML='<div class="md" role="dialog" aria-modal="true">'+
+    '<div class="md-h"><div><div class="md-t">'+o.title+'</div>'+
+    '<div class="md-s">'+o.sub+'</div></div>'+
+    '<button class="md-x" type="button" data-x="1" aria-label="Close">✕</button></div>'+
+    '<div class="md-b" data-body="1">'+o.body+'</div>'+
+    '<div class="md-f" data-foot="1">'+o.foot+'</div></div>';
+  document.body.appendChild(ov);
+  var onKey=function(e){if(e.key==='Escape')close();};
+  function close(){ov.remove();document.removeEventListener('keydown',onKey);if(o.onClose)o.onClose();}
+  document.addEventListener('keydown',onKey);
+  ov.onclick=function(e){if(e.target===ov)close();};
+  ov.querySelector('[data-x]').onclick=close;
+  var api={ov:ov,close:close,
+    body:ov.querySelector('[data-body]'),foot:ov.querySelector('[data-foot]'),
+    g:function(id){return ov.querySelector('#'+id);},
+    done:function(t,s){
+      api.body.innerHTML='<div class="done"><div class="done-m">✓</div>'+
+        '<div class="done-t">'+t+'</div><div class="done-s">'+s+'</div></div>';
+      api.foot.innerHTML='<button class="btn" type="button" data-done="1">Close</button>';
+      api.foot.querySelector('[data-done]').onclick=close;
+    }};
+  if(o.wire)o.wire(api);
+  return api;
+}
+
+function openCard(after){
+  return openModal({
+    title:'Payment method',
+    sub:'Charged on the 10th of each month, plus any overage blocks used.',
+    body:'<div class="fld"><label for="cdName">Name on card</label>'+
+      '<input id="cdName" value="'+esc(PROFILE.first+' '+PROFILE.last)+'" autocomplete="cc-name"></div>'+
+      '<div class="fld"><label for="cdNum">Card number</label>'+
+      '<input id="cdNum" inputmode="numeric" placeholder="1234 5678 9012 3456" autocomplete="cc-number"></div>'+
+      '<div class="pf"><div><label for="cdExp">Expiry</label>'+
+      '<input id="cdExp" placeholder="MM / YY" inputmode="numeric" autocomplete="cc-exp"></div>'+
+      '<div><label for="cdCvc">Security code</label>'+
+      '<input id="cdCvc" placeholder="123" inputmode="numeric" autocomplete="cc-csc"></div>'+
+      '<div class="full"><label for="cdZip">Billing postal code</label>'+
+      '<input id="cdZip" value="'+esc(PROFILE.zip)+'"></div></div>'+
+      '<div class="pf-n" style="margin-top:12px">Replacing the card here also clears any decline that has paused capture.</div>',
+    foot:'<button class="btn ghost" type="button" id="cdCancel">Cancel</button>'+
+      '<button class="btn" type="button" id="cdSave">Save card</button>',
+    wire:function(api){
+      api.g('cdCancel').onclick=api.close;
+      var num=api.g('cdNum');
+      num.oninput=function(){
+        var d=num.value.replace(/\D/g,'').slice(0,16);
+        num.value=d.replace(/(.{4})/g,'$1 ').trim();
+      };
+      var exp=api.g('cdExp');
+      exp.oninput=function(){
+        var d=exp.value.replace(/\D/g,'').slice(0,4);
+        exp.value=d.length>2?d.slice(0,2)+' / '+d.slice(2):d;
+      };
+      api.g('cdSave').onclick=function(){
+        var d=num.value.replace(/\D/g,'');
+        if(d.length<12){num.focus();num.style.borderColor='var(--clay)';return;}
+        var brand=d.charAt(0)==='4'?'Visa':d.charAt(0)==='5'?'Mastercard':'Card';
+        BILL.brand=d.charAt(0)==='4'?'visa':d.charAt(0)==='5'?'mc':'generic';
+        BILL.card=brand+' •••• '+d.slice(-4);
+        BILL.cardExp=exp.value?'Expires '+exp.value:BILL.cardExp;
+        BILL.cardDeclined=false;
+        if(after)after();
+        api.done('Card updated','Future invoices and any overage blocks are charged to <b>'+BILL.card+'</b>.');
+      };
+      setTimeout(function(){num.focus();},40);
+    }
+  });
+}
+
+function openBuy(after){
+  var blocks=OVER.buy;
+  var line=function(){
+    return blocks+' block'+(blocks>1?'s':'')+' · <b>'+fmt(blocks*OVER.block)+'</b> extra enquiries · <b>'+
+      gbp(blocks*OVER.blockPrice)+'</b>';
+  };
+  return openModal({
+    title:'Buy usage credits',
+    sub:gbp(OVER.blockPrice)+' per block of '+OVER.block+' enquiries. Credits never expire and are drawn down before your card is charged.',
+    body:'<div class="blks" style="padding-top:0">'+
+      '<div class="step"><button type="button" id="bmD" aria-label="Fewer blocks">−</button>'+
+      '<span id="bmN">'+blocks+'</span><button type="button" id="bmU" aria-label="More blocks">+</button></div>'+
+      '<div class="blks-c" id="bmL">'+line()+'</div></div>'+
+      '<div class="mrow" style="margin-top:16px"><div class="card-l"><span class="card-m '+BILL.brand+'"></span>'+
+      '<span><span class="mrow-n" id="bmCard">'+BILL.card+'</span>'+
+      '<span class="mrow-s">Charged immediately.</span></span></div>'+
+      '<button class="btn sm quiet" type="button" id="bmCard2">Change</button></div>'+
+      '<div class="mrow"><div><div class="mrow-n">Balance after purchase</div>'+
+      '<div class="mrow-s">Currently '+gbp(OVER.balance)+'.</div></div>'+
+      '<span class="mrow-v" id="bmBal">'+gbp(OVER.balance+blocks*OVER.blockPrice)+'</span></div>',
+    foot:'<button class="btn ghost" type="button" id="bmCancel">Cancel</button>'+
+      '<button class="btn" type="button" id="bmBuy">Pay '+gbp(blocks*OVER.blockPrice)+'</button>',
+    wire:function(api){
+      var sync=function(){
+        api.g('bmN').textContent=blocks;
+        api.g('bmL').innerHTML=line();
+        api.g('bmBal').textContent=gbp(OVER.balance+blocks*OVER.blockPrice);
+        api.g('bmBuy').textContent='Pay '+gbp(blocks*OVER.blockPrice);
+      };
+      api.g('bmD').onclick=function(){blocks=Math.max(1,blocks-1);sync();};
+      api.g('bmU').onclick=function(){blocks=Math.min(20,blocks+1);sync();};
+      api.g('bmCancel').onclick=api.close;
+      api.g('bmCard2').onclick=function(){api.close();openCard(after);};
+      api.g('bmBuy').onclick=function(){
+        OVER.balance+=blocks*OVER.blockPrice;OVER.buy=blocks;
+        if(after)after();
+        api.done('Credits added',fmt(blocks*OVER.block)+' enquiries of credit are on the account. '+
+          'Your balance is <b>'+gbp(OVER.balance)+'</b>, drawn down before any per-enquiry billing.');
+      };
+    }
+  });
 }
 
 /* request a change */
