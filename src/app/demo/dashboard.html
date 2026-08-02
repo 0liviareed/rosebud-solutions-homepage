@@ -133,7 +133,11 @@ body[data-sys="off"] .sys-panel{display:none}
 .nv.two{grid-template-columns:26px 1fr auto;align-items:flex-start;padding-top:10px;padding-bottom:10px}
 .nv.two .nv-i{margin-top:-1px}
 .nv-v{font-family:var(--sans);font-size:11px;color:var(--ink-4)}
+.nv.dim .nv-i,.nv.dim .nv-n{opacity:.45}
 .nv.dim .nv-n,.nv.dim .nv-i{color:var(--ink-4)}
+.nv.dim .nv-i{background:var(--chrome-2)}
+.off-pip{font-family:var(--sans);font-size:9px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;
+  background:var(--chrome-2);color:var(--ink-3);border:1px solid var(--bd-2);border-radius:999px;padding:2px 7px}
 .nv.on{background:var(--panel-2);box-shadow:inset 0 0 0 1px var(--line),0 1px 3px rgba(24,20,40,.09),
   0 8px 20px -14px color-mix(in oklab,var(--purple) 62%,transparent)}
 .nv.on::before{height:22px}
@@ -1333,7 +1337,7 @@ grp(navHost,'Automation',RUNNING_COUNT+' running');
 var g1=wrap();
 RUNNING.forEach(function(c){
   var disabled=!!c.gate||(BILL.cardDeclined&&CAPS.indexOf(c)!==-1);
-  var b=navBtn(c,g1,{dim:disabled,right:disabled?'off':''});
+  var b=navBtn(c,g1,{dim:disabled,right:disabled?'<span class="off-pip">Off</span>':''});
   b.classList.add('two');
   b.querySelector('.nv-n').innerHTML=(c.nav||c.name)+'<s>'+c.tech+'</s>';
 });
