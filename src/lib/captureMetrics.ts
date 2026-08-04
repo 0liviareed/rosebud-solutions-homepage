@@ -28,6 +28,7 @@ export type CaptureMetrics = {
   missedCallTextback: number;
   crmWritten: number;
   crmWriteFailed: number;
+  channelMix: Array<{ channel: string; count: number }>;
   recentRecords: Array<{
     id: string;
     channel: string;
@@ -65,6 +66,12 @@ export async function getCaptureMetrics(
   if (error) throw new Error("getCaptureMetrics: " + error.message);
   const all = rows ?? [];
 
+  const channelCounts = new Map<string, number>();
+  for (const r of all) channelCounts.set(r.channel, (channelCounts.get(r.channel) ?? 0) + 1);
+  const channelMix = [...channelCounts.entries()]
+    .map(([channel, count]) => ({ channel, count }))
+    .sort((a, b) => b.count - a.count);
+
   const responseSeconds = all
     .filter((r) => r.first_response_at)
     .map((r) => (new Date(r.first_response_at as string).getTime() - new Date(r.created_at).getTime()) / 1000);
@@ -82,6 +89,7 @@ export async function getCaptureMetrics(
     missedCallTextback: all.filter((r) => r.missed_call).length,
     crmWritten: all.filter((r) => r.crm_written_at !== null).length,
     crmWriteFailed: all.filter((r) => r.crm_write_failed).length,
+    channelMix,
     recentRecords: all.slice(0, 10).map((r) => ({
       id: r.id,
       channel: r.channel,

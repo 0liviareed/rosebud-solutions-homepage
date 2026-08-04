@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import {
   Cormorant_Garamond,
   DM_Sans,
+  DM_Mono,
   Sora,
   Outfit,
   JetBrains_Mono,
@@ -65,6 +66,16 @@ const outfit = Outfit({
    'JetBrains Mono' explicitly) — falls back to system monospace if absent. */
 const jetbrainsMono = JetBrains_Mono({
   variable: "--font-jetbrains-mono",
+  subsets: ["latin"],
+  weight: ["400", "500"],
+  display: "swap",
+});
+
+/* Mono used by the engine.rosebud.global demo's own design tokens
+   (--mono) — loaded so /app/* (the real client console) can match it
+   exactly rather than substituting JetBrains Mono. */
+const dmMono = DM_Mono({
+  variable: "--font-dm-mono",
   subsets: ["latin"],
   weight: ["400", "500"],
   display: "swap",
@@ -153,7 +164,7 @@ export default function RootLayout({
   return (
     <html
       lang="en-GB"
-      className={`${cormorant.variable} ${dmSans.variable} ${sora.variable} ${outfit.variable} ${jetbrainsMono.variable}`}
+      className={`${cormorant.variable} ${dmSans.variable} ${sora.variable} ${outfit.variable} ${jetbrainsMono.variable} ${dmMono.variable}`}
     >
       <head>
         <BotIdClient protect={BOTID_PROTECTED} />

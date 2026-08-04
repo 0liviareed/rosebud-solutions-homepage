@@ -1,0 +1,37 @@
+/* Ported from the demo's inspector CSS (dashboard.html ~680-704). */
+
+.insp {
+  background: var(--panel-2);
+  border-left: 1px solid var(--line);
+  overflow-y: auto;
+  min-height: 0;
+  box-shadow: -8px 0 22px -20px rgba(24, 20, 40, 0.5);
+}
+.ih { padding: 16px 18px; border-bottom: 1px solid var(--line); background: var(--chrome); }
+.ihK { font-family: var(--sans); font-size: 11px; font-weight: 500; letter-spacing: 0.01em; color: var(--ink-4); }
+.ihT { font-family: var(--serif); font-size: 22px; color: var(--ink); line-height: 1.15; margin-top: 6px; letter-spacing: -0.005em; }
+.ihS { font-size: 12.5px; color: var(--ink-3); line-height: 1.55; margin-top: 7px; }
+
+.sec { border-bottom: 1px solid var(--bd); padding: 16px 18px; }
+.secH { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 10px; }
+.k { font-family: var(--sans); font-size: 11px; font-weight: 500; letter-spacing: 0.01em; color: var(--ink-3); margin-bottom: 5px; }
+.v {
+  border: 1px solid var(--bd); border-radius: var(--r-ctl); background: var(--panel-2);
+  padding: 9px 11px; font-size: 12px; color: var(--ink-2); line-height: 1.55; margin-bottom: 8px;
+}
+.v:last-child { margin-bottom: 0; }
+.v b { color: var(--ink); font-weight: 600; }
+
+.rec { display: grid; grid-template-columns: auto 1fr; gap: 10px; align-items: baseline; padding: 8px 0; border-top: 1px solid var(--bd); }
+.rec:first-child { border-top: 0; }
+.recT { font-family: var(--mono); font-size: 10px; color: var(--ink-4); }
+.recM { font-size: 12px; color: var(--ink-2); line-height: 1.45; }
+
+.chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.chip {
+  font-size: 11.5px; color: var(--ink-2); background: var(--panel); border: 1px solid var(--bd);
+  border-radius: 999px; padding: 4px 10px;
+}
+.chip b { color: var(--purple-deep); font-weight: 600; margin-left: 4px; }
+
+.empty { font-size: 12px; color: var(--ink-4); padding: 4px 0; }

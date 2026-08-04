@@ -8,7 +8,7 @@ export const dynamic = "force-dynamic";
 
 function NoOrgState() {
   return (
-    <div style={{ minHeight: "100vh", background: "#050304", color: "#f5f1ea", display: "flex", alignItems: "center", justifyContent: "center", fontFamily: "DM Sans, sans-serif" }}>
+    <div style={{ minHeight: "100vh", display: "flex", alignItems: "center", justifyContent: "center" }}>
       <p>No account is linked to this login yet.</p>
     </div>
   );
