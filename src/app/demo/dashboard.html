@@ -783,53 +783,53 @@ function S(i){return {el:'s',items:i};}
 
 /* period-scoped figures: [today, week, month] */
 var CORE={
- today:{captured:72,enriched:47,qualified:62,escalated:2,notQualified:8,convo:54,routed:60,
-        booked:13,released:0,reminders:24,dayBefore:11,moved:5,attended:12,noShow:1,backfilled:2,
-        pool:412,touches:38,engagement:147,reEngaged:3,returned:2,optOut:4,
-        synced:286,stages:412,inbound:54,logged:1204,merged:8,updates:9,chased:8,handedOver:1,
-        ooh:12,matched:4,replies:68,missedCall:2,consented:65},
- week:{captured:487,enriched:318,qualified:421,escalated:12,notQualified:54,convo:367,routed:409,
-       booked:89,released:3,reminders:156,dayBefore:67,moved:34,attended:82,noShow:7,backfilled:11,
-       pool:412,touches:214,engagement:892,reEngaged:12,returned:9,optOut:23,
-       synced:1904,stages:2674,inbound:361,logged:7982,merged:52,updates:64,chased:58,handedOver:6,
-       ooh:88,matched:31,replies:456,missedCall:15,consented:441},
- month:{captured:1948,enriched:1272,qualified:1684,escalated:48,notQualified:216,convo:1468,routed:1636,
-        booked:356,released:11,reminders:624,dayBefore:268,moved:136,attended:328,noShow:28,backfilled:44,
-        pool:412,touches:856,engagement:3568,reEngaged:48,returned:36,optOut:92,
-        synced:7616,stages:10696,inbound:1444,logged:31928,merged:208,updates:256,chased:232,handedOver:24,
-        ooh:374,matched:118,replies:1830,missedCall:61,consented:1764}
+ today:{captured:11,intake:12,enriched:7,qualified:9,escalated:1,notQualified:2,convo:7,routed:8,
+        booked:2,released:0,reminders:5,dayBefore:2,moved:0,attended:2,noShow:0,backfilled:0,
+        pool:640,touches:13,engagement:51,reEngaged:1,returned:1,requalified:1,optOut:2,reactivateWritten:54,
+        synced:43,stages:60,inbound:8,logged:180,merged:1,updates:4,chased:3,closed:3,handedOver:0,followWritten:5,
+        ooh:2,matched:1,replies:10,missedCall:1,consented:10},
+ week:{captured:72,intake:76,enriched:47,qualified:61,escalated:3,notQualified:11,convo:49,routed:58,
+       booked:11,released:1,reminders:28,dayBefore:10,moved:1,attended:9,noShow:1,backfilled:2,
+       pool:640,touches:84,engagement:336,reEngaged:9,returned:2,requalified:7,optOut:11,reactivateWritten:354,
+       synced:281,stages:395,inbound:53,logged:1180,merged:4,updates:24,chased:22,closed:19,handedOver:2,followWritten:25,
+       ooh:13,matched:4,replies:67,missedCall:2,consented:65},
+ month:{captured:312,intake:329,enriched:204,qualified:264,escalated:13,notQualified:48,convo:212,routed:251,
+        booked:48,released:4,reminders:122,dayBefore:44,moved:4,attended:40,noShow:4,backfilled:9,
+        pool:640,touches:364,engagement:1456,reEngaged:39,returned:9,requalified:30,optOut:48,reactivateWritten:1534,
+        synced:1218,stages:1712,inbound:230,logged:5113,merged:17,updates:104,chased:95,closed:82,handedOver:9,followWritten:108,
+        ooh:56,matched:17,replies:290,missedCall:9,consented:282}
 };
 var SERIES={
  today:{l:['8','9','10','11','12','13','14','15','16','17','18','19'],
-        c:[3,6,9,8,7,5,9,8,6,4,4,3], b:[0,1,2,2,1,1,2,2,1,1,0,0],
-        r:[12,15,13,14,16,12,13,15,14,13,12,14], resp:13},
+        c:[1,1,2,1,1,0,1,1,1,1,1,0], b:[0,0,1,0,0,0,0,1,0,0,0,0],
+        r:[15,14,13,15,14,16,13,14,15,14,13,14], resp:14},
  week:{l:['Mon','Tue','Wed','Thu','Fri','Sat','Sun'],
-       c:[78,92,84,71,88,44,30], b:[14,17,15,13,16,8,6],
-       r:[16,15,14,16,13,12,13], resp:14},
- month:{l:['Wk 1','Wk 2','Wk 3','Wk 4'], c:[441,502,518,487], b:[81,92,94,89],
-        r:[18,16,15,14], resp:15}
+       c:[13,15,14,12,13,4,1], b:[2,3,2,2,2,0,0],
+       r:[15,14,13,14,15,16,14], resp:14},
+ month:{l:['Wk 1','Wk 2','Wk 3','Wk 4'], c:[72,80,84,76], b:[11,13,13,11],
+        r:[15,14,14,13], resp:14}
 };
-var ALLOWANCE={leads:3500,bandFrom:2000,plan:'Expand',next:'Scale',nextLeads:4000,
-  seats:14,seatsIncluded:10,seatsCap:19};
+var ALLOWANCE={leads:500,bandFrom:350,plan:'Expand',next:'Scale',nextLeads:750,
+  seats:11,seatsIncluded:8,seatsCap:15};
 
 /* overage + credits */
-var OVER={on:true, rate:0.25, block:50, blockPrice:12.50, balance:0, autoReload:false, buy:2, spendCap:150};
-function gbp(n){return '£'+n.toFixed(2);}
+var OVER={on:true, rate:0.35, block:50, blockPrice:17.50, balance:0, autoReload:false, buy:2, spendCap:200};
+function usd(n){return '$'+n.toFixed(2);}
 
-var BILL={plan:'Expand',planNote:'Up to 3,500 enquiries a month · 10 seats included',
+var BILL={plan:'Expand',planNote:'Up to 500 enquiries a month · 8 seats included',
   price:'£890 / month',renews:'Renews 10 Sep 2026',
   card:'Mastercard •••• 3051',brand:'mc',cardExp:'Expires 04 / 29',cardDeclined:false,
   invoices:[['10 Aug 2026','£890.00','Paid'],['10 Jul 2026','£902.50','Paid'],['10 Jun 2026','£890.00','Paid'],
             ['10 May 2026','£927.50','Paid'],['10 Apr 2026','£890.00','Paid'],['10 Mar 2026','£890.00','Paid']],
   invNote:'Months above £890 include overage blocks. Every invoice itemises the enquiries they covered.'};
 
-var PROFILE={first:'Olivia',last:'Reed',email:'olivia.reed@cedarparkrealty.com',phone:'+44 7477 877612',
-  role:'Owner · full access',website:'https://cedarparkrealty.com',
-  street:'414 North Row',zip:'78701',country:'United States',
-  seats:[['Olivia Reed','Owner · full access'],['Marcus Hale','Manager · billing and settings'],
-         ['12 agents','Booking and enquiry access only']]};
+var PROFILE={first:'Rachel',last:'Ambrose',email:'rachel.ambrose@ridgelinedental.com',phone:'+1 303 555 0148',
+  role:'Practice Manager · Owner, full access',website:'https://ridgelinedental.com',
+  street:'2401 East 3rd Avenue',zip:'80206',country:'United States',
+  seats:[['Rachel Ambrose','Owner · full access'],['Dr. Evan Reyes','Principal · billing and settings'],
+         ['9 team members','Booking and enquiry access only']]};
 
-var ACCOUNT={company:'Cedar & Park Realty',city:'Austin TX',plan:'Expand',logo:null};
+var ACCOUNT={company:'Ridgeline Dental Care',city:'Denver CO',plan:'Expand',logo:null};
 (function loadAccount(){
   try{
     var saved=JSON.parse(localStorage.getItem('rb_console_account')||'null');
@@ -867,50 +867,50 @@ function pv(x){
 }
 
 var SOURCES=[
- ['Zillow',200,'12%',false],['Realtor.com',78,'14%',false],['IDX website',58,'21%',false],
- ['Redfin',44,'11%',false],['Homes.com',34,'9%',false],['Facebook',29,'22%',false],
- ['Instagram',24,'18%',false],['SMS inbound',20,'27%',false],['Missed-call recovery',15,'31%',true]
+ ['Practice website',20,'14%',false],['Google Business Profile',14,'19%',false],['Facebook',9,'11%',false],
+ ['Instagram',8,'9%',false],['Directory listings',7,'16%',false],['Insurance directory',5,'12%',false],
+ ['Patient referral',4,'27%',false],['SMS inbound',3,'22%',false],['Missed-call recovery',2,'34%',true]
 ];
 
 var OPERATION={
  id:'operation',code:'OPS',name:'Dashboard',nav:'Dashboard',
- tb:'~12',tbU:'hrs/wk',
+ tb:'~5',tbU:'hrs/wk',
  hero:[
-  {k:'Time back',v:F('~2.4','~12','~52'),u:F('hrs today','hrs/wk','hrs this month'),
+  {k:'Time back',v:F('~1','~5','~22'),u:F('hrs today','hrs/wk','hrs this month'),
    n:'time you would have spent on this by hand, now run by the system',lead:1},
   {k:'Work carried',v:V('captured'),n:'enquiries handled, every sequence on time'},
   {k:'Answered out of hours',v:V('ooh'),n:'answered while you were closed, every one logged'}
  ],
- cum:'Since go-live, March 2026 · <b>6,240</b> enquiries handled · <b>1,140</b> showings booked · <b>0</b> lost to a missed reply',
- read:'Lead volume up <b>12%</b> versus last week, with the biggest gain on Facebook. Booking rate climbed from <b>16%</b> to <b>18%</b>. The standout channel is missed-call recovery: only <b>3%</b> of volume but converting at <b>31%</b>, three times your average. Twelve dormant leads woke up and routed back to your closers.'
+ cum:'Since go-live, March 2026 · <b>1,340</b> enquiries handled · <b>205</b> consultations booked · <b>0</b> lost to a missed reply',
+ read:'Enquiry volume held steady week over week, with Google Business Profile converting best among your larger channels. Missed-call recovery is the standout: just <b>3%</b> of volume but converting at <b>34%</b>, the highest book rate of any source on this list. Seven dormant patients came back into scoring this week.'
 };
 
 var QUEUE=[
  {id:'q1',ty:'Your call',now:1,src:'Qualify &amp; triage',age:'14 min',
-  t:'Cash buyer wants a viewing today, $820k',w:'M. Ellery · 78704 · asked for this afternoon',
-  rule:'Cash buyer above $750k',act:'Assign an agent',
+  t:'Patient in pain, asking to be seen today',w:'J. Bartlett · swelling since Sunday',
+  rule:'Pain or urgent symptom reported',act:'Assign a slot',
   d:['The escalation rule fired at 14:38 and the enquiry has been held for a person since. Nothing automated has gone out beyond the first reply.',
-     'She has been told an agent will come back to her today.']},
+     'They have been told the practice will call back today.']},
  {id:'q2',ty:'Your call',now:1,src:'Qualify &amp; triage',age:'31 min',
-  t:'Enquiry names 1802 Kinney Ave, which is under offer',w:'D. Ruiz · first-time buyer · $300 to 380k',
-  rule:'Enquiry names a listing under offer',act:'Confirm the status',
-  d:['Held for a person because quoting availability on a property under offer is a call only your team should make.',
-     'He has had an acknowledgement, no detail on the property.']},
+  t:'Enquiry asking a clinical question',w:'M. Doyle · whether a crown can be replaced under sedation',
+  rule:'Enquiry asks a clinical question',act:'Answer directly',
+  d:['Held for a person because answering a clinical question is a call only your team should make.',
+     'They have had an acknowledgement, no clinical detail.']},
  {id:'q3',ty:'Your choice',src:'Remind &amp; reschedule',age:'2 days',
-  t:'No-show recovery is exhausted after two attempts',w:'R. Casals · missed Tuesday 4pm · no reply to either re-offer',
+  t:'No-show recovery is exhausted after two attempts',w:'L. Ferrand · missed Tuesday 4pm · no reply to either re-offer',
   rule:'Two attempts, then to Recall &amp; nurture',act:'Keep or close',
-  d:['He is queued to drop into Recall &amp; nurture on the standard cadence unless you want him worked differently.',
-     'Doing nothing keeps him nurtured, so this only needs you if you want him closed out.']},
+  d:['They are queued to drop into Recall &amp; nurture on the standard cadence unless you want them worked differently.',
+     'Doing nothing keeps them nurtured, so this only needs you if you want them closed out.']},
  {id:'q4',ty:'Your record',block:1,src:'Book into diary',age:'3 days',
-  t:'Showing completed, no outcome logged',w:'J. Whitfield · 4502 Bouldin Ave · Saturday 11am',
+  t:'Consultation attended, no outcome logged',w:'P. Adeyemi · Tuesday 11am, Operatory 3',
   rule:'Outcome is yours to record',act:'Log the outcome',
-  d:['The system stops at the booking, so what happened at the showing only exists if your team writes it back.',
-     'Until it does, this deal has an estimated value and no actual one.']},
+  d:['The system stops at the booking, so what happened at the consultation only exists if your team writes it back.',
+     'Until it does, this patient has an estimated value and no actual one.']},
  {id:'q5',ty:'Your rule',src:'Qualify &amp; triage',age:'1 day',
-  t:'An enquiry matched no value tier',w:'Commercial lot enquiry, outside the three bands agreed at onboarding',
+  t:'An enquiry matched no value tier',w:'Retainer repair, outside the three bands agreed at onboarding',
   rule:'Three bands, set with you',act:'Set a tier',
   d:['It qualified on every other test but there is no band for it, so it carries no estimated value.',
-     'If commercial is going to keep coming in, this is a rule worth adding rather than a one-off.']},
+     'If this keeps coming in, this is a rule worth adding rather than a one-off.']},
  {id:'q6',ty:'Confirm',src:'Write to CRM',age:'4 hrs',
   t:'Two owners written to the same record',w:'The record was reassigned in Zoho while routing assigned it here',
   rule:'Your CRM wins on anything your team owns',act:'Confirm the owner',
@@ -925,15 +925,15 @@ var CAPS=[
  ch:{l:'Intake channels',n:1,list:[['Web form',1],['WhatsApp',1],['SMS',1],['Email',1],['Missed call',1],['Social DM',0]]},
  cfg:[['Reply channels','Email · SMS · WhatsApp'],['Social DM','Available on Scale']],
  sources:1,
- recs:[['14:52','Zillow enquiry, replied 11s'],['14:49','Instagram DM, replied 8s'],['03:41','Web form, out of hours']],
+ recs:[['14:52','Website enquiry, replied 11s'],['14:49','Instagram DM, replied 8s'],['03:41','Web form, out of hours']],
  flow:[
   {i:'in',t:'Channel Intake',s:'Creating The Lead Record',
-   m:[[V('captured'),'enquiries'],['9','sources']],
-   why:['Web forms, WhatsApp, SMS, email and social messages all arrive in one place as a single lead record.',
+   m:[[V('intake'),'enquiries'],['9','sources']],
+   why:['Web forms, WhatsApp, SMS, email and missed calls all arrive in one place as a single lead record.',
         'Nothing sits unanswered in a separate inbox because it came in on a channel nobody was watching.']},
   P('Every Record','yes'),
   {i:'tag',t:'Source Attribution',s:'Recording Channel And Click',
-   m:[[V('captured'),'attributed'],['0','ad-sourced']],
+   m:[[V('intake'),'attributed'],['0','ad-sourced']],
    why:['The contact, the channel, where they came from and the ad they clicked, held from the second the enquiry arrives.',
         'Everything that happens next, from qualifying to booking to your reporting, builds on that one clean file.']},
   P('Before Reply'),
@@ -950,7 +950,7 @@ var CAPS=[
   ]),
   P('Call Channel'),
   {i:'phone',t:'Missed Call Capture',s:'Triggering The Text Back',
-   m:[[V('missedCall'),'captured'],['31%','go on to book']],
+   m:[[V('missedCall'),'captured'],['34%','go on to book']],
    why:['A missed call gets a text back before the caller tries the next number on their list.']},
   P('Written Out','yes'),
   {i:'db',t:'CRM Write',s:'Pushing To Your System',
@@ -963,7 +963,7 @@ var CAPS=[
 {id:'qualify',code:'QAL',name:'Qualify',tech:'Lead scoring &amp; routing',
  vol:V('qualified'),state:'Scoring',
  sub:'Filter out bad leads automatically and only talk to the ones that matter.',
- cfg:[['Your filters','Budget · location · timeline · fit'],['Value tiers','Three'],
+ cfg:[['Your filters','Treatment value · service area · availability · insurance'],['Value tiers','Four'],
       ['Escalation','Urgent or high-value cases, to a named person']],
  recs:[['14:52','Passed, tier 1, routed to David'],['14:41','Urgent case escalated, handover logged'],['13:58','Second enquiry, nurture']],
  flow:[
@@ -971,25 +971,25 @@ var CAPS=[
    m:[[V('captured'),'to check']]},
   P('Your Rules','yes'),
   {i:'filter',t:'Rule Evaluation',s:'Scoring Against Your Filters',
-   rule:['budget \u2265 £5,000','location in your list','timeline this month','fit = yes'],
-   m:[[V('qualified'),'passed'],['86.4%','pass rate']],
+   rule:['treatment value ≥ $750','in your service area','available within 3 weeks','insurance accepted'],
+   m:[[V('qualified'),'passed'],['84.7%','pass rate']],
    why:['You cannot use a generic template to define a good customer. You set the criteria at onboarding and the system runs them against every incoming message.',
         'Change your rules whenever your pipeline needs it, without any coding.']},
   S([
-   [P('Passing','yes',.84),{i:'route',t:'Booking Route',s:'Advancing The Record',
+   [P('Passing','yes',.806),{i:'route',t:'Booking Route',s:'Advancing The Record',
      m:[[V('routed'),'routed']]}],
-   [P('Your Call','human',.025),{k:'human',i:'person',t:'Priority Route',s:'Routing To A Named Owner',
+   [P('Your Call','human',.042),{k:'human',i:'person',t:'Priority Route',s:'Routing To A Named Owner',
      m:[[V('escalated'),'escalated'],['90s','to pick up']],
-     why:['Some enquiries are yours to answer by design. A high-priority issue or a complex file routes to a named person on your team instead of continuing automatically.',
+     why:['Some enquiries are yours to answer by design. Pain or a clinical question routes to a named person on your team instead of continuing automatically — it never attempts an answer.',
           'A permanent log of the handoff is kept, with a timestamp and an audit trail.']}],
-   [P('Poor Fit','',.135),{k:'off',i:'loop',t:'Disposition',s:'Dropping Nurturing Suppressing',
+   [P('Poor Fit','',.153),{k:'off',i:'loop',t:'Disposition',s:'Dropping Nurturing Suppressing',
      m:[[V('notQualified'),'filtered'],[V('returned'),'came back']],
-     why:['Handled exactly how you want: dropped, nurtured, or suppressed. Nothing lands on a person who should be talking to buyers.']}]
+     why:['Handled exactly how you want: dropped, nurtured, or suppressed. Nothing lands on a person who should be talking to patients.']}]
   ]),
   P('On Passing','yes'),
   {i:'coin',t:'Value Assignment',s:'Attaching An Estimated Tier',
-   rule:['Tier 1','Tier 2','Tier 3'],
-   m:[['3','tiers'],['\u00a34,200','median estimate']],
+   rule:['Tier 1','Tier 2','Tier 3','Tier 4'],
+   m:[['4','tiers'],['$2,400','median estimate']],
    why:['Every qualified lead gets an estimated financial tier the moment it passes your rules, so you can see what your pipeline is worth before anyone has spoken to it.',
         'If you add closed-loop attribution, that same verdict is what gets sent back to your advertising.']},
   P('Written Out'),
@@ -1003,37 +1003,37 @@ var CAPS=[
  vol:V('booked'),state:'Booking',
  sub:'Book qualified leads into your diary at the peak of their intent.',
  ch:{l:'Connected calendars',n:0,off:'supported',list:[['Google Calendar',1],['Outlook',0],['Calendly',0],['Cal.com',0]]},
- cfg:[['Calendars','Google Calendar'],['Buffers','Travel, prep and daily booking caps'],['Notice','2 hours to 21 days']],
+ cfg:[['Calendars','Google Calendar'],['Buffers','Travel, prep and daily booking caps'],['Notice','4 hours to 42 days']],
  recs:[['14:52','Friday 3pm confirmed'],['14:30','Slot locked in-thread, 40s'],['11:09','Saturday 11am confirmed']],
  flow:[
   {i:'in',t:'Record Intake',s:'Receiving From Qualify',
    m:[[V('qualified'),'ready']]},
   P('Read Live','yes'),
   {i:'cal',t:'Availability Read',s:'Polling Live Calendars',
-   m:[['14','diaries'],['0','double bookings']],
+   m:[['6','diaries'],['0','double bookings']],
    why:['Connects to Google, Outlook, Calendly or Cal.com to read actual availability, never an outdated copy.',
         'What a lead sees is always your genuine availability.']},
   P('Apply Rules'),
   {i:'clock',t:'Buffer Application',s:'Applying Your Time Rules',
-   rule:['45 minute appointments','30 minute travel','2 hours notice','21 days ahead'],
-   m:[['3','slots offered']],
-   why:['A site visit, a medical appointment and a finance consult all take different time blocks. Your exact time rules, prep buffers and notice windows are mapped at onboarding.',
+   rule:['30 minute consultations','15 minute turnaround','4 hours notice','42 days ahead'],
+   m:[['4','slots offered']],
+   why:['A cleaning, a same-day repair and a new-patient consult all take different time blocks. Your exact time rules, prep buffers and notice windows are mapped at onboarding.',
         'The diary fills exactly how your business actually runs.']},
   P('They Choose'),
   {i:'lock',t:'Slot Lock',s:'Reserving On Selection',
    m:[['40s','to choose'],['80%','accept']],
    why:['Sending an email with suggested times creates gaps where leads wander off. The platform reads your diary mid-chat and locks the spot before the user exits the thread.']},
   S([
-   [P('Locked','yes',.97),{i:'check',t:'Booking Confirmation',s:'Stamping The Appointment',
-     m:[[V('booked'),'booked'],['24.3%','of conversations']]}],
-   [P('Lapsed','',.03),{k:'off',i:'loop',t:'Slot Release',s:'Returning To Diary',
+   [P('Locked','yes',.917),{i:'check',t:'Booking Confirmation',s:'Stamping The Appointment',
+     m:[[V('booked'),'booked'],['22.4%','of conversations']]}],
+   [P('Lapsed','',.083),{k:'off',i:'loop',t:'Slot Release',s:'Returning To Diary',
      m:[[V('released'),'released']]}]
   ]),
   P('Written Out','yes'),
   {i:'db',t:'CRM Write',s:'Linking Booking To Enquiry',
    m:[[V('booked'),'written']],
    why:['A booking is a data shift, not just a chat message. The record updates, the time is stamped, and the appointment links back to the enquiry that created it.',
-        'Your reporting reads what actually happened rather than somebody\u2019s memory of it.']},
+        'Your reporting reads what actually happened rather than somebody’s memory of it.']},
   {out:1,t:'Retain',to:'retain'}
  ]},
 
@@ -1052,17 +1052,17 @@ var CAPS=[
         'Your client protection scales as the diary fills, with no extra admin.']},
   P('Evening Before','yes'),
   {i:'chat',t:'Confirmation Check',s:'Reading The Day-Before Reply',
-   m:[[V('dayBefore'),'sent'],['41%','reply']],
+   m:[[V('dayBefore'),'sent'],['44%','reply']],
    why:['The text sent the day before determines attendance. It is separated from the standard reminders and written to make it very simple to confirm, change or clear the time.',
         'Reply Y to confirm, or R to reschedule.']},
   S([
-   [P('Confirmed','yes',.86),{i:'check',t:'Attendance Record',s:'Marking The Slot Kept',
-     m:[[V('attended'),'attended'],['92%','turn up']]}],
-   [P('Moved','',.06),{i:'swap',t:'Reschedule Handling',s:'Re-Reading Availability',
+   [P('Confirmed','yes',.818),{i:'check',t:'Attendance Record',s:'Marking The Slot Kept',
+     m:[[V('attended'),'attended'],['90%','turn up']]}],
+   [P('Moved','',.091),{i:'swap',t:'Reschedule Handling',s:'Re-Reading Availability',
      m:[[V('moved'),'moved']],
      why:['They can move it without phoning the office, and the freed slot opens back up automatically.']}],
-   [P('Missed','',.08),{i:'loop',t:'No-Show Recovery',s:'Re-Offering Live Slots',
-     m:[[V('noShow'),'missed'],['4','rebooked']],
+   [P('Missed','',.091),{i:'loop',t:'No-Show Recovery',s:'Re-Offering Live Slots',
+     m:[[V('noShow'),'missed'],['1','rebooked']],
      why:['A missed appointment is wasted marketing spend. The record flips into recovery and a new time is offered from live openings, salvaging the lead before it goes cold.']}]
   ]),
   P('Written Out','yes'),
@@ -1078,11 +1078,11 @@ var CAPS=[
  ch:{l:'Sequence channels',n:1,list:[['Email',1],['SMS',1],['WhatsApp',1],['Social DM',0]]},
  cfg:[['Pulled from','Your CRM, against your own rules'],['Sequence','One per lead, not a list blast'],
       ['On reply','Straight back through qualifying']],
- recs:[['14:38','Replied after 147 days, requalified'],['13:20','38 leads on their own touch'],['09:55','Past customer due a recall']],
+ recs:[['14:38','Replied after 241 days, requalified'],['13:20','38 leads on their own touch'],['09:55','Past patient due a recare']],
  flow:[
   {i:'pool',t:'Dormancy Query',s:'Selecting Idle Records',
-   rule:['Cold enquiries','Paused prospects','Customers due a recall'],
-   m:[[V('pool'),'in pool'],['3','found today']],
+   rule:['Unconverted enquiries','Lapsed patients','Overdue recare'],
+   m:[[V('pool'),'in pool'],['4','found today']],
    why:['Most of your pipeline is not lost, it is just sitting there. The enquiries that were never wrong, only early, pile up in your CRM in numbers no team could work by hand.',
         'Pulled out automatically against your own rules for what counts as cold.']},
   P('Per Lead','yes'),
@@ -1102,31 +1102,31 @@ var CAPS=[
         'A reply halts the sequence immediately, so nobody is chased for something they already answered.']},
   P('On Reply'),
   S([
-   [P('They Reply','yes',.75),{i:'back',t:'Requalification',s:'Returning To Scoring',
-     m:[[V('returned'),'requalified'],[V('reEngaged'),'re-engaged']],
+   [P('They Reply','yes',.593),{i:'back',t:'Requalification',s:'Returning To Scoring',
+     m:[[V('requalified'),'requalified'],[V('reEngaged'),'re-engaged']],
      why:['They do not land in an inbox for somebody to deal with later. They go straight back through your qualifying rules, pick up a fresh estimated value, and move toward your calendar like any new enquiry.',
           'Waking them up and qualifying them is one motion, not a handover.']}],
-   [P('They Opt Out','',.25),{k:'off',i:'block',t:'Suppression',s:'Flagging Do Not Contact',
+   [P('They Opt Out','',.407),{k:'off',i:'block',t:'Suppression',s:'Flagging Do Not Contact',
      m:[[V('optOut'),'suppressed']]}]
   ]),
   P('Written Out','yes'),
   {i:'db',t:'CRM Write',s:'Recording Every Response',
-   m:[[V('engagement'),'events']],
+   m:[[V('reactivateWritten'),'events']],
    why:['Every response is written back to the record it came from.']},
   {out:1,t:'Back to Qualify',to:'qualify'}
  ]},
 
 {id:'follow',code:'FTH',name:'Follow through',tech:'Workflow automation &amp; AR chase',
- vol:V('updates'),state:'1 of 5 on',
+ vol:V('updates'),state:'3 of 5 on',
  sub:'Drive files, updates, quotes and invoices to completion.',
  ch:{l:'Chase channels',n:1,list:[['Email',1],['SMS',1],['WhatsApp',1]]},
- cfg:[['On for you','Status updates'],['Available','Document / records collection · Quote / proposal follow-up · Invoicing &amp; payment chase · Custom CRM build']],
- mods:[['Status updates',1],['Document / records collection',0],['Quote / proposal follow-up',0],['Invoicing &amp; payment chase',0],['Custom CRM build',0]],
- recs:[['14:20','Status update sent, nobody asked'],['11:02','Query handed to a person']],
+ cfg:[['On for you','Treatment plan follow-up · Medical history collection · Insurance verification chase'],['Available','Billing &amp; balance chase · Custom CRM build']],
+ mods:[['Treatment plan follow-up',1],['Medical history collection',1],['Insurance verification chase',1],['Billing &amp; balance chase',0],['Custom CRM build',0]],
+ recs:[['14:20','Treatment plan follow-up sent, awaiting reply'],['11:02','Insurance query handed to a person']],
  flow:[
   {i:'pool',t:'Module Intake',s:'Receiving Outstanding Items',
    mods:1,
-   m:[['1','of 5 optional modules'],[V('updates'),'items']],
+   m:[['3','of 5 optional modules'],[V('updates'),'items']],
    why:['The optional modules run on one unified backbone, not distinct custom builds. A law firm gathers ID files while a trades business chases invoices, and both switch them on through settings.',
         'No custom software development, so deployment stays fast.']},
   P('Chase It','yes'),
@@ -1136,18 +1136,18 @@ var CAPS=[
         'Projects slow down when you are waiting on client files or handling endless "where is my update" calls.']},
   S([
    [P('Resolved','yes',.86),{i:'check',t:'Item Closure',s:'Marking It Complete',
-     m:[[V('chased'),'closed']],
+     m:[[V('closed'),'closed']],
      why:['Every proposal and invoice needs an absolute answer. Quotes are tracked until the client accepts or declines.']}],
    [P('Overdue','',.05),{i:'coin',t:'Ageing Flag',s:'Bucketing By Days Overdue',
      rule:['0 to 30','30 to 60','60 to 90'],
-     m:[['2','ageing']],
+     m:[['3','ageing']],
      why:['Outstanding balances are tracked dynamically and late accounts flagged before they turn into permanent bad debt.']}],
    [P('For Your Team','human',.09),{k:'human',i:'person',t:'Team Handover',s:'Routing The Query',
      m:[[V('handedOver'),'handed over']]}]
   ]),
   P('Written Out','yes'),
   {i:'db',t:'CRM Write',s:'Filing Against The Record',
-   m:[[V('updates'),'written']],
+   m:[[V('followWritten'),'written']],
    why:['Received documents, client decisions and payment status drop directly into the CRM your team already uses.']},
   {out:1,t:'Dashboard',to:'operation'}
  ]}
@@ -1191,7 +1191,7 @@ var ADDONS=[
   {ok:1,t:'Consent recorded against every enquiry on your own site. Already in place.'},
   {ok:1,t:'A qualified or not qualified verdict on every lead. Qualify produces this today.'},
   {ok:1,t:'Your own site and domain, so the click counts to your account. Already in place.'},
-  {ok:0,t:'Google lead generation running at volume, roughly thirty to fifty conversions per campaign per month. Your enquiries come from listings, social and direct.'}
+  {ok:0,t:'Google lead generation running at volume, roughly thirty to fifty conversions per campaign per month. Your enquiries come from your website, social and direct.'}
  ],foot:'Below that the gain is marginal, and we will tell you so rather than sell it to you.'}
 }
 ];
@@ -1201,17 +1201,17 @@ var LOGS={id:'logs',code:'LOG',name:'Logs',nav:'Logs',
  sub:'What the system did and when, including anything that went wrong.',
  rows:[
   ['14:52:42','Write to CRM','Record created, status in conversation','ok'],
-  ['14:52:38','Book','Showing confirmed, Friday 3pm, 4502 Bouldin Ave','ok'],
-  ['14:52:35','Qualify','Scored top band, cash buyer, routed to David','ok'],
-  ['14:52:31','Capture','Zillow enquiry answered in 11s','ok'],
-  ['14:41:12','Qualify','Escalated to a person, enquiry named a listing under offer','ok'],
-  ['14:38:02','Reactivate','Dormant lead replied after 147 days, returned to scoring','ok'],
+  ['14:52:38','Book','Consultation confirmed, Friday 3pm, Operatory 2','ok'],
+  ['14:52:35','Qualify','Scored top band, implant enquiry, routed to Nadia','ok'],
+  ['14:52:31','Capture','Website enquiry answered in 11s','ok'],
+  ['14:41:12','Qualify','Escalated to a person, enquiry asked a clinical question','ok'],
+  ['14:38:02','Reactivate','Lapsed patient replied after 241 days, returned to scoring','ok'],
   ['14:12:08','Retain','Reschedule handled, moved to Thursday 5pm','ok'],
   ['11:02:44','Follow through','Question escalated to a person','ok'],
   ['08:00:00','System','Daily check complete, all channels reporting','ok'],
-  ['03:47:15','Capture','Zillow feed recovered automatically','ok'],
-  ['03:41:02','Capture','Zillow feed stopped responding, 6 minute gap','warn'],
-  ['03:41:00','Capture','IDX form answered out of hours in 9s','ok']
+  ['03:47:15','Capture','Google Business Profile feed recovered automatically','ok'],
+  ['03:41:02','Capture','Google Business Profile feed stopped responding, 6 minute gap','warn'],
+  ['03:41:00','Capture','Website form answered out of hours in 9s','ok']
  ],
  mon:[['Uptime','99.8% across every monitored surface'],
       ['External check','Every 5 minutes, from outside the system'],
@@ -1221,7 +1221,7 @@ var LOGS={id:'logs',code:'LOG',name:'Logs',nav:'Logs',
 var USAGE={id:'usage',code:'USE',name:'Usage',nav:'Usage',
  tech:'Consumption against your plan',
  sub:'What you have used this month, and where it went.',
- cum:[441,943,1461,1948],
+ cum:[72,152,236,312],
  cumL:['Wk 1','Wk 2','Wk 3','Wk 4'],
  by:[['Capture','Enquiries answered',V('captured')],
      ['Qualify','Enquiries scored',V('captured')],
@@ -1236,7 +1236,7 @@ var USAGE={id:'usage',code:'USE',name:'Usage',nav:'Usage',
   {n:'Reminder cadence',you:'2 reminders',next:'3 on Scale',at:2,of:3}
  ],
  note:'Consumption counts enquiries, not messages. A lead that takes nine touches costs the same against your allowance as one that takes two.',
- over:'Past your allowance, extra enquiries bill at £0.25 each in blocks of 50, and you are alerted at 90%. If overage is switched off, capture pauses rather than billing you without warning.'};
+ over:'Past your allowance, extra enquiries bill at $0.35 each in blocks of 50, and you are alerted at 90%. If overage is switched off, capture pauses rather than billing you without warning.'};
 
 var HEALTH={id:'health',code:'LOG',name:'Logs',nav:'Logs',
  tech:'Channels, sync, monitoring &amp; event log',
@@ -1245,10 +1245,10 @@ var HEALTH={id:'health',code:'LOG',name:'Logs',nav:'Logs',
   {ok:1,n:'Enquiry sources',s:'All 9 live and reporting',v:'9 / 9'},
   {ok:1,n:'Reply channels',s:'Email, SMS and WhatsApp sending',v:'3 of 4 on'},
   {ok:1,n:'CRM sync',s:'Writing in real time, no failed writes',v:'0 failed'},
-  {ok:1,n:'Booking calendars',s:'14 agent calendars connected',v:'14 / 14'},
+  {ok:1,n:'Booking calendars',s:'6 clinician diaries connected',v:'6 / 6'},
   {ok:1,n:'Lead follow-up',s:'No leads overdue past their stage window',v:'0 overdue'},
   {ok:1,n:'Deliverability',s:'Rolling hard-bounce rate under the send gate',v:'1.07%'},
-  {ok:0,n:'Zillow feed',s:'6 minute gap at 03:41, recovered automatically',v:'resolved'}
+  {ok:0,n:'Google Business Profile feed',s:'6 minute gap at 03:41, recovered automatically',v:'resolved'}
  ],
  mon:[['Uptime','99.8% across every monitored surface'],
       ['External check','Every 5 minutes, from outside the system'],
@@ -1263,13 +1263,14 @@ var SETTINGS={id:'settings',code:'CFG',name:'Settings',nav:'Settings',
   {t:'Reply channels',n:'How the system answers your enquiries',
    rows:[['Email','',1],['SMS','',1],['WhatsApp','',1],['Instagram DM','Available on Scale',0,1]]},
   {t:'Enquiry sources',n:'Where enquiries are collected from',
-   rows:[['Zillow','',1],['Realtor.com','',1],['IDX website','',1],['Redfin','',1],['Homes.com','',1],
-         ['Facebook','',1],['Instagram','',1],['SMS inbound','',1],['Missed call recovery','',1]]},
+   rows:[['Practice website','',1],['Google Business Profile','',1],['Facebook','',1],['Instagram','',1],
+         ['Directory listings','',1],['Insurance directory','',1],['Patient referral','',1],
+         ['SMS inbound','',1],['Missed call recovery','',1]]},
   {t:'Add-ons',n:'Added on top of your plan',
    rows:[['Closed-loop attribution','Needs paid search at volume',0,1]]},
   {t:'Optional modules',n:'Added to any plan',
-   rows:[['Status updates','',1],['Document / records collection','',0],
-         ['Quote / proposal follow-up','',0],['Invoicing &amp; payment chase','',0],
+   rows:[['Treatment plan follow-up','',1],['Medical history collection','',1],
+         ['Insurance verification chase','',1],['Billing &amp; balance chase','',0],
          ['Custom CRM build','',0]]}
  ],
  systems:[['CRM','Zoho'],['Calendar','Google Calendar'],
@@ -1277,11 +1278,11 @@ var SETTINGS={id:'settings',code:'CFG',name:'Settings',nav:'Settings',
           ['Advertising','Google Ads, not connected'],
           ['Developer','Webhooks · API']],
  sysNote:'Also supported: HubSpot, Pipedrive, Close, Capsule, Copper, Salesforce and Microsoft Dynamics 365 for CRM; Outlook, Cal.com and Calendly for calendar; Clio, ServiceM8, Pabau and Dentally for industry systems.',
- rules:[['Good lead','Budget · timeline within 90 days · buyer or seller · inside your area'],
-        ['Appointment length','45 minutes, 30 minutes travel either side'],
-        ['Consent basis','GDPR'],
-        ['Value bands','Three'],['Needs a person','Cash buyer over $750k, or a listing under offer'],
-        ['Not qualified','Nurtured, never dropped'],['Reminders','Two per appointment'],
+ rules:[['Good lead','Treatment value ≥ $750 · available within 3 weeks · inside your service area · insurance accepted'],
+        ['Appointment length','30 minutes, 15 minutes turnaround either side'],
+        ['Consent basis','Opt-in captured and logged, per enquiry'],
+        ['Value bands','Four'],['Needs a person','Pain or urgent symptoms, or a clinical question'],
+        ['Not qualified','Nurtured, never dropped'],['Reminders','Three per appointment'],
         ['No-show recovery','Two attempts, then Reactivate'],['Nurture touches','Four per run']]};
 
 var rail=document.getElementById('rail'),scroll=document.getElementById('scroll'),insp=document.getElementById('insp'),
@@ -1650,18 +1651,18 @@ var TIPS={
 function nightData(){
   var h=new Date().getHours(), isNight=(h>=19||h<8);
   return isNight
-    ? {title:'Tonight so far',lbl:'since 7pm',lead:'Since 7pm',captured:9,qualified:7,booked:3,nurture:2,voicemail:0}
-    : {title:'Last night',lbl:'7pm to 8am',lead:'Between 7pm and 8am',captured:14,qualified:11,booked:4,nurture:3,voicemail:0};
+    ? {title:'Tonight so far',lbl:'since 7pm',lead:'Since 7pm',captured:3,qualified:2,booked:1,nurture:1,voicemail:0}
+    : {title:'Last night',lbl:'7pm to 8am',lead:'Between 7pm and 8am',captured:5,qualified:3,booked:2,nurture:2,voicemail:0};
 }
 var FEED=[
- ['Realtor.com lead, qualified warm, routed to <b>Marcus</b> \u00b7 Pre-approval pending',0],
- ['Zillow lead, qualified hot, routed to <b>Sarah</b> \u00b7 3-bed \u00b7 $450-550k \u00b7 78704',0],
- ['Nurture move \u00b7 <b>Lin</b> deferred, \u201cspring 2026\u201d \u00b7 Re-check scheduled 14 weeks',0],
- ['Day-before reminder sent \u00b7 <b>Thompson</b>, showing tomorrow \u00b7 Confirmed 11min later',0],
+ ['Website enquiry, qualified hot, routed to <b>Nadia</b> \u00b7 implant consultation \u00b7 $3,800\u20135,200 \u00b7 80206',0],
+ ['Google enquiry, qualified warm, routed to <b>Priya</b> \u00b7 Invisalign, financing question',0],
+ ['Nurture move \u00b7 <b>Lin</b> deferred, \u201cafter the holidays\u201d \u00b7 Re-check scheduled 14 weeks',0],
+ ['Day-before reminder sent \u00b7 <b>Thompson</b>, consultation tomorrow \u00b7 Confirmed 11min later',0],
  ['Missed call recovered \u00b7 text back in 9s \u00b7 <b>Ade</b> asked for Saturday',1],
- ['IDX enquiry answered in 11s \u00b7 routed to <b>David</b> \u00b7 cash buyer flagged',0],
+ ['Website enquiry answered in 11s \u00b7 routed to <b>David</b> \u00b7 implant enquiry flagged',0],
  ['Reschedule handled \u00b7 <b>Okafor</b> moved to Thursday 5pm \u00b7 slot reopened',0],
- ['Dormant lead replied after 147 days \u00b7 returned to scoring',1]
+ ['Lapsed patient replied after 241 days \u00b7 returned to scoring',1]
 ];
 var FEEDI=4;
 function actHTML(list){
@@ -1693,7 +1694,7 @@ function viewOperation(v){
   var c=C(), sr=SERIES[PERIOD], n=QUEUE.filter(function(q){return q.now||q.block}).length;
   var NIGHT=nightData();
   var stages=[['Qualified',c.qualified,c.captured],['Conversation started',c.convo,c.qualified],
-              ['Showing booked',c.booked,c.convo]];
+              ['Consultation booked',c.booked,c.convo]];
   var tb=pv(v.hero[0].v), tbu=pv(v.hero[0].u);
 
   var kpis=[
@@ -1732,8 +1733,8 @@ function viewOperation(v){
     '<div class="hand"><i></i><span>handed back</span><i></i></div>'+
     '<div class="zone"><div class="zone-h"><div class="zone-n">Your conversion</div>'+
       '<span class="tagw">You</span></div>'+
-      '<div class="fr"><span class="fr-n">Showing completed</span><span class="fr-y">yours to measure</span></div>'+
-      '<div class="fr"><span class="fr-n">Offer made</span><span class="fr-y">yours to measure</span></div>'+
+      '<div class="fr"><span class="fr-n">Consultation attended</span><span class="fr-y">yours to measure</span></div>'+
+      '<div class="fr"><span class="fr-n">Treatment plan accepted</span><span class="fr-y">yours to measure</span></div>'+
     '</div></div></div>';
   h+='<div class="col">'+
     '<div class="pl"><div class="pl-h"><span class="pl-t">Live activity</span>'+
@@ -1741,8 +1742,8 @@ function viewOperation(v){
     '<div class="pl-b" id="feed"></div></div>'+
     '<div class="pl"><div class="pl-h"><span class="pl-t">'+NIGHT.title+'</span>'+
     '<span class="lbl">'+NIGHT.lbl+'</span></div><div class="pl-b">'+
-    '<div class="tn-c">'+NIGHT.lead+', <b>'+NIGHT.captured+' leads</b> have come in. '+
-    NIGHT.qualified+' qualified. '+NIGHT.booked+' booked showings. '+NIGHT.nurture+' are in nurture. '+
+    '<div class="tn-c">'+NIGHT.lead+', <b>'+NIGHT.captured+' enquiries</b> have come in. '+
+    NIGHT.qualified+' qualified. '+NIGHT.booked+' booked a consultation. '+NIGHT.nurture+' are in nurture. '+
     '<b>'+NIGHT.voicemail+' went to voicemail.</b></div>'+
     '<div class="tn-s">'+
     [[NIGHT.captured,'Captured',0],[NIGHT.qualified,'Qualified',0],[NIGHT.booked,'Booked',0],
@@ -1753,13 +1754,13 @@ function viewOperation(v){
 
   h+='<div class="pl"><div class="pl-h"><span class="pl-t">Enquiry sources</span>'+
     '<span class="lbl">volume · book rate</span></div><div class="pl-b">'+srcRows()+
-    '<div class="note">Missed-call recovery is 3% of your volume and books at 31%, three times your average.</div>'+
+    '<div class="note">Missed-call recovery is 3% of your volume and has the highest book rate of any source on this list.</div>'+
     '</div></div>';
 
   h+='<div class="pl"><div class="pl-h"><span class="pl-t">Since go-live</span>'+
     '<span class="lbl">March 2026</span></div><div class="pl-b">'+
-    '<div class="rw"><div class="rw-n">Enquiries handled</div><div class="rw-v">6,240</div></div>'+
-    '<div class="rw"><div class="rw-n">Showings booked</div><div class="rw-v">1,140</div></div>'+
+    '<div class="rw"><div class="rw-n">Enquiries handled</div><div class="rw-v">1,340</div></div>'+
+    '<div class="rw"><div class="rw-n">Consultations booked</div><div class="rw-v">205</div></div>'+
     '<div class="rw"><div class="rw-n">Lost to a missed reply</div><div class="rw-v">0</div></div>'+
     '<div class="rw"><div class="rw-n">'+tip('Answered after hours',TIPS.ooh)+'<s>'+per+'</s></div>'+
     '<div class="rw-v">'+fmt(c.ooh)+'</div></div>'+
@@ -1825,7 +1826,7 @@ function viewLogs(v){
   insp.innerHTML='<div class="ih"><div class="ih-k"><span class="lbl">'+v.code+'</span><span class="lbl">1 warning</span></div>'+
     '<div class="ih-t">'+v.name+'</div><div class="ih-s">'+v.sub+'</div></div>'+
     '<div class="sec"><div class="sec-h"><span class="lbl">Only warning today</span></div>'+
-    '<div class="v"><b>03:41</b> Zillow stopped responding for six minutes and recovered on its own. No enquiries were lost.</div></div>'+
+    '<div class="v"><b>03:41</b> Google Business Profile feed stopped responding for six minutes and recovered on its own. No enquiries were lost.</div></div>'+
     '<div class="sec"><div class="sec-h"><span class="lbl">Fault handling</span></div>'+
     '<div class="v">We see it first and fix it. You are told what happened and what it affected, not asked to act.</div></div>';
 }
@@ -1874,7 +1875,7 @@ function viewHealth(v){
     '<span class="lbl">'+(bad?bad+' resolved':'all clear')+'</span></div>'+
     '<div class="ih-t">'+v.name+'</div><div class="ih-s">'+v.sub+'</div></div>'+
     '<div class="sec"><div class="sec-h"><span class="lbl">Last incident</span></div>'+
-    '<div class="v"><b>03:41 today</b> Zillow stopped responding for six minutes and recovered on its own. No enquiries were lost.</div></div>'+
+    '<div class="v"><b>03:41 today</b> Google Business Profile feed stopped responding for six minutes and recovered on its own. No enquiries were lost.</div></div>'+
     '<div class="sec"><div class="sec-h"><span class="lbl">If something breaks</span></div>'+
     '<div class="v">We see it first, usually within thirty minutes, and fix it. You are not asked to act.</div></div>'+
     '<div class="sec"><div class="sec-h"><span class="lbl">Retention</span></div>'+
@@ -1924,8 +1925,8 @@ function overagePanel(used,cap){
     {m:fmt(soft),n:'90% of allowance',tag:(share>=90&&share<100?'now':''),tagT:'you are here',
      d:'A soft alert goes to you and to your account executive. Nothing pauses, nothing bills, no action needed.'},
     {m:fmt(cap),n:'100% · Auto-Overage on',tag:on?'pass':'',tagT:'what happens',mute:!on,
-     d:gbp(OVER.rate)+' per extra enquiry, billed in blocks of '+OVER.block+' — '+gbp(OVER.blockPrice)+
-       ' a block. Enquiry '+(cap+1)+' triggers one '+gbp(OVER.blockPrice)+' charge covering '+fmt(cap+1)+'–'+fmt(cap+OVER.block)+
+     d:usd(OVER.rate)+' per extra enquiry, billed in blocks of '+OVER.block+' — '+usd(OVER.blockPrice)+
+       ' a block. Enquiry '+(cap+1)+' triggers one '+usd(OVER.blockPrice)+' charge covering '+fmt(cap+1)+'–'+fmt(cap+OVER.block)+
        '; enquiry '+fmt(cap+OVER.block+1)+' triggers the next. Service continues uninterrupted.'},
     {m:fmt(cap),n:'100% · Auto-Overage off, or the card declines',tag:on?'':'stop',tagT:'what happens',mute:on,
      d:'The kill-switch fires immediately. Forms, widget responders and live booking sequences pause. They resume on upgrade, or once the balance clears.'}
@@ -1946,18 +1947,18 @@ function overagePanel(used,cap){
 function creditPanel(){
   var blocks=OVER.buy, total=blocks*OVER.blockPrice, leads=blocks*OVER.block;
   return '<div class="pl"><div class="pl-h"><span class="pl-t">Usage credits</span>'+
-    '<span class="lbl">'+gbp(OVER.blockPrice)+' per '+OVER.block+' enquiries</span></div><div class="pl-b">'+
-    '<div class="mrow"><div><div class="mrow-v">'+gbp(OVER.balance)+'</div>'+
+    '<span class="lbl">'+usd(OVER.blockPrice)+' per '+OVER.block+' enquiries</span></div><div class="pl-b">'+
+    '<div class="mrow"><div><div class="mrow-v">'+usd(OVER.balance)+'</div>'+
     '<div class="mrow-s">Credit balance. Bought in advance, drawn down before your card is charged.</div></div></div>'+
     '<div class="blks"><div class="step"><button type="button" id="blkD" aria-label="Fewer blocks">−</button>'+
     '<span>'+blocks+'</span><button type="button" id="blkU" aria-label="More blocks">+</button></div>'+
-    '<div class="blks-c">'+blocks+' block'+(blocks>1?'s':'')+' · <b>'+fmt(leads)+'</b> extra enquiries · <b>'+gbp(total)+'</b></div>'+
-    '<button class="btn" type="button" id="blkBuy">Buy '+gbp(total)+' of credits</button></div>'+
+    '<div class="blks-c">'+blocks+' block'+(blocks>1?'s':'')+' · <b>'+fmt(leads)+'</b> extra enquiries · <b>'+usd(total)+'</b></div>'+
+    '<button class="btn" type="button" id="blkBuy">Buy '+usd(total)+' of credits</button></div>'+
     '<div class="mrow" style="margin-top:14px"><div><div class="mrow-n">Auto-reload</div>'+
     '<div class="mrow-s">Buy another block automatically when the balance runs low, so the kill-switch never fires.</div></div>'+
     '<button class="btn sm '+(OVER.autoReload?'quiet':'ghost')+'" type="button" id="arSw">'+
     (OVER.autoReload?'Turn off':'Turn on')+'</button></div>'+
-    '<div class="mrow"><div><div class="mrow-n">Monthly overage cap · '+gbp(OVER.spendCap)+'</div>'+
+    '<div class="mrow"><div><div class="mrow-n">Monthly overage cap · '+usd(OVER.spendCap)+'</div>'+
     '<div class="mrow-s">The most that can ever be billed above your plan in one month.</div></div>'+
     '<button class="btn sm quiet" type="button" id="capReq">Adjust</button></div>'+
     '<div class="note">Credits never expire, and they are drawn down before any per-enquiry billing.</div></div></div>';
@@ -2129,12 +2130,12 @@ function stabBilling(){
     '</div></div>';
 
   h+='<div class="pl"><div class="pl-h"><span class="pl-t">Usage credits</span>'+
-    '<span class="lbl">'+gbp(OVER.blockPrice)+' per '+OVER.block+' enquiries</span></div><div class="pl-b">'+
-    '<div class="mrow"><div><div class="mrow-v">'+gbp(OVER.balance)+'</div>'+
+    '<span class="lbl">'+usd(OVER.blockPrice)+' per '+OVER.block+' enquiries</span></div><div class="pl-b">'+
+    '<div class="mrow"><div><div class="mrow-v">'+usd(OVER.balance)+'</div>'+
     '<div class="mrow-s">Credit balance · Auto-Overage '+(OVER.on?'on':'off')+
     ' · Auto-reload '+(OVER.autoReload?'on':'off')+'</div></div>'+
     '<button class="btn sm ghost" type="button" id="buyBtn">Buy credits</button></div>'+
-    '<div class="mrow"><div><div class="mrow-n">Monthly overage cap · '+gbp(OVER.spendCap)+'</div>'+
+    '<div class="mrow"><div><div class="mrow-n">Monthly overage cap · '+usd(OVER.spendCap)+'</div>'+
     '<div class="mrow-s">The most that can be billed above your plan in one month.</div></div>'+
     '<button class="btn sm quiet" type="button" data-req="1">Adjust</button></div></div></div>';
 
@@ -2229,8 +2230,8 @@ function settingsInsp(v){
       '<div class="v"><b>'+BILL.price+'</b> on 10 Sep, plus any overage blocks used this month.</div></div>'+
       '<div class="sec"><div class="sec-h"><span class="lbl">Overage</span></div>'+
       '<div class="v">Auto-Overage is <b>'+(OVER.on?'on':'off')+'</b>. '+
-      (OVER.on?'Past 3,500 enquiries you are billed '+gbp(OVER.blockPrice)+' per block of '+OVER.block+' and nothing pauses.'
-              :'Past 3,500 enquiries capture pauses until you upgrade or clear the balance.')+'</div></div>'+ae;
+      (OVER.on?'Past '+fmt(ALLOWANCE.leads)+' enquiries you are billed '+usd(OVER.blockPrice)+' per block of '+OVER.block+' and nothing pauses.'
+              :'Past '+fmt(ALLOWANCE.leads)+' enquiries capture pauses until you upgrade or clear the balance.')+'</div></div>'+ae;
   } else if(STAB==='profile'){
     body='<div class="sec"><div class="sec-h"><span class="lbl">Alerts go to</span></div>'+
       '<div class="v"><b>'+PROFILE.email+'</b> and to your account executive.</div></div>'+
@@ -2238,7 +2239,7 @@ function settingsInsp(v){
       '<div class="v"><b>'+ALLOWANCE.seats+'</b> active of '+ALLOWANCE.seatsCap+' on '+ALLOWANCE.plan+'.</div></div>'+ae;
   } else if(STAB==='rules'){
     body='<div class="sec"><div class="sec-h"><span class="lbl">Needs a person</span></div>'+
-      '<div class="v">A cash buyer over $750k, or a listing under offer, is handed to your team rather than handled automatically.</div></div>'+ae;
+      '<div class="v">Pain or urgent symptoms, or a clinical question, is handed to your team rather than handled automatically. It never attempts a clinical answer.</div></div>'+ae;
   } else if(STAB==='systems'){
     body='<div class="sec"><div class="sec-h"><span class="lbl">Not connected</span></div>'+
       '<div class="v"><b>Google Ads</b>. Connecting it turns on closed-loop attribution.</div></div>'+ae;
@@ -2326,11 +2327,11 @@ function openBuy(after){
   var blocks=OVER.buy;
   var line=function(){
     return blocks+' block'+(blocks>1?'s':'')+' · <b>'+fmt(blocks*OVER.block)+'</b> extra enquiries · <b>'+
-      gbp(blocks*OVER.blockPrice)+'</b>';
+      usd(blocks*OVER.blockPrice)+'</b>';
   };
   return openModal({
     title:'Buy usage credits',
-    sub:gbp(OVER.blockPrice)+' per block of '+OVER.block+' enquiries. Credits never expire and are drawn down before your card is charged.',
+    sub:usd(OVER.blockPrice)+' per block of '+OVER.block+' enquiries. Credits never expire and are drawn down before your card is charged.',
     body:'<div class="blks" style="padding-top:0">'+
       '<div class="step"><button type="button" id="bmD" aria-label="Fewer blocks">−</button>'+
       '<span id="bmN">'+blocks+'</span><button type="button" id="bmU" aria-label="More blocks">+</button></div>'+
@@ -2340,16 +2341,16 @@ function openBuy(after){
       '<span class="mrow-s">Charged immediately.</span></span></div>'+
       '<button class="btn sm quiet" type="button" id="bmCard2">Change</button></div>'+
       '<div class="mrow"><div><div class="mrow-n">Balance after purchase</div>'+
-      '<div class="mrow-s">Currently '+gbp(OVER.balance)+'.</div></div>'+
-      '<span class="mrow-v" id="bmBal">'+gbp(OVER.balance+blocks*OVER.blockPrice)+'</span></div>',
+      '<div class="mrow-s">Currently '+usd(OVER.balance)+'.</div></div>'+
+      '<span class="mrow-v" id="bmBal">'+usd(OVER.balance+blocks*OVER.blockPrice)+'</span></div>',
     foot:'<button class="btn ghost" type="button" id="bmCancel">Cancel</button>'+
-      '<button class="btn" type="button" id="bmBuy">Pay '+gbp(blocks*OVER.blockPrice)+'</button>',
+      '<button class="btn" type="button" id="bmBuy">Pay '+usd(blocks*OVER.blockPrice)+'</button>',
     wire:function(api){
       var sync=function(){
         api.g('bmN').textContent=blocks;
         api.g('bmL').innerHTML=line();
-        api.g('bmBal').textContent=gbp(OVER.balance+blocks*OVER.blockPrice);
-        api.g('bmBuy').textContent='Pay '+gbp(blocks*OVER.blockPrice);
+        api.g('bmBal').textContent=usd(OVER.balance+blocks*OVER.blockPrice);
+        api.g('bmBuy').textContent='Pay '+usd(blocks*OVER.blockPrice);
       };
       api.g('bmD').onclick=function(){blocks=Math.max(1,blocks-1);sync();};
       api.g('bmU').onclick=function(){blocks=Math.min(20,blocks+1);sync();};
@@ -2359,7 +2360,7 @@ function openBuy(after){
         OVER.balance+=blocks*OVER.blockPrice;OVER.buy=blocks;
         if(after)after();
         api.done('Credits added',fmt(blocks*OVER.block)+' enquiries of credit are on the account. '+
-          'Your balance is <b>'+gbp(OVER.balance)+'</b>, drawn down before any per-enquiry billing.');
+          'Your balance is <b>'+usd(OVER.balance)+'</b>, drawn down before any per-enquiry billing.');
       };
     }
   });
