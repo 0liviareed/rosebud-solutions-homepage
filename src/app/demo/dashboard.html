@@ -109,6 +109,17 @@ body[data-sys="off"] .sys-panel{display:none}
 .shell.shut~* .ipin i::after,.ipin.off i::after{background:none}
 .ipin.off{color:var(--ink-4)}
 
+/* mobile rail drawer — .railBtn only shows under the mobile breakpoint */
+.railBtn{display:none;align-items:center;justify-content:center;width:34px;height:34px;flex:none;
+  border-radius:var(--r-ctl);border:1px solid var(--bd-2);background:var(--glass);
+  backdrop-filter:var(--blur);-webkit-backdrop-filter:var(--blur);color:var(--ink-3);
+  box-shadow:var(--glass-hi);transition:background .14s,color .14s,border-color .14s}
+.railBtn:hover{color:var(--ink);border-color:var(--line);background:var(--chrome)}
+.railBtn:focus-visible{outline:2px solid var(--purple);outline-offset:2px}
+.railBtn svg{width:17px;height:17px;display:block}
+.rail-scrim{display:none;position:fixed;inset:0;z-index:110;background:rgba(23,19,31,.4);
+  -webkit-backdrop-filter:blur(2px);backdrop-filter:blur(2px)}
+
 /* rail */
 .rail{background:linear-gradient(180deg,var(--chrome) 0%,color-mix(in oklab,var(--chrome) 88%,var(--line)) 100%);
   border-right:1px solid var(--line);overflow-y:auto;min-height:0;display:flex;flex-direction:column;
@@ -733,9 +744,19 @@ body[data-sys="off"] .sys-panel{display:none}
   body{overflow:auto;height:auto;padding:0}
   .app{height:auto}
   .shell{grid-template-columns:1fr;grid-template-rows:auto;overflow:visible}
-  .scroll,.rail,.insp{overflow:visible;min-height:0}
-  .rail,.insp{border:0;border-bottom:1px solid var(--bd)}
+  .scroll,.insp{overflow:visible;min-height:0}
+  .insp{border:0;border-bottom:1px solid var(--bd)}
   .fr{grid-template-columns:110px 1fr 56px}.fr-p{display:none}
+  .split{grid-template-columns:1fr !important}
+
+  /* Rail becomes an off-canvas drawer, opened via .railBtn in the topbar. */
+  .railBtn{display:flex}
+  .rail{position:fixed;top:0;left:0;bottom:0;z-index:120;width:min(84vw,320px);
+    border-right:1px solid var(--line);border-bottom:0;
+    transform:translateX(-100%);transition:transform .22s ease;
+    box-shadow:24px 0 60px -20px rgba(23,19,31,.35)}
+  .shell.rail-open .rail{transform:translateX(0)}
+  .shell.rail-open .rail-scrim{display:block}
 }
 @media (prefers-reduced-motion:reduce){*{animation:none!important}.spark{display:none}}
 </style>
@@ -752,8 +773,12 @@ body[data-sys="off"] .sys-panel{display:none}
       <div id="navHost"></div>
       <div class="acct" id="acctHost"></div>
     </div>
+    <div class="rail-scrim" id="railScrim"></div>
     <div class="mid">
       <div class="tb">
+        <button type="button" class="railBtn" id="railBtn" aria-expanded="false" aria-controls="rail"
+          title="Open menu"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"
+          stroke-linecap="round" aria-hidden="true"><path d="M3 5.5h14M3 10h14M3 14.5h14"/></svg></button>
         <span class="tb-t" id="tbT"></span>
         <span class="tb-m" id="tbM"></span>
         <span class="sp"></span>
@@ -1318,6 +1343,7 @@ function navBtn(v,host,opt){
     if(v.gate) openAddonUpsell(v);
     else if(BILL.cardDeclined && CAPS.indexOf(v)!==-1){ STAB='billing'; go('settings'); }
     else go(v.id);
+    if(typeof setRail==='function') setRail(false);
   };
   host.appendChild(b);return b;
 }
@@ -2516,6 +2542,16 @@ IPIN.onclick=function(){setInsp(SHELL.classList.contains('shut'))};
 document.addEventListener('keydown',function(e){
   if(e.key==='.'&&(e.metaKey||e.ctrlKey)){e.preventDefault();IPIN.click();}
 });
+
+var RAILBTN=document.getElementById('railBtn'), RAILSCRIM=document.getElementById('railScrim');
+function setRail(open){
+  SHELL.classList.toggle('rail-open',open);
+  RAILBTN.setAttribute('aria-expanded',open?'true':'false');
+  RAILBTN.title=open?'Close menu':'Open menu';
+}
+RAILBTN.onclick=function(){setRail(!SHELL.classList.contains('rail-open'))};
+RAILSCRIM.onclick=function(){setRail(false)};
+document.addEventListener('keydown',function(e){if(e.key==='Escape') setRail(false);});
 go('operation');
 
 </script>
