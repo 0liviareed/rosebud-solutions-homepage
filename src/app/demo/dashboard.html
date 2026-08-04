@@ -751,6 +751,12 @@ body[data-sys="off"] .sys-panel{display:none}
   .mid{width:100%}
   .scroll,.insp{overflow:visible;min-height:0;width:100%}
   .insp{border:0;border-bottom:1px solid var(--bd)}
+  /* Desktop's "shut" state only fades .insp out (opacity:0) because it
+     also collapses the grid column that reserved its width to 0 — an
+     animation that needs the element to still be there. On mobile
+     .shell isn't a grid anymore, so opacity:0 alone leaves its full
+     block height sitting there as an invisible gap below the footer. */
+  .shell.shut .insp{display:none}
   .fr{grid-template-columns:110px 1fr 56px}.fr-p{display:none}
   .split{grid-template-columns:1fr !important}
   .tb{height:auto;flex-wrap:wrap;padding:10px 14px;gap:8px 10px}
