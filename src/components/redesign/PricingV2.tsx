@@ -32,9 +32,10 @@ const CAL = "https://cal.eu/rosebudsolutions/demo";
 export default function PricingV2({ seoContent }: { seoContent?: React.ReactNode }) {
   const router = useRouter();
   const [cycle, setCycle] = useState<"monthly" | "yearly">("yearly");
-  // GBP is the only displayed currency. USD was a rough conversion, not a
-  // committed price list — removed until a real fixed USD list is decided.
-  const currency: Cur = "GBP";
+  // Fixed price list per currency (pricingData.ts) — not a live/floating FX
+  // conversion, so figures never drift day to day. Persisted in the URL so
+  // the choice survives into checkout, which already reads `?currency=`.
+  const [currency, setCurrency] = useState<Cur>("GBP");
   const [selectedTier, setSelectedTier] = useState<PlanKey | "enterprise" | null>(null);
   const [selectedVal, setSelectedVal] = useState<number | null>(null);
   const [extraSeats, setExtraSeats] = useState<Record<PlanKey, number>>({ start: 0, grow: 0, expand: 0, scale: 0 });
@@ -148,13 +149,18 @@ export default function PricingV2({ seoContent }: { seoContent?: React.ReactNode
           <p style={{ margin: "26px auto 0", maxWidth: 600, fontSize: 17, lineHeight: 1.62, color: "rgba(23,19,31,0.62)" }}>Every plan runs all six core capabilities end to end. Modules and closed-loop attribution are optional add-ons on any plan — closed-loop is on by default for Expand &amp; Scale.</p>
         </section>
 
-        {/* CYCLE TOGGLE */}
-        <div style={{ display: "flex", justifyContent: "center", alignItems: "center", margin: "38px 0 6px" }}>
+        {/* CYCLE + CURRENCY TOGGLE */}
+        <div style={{ display: "flex", justifyContent: "center", alignItems: "center", gap: 12, flexWrap: "wrap", margin: "38px 0 6px" }}>
           <div style={pill}>
             <button type="button" onClick={() => setCycle("monthly")} style={segBtn(!yearly)}>Monthly</button>
             <button type="button" onClick={() => setCycle("yearly")} style={segBtn(yearly)}>Yearly <span style={{ fontSize: 11, fontWeight: 700, color: yearly ? AD : "rgba(23,19,31,0.4)", marginLeft: 4 }}>save 10%</span></button>
           </div>
+          <div style={pill} role="group" aria-label="Currency">
+            <button type="button" onClick={() => setCurrency("GBP")} style={segBtn(currency === "GBP")}>£ GBP</button>
+            <button type="button" onClick={() => setCurrency("USD")} style={segBtn(currency === "USD")}>$ USD</button>
+          </div>
         </div>
+        <div style={{ textAlign: "center", fontSize: 11.5, color: "rgba(23,19,31,0.42)", marginBottom: 6 }}>Fixed USD pricing — set once, not a daily exchange-rate conversion.</div>
 
         {/* LEAD PICKER + CURRENCY */}
         <div style={{ maxWidth: 560, margin: "22px auto 42px", padding: "0 24px" }}>
