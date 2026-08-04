@@ -13,19 +13,25 @@ create table if not exists enquiries (
   id                      uuid primary key default gen_random_uuid(),
   org_id                  uuid not null references orgs(id) on delete cascade,
 
-  -- intake
-  channel                 text not null,              -- phone | sms | whatsapp | web_form | email | facebook_messenger | ...
-  source                  text,                       -- google_ads | organic_search | referral | direct | facebook_ads | existing_client | ...
-  ad_click_id             text,                       -- populated only for ad-sourced records (closed-loop attribution add-on)
+  -- intake. channel examples: phone, sms, whatsapp, web_form, email,
+  -- facebook_messenger. source examples: google_ads, organic_search,
+  -- referral, direct, facebook_ads, existing_client.
+  channel                 text not null,
+  source                  text,
+  -- ad_click_id: populated only for ad-sourced records (closed-loop
+  -- attribution add-on).
+  ad_click_id             text,
 
   -- dedup / merge (Duplicate Check + Record Merge nodes)
   is_duplicate            boolean not null default false,
   duplicate_of_enquiry_id uuid references enquiries(id) on delete set null,
-  merged                  boolean not null default false,  -- true once actually merged into its canonical record (subset of is_duplicate)
+  -- merged: true once actually merged into its canonical record (subset of is_duplicate)
+  merged                  boolean not null default false,
 
   -- first response
   first_response_at       timestamptz,
-  first_response_ooh      boolean not null default false,  -- sent outside configured business hours
+  -- first_response_ooh: sent outside configured business hours
+  first_response_ooh      boolean not null default false,
 
   -- missed-call recovery
   missed_call             boolean not null default false,
@@ -44,11 +50,11 @@ create index if not exists enquiries_dup_of_idx       on enquiries(duplicate_of_
 -- ─────────────────────────────────────────────────────────────────────────────
 -- WORKFLOW_EVENTS — one row per automation step firing. Deliberately generic
 -- (not just Capture): step_name is free text, not a check-constrained enum,
--- because later capabilities (Qualify/Book/Retain/Reactivate/Follow through —
--- see BUILD_MAP.md §3) append new step names here without another migration.
--- Capture's step names today:
---   channel_intake | source_attribution | duplicate_check | first_response
---   | record_merge | duplicate_reply_prevented | missed_call_textback | crm_write
+-- because later capabilities (Qualify, Book, Retain, Reactivate, Follow
+-- through — see BUILD_MAP.md section 3) append new step names here without
+-- another migration. Capture's step names today: channel_intake,
+-- source_attribution, duplicate_check, first_response, record_merge,
+-- duplicate_reply_prevented, missed_call_textback, crm_write.
 -- ─────────────────────────────────────────────────────────────────────────────
 create table if not exists workflow_events (
   id          uuid primary key default gen_random_uuid(),
