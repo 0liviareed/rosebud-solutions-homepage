@@ -14,7 +14,16 @@ function fmtSeconds(s: number | null): string {
 
 function fmtWhen(iso: string): string {
   const d = new Date(iso);
-  return d.toLocaleString("en-GB", { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" });
+  // Explicit UTC — without it, the server (UTC) and the browser (local
+  // timezone) render different text for the same timestamp, which is a
+  // hydration mismatch (React error #418), not just a display nuance.
+  return d.toLocaleString("en-GB", {
+    day: "numeric",
+    month: "short",
+    hour: "2-digit",
+    minute: "2-digit",
+    timeZone: "UTC",
+  });
 }
 
 export default function CaptureView({ metrics }: { metrics: CaptureMetrics }) {
@@ -90,7 +99,7 @@ export default function CaptureView({ metrics }: { metrics: CaptureMetrics }) {
           <table className={styles.table}>
             <thead>
               <tr>
-                <th>When</th>
+                <th>When (UTC)</th>
                 <th>Channel</th>
                 <th>Source</th>
                 <th>First response</th>
