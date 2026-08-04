@@ -743,8 +743,13 @@ body[data-sys="off"] .sys-panel{display:none}
 @media (max-width:780px){
   body{overflow:auto;height:auto;padding:0}
   .app{height:auto}
-  .shell{grid-template-columns:1fr;grid-template-rows:auto;overflow:visible}
-  .scroll,.insp{overflow:visible;min-height:0}
+  /* display:block (not a 1-track grid) — deliberately avoids animating
+     grid-template-columns across a track-count change (3 tracks on
+     desktop to 1 on mobile), which engines interpolate inconsistently
+     and is the suspected cause of a real-device width bug this fixes. */
+  .shell{display:block;transition:none;overflow:visible}
+  .mid{width:100%}
+  .scroll,.insp{overflow:visible;min-height:0;width:100%}
   .insp{border:0;border-bottom:1px solid var(--bd)}
   .fr{grid-template-columns:110px 1fr 56px}.fr-p{display:none}
   .split{grid-template-columns:1fr !important}
