@@ -1,11 +1,34 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
+import { createAppSupabaseMiddlewareClient } from '@/lib/appSupabaseSession';
 
 const ENGINE_HOST = 'engine.rosebud.global';
 
-export function middleware(request: NextRequest) {
+export async function middleware(request: NextRequest) {
   const host = request.headers.get('host') || '';
   const path = request.nextUrl.pathname;
+
+  // Real per-client auth for /app/* — the authenticated area built on the
+  // rosebud-app Supabase project (orgs/profiles/org_members/Auth), separate
+  // from the engine.rosebud.global demo gate below. Served on the apex
+  // (rosebud.global), not engine.rosebud.global, so it must run here,
+  // ahead of the ENGINE_HOST short-circuit further down — otherwise it
+  // would never fire for this host at all.
+  if (path === '/app' || path.startsWith('/app/')) {
+    if (path !== '/app/login') {
+      const { supabase, getResponse } = createAppSupabaseMiddlewareClient(request);
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
+      if (!user) {
+        const url = request.nextUrl.clone();
+        url.pathname = '/app/login';
+        url.searchParams.set('next', path);
+        return NextResponse.redirect(url);
+      }
+      return getResponse();
+    }
+  }
 
   // www → apex, 301, site-wide. Canonicalise every www request to the bare
   // domain (path + query preserved) so ranking signals consolidate on one host.

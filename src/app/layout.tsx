@@ -18,6 +18,7 @@ const BOTID_PROTECTED = [
   { path: "/api/pricing/enquiry", method: "POST" },
   { path: "/api/careers/sdr", method: "POST" },
   { path: "/api/login", method: "POST" },
+  { path: "/api/app/login", method: "POST" },
 ];
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import PostHogProvider from "@/components/PostHogProvider";
