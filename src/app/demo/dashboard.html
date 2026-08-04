@@ -119,6 +119,8 @@ body[data-sys="off"] .sys-panel{display:none}
 .railBtn svg{width:17px;height:17px;display:block}
 .rail-scrim{display:none;position:fixed;inset:0;z-index:110;background:rgba(23,19,31,.4);
   -webkit-backdrop-filter:blur(2px);backdrop-filter:blur(2px)}
+.insp-scrim{display:none;position:fixed;inset:0;z-index:110;background:rgba(23,19,31,.4);
+  -webkit-backdrop-filter:blur(2px);backdrop-filter:blur(2px)}
 
 /* rail */
 .rail{background:linear-gradient(180deg,var(--chrome) 0%,color-mix(in oklab,var(--chrome) 88%,var(--line)) 100%);
@@ -749,14 +751,7 @@ body[data-sys="off"] .sys-panel{display:none}
      and is the suspected cause of a real-device width bug this fixes. */
   .shell{display:block;transition:none;overflow:visible}
   .mid{width:100%}
-  .scroll,.insp{overflow:visible;min-height:0;width:100%}
-  .insp{border:0;border-bottom:1px solid var(--bd)}
-  /* Desktop's "shut" state only fades .insp out (opacity:0) because it
-     also collapses the grid column that reserved its width to 0 — an
-     animation that needs the element to still be there. On mobile
-     .shell isn't a grid anymore, so opacity:0 alone leaves its full
-     block height sitting there as an invisible gap below the footer. */
-  .shell.shut .insp{display:none}
+  .scroll{overflow:visible;min-height:0;width:100%}
   .fr{grid-template-columns:110px 1fr 56px}.fr-p{display:none}
   .split{grid-template-columns:1fr !important}
   .tb{height:auto;flex-wrap:wrap;padding:10px 14px;gap:8px 10px}
@@ -771,6 +766,17 @@ body[data-sys="off"] .sys-panel{display:none}
     box-shadow:24px 0 60px -20px rgba(23,19,31,.35)}
   .shell.rail-open .rail{transform:translateX(0)}
   .shell.rail-open .rail-scrim{display:block}
+
+  /* Details panel becomes a slide-in drawer from the right, mirroring
+     the rail. Being position:fixed it never reserves layout space
+     either way, so no "shut" display toggling is needed like before —
+     just the same transform-based fly-out as the rail. */
+  .insp{position:fixed;top:0;right:0;bottom:0;z-index:120;width:min(84vw,320px);
+    border-left:1px solid var(--line);border-bottom:0;
+    transform:translateX(100%);transition:transform .22s ease;
+    box-shadow:-24px 0 60px -20px rgba(23,19,31,.35);overflow-y:auto}
+  .shell:not(.shut) .insp{transform:translateX(0)}
+  .shell:not(.shut) .insp-scrim{display:block}
 }
 @media (prefers-reduced-motion:reduce){*{animation:none!important}.spark{display:none}}
 </style>
@@ -807,6 +813,7 @@ body[data-sys="off"] .sys-panel{display:none}
       <div class="scroll" id="scroll"></div>
     </div>
     <div class="insp" id="insp"></div>
+    <div class="insp-scrim" id="inspScrim"></div>
   </div>
 </div>
 
@@ -2565,7 +2572,9 @@ function setRail(open){
 }
 RAILBTN.onclick=function(){setRail(!SHELL.classList.contains('rail-open'))};
 RAILSCRIM.onclick=function(){setRail(false)};
-document.addEventListener('keydown',function(e){if(e.key==='Escape') setRail(false);});
+var INSPSCRIM=document.getElementById('inspScrim');
+INSPSCRIM.onclick=function(){setInsp(false)};
+document.addEventListener('keydown',function(e){if(e.key==='Escape'){setRail(false);setInsp(false);}});
 go('operation');
 
 </script>
