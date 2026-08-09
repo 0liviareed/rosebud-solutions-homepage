@@ -47,7 +47,7 @@ function CheckoutInner() {
     fetch("/api/checkout/capture", {
       method: "POST", headers: { "Content-Type": "application/json" },
       // Never send the password to the lead buffer — only the contact + config.
-      body: JSON.stringify({ first_name: form.first_name, last_name: form.last_name, email, phone: form.phone, plan: plan.key, cycle, currency, seats, cla: claOn, modules: mods, stage }),
+      body: JSON.stringify({ first_name: form.first_name, last_name: form.last_name, email, phone: form.phone, company: form.company, plan: plan.key, cycle, currency, seats, cla: claOn, modules: mods, stage }),
       keepalive: true,
     }).catch(() => {});
   }, [form, plan.key, cycle, currency, seats, claOn, mods]);
