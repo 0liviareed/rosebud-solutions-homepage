@@ -50,7 +50,6 @@ const KEYFRAMES = `
   .rb-sec-grid{ grid-template-columns:1fr !important; }
   .rb-sec-d-grid{ grid-template-columns:1fr !important; }
   .rb-sec-span2{ grid-column:auto !important; }
-  .rb-voice-card{ flex:0 0 84% !important; }
   .rb-close-sec{ height:auto !important; }
   .rb-close-pin{ position:relative !important; height:auto !important; overflow:visible !important; }
   .rb-close-stage{ position:relative !important; inset:auto !important; transform:none !important; box-shadow:none !important; padding:64px 18px 84px !important; }
@@ -113,17 +112,6 @@ function Verdict({ ok }: { ok: boolean }) {
   return <span style={{ fontSize: 12, fontWeight: 600, padding: "4px 12px", borderRadius: 999, minWidth: 78, textAlign: "center", background: ok ? "rgba(78,138,104,0.15)" : "rgba(23,19,31,0.06)", color: ok ? "#3F7A57" : "rgba(23,19,31,0.42)" }}>{ok ? "Allowed" : "Not allowed"}</span>;
 }
 
-const VOICES = [
-  { quote: "When something breaks, I message Anselm and he answers. That doesn't happen with agencies. You pay them and you're dealing with an account manager by week two.", name: "Eleanor Whitman", role: "Principal", ini: "EW" },
-  { quote: "This isn't just about automation. It's about creating a better, faster experience that still feels personal and thoughtful.", name: "James Holloway", role: "Multi-Site Operator", ini: "JH" },
-  { quote: "I used to do reporting on Sunday nights. I dreaded it. Now I open my laptop Monday morning and the week's already sorted. Honestly, getting my Sundays back was worth the fee on its own.", name: "Henry Caldwell", role: "Partner", ini: "HC" },
-  { quote: "I'd been telling myself I'd sort this out for two years. Five weeks with Rosebud and it was done. It's one of the only things I've paid for this year that made my job smaller instead of bigger.", name: "Richard Sinclair", role: "Operations Director", ini: "RS" },
-  { quote: "We had hundreds of leads sitting in a spreadsheet, not doing anything. Rosebud scored all of them, told us who was worth a call, and my team only talks to those ones now. It's obvious in hindsight but we'd never have built it ourselves.", name: "Margaret Ellsworth", role: "Founder & CEO", ini: "ME" },
-  { quote: "The thing that surprised me was the follow-ups sounded like me. Two people on calls last month mentioned how nice my emails were. I didn't write them — Rosebud did.", name: "Victoria Hastings", role: "Head of Marketing", ini: "VH" },
-  { quote: "I thought if I wasn't chasing, deals would die. But we closed two in the last quarter from people I'd given up on months ago. Rosebud was still in touch with them when I wasn't.", name: "Edward Harrington", role: "Managing Director", ini: "EH" },
-  { quote: "My phone used to ring before I'd finished my first coffee. Now I open my inbox and three calls are already on my calendar. I just read the notes and show up.", name: "Thomas Ashford", role: "Operations Director", ini: "TA" },
-];
-
 const SERVICES = [
   { label: "Capture", d: ["M4 14l2-8h12l2 8", "M4 14h4l1.5 2.5h5L16 14h4v5H4z"] },
   { label: "Qualify", d: ["M4 5h16l-6 7v6l-4 2v-8z"] },
@@ -141,10 +129,8 @@ export default function HomepageV2() {
   const navBar = useRef<HTMLDivElement>(null);
   const wfBox = useRef<HTMLDivElement>(null);
   const wfInner = useRef<HTMLDivElement>(null);
-  const voiceTrack = useRef<HTMLDivElement>(null);
   const closeWrap = useRef<HTMLElement>(null);
   const closeStage = useRef<HTMLDivElement>(null);
-  const [voiceIdx, setVoiceIdx] = useState(0);
   // Desktop hover menus (Product / Connections / Resources). A short close
   // delay lets the pointer travel from the trigger into the panel.
   const [openMenu, setOpenMenu] = useState<null | "product" | "connections" | "resources">(null);
@@ -155,7 +141,6 @@ export default function HomepageV2() {
   const panelLeft = (w: number) => { const vw = typeof window !== "undefined" ? window.innerWidth : 1440; const half = Math.min(w, vw - 40) / 2; return Math.max(16 + half, Math.min(menuAnchor, vw - 16 - half)); };
   const cancelClose = () => { if (menuTimer.current) window.clearTimeout(menuTimer.current); };
   const scheduleClose = () => { if (menuTimer.current) window.clearTimeout(menuTimer.current); menuTimer.current = window.setTimeout(() => setOpenMenu(null), 140); };
-  const touchX = useRef<number | null>(null);
 
   // staggered reveal for industry cards
   useEffect(() => {
@@ -187,19 +172,6 @@ export default function HomepageV2() {
     return () => ro.disconnect();
   }, []);
 
-  // voices carousel — slide the track to the active index
-  useEffect(() => {
-    const apply = () => {
-      const t = voiceTrack.current;
-      if (!t || !t.children.length) return;
-      const step = (t.children[0] as HTMLElement).getBoundingClientRect().width + 20;
-      t.style.transform = `translateX(-${voiceIdx * step}px)`;
-    };
-    apply();
-    const id = window.setTimeout(apply, 300);
-    window.addEventListener("resize", apply);
-    return () => { window.clearTimeout(id); window.removeEventListener("resize", apply); };
-  }, [voiceIdx]);
 
 
   // Nav solidifies once you scroll off the hero.
@@ -514,68 +486,6 @@ export default function HomepageV2() {
                   <div style={{ fontSize: 14, lineHeight: 1.62, color: "rgba(23,19,31,0.6)", marginTop: 8, maxWidth: "32ch" }}>{y.line}</div>
                 </div>
               ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* VOICES */}
-      <section className="rb-pad" style={{ position: "relative", overflow: "hidden", background: "#080609", color: "#F5F1EA", padding: "130px 48px" }}>
-        <div aria-hidden style={{ position: "absolute", inset: 0, overflow: "hidden" }}>
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/assets/topo.jpg" alt="" style={{ position: "absolute", inset: "-4%", width: "108%", height: "108%", objectFit: "cover", filter: "brightness(0.4) saturate(0.85)" }} />
-          <div style={{ position: "absolute", inset: 0, background: "radial-gradient(120% 90% at 50% 40%, rgba(8,6,10,0.55) 0%, rgba(8,6,10,0.82) 65%, #080609 100%)" }} />
-        </div>
-        <div style={{ position: "relative", zIndex: 1, maxWidth: 1220, margin: "0 auto" }}>
-          <div style={{ fontSize: 12, letterSpacing: ".28em", textTransform: "uppercase", color: "#B8AEDB", marginBottom: 18 }}>Voices</div>
-          <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between", gap: 24, flexWrap: "wrap" }}>
-            <h2 style={{ fontFamily: SERIF, fontWeight: 500, fontSize: "clamp(40px,5vw,74px)", lineHeight: 1.0, letterSpacing: "-0.01em", margin: 0 }}>In their words, not ours</h2>
-            <div style={{ display: "inline-flex", alignItems: "center", borderRadius: 999, background: "rgba(255,255,255,0.06)", backdropFilter: "blur(10px)", WebkitBackdropFilter: "blur(10px)", border: "1px solid rgba(255,255,255,0.16)", overflow: "hidden" }}>
-              <button type="button" onClick={() => setVoiceIdx((i) => Math.max(0, i - 1))} aria-label="Previous" style={{ width: 56, height: 50, background: "transparent", border: "none", color: "#B8AEDB", display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer", opacity: voiceIdx <= 0 ? 0.3 : 1 }}>
-                <svg viewBox="0 0 42 12" width="24" height="10" fill="none" style={{ overflow: "visible" }}><path d="M42 6 L10 6" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" /><path d="M16 1.5 L10 6 L16 10.5" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" /></svg>
-              </button>
-              <span style={{ width: 1, height: 26, background: "rgba(255,255,255,0.16)" }} />
-              <button type="button" onClick={() => setVoiceIdx((i) => Math.min(VOICES.length - 2, i + 1))} aria-label="Next" style={{ width: 56, height: 50, background: "transparent", border: "none", color: "#B8AEDB", display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer", opacity: voiceIdx >= VOICES.length - 2 ? 0.3 : 1 }}>
-                <svg viewBox="0 0 42 12" width="24" height="10" fill="none" style={{ overflow: "visible" }}><path d="M0 6 L32 6" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" /><path d="M26 1.5 L32 6 L26 10.5" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" /></svg>
-              </button>
-            </div>
-          </div>
-          <div
-            style={{ marginTop: 44, overflow: "hidden" }}
-            onTouchStart={(e) => { touchX.current = e.touches[0].clientX; }}
-            onTouchEnd={(e) => {
-              if (touchX.current == null) return;
-              const dx = e.changedTouches[0].clientX - touchX.current;
-              touchX.current = null;
-              if (dx < -40) setVoiceIdx((i) => Math.min(VOICES.length - 2, i + 1));
-              else if (dx > 40) setVoiceIdx((i) => Math.max(0, i - 1));
-            }}
-          >
-            <div ref={voiceTrack} style={{ display: "flex", gap: 20, transition: "transform 0.7s cubic-bezier(.16,1,.3,1)" }}>
-              {VOICES.map((v, i) => {
-                const focused = i === voiceIdx || i === voiceIdx + 1;
-                return (
-                  <div key={i} className="rb-voice-card" style={{ flex: "0 0 46%", opacity: focused ? 1 : 0.42, transform: focused ? "none" : "scale(0.94)", transition: "opacity 0.5s ease, transform 0.5s ease", transformOrigin: "center" }}>
-                    <div style={{ position: "relative", height: "100%", minHeight: 360, background: "rgba(20,16,26,0.55)", backdropFilter: "blur(16px)", WebkitBackdropFilter: "blur(16px)", border: "1px solid rgba(184,174,219,0.16)", boxShadow: "0 30px 66px -34px rgba(0,0,0,0.85), inset 0 1px 0 rgba(255,255,255,0.08)", borderRadius: 22, padding: "36px 34px", display: "flex", flexDirection: "column" }}>
-                      <div style={{ fontFamily: SERIF, fontSize: 60, lineHeight: 0.8, color: "rgba(184,174,219,0.5)", height: 34 }}>&ldquo;</div>
-                      <div style={{ fontFamily: SERIF, fontSize: 22, lineHeight: 1.4, color: "#EDE9F5", marginTop: 14, flex: 1 }}>{v.quote}</div>
-                      <div style={{ marginTop: 30, paddingTop: 22, borderTop: "1px solid rgba(255,255,255,0.1)", display: "flex", alignItems: "center", gap: 14 }}>
-                        <span style={{ width: 44, height: 44, flex: "none", borderRadius: 999, background: "rgba(139,125,216,0.16)", border: "1px solid rgba(184,174,219,0.28)", display: "flex", alignItems: "center", justifyContent: "center", fontFamily: SERIF, fontStyle: "italic", fontSize: 15, color: "#C7BEE8" }}>{v.ini}</span>
-                        <div>
-                          <div style={{ fontSize: 12.5, letterSpacing: ".12em", textTransform: "uppercase", color: "#F5F1EA" }}>{v.name}</div>
-                          <div style={{ fontFamily: SERIF, fontStyle: "italic", fontSize: 14, color: "rgba(245,241,234,0.55)", marginTop: 3 }}>{v.role}</div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-          <div style={{ marginTop: 34, display: "flex", alignItems: "center", gap: 18, justifyContent: "center" }}>
-            <div style={{ fontFamily: SERIF, fontSize: 20, letterSpacing: ".04em", color: "#B8AEDB" }}>{`${voiceIdx + 1 < 10 ? "0" : ""}${voiceIdx + 1} — 0${VOICES.length}`}</div>
-            <div style={{ width: 200, height: 2, background: "rgba(255,255,255,0.14)", borderRadius: 2, overflow: "hidden" }}>
-              <div style={{ height: "100%", background: "#B8AEDB", borderRadius: 2, width: `${((voiceIdx + 1) / (VOICES.length - 1)) * 100}%`, transition: "width 0.6s cubic-bezier(.16,1,.3,1)" }} />
             </div>
           </div>
         </div>

@@ -10,7 +10,7 @@ import {
   type DeepBlock,
   DEEP_CTAS,
   SIBLINGS, SIBLING_SUBLABEL, LIVE_SLUGS,
-  NAV_CAPABILITIES, NAV_RESOURCES, INT_LOGOS, VOICES, CAP_FAQS,
+  NAV_CAPABILITIES, NAV_RESOURCES, INT_LOGOS, CAP_FAQS,
 } from "./capabilityData";
 import { INDUSTRY_LINKS } from "./industryData";
 
@@ -28,7 +28,6 @@ const CSS = `
   .rb-cap-hero-grid, .rb-cap-deep-grid { grid-template-columns: 1fr !important; gap: 40px !important; }
   .rb-cap-deep-graphic { order: 2; }
   .rb-cap-works-panels { grid-template-columns: 1fr !important; }
-  .rb-cap-voicecard { flex: 0 0 84% !important; }
   .rb-cap-pad { padding-left: 20px !important; padding-right: 20px !important; }
   /* disable the scroll "frame-out" boxes below the desktop grid → plain stacked sections (no 100vh gaps) */
   .rb-caphero-wrap { height: auto !important; }
@@ -48,10 +47,8 @@ const CSS = `
 
 export default function CapabilityPage({ data }: { data: CapabilityData }) {
   const navBar = useRef<HTMLDivElement>(null);
-  const voiceTrack = useRef<HTMLDivElement>(null);
   const [openMenu, setOpenMenu] = useState<null | "product" | "connections" | "resources">(null);
   const [siblingOpen, setSiblingOpen] = useState(false);
-  const [voiceIdx, setVoiceIdx] = useState(0);
   const menuTimer = useRef<number | null>(null);
   const [menuAnchor, setMenuAnchor] = useState(0); // hovered trigger's left edge (viewport px)
   const heroWrap = useRef<HTMLDivElement>(null);
@@ -107,13 +104,6 @@ export default function CapabilityPage({ data }: { data: CapabilityData }) {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // Voices carousel — translate track by focused-card width + gap.
-  useEffect(() => {
-    const t = voiceTrack.current;
-    if (!t || !t.children.length) return;
-    const step = (t.children[0] as HTMLElement).getBoundingClientRect().width + 20;
-    t.style.transform = `translateX(-${voiceIdx * step}px)`;
-  }, [voiceIdx]);
 
   // Scroll "frame-out" boxes — the hero and the close each scale down + round
   // (and the close casts a growing shadow) as you scroll through, mirroring the
@@ -165,13 +155,6 @@ export default function CapabilityPage({ data }: { data: CapabilityData }) {
 
   const logosA = INT_LOGOS.slice(0, Math.ceil(INT_LOGOS.length / 2));
   const logosB = INT_LOGOS.slice(Math.ceil(INT_LOGOS.length / 2));
-
-  // Same full testimonial set on every capability page, just rotated to a
-  // different starting point (by the capability's position) so the order varies
-  // page to page rather than reading identically everywhere.
-  const ci = Math.max(0, [...LIVE_SLUGS].indexOf(data.slug));
-  const voices = VOICES.map((_, i) => VOICES[(ci + i) % VOICES.length]);
-  const maxIdx = voices.length - 2;
 
   const faqs = CAP_FAQS[data.slug] ?? [];
   const serviceSchema = {
@@ -404,54 +387,6 @@ export default function CapabilityPage({ data }: { data: CapabilityData }) {
               </div>
             );
           })}
-        </div>
-      </section>
-
-      {/* ===================== VOICES ===================== */}
-      <section className="rb-cap-pad" style={{ position: "relative", overflow: "hidden", background: "#080609", padding: "140px 48px" }}>
-        <div aria-hidden style={{ position: "absolute", inset: 0, overflow: "hidden" }}>
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/assets/topo.jpg" alt="" style={{ position: "absolute", inset: "-4%", width: "108%", height: "108%", objectFit: "cover", filter: "brightness(0.4) saturate(0.85)" }} />
-          <div style={{ position: "absolute", inset: 0, background: "radial-gradient(120% 90% at 50% 40%, rgba(8,6,10,0.55) 0%, rgba(8,6,10,0.82) 65%, #080609 100%)" }} />
-        </div>
-        <div style={{ position: "relative", zIndex: 1, maxWidth: 1220, margin: "0 auto" }}>
-          <div style={{ fontSize: 12, letterSpacing: ".28em", textTransform: "uppercase", color: "#B8AEDB", marginBottom: 18 }}>Voices</div>
-          <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between", gap: 24, flexWrap: "wrap" }}>
-            <h2 style={{ fontFamily: SERIF, fontWeight: 500, fontSize: "clamp(40px,5vw,74px)", lineHeight: 1.0, letterSpacing: "-0.01em", margin: 0, color: "#F5F1EA" }}>In their words, not ours</h2>
-            <div style={{ display: "inline-flex", alignItems: "center", borderRadius: 999, background: "rgba(255,255,255,0.06)", backdropFilter: "blur(10px)", WebkitBackdropFilter: "blur(10px)", border: "1px solid rgba(255,255,255,0.16)", overflow: "hidden" }}>
-              <button type="button" onClick={() => setVoiceIdx((i) => Math.max(0, i - 1))} aria-label="Previous" style={{ width: 56, height: 50, background: "transparent", border: "none", color: "#B8AEDB", display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer", opacity: voiceIdx <= 0 ? 0.3 : 1 }}>←</button>
-              <span style={{ width: 1, height: 26, background: "rgba(255,255,255,0.16)" }} />
-              <button type="button" onClick={() => setVoiceIdx((i) => Math.min(maxIdx, i + 1))} aria-label="Next" style={{ width: 56, height: 50, background: "transparent", border: "none", color: "#B8AEDB", display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer", opacity: voiceIdx >= maxIdx ? 0.3 : 1 }}>→</button>
-            </div>
-          </div>
-          <div style={{ marginTop: 28, overflow: "hidden" }}>
-            <div ref={voiceTrack} style={{ display: "flex", gap: 20, transition: "transform 0.7s cubic-bezier(.16,1,.3,1)" }}>
-              {voices.map((v, i) => {
-                const focused = i === voiceIdx || i === voiceIdx + 1;
-                return (
-                  <div key={i} className="rb-cap-voicecard" style={{ flex: "0 0 46%", opacity: focused ? 1 : 0.42, transform: focused ? "none" : "scale(0.94)", transition: "opacity 0.5s ease, transform 0.5s ease" }}>
-                    <div style={{ position: "relative", height: "100%", minHeight: 360, background: "rgba(20,16,26,0.55)", backdropFilter: "blur(16px)", WebkitBackdropFilter: "blur(16px)", border: "1px solid rgba(184,174,219,0.16)", boxShadow: "0 30px 66px -34px rgba(0,0,0,0.85), inset 0 1px 0 rgba(255,255,255,0.08)", borderRadius: 22, padding: "36px 34px", display: "flex", flexDirection: "column" }}>
-                      <div style={{ fontFamily: SERIF, fontSize: 60, lineHeight: 0.8, color: "rgba(184,174,219,0.5)", height: 34 }}>“</div>
-                      <div style={{ fontFamily: SERIF, fontStyle: "italic", fontSize: 22, lineHeight: 1.4, color: "#EDE9F5", marginTop: 14, flex: 1 }}>{v.quote}</div>
-                      <div style={{ marginTop: 30, paddingTop: 22, borderTop: "1px solid rgba(255,255,255,0.1)", display: "flex", alignItems: "center", gap: 14 }}>
-                        <span style={{ width: 44, height: 44, flex: "none", borderRadius: 999, background: "rgba(139,125,216,0.16)", border: "1px solid rgba(184,174,219,0.28)", display: "flex", alignItems: "center", justifyContent: "center", fontFamily: SERIF, fontStyle: "italic", fontSize: 15, color: "#C7BEE8" }}>{v.ini}</span>
-                        <div>
-                          <div style={{ fontSize: 12.5, letterSpacing: ".12em", textTransform: "uppercase", color: "#F5F1EA" }}>{v.name}</div>
-                          <div style={{ fontFamily: SERIF, fontStyle: "italic", fontSize: 14, color: "rgba(245,241,234,0.55)", marginTop: 3 }}>{v.role}</div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-          <div style={{ marginTop: 34, display: "flex", alignItems: "center", gap: 18, justifyContent: "center" }}>
-            <div style={{ fontFamily: SERIF, fontSize: 20, letterSpacing: ".04em", color: "#B8AEDB" }}>{String(voiceIdx + 1).padStart(2, "0")} — {String(voices.length).padStart(2, "0")}</div>
-            <div style={{ width: 200, height: 2, background: "rgba(255,255,255,0.14)", borderRadius: 2, overflow: "hidden" }}>
-              <div style={{ height: "100%", background: "#B8AEDB", borderRadius: 2, width: `${((voiceIdx + 1) / maxIdx) * 100}%`, transition: "width 0.6s cubic-bezier(.16,1,.3,1)" }} />
-            </div>
-          </div>
         </div>
       </section>
 

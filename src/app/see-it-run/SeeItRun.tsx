@@ -17,16 +17,17 @@ import { track } from "@/lib/analytics";
  * captured by PostHog's $pageview; we also fire an explicit see_it_run_view
  * event carrying utm_* so it's directly filterable on the /site dashboard.
  *
- * Proof facts trace to Rosebud's anonymised case studies. Swap sector labels
- * for client names + logos once non-anonymised.
+ * Proof entries are anonymised, sector-labelled case studies only — no named
+ * individual attached to a quote. Named testimonials (Harrington/Ashford/
+ * Sinclair) were removed 2026-08-10: fabricated client names/quotes, same
+ * issue flagged sitewide in the industry-pages SEO brief. Only swap in a
+ * named person + quote here once it's a real, verifiable client who agreed
+ * to be quoted — not before.
  */
 
 const PROOF = [
-  { tag: "Edward Harrington", role: "Managing Director", quote: "I thought if I wasn't chasing, deals would die. We closed two last quarter from people I'd given up on months ago. Rosebud was still in touch with them when I wasn't.", stat: "2", unit: "deals closed from leads he'd written off" },
-  { tag: "Thomas Ashford", role: "Operations Director", quote: "My phone used to ring before I'd finished my first coffee. Now I open my inbox and three calls are already on my calendar. I just read the notes and show up.", stat: "3", unit: "calls booked before his first coffee" },
   { tag: "Life insurance", role: "Case study", quote: "No outbound, no website, every inbound handled by hand. Now the outreach runs on its own, every month.", stat: "15,000", unit: "touches a month, automatic" },
   { tag: "Recruitment", role: "Case study", quote: "100 applications, 3 worth reading. The owner defines the role once and reviews a pre-screened shortlist. The system does the rest.", stat: "15 hrs", unit: "back a week, per role" },
-  { tag: "Richard Sinclair", role: "Operations Director", quote: "Five weeks with Rosebud and it was done. It's one of the only things I've paid for this year that made my job smaller instead of bigger.", stat: "5 wks", unit: "from first call to live" },
 ];
 
 const SECTORS = ["Life insurance", "Recruitment", "Real estate", "Mortgage & lending", "Dental & healthcare", "Trades", "Family law"];

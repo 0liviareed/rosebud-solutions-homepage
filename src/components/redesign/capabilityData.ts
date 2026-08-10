@@ -1,5 +1,5 @@
 // Data for the /capabilities/[slug] template (design: "Capture Page"). Sections
-// 00 switcher, 05 voices, 06 close chrome are identical across every capability;
+// 00 switcher and close chrome are identical across every capability;
 // 01–04 are per-capability content.
 
 export type DeepBlock = { num: string; kicker: string; title: string; body: string };
@@ -76,17 +76,6 @@ export const INT_INDUSTRIES = [
   "Dental, Aesthetics & Healthcare",
   "Legal & Professional Services",
   "Mortgage & Financial Services",
-];
-
-export const VOICES = [
-  { quote: "When something breaks, I message Anselm and he answers. That doesn't happen with agencies. You pay them and you're dealing with an account manager by week two.", name: "Eleanor Whitman", role: "Principal", ini: "EW" },
-  { quote: "This isn't just about automation. It's about creating a better, faster experience that still feels personal and thoughtful.", name: "James Holloway", role: "Multi-Site Operator", ini: "JH" },
-  { quote: "I used to do reporting on Sunday nights. I dreaded it. Now I open my laptop Monday morning and the week's already sorted. Getting my Sundays back was worth the fee on its own.", name: "Henry Caldwell", role: "Partner", ini: "HC" },
-  { quote: "I'd been telling myself I'd sort this out for two years. Five weeks with Rosebud and it was done. One of the only things I've paid for this year that made my job smaller instead of bigger.", name: "Richard Sinclair", role: "Operations Director", ini: "RS" },
-  { quote: "We had hundreds of leads sitting in a spreadsheet, not doing anything. Rosebud scored all of them, told us who was worth a call, and my team only talks to those ones now.", name: "Margaret Ellsworth", role: "Founder & CEO", ini: "ME" },
-  { quote: "The thing that surprised me was the follow-ups sounded like me. Two people on calls last month mentioned how nice my emails were. I didn't write them, Rosebud did.", name: "Victoria Hastings", role: "Head of Marketing", ini: "VH" },
-  { quote: "I thought if I wasn't chasing, deals would die. But we closed two last quarter from people I'd given up on months ago. Rosebud was still in touch when I wasn't.", name: "Edward Harrington", role: "Managing Director", ini: "EH" },
-  { quote: "My phone used to ring before I'd finished my first coffee. Now I open my inbox and three calls are already on my calendar. I just read the notes and show up.", name: "Thomas Ashford", role: "Operations Director", ini: "TA" },
 ];
 
 // ── Per-capability content ───────────────────────────────────────────────────
