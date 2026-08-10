@@ -7,7 +7,7 @@ import { TRADES_STAGE } from "@/components/redesign/industryStageData";
 // the visual reference for the industry-page family. Preview (redesign branch)
 // only until the layout + copy are signed off.
 export const metadata: Metadata = {
-  title: TRADES_STAGE.seo.title,
+  title: { absolute: TRADES_STAGE.seo.title },
   description: TRADES_STAGE.seo.description,
   alternates: { canonical: "/industries/trades-home-services" },
   openGraph: {

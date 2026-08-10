@@ -6,7 +6,7 @@ import { MORTGAGE_STAGE } from "@/components/redesign/industryStageData";
 // the lender vertical. Scenes are placeholders until supplied PNGs land in
 // /assets/industries/mortgage-lending/. Preview only until layout + copy sign-off.
 export const metadata: Metadata = {
-  title: MORTGAGE_STAGE.seo.title,
+  title: { absolute: MORTGAGE_STAGE.seo.title },
   description: MORTGAGE_STAGE.seo.description,
   alternates: { canonical: "/industries/mortgage-lending" },
   openGraph: {

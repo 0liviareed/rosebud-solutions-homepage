@@ -7,7 +7,7 @@ import { FAMILY_LAW_STAGE } from "@/components/redesign/industryStageData";
 // boundary block. Copy is drafted off the approved mockup; it does NOT ship to
 // production (main) until Saj + Jay sign off. Preview (redesign branch) only.
 export const metadata: Metadata = {
-  title: FAMILY_LAW_STAGE.seo.title,
+  title: { absolute: FAMILY_LAW_STAGE.seo.title },
   description: FAMILY_LAW_STAGE.seo.description,
   alternates: { canonical: "/industries/family-law" },
   openGraph: {

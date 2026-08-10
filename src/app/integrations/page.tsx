@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import IntegrationsPage from "@/components/redesign/IntegrationsPage";
 
 export const metadata: Metadata = {
-  title: "Integrations — Connect Rosebud to the software you already use | Rosebud Solutions",
+  title: { absolute: "Integrations — Connect Rosebud to the software you already use | Rosebud Solutions" },
   description:
     "Rosebud connects to the CRM, calendar and messaging you already run — including Zoho, Google Calendar, Cal.com, Brevo and Twilio — with more on the roadmap. No second dashboard, no rip-and-replace.",
   alternates: { canonical: "/integrations" },

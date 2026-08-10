@@ -6,7 +6,7 @@ import { INSURANCE_STAGE } from "@/components/redesign/industryStageData";
 // agency vertical. Scenes are placeholders until supplied PNGs land in
 // /assets/industries/insurance/. Preview only until layout + copy sign-off.
 export const metadata: Metadata = {
-  title: INSURANCE_STAGE.seo.title,
+  title: { absolute: INSURANCE_STAGE.seo.title },
   description: INSURANCE_STAGE.seo.description,
   alternates: { canonical: "/industries/insurance" },
   openGraph: {

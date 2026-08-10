@@ -6,7 +6,7 @@ import { HEALTHCARE_STAGE } from "@/components/redesign/industryStageData";
 // 301 in next.config). Copy targets patient intake software for dental /
 // aesthetic / private-healthcare practices. Preview only until sign-off.
 export const metadata: Metadata = {
-  title: HEALTHCARE_STAGE.seo.title,
+  title: { absolute: HEALTHCARE_STAGE.seo.title },
   description: HEALTHCARE_STAGE.seo.description,
   alternates: { canonical: "/industries/dental-aesthetic" },
   openGraph: {
