@@ -11,20 +11,6 @@ import { INDUSTRY_LINKS } from "./industryData";
 
 const A = "#8B7DD8";
 
-// Homepage-only anchor text for the industry chips — scoped here rather than
-// on INDUSTRY_LINKS.name, which the capability pages' "how businesses like
-// yours use Rosebud" section also reads (plain category label is correct
-// there). Each phrase matches that page's current live target term, kept
-// natural rather than exact-match-stuffed identically across all six.
-const INDUSTRY_ANCHOR_TEXT: Record<string, string> = {
-  "dental-aesthetic": "Dental & aesthetic — patient intake & dental CRM",
-  "family-law": "Family law — legal intake software",
-  "trades-home-services": "Trades — plumbing & HVAC CRM",
-  "mortgage-lending": "Mortgage & lending — mortgage CRM for loan officers",
-  insurance: "Insurance — agency CRM & lead intake",
-  "real-estate": "Real estate — lead & transaction management",
-};
-
 /* Rosebud homepage redesign (tool launch). Faithful port of the design export.
    Section 1 of N: nav + scroll-choreographed hero. More sections land next. */
 
@@ -396,6 +382,29 @@ export default function HomepageV2() {
 
       <div id="integrations" style={{ scrollMarginTop: 80 }}><Integrations /></div>
 
+      {/* Reuses the capability-page "how businesses like yours use Rosebud"
+          pattern verbatim (same eyebrow, same plain category names, same
+          quiet underlined-link row — CapabilityPage.tsx) rather than the
+          titled card-grid this replaced. Color-adapted for dark (this
+          component's own background is #080609; the capability-page source
+          this is copied from sits on a light section) — structure and copy
+          are the verbatim part, not the hex values. Own section rather than
+          editing the shared Integrations.tsx, since that component also
+          renders on /integrations, which already has its own distinct
+          industry-links treatment. */}
+      <section style={{ position: "relative", background: "#080609", color: "#F5F1EA", padding: "0 48px 90px" }}>
+        <div style={{ maxWidth: 1180, margin: "0 auto", textAlign: "center" }}>
+          <div style={{ fontSize: 12, letterSpacing: ".28em", textTransform: "uppercase", color: "rgba(184,174,219,0.65)", marginBottom: 18 }}>How businesses like yours use Rosebud</div>
+          <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "center", gap: "12px 28px" }}>
+            {INDUSTRY_LINKS.map((ind) => (
+              <a key={ind.slug} href={`/industries/${ind.slug}`} style={{ fontSize: 14.5, fontWeight: 500, letterSpacing: ".01em", color: "#EDE9F5", textDecoration: "underline", textUnderlineOffset: "4px", textDecorationColor: "rgba(184,174,219,0.45)", textDecorationThickness: "1px" }}>
+                {ind.name}
+              </a>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* SECURITY / COMPLIANCE bento */}
       <section data-navtheme="light" className="rb-pad" style={{ position: "relative", overflow: "hidden", background: "#EDEBF3", color: "#17131F", padding: "120px 48px" }}>
         <div style={{ position: "relative", zIndex: 1, maxWidth: 1180, margin: "0 auto" }}>
@@ -502,42 +511,6 @@ export default function HomepageV2() {
                 </div>
               ))}
             </div>
-          </div>
-        </div>
-      </section>
-
-      {/* INDUSTRIES — real crawlable links to all 6 /industries/* pages. Added
-          2026-08-10: Ahrefs showed only 2 inbound internal links to the
-          dental page (should be ~7+) — this was the missing hub, not a
-          hidden-but-crawlable-chips bug as first suspected; the section had
-          been removed from the homepage entirely (data-ind-card/.rb-ind-grid
-          below were dead CSS/JS left over from it).
-
-          Anchor text is deliberately NOT the plain INDUSTRY_LINKS.name (used
-          as-is on the capability pages' "how businesses like yours use
-          Rosebud" section, where the category label reads fine) — Ahrefs'
-          own Opportunities screen flags descriptive-only anchors, and
-          internal anchor text is one of the few ranking signals fully in
-          our control. Each phrase below matches that page's current live
-          target term, natural phrasing, not exact-match-stuffed identically
-          across all six. See INDUSTRY_ANCHOR_TEXT below. */}
-      <section data-navtheme="light" className="rb-pad" style={{ position: "relative", background: "#EDEBF3", color: "#17131F", padding: "100px 48px" }}>
-        <div style={{ position: "relative", zIndex: 1, maxWidth: 1180, margin: "0 auto" }}>
-          <div style={{ fontSize: 12, letterSpacing: ".28em", textTransform: "uppercase", color: "#8B7DD8", marginBottom: 18 }}>Built for your industry</div>
-          <h2 style={{ fontFamily: SERIF, fontWeight: 500, fontSize: "clamp(34px,4.2vw,54px)", lineHeight: 1.05, letterSpacing: "-0.01em", margin: 0, maxWidth: "18ch" }}>See how it runs in yours</h2>
-          <div className="rb-ind-grid" style={{ marginTop: 40, display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 14 }}>
-            {INDUSTRY_LINKS.map((ind) => (
-              <a
-                key={ind.slug}
-                href={`/industries/${ind.slug}`}
-                data-ind-card
-                className="rb-ind-card"
-                style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12, padding: "22px 24px", borderRadius: 16, background: "rgba(255,255,255,0.6)", backdropFilter: "blur(10px)", WebkitBackdropFilter: "blur(10px)", border: "1px solid rgba(255,255,255,0.7)", boxShadow: "0 20px 44px -30px rgba(23,19,31,0.35)", textDecoration: "none", color: "#17131F" }}
-              >
-                <span style={{ fontFamily: SERIF, fontSize: 17, lineHeight: 1.3, fontWeight: 500 }}>{INDUSTRY_ANCHOR_TEXT[ind.slug] ?? ind.name}</span>
-                <span aria-hidden style={{ flex: "none", color: "#8B7DD8", fontSize: 18 }}>→</span>
-              </a>
-            ))}
           </div>
         </div>
       </section>
