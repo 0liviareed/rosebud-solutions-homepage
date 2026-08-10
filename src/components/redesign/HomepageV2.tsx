@@ -11,6 +11,20 @@ import { INDUSTRY_LINKS } from "./industryData";
 
 const A = "#8B7DD8";
 
+// Homepage-only anchor text for the industry chips — scoped here rather than
+// on INDUSTRY_LINKS.name, which the capability pages' "how businesses like
+// yours use Rosebud" section also reads (plain category label is correct
+// there). Each phrase matches that page's current live target term, kept
+// natural rather than exact-match-stuffed identically across all six.
+const INDUSTRY_ANCHOR_TEXT: Record<string, string> = {
+  "dental-aesthetic": "Dental & aesthetic — patient intake & dental CRM",
+  "family-law": "Family law — legal intake software",
+  "trades-home-services": "Trades — plumbing & HVAC CRM",
+  "mortgage-lending": "Mortgage & lending — mortgage CRM for loan officers",
+  insurance: "Insurance — agency CRM & lead intake",
+  "real-estate": "Real estate — lead & transaction management",
+};
+
 /* Rosebud homepage redesign (tool launch). Faithful port of the design export.
    Section 1 of N: nav + scroll-choreographed hero. More sections land next. */
 
@@ -497,7 +511,16 @@ export default function HomepageV2() {
           dental page (should be ~7+) — this was the missing hub, not a
           hidden-but-crawlable-chips bug as first suspected; the section had
           been removed from the homepage entirely (data-ind-card/.rb-ind-grid
-          below were dead CSS/JS left over from it). */}
+          below were dead CSS/JS left over from it).
+
+          Anchor text is deliberately NOT the plain INDUSTRY_LINKS.name (used
+          as-is on the capability pages' "how businesses like yours use
+          Rosebud" section, where the category label reads fine) — Ahrefs'
+          own Opportunities screen flags descriptive-only anchors, and
+          internal anchor text is one of the few ranking signals fully in
+          our control. Each phrase below matches that page's current live
+          target term, natural phrasing, not exact-match-stuffed identically
+          across all six. See INDUSTRY_ANCHOR_TEXT below. */}
       <section data-navtheme="light" className="rb-pad" style={{ position: "relative", background: "#EDEBF3", color: "#17131F", padding: "100px 48px" }}>
         <div style={{ position: "relative", zIndex: 1, maxWidth: 1180, margin: "0 auto" }}>
           <div style={{ fontSize: 12, letterSpacing: ".28em", textTransform: "uppercase", color: "#8B7DD8", marginBottom: 18 }}>Built for your industry</div>
@@ -511,7 +534,7 @@ export default function HomepageV2() {
                 className="rb-ind-card"
                 style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12, padding: "22px 24px", borderRadius: 16, background: "rgba(255,255,255,0.6)", backdropFilter: "blur(10px)", WebkitBackdropFilter: "blur(10px)", border: "1px solid rgba(255,255,255,0.7)", boxShadow: "0 20px 44px -30px rgba(23,19,31,0.35)", textDecoration: "none", color: "#17131F" }}
               >
-                <span style={{ fontFamily: SERIF, fontSize: 17, lineHeight: 1.3, fontWeight: 500 }}>{ind.name}</span>
+                <span style={{ fontFamily: SERIF, fontSize: 17, lineHeight: 1.3, fontWeight: 500 }}>{INDUSTRY_ANCHOR_TEXT[ind.slug] ?? ind.name}</span>
                 <span aria-hidden style={{ flex: "none", color: "#8B7DD8", fontSize: 18 }}>→</span>
               </a>
             ))}
