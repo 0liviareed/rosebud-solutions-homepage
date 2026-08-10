@@ -7,6 +7,7 @@ import RedesignFooter from "./RedesignFooter";
 import Capabilities from "./Capabilities";
 import Integrations from "./Integrations";
 import RevenueWorkflow from "./RevenueWorkflow";
+import { INDUSTRY_LINKS } from "./industryData";
 
 const A = "#8B7DD8";
 
@@ -487,6 +488,33 @@ export default function HomepageV2() {
                 </div>
               ))}
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* INDUSTRIES — real crawlable links to all 6 /industries/* pages. Added
+          2026-08-10: Ahrefs showed only 2 inbound internal links to the
+          dental page (should be ~7+) — this was the missing hub, not a
+          hidden-but-crawlable-chips bug as first suspected; the section had
+          been removed from the homepage entirely (data-ind-card/.rb-ind-grid
+          below were dead CSS/JS left over from it). */}
+      <section data-navtheme="light" className="rb-pad" style={{ position: "relative", background: "#EDEBF3", color: "#17131F", padding: "100px 48px" }}>
+        <div style={{ position: "relative", zIndex: 1, maxWidth: 1180, margin: "0 auto" }}>
+          <div style={{ fontSize: 12, letterSpacing: ".28em", textTransform: "uppercase", color: "#8B7DD8", marginBottom: 18 }}>Built for your industry</div>
+          <h2 style={{ fontFamily: SERIF, fontWeight: 500, fontSize: "clamp(34px,4.2vw,54px)", lineHeight: 1.05, letterSpacing: "-0.01em", margin: 0, maxWidth: "18ch" }}>See how it runs in yours</h2>
+          <div className="rb-ind-grid" style={{ marginTop: 40, display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 14 }}>
+            {INDUSTRY_LINKS.map((ind) => (
+              <a
+                key={ind.slug}
+                href={`/industries/${ind.slug}`}
+                data-ind-card
+                className="rb-ind-card"
+                style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12, padding: "22px 24px", borderRadius: 16, background: "rgba(255,255,255,0.6)", backdropFilter: "blur(10px)", WebkitBackdropFilter: "blur(10px)", border: "1px solid rgba(255,255,255,0.7)", boxShadow: "0 20px 44px -30px rgba(23,19,31,0.35)", textDecoration: "none", color: "#17131F" }}
+              >
+                <span style={{ fontFamily: SERIF, fontSize: 17, lineHeight: 1.3, fontWeight: 500 }}>{ind.name}</span>
+                <span aria-hidden style={{ flex: "none", color: "#8B7DD8", fontSize: 18 }}>→</span>
+              </a>
+            ))}
           </div>
         </div>
       </section>

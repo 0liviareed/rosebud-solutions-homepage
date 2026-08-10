@@ -52,10 +52,17 @@ export async function middleware(request: NextRequest) {
   //   /industries/healthcare → /industries/dental-aesthetic  (slug rename)
   //   /agents/insurance      → /industries/insurance         (GSC 404 fix)
   //   /solutions             → /                              (no capability index)
+  //   /about-us, /privacy-policy, /utility-pages/privacy-notice → live pages
+  //   (Ahrefs Site Audit, 2026-08-10: 404s with inbound links pointing at the
+  //   wrong slug for two of the most-linked pages on the site; the privacy
+  //   one carries an external referring domain — equity worth keeping)
   const LAUNCH_301: Record<string, string> = {
     '/industries/healthcare': '/industries/dental-aesthetic',
     '/agents/insurance': '/industries/insurance',
     '/solutions': '/',
+    '/about-us': '/about',
+    '/privacy-policy': '/privacy',
+    '/utility-pages/privacy-notice': '/privacy',
   };
   const dest = LAUNCH_301[path];
   if (dest) {

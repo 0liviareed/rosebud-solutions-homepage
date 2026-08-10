@@ -242,7 +242,7 @@ export const HEALTHCARE_STAGE: IndustryStageData = {
   slug: "dental-aesthetic",
   name: "Dental, Aesthetic & Private Healthcare",
   seo: {
-    title: "Patient Intake Software for Dental & Aesthetic Practices | Rosebud Solutions",
+    title: "Patient Intake Software & Dental CRM | Rosebud",
     description:
       "Patient intake that answers in seconds, captures the reason for the visit, books against your live diary and writes the record into your practice management system. It never gives clinical advice — that's always the clinician's.",
     ogTitle: "Patient intake software — Rosebud for Dental, Aesthetic & Private Healthcare",
@@ -282,7 +282,7 @@ export const HEALTHCARE_STAGE: IndustryStageData = {
   stage3: {
     index: "03",
     eyebrow: "Your system of record",
-    h2: "How does patient intake reach our practice management system?",
+    h2: "How does a dental CRM write back into our practice management system?",
     answer:
       "Patient, treatment interest and appointment status are written straight into the practice management system you already run — not a parallel tool. It's a system we feed, not one we replace, so the diary fills with the right appointments and your front desk works from one record.",
     items: [
