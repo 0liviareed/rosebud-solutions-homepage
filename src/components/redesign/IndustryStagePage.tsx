@@ -116,7 +116,7 @@ export default function IndustryStagePage({ data }: { data: IndustryStageData })
         .rb-ind-wrap{max-width:1080px;margin:0 auto;padding:0 40px;}
         .rb-split{display:grid;grid-template-columns:1fr 1.12fr;gap:56px;align-items:center;}
         .rb-split-rev{display:grid;grid-template-columns:1.12fr 1fr;gap:56px;align-items:center;}
-        .rb-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;}
+        .rb-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:22px;}
         .rb-bound{display:grid;grid-template-columns:1fr 1fr;gap:0 44px;}
         @media(max-width:900px){
           .rb-ind-wrap{padding:0 22px;}

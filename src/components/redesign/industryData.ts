@@ -34,6 +34,7 @@ export const INDUSTRY_SIBLINGS: { name: string; slug: string }[] = [
   { name: "Insurance", slug: "insurance" },
   { name: "Real Estate", slug: "real-estate" },
   { name: "Trades & Home Services", slug: "trades-home-services" },
+  { name: "Commercial Cleaning & Janitorial", slug: "commercial-cleaning" },
 ];
 
 // In-scope industry links for the two crawl-route locations (capability-page
@@ -46,6 +47,7 @@ export const INDUSTRY_LINKS: { name: string; slug: string }[] = [
   { name: "Insurance", slug: "insurance" },
   { name: "Real Estate", slug: "real-estate" },
   { name: "Trades & Home Services", slug: "trades-home-services" },
+  { name: "Commercial Cleaning & Janitorial", slug: "commercial-cleaning" },
 ];
 
 const DEMO = "https://cal.eu/rosebudsolutions/demo";

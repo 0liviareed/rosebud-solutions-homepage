@@ -134,6 +134,7 @@ export const TRADES_STAGE: IndustryStageData = {
     { title: "Real Estate", desc: "For the agents booking your team for pre-list repairs & post-close handovers.", href: "/industries/real-estate" },
     { title: "Insurance", desc: "For the brokers routing claims your way — restoration, roofing, plumbing emergencies.", href: "/industries/insurance" },
     { title: "Mortgage & Lending", desc: "For the LOs needing appraisal-flagged repairs done before close.", href: "/industries/mortgage-lending" },
+    { title: "Commercial Cleaning & Janitorial", desc: "The same enquiry-to-booking system, built for cleaning companies chasing bids to a decision.", href: "/industries/commercial-cleaning" },
   ],
   close: {
     heading: "Put your office on autopilot.",
@@ -233,6 +234,7 @@ export const FAMILY_LAW_STAGE: IndustryStageData = {
     { title: "Mortgage & Lending", desc: "For loan officers facing title, foreclosure or document-review questions inside live loans.", href: "/industries/mortgage-lending" },
     { title: "Real Estate", desc: "For agents needing transactional support on closings, contract review & title escalations.", href: "/industries/real-estate" },
     { title: "Insurance", desc: "For brokers referring personal-injury & first-party claims work to plaintiff-side attorneys.", href: "/industries/insurance" },
+    { title: "Commercial Cleaning & Janitorial", desc: "The same enquiry-to-booking system, built for cleaning companies chasing bids to a decision.", href: "/industries/commercial-cleaning" },
   ],
   close: {
     heading: "See how legal intake runs for your firm.",
@@ -343,6 +345,7 @@ export const HEALTHCARE_STAGE: IndustryStageData = {
     { title: "Family Law & Consumer Legal", desc: "The same answer-qualify-book-record system, built for firms taking on new matters.", href: "/industries/family-law" },
     { title: "Insurance", desc: "The same intake layer, built for agencies quoting new business.", href: "/industries/insurance" },
     { title: "Real Estate", desc: "The same intake-to-record system, built for agents working new inquiries.", href: "/industries/real-estate" },
+    { title: "Commercial Cleaning & Janitorial", desc: "The same enquiry-to-booking system, built for cleaning companies chasing bids to a decision.", href: "/industries/commercial-cleaning" },
   ],
   close: {
     heading: "Fill the diary without lifting a finger.",
@@ -440,6 +443,7 @@ export const INSURANCE_STAGE: IndustryStageData = {
     { title: "Real Estate", desc: "The same intake-to-record system, built for agents working new inquiries.", href: "/industries/real-estate" },
     { title: "Mortgage & Lending", desc: "The same lead layer, built for loan officers chasing rate-sensitive leads.", href: "/industries/mortgage-lending" },
     { title: "Trades & Home Services", desc: "The same answer-qualify-book system, built for the trades.", href: "/industries/trades-home-services" },
+    { title: "Commercial Cleaning & Janitorial", desc: "The same enquiry-to-booking system, built for cleaning companies chasing bids to a decision.", href: "/industries/commercial-cleaning" },
   ],
   close: {
     heading: "See how agency intake runs for your book.",
@@ -537,6 +541,7 @@ export const REAL_ESTATE_STAGE: IndustryStageData = {
     { title: "Mortgage & Lending", desc: "The same intake layer, built for loan officers working rate-sensitive leads.", href: "/industries/mortgage-lending" },
     { title: "Insurance", desc: "The same answer-qualify-book system, built for agencies quoting new business.", href: "/industries/insurance" },
     { title: "Trades & Home Services", desc: "The same intake-to-record system, built for the trades booking your repairs.", href: "/industries/trades-home-services" },
+    { title: "Commercial Cleaning & Janitorial", desc: "The same enquiry-to-booking system, built for cleaning companies chasing bids to a decision.", href: "/industries/commercial-cleaning" },
   ],
   close: {
     heading: "See how lead intake runs for your pipeline.",
@@ -634,6 +639,7 @@ export const MORTGAGE_STAGE: IndustryStageData = {
     { title: "Real Estate", desc: "The same intake layer, built for agents working new inquiries.", href: "/industries/real-estate" },
     { title: "Insurance", desc: "The same answer-qualify-book system, built for agencies quoting new business.", href: "/industries/insurance" },
     { title: "Family Law & Consumer Legal", desc: "The same intake-to-record system, built for firms taking on new matters.", href: "/industries/family-law" },
+    { title: "Commercial Cleaning & Janitorial", desc: "The same enquiry-to-booking system, built for cleaning companies chasing bids to a decision.", href: "/industries/commercial-cleaning" },
   ],
   close: {
     heading: "See how loan intake runs for your pipeline.",
@@ -649,6 +655,115 @@ export const MORTGAGE_STAGE: IndustryStageData = {
   },
 };
 
+// ─────────────────────────────────────────────────────────────────────
+// COMMERCIAL CLEANING & JANITORIAL  (primary: cleaning company crm)
+// ─────────────────────────────────────────────────────────────────────
+export const CLEANING_STAGE: IndustryStageData = {
+  slug: "commercial-cleaning",
+  name: "Commercial Cleaning & Janitorial",
+  seo: {
+    title: "Cleaning Company CRM & Enquiry Software | Rosebud",
+    description:
+      "A cleaning company CRM that works commercial cleaning leads end to end. Answers every enquiry in seconds, captures site type, size and frequency, books the walkthrough and chases the bid to a decision. Pricing the contract stays yours.",
+    ogTitle: "Cleaning Company CRM & Enquiry Software | Rosebud",
+    ogDescription:
+      "The layer between a new cleaning enquiry and a booked site walkthrough: answers in seconds, captures site type, size and frequency, books the survey and chases the bid until there is a decision.",
+  },
+  hero: {
+    h1: "Cleaning company CRM that turns an enquiry into a booked walkthrough",
+    intro:
+      "The layer between a new cleaning enquiry and a booked site survey. It answers in seconds, captures site type, size and frequency, books the walkthrough against your live diary and keeps the bid moving until there is a decision. Pricing the contract is always yours.",
+  },
+  stage1: {
+    index: "01",
+    eyebrow: "Answer & book",
+    h2: "Where do commercial cleaning leads get lost between enquiry & quote?",
+    answer:
+      "Between the enquiry landing and anyone replying to it. Cleaning is a bid trade and the firm that responds first usually gets the walkthrough, so an enquiry that waits until Monday is a contract someone else surveyed on Friday. Every enquiry gets answered in seconds, day or night, with the questions that matter attached: what kind of site, how big, how often, and when they want to start.",
+    items: [
+      { title: "Every enquiry answered in seconds", body: "Web forms, email, WhatsApp and Instagram all get an immediate reply. The enquiry that lands at 7pm on a Friday is answered at 7pm on a Friday, not on Monday morning." },
+      { title: "Site details captured up front", body: "Site type, square footage, cleaning frequency, start date and access requirements, captured before anyone picks up the phone, so the walkthrough is scoped before you drive to it." },
+    ],
+    scene: { id: "generic-intake", tone: "lilac" },
+  },
+  stage2: {
+    index: "02",
+    eyebrow: "Qualify & route",
+    h2: "How is an enquiry qualified without pricing the job?",
+    answer:
+      "Against the rules you set. Site type, size, frequency, contract length and travel distance are scored against what you actually want to win, and the enquiry is sorted three ways. Anything that needs a price, a site judgment or a scope decision goes to your team with the full picture attached. Everything administrative runs without you.",
+    cards: [
+      { tag: "Your rules", tone: "indigo", h3: "Qualify by the work you want", body: "Site type, square footage, frequency, contract length and distance from your existing runs. The rules are yours and they are set at onboarding, not guessed." },
+      { tag: "Reaches your team", tone: "amber", h3: "Anything with a price on it", body: "Pricing, scope, site judgment, complaints and service failures route straight to you with the enquiry history attached. The system never quotes." },
+      { tag: "Handled without you", tone: "green", h3: "Walkthroughs, chasing & reminders", body: "Booking the site survey, confirming it, rescheduling it, chasing the quote and re-opening enquiries that went quiet all run without your office lifting a finger." },
+    ],
+  },
+  pullStat: { pre: "The bids you sent last month and never heard back on — ", accent: "chased, until there is an answer either way." },
+  stage3: {
+    index: "03",
+    eyebrow: "Quote & chase",
+    h2: "What does janitorial bidding software need to do after the bid goes out?",
+    answer:
+      "Chase it. Most of what a cleaning company loses is not lost at the enquiry, it is lost after the number is sent and nobody follows up. Every bid runs as a pipeline with structured follow-up on a cadence until there is a decision, yes or no, rather than going quiet and being written off at the end of the quarter. You send the number. The system makes sure it gets an answer.",
+    items: [
+      { title: "Runs as a pipeline, not a hope", body: "Sent, opened, followed up, decided. Each bid has a stage and a next action, and the next action fires whether or not anyone in your office remembers it." },
+      { title: "A no is worth having", body: "A decision closes the file and feeds the record. A silence tells you nothing and occupies the pipeline for six months." },
+    ],
+    scene: { id: "generic-record", tone: "peach" },
+  },
+  stage4: {
+    index: "04",
+    eyebrow: "Your system of record",
+    h2: "How does a cleaning company CRM reach the system we already run?",
+    answer:
+      "Contact, site details, quote status and contract stage are written into the CRM or job management system you already use, not a second place your team has to check. If you do not run one, we provide a lightweight CRM so the record still lives somewhere you own.",
+    items: [
+      { title: "Writes into your CRM", body: "Contact, site details, quote stage and appointment status synced into the system you already run. A system we feed, not one we replace." },
+      { title: "Or we provide one", body: "Most cleaning companies run on a spreadsheet and a shared inbox. If that is you, a lightweight CRM comes with it, and the record is yours either way." },
+    ],
+    scene: { id: "generic-intake", tone: "lilac" },
+  },
+  boundary: {
+    eyebrow: "Where the line is",
+    heading: "What stays with you.",
+    items: [
+      { label: "Pricing", body: "every quote, every rate, every contract value. Yours. The system never puts a number in front of a customer." },
+      { label: "The site walkthrough", body: "what the job actually takes is a judgment made on site by someone who knows. We book it, you make it." },
+      { label: "Scope & specification", body: "what is in the contract and what is not is a commercial decision, never automated." },
+      { label: "Staffing & rostering", body: "who cleans which site, and when, stays with your operations." },
+      { label: "The client relationship", body: "facilities managers buy from people. We make sure they reach you quickly, not instead of you." },
+      { label: "Compliance & insurance", body: "safety, certification and cover are yours to hold and yours to evidence." },
+    ],
+    note: "Pricing and scope are commercial decisions, never automated. That is not a limitation. It is the reason the system can run on your enquiries without ever putting your margin at risk.",
+  },
+  faqs: [
+    { q: "Is this janitorial CRM software, or something else?", a: "It is the intake and bid-chasing layer that sits in front of whatever you already run. It captures the enquiry, qualifies it, books the walkthrough and chases the bid, then writes all of it into your system. If you run nothing, a lightweight CRM comes with it and the record is still yours." },
+    { q: "What happens to a bid after it goes out?", a: "It gets chased. Structured follow-up runs on a cadence until there is a decision, yes or no, rather than the bid going quiet and being written off. This is the leak most cleaning companies never close, and it is the difference between a quote log and a pipeline." },
+    { q: "Does the system quote or give prices?", a: "No. It captures everything you need to price the job accurately — site type, size, frequency, access, start date — and hands it to you. Every number that reaches a customer comes from your team." },
+    { q: "Does it work with the system we already use?", a: "Yes. Contact, site details and bid stage are written into the CRM or job management system you already run. Your system stays the source of truth." },
+    { q: "We win work through tenders and referrals, not web forms. Does this still help?", a: "Yes. Any enquiry that arrives as a message, on any channel, is captured and worked the same way, including referrals that come in by email. The channel does not change what happens next." },
+    { q: "What about the janitorial leads that went cold six months ago?", a: "They get re-opened on a cadence. Contracts come up for renewal and budgets change. The enquiry that said no in March is worth asking again in September, and that is work nobody in a cleaning office has time to do by hand." },
+    { q: "How do you make sure it launches safely?", a: "Every build is scoped to your business, tested against real enquiries, and goes live with your sign-off at each stage. Nothing runs on a customer until you have approved how it behaves." },
+  ],
+  related: [
+    { title: "Trades & Home Services", desc: "The same answer-qualify-book-record system, built for teams quoting and scheduling site work.", href: "/industries/trades-home-services" },
+    { title: "Real Estate", desc: "The same intake layer, built for agents and property teams working new enquiries.", href: "/industries/real-estate" },
+    { title: "Insurance", desc: "The same intake-to-record system, built for agencies quoting new business.", href: "/industries/insurance" },
+  ],
+  close: {
+    heading: "Stop losing contracts to whoever replied first.",
+    subhead: "Built around the sites you want, the rules you set & the system you already run. Plans & pricing on the page.",
+  },
+  schema: {
+    serviceType: "Enquiry intake & bid-chasing automation for commercial cleaning & janitorial companies",
+    areaServed: "United States",
+    serviceDescription:
+      "A CRM and enquiry-handling layer for commercial cleaning and janitorial companies that answers enquiries in seconds, captures site type, size and frequency, books the walkthrough against the live diary, and chases the bid on a structured cadence until there is a decision. It writes into the CRM or job management system the business already runs, or provides a lightweight one. Pricing and scope stay with the business.",
+    offerDescription: "Plans scoped to enquiry volume and team size, published on the pricing page. No lock-in.",
+    breadcrumbName: "Commercial Cleaning & Janitorial",
+  },
+};
+
 export const INDUSTRY_STAGE: Record<string, IndustryStageData> = {
   "trades-home-services": TRADES_STAGE,
   "family-law": FAMILY_LAW_STAGE,
@@ -656,4 +771,5 @@ export const INDUSTRY_STAGE: Record<string, IndustryStageData> = {
   insurance: INSURANCE_STAGE,
   "real-estate": REAL_ESTATE_STAGE,
   "mortgage-lending": MORTGAGE_STAGE,
+  "commercial-cleaning": CLEANING_STAGE,
 };
