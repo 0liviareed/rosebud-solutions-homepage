@@ -41,7 +41,7 @@ export default function Footer() {
             </li>
             <li>
               <a
-                href="https://www.instagram.com/rosebud.global/"
+                href="https://www.instagram.com/rosebudglobal/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="rb-footer-social-link"
