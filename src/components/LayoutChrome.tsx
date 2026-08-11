@@ -31,6 +31,7 @@ const BARE_ROUTES: readonly string[] = [
   "/industries/insurance",
   "/industries/real-estate",
   "/industries/mortgage-lending",
+  "/industries/commercial-cleaning",
 ];
 
 /**
