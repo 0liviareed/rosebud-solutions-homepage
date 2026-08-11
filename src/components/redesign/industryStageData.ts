@@ -662,7 +662,7 @@ export const CLEANING_STAGE: IndustryStageData = {
   slug: "commercial-cleaning",
   name: "Commercial Cleaning & Janitorial",
   seo: {
-    title: "Cleaning Company CRM & Enquiry Software | Rosebud",
+    title: "Janitorial CRM for Commercial Cleaning Companies | Rosebud",
     description:
       "A cleaning company CRM that works commercial cleaning leads end to end. Answers every enquiry in seconds, captures site type, size and frequency, books the walkthrough and chases the bid to a decision. Pricing the contract stays yours.",
     ogTitle: "Cleaning Company CRM & Enquiry Software | Rosebud",
@@ -702,7 +702,7 @@ export const CLEANING_STAGE: IndustryStageData = {
   stage3: {
     index: "03",
     eyebrow: "Quote & chase",
-    h2: "What does a janitorial CRM need to do after the bid goes out?",
+    h2: "What does janitorial bidding software need to do after the bid goes out?",
     answer:
       "Chase it. Most of what a cleaning company loses is not lost at the enquiry, it is lost after the number is sent and nobody follows up. Every bid runs as a pipeline with structured follow-up on a cadence until there is a decision, yes or no, rather than going quiet and being written off at the end of the quarter. You send the number. The system makes sure it gets an answer.",
     items: [
