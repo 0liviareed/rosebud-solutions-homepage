@@ -60,7 +60,7 @@ export const TRADES_STAGE: IndustryStageData = {
   slug: "trades-home-services",
   name: "Trades & Home Services",
   seo: {
-    title: "Plumbing CRM & Job Intake Automation | Rosebud Solutions",
+    title: "Plumbing & HVAC CRM for Trades Teams | Rosebud",
     description:
       "A plumbing and HVAC CRM layer that answers every inquiry in under a minute, qualifies and books the job against your live diary, chases quotes and runs follow-up — built around the job management system you already run.",
     ogTitle: "Plumbing & HVAC CRM — Rosebud for Trades & Home Services",
@@ -68,14 +68,14 @@ export const TRADES_STAGE: IndustryStageData = {
       "Answer every inquiry in under a minute, book the job against the live diary, chase the quote and follow up — a CRM layer for plumbing, HVAC and contractor teams, built around the system you already run.",
   },
   hero: {
-    h1: "Your office runs the business. We run the office.",
+    h1: "The plumbing & HVAC CRM that runs your office",
     intro:
-      "The office admin your plumbing or HVAC team shouldn't be doing — missed calls, qualifying, quote chasing, certificates, follow-up — run by Rosebud around the job-management system you already use. It's the CRM layer that sits in front of the dispatch platform you run, like ServiceTitan, Jobber or Housecall Pro, never another one to replace it.",
+      "Your office runs the business. We run the office. The admin your plumbing or HVAC team shouldn't be doing — missed calls, qualifying, quote chasing, certificates, follow-up — run by Rosebud around the job-management system you already use. It's the CRM layer that sits in front of the dispatch platform you run, like ServiceTitan, Jobber or Housecall Pro, never another one to replace it.",
   },
   stage1: {
     index: "01",
     eyebrow: "Win the job",
-    h2: "How do plumbing and HVAC firms stop losing jobs to missed calls?",
+    h2: "How does a plumbing or HVAC CRM stop you losing jobs?",
     answer:
       "You answer every enquiry in under a minute, on every channel. The burst-pipe call that rings out at 7am gets a text back with a booking link before the customer dials the next plumber; web forms and WhatsApp get an instant reply. Job type, urgency, access and whether it's a gas job are captured before your office opens the file.",
     items: [
@@ -109,6 +109,18 @@ export const TRADES_STAGE: IndustryStageData = {
       { title: "Service reminders & repeat work", body: "Annual boiler services, landlord gas checks and filter changes followed up automatically, so repeat work and referrals stop being accidental." },
     ],
     scene: { id: "trades-paid", tone: "peach" },
+  },
+  stage4: {
+    index: "04",
+    eyebrow: "Not dispatch software",
+    h2: "What does a plumbing and HVAC CRM need to do that job management software doesn't?",
+    answer:
+      "Answer every inquiry in seconds, qualify the job before your office opens the file, chase the quote that decides whether it closes, and follow up for the annual service — all before dispatch ever gets involved. It feeds ServiceTitan, Jobber or Housecall Pro rather than replacing them.",
+    items: [
+      { title: "It feeds dispatch, it doesn't replace it", body: "ServiceTitan, Jobber and Housecall Pro run the job once it's won. Rosebud is the layer that wins it — capturing, qualifying and chasing — then writes straight into the platform you already run." },
+      { title: "The work job management software never touches", body: "Answering the 7am emergency call, qualifying before dispatch, chasing the quote, collecting Gas Safe certificates in conversation — the admin that decides whether the job exists at all." },
+    ],
+    scene: { id: "trades-win", tone: "lilac" },
   },
   faqs: [
     { q: "Is Rosebud dispatch or field-service management software?", a: "No. Rosebud is the enquiry and CRM layer that sits in front of dispatch platforms like ServiceTitan, Jobber and Housecall Pro. It captures, qualifies, books and chases the work, then writes the job into the job-management system you already run. It feeds your dispatch software; it doesn't replace it." },
@@ -144,7 +156,7 @@ export const FAMILY_LAW_STAGE: IndustryStageData = {
   slug: "family-law",
   name: "Family Law & Consumer Legal",
   seo: {
-    title: "Legal Intake Software for Law Firms | Rosebud Solutions",
+    title: "Legal Intake Software & Law Firm CRM | Rosebud",
     description:
       "Legal intake software that answers in seconds, captures the matter for your conflict-check review, books the consult and writes it into your case management system. It never accepts a matter — that's always the attorney's.",
     ogTitle: "Legal intake software — Rosebud for Family Law & Consumer Legal",
@@ -152,7 +164,7 @@ export const FAMILY_LAW_STAGE: IndustryStageData = {
       "The layer between a new inquiry and a booked consultation: answers in seconds, captures the matter for conflict review, books the consult and writes the record into the case management system you already run.",
   },
   hero: {
-    h1: "Legal intake that turns an inquiry into a booked consult — without touching your judgment",
+    h1: "Legal intake that turns an inquiry into a booked consult",
     intro:
       "The layer between a new inquiry and a booked consultation. It answers in seconds, captures the matter for your conflict-check review, books the consult & writes the record into your case management system. It never accepts a matter — that decision is always the attorney's.",
   },
@@ -184,7 +196,7 @@ export const FAMILY_LAW_STAGE: IndustryStageData = {
   stage3: {
     index: "03",
     eyebrow: "Your system of record",
-    h2: "How does client intake reach our case management system?",
+    h2: "How does client intake software reach our case management system?",
     answer:
       "Contact, matter, conflict inputs and engagement status are written straight into the case management system you already run — not held in a parallel tool. It's a system we feed, not one we replace, so your team opens a complete file rather than a half-filled intake form.",
     items: [
@@ -214,6 +226,7 @@ export const FAMILY_LAW_STAGE: IndustryStageData = {
     { q: "How are deadlines and scheduling handled?", a: "Consultations are booked against your live calendar, and routine scheduling and reminders run without an attorney. Anything a rule flags as time-sensitive routes to your team immediately with full context." },
     { q: "How is client communication handled without giving legal advice?", a: "Every client conversation is procedural only — intake, scheduling, documents, status. The moment a message turns into a legal question, it routes to you. The system never advises." },
     { q: "Is this designed to operate inside attorney ethics obligations?", a: "Yes. It's built so acceptance of representation, conflict clearance, legal advice and filing all stay with the attorney. The intake layer handles the admin around those decisions, never the decisions themselves." },
+    { q: "Is this a law firm CRM?", a: "No. It is the intake layer that sits in front of the case management system you already run, and it writes into it. If you run Clio, MyCase or Smokeball, that stays your system of record. If you run nothing, we provide a lightweight CRM so the file still lives somewhere you own." },
     { q: "How do you make sure it launches safely?", a: "Every build is scoped to your matters, courts and rules, tested against real inquiries, and goes live with your sign-off at each stage. Nothing runs on a client until you've approved how it behaves." },
   ],
   related: [
