@@ -21,7 +21,7 @@ export default function Hero({
   eyebrow = "Rosebud Solutions",
   headline,
   sub = "That needs to change.",
-  caption = "Your digital team. Live in 5 weeks. Running for years.",
+  caption = "Your digital team. Running for years.",
   actions,
 }: {
   eyebrow?: string;

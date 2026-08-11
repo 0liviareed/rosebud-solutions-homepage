@@ -368,15 +368,15 @@ export const INSURANCE_STAGE: IndustryStageData = {
   slug: "insurance",
   name: "Insurance",
   seo: {
-    title: "Insurance Agency Automation & Lead Intake Software | Rosebud Solutions",
+    title: "Insurance Agency CRM & Lead Management Software | Rosebud",
     description:
-      "Insurance agency automation that answers every quote request in seconds, captures the risk for your producer's review, books the agent call and writes the record into your agency management system. It never binds coverage — that's the licensed agent's.",
-    ogTitle: "Insurance agency automation — Rosebud for Insurance",
+      "Insurance CRM software that qualifies every enquiry, runs the fact-find, prepares carrier-ready submissions and diarises renewals, writing everything into the agency management system you already run.",
+    ogTitle: "Insurance agency CRM & lead management — Rosebud for Insurance",
     ogDescription:
       "Answer every quote request in seconds, capture the risk details, book the producer call and write the record into the agency management system you already run. It never binds coverage — that's the agent's.",
   },
   hero: {
-    h1: "Lead intake that turns a quote request into a booked call — without touching underwriting",
+    h1: "Insurance agency CRM that runs the admin half of the week",
     intro:
       "The layer between a new quote request and a bind-ready file. It answers in seconds, captures the risk details, books the agent call & writes the record into your agency management system. It never binds coverage — that decision is always the licensed agent's.",
   },
@@ -564,24 +564,24 @@ export const MORTGAGE_STAGE: IndustryStageData = {
   slug: "mortgage-lending",
   name: "Mortgage & Lending",
   seo: {
-    title: "Mortgage CRM & Loan Intake Software | Rosebud Solutions",
+    title: "Mortgage CRM & Lead Management for Loan Officers | Rosebud",
     description:
-      "A mortgage CRM and loan-intake layer that answers every inquiry in seconds, captures the borrower's details, books the loan officer call and writes the record into your LOS or CRM. It never makes a credit decision — that's the loan officer's.",
-    ogTitle: "Mortgage CRM & loan intake — Rosebud for Mortgage & Lending",
+      "A mortgage CRM layer that answers every borrower enquiry in seconds, pre-qualifies, collects documentation and chases conditions, writing everything into the LOS and CRM you already run.",
+    ogTitle: "Mortgage CRM & lead management — Rosebud for Mortgage & Lending",
     ogDescription:
-      "Answer every inquiry in seconds, capture the borrower's details, book the LO call and write the record into the LOS or CRM you already run. It never makes a credit decision — that's the loan officer's.",
+      "Answer every borrower enquiry in seconds, pre-qualify, collect documentation and chase conditions, writing everything into the LOS and CRM you already run. It never makes a credit decision — that's the loan officer's.",
   },
   hero: {
-    h1: "Loan intake that turns an inquiry into a booked call — without touching a credit decision",
+    h1: "The mortgage CRM layer that keeps loans moving",
     intro:
       "The layer between a new inquiry and a booked loan consult. It answers in seconds, captures the borrower's details, books the LO call & writes the record into your LOS or CRM. It never makes a credit decision or gives loan advice — that decision is always the loan officer's.",
   },
   stage1: {
     index: "01",
     eyebrow: "Answer & capture",
-    h2: "How fast should a lender respond to a new mortgage inquiry?",
+    h2: "Where does mortgage lead management break between enquiry and pre-approval?",
     answer:
-      "In seconds. A missed call gets a text back; web and portal leads get an immediate reply. The refinance or purchase lead books a call with you before rates move them elsewhere, with loan purpose, price range and timeline captured up front for your loan officers to work.",
+      "In the same two places on almost every team: the lead goes cold before anyone calls back, and the details a loan officer needs to work it never get captured on the first touch. A missed call gets a text back; web and portal leads get an immediate reply. The refinance or purchase lead books a call with you before rates move them elsewhere, with loan purpose, price range and timeline captured up front for your loan officers to work.",
     items: [
       { title: "Every inquiry answered in seconds", body: "A missed call gets a text back; web and portal leads get an immediate reply. The refinance or purchase lead books with you before rates move them elsewhere." },
       { title: "Borrower details captured up front", body: "Loan purpose, price range, timeline & the details your LOs work on — captured before the lead shops rates elsewhere." },
@@ -591,9 +591,9 @@ export const MORTGAGE_STAGE: IndustryStageData = {
   stage2: {
     index: "02",
     eyebrow: "Qualify & route",
-    h2: "How does the system qualify a borrower without a credit decision?",
+    h2: "What does a mortgage CRM need to do that an LOS doesn't?",
     answer:
-      "Through structured conversation on your overlays — loan purpose and rough profile — prepared for a loan officer, never decided automatically. Credit and approval conversations always reach a licensed LO; rate-sensitive leads route immediately, while document collection and scheduling run without one.",
+      "An LOS manages a file once a borrower has applied. Everything before that — qualifying who is worth a loan officer's time, keeping rate-sensitive leads warm until someone can call, chasing the documents that stall a pre-approval — sits outside it. A mortgage CRM does that part: structured conversation on your overlays prepares each lead for a loan officer, never decides automatically, and document collection and scheduling run without one.",
     cards: [
       { tag: "Your overlays", tone: "indigo", h3: "Qualification by structured conversation", body: "Loan purpose, rough profile & the facts your team pre-screens on — prepared for the LO, never decided automatically." },
       { tag: "Reaches the loan officer", tone: "amber", h3: "Approvals & anything time-sensitive", body: "Credit and approval conversations always reach a licensed LO. Rate-sensitive leads route immediately, with full context attached." },
@@ -604,9 +604,9 @@ export const MORTGAGE_STAGE: IndustryStageData = {
   stage3: {
     index: "03",
     eyebrow: "Your system of record",
-    h2: "How does loan intake reach our LOS or CRM?",
+    h2: "How does loan officer CRM data reach the LOS you already run?",
     answer:
-      "Contact, loan details and status are written straight into the LOS or CRM you already run — not a parallel tool. It's a system we feed, not one we replace, so your team opens a complete file instead of a half-filled application.",
+      "Written straight in, not held in a parallel tool. Contact, loan details and status are synced into the LOS or CRM you already run — it's a system we feed, not one we replace, so your team opens a complete file instead of a half-filled application.",
     items: [
       { title: "Writes into your LOS or CRM", body: "Contact, loan details & status synced into the LOS or CRM you already run. A system we feed, not one we replace." },
       { title: "Priced to your lead volume", body: "Scoped to your lead volume & team size — tiers published on the pricing page, no lock-in, cancel any time." },
@@ -702,7 +702,7 @@ export const CLEANING_STAGE: IndustryStageData = {
   stage3: {
     index: "03",
     eyebrow: "Quote & chase",
-    h2: "What does janitorial bidding software need to do after the bid goes out?",
+    h2: "What does a janitorial CRM need to do after the bid goes out?",
     answer:
       "Chase it. Most of what a cleaning company loses is not lost at the enquiry, it is lost after the number is sent and nobody follows up. Every bid runs as a pipeline with structured follow-up on a cadence until there is a decision, yes or no, rather than going quiet and being written off at the end of the quarter. You send the number. The system makes sure it gets an answer.",
     items: [
