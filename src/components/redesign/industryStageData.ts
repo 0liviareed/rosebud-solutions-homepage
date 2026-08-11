@@ -37,6 +37,7 @@ export type IndustryStageData = {
   stage2: StageCards;
   pullStat: { pre: string; accent: string };
   stage3: StageSplit;
+  stage4?: StageSplit; // optional 4th split section, before boundary/FAQs — dental only for now
   boundary?: StageBoundary;
   faqs: StageFaq[];
   related: StageRelated[];
@@ -290,6 +291,18 @@ export const HEALTHCARE_STAGE: IndustryStageData = {
       { title: "Priced to your patient volume", body: "Scoped to your patient volume & practice size — tiers published on the pricing page, no lock-in, cancel any time." },
     ],
     scene: { id: "generic-record", tone: "peach", img: "scene-02.png" },
+  },
+  stage4: {
+    index: "04",
+    eyebrow: "Recall & reminders",
+    h2: "How do recalls, reminders & no-shows get handled?",
+    answer:
+      "By running recalls, reminders and no-show recovery on a set cadence instead of memory. The six-month hygiene visit, the annual check-up, the whitening top-up — each patient re-enters the diary automatically. A missed appointment doesn't just vanish either: it re-enters the recall cycle the same day, so the empty slot gets refilled instead of quietly costing you a week.",
+    items: [
+      { title: "Dental appointment reminders that land", body: "Automated reminders ahead of every booked visit, on the channel patients actually check, so the diary holds instead of quietly emptying by Thursday." },
+      { title: "No-shows recovered, not lost", body: "A missed appointment re-enters the recall cycle the same day, rather than sitting as a gap nobody notices until the week's numbers are down." },
+    ],
+    scene: { id: "generic-intake", tone: "lilac" },
   },
   boundary: {
     eyebrow: "Where the line is",

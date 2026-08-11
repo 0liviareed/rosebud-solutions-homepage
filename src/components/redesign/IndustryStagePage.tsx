@@ -222,6 +222,21 @@ export default function IndustryStagePage({ data }: { data: IndustryStageData })
         </div>
       </section>
 
+      {/* ===================== STAGE 04 (optional, split · scene right) ===================== */}
+      {data.stage4 && (
+        <section style={{ background: "#f4f1ea", padding: "30px 0 90px" }}>
+          <div className="rb-ind-wrap rb-split">
+            <div data-reveal>
+              <StageEyebrow index={data.stage4.index} label={data.stage4.eyebrow} />
+              <StageH2>{data.stage4.h2}</StageH2>
+              <StageAnswer>{data.stage4.answer}</StageAnswer>
+              <ItemList items={data.stage4.items} />
+            </div>
+            <div className="rb-scene-cell" data-reveal><Scene slug={data.slug} scene={data.stage4.scene} /></div>
+          </div>
+        </section>
+      )}
+
       {/* ===================== WHAT STAYS WITH YOU (optional) ===================== */}
       {data.boundary && (
         <section style={{ background: "#ece7de", padding: "84px 0 90px" }}>
