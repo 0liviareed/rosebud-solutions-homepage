@@ -84,14 +84,14 @@ const dmMono = DM_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL("https://rosebud.global"),
   title: {
-    default: "Customer Communication Platform for SMEs — Capture, Qualify & Book | Rosebud Solutions",
+    default: "Customer Communication Platform for SMEs | Rosebud Solutions",
     template: "%s | Rosebud Global",
   },
   description:
     "Rosebud Solutions is a customer communication platform that carries every enquiry through to a booked appointment — seven capabilities on one engine, run for you and connected to the CRM and calendars you already use.",
   alternates: { canonical: "/" },
   openGraph: {
-    title: "Customer Communication Platform for SMEs — Capture, Qualify & Book | Rosebud Solutions",
+    title: "Customer Communication Platform for SMEs | Rosebud Solutions",
     description:
       "Rosebud Solutions is a customer communication platform that carries every enquiry through to a booked appointment — seven capabilities on one engine, run for you and connected to the CRM and calendars you already use.",
     url: "https://rosebud.global",
@@ -101,7 +101,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Customer Communication Platform for SMEs — Capture, Qualify & Book | Rosebud Solutions",
+    title: "Customer Communication Platform for SMEs | Rosebud Solutions",
     description:
       "Rosebud Solutions is a customer communication platform that carries every enquiry through to a booked appointment — seven capabilities on one engine, run for you and connected to the CRM and calendars you already use.",
   },
