@@ -164,13 +164,14 @@ export async function sendWelcomeOnboarding(opts: { email: string; firstName?: s
 }
 
 /** Resource lead-magnet delivery: emails the download links for a gated resource. */
-export async function sendResourceDownload(opts: { email: string; resourceTitle: string; files: { label: string; url: string }[] }): Promise<EmailResult> {
+export async function sendResourceDownload(opts: { email: string; firstName?: string | null; resourceTitle: string; files: { label: string; url: string }[] }): Promise<EmailResult> {
   const key = process.env.RESEND_API_KEY;
   if (!key) { console.warn("RESEND_API_KEY missing — skipping resource download email"); return { ok: false, error: "RESEND_API_KEY missing" }; }
   const links = opts.files.map((f) => `<p style="margin:0 0 14px;">${btn(f.url, f.label)}</p>`).join("");
+  const greeting = opts.firstName ? `Hi ${esc(opts.firstName)},` : "Hi,";
   const html = shell(`
     <h1 style="font-family:'Cormorant Garamond',Georgia,serif;font-weight:500;font-size:24px;margin:8px 0 14px;">${esc(opts.resourceTitle)}</h1>
-    <p style="margin:0 0 20px;">As requested — here are your files.</p>
+    <p style="margin:0 0 20px;">${greeting} as requested — here are your files.</p>
     ${links}
     <p style="margin:20px 0 0;color:#8a8698;font-size:13px;">Questions? Just reply to this email.</p>
   `);

@@ -11,9 +11,23 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const { slug } = await params;
   const data = RESOURCES[slug];
   if (!data) return {};
+  const url = `https://rosebud.global/resources/${slug}`;
   return {
-    title: `${data.title} — Rosebud Solutions`,
+    title: { absolute: `${data.title} | Rosebud Solutions` },
     description: data.dek,
+    alternates: { canonical: `/resources/${slug}` },
+    openGraph: {
+      title: data.title,
+      description: data.dek,
+      url,
+      type: "article",
+      locale: "en_US",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: data.title,
+      description: data.dek,
+    },
   };
 }
 

@@ -29,13 +29,30 @@ function formatDate(iso: string) {
   return d.toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric", timeZone: "UTC" });
 }
 
-// Minimal **bold** inline parser — keeps authoring in resourcesData.ts close
-// to the source markdown instead of needing a rich-text schema.
+// Minimal **bold** / [text](url) inline parser — keeps authoring in
+// resourcesData.ts close to the source markdown instead of needing a
+// rich-text schema. Internal links (starting with "#" or "/") stay in-tab;
+// external links open in a new tab with rel=noopener.
 function renderInline(text: string): ReactNode[] {
-  const parts = text.split(/(\*\*[^*]+\*\*)/g);
+  const parts = text.split(/(\*\*[^*]+\*\*|\[[^\]]+\]\([^)]+\))/g);
   return parts.map((part, i) => {
     if (part.startsWith("**") && part.endsWith("**")) {
       return <strong key={i} style={{ color: "#17131F", fontWeight: 700 }}>{part.slice(2, -2)}</strong>;
+    }
+    const link = part.match(/^\[([^\]]+)\]\(([^)]+)\)$/);
+    if (link) {
+      const [, label, href] = link;
+      const internal = href.startsWith("#") || href.startsWith("/");
+      return (
+        <a
+          key={i}
+          href={href}
+          {...(!internal && { target: "_blank", rel: "noopener noreferrer" })}
+          style={{ color: A, textDecoration: "underline", textUnderlineOffset: 2 }}
+        >
+          {label}
+        </a>
+      );
     }
     return part ? <span key={i}>{part}</span> : null;
   });
@@ -56,6 +73,9 @@ function ArticleFaqItem({ q, a, open, onToggle }: { q: string; a: string; open: 
 }
 
 function DownloadCta({ heading, body, buttonLabel, resourceKey, sourceSlug }: { heading: string; body: string; buttonLabel: string; resourceKey: string; sourceSlug: string }) {
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [company, setCompany] = useState("");
   const [email, setEmail] = useState("");
   const [status, setStatus] = useState<"idle" | "loading" | "done" | "error">("idle");
   const [error, setError] = useState<string | null>(null);
@@ -68,7 +88,7 @@ function DownloadCta({ heading, body, buttonLabel, resourceKey, sourceSlug }: { 
       const r = await fetch("/api/resources/bid-template", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, resourceKey, sourceSlug }),
+        body: JSON.stringify({ firstName, lastName, company, email, resourceKey, sourceSlug }),
       });
       const j = await r.json().catch(() => ({}));
       if (!r.ok) { setStatus("error"); setError(j.error || "Something went wrong. Please try again."); return; }
@@ -86,20 +106,53 @@ function DownloadCta({ heading, body, buttonLabel, resourceKey, sourceSlug }: { 
       {status === "done" ? (
         <p style={{ margin: 0, fontSize: 14.5, fontWeight: 600, color: A }}>Sent — check your inbox for the download links.</p>
       ) : (
-        <form onSubmit={submit} style={{ display: "flex", flexWrap: "wrap", gap: 12, alignItems: "center" }}>
-          <input
-            type="email"
-            required
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            placeholder="you@company.com"
-            aria-label="Email address"
-            style={{ flex: "1 1 240px", border: "1px solid rgba(23,19,31,0.16)", background: "#fff", borderRadius: 24, padding: "13px 18px", fontSize: 14, color: "#17131F", outline: "none" }}
-          />
-          <button type="submit" disabled={status === "loading"} style={{ display: "inline-flex", alignItems: "center", gap: 10, background: "#17131F", color: "#fff", fontSize: 13.5, fontWeight: 600, padding: "14px 26px", border: 0, borderRadius: 26, cursor: status === "loading" ? "default" : "pointer", opacity: status === "loading" ? 0.6 : 1, whiteSpace: "nowrap" }}>
-            {status === "loading" ? "Sending…" : buttonLabel} {status !== "loading" && <span aria-hidden>→</span>}
-          </button>
-          <span style={{ fontSize: 13.5, color: "rgba(23,19,31,0.5)", width: "100%" }}>Free, both files, no card.</span>
+        <form onSubmit={submit} style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+          <div style={{ display: "flex", flexWrap: "wrap", gap: 12 }}>
+            <input
+              type="text"
+              required
+              value={firstName}
+              onChange={(e) => setFirstName(e.target.value)}
+              placeholder="First name"
+              aria-label="First name"
+              style={{ flex: "1 1 160px", border: "1px solid rgba(23,19,31,0.16)", background: "#fff", borderRadius: 24, padding: "13px 18px", fontSize: 14, color: "#17131F", outline: "none" }}
+            />
+            <input
+              type="text"
+              required
+              value={lastName}
+              onChange={(e) => setLastName(e.target.value)}
+              placeholder="Last name"
+              aria-label="Last name"
+              style={{ flex: "1 1 160px", border: "1px solid rgba(23,19,31,0.16)", background: "#fff", borderRadius: 24, padding: "13px 18px", fontSize: 14, color: "#17131F", outline: "none" }}
+            />
+          </div>
+          <div style={{ display: "flex", flexWrap: "wrap", gap: 12 }}>
+            <input
+              type="text"
+              required
+              value={company}
+              onChange={(e) => setCompany(e.target.value)}
+              placeholder="Company"
+              aria-label="Company"
+              style={{ flex: "1 1 200px", border: "1px solid rgba(23,19,31,0.16)", background: "#fff", borderRadius: 24, padding: "13px 18px", fontSize: 14, color: "#17131F", outline: "none" }}
+            />
+            <input
+              type="email"
+              required
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="you@company.com"
+              aria-label="Email address"
+              style={{ flex: "1 1 200px", border: "1px solid rgba(23,19,31,0.16)", background: "#fff", borderRadius: 24, padding: "13px 18px", fontSize: 14, color: "#17131F", outline: "none" }}
+            />
+          </div>
+          <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: 16 }}>
+            <button type="submit" disabled={status === "loading"} style={{ display: "inline-flex", alignItems: "center", gap: 10, background: "#17131F", color: "#fff", fontSize: 13.5, fontWeight: 600, padding: "14px 26px", border: 0, borderRadius: 26, cursor: status === "loading" ? "default" : "pointer", opacity: status === "loading" ? 0.6 : 1, whiteSpace: "nowrap" }}>
+              {status === "loading" ? "Sending…" : buttonLabel} {status !== "loading" && <span aria-hidden>→</span>}
+            </button>
+            <span style={{ fontSize: 13.5, color: "rgba(23,19,31,0.5)" }}>Free, both files, no card.</span>
+          </div>
         </form>
       )}
       {status === "error" && <p style={{ margin: "12px 0 0", fontSize: 13.5, color: "#B15A28" }}>{error}</p>}
@@ -197,8 +250,13 @@ export default function ResourceArticlePage({ data }: { data: ResourceItem }) {
                         ) : (
                           <span aria-hidden style={{ flex: "none", width: 6, height: 6, borderRadius: 999, background: A, marginTop: 10 }} />
                         )}
+                        {/* explicit text-node space: CSS gap separates the badge
+                            visually but adds nothing to textContent, so crawlers/
+                            screen readers reading plain text saw "1Get a Unique
+                            Entity ID..." with no separator. Confirmed 2026-08-13. */}
+                        {" "}
                         <span style={bodyText}>
-                          {it.lead && <strong style={{ color: "#17131F", fontWeight: 700 }}>{it.lead} </strong>}
+                          {it.lead && <strong style={{ color: "#17131F", fontWeight: 700 }}>{renderInline(it.lead)} </strong>}
                           {renderInline(it.text)}
                         </span>
                       </li>
