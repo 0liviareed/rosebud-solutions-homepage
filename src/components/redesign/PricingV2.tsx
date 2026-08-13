@@ -7,6 +7,53 @@ import RedesignFooter from "./RedesignFooter";
 import BookDemoCTA from "./BookDemoCTA";
 import { YEARLY, CUR, PLANS, MOD_FROM, type Cur, type PlanKey, type Plan } from "./pricingData";
 
+// ── Pricing FAQ + JSON-LD ─────────────────────────────────────────────────
+// Lives here (not a separate server component) because /pricing is statically
+// prerendered — everything in this "use client" component, incl. these
+// <script> tags, still lands in the build's server HTML and reaches crawlers
+// / AI retrieval same as the rest of the page. Verified via
+// .next/server/app/pricing.html, not assumed.
+const PRICING_FAQ: { q: string; a: string }[] = [
+  { q: "What does Rosebud cost?", a: "Rosebud runs on four self-serve monthly plans: Start at £660, Grow at £1,650, Expand at £2,500 and Scale at £4,900 per month. Annual billing takes 10% off. You choose the plan by your monthly lead volume, and every plan runs all six core flows end to end." },
+  { q: "Is there a setup fee?", a: "No. The self-serve plans have no setup fee and no build fee — you pay the monthly or annual subscription and nothing else to get started. Only custom Enterprise engagements are scoped separately on a call." },
+  { q: "What happens if I exceed my lead volume?", a: "Leads above your plan's monthly cap are billed at £0.25 per lead, in blocks of 50. Nothing stops working — the overage keeps the system running past your cap. If you are regularly over, moving up a plan is cheaper than paying the overage." },
+  { q: "Is there a contract or minimum term?", a: "On monthly billing there is no minimum term and no contract — cancel any time. Annual billing is a twelve-month commitment, billed yearly, in exchange for the 10% discount. The monthly plans have no lock-in." },
+  { q: "How are seats priced?", a: "Each plan includes a set number of users — 2 on Start, 5 on Grow, 10 on Expand and 20 on Scale. Extra users are £10 per user per month above that, up to each plan's cap. Seats are not billed separately from the plan; they are an add-on to it." },
+  { q: "Do all plans include every capability?", a: "Yes. Every plan runs all six core flows — lead capture, qualification, booking, follow-through, retention and CRM sync — end to end. Higher plans add channels, more nurture touches and higher lead volume. Optional modules (from £50 per month) and closed-loop attribution (+£750 per month) are add-ons on any plan." },
+];
+
+function pricingOffersJson() {
+  const offers = PLANS.map((p) => ({
+    "@type": "Offer", name: `${p.name} — monthly`, price: String(p.price.GBP), priceCurrency: "GBP",
+    url: "https://rosebud.global/pricing", availability: "https://schema.org/InStock",
+    priceSpecification: { "@type": "UnitPriceSpecification", price: p.price.GBP, priceCurrency: "GBP", referenceQuantity: { "@type": "QuantitativeValue", value: 1, unitCode: "MON" } },
+  }));
+  return {
+    "@context": "https://schema.org", "@type": "Product", name: "Rosebud Solutions",
+    description: "The enquiry-handling platform for owner-operated businesses: captures, qualifies, books and follows up every lead, and writes it into the system you already run. Four self-serve monthly plans plus custom Enterprise.",
+    brand: { "@type": "Brand", name: "Rosebud Solutions" },
+    offers: { "@type": "AggregateOffer", priceCurrency: "GBP", lowPrice: Math.min(...PLANS.map((p) => p.price.GBP)), highPrice: Math.max(...PLANS.map((p) => p.price.GBP)), offerCount: PLANS.length, offers },
+  };
+}
+const pricingFaqJson = {
+  "@context": "https://schema.org", "@type": "FAQPage",
+  mainEntity: PRICING_FAQ.map((f) => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a } })),
+};
+
+function PricingFaqItem({ q, a, open, onToggle }: { q: string; a: string; open: boolean; onToggle: () => void }) {
+  return (
+    <div style={{ borderTop: "1px solid rgba(23,19,31,0.1)" }}>
+      <button type="button" onClick={onToggle} aria-expanded={open} style={{ width: "100%", display: "flex", alignItems: "center", justifyContent: "space-between", gap: 20, padding: "20px 2px", background: "transparent", border: "none", cursor: "pointer", textAlign: "left", color: "#17131F", fontFamily: "var(--font-cormorant), 'Cormorant Garamond', serif", fontWeight: 500, fontSize: "clamp(17px,1.7vw,20px)", lineHeight: 1.3 }}>
+        <span>{q}</span>
+        <span aria-hidden style={{ flex: "none", width: 28, height: 28, borderRadius: 999, border: "1px solid rgba(23,19,31,0.16)", display: "grid", placeItems: "center", fontSize: 14, color: "rgba(23,19,31,0.5)", transform: open ? "rotate(45deg)" : "none", transition: "transform .3s ease" }}>+</span>
+      </button>
+      <div style={{ maxHeight: open ? 320 : 0, overflow: "hidden", transition: "max-height .4s ease" }}>
+        <p style={{ margin: "0 0 22px", maxWidth: "72ch", fontSize: 15, lineHeight: 1.64, color: "rgba(23,19,31,0.66)" }}>{a}</p>
+      </div>
+    </div>
+  );
+}
+
 // ── Design tokens ────────────────────────────────────────────────────────────
 const SERIF = "var(--font-cormorant), 'Cormorant Garamond', serif";
 const A = "#8B7DD8";       // product / accent purple
@@ -29,7 +76,7 @@ const specOf = (p: Plan) => {
 };
 const CAL = "https://cal.eu/rosebudsolutions/demo";
 
-export default function PricingV2({ seoContent }: { seoContent?: React.ReactNode }) {
+export default function PricingV2() {
   const router = useRouter();
   const [cycle, setCycle] = useState<"monthly" | "yearly">("yearly");
   // Fixed price list per currency (pricingData.ts) — not a live/floating FX
@@ -42,6 +89,7 @@ export default function PricingV2({ seoContent }: { seoContent?: React.ReactNode
   const [cla, setCla] = useState<Record<PlanKey, boolean>>({ start: false, grow: false, expand: true, scale: true });
   const [modalTier, setModalTier] = useState<PlanKey | null | undefined>(undefined); // undefined = closed
   const [tipOpen, setTipOpen] = useState(false);
+  const [faqOpen, setFaqOpen] = useState<number | null>(0);
   const closeBtnRef = useRef<HTMLButtonElement>(null);
   const lastTrigger = useRef<HTMLElement | null>(null);
 
@@ -56,6 +104,28 @@ export default function PricingV2({ seoContent }: { seoContent?: React.ReactNode
   const total = (p: Plan) => basePrice(p) + claAmt(p) + seatCost(p);
 
   const modalOpen = modalTier !== undefined;
+
+  // Preselect from an incoming `?plan=` (e.g. the /plan-finder quiz result
+  // CTA links here with the recommended tier) — same effect as picking it
+  // from the lead-volume dropdown. Read via window.location, not
+  // useSearchParams, so this stays a plain client effect with no Suspense
+  // boundary requirement on an otherwise-static page.
+  useEffect(() => {
+    const plan = new URLSearchParams(window.location.search).get("plan");
+    if (!plan) return;
+    if (plan === "enterprise") {
+      setSelectedTier("enterprise");
+      setSelectedVal(null);
+    } else {
+      const band = BANDS.find((b) => b.tier === plan);
+      if (!band) return;
+      setSelectedVal(band.vals[band.vals.length - 1]);
+      setSelectedTier(band.tier);
+    }
+    requestAnimationFrame(() => {
+      document.getElementById("rb-plans")?.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+  }, []);
 
   // Modal a11y: ESC close, body lock, focus management.
   useEffect(() => {
@@ -379,9 +449,19 @@ export default function PricingV2({ seoContent }: { seoContent?: React.ReactNode
         </div>
       )}
 
-      {/* Server-rendered comparison table + FAQ (real figures in the initial HTML
-          for crawlers / AI retrieval). Passed from the server page. */}
-      {seoContent}
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(pricingOffersJson()) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(pricingFaqJson) }} />
+
+      {/* PRICING FAQ */}
+      <section style={{ maxWidth: 820, margin: "0 auto", padding: "0 24px 100px" }}>
+        <div style={{ fontSize: 12, letterSpacing: ".28em", textTransform: "uppercase", color: A, marginBottom: 16 }}>Pricing FAQ</div>
+        <h2 style={{ fontFamily: SERIF, fontWeight: 500, fontSize: "clamp(26px,3.2vw,40px)", lineHeight: 1.06, letterSpacing: "-0.015em", margin: "0 0 30px", color: INK }}>What it costs, answered plainly</h2>
+        <div>
+          {PRICING_FAQ.map((f, i) => (
+            <PricingFaqItem key={f.q} q={f.q} a={f.a} open={faqOpen === i} onToggle={() => setFaqOpen((o) => (o === i ? null : i))} />
+          ))}
+        </div>
+      </section>
 
       <RedesignFooter />
     </div>

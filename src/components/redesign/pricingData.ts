@@ -1,7 +1,8 @@
-// Single source of truth for the pricing tiers. Imported by BOTH the interactive
-// configurator (PricingV2, a client component) and the server-rendered pricing
-// table + Offer/FAQPage schema (PricingSeo). Keeping the figures here means the
-// machine-readable table and the human configurator can never drift apart.
+// Single source of truth for the pricing tiers. Imported by PricingV2, which
+// also owns the pricing page's Offer/FAQPage schema and FAQ content directly
+// (folded in from the old separate PricingSeo server component — /pricing is
+// statically prerendered, so a "use client" component's output still reaches
+// crawlers same as a server component's would).
 //
 // Commercial terms (confirmed): self-serve tiers have NO setup fee. Monthly
 // billing has no minimum term — cancel any time. Annual billing is a 12-month

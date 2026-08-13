@@ -271,10 +271,25 @@ function pick(i){
   const d=QUESTIONS[pos];
   if(d.multi){
     multiSel = multiSel.includes(i) ? multiSel.filter(x=>x!==i) : multiSel.concat(i).sort((a,b)=>a-b);
-    return render();
+    return updateOptionsUI(null);
   }
-  picked=i; render();
+  picked=i; updateOptionsUI(i);
   setTimeout(()=>{ answers[d.key]={index:i,label:d.options[i]}; advance(); },240);
+}
+/* Toggle option state in place instead of calling render() — a full re-render
+   restarts the .fade keyframe on the whole card, which on the multi-select
+   question caused a visible flicker on every single checkbox click. */
+function updateOptionsUI(singleI){
+  const d=QUESTIONS[pos];
+  stage.querySelectorAll(".opt").forEach(b=>{
+    const bi=+b.dataset.i;
+    const on = d.multi ? multiSel.includes(bi) : bi===singleI;
+    b.classList.toggle("on", on);
+    const k=b.querySelector(".k"); if(k) k.textContent = on ? "✓" : "ABCDE"[bi];
+    const existingRing=b.querySelector(".ring"); if(existingRing) existingRing.remove();
+    if(on && !d.multi){ const ring=document.createElement("span"); ring.className="ring"; b.appendChild(ring); }
+  });
+  if(d.multi){ const c=stage.querySelector("#cont"); if(c) c.disabled = multiSel.length===0; }
 }
 function submitMulti(){
   const d=QUESTIONS[pos];

@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import PricingV2 from "@/components/redesign/PricingV2";
-import PricingSeo from "@/components/redesign/PricingSeo";
 
 export const metadata: Metadata = {
   title: "Pricing — Rosebud Solutions",
@@ -29,7 +28,7 @@ export default function PricingPage() {
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(BREADCRUMBS) }} />
-      <PricingV2 seoContent={<PricingSeo />} />
+      <PricingV2 />
     </>
   );
 }

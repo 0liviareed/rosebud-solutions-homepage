@@ -15,6 +15,20 @@ import {
 import { INDUSTRY_LINKS } from "./industryData";
 
 const SERIF = "var(--font-cormorant), 'Cormorant Garamond', serif";
+
+function CapFaqItem({ q, a, open, onToggle }: { q: string; a: string; open: boolean; onToggle: () => void }) {
+  return (
+    <div style={{ borderTop: "1px solid rgba(245,241,234,0.12)" }}>
+      <button type="button" onClick={onToggle} aria-expanded={open} style={{ width: "100%", display: "flex", alignItems: "center", justifyContent: "space-between", gap: 20, padding: "26px 0", background: "transparent", border: "none", cursor: "pointer", textAlign: "left", color: "#F5F1EA", fontFamily: SERIF, fontWeight: 500, fontSize: "clamp(19px,2vw,24px)", lineHeight: 1.25 }}>
+        <span>{q}</span>
+        <span aria-hidden style={{ flex: "none", width: 30, height: 30, borderRadius: 999, border: "1px solid rgba(245,241,234,0.25)", display: "grid", placeItems: "center", fontSize: 15, color: "rgba(245,241,234,0.6)", transform: open ? "rotate(45deg)" : "none", transition: "transform .3s ease" }}>+</span>
+      </button>
+      <div style={{ maxHeight: open ? 320 : 0, overflow: "hidden", transition: "max-height .4s ease" }}>
+        <p style={{ margin: "0 0 26px", maxWidth: "74ch", fontSize: 15.5, lineHeight: 1.64, color: "rgba(245,241,234,0.66)" }}>{a}</p>
+      </div>
+    </div>
+  );
+}
 const A = "#8B7DD8";
 
 const CSS = `
@@ -49,6 +63,7 @@ export default function CapabilityPage({ data }: { data: CapabilityData }) {
   const navBar = useRef<HTMLDivElement>(null);
   const [openMenu, setOpenMenu] = useState<null | "product" | "connections" | "resources">(null);
   const [siblingOpen, setSiblingOpen] = useState(false);
+  const [faqOpen, setFaqOpen] = useState<number | null>(0);
   const menuTimer = useRef<number | null>(null);
   const [menuAnchor, setMenuAnchor] = useState(0); // hovered trigger's left edge (viewport px)
   const heroWrap = useRef<HTMLDivElement>(null);
@@ -397,11 +412,8 @@ export default function CapabilityPage({ data }: { data: CapabilityData }) {
             <div style={{ fontSize: 12, letterSpacing: ".28em", textTransform: "uppercase", color: "#B8AEDB", marginBottom: 18 }}>FAQs</div>
             <h2 style={{ fontFamily: SERIF, fontWeight: 500, fontSize: "clamp(30px,4vw,50px)", lineHeight: 1.04, letterSpacing: "-0.015em", margin: "0 0 40px", color: "#F5F1EA" }}>{data.name}, answered plainly</h2>
             <div>
-              {faqs.map((f) => (
-                <div key={f.q} style={{ padding: "26px 0", borderTop: "1px solid rgba(245,241,234,0.12)" }}>
-                  <h3 style={{ fontFamily: SERIF, fontWeight: 500, fontSize: "clamp(19px,2vw,24px)", lineHeight: 1.25, margin: "0 0 12px", color: "#F5F1EA" }}>{f.q}</h3>
-                  <p style={{ margin: 0, maxWidth: "74ch", fontSize: 15.5, lineHeight: 1.64, color: "rgba(245,241,234,0.66)" }}>{f.a}</p>
-                </div>
+              {faqs.map((f, i) => (
+                <CapFaqItem key={f.q} q={f.q} a={f.a} open={faqOpen === i} onToggle={() => setFaqOpen((o) => (o === i ? null : i))} />
               ))}
             </div>
           </div>
