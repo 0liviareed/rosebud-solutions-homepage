@@ -21,5 +21,20 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
   const { slug } = await params;
   const data = RESOURCES[slug];
   if (!data) notFound();
-  return <ResourceArticlePage data={data} />;
+
+  const faqBlock = data.body.find((b) => b.type === "faq");
+  const faqSchema = faqBlock && faqBlock.type === "faq"
+    ? {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        mainEntity: faqBlock.items.map((f) => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a } })),
+      }
+    : null;
+
+  return (
+    <>
+      {faqSchema && <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />}
+      <ResourceArticlePage data={data} />
+    </>
+  );
 }

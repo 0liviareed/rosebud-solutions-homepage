@@ -746,6 +746,7 @@ export const CLEANING_STAGE: IndustryStageData = {
     { q: "How do you make sure it launches safely?", a: "Every build is scoped to your business, tested against real enquiries, and goes live with your sign-off at each stage. Nothing runs on a customer until you have approved how it behaves." },
   ],
   related: [
+    { title: "How to Get Cleaning Contracts", desc: "Where cleaning contracts are posted, how to bid on them, and the free bid template.", href: "/resources/how-to-get-cleaning-contracts" },
     { title: "Trades & Home Services", desc: "The same answer-qualify-book-record system, built for teams quoting and scheduling site work.", href: "/industries/trades-home-services" },
     { title: "Real Estate", desc: "The same intake layer, built for agents and property teams working new enquiries.", href: "/industries/real-estate" },
     { title: "Insurance", desc: "The same intake-to-record system, built for agencies quoting new business.", href: "/industries/insurance" },

@@ -163,6 +163,29 @@ export async function sendWelcomeOnboarding(opts: { email: string; firstName?: s
   }
 }
 
+/** Resource lead-magnet delivery: emails the download links for a gated resource. */
+export async function sendResourceDownload(opts: { email: string; resourceTitle: string; files: { label: string; url: string }[] }): Promise<EmailResult> {
+  const key = process.env.RESEND_API_KEY;
+  if (!key) { console.warn("RESEND_API_KEY missing — skipping resource download email"); return { ok: false, error: "RESEND_API_KEY missing" }; }
+  const links = opts.files.map((f) => `<p style="margin:0 0 14px;">${btn(f.url, f.label)}</p>`).join("");
+  const html = shell(`
+    <h1 style="font-family:'Cormorant Garamond',Georgia,serif;font-weight:500;font-size:24px;margin:8px 0 14px;">${esc(opts.resourceTitle)}</h1>
+    <p style="margin:0 0 20px;">As requested — here are your files.</p>
+    ${links}
+    <p style="margin:20px 0 0;color:#8a8698;font-size:13px;">Questions? Just reply to this email.</p>
+  `);
+  try {
+    const resend = new Resend(key);
+    const r = await resend.emails.send({ from: FROM, replyTo: REPLY_TO, to: opts.email, subject: `Your download: ${opts.resourceTitle}`, html });
+    if (r.error) { console.error("sendResourceDownload resend error:", JSON.stringify(r.error)); return { ok: false, error: JSON.stringify(r.error) }; }
+    return { ok: true, id: r.data?.id ?? null };
+  } catch (err) {
+    const msg = err instanceof Error ? err.message : String(err);
+    console.error("sendResourceDownload failed:", msg);
+    return { ok: false, error: msg };
+  }
+}
+
 /** Abandoned-checkout nudge (copy supplied by Jay/Saj — placeholder body until then). */
 export async function sendAbandonedNudge(opts: { email: string; firstName?: string | null; resumeUrl: string; }): Promise<void> {
   const key = process.env.RESEND_API_KEY;

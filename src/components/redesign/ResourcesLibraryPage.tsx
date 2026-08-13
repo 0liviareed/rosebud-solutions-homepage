@@ -5,7 +5,7 @@ import RedesignNav from "./RedesignNav";
 import RedesignFooter from "./RedesignFooter";
 import RedesignReveal from "./RedesignReveal";
 import BookDemoCTA from "./BookDemoCTA";
-import { RESOURCES, STAGES, SECTORS, SORTS, nameOf, type ResourceItem } from "./resourcesData";
+import { RESOURCES, STAGES, SECTORS, SORTS, KINDS, nameOf, type ResourceItem } from "./resourcesData";
 
 // The Enquiry Library — resources index. Same design language as AboutV2
 // (light lavender sections, Cormorant headings, DM Sans body) with a
@@ -224,7 +224,7 @@ function ResourceCard({ item }: { item: ResourceItem }) {
       <h2 style={{ fontFamily: SERIF, fontWeight: 500, fontSize: 20, lineHeight: 1.18, color: "#17131F", margin: 0 }}>{item.title}</h2>
       <p style={{ fontSize: 13.5, lineHeight: 1.6, color: "rgba(23,19,31,0.55)", margin: 0 }}>{item.dek}</p>
       <footer style={{ marginTop: "auto", paddingTop: 14, display: "flex", alignItems: "center", justifyContent: "space-between", fontSize: 11, fontWeight: 700, letterSpacing: ".9px", textTransform: "uppercase", color: "rgba(23,19,31,0.35)" }}>
-        <span>Research &middot; {item.mins} min read</span>
+        <span>{nameOf(KINDS, item.kind)} &middot; {item.mins} min read</span>
         <span className="rb-lib-arrow" aria-hidden>→</span>
       </footer>
     </a>
