@@ -22,6 +22,7 @@ const BARE_ROUTES: readonly string[] = [
   "/checkout",
   "/onboarding",
   "/app",
+  "/resources",
   // Industry pages ported to the redesign template ship their own RedesignNav/Footer
   // — add each slug here as it ports (switch to bare "/industries" once all are on
   // the new template). Un-ported pages still rely on the global chrome.

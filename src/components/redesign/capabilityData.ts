@@ -47,6 +47,7 @@ export const NAV_CAPABILITIES = [
 export const NAV_RESOURCES = [
   { head: "Pricing", desc: "Explore plans that work for you", href: "/pricing" },
   { head: "About", desc: "The company behind the system", href: "/about" },
+  { head: "Library", desc: "Guides & research on winning enquiries", href: "/resources" },
 ];
 
 export const INT_LOGOS: { name: string; src: string; h: number }[] = [
