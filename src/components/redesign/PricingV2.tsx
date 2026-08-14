@@ -82,7 +82,7 @@ export default function PricingV2() {
   // Fixed price list per currency (pricingData.ts) — not a live/floating FX
   // conversion, so figures never drift day to day. Persisted in the URL so
   // the choice survives into checkout, which already reads `?currency=`.
-  const [currency, setCurrency] = useState<Cur>("GBP");
+  const [currency, setCurrency] = useState<Cur>("USD");
   const [selectedTier, setSelectedTier] = useState<PlanKey | "enterprise" | null>(null);
   const [selectedVal, setSelectedVal] = useState<number | null>(null);
   const [extraSeats, setExtraSeats] = useState<Record<PlanKey, number>>({ start: 0, grow: 0, expand: 0, scale: 0 });

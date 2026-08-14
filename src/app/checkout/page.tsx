@@ -17,7 +17,7 @@ function CheckoutInner() {
   const q = useSearchParams();
   const plan = planByKey(q.get("plan") ?? "grow") ?? PLANS[1];
   const [cycle, setCycle] = useState<Cycle>(q.get("cycle") === "monthly" ? "monthly" : "yearly");
-  const [currency] = useState<Cur>(q.get("currency") === "USD" ? "USD" : "GBP");
+  const [currency] = useState<Cur>(q.get("currency") === "GBP" ? "GBP" : "USD");
   const [seats, setSeats] = useState<number>(() => {
     const s = parseInt(q.get("seats") ?? "", 10);
     return Number.isFinite(s) ? Math.min(Math.max(s, plan.baseSeats), plan.seatCap) : plan.baseSeats;
