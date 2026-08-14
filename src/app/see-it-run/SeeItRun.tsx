@@ -33,14 +33,14 @@ const PROOF = [
 const SECTORS = ["Life insurance", "Recruitment", "Real estate", "Mortgage & lending", "Dental & healthcare", "Trades", "Family law"];
 
 const BEFORE_AFTER = [
-  ["Enquiries replied to when someone got round to it.", "Every enquiry gets an immediate, personalised response. Automatically."],
+  ["Inquiries replied to when someone got round to it.", "Every inquiry gets an immediate, personalised response. Automatically."],
   ["Follow-ups written by hand. Sent late, if at all.", "Follow-up sequences go out on time, every time. No one has to remember."],
   ["Appointments and jobs confirmed by hand.", "Confirmations, reminders and rescheduling handled automatically."],
   ["Documents and information chased over the phone.", "Chasing sequences run until the information lands."],
-  ["No clear view of where anything sits.", "Every enquiry, job and client in one place. In real time."],
+  ["No clear view of where anything sits.", "Every inquiry, job and client in one place. In real time."],
 ];
 
-const PROCESS = ["Enquiry in", "Auto response", "Qualified", "Confirmed", "Follow-up", "Pipeline", "You do the work"];
+const PROCESS = ["Inquiry in", "Auto response", "Qualified", "Confirmed", "Follow-up", "Pipeline", "You do the work"];
 
 export default function SeeItRun() {
   const [p, setP] = useState(0);
@@ -238,7 +238,7 @@ export default function SeeItRun() {
           <div className="rbd-out">
             <div>
               <h2 className="rbd-out-big">One job left.</h2>
-              <p className="rbd-out-sub">Run the business. The system handles everything around it, from first enquiry to the moment it&rsquo;s ready for you.</p>
+              <p className="rbd-out-sub">Run the business. The system handles everything around it, from first inquiry to the moment it&rsquo;s ready for you.</p>
             </div>
             <div>
               <p className="rbd-out-big" style={{ color: "var(--rb-purple)" }}>Hours back a week.</p>

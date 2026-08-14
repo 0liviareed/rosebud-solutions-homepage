@@ -85,7 +85,7 @@ const NAV_CAPABILITIES = [
 const NAV_RESOURCES = [
   { head: "Pricing", desc: "Explore plans that work for you", href: "/pricing" },
   { head: "About", desc: "The company behind the system", href: "/about" },
-  { head: "Library", desc: "Guides & research on winning enquiries", href: "/resources" },
+  { head: "Library", desc: "Guides & research on winning inquiries", href: "/resources" },
 ];
 
 const CHANNEL_CHIPS = [
@@ -344,7 +344,7 @@ export default function HomepageV2() {
         sub=""
         caption=""
         actions={<>
-          <p className="rb-hero-lead">Rosebud Solutions is a customer communication platform built on demand capture &amp; conversion infrastructure. We provide seven capabilities on one engine that carry every enquiry through to a booked appointment.</p>
+          <p className="rb-hero-lead">Rosebud Solutions is a customer communication platform built on demand capture &amp; conversion infrastructure. We provide seven capabilities on one engine that carry every inquiry through to a booked appointment.</p>
           <div className="rb-hero-actions">
             <BookDemoCTA label="Get started" href="/pricing" tone="dark" />
             <a className="rb-hero-contact" href="https://cal.eu/rosebudsolutions/demo" target="_blank" rel="noopener noreferrer">Book free consultation</a>
@@ -369,8 +369,8 @@ export default function HomepageV2() {
           <div>
             <div style={{ fontSize: 12, letterSpacing: ".28em", textTransform: "uppercase", color: "#B8AEDB", marginBottom: 18, textShadow: "0 1px 14px rgba(0,0,0,0.5)" }}>Book your free consultation</div>
             <h2 style={{ fontFamily: SERIF, fontWeight: 500, fontSize: "clamp(40px,5vw,74px)", lineHeight: 1.0, letterSpacing: "-0.01em", textShadow: "0 2px 34px rgba(0,0,0,0.6)", margin: 0 }}>What&apos;s your<br />challenge?</h2>
-            <p style={{ marginTop: 30, fontSize: 17, lineHeight: 1.6, color: "rgba(245,241,234,0.85)", maxWidth: "44ch", textShadow: "0 1px 18px rgba(0,0,0,0.55)" }}>Enquiries nobody answered. Leads gone cold. No idea what happened to either.</p>
-            <p style={{ marginTop: 16, fontSize: 17, lineHeight: 1.6, color: "rgba(245,241,234,0.85)", maxWidth: "44ch", textShadow: "0 1px 18px rgba(0,0,0,0.55)" }}>We will map your funnel so your spend stops buying enquiries and starts buying customers.</p>
+            <p style={{ marginTop: 30, fontSize: 17, lineHeight: 1.6, color: "rgba(245,241,234,0.85)", maxWidth: "44ch", textShadow: "0 1px 18px rgba(0,0,0,0.55)" }}>Inquiries nobody answered. Leads gone cold. No idea what happened to either.</p>
+            <p style={{ marginTop: 16, fontSize: 17, lineHeight: 1.6, color: "rgba(245,241,234,0.85)", maxWidth: "44ch", textShadow: "0 1px 18px rgba(0,0,0,0.55)" }}>We will map your funnel so your spend stops buying inquiries and starts buying customers.</p>
             <div style={{ marginTop: 34 }}><BookDemoCTA label="Get started" href="/pricing" tone="dark" /></div>
           </div>
           <div ref={wfBox} style={{ position: "relative", width: "100%", aspectRatio: "920 / 580" }}>
@@ -456,7 +456,7 @@ export default function HomepageV2() {
                 <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round"><rect x="5" y="11" width="14" height="9" rx="2" /><path d="M8 11V8a4 4 0 0 1 8 0v3" /></svg>
               </span>
               <h3 style={{ fontFamily: SERIF, fontWeight: 500, fontSize: 26, lineHeight: 1.1, marginTop: 22, textShadow: "0 2px 18px rgba(0,0,0,0.5)" }}>Your data stays in your systems</h3>
-              <p style={{ marginTop: 12, fontSize: 14, lineHeight: 1.55, color: "rgba(245,241,234,0.82)", textShadow: "0 1px 10px rgba(0,0,0,0.4)" }}>Your customer records and enquiries live in your own CRM and calendar, exactly where they already are.</p>
+              <p style={{ marginTop: 12, fontSize: 14, lineHeight: 1.55, color: "rgba(245,241,234,0.82)", textShadow: "0 1px 10px rgba(0,0,0,0.4)" }}>Your customer records and inquiries live in your own CRM and calendar, exactly where they already are.</p>
               <div style={{ marginTop: "auto", paddingTop: 24 }}>
                 <div style={{ background: "rgba(255,255,255,0.1)", backdropFilter: "blur(14px)", WebkitBackdropFilter: "blur(14px)", border: "1px solid rgba(255,255,255,0.2)", borderRadius: 12, padding: 15, boxShadow: "0 18px 40px -26px rgba(0,0,0,0.7)" }}>
                   <div style={{ height: 7, width: "70%", borderRadius: 4, background: "rgba(255,255,255,0.4)" }} />
@@ -476,7 +476,7 @@ export default function HomepageV2() {
                 <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" strokeLinecap="round"><path d="M12 3l7 3v5c0 4.2-3 7.5-7 8.6C8 18.5 5 15.2 5 11V6l7-3z" /><path d="M9 11.5l2 2 4-4" /></svg>
               </span>
               <h3 style={{ fontFamily: SERIF, fontWeight: 500, fontSize: 29, lineHeight: 1.1, marginTop: 22 }}>{"We don't train any model on your data"}</h3>
-              <p style={{ marginTop: 12, fontSize: 14.5, lineHeight: 1.6, color: "rgba(245,241,234,0.66)", maxWidth: "60ch" }}>{"Your enquiries, your customers, your records stay private to your business — never used to train any model, ours or anyone else's."}</p>
+              <p style={{ marginTop: 12, fontSize: 14.5, lineHeight: 1.6, color: "rgba(245,241,234,0.66)", maxWidth: "60ch" }}>{"Your inquiries, your customers, your records stay private to your business — never used to train any model, ours or anyone else's."}</p>
               <div className="rb-sec-d-grid" style={{ marginTop: "auto", paddingTop: 26, display: "grid", gridTemplateColumns: "1.35fr 1fr", gap: 16, alignItems: "stretch" }}>
                 <div style={{ display: "grid", gridTemplateColumns: "repeat(2,1fr)", gap: 9 }}>
                   {CHANNEL_CHIPS.map((c) => (
@@ -527,8 +527,8 @@ export default function HomepageV2() {
             </svg>
             <div aria-hidden style={{ position: "absolute", top: "8%", left: "50%", transform: "translateX(-50%)", width: 900, height: 520, background: "radial-gradient(closest-side, rgba(139,125,216,0.28), rgba(139,125,216,0) 72%)", pointerEvents: "none" }} />
             <div style={{ position: "relative", zIndex: 2, maxWidth: 920, margin: "0 auto" }}>
-              <h2 style={{ fontFamily: SERIF, fontWeight: 500, fontSize: "clamp(40px,5vw,74px)", lineHeight: 1.02, letterSpacing: "-0.01em", margin: 0 }}>Stop buying enquiries. Start buying <em style={{ color: A, fontStyle: "italic", fontWeight: 500 }}>customers</em></h2>
-              <p style={{ marginTop: 26, fontSize: 18, lineHeight: 1.6, color: "rgba(36,21,40,0.66)", maxWidth: "56ch", marginLeft: "auto", marginRight: "auto" }}>See the system run on your own pipeline. Every enquiry, from the first message to a name in your diary.</p>
+              <h2 style={{ fontFamily: SERIF, fontWeight: 500, fontSize: "clamp(40px,5vw,74px)", lineHeight: 1.02, letterSpacing: "-0.01em", margin: 0 }}>Stop buying inquiries. Start buying <em style={{ color: A, fontStyle: "italic", fontWeight: 500 }}>customers</em></h2>
+              <p style={{ marginTop: 26, fontSize: 18, lineHeight: 1.6, color: "rgba(36,21,40,0.66)", maxWidth: "56ch", marginLeft: "auto", marginRight: "auto" }}>See the system run on your own pipeline. Every inquiry, from the first message to a name in your diary.</p>
               <div style={{ marginTop: 44, display: "inline-flex", flexWrap: "wrap", justifyContent: "center", gap: "18px 26px", padding: "26px 34px", borderRadius: 24, background: "rgba(255,255,255,0.4)", backdropFilter: "blur(18px)", WebkitBackdropFilter: "blur(18px)", border: "1px solid rgba(255,255,255,0.6)", boxShadow: "0 30px 70px -40px rgba(36,21,40,0.5), inset 0 1px 0 rgba(255,255,255,0.7)" }}>
                 {SERVICES.map((s) => (
                   <div key={s.label} style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 11, width: 92 }}>

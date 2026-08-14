@@ -11,7 +11,7 @@ const GROUPS: FAQGroup[] = [
     items: [
       {
         q: "How fast can you respond to a new candidate?",
-        a: "The average recruiter takes 2–3 hours to follow up on a new enquiry. By then, two other agencies already have. Rosebud agents respond instantly — capturing availability, salary expectations, and experience level the moment a candidate makes contact. Your consultants step in only when there's someone worth speaking to.",
+        a: "The average recruiter takes 2–3 hours to follow up on a new inquiry. By then, two other agencies already have. Rosebud agents respond instantly — capturing availability, salary expectations, and experience level the moment a candidate makes contact. Your consultants step in only when there's someone worth speaking to.",
       },
       {
         q: "How does pre-screening work before our team touches the file?",

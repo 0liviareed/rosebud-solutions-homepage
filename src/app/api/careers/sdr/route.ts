@@ -294,7 +294,7 @@ export async function POST(req: Request) {
 
   // Consents
   if (!body.gdpr_consent) return bad("Privacy policy consent is required");
-  if (!body.commission_consent) return bad("Commission-role acknowledgement is required");
+  if (!body.commission_consent) return bad("Commission-role acknowledgment is required");
   if (!body.location_consent) return bad("Right-to-work confirmation is required");
 
   // Insert into Supabase

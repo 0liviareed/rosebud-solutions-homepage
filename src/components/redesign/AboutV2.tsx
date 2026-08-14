@@ -59,7 +59,7 @@ export default function AboutV2() {
             The operating system between demand &amp; <em style={{ fontStyle: "italic", color: A }}>revenue</em>
           </h1>
           <p style={{ ...bodyText, marginTop: 28, maxWidth: 620, fontSize: 19 }}>
-            Rosebud Solutions is a customer communication platform built on demand capture &amp; conversion infrastructure. We provide seven capabilities on one engine that carry every enquiry through to a booked appointment.
+            Rosebud Solutions is a customer communication platform built on demand capture &amp; conversion infrastructure. We provide seven capabilities on one engine that carry every inquiry through to a booked appointment.
           </p>
         </div>
       </section>
@@ -72,7 +72,7 @@ export default function AboutV2() {
             Most businesses don&apos;t have a lead problem. They have a <em style={{ fontStyle: "italic", color: A }}>follow-up</em> problem, &amp; we exist to close it
           </h2>
           <div className="rb-ab-mission-grid">
-            <p style={bodyText}>Money goes out to create demand, then the demand sits in an inbox until the intent has gone cold. We built one system that answers every enquiry within seconds, scores it against your own rules, books it into your diary, and works it again when it goes quiet.</p>
+            <p style={bodyText}>Money goes out to create demand, then the demand sits in an inbox until the intent has gone cold. We built one system that answers every inquiry within seconds, scores it against your own rules, books it into your diary, and works it again when it goes quiet.</p>
             <p style={bodyText}>Then we run that system for you, every day, so your people are free for the work only people can do. The rest of this market sells software and wishes you luck. We took the harder route on purpose. That&apos;s work, not licensing, and it&apos;s why an operator can&apos;t simply be swapped out.</p>
           </div>
         </div>
@@ -101,7 +101,7 @@ export default function AboutV2() {
         <div data-reveal style={{ maxWidth: 1180, margin: "0 auto" }}>
           <div style={eyebrow}>Our team</div>
           <h2 style={{ fontFamily: SERIF, fontWeight: 400, fontSize: "clamp(30px,3.6vw,52px)", lineHeight: 1.08, letterSpacing: "-0.015em", margin: 0, maxWidth: "18ch" }}>The team that owns the space between demand &amp; revenue</h2>
-          <p style={{ ...bodyText, marginTop: 24, maxWidth: 640 }}>At Rosebud, we&apos;re building the best team to design and operate the layer between what a business spends to win attention &amp; what it actually keeps. If you want to answer every enquiry in seconds, take the chasing off your desk, and see results every day, we&apos;d love to chat.</p>
+          <p style={{ ...bodyText, marginTop: 24, maxWidth: 640 }}>At Rosebud, we&apos;re building the best team to design and operate the layer between what a business spends to win attention &amp; what it actually keeps. If you want to answer every inquiry in seconds, take the chasing off your desk, and see results every day, we&apos;d love to chat.</p>
           <div style={{ display: "flex", alignItems: "center", gap: 20, margin: "52px 0 24px" }}>
             <span style={{ fontSize: 12, letterSpacing: ".24em", textTransform: "uppercase", color: "rgba(23,19,31,0.45)", whiteSpace: "nowrap" }}>Our leadership team</span>
             <span style={{ flex: 1, height: 1, background: "rgba(23,19,31,0.12)" }} />

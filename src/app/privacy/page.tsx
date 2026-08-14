@@ -108,7 +108,7 @@ export default function PrivacyPage() {
               <li>
                 <strong>Technical and device data</strong> &mdash; IP address,
                 device identifiers, browser type, operating system, location
-                data, and browsing behaviour.
+                data, and browsing behavior.
               </li>
               <li>
                 <strong>Usage and interaction data</strong> &mdash; number and
@@ -185,13 +185,13 @@ export default function PrivacyPage() {
               <strong>Controller &mdash; our own account, site and payment
               data.</strong> We are the controller of personal data about our
               account holders, their users, our website visitors, and people who
-              enquire about Rosebud. The rest of this Privacy Policy governs that
+              inquire about Rosebud. The rest of this Privacy Policy governs that
               data.
             </p>
             <p>
               <strong>Processor &mdash; data the operated service handles.</strong>{" "}
               When you are a client, the Service processes personal data about
-              your leads, enquirers and customers (&ldquo;Contact Data&rdquo;) on
+              your leads, inquirers and customers (&ldquo;Contact Data&rdquo;) on
               your behalf and on your documented instructions. For that data you
               are the controller and we are your processor, under a data
               processing agreement. An individual whose data sits in a
@@ -208,7 +208,7 @@ export default function PrivacyPage() {
             </p>
             <ul className="rb-policy-list">
               <li>
-                capture enquiries across the client&rsquo;s active channels
+                capture inquiries across the client&rsquo;s active channels
                 &mdash; web form, email, SMS, WhatsApp and Instagram &mdash; into
                 a single record;
               </li>
@@ -235,9 +235,9 @@ export default function PrivacyPage() {
               </li>
             </ul>
             <p>
-              Categories of data subject: the client&rsquo;s leads, enquirers,
+              Categories of data subject: the client&rsquo;s leads, inquirers,
               prospects and customers. Categories of data: contact identifiers,
-              enquiry content and channel, qualification fields and status,
+              inquiry content and channel, qualification fields and status,
               appointment and engagement events, and &mdash; where the client
               provides it &mdash; an expected or actual value. We do not enrich
               Contact Data with third-party or sourced data as part of the
@@ -370,7 +370,7 @@ export default function PrivacyPage() {
             <ol className="rb-policy-list rb-policy-list-ordered">
               <li>Recognise your device and remember preferences.</li>
               <li>Analyse traffic and user interaction with our Website.</li>
-              <li>Improve usability and optimise communications.</li>
+              <li>Improve usability and optimize communications.</li>
               <li>Measure Website performance and develop new features.</li>
             </ol>
             <p>
@@ -494,7 +494,7 @@ export default function PrivacyPage() {
               If you provide your mobile number and opt in to receive SMS
               communications from Rosebud Global Ltd (trading as Rosebud
               Solutions), we may send you text messages relating to your
-              enquiry, consultations, appointment reminders, service-related
+              inquiry, consultations, appointment reminders, service-related
               updates, and (where separately consented) marketing
               communications. Message frequency varies depending on your
               interaction with us. Message and data rates may apply. You may
@@ -537,7 +537,7 @@ export default function PrivacyPage() {
             </h2>
             <p>
               We may use performance monitoring and analytics tools to assess
-              trading behaviour and engagement within our community. These
+              trading behavior and engagement within our community. These
               processes are used for research, education, and system
               development only. We do not rely on automated decision-making
               that produces legal or similarly significant effects on

@@ -51,7 +51,7 @@ export function fmtSeconds(s: number | null): string {
 // mismatch (React error #418), not just a display nuance.
 export function fmtWhen(iso: string): string {
   const d = new Date(iso);
-  return d.toLocaleString("en-GB", {
+  return d.toLocaleString("en-US", {
     day: "numeric",
     month: "short",
     hour: "2-digit",
@@ -95,7 +95,7 @@ export function buildCaptureFlow(m: CaptureMetrics): FlowItem[] {
     title: "Channel Intake",
     subtitle: "Creating the lead record",
     metrics: [
-      { value: String(m.captured), label: "enquiries" },
+      { value: String(m.captured), label: "inquiries" },
       { value: String(m.channelMix.length), label: "channels" },
     ],
     why: [
@@ -115,7 +115,7 @@ export function buildCaptureFlow(m: CaptureMetrics): FlowItem[] {
       { value: String(m.adSourced), label: "ad-sourced" },
     ],
     why: [
-      "The contact, the channel, and where they came from are held from the second the enquiry arrives.",
+      "The contact, the channel, and where they came from are held from the second the inquiry arrives.",
       "Everything downstream — qualifying, booking, reporting — builds on that one clean file.",
     ],
   };
@@ -127,7 +127,7 @@ export function buildCaptureFlow(m: CaptureMetrics): FlowItem[] {
     title: "Duplicate Check",
     subtitle: "Matching against existing",
     metrics: [{ value: String(m.duplicateMatched), label: "matched" }],
-    why: ["Checked on email and phone before anything is sent, so a returning enquirer continues the thread already open."],
+    why: ["Checked on email and phone before anything is sent, so a returning inquirer continues the thread already open."],
   };
 
   const firstResponse: FlowStepNode = {
@@ -156,7 +156,7 @@ export function buildCaptureFlow(m: CaptureMetrics): FlowItem[] {
       { value: String(m.merged), label: "merged" },
       { value: String(m.duplicateReplyPrevented), label: "duplicate replies prevented" },
     ],
-    why: ["A matched enquiry joins the record already open instead of starting a second thread the team has to notice and merge by hand."],
+    why: ["A matched inquiry joins the record already open instead of starting a second thread the team has to notice and merge by hand."],
   };
 
   const missedCallCapture: FlowStepNode = {

@@ -30,7 +30,7 @@ function pricingOffersJson() {
   }));
   return {
     "@context": "https://schema.org", "@type": "Product", name: "Rosebud Solutions",
-    description: "The enquiry-handling platform for owner-operated businesses: captures, qualifies, books and follows up every lead, and writes it into the system you already run. Four self-serve monthly plans plus custom Enterprise.",
+    description: "The inquiry-handling platform for owner-operated businesses: captures, qualifies, books and follows up every lead, and writes it into the system you already run. Four self-serve monthly plans plus custom Enterprise.",
     brand: { "@type": "Brand", name: "Rosebud Solutions" },
     offers: { "@type": "AggregateOffer", priceCurrency: "GBP", lowPrice: Math.min(...PLANS.map((p) => p.price.GBP)), highPrice: Math.max(...PLANS.map((p) => p.price.GBP)), offerCount: PLANS.length, offers },
   };

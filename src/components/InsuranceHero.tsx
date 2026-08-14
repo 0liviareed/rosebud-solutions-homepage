@@ -32,15 +32,15 @@ const STAGES: Stage[] = [
   {
     tab: "Intake",
     inputs: [
-      { label: "Enquiry channels", detail: "Missed calls, web forms, email, SMS" },
+      { label: "Inquiry channels", detail: "Missed calls, web forms, email, SMS" },
       { label: "After-hours window", detail: "Evenings and weekends" },
       { label: "Missed-call recovery", detail: "Calls that hit voicemail" },
     ],
     output: {
-      chip: "Enquiry answered",
-      q: "What happens to the enquiry that lands at 9pm?",
+      chip: "Inquiry answered",
+      q: "What happens to the inquiry that lands at 9pm?",
       a: "Replied to in seconds across every channel, after hours included, with the qualifying questions asked before an advisor takes it on.",
-      metric: { value: "< 60s", label: "response to every new enquiry" },
+      metric: { value: "< 60s", label: "response to every new inquiry" },
     },
   },
   {
@@ -199,8 +199,8 @@ export default function InsuranceHero({
       </h1>
 
       <p className="rbh-sub">
-        <span className="rbh-sub-lead">From enquiry to renewal, handled.</span>
-        We qualify every enquiry, run the fact-find, prep carrier-ready
+        <span className="rbh-sub-lead">From inquiry to renewal, handled.</span>
+        We qualify every inquiry, run the fact-find, prep carrier-ready
         submissions, and book the advisor callbacks. Your licensed people do the
         work only they can do.
       </p>

@@ -12,9 +12,9 @@ type Status = { planName: string; email: string | null; renewalDate: string | nu
 
 const STEPS = [
   { n: "1", t: "Onboarding session", d: "We agree your good-lead definition, escalation rules, value tiers and how not-qualified leads are handled." },
-  { n: "2", t: "Connect & configure", d: "Your six capabilities are labelled and your tone trained; CRM and calendar connected — plus the capture script if closed-loop is on." },
-  { n: "3", t: "End-to-end validation", d: "A real enquiry runs the full path into your CRM before anything goes live." },
-  { n: "4", t: "Go-live", d: "Your system opens for enquiries and starts qualifying and booking on your live traffic." },
+  { n: "2", t: "Connect & configure", d: "Your six capabilities are labeled and your tone trained; CRM and calendar connected — plus the capture script if closed-loop is on." },
+  { n: "3", t: "End-to-end validation", d: "A real inquiry runs the full path into your CRM before anything goes live." },
+  { n: "4", t: "Go-live", d: "Your system opens for inquiries and starts qualifying and booking on your live traffic." },
 ];
 
 function SuccessInner() {

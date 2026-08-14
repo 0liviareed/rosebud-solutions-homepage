@@ -68,7 +68,7 @@ export default function DpaPage() {
             <ul className="rb-policy-list">
               <li>
                 <strong>&ldquo;Contact Data&rdquo;</strong> means personal data
-                about your leads, enquirers, prospects, and customers that the
+                about your leads, inquirers, prospects, and customers that the
                 Service processes on your behalf.
               </li>
               <li>
@@ -116,7 +116,7 @@ export default function DpaPage() {
             </p>
             <ul className="rb-policy-list">
               <li>
-                capture enquiries across your active channels &mdash; web form,
+                capture inquiries across your active channels &mdash; web form,
                 email, SMS, WhatsApp and Instagram &mdash; into a single record;
               </li>
               <li>
@@ -142,12 +142,12 @@ export default function DpaPage() {
               </li>
             </ul>
             <p>
-              <strong>Categories of data subject.</strong> Your leads, enquirers,
+              <strong>Categories of data subject.</strong> Your leads, inquirers,
               prospects and customers.
             </p>
             <p>
               <strong>Categories of personal data.</strong> Contact identifiers,
-              enquiry content and channel, qualification fields and status,
+              inquiry content and channel, qualification fields and status,
               appointment and engagement events, and &mdash; where you provide it
               &mdash; an expected or actual value. We do not enrich Contact Data
               with third-party or sourced data as part of the Service. No special
@@ -167,7 +167,7 @@ export default function DpaPage() {
                 confidentiality;
               </li>
               <li>
-                implement appropriate technical and organisational measures to
+                implement appropriate technical and organizational measures to
                 ensure a level of security appropriate to the risk, in accordance
                 with Article 32 UK GDPR;
               </li>
@@ -212,7 +212,7 @@ export default function DpaPage() {
             <h2 className="rb-policy-h2">6. Data Subject Requests</h2>
             <p>
               Taking into account the nature of the processing, we will assist you
-              by appropriate technical and organisational measures, insofar as
+              by appropriate technical and organizational measures, insofar as
               possible, to respond to requests from Data Subjects exercising their
               rights. If we receive such a request directly, we will refer the
               Data Subject to you and will not respond except on your

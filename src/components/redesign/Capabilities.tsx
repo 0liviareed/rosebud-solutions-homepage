@@ -10,12 +10,12 @@ type Bubble = { from: "in" | "out"; text: string; time: string };
 type UseCase = { icon: string; name: string; nav: string; line: string; channel: string; thread: Bubble[]; fields: Field[]; footer?: string };
 
 const CASES: UseCase[] = [
-  { icon: "◇", name: "Multi-channel intake", nav: "Capture", line: "Every enquiry, on every channel, answered and recorded in seconds.", channel: "WhatsApp",
+  { icon: "◇", name: "Multi-channel intake", nav: "Capture", line: "Every inquiry, on every channel, answered and recorded in seconds.", channel: "WhatsApp",
     thread: [{ from: "in", text: "Hi — do you have any availability this week?", time: "21:47" }, { from: "out", text: "Yes, happy to help. Can I take your name and postcode?", time: "21:47" }],
-    fields: [{ k: "Contact", v: "New enquiry" }, { k: "Channel", v: "WhatsApp" }, { k: "Source", v: "Meta / paid" }, { k: "Click ID", v: "fb.1.87f3…" }], footer: "Record written 21:47 — the same second." },
+    fields: [{ k: "Contact", v: "New inquiry" }, { k: "Channel", v: "WhatsApp" }, { k: "Source", v: "Meta / paid" }, { k: "Click ID", v: "fb.1.87f3…" }], footer: "Record written 21:47 — the same second." },
   { icon: "◈", name: "Qualification rules engine", nav: "Qualify", line: "Every lead scored against your definition of a good one.", channel: "WhatsApp",
     thread: [{ from: "in", text: "SW7. Looking to start next month.", time: "21:48" }, { from: "out", text: "Great — that fits. Let me check the diary for you.", time: "21:48" }],
-    fields: [{ k: "Rule fired", v: "Budget + location" }, { k: "Verdict", v: "Continue", good: true }, { k: "Expected value", v: "£4,200" }, { k: "Second enquiry", v: "Closed — out of area" }] },
+    fields: [{ k: "Rule fired", v: "Budget + location" }, { k: "Verdict", v: "Continue", good: true }, { k: "Expected value", v: "£4,200" }, { k: "Second inquiry", v: "Closed — out of area" }] },
   { icon: "▤", name: "Real-time calendar management", nav: "Book", line: "Booked into your diary at the moment of intent.", channel: "WhatsApp",
     thread: [{ from: "out", text: "I can offer Thu 10:00 or Fri 14:30 — which suits?", time: "21:50" }, { from: "in", text: "Thursday works.", time: "21:51" }, { from: "out", text: "Booked. Thu 10:00 — confirmation on its way.", time: "21:51" }],
     fields: [{ k: "Availability", v: "Live diary" }, { k: "Slot taken", v: "Thu 10:00" }, { k: "Calendar", v: "Entry written", good: true }, { k: "Elapsed", v: "3m 48s" }] },
@@ -33,7 +33,7 @@ const CASES: UseCase[] = [
     fields: [{ k: "Origin", v: "WhatsApp / paid" }, { k: "Qualification", v: "Passed" }, { k: "Value", v: "£4,200" }, { k: "Booked", v: "Thu 10:00" }, { k: "Kept", v: "Yes", good: true }], footer: "Mirroring into your CRM — it stays the system of record." },
   { icon: "◎", name: "Closed-loop attribution", nav: "Closed-loop attribution", line: "Every qualified outcome matched back to the ad click that created it.", channel: "Signal",
     thread: [{ from: "out", text: "Outcome matched to the original ad click.", time: "Done" }],
-    fields: [{ k: "Enquiry", v: "#4821" }, { k: "Qualification", v: "Marker set" }, { k: "Click ID", v: "fb.1.87f3…" }, { k: "Signal file", v: "Handed over", good: true }], footer: "We produce the signal. You own the ad account." },
+    fields: [{ k: "Inquiry", v: "#4821" }, { k: "Qualification", v: "Marker set" }, { k: "Click ID", v: "fb.1.87f3…" }, { k: "Signal file", v: "Handed over", good: true }], footer: "We produce the signal. You own the ad account." },
 ];
 const UC_BG = ["#EAE6F3", "#E4EEE8", "#F3EBE1", "#E7EDF5", "#F0E9F3", "#EBF0E2", "#F4EAE7", "#E6EDEB"];
 
@@ -108,7 +108,7 @@ export default function Capabilities() {
                     <div style={{ display: "flex", alignItems: "center", gap: 11, padding: "14px 16px", borderBottom: "1px solid rgba(255,255,255,0.06)" }}>
                       <span style={{ width: 34, height: 34, flex: "none", borderRadius: 999, background: "linear-gradient(150deg,#9a8ce4,#4b3f86)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 14, fontWeight: 600, color: "#fff", boxShadow: "0 4px 12px -4px rgba(139,125,216,0.7)" }}>N</span>
                       <div style={{ flex: 1, minWidth: 0 }}>
-                        <div style={{ fontSize: 13, fontWeight: 600, color: "#F5F1EA" }}>New enquiry</div>
+                        <div style={{ fontSize: 13, fontWeight: 600, color: "#F5F1EA" }}>New inquiry</div>
                         <div style={{ display: "flex", alignItems: "center", gap: 6, marginTop: 2 }}>
                           <span style={{ width: 6, height: 6, borderRadius: 999, background: "#4ADE80", animation: "livepulse 2s ease-in-out infinite" }} />
                           <span style={{ fontSize: 11, color: "rgba(245,241,234,0.5)" }}>{CASES[active].channel} · online</span>

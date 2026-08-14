@@ -77,7 +77,7 @@ export const TRADES_STAGE: IndustryStageData = {
     eyebrow: "Win the job",
     h2: "How does a plumbing or HVAC CRM stop you losing jobs?",
     answer:
-      "You answer every enquiry in under a minute, on every channel. The burst-pipe call that rings out at 7am gets a text back with a booking link before the customer dials the next plumber; web forms and WhatsApp get an instant reply. Job type, urgency, access and whether it's a gas job are captured before your office opens the file.",
+      "You answer every inquiry in under a minute, on every channel. The burst-pipe call that rings out at 7am gets a text back with a booking link before the customer dials the next plumber; web forms and WhatsApp get an instant reply. Job type, urgency, access and whether it's a gas job are captured before your office opens the file.",
     items: [
       { title: "Emergency callouts answered first", body: "No heating in January, a burst pipe at 7am — the jobs that decide your week get a reply in seconds, not a voicemail." },
       { title: "Qualified before dispatch", body: "Job type, urgency, access, and whether it's gas-safe work or a two-person lift — captured up front so the right engineer goes to the right job." },
@@ -123,18 +123,18 @@ export const TRADES_STAGE: IndustryStageData = {
     scene: { id: "trades-win", tone: "lilac" },
   },
   faqs: [
-    { q: "Is Rosebud dispatch or field-service management software?", a: "No. Rosebud is the enquiry and CRM layer that sits in front of dispatch platforms like ServiceTitan, Jobber and Housecall Pro. It captures, qualifies, books and chases the work, then writes the job into the job-management system you already run. It feeds your dispatch software; it doesn't replace it." },
-    { q: "How fast does Rosebud respond to a new plumbing or HVAC enquiry?", a: "Under 60 seconds, on every channel. The burst-pipe call that rings out at 7am gets a text back with a booking link within seconds; web-form and WhatsApp enquiries get an immediate reply — so the emergency reaches you before the customer dials the next plumber." },
+    { q: "Is Rosebud dispatch or field-service management software?", a: "No. Rosebud is the inquiry and CRM layer that sits in front of dispatch platforms like ServiceTitan, Jobber and Housecall Pro. It captures, qualifies, books and chases the work, then writes the job into the job-management system you already run. It feeds your dispatch software; it doesn't replace it." },
+    { q: "How fast does Rosebud respond to a new plumbing or HVAC inquiry?", a: "Under 60 seconds, on every channel. The burst-pipe call that rings out at 7am gets a text back with a booking link within seconds; web-form and WhatsApp inquiries get an immediate reply — so the emergency reaches you before the customer dials the next plumber." },
     { q: "How does it qualify a job before it reaches my office?", a: "It captures job type, urgency, access and whether it's gas-safe work in the first exchange, so your office opens a file that's already triaged. Emergency callouts are flagged and time-wasters filtered before anyone on your team picks up." },
     { q: "How does it chase quotes and certificates?", a: "Every quote is chased on the cadence that converts — the follow-up, the “let me think about it” nurture, the price objection handled before it kills the job. Gas Safe certificates, deposit invoices and sign-offs are collected in the conversation, not chased by email." },
     { q: "Does it work with the dispatch software we already run?", a: "Yes. Rosebud is built to sit in front of the job-management system you already run and write jobs into it — your dispatch platform stays the source of truth. It complements the software you use rather than asking you to switch." },
-    { q: "How do you make sure it launches safely?", a: "Every build is scoped to how your business already runs, tested against real enquiries, and goes live with your sign-off at each stage. Nothing is switched on until it behaves the way your office would." },
+    { q: "How do you make sure it launches safely?", a: "Every build is scoped to how your business already runs, tested against real inquiries, and goes live with your sign-off at each stage. Nothing is switched on until it behaves the way your office would." },
   ],
   related: [
     { title: "Real Estate", desc: "For the agents booking your team for pre-list repairs & post-close handovers.", href: "/industries/real-estate" },
     { title: "Insurance", desc: "For the brokers routing claims your way — restoration, roofing, plumbing emergencies.", href: "/industries/insurance" },
     { title: "Mortgage & Lending", desc: "For the LOs needing appraisal-flagged repairs done before close.", href: "/industries/mortgage-lending" },
-    { title: "Commercial Cleaning & Janitorial", desc: "The same enquiry-to-booking system, built for cleaning companies chasing bids to a decision.", href: "/industries/commercial-cleaning" },
+    { title: "Commercial Cleaning & Janitorial", desc: "The same inquiry-to-booking system, built for cleaning companies chasing bids to a decision.", href: "/industries/commercial-cleaning" },
   ],
   close: {
     heading: "Put your office on autopilot.",
@@ -144,7 +144,7 @@ export const TRADES_STAGE: IndustryStageData = {
     serviceType: "Job intake automation for plumbing, HVAC & home-service contractors",
     areaServed: "United States",
     serviceDescription:
-      "A CRM and enquiry-handling layer for plumbing, HVAC and home-service contractors that answers enquiries in under a minute, qualifies and books jobs against the live diary, chases quotes, collects Gas Safe certificates and runs service follow-up. It sits in front of the dispatch platform the business already runs — ServiceTitan, Jobber or Housecall Pro — and writes into it, rather than replacing it. It is not field-service or dispatch software.",
+      "A CRM and inquiry-handling layer for plumbing, HVAC and home-service contractors that answers inquiries in under a minute, qualifies and books jobs against the live diary, chases quotes, collects Gas Safe certificates and runs service follow-up. It sits in front of the dispatch platform the business already runs — ServiceTitan, Jobber or Housecall Pro — and writes into it, rather than replacing it. It is not field-service or dispatch software.",
     offerDescription: "Plans scoped to job volume and team size, published on the pricing page. No lock-in.",
     breadcrumbName: "Trades & Home Services",
   },
@@ -234,7 +234,7 @@ export const FAMILY_LAW_STAGE: IndustryStageData = {
     { title: "Mortgage & Lending", desc: "For loan officers facing title, foreclosure or document-review questions inside live loans.", href: "/industries/mortgage-lending" },
     { title: "Real Estate", desc: "For agents needing transactional support on closings, contract review & title escalations.", href: "/industries/real-estate" },
     { title: "Insurance", desc: "For brokers referring personal-injury & first-party claims work to plaintiff-side attorneys.", href: "/industries/insurance" },
-    { title: "Commercial Cleaning & Janitorial", desc: "The same enquiry-to-booking system, built for cleaning companies chasing bids to a decision.", href: "/industries/commercial-cleaning" },
+    { title: "Commercial Cleaning & Janitorial", desc: "The same inquiry-to-booking system, built for cleaning companies chasing bids to a decision.", href: "/industries/commercial-cleaning" },
   ],
   close: {
     heading: "See how legal intake runs for your firm.",
@@ -263,21 +263,21 @@ export const HEALTHCARE_STAGE: IndustryStageData = {
       "Patient intake that answers in seconds, captures the reason for the visit, books against your live diary and writes the record into your practice management system. It never gives clinical advice — that's always the clinician's.",
     ogTitle: "Patient intake software — Rosebud for Dental, Aesthetic & Private Healthcare",
     ogDescription:
-      "The layer between a new patient enquiry and a booked appointment: answers in seconds, captures the reason for the visit, books the appointment and writes the record into the practice management system you already run.",
+      "The layer between a new patient inquiry and a booked appointment: answers in seconds, captures the reason for the visit, books the appointment and writes the record into the practice management system you already run.",
   },
   hero: {
     h1: "Patient intake that fills the chair — without touching clinical judgment",
     intro:
-      "The layer between a new patient enquiry and a booked appointment. It answers in seconds, captures the reason for the visit, books against the live diary & writes the record into your practice management system. It never gives clinical advice — that decision is always the clinician's.",
+      "The layer between a new patient inquiry and a booked appointment. It answers in seconds, captures the reason for the visit, books against the live diary & writes the record into your practice management system. It never gives clinical advice — that decision is always the clinician's.",
   },
   stage1: {
     index: "01",
     eyebrow: "Answer & book",
     h2: "How do dental and aesthetic practices stop losing new patients?",
     answer:
-      "By answering every enquiry in seconds, day or night. A missed call gets a text back with a booking link; web forms and DMs get an immediate reply. The implant or whitening enquiry books with you before it reaches the practice down the road, with the reason for the visit captured up front.",
+      "By answering every inquiry in seconds, day or night. A missed call gets a text back with a booking link; web forms and DMs get an immediate reply. The implant or whitening inquiry books with you before it reaches the practice down the road, with the reason for the visit captured up front.",
     items: [
-      { title: "Every enquiry answered in seconds", body: "A missed call gets a text back with a booking link; web forms and DMs get an immediate reply. The implant or whitening enquiry books with you before it books with the practice down the road." },
+      { title: "Every inquiry answered in seconds", body: "A missed call gets a text back with a booking link; web forms and DMs get an immediate reply. The implant or whitening inquiry books with you before it books with the practice down the road." },
       { title: "Reason for visit captured up front", body: "Treatment interest, urgency & preferred times — captured before the front desk picks up, so the diary fills with the right appointments." },
     ],
     scene: { id: "generic-intake", tone: "lilac", img: "scene-01.png" },
@@ -333,19 +333,19 @@ export const HEALTHCARE_STAGE: IndustryStageData = {
     note: "Clinical decisions are always the clinician's, never automated. This isn't a limitation — it's the reason the system is safe to run in a regulated practice.",
   },
   faqs: [
-    { q: "How fast does the system respond to a new enquiry?", a: "In seconds, day or night. A missed call gets a text back with a booking link; web forms and DMs get an immediate, administrative reply. The practice that answers first usually books the patient — this makes sure that's you." },
+    { q: "How fast does the system respond to a new inquiry?", a: "In seconds, day or night. A missed call gets a text back with a booking link; web forms and DMs get an immediate, administrative reply. The practice that answers first usually books the patient — this makes sure that's you." },
     { q: "Does the system give clinical or medical advice?", a: "No. Every patient conversation is administrative only — treatment interest, scheduling, paperwork. The moment a message turns clinical, it routes to your team. The system never advises." },
-    { q: "How does it handle urgent or symptomatic enquiries?", a: "Anything symptomatic or flagged by your protocols is passed straight to a clinician with full context, rather than booked automatically. You decide urgency; the system just makes sure nothing is missed." },
+    { q: "How does it handle urgent or symptomatic inquiries?", a: "Anything symptomatic or flagged by your protocols is passed straight to a clinician with full context, rather than booked automatically. You decide urgency; the system just makes sure nothing is missed." },
     { q: "Does it work with our practice management system?", a: "Yes. It writes patient, treatment and appointment records into the practice management system you already run. Your system stays the source of truth; Rosebud feeds it rather than replacing it." },
     { q: "How are recalls, reminders and no-shows handled?", a: "Recalls, reminders and reschedules run automatically on the cadence that keeps the diary full, so the slots and no-shows you write off every week get recovered without the front desk chasing them." },
     { q: "How is patient data handled?", a: "Records are written into your practice management system, not held in a parallel system, and every build is scoped to your privacy obligations. Nothing goes live until your team has signed off how patient data flows." },
-    { q: "How do you make sure it launches safely?", a: "Every build is scoped to your practice, tested against real enquiries, and goes live with your sign-off at each stage. Nothing runs on a patient until you've approved how it behaves." },
+    { q: "How do you make sure it launches safely?", a: "Every build is scoped to your practice, tested against real inquiries, and goes live with your sign-off at each stage. Nothing runs on a patient until you've approved how it behaves." },
   ],
   related: [
     { title: "Family Law & Consumer Legal", desc: "The same answer-qualify-book-record system, built for firms taking on new matters.", href: "/industries/family-law" },
     { title: "Insurance", desc: "The same intake layer, built for agencies quoting new business.", href: "/industries/insurance" },
     { title: "Real Estate", desc: "The same intake-to-record system, built for agents working new inquiries.", href: "/industries/real-estate" },
-    { title: "Commercial Cleaning & Janitorial", desc: "The same enquiry-to-booking system, built for cleaning companies chasing bids to a decision.", href: "/industries/commercial-cleaning" },
+    { title: "Commercial Cleaning & Janitorial", desc: "The same inquiry-to-booking system, built for cleaning companies chasing bids to a decision.", href: "/industries/commercial-cleaning" },
   ],
   close: {
     heading: "Fill the diary without lifting a finger.",
@@ -355,7 +355,7 @@ export const HEALTHCARE_STAGE: IndustryStageData = {
     serviceType: "Patient intake automation for dental, aesthetic & private healthcare practices",
     areaServed: "United States",
     serviceDescription:
-      "Patient intake software that answers new enquiries in seconds, captures the reason for the visit, triages against the practice's protocols, books the appointment and writes the record into the practice management system. Clinical decisions always stay with the clinician.",
+      "Patient intake software that answers new inquiries in seconds, captures the reason for the visit, triages against the practice's protocols, books the appointment and writes the record into the practice management system. Clinical decisions always stay with the clinician.",
     offerDescription: "Plans scoped to patient volume and practice size, published on the pricing page. No lock-in, cancel any time.",
     breadcrumbName: "Dental, Aesthetic & Private Healthcare",
   },
@@ -370,7 +370,7 @@ export const INSURANCE_STAGE: IndustryStageData = {
   seo: {
     title: "Insurance Agency CRM & Lead Management Software | Rosebud",
     description:
-      "Insurance CRM software that qualifies every enquiry, runs the fact-find, prepares carrier-ready submissions and diarises renewals, writing everything into the agency management system you already run.",
+      "Insurance CRM software that qualifies every inquiry, runs the fact-find, prepares carrier-ready submissions and diarises renewals, writing everything into the agency management system you already run.",
     ogTitle: "Insurance agency CRM & lead management — Rosebud for Insurance",
     ogDescription:
       "Answer every quote request in seconds, capture the risk details, book the producer call and write the record into the agency management system you already run. It never binds coverage — that's the agent's.",
@@ -443,7 +443,7 @@ export const INSURANCE_STAGE: IndustryStageData = {
     { title: "Real Estate", desc: "The same intake-to-record system, built for agents working new inquiries.", href: "/industries/real-estate" },
     { title: "Mortgage & Lending", desc: "The same lead layer, built for loan officers chasing rate-sensitive leads.", href: "/industries/mortgage-lending" },
     { title: "Trades & Home Services", desc: "The same answer-qualify-book system, built for the trades.", href: "/industries/trades-home-services" },
-    { title: "Commercial Cleaning & Janitorial", desc: "The same enquiry-to-booking system, built for cleaning companies chasing bids to a decision.", href: "/industries/commercial-cleaning" },
+    { title: "Commercial Cleaning & Janitorial", desc: "The same inquiry-to-booking system, built for cleaning companies chasing bids to a decision.", href: "/industries/commercial-cleaning" },
   ],
   close: {
     heading: "See how agency intake runs for your book.",
@@ -541,7 +541,7 @@ export const REAL_ESTATE_STAGE: IndustryStageData = {
     { title: "Mortgage & Lending", desc: "The same intake layer, built for loan officers working rate-sensitive leads.", href: "/industries/mortgage-lending" },
     { title: "Insurance", desc: "The same answer-qualify-book system, built for agencies quoting new business.", href: "/industries/insurance" },
     { title: "Trades & Home Services", desc: "The same intake-to-record system, built for the trades booking your repairs.", href: "/industries/trades-home-services" },
-    { title: "Commercial Cleaning & Janitorial", desc: "The same enquiry-to-booking system, built for cleaning companies chasing bids to a decision.", href: "/industries/commercial-cleaning" },
+    { title: "Commercial Cleaning & Janitorial", desc: "The same inquiry-to-booking system, built for cleaning companies chasing bids to a decision.", href: "/industries/commercial-cleaning" },
   ],
   close: {
     heading: "See how lead intake runs for your pipeline.",
@@ -566,10 +566,10 @@ export const MORTGAGE_STAGE: IndustryStageData = {
   seo: {
     title: "Mortgage CRM & Lead Management for Loan Officers | Rosebud",
     description:
-      "A mortgage CRM layer that answers every borrower enquiry in seconds, pre-qualifies, collects documentation and chases conditions, writing everything into the LOS and CRM you already run.",
+      "A mortgage CRM layer that answers every borrower inquiry in seconds, pre-qualifies, collects documentation and chases conditions, writing everything into the LOS and CRM you already run.",
     ogTitle: "Mortgage CRM & lead management — Rosebud for Mortgage & Lending",
     ogDescription:
-      "Answer every borrower enquiry in seconds, pre-qualify, collect documentation and chase conditions, writing everything into the LOS and CRM you already run. It never makes a credit decision — that's the loan officer's.",
+      "Answer every borrower inquiry in seconds, pre-qualify, collect documentation and chase conditions, writing everything into the LOS and CRM you already run. It never makes a credit decision — that's the loan officer's.",
   },
   hero: {
     h1: "The mortgage CRM layer that keeps loans moving",
@@ -579,7 +579,7 @@ export const MORTGAGE_STAGE: IndustryStageData = {
   stage1: {
     index: "01",
     eyebrow: "Answer & capture",
-    h2: "Where does mortgage lead management break between enquiry and pre-approval?",
+    h2: "Where does mortgage lead management break between inquiry and pre-approval?",
     answer:
       "In the same two places on almost every team: the lead goes cold before anyone calls back, and the details a loan officer needs to work it never get captured on the first touch. A missed call gets a text back; web and portal leads get an immediate reply. The refinance or purchase lead books a call with you before rates move them elsewhere, with loan purpose, price range and timeline captured up front for your loan officers to work.",
     items: [
@@ -639,7 +639,7 @@ export const MORTGAGE_STAGE: IndustryStageData = {
     { title: "Real Estate", desc: "The same intake layer, built for agents working new inquiries.", href: "/industries/real-estate" },
     { title: "Insurance", desc: "The same answer-qualify-book system, built for agencies quoting new business.", href: "/industries/insurance" },
     { title: "Family Law & Consumer Legal", desc: "The same intake-to-record system, built for firms taking on new matters.", href: "/industries/family-law" },
-    { title: "Commercial Cleaning & Janitorial", desc: "The same enquiry-to-booking system, built for cleaning companies chasing bids to a decision.", href: "/industries/commercial-cleaning" },
+    { title: "Commercial Cleaning & Janitorial", desc: "The same inquiry-to-booking system, built for cleaning companies chasing bids to a decision.", href: "/industries/commercial-cleaning" },
   ],
   close: {
     heading: "See how loan intake runs for your pipeline.",
@@ -664,24 +664,24 @@ export const CLEANING_STAGE: IndustryStageData = {
   seo: {
     title: "Janitorial CRM for Commercial Cleaning Companies | Rosebud",
     description:
-      "A cleaning company CRM that works commercial cleaning leads end to end. Answers every enquiry in seconds, captures site type, size and frequency, books the walkthrough and chases the bid to a decision. Pricing the contract stays yours.",
-    ogTitle: "Cleaning Company CRM & Enquiry Software | Rosebud",
+      "A cleaning company CRM that works commercial cleaning leads end to end. Answers every inquiry in seconds, captures site type, size and frequency, books the walkthrough and chases the bid to a decision. Pricing the contract stays yours.",
+    ogTitle: "Cleaning Company CRM & Inquiry Software | Rosebud",
     ogDescription:
-      "The layer between a new cleaning enquiry and a booked site walkthrough: answers in seconds, captures site type, size and frequency, books the survey and chases the bid until there is a decision.",
+      "The layer between a new cleaning inquiry and a booked site walkthrough: answers in seconds, captures site type, size and frequency, books the survey and chases the bid until there is a decision.",
   },
   hero: {
-    h1: "Cleaning company CRM that turns an enquiry into a booked walkthrough",
+    h1: "Cleaning company CRM that turns an inquiry into a booked walkthrough",
     intro:
-      "The layer between a new cleaning enquiry and a booked site survey. It answers in seconds, captures site type, size and frequency, books the walkthrough against your live diary and keeps the bid moving until there is a decision. Pricing the contract is always yours.",
+      "The layer between a new cleaning inquiry and a booked site survey. It answers in seconds, captures site type, size and frequency, books the walkthrough against your live diary and keeps the bid moving until there is a decision. Pricing the contract is always yours.",
   },
   stage1: {
     index: "01",
     eyebrow: "Answer & book",
-    h2: "Where do commercial cleaning leads get lost between enquiry & quote?",
+    h2: "Where do commercial cleaning leads get lost between inquiry & quote?",
     answer:
-      "Between the enquiry landing and anyone replying to it. Cleaning is a bid trade and the firm that responds first usually gets the walkthrough, so an enquiry that waits until Monday is a contract someone else surveyed on Friday. Every enquiry gets answered in seconds, day or night, with the questions that matter attached: what kind of site, how big, how often, and when they want to start.",
+      "Between the inquiry landing and anyone replying to it. Cleaning is a bid trade and the firm that responds first usually gets the walkthrough, so an inquiry that waits until Monday is a contract someone else surveyed on Friday. Every inquiry gets answered in seconds, day or night, with the questions that matter attached: what kind of site, how big, how often, and when they want to start.",
     items: [
-      { title: "Every enquiry answered in seconds", body: "Web forms, email, WhatsApp and Instagram all get an immediate reply. The enquiry that lands at 7pm on a Friday is answered at 7pm on a Friday, not on Monday morning." },
+      { title: "Every inquiry answered in seconds", body: "Web forms, email, WhatsApp and Instagram all get an immediate reply. The inquiry that lands at 7pm on a Friday is answered at 7pm on a Friday, not on Monday morning." },
       { title: "Site details captured up front", body: "Site type, square footage, cleaning frequency, start date and access requirements, captured before anyone picks up the phone, so the walkthrough is scoped before you drive to it." },
     ],
     scene: { id: "generic-intake", tone: "lilac" },
@@ -689,13 +689,13 @@ export const CLEANING_STAGE: IndustryStageData = {
   stage2: {
     index: "02",
     eyebrow: "Qualify & route",
-    h2: "How is an enquiry qualified without pricing the job?",
+    h2: "How is an inquiry qualified without pricing the job?",
     answer:
-      "Against the rules you set. Site type, size, frequency, contract length and travel distance are scored against what you actually want to win, and the enquiry is sorted three ways. Anything that needs a price, a site judgment or a scope decision goes to your team with the full picture attached. Everything administrative runs without you.",
+      "Against the rules you set. Site type, size, frequency, contract length and travel distance are scored against what you actually want to win, and the inquiry is sorted three ways. Anything that needs a price, a site judgment or a scope decision goes to your team with the full picture attached. Everything administrative runs without you.",
     cards: [
       { tag: "Your rules", tone: "indigo", h3: "Qualify by the work you want", body: "Site type, square footage, frequency, contract length and distance from your existing runs. The rules are yours and they are set at onboarding, not guessed." },
-      { tag: "Reaches your team", tone: "amber", h3: "Anything with a price on it", body: "Pricing, scope, site judgment, complaints and service failures route straight to you with the enquiry history attached. The system never quotes." },
-      { tag: "Handled without you", tone: "green", h3: "Walkthroughs, chasing & reminders", body: "Booking the site survey, confirming it, rescheduling it, chasing the quote and re-opening enquiries that went quiet all run without your office lifting a finger." },
+      { tag: "Reaches your team", tone: "amber", h3: "Anything with a price on it", body: "Pricing, scope, site judgment, complaints and service failures route straight to you with the inquiry history attached. The system never quotes." },
+      { tag: "Handled without you", tone: "green", h3: "Walkthroughs, chasing & reminders", body: "Booking the site survey, confirming it, rescheduling it, chasing the quote and re-opening inquiries that went quiet all run without your office lifting a finger." },
     ],
   },
   pullStat: { pre: "The bids you sent last month and never heard back on — ", accent: "chased, until there is an answer either way." },
@@ -704,7 +704,7 @@ export const CLEANING_STAGE: IndustryStageData = {
     eyebrow: "Quote & chase",
     h2: "What does janitorial bidding software need to do after the bid goes out?",
     answer:
-      "Chase it. Most of what a cleaning company loses is not lost at the enquiry, it is lost after the number is sent and nobody follows up. Every bid runs as a pipeline with structured follow-up on a cadence until there is a decision, yes or no, rather than going quiet and being written off at the end of the quarter. You send the number. The system makes sure it gets an answer.",
+      "Chase it. Most of what a cleaning company loses is not lost at the inquiry, it is lost after the number is sent and nobody follows up. Every bid runs as a pipeline with structured follow-up on a cadence until there is a decision, yes or no, rather than going quiet and being written off at the end of the quarter. You send the number. The system makes sure it gets an answer.",
     items: [
       { title: "Runs as a pipeline, not a hope", body: "Sent, opened, followed up, decided. Each bid has a stage and a next action, and the next action fires whether or not anyone in your office remembers it." },
       { title: "A no is worth having", body: "A decision closes the file and feeds the record. A silence tells you nothing and occupies the pipeline for six months." },
@@ -734,21 +734,21 @@ export const CLEANING_STAGE: IndustryStageData = {
       { label: "The client relationship", body: "facilities managers buy from people. We make sure they reach you quickly, not instead of you." },
       { label: "Compliance & insurance", body: "safety, certification and cover are yours to hold and yours to evidence." },
     ],
-    note: "Pricing and scope are commercial decisions, never automated. That is not a limitation. It is the reason the system can run on your enquiries without ever putting your margin at risk.",
+    note: "Pricing and scope are commercial decisions, never automated. That is not a limitation. It is the reason the system can run on your inquiries without ever putting your margin at risk.",
   },
   faqs: [
-    { q: "Is this janitorial CRM software, or something else?", a: "It is the intake and bid-chasing layer that sits in front of whatever you already run. It captures the enquiry, qualifies it, books the walkthrough and chases the bid, then writes all of it into your system. If you run nothing, a lightweight CRM comes with it and the record is still yours." },
+    { q: "Is this janitorial CRM software, or something else?", a: "It is the intake and bid-chasing layer that sits in front of whatever you already run. It captures the inquiry, qualifies it, books the walkthrough and chases the bid, then writes all of it into your system. If you run nothing, a lightweight CRM comes with it and the record is still yours." },
     { q: "What happens to a bid after it goes out?", a: "It gets chased. Structured follow-up runs on a cadence until there is a decision, yes or no, rather than the bid going quiet and being written off. This is the leak most cleaning companies never close, and it is the difference between a quote log and a pipeline." },
     { q: "Does the system quote or give prices?", a: "No. It captures everything you need to price the job accurately — site type, size, frequency, access, start date — and hands it to you. Every number that reaches a customer comes from your team." },
     { q: "Does it work with the system we already use?", a: "Yes. Contact, site details and bid stage are written into the CRM or job management system you already run. Your system stays the source of truth." },
-    { q: "We win work through tenders and referrals, not web forms. Does this still help?", a: "Yes. Any enquiry that arrives as a message, on any channel, is captured and worked the same way, including referrals that come in by email. The channel does not change what happens next." },
-    { q: "What about the janitorial leads that went cold six months ago?", a: "They get re-opened on a cadence. Contracts come up for renewal and budgets change. The enquiry that said no in March is worth asking again in September, and that is work nobody in a cleaning office has time to do by hand." },
-    { q: "How do you make sure it launches safely?", a: "Every build is scoped to your business, tested against real enquiries, and goes live with your sign-off at each stage. Nothing runs on a customer until you have approved how it behaves." },
+    { q: "We win work through tenders and referrals, not web forms. Does this still help?", a: "Yes. Any inquiry that arrives as a message, on any channel, is captured and worked the same way, including referrals that come in by email. The channel does not change what happens next." },
+    { q: "What about the janitorial leads that went cold six months ago?", a: "They get re-opened on a cadence. Contracts come up for renewal and budgets change. The inquiry that said no in March is worth asking again in September, and that is work nobody in a cleaning office has time to do by hand." },
+    { q: "How do you make sure it launches safely?", a: "Every build is scoped to your business, tested against real inquiries, and goes live with your sign-off at each stage. Nothing runs on a customer until you have approved how it behaves." },
   ],
   related: [
     { title: "How to Get Cleaning Contracts", desc: "Where cleaning contracts are posted, how to bid on them, and the free bid template.", href: "/resources/how-to-get-cleaning-contracts" },
     { title: "Trades & Home Services", desc: "The same answer-qualify-book-record system, built for teams quoting and scheduling site work.", href: "/industries/trades-home-services" },
-    { title: "Real Estate", desc: "The same intake layer, built for agents and property teams working new enquiries.", href: "/industries/real-estate" },
+    { title: "Real Estate", desc: "The same intake layer, built for agents and property teams working new inquiries.", href: "/industries/real-estate" },
     { title: "Insurance", desc: "The same intake-to-record system, built for agencies quoting new business.", href: "/industries/insurance" },
   ],
   close: {
@@ -756,11 +756,11 @@ export const CLEANING_STAGE: IndustryStageData = {
     subhead: "Built around the sites you want, the rules you set & the system you already run. Plans & pricing on the page.",
   },
   schema: {
-    serviceType: "Enquiry intake & bid-chasing automation for commercial cleaning & janitorial companies",
+    serviceType: "Inquiry intake & bid-chasing automation for commercial cleaning & janitorial companies",
     areaServed: "United States",
     serviceDescription:
-      "A CRM and enquiry-handling layer for commercial cleaning and janitorial companies that answers enquiries in seconds, captures site type, size and frequency, books the walkthrough against the live diary, and chases the bid on a structured cadence until there is a decision. It writes into the CRM or job management system the business already runs, or provides a lightweight one. Pricing and scope stay with the business.",
-    offerDescription: "Plans scoped to enquiry volume and team size, published on the pricing page. No lock-in.",
+      "A CRM and inquiry-handling layer for commercial cleaning and janitorial companies that answers inquiries in seconds, captures site type, size and frequency, books the walkthrough against the live diary, and chases the bid on a structured cadence until there is a decision. It writes into the CRM or job management system the business already runs, or provides a lightweight one. Pricing and scope stay with the business.",
+    offerDescription: "Plans scoped to inquiry volume and team size, published on the pricing page. No lock-in.",
     breadcrumbName: "Commercial Cleaning & Janitorial",
   },
 };

@@ -127,7 +127,7 @@ export default function TermsPage() {
               In addition to consultation and advisory services, Rosebud
               Solutions offers a subscription-based demand-capture and
               conversion platform (the &ldquo;Platform&rdquo;) that captures
-              enquiries from your channels, qualifies them, and books
+              inquiries from your channels, qualifies them, and books
               appointments into your calendar and CRM. The specific capabilities
               and any optional modules available to you depend on the plan you
               select at checkout.
@@ -198,7 +198,7 @@ export default function TermsPage() {
               book using a private link provided to you after purchase. The
               onboarding booking is available only to customers with an active
               subscription. During onboarding we agree how the Platform will
-              qualify and handle enquiries for your business and connect your
+              qualify and handle inquiries for your business and connect your
               tools.
             </p>
           </section>
@@ -250,10 +250,10 @@ export default function TermsPage() {
               Your Responsibilities for Data You Process
             </h2>
             <p>
-              When you use the Platform to capture and process enquiries, you are
+              When you use the Platform to capture and process inquiries, you are
               the controller of that personal data and we act as your processor.
               You are responsible for ensuring you have a lawful basis and any
-              necessary consents to collect and process the enquiry data you run
+              necessary consents to collect and process the inquiry data you run
               through the Platform, and for complying with applicable
               data-protection and marketing laws.
             </p>
@@ -279,7 +279,7 @@ export default function TermsPage() {
               (trading as Rosebud Solutions). These messages may include:
             </p>
             <ul className="rb-policy-list">
-              <li>Responses to enquiries</li>
+              <li>Responses to inquiries</li>
               <li>Consultation scheduling and confirmations</li>
               <li>Appointment reminders</li>
               <li>Follow-up communications</li>

@@ -203,7 +203,7 @@ function genericIntakeScene(): ReactNode {
         <span style={{ display: "inline-flex", alignItems: "center", gap: "1cqw", background: "#fff", borderRadius: "2cqw", padding: "1.1cqw 1.8cqw", boxShadow: "0 2cqw 3.4cqw -1.4cqw rgba(40,44,90,.45)", fontSize: "1.4cqw", fontWeight: 700, color: "#2c2f4a" }}><span style={{ width: "1.6cqw", height: "1.6cqw", borderRadius: "50%", background: "#4fc3d1", boxShadow: "0 0 0 .4cqw rgba(79,195,209,.3)" }} />Details captured</span>
         <span style={{ display: "inline-flex", alignItems: "center", gap: "1cqw", background: "#fff", borderRadius: "2cqw", padding: "1.1cqw 1.8cqw", boxShadow: "0 2cqw 3.4cqw -1.4cqw rgba(40,44,90,.45)", fontSize: "1.4cqw", fontWeight: 700, color: "#2c2f4a" }}><span style={{ width: "1.6cqw", height: "1.6cqw", borderRadius: "50%", background: "#e8b84f", boxShadow: "0 0 0 .4cqw rgba(232,184,79,.3)" }} />Qualified for review</span>
       </div>
-      <RowCard title="Captured up front" style={{ right: "5%", bottom: "8%", width: "54%" }} rows={[["Contact", "Captured ✓"], ["Enquiry type", "Identified"], ["Review", "Your team runs it", "#c07a3f"]]} />
+      <RowCard title="Captured up front" style={{ right: "5%", bottom: "8%", width: "54%" }} rows={[["Contact", "Captured ✓"], ["Inquiry type", "Identified"], ["Review", "Your team runs it", "#c07a3f"]]} />
       <Chip color="#4fd18a" label="Answered in seconds · day or night" style={{ left: "4%", bottom: "9%" }} />
     </Stage>
   );

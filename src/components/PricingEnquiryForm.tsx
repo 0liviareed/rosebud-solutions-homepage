@@ -102,7 +102,7 @@ export default function PricingEnquiryForm() {
     return (
       <div className="rb-pricing-form-shell">
         <div className="rb-pricing-success" role="status" aria-live="polite">
-          <p className="rb-app-eyebrow">Enquiry received</p>
+          <p className="rb-app-eyebrow">Inquiry received</p>
           <h2 className="rb-app-success-h">Thanks — we&rsquo;ve got it.</h2>
           <p className="rb-app-success-body">
             Expect a reply within one business day with next steps and a call slot.

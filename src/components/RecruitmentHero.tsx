@@ -40,7 +40,7 @@ const STAGES: Stage[] = [
       chip: "Candidates sourced",
       q: "Where are the people actually in-market for this role?",
       a: "Matched against your ICP and ranked by intent: open-to-work, recently active on boards, already in your pipeline. Your team works who's likely to move, not a cold list.",
-      metric: { value: "< 60s", label: "response to every candidate enquiry" },
+      metric: { value: "< 60s", label: "response to every candidate inquiry" },
     },
   },
   {

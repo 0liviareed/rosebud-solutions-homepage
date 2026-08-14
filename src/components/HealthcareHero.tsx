@@ -32,7 +32,7 @@ const STAGES: Stage[] = [
   {
     tab: "Intake",
     inputs: [
-      { label: "Enquiry channels", detail: "Missed calls, Instagram DMs, contact forms" },
+      { label: "Inquiry channels", detail: "Missed calls, Instagram DMs, contact forms" },
       { label: "Triage rules", detail: "Suitability, urgency, your criteria" },
       { label: "Records + consent", detail: "Medical history, photos, forms" },
     ],
@@ -40,7 +40,7 @@ const STAGES: Stage[] = [
       chip: "Patient qualified",
       q: "What happens to the DM that lands at 11pm?",
       a: "Answered in seconds across every channel, triaged on your rules, with records and consent collected before the visit. Anything clinical escalated to a clinician the moment it's flagged.",
-      metric: { value: "< 60s", label: "response to every enquiry" },
+      metric: { value: "< 60s", label: "response to every inquiry" },
     },
   },
   {
@@ -199,7 +199,7 @@ export default function HealthcareHero({
       </h1>
 
       <p className="rbh-sub">
-        <span className="rbh-sub-lead">From first enquiry to recall, handled.</span>
+        <span className="rbh-sub-lead">From first inquiry to recall, handled.</span>
         Every missed call, DM, and form gets a reply in seconds — patients
         qualified and booked into your diary, and the recall run that keeps them
         coming back. Your team stays with the patients in the building.

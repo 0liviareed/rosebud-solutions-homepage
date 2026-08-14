@@ -35,7 +35,7 @@ const SECTION_I_STEPS: TimelineStep[] = [
       Every follow-up sent. Every deal tracked. None of it done by{" "}
       <em>you.</em>
     </>,
-    "Three-stage follow-up sequences on every enquiry. Day one reply, day three chase, day eight voice agent. Reminders, chase-ups, reactivation touches — all sent on schedule, all tracked.",
+    "Three-stage follow-up sequences on every inquiry. Day one reply, day three chase, day eight voice agent. Reminders, chase-ups, reactivation touches — all sent on schedule, all tracked.",
     "Client Engagement & Follow-Up",
   ],
   [
@@ -51,7 +51,7 @@ const SECTION_I_STEPS: TimelineStep[] = [
 const STATS = [
   { value: "5", label: "Roles off your desk" },
   { value: "24/7", label: "Always-on coverage" },
-  { value: "< 60s", label: "Response to every enquiry" },
+  { value: "< 60s", label: "Response to every inquiry" },
   { value: "5 weeks", label: "From kickoff to live system" },
 ];
 
@@ -70,7 +70,7 @@ export default function DigitalTeam() {
             </p>
             <p className="rb-sub" data-rb-fade="2">
               Because this isn&apos;t software you operate. It&apos;s a custom
-              AI operation we operate for you — from first enquiry to closed
+              AI operation we operate for you — from first inquiry to closed
               deal. Built around your business, run by us.
             </p>
           </div>

@@ -47,7 +47,7 @@ function Overview({ metrics }: { metrics: CaptureMetrics }) {
       <div className={styles.ih}>
         <div className={styles.ihK}>CAP</div>
         <div className={styles.ihT}>Capture</div>
-        <div className={styles.ihS}>Answer every enquiry in seconds and catch leads before they go elsewhere.</div>
+        <div className={styles.ihS}>Answer every inquiry in seconds and catch leads before they go elsewhere.</div>
       </div>
       <div className={styles.sec}>
         <div className={styles.secH}>

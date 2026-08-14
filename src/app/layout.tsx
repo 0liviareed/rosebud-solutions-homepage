@@ -88,22 +88,22 @@ export const metadata: Metadata = {
     template: "%s | Rosebud Global",
   },
   description:
-    "Rosebud Solutions is a customer communication platform that carries every enquiry through to a booked appointment — seven capabilities on one engine, run for you and connected to the CRM and calendars you already use.",
+    "Rosebud Solutions is a customer communication platform that carries every inquiry through to a booked appointment — seven capabilities on one engine, run for you and connected to the CRM and calendars you already use.",
   alternates: { canonical: "/" },
   openGraph: {
     title: "Customer Communication Platform for SMEs | Rosebud Solutions",
     description:
-      "Rosebud Solutions is a customer communication platform that carries every enquiry through to a booked appointment — seven capabilities on one engine, run for you and connected to the CRM and calendars you already use.",
+      "Rosebud Solutions is a customer communication platform that carries every inquiry through to a booked appointment — seven capabilities on one engine, run for you and connected to the CRM and calendars you already use.",
     url: "https://rosebud.global",
     siteName: "Rosebud Global",
-    locale: "en_GB",
+    locale: "en_US",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
     title: "Customer Communication Platform for SMEs | Rosebud Solutions",
     description:
-      "Rosebud Solutions is a customer communication platform that carries every enquiry through to a booked appointment — seven capabilities on one engine, run for you and connected to the CRM and calendars you already use.",
+      "Rosebud Solutions is a customer communication platform that carries every inquiry through to a booked appointment — seven capabilities on one engine, run for you and connected to the CRM and calendars you already use.",
   },
 };
 
@@ -115,7 +115,7 @@ const ORGANIZATION_SCHEMA = {
   url: "https://rosebud.global",
   logo: "https://rosebud.global/rosebud-icon.png",
   description:
-    "Rosebud Solutions is the operated intake layer for owner-operated businesses — it answers every enquiry in seconds, qualifies and books it against the business's own rules, and connects to the CRM and calendars they already use. Rosebud Global Ltd builds and operates the system rather than licensing software.",
+    "Rosebud Solutions is the operated intake layer for owner-operated businesses — it answers every inquiry in seconds, qualifies and books it against the business's own rules, and connects to the CRM and calendars they already use. Rosebud Global Ltd builds and operates the system rather than licensing software.",
   foundingDate: "2025",
   founders: [
     {
@@ -152,9 +152,9 @@ const WEBSITE_SCHEMA = {
   "@type": "WebSite",
   name: "Rosebud Global",
   url: "https://rosebud.global",
-  inLanguage: "en-GB",
+  inLanguage: "en-US",
   description:
-    "Rosebud Solutions is the operated intake and enquiry-handling layer for owner-operated businesses: it answers, qualifies, books and follows up every enquiry, run day to day by Rosebud and connected to the tools the business already uses.",
+    "Rosebud Solutions is the operated intake and inquiry-handling layer for owner-operated businesses: it answers, qualifies, books and follows up every inquiry, run day to day by Rosebud and connected to the tools the business already uses.",
   publisher: { "@type": "Organization", name: "Rosebud Global Ltd" },
 };
 
@@ -163,7 +163,7 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html
-      lang="en-GB"
+      lang="en-US"
       className={`${cormorant.variable} ${dmSans.variable} ${sora.variable} ${outfit.variable} ${jetbrainsMono.variable} ${dmMono.variable}`}
     >
       <head>

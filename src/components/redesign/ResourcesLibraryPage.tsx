@@ -7,7 +7,7 @@ import RedesignReveal from "./RedesignReveal";
 import BookDemoCTA from "./BookDemoCTA";
 import { RESOURCES, STAGES, SECTORS, SORTS, KINDS, nameOf, type ResourceItem } from "./resourcesData";
 
-// The Enquiry Library — resources index. Same design language as AboutV2
+// The Inquiry Library — resources index. Same design language as AboutV2
 // (light lavender sections, Cormorant headings, DM Sans body) with a
 // filterable/searchable card grid layered on top. Reachable only via the
 // "Resources" nav/footer dropdown — see NAV_RESOURCES in capabilityData.ts.
@@ -85,10 +85,10 @@ export default function ResourcesLibraryPage() {
         <div data-reveal style={{ position: "relative", zIndex: 1, maxWidth: 1180, margin: "0 auto" }}>
           <div style={eyebrow}>Open library</div>
           <h1 style={{ fontFamily: SERIF, fontWeight: 400, fontSize: "clamp(38px,6vw,64px)", lineHeight: 1.03, letterSpacing: "-0.015em", margin: 0, maxWidth: "20ch" }}>
-            What happens to the enquiries <em style={{ fontStyle: "italic", color: A }}>nobody answers</em>
+            What happens to the inquiries <em style={{ fontStyle: "italic", color: A }}>nobody answers</em>
           </h1>
           <p style={{ ...bodyText, marginTop: 24, maxWidth: 560, fontSize: 15.5 }}>
-            Guides, templates and research on capturing, qualifying, booking and keeping every enquiry your marketing pays for. Written for owners who run the intake themselves.
+            Guides, templates and research on capturing, qualifying, booking and keeping every inquiry your marketing pays for. Written for owners who run the intake themselves.
           </p>
         </div>
       </section>
@@ -225,7 +225,7 @@ export default function ResourcesLibraryPage() {
         </div>
         <div data-reveal data-reveal-repeat style={{ position: "relative", zIndex: 1, maxWidth: 760, margin: "0 auto", textAlign: "center" }}>
           <div style={{ fontSize: 12, letterSpacing: ".32em", textTransform: "uppercase", color: "#B8AEDB", marginBottom: 22 }}>The offer</div>
-          <h2 style={{ fontFamily: SERIF, fontWeight: 400, fontSize: "clamp(38px,4.8vw,68px)", lineHeight: 1.03, letterSpacing: "-0.015em", margin: 0 }}>Ready to stop losing enquiries?</h2>
+          <h2 style={{ fontFamily: SERIF, fontWeight: 400, fontSize: "clamp(38px,4.8vw,68px)", lineHeight: 1.03, letterSpacing: "-0.015em", margin: 0 }}>Ready to stop losing inquiries?</h2>
           <p style={{ margin: "24px auto 0", maxWidth: 600, fontSize: 17, lineHeight: 1.62, color: "rgba(245,241,234,0.66)" }}>We deploy, manage, and monitor the entire intake layer for you as an operated rental service, connecting directly to your existing CRM and calendars.</p>
           <div style={{ marginTop: 36, display: "flex", flexWrap: "wrap", alignItems: "center", justifyContent: "center", gap: 16 }}>
             <BookDemoCTA label="See pricing & choose your plan" href="/pricing" tone="dark" />

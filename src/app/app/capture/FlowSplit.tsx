@@ -20,7 +20,7 @@ export default function FlowSplit({
           </span>
           <div className={styles.cl} />
           <FlowNode node={branch.node} selected={selectedId === branch.node.id} onSelect={onSelect} />
-          <span className={styles.weight}>{branch.weightPct}% of enquiries</span>
+          <span className={styles.weight}>{branch.weightPct}% of inquiries</span>
         </div>
       ))}
     </div>

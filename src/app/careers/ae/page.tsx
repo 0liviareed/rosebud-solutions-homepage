@@ -79,7 +79,7 @@ export default function AePage() {
               <h2 className="rb-job-h2">About Rosebud Solutions</h2>
               <p>
                 Rosebud Solutions owns the space between demand and revenue. We
-                build one system that answers every enquiry in seconds, scores it
+                build one system that answers every inquiry in seconds, scores it
                 against a business&rsquo;s own rules, books it into their diary,
                 and works it again when it goes quiet, then run that system for
                 them every day, connected to the CRM and calendars they already
@@ -216,7 +216,7 @@ export default function AePage() {
                   clients stay, not just whether they sign.
                 </li>
                 <li>
-                  Highly organised, capable of running a live pipeline and an
+                  Highly organized, capable of running a live pipeline and an
                   existing book of clients at the same time without being chased.
                 </li>
                 <li>

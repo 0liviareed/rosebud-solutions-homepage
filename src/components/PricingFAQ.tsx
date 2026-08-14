@@ -11,7 +11,7 @@ const GROUPS: FAQGroup[] = [
     items: [
       {
         q: "How is pricing structured?",
-        a: "Every engagement has two components: a one-time setup fee covering the build, and a monthly retainer covering the team running the system on your behalf. The exact figures are scoped on the demo call against your enquiry volume and workflow complexity.",
+        a: "Every engagement has two components: a one-time setup fee covering the build, and a monthly retainer covering the team running the system on your behalf. The exact figures are scoped on the demo call against your inquiry volume and workflow complexity.",
       },
       {
         q: "Why isn't there a price on this page?",
@@ -19,7 +19,7 @@ const GROUPS: FAQGroup[] = [
       },
       {
         q: "What determines the retainer figure?",
-        a: "Enquiry volume, number of integrations, workflow complexity, and the operational load of running the system on your behalf. A clinic handling 200 enquiries a month sits at one tier; an agency running six live desks at high volume sits at another.",
+        a: "Inquiry volume, number of integrations, workflow complexity, and the operational load of running the system on your behalf. A clinic handling 200 inquiries a month sits at one tier; an agency running six live desks at high volume sits at another.",
       },
     ],
   },

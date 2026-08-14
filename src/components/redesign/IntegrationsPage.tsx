@@ -37,11 +37,11 @@ const favicon = (name: string) => (DOMAINS[name] ? `https://www.google.com/s2/fa
 type Entry = { name: string; desc: string };
 const CATALOGUE: { cat: string; items: Entry[] }[] = [
   { cat: "CRM", items: [
-    { name: "HubSpot", desc: "Connect Rosebud straight to HubSpot. Every enquiry, qualification and booking syncs both ways, so your pipeline is current without anyone typing it in." },
+    { name: "HubSpot", desc: "Connect Rosebud straight to HubSpot. Every inquiry, qualification and booking syncs both ways, so your pipeline is current without anyone typing it in." },
     { name: "Pipedrive", desc: "Send every new lead directly into Pipedrive. Stages, owners and notes update themselves as the system works the lead." },
     { name: "Zoho", desc: "Full two-way sync with Zoho CRM. Leads, contacts and deals stay accurate on both sides, in real time." },
     { name: "Close", desc: "Built for teams who live in the CRM all day. Every outcome, booking and status change lands in Close as it happens." },
-    { name: "Capsule", desc: "Connect Rosebud to Capsule. New enquiries arrive as contacts with their full history already attached, ready to work." },
+    { name: "Capsule", desc: "Connect Rosebud to Capsule. New inquiries arrive as contacts with their full history already attached, ready to work." },
     { name: "Copper", desc: "A natural fit for teams already running on Google Workspace. Leads, emails and meetings stay joined up across Copper and your calendar." },
     { name: "Salesforce", desc: "Enterprise-grade sync for larger operations. Every record, stage and value writes back into Salesforce as your system of record." },
     { name: "Microsoft Dynamics 365", desc: "Built for Microsoft-first businesses. Leads and appointments sync straight into Dynamics with no middle layer." },
@@ -53,21 +53,21 @@ const CATALOGUE: { cat: string; items: Entry[] }[] = [
     { name: "Calendly", desc: "Bookings written back the moment a slot is taken. Your Calendly stays the single source of truth for the diary." },
   ] },
   { cat: "Messaging", items: [
-    { name: "WhatsApp Business", desc: "Answer enquiries where most of them now arrive. Rosebud replies in seconds in your brand voice, and the whole thread stays on the record." },
+    { name: "WhatsApp Business", desc: "Answer inquiries where most of them now arrive. Rosebud replies in seconds in your brand voice, and the whole thread stays on the record." },
     { name: "SMS", desc: "Reach people on the channel they actually read. Confirmations, reminders and no-show recovery all go out automatically." },
     { name: "Email", desc: "Every sequence, from the first reply to long-term nurture. Sent from your domain and matched to your tone." },
   ] },
   { cat: "Industry", items: [
-    { name: "Clio", desc: "Matter management for law firms, connected end to end. New enquiries arrive as matters with their details already attached." },
-    { name: "ServiceM8", desc: "Job management for trades and home services. Enquiries become jobs, and site visits land in the right diary automatically." },
-    { name: "Pabau", desc: "Clinic management for aesthetics and healthcare. Patient enquiries, bookings and recalls stay in sync with your practice system." },
+    { name: "Clio", desc: "Matter management for law firms, connected end to end. New inquiries arrive as matters with their details already attached." },
+    { name: "ServiceM8", desc: "Job management for trades and home services. Inquiries become jobs, and site visits land in the right diary automatically." },
+    { name: "Pabau", desc: "Clinic management for aesthetics and healthcare. Patient inquiries, bookings and recalls stay in sync with your practice system." },
     { name: "Dentally", desc: "Practice management built for dental. New patients and appointments flow straight into the system your front desk already runs on." },
   ] },
   { cat: "Advertising", items: [
     { name: "Google Ads", desc: "Qualified outcomes matched back to the click that created them. Delivered to your media team so your bidding chases customers instead of form-fills." },
   ] },
   { cat: "Developer", items: [
-    { name: "Webhooks", desc: "Fire a live event to any system you run the second something happens. New enquiry, qualified, booked, no-show, re-engaged — each one posts to your endpoint as it lands." },
+    { name: "Webhooks", desc: "Fire a live event to any system you run the second something happens. New inquiry, qualified, booked, no-show, re-engaged — each one posts to your endpoint as it lands." },
     { name: "API", desc: "Read and write your own records directly. Pull lead data into your reporting, push contacts in from a system we do not connect to yet, and build whatever sits on top." },
   ] },
 ];
@@ -207,7 +207,7 @@ export default function IntegrationsPage() {
           <div>
             <span style={{ fontSize: 11, fontWeight: 600, letterSpacing: "2.5px", color: "#a7a1c0", textTransform: "uppercase" }}>If you do not run a CRM</span>
             <h2 style={{ fontFamily: SERIF, fontWeight: 400, fontSize: "clamp(30px,3.6vw,38px)", lineHeight: 1.12, color: "#22243c", margin: "16px 0 20px" }}>The system your business <em style={{ fontStyle: "italic", color: "#5877e8" }}>runs on</em></h2>
-            <p style={{ fontSize: 14, lineHeight: 1.75, color: "#6b6e8a", margin: "0 0 30px" }}>Plenty of good businesses run on a shared inbox, a notebook and a very good memory. You do not need to go and buy software before you can start with us. We provision a CRM for you and configure it around how your business actually works: the fields you use, the stages a job moves through, the views your team needs. Every enquiry, conversation, booking and job lands in one place, on the record. It comes as part of your setup, and everything in it is yours to export whenever you want.</p>
+            <p style={{ fontSize: 14, lineHeight: 1.75, color: "#6b6e8a", margin: "0 0 30px" }}>Plenty of good businesses run on a shared inbox, a notebook and a very good memory. You do not need to go and buy software before you can start with us. We provision a CRM for you and configure it around how your business actually works: the fields you use, the stages a job moves through, the views your team needs. Every inquiry, conversation, booking and job lands in one place, on the record. It comes as part of your setup, and everything in it is yours to export whenever you want.</p>
             <BookDemoCTA label="Book a consultation" href={DEMO} tone="light" />
           </div>
           <div className="rb-int-scene" style={{ position: "relative", width: "100%", aspectRatio: "1 / 0.86", borderRadius: 26, overflow: "hidden", background: "radial-gradient(90% 70% at 78% 8%,#f2ecd8,transparent 60%),linear-gradient(150deg,#efe9d4 0%,#e5d8b6 100%)", boxShadow: "0 30px 60px -28px rgba(96,84,44,.45)" }}>
@@ -217,7 +217,7 @@ export default function IntegrationsPage() {
                 <span style={{ fontSize: "1.3cqw", opacity: 0.7, fontWeight: 600 }}>Built for you</span>
               </div>
               <div style={{ padding: "1.6cqw 2.4cqw 2cqw" }}>
-                {[["Enquiries", "Every one, on the record"], ["Conversations", "Full thread history"], ["Bookings", "Diary-synced"], ["Jobs", "Status tracked"]].map(([k, v], idx, arr) => (
+                {[["Inquiries", "Every one, on the record"], ["Conversations", "Full thread history"], ["Bookings", "Diary-synced"], ["Jobs", "Status tracked"]].map(([k, v], idx, arr) => (
                   <div key={k} style={{ display: "flex", justifyContent: "space-between", alignItems: "center", fontSize: "1.6cqw", fontWeight: 600, color: "#4a4d68", padding: "1.15cqw 0", borderBottom: idx < arr.length - 1 ? "1px solid #f2f3f7" : "none" }}><span>{k}</span><span style={{ color: "#2c2f4a", fontWeight: 700 }}>{v}</span></div>
                 ))}
               </div>
@@ -236,7 +236,7 @@ export default function IntegrationsPage() {
         <div style={{ maxWidth: 600, margin: "0 auto", padding: "0 22px" }}>
           <span style={{ fontSize: 11, fontWeight: 600, letterSpacing: "2.5px", color: "#a7a1c0", textTransform: "uppercase" }}>Missing something</span>
           <h2 style={{ fontFamily: SERIF, fontWeight: 400, fontSize: "clamp(32px,4.4vw,42px)", lineHeight: 1.12, color: "#22243c", margin: "18px 0 18px" }}>Not on the list?</h2>
-          <p style={{ fontSize: 14, lineHeight: 1.7, color: "#6b6e8a", maxWidth: 480, margin: "0 auto 34px" }}>Tell us what you run. New systems get added to the catalogue as clients need them, and we will tell you straight whether yours is a fit before you commit to anything.</p>
+          <p style={{ fontSize: 14, lineHeight: 1.7, color: "#6b6e8a", maxWidth: 480, margin: "0 auto 34px" }}>Tell us what you run. New systems get added to the catalog as clients need them, and we will tell you straight whether yours is a fit before you commit to anything.</p>
           <div style={{ display: "flex", justifyContent: "center" }}><BookDemoCTA label="Talk to us" href={DEMO} tone="light" /></div>
         </div>
       </section>

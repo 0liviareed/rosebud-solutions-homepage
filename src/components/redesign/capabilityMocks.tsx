@@ -49,7 +49,7 @@ function center(children: ReactNode): ReactNode {
 function qualifyHero(a: string): ReactNode {
   return sq(a, center(<>
     <div style={{ ...CARD }}>
-      {hdr(a, "Evaluating enquiry", "live")}
+      {hdr(a, "Evaluating inquiry", "live")}
       <div style={{ padding: "1.4cqw 2.6cqw" }}>
         {frow("Budget", "£8,000", a)}{frow("Location", "In service area", a)}{frow("Timeline", "This month", a)}
       </div>
@@ -58,7 +58,7 @@ function qualifyHero(a: string): ReactNode {
       </div>
     </div>
     <div style={{ ...CARD_SM, padding: "1.6cqw 2.2cqw", display: "flex", alignItems: "center", gap: "1.2cqw", opacity: 0.9 }}>
-      <span style={{ fontWeight: 700, fontSize: "1.6cqw", color: "#17131F", flex: 1 }}>Second enquiry</span>{pill("Nurture", GREY_BG, GREY)}
+      <span style={{ fontWeight: 700, fontSize: "1.6cqw", color: "#17131F", flex: 1 }}>Second inquiry</span>{pill("Nurture", GREY_BG, GREY)}
     </div>
   </>));
 }
@@ -77,7 +77,7 @@ function qualifyDeep(i: number, a: string): ReactNode {
       </div>
     </div>
     <div style={{ ...CARD_SM, padding: "1.6cqw 2.2cqw", display: "flex", alignItems: "center", gap: "1.2cqw" }}>
-      <span style={{ fontWeight: 700, fontSize: "1.7cqw", color: "#17131F", flex: 1 }}>New enquiry parsing…</span>{pill("Passing ✓", GREEN_BG, GREEN)}
+      <span style={{ fontWeight: 700, fontSize: "1.7cqw", color: "#17131F", flex: 1 }}>New inquiry parsing…</span>{pill("Passing ✓", GREEN_BG, GREEN)}
     </div>
   </>));
   if (i === 1) return sq(a, center(

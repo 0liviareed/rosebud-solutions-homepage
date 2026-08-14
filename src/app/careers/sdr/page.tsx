@@ -79,7 +79,7 @@ export default function SdrPage() {
               <h2 className="rb-job-h2">About Rosebud Solutions</h2>
               <p>
                 Rosebud Solutions owns the space between demand and revenue. We
-                build one system that answers every enquiry in seconds, scores it
+                build one system that answers every inquiry in seconds, scores it
                 against a business&rsquo;s own rules, books it into their diary,
                 and works it again when it goes quiet, then run that system for
                 them every day, connected to the CRM and calendars they already
@@ -169,7 +169,7 @@ export default function SdrPage() {
                   Achieve and exceed individual KPIs &mdash; your weekly dial
                   volume and the handover target agreed at interview &mdash;
                   operating inside your market&rsquo;s weekday 9&ndash;5 window in
-                  a high-performance environment where results are recognised and
+                  a high-performance environment where results are recognized and
                   rewarded.
                 </li>
               </ul>
@@ -205,7 +205,7 @@ export default function SdrPage() {
                   commercial opportunities.
                 </li>
                 <li>
-                  Highly organised with excellent time management skills, capable
+                  Highly organized with excellent time management skills, capable
                   of managing follow-ups, pipeline and priorities simultaneously
                   without being chased.
                 </li>

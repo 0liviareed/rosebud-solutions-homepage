@@ -39,7 +39,7 @@ const STAGES: Stage[] = [
       chip: "Qualified pipeline",
       q: "What makes a lead worth your team's time?",
       a: "Sourced from compliant, public signals, scored on real intent and fit, and routed to the right person. Hot to a closer, the rest to nurture. No bought lists, no spray.",
-      metric: { value: "< 60s", label: "response to every enquiry" },
+      metric: { value: "< 60s", label: "response to every inquiry" },
     },
   },
   {

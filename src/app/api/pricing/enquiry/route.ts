@@ -133,7 +133,7 @@ export async function POST(req: Request) {
   if (insertErr) {
     console.error("[pricing-enquiry] insert failed:", insertErr.message);
     return NextResponse.json(
-      { error: "Couldn't save your enquiry. Please try again, or email contact@rosebud.global." },
+      { error: "Couldn't save your inquiry. Please try again, or email contact@rosebud.global." },
       { status: 500 }
     );
   }
