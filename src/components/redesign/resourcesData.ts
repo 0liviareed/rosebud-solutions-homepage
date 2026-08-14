@@ -381,7 +381,7 @@ export const RESOURCES: Record<string, ResourceItem> = {
       ] },
 
       { type: "h2", id: "citation", text: "Citation" },
-      { type: "quote", text: "Rosebud Solutions (2026). The 2026 US Service Business Response Study: what happens when you send a US service business a web inquiry. Rosebud Global Ltd. Available at rosebud.global/resources/2026-us-service-business-response-study" },
+      { type: "quote", text: "Rosebud Solutions (2026). The 2026 US Service Business Response Study: what happens when you send a US service business a web inquiry. Rosebud Global Ltd. Available at https://rosebud.global/resources/2026-us-service-business-response-study" },
       { type: "p", text: "Published under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). Reuse is permitted with attribution." },
       { type: "p", text: "Fieldwork July 26 to August 10, 2026. Response logging closed August 13, 2026. All figures final." },
       { type: "p", text: "Rosebud Solutions is a Rosebud Global Ltd company (Co. No. 16623472). Rosebud Solutions operates inquiry handling for service businesses, which is why this question was worth measuring. The study was self-funded and no business in the sample is a client." },
