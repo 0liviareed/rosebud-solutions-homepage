@@ -280,6 +280,54 @@ export default function ResourceArticlePage({ data }: { data: ResourceItem }) {
                     <p style={{ margin: 0, fontSize: 15.5, lineHeight: 1.68, color: "rgba(23,19,31,0.62)" }}>{block.text}</p>
                   </div>
                 );
+              case "table":
+                return (
+                  <div key={i} style={{ background: "#fff", borderRadius: 16, padding: "8px 26px", boxShadow: "0 24px 60px -44px rgba(23,19,31,0.35)" }}>
+                    <div style={{ display: "grid", gridTemplateColumns: `minmax(0,1fr) repeat(${block.head.length - 1}, auto)`, gap: 16, padding: "14px 2px", borderBottom: "1px solid rgba(23,19,31,0.16)" }}>
+                      {block.head.map((h, j) => (
+                        <span key={j} style={{ textAlign: j === 0 ? "left" : "right", fontSize: 10.5, fontWeight: 700, letterSpacing: "1.2px", textTransform: "uppercase", color: "rgba(23,19,31,0.4)" }}>{h}</span>
+                      ))}
+                    </div>
+                    {block.rows.map((row, j) => (
+                      <div key={j} style={{ display: "grid", gridTemplateColumns: `minmax(0,1fr) repeat(${block.head.length - 1}, auto)`, gap: 16, padding: "13px 2px", borderBottom: "1px solid rgba(23,19,31,0.08)", fontSize: 14.5 }}>
+                        {row.map((v, k) => (
+                          <span key={k} style={{ textAlign: k === 0 ? "left" : "right", color: k === 0 ? "#4a4d68" : "#17131F", fontWeight: k === 0 ? 500 : 700, fontVariantNumeric: "tabular-nums" }}>{v}</span>
+                        ))}
+                      </div>
+                    ))}
+                    {block.totalRow && (
+                      <div style={{ display: "grid", gridTemplateColumns: `minmax(0,1fr) repeat(${block.head.length - 1}, auto)`, gap: 16, padding: "13px 2px", fontSize: 14.5 }}>
+                        {block.totalRow.map((v, k) => (
+                          <span key={k} style={{ textAlign: k === 0 ? "left" : "right", color: "#17131F", fontWeight: 700, fontVariantNumeric: "tabular-nums" }}>{v}</span>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                );
+              case "bar-chart": {
+                const max = Math.max(...block.bars.map((b) => b.value));
+                return (
+                  <figure key={i} style={{ margin: 0, background: "#fff", borderRadius: 16, padding: "24px 26px 20px", boxShadow: "0 24px 60px -44px rgba(23,19,31,0.35)" }}>
+                    <div style={{ fontSize: 13.5, fontWeight: 700, color: "#17131F", marginBottom: 20 }}>{block.title}</div>
+                    <div style={{ display: "flex", flexDirection: "column", gap: 11 }}>
+                      {block.bars.map((b, j) => {
+                        const pct = Math.max(1.5, (b.value / max) * 100);
+                        const fill = b.muted ? "rgba(139,125,216,0.35)" : b.lead ? A : "rgba(139,125,216,0.7)";
+                        return (
+                          <div key={j} style={{ display: "grid", gridTemplateColumns: "150px minmax(0,1fr) 54px", gap: 14, alignItems: "center" }}>
+                            <span style={{ fontSize: 12.5, color: b.lead ? "#17131F" : "rgba(23,19,31,0.55)", fontWeight: b.lead ? 700 : 500, textAlign: "right" }}>{b.label}</span>
+                            <span style={{ display: "block", height: 18, background: "rgba(23,19,31,0.06)", borderRadius: 3, overflow: "hidden" }}>
+                              <span style={{ display: "block", height: "100%", width: `${pct}%`, background: fill, borderRadius: 3 }} />
+                            </span>
+                            <span style={{ fontSize: 12.5, fontWeight: 700, color: "#17131F", fontVariantNumeric: "tabular-nums" }}>{block.unit === "%" ? `${b.value}%` : b.value}</span>
+                          </div>
+                        );
+                      })}
+                    </div>
+                    <figcaption style={{ marginTop: 16, paddingTop: 12, borderTop: "1px solid rgba(23,19,31,0.1)", fontSize: 12, lineHeight: 1.55, color: "rgba(23,19,31,0.45)" }}>{block.caption}</figcaption>
+                  </figure>
+                );
+              }
               case "stat-row":
                 return (
                   <div key={i} style={{ display: "flex", flexWrap: "wrap", gap: 16, margin: "8px 0" }}>

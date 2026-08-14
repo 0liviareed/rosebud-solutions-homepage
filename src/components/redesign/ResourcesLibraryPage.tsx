@@ -93,6 +93,32 @@ export default function ResourcesLibraryPage() {
         </div>
       </section>
 
+      {/* ===================== FEATURED ===================== */}
+      {Object.values(RESOURCES).filter((i) => i.featured).map((item) => (
+        <section key={item.slug} className="rb-lib-pad" style={{ background: "#ECE7F7", padding: "0 48px 56px" }}>
+          <a
+            href={`/resources/${item.slug}`}
+            style={{ display: "block", maxWidth: 1180, margin: "0 auto", background: "#17131F", borderRadius: 24, padding: "40px 44px", color: "#F5F1EA", textDecoration: "none", boxShadow: "0 30px 70px -40px rgba(23,19,31,0.6)" }}
+          >
+            <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: "1.8px", textTransform: "uppercase", color: "#B8AEDB", marginBottom: 16 }}>New research</div>
+            <div style={{ display: "flex", flexWrap: "wrap", gap: 40, alignItems: "flex-end", justifyContent: "space-between" }}>
+              <div style={{ maxWidth: 620 }}>
+                <h2 style={{ fontFamily: SERIF, fontWeight: 400, fontSize: "clamp(24px,3vw,32px)", lineHeight: 1.16, letterSpacing: "-0.01em", margin: "0 0 12px", color: "#fff" }}>{item.title}</h2>
+                <p style={{ margin: 0, fontSize: 15, lineHeight: 1.62, color: "rgba(245,241,234,0.6)" }}>{item.dek}</p>
+                <span style={{ display: "inline-flex", alignItems: "center", gap: 8, marginTop: 22, fontSize: 13.5, fontWeight: 600, color: "#fff" }}>
+                  Read the study <span aria-hidden>→</span>
+                </span>
+              </div>
+              <div style={{ display: "flex", gap: 28, flexWrap: "wrap" }}>
+                <FeaturedStat value="273" label="businesses tested" />
+                <FeaturedStat value="20.5%" label="had no working form" />
+                <FeaturedStat value="70.1%" label="never answered at all" />
+              </div>
+            </div>
+          </a>
+        </section>
+      ))}
+
       {/* ===================== FILTERS ===================== */}
       <section className="rb-lib-pad" style={{ background: "#F6F3FB", padding: "40px 48px 0" }}>
         <div style={{ maxWidth: 1180, margin: "0 auto" }}>
@@ -209,6 +235,15 @@ export default function ResourcesLibraryPage() {
       </section>
 
       <RedesignFooter />
+    </div>
+  );
+}
+
+function FeaturedStat({ value, label }: { value: string; label: string }) {
+  return (
+    <div>
+      <div style={{ fontFamily: SERIF, fontWeight: 400, fontSize: 34, lineHeight: 1, color: "#fff" }}>{value}</div>
+      <div style={{ fontSize: 12, lineHeight: 1.4, color: "rgba(245,241,234,0.5)", marginTop: 8, maxWidth: 110 }}>{label}</div>
     </div>
   );
 }

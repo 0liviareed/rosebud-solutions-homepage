@@ -37,17 +37,19 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
   if (!data) notFound();
 
   const faqBlock = data.body.find((b) => b.type === "faq");
-  const faqSchema = faqBlock && faqBlock.type === "faq"
+  const faqNode = faqBlock && faqBlock.type === "faq"
     ? {
-        "@context": "https://schema.org",
         "@type": "FAQPage",
         mainEntity: faqBlock.items.map((f) => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a } })),
       }
     : null;
 
+  const graph = [...(faqNode ? [faqNode] : []), ...(data.extraSchema ?? [])];
+  const schema = graph.length > 0 ? { "@context": "https://schema.org", "@graph": graph } : null;
+
   return (
     <>
-      {faqSchema && <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />}
+      {schema && <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />}
       <ResourceArticlePage data={data} />
     </>
   );

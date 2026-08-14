@@ -18,7 +18,9 @@ export type ResourceBody =
   | { type: "stat-row"; stats: { value: string; label: string }[] }
   | { type: "faq"; items: { q: string; a: string }[] }
   | { type: "related"; items: { href: string; title: string; desc?: string }[] }
-  | { type: "cta-download"; heading: string; body: string; buttonLabel: string; resourceKey: string };
+  | { type: "cta-download"; heading: string; body: string; buttonLabel: string; resourceKey: string }
+  | { type: "table"; head: string[]; rows: (string | number)[][]; totalRow?: (string | number)[] }
+  | { type: "bar-chart"; title: string; caption: string; unit?: "%"; bars: { label: string; value: number; lead?: boolean; muted?: boolean }[] };
 
 export type ResourceItem = {
   slug: string;
@@ -31,6 +33,11 @@ export type ResourceItem = {
   date: string; // ISO yyyy-mm-dd
   author?: { name: string; role: string };
   toc?: { id: string; label: string }[];
+  featured?: boolean;
+  // Additional JSON-LD graph nodes (e.g. ScholarlyArticle, Dataset,
+  // Organization) merged alongside the auto-generated FAQPage schema —
+  // see src/app/resources/[slug]/page.tsx.
+  extraSchema?: Record<string, unknown>[];
   // Full article body — placeholder until real copy is supplied.
   body: ResourceBody[];
 };
@@ -79,25 +86,306 @@ export const RESOURCES: Record<string, ResourceItem> = {
   "2026-us-service-business-response-study": {
     slug: "2026-us-service-business-response-study",
     title: "The 2026 US Service Business Response Study",
-    dek: "Standardised enquiries submitted to 273 owner-operated service businesses across five sectors. What came back, and what did not.",
+    dek: "We sent a real enquiry to 273 US service businesses. 20.5% had no working web enquiry form. Of the 211 that were delivered, 70.1% were never answered.",
     stage: "capture",
     sector: "all",
     kind: "study",
-    mins: 12,
+    mins: 14,
     date: "2026-08-13",
+    author: { name: "Sajni Okojie", role: "Chief Operating Officer, Rosebud Global Ltd" },
+    featured: true,
+    toc: [
+      { id: "summary", label: "Summary" },
+      { id: "why-this-study-exists", label: "Why this study exists" },
+      { id: "method", label: "Method" },
+      { id: "finding-1", label: "Finding 1 · One in five had no web form" },
+      { id: "finding-2", label: "Finding 2 · Seven in ten never answered" },
+      { id: "takeaways", label: "Key takeaways" },
+      { id: "limitations", label: "Limitations" },
+      { id: "data-availability", label: "Data availability" },
+      { id: "sector-findings", label: "Sector findings" },
+      { id: "citation", label: "Citation" },
+    ],
+    extraSchema: [
+      {
+        "@type": "ScholarlyArticle",
+        "@id": "https://rosebud.global/resources/2026-us-service-business-response-study#article",
+        url: "https://rosebud.global/resources/2026-us-service-business-response-study",
+        name: "The 2026 US Service Business Response Study",
+        headline: "What happens when you send a US service business a web enquiry",
+        alternateName: "US Service Business Response Study 2026",
+        description: "Primary research across 273 US owner-operated service businesses in commercial cleaning, dental and aesthetics, family law, mortgage and lending, and trades. 20.5% had no working web enquiry form. Of 211 enquiries provably delivered, 29.9% received any reply within 72 hours and 21.3% received a reply from a person. 70.1% received no response of any kind.",
+        inLanguage: "en",
+        datePublished: "2026-08-13",
+        dateModified: "2026-08-13",
+        isAccessibleForFree: true,
+        author: { "@type": "Person", name: "Sajni Okojie", jobTitle: "Chief Operating Officer", affiliation: { "@id": "https://rosebud.global/resources/2026-us-service-business-response-study#organization" } },
+        publisher: { "@id": "https://rosebud.global/resources/2026-us-service-business-response-study#organization" },
+        about: [
+          { "@type": "Thing", name: "Lead response time" },
+          { "@type": "Thing", name: "Enquiry handling" },
+          { "@type": "Thing", name: "Service business operations" },
+        ],
+        keywords: "lead response time statistics, speed to lead statistics, lead response time study, web enquiry form, service business response rate",
+        citation: { "@type": "Dataset", "@id": "https://rosebud.global/resources/2026-us-service-business-response-study#dataset" },
+        mainEntityOfPage: "https://rosebud.global/resources/2026-us-service-business-response-study",
+        version: "2026.1",
+        license: "https://creativecommons.org/licenses/by/4.0/",
+        subjectOf: [
+          { "@type": "WebPage", url: "https://rosebud.global/industries/dental-aesthetic" },
+          { "@type": "WebPage", url: "https://rosebud.global/industries/family-law" },
+          { "@type": "WebPage", url: "https://rosebud.global/industries/mortgage-lending" },
+          { "@type": "WebPage", url: "https://rosebud.global/industries/commercial-cleaning" },
+          { "@type": "WebPage", url: "https://rosebud.global/industries/trades-home-services" },
+        ],
+      },
+      {
+        "@type": "Dataset",
+        "@id": "https://rosebud.global/resources/2026-us-service-business-response-study#dataset",
+        name: "The 2026 US Service Business Response Study — aggregate results",
+        description: "Aggregate results from a mystery-shopping study of 273 US owner-operated service businesses across five sectors. Records whether each business had a working web enquiry form, whether a standardised enquiry received a response within 72 hours, time to first response, response channel, and whether the response was automated or from a person.",
+        url: "https://rosebud.global/resources/2026-us-service-business-response-study",
+        license: "https://creativecommons.org/licenses/by/4.0/",
+        isAccessibleForFree: true,
+        creator: { "@id": "https://rosebud.global/resources/2026-us-service-business-response-study#organization" },
+        datePublished: "2026-08-13",
+        temporalCoverage: "2026-07-26/2026-08-13",
+        spatialCoverage: { "@type": "Place", name: "United States" },
+        measurementTechnique: "Standardised web-form enquiry submitted to each business, with delivery confirmed by positive evidence (success redirect, in-form confirmation text, or cleared submission fields). Non-response recorded only after 72 hours elapsed from that business's own submission time.",
+        variableMeasured: [
+          { "@type": "PropertyValue", name: "Businesses with no working web enquiry form", value: "20.5", unitText: "PERCENT", unitCode: "P1", description: "56 of 273 businesses had no form present, a social link substituted for one, or a submission container that did not function. Measures web forms only." },
+          { "@type": "PropertyValue", name: "Businesses with no working web enquiry form, dental and aesthetics", value: "42.9", unitText: "PERCENT", unitCode: "P1", description: "24 of 56 dental and aesthetic practices." },
+          { "@type": "PropertyValue", name: "Delivered enquiries receiving any response within 72 hours", value: "29.9", unitText: "PERCENT", unitCode: "P1", description: "63 of 211 provably delivered enquiries." },
+          { "@type": "PropertyValue", name: "Delivered enquiries receiving a response from a person within 72 hours", value: "21.3", unitText: "PERCENT", unitCode: "P1", description: "45 of 211 provably delivered enquiries." },
+          { "@type": "PropertyValue", name: "Delivered enquiries receiving no response of any kind", value: "70.1", unitText: "PERCENT", unitCode: "P1", description: "148 of 211 provably delivered enquiries." },
+          { "@type": "PropertyValue", name: "Median time to first response", value: "5.1", unitText: "HUR", unitCode: "HUR", description: "Median across 58 timed responses. Rises to 8.8 hours counting only replies from a person." },
+          { "@type": "PropertyValue", name: "Response rate, enquiry sent outside business hours", value: "19.8", unitText: "PERCENT", unitCode: "P1", description: "24 of 121 enquiries, judged against each business's own local opening hours." },
+          { "@type": "PropertyValue", name: "Response rate, enquiry sent during business hours", value: "34.8", unitText: "PERCENT", unitCode: "P1", description: "16 of 46 enquiries, judged against each business's own local opening hours." },
+          { "@type": "PropertyValue", name: "Response rate, mortgage and lending", value: "15.0", unitText: "PERCENT", unitCode: "P1", description: "6 of 40 delivered enquiries. Only one was a reply from a person." },
+          { "@type": "PropertyValue", name: "Response rate, commercial cleaning", value: "41.3", unitText: "PERCENT", unitCode: "P1", description: "19 of 46 delivered enquiries. Highest of the five sectors." },
+        ],
+        distribution: [{ "@type": "DataDownload", encodingFormat: "text/csv", contentUrl: "https://rosebud.global/data/response-study-2026-aggregate.csv", name: "Aggregate results, all metrics by sector" }],
+        version: "2026.1",
+        includedInDataCatalog: { "@type": "DataCatalog", name: "Rosebud Solutions Research", url: "https://rosebud.global/resources" },
+      },
+      {
+        "@type": "Organization",
+        "@id": "https://rosebud.global/resources/2026-us-service-business-response-study#organization",
+        name: "Rosebud Solutions",
+        legalName: "Rosebud Global Ltd",
+        url: "https://rosebud.global",
+        identifier: "16623472",
+      },
+    ],
     body: [
-      { type: "p", text: "[PLACEHOLDER — awaiting final copy. Replace this section with the study's overview: what was tested, why, and the headline finding.]" },
-      { type: "h2", text: "Methodology" },
-      { type: "p", text: "[PLACEHOLDER — how the 273 businesses were selected, what the standardised enquiry looked like, the response window, and what counted as a response.]" },
-      { type: "stat-row", stats: [
-        { value: "273", label: "Businesses enquired" },
-        { value: "—", label: "Responded" },
-        { value: "—", label: "Median response time" },
+      { type: "p", text: "We submitted a real enquiry to 273 US owner-operated service businesses across commercial cleaning, dental and aesthetics, family law, mortgage and lending, and trades. We recorded whether the business had a working web enquiry route, whether a reply arrived, how long it took, on which channel, and whether it came from a person or a system." },
+      { type: "p", text: "Two findings." },
+
+      { type: "h2", id: "summary", text: "Summary" },
+      { type: "h3", text: "One in five businesses had no web enquiry form" },
+      { type: "p", text: "56 of 273, or 20.5%, had no form present, a social link substituted for one, or a submission container that did not function. In dental and aesthetics the figure is 42.9%. This measures web forms only and does not assess direct email links (`mailto:`) or telephone contact." },
+      { type: "h3", text: "Seven in ten delivered enquiries were never answered" },
+      { type: "p", text: "Of 211 enquiries provably delivered, 29.9% received any reply within 72 hours and 21.3% received a reply from a person. 70.1% received nothing at all." },
+      { type: "p", text: "Existing figures in this area trace back to research published in 2011 and 2012, conducted on B2B sales pipelines. This study is primary, current, and measures owner-operated service businesses directly." },
+
+      { type: "h2", id: "why-this-study-exists", text: "Why this study exists" },
+      { type: "p", text: "Ask what proportion of businesses respond to an enquiry and the answers conflict. Published figures range from under 30% to over 60% contacted, and almost none state a denominator or a censoring window. Nearly all trace to the same two sources: a Harvard Business Review study of B2B lead pipelines and an InsideSales response-management study, both over a decade old." },
+      { type: "p", text: "Nobody has measured whether a small US service business can receive a web enquiry at all. That is the question a customer actually faces." },
+
+      { type: "h2", id: "method", text: "Method" },
+      { type: "h3", text: "Sample" },
+      { type: "p", text: "273 US owner-operated service businesses, drawn across five sectors." },
+      { type: "table", head: ["Sector", "Businesses"], rows: [
+        ["Trades", 56], ["Dental & aesthetic", 56], ["Commercial cleaning", 55], ["Mortgage & lending", 55], ["Family law", 51],
+      ], totalRow: ["Total", 273] },
+
+      { type: "h3", text: "The enquiry" },
+      { type: "p", text: "One base message per sector, held constant in persona, tone, ask and sign-off. Family law and mortgage were sent verbatim with no variation. Cleaning, trades and dental substituted the named service according to a substitution table written before fieldwork began, so a plumber received a water heater enquiry and an electrician received an electrical one." },
+      { type: "p", text: "The enquiry is standardised, not identical. A single message cannot be plausible to both a divorce lawyer and a roofer, and an implausible enquiry measures implausibility rather than responsiveness." },
+      { type: "list", items: [
+        { lead: "Commercial cleaning —", text: "“Hi, I manage a small office, around 2,000 sq ft, and we're looking for regular weekly cleaning. Can you send a quote or let me know what you need from me? Thanks”" },
+        { lead: "Dental & aesthetic —", text: "“Hi, I'm new to the area and looking into [treatment]. Can you let me know availability and rough pricing for a first visit? Thanks”" },
+        { lead: "Family law —", text: "“Hi, my partner and I are looking at an amicable separation and I'm trying to understand our options before we decide anything. Could someone let me know how you usually handle this? No rush, thanks”" },
+        { lead: "Mortgage & lending —", text: "“Hi, I'm a first-time buyer just starting to look at options and wanted to understand your process and current rates. What's the best way to get started? Thanks”" },
+        { lead: "Trades —", text: "“Hi, my water heater is getting old and I'm thinking about replacing it in the next month or two. Can you give me a rough quote or let me know what you'd need to see first? Thanks”" },
       ] },
-      { type: "h2", text: "What came back" },
-      { type: "p", text: "[PLACEHOLDER — sector-by-sector breakdown of response rate and speed.]" },
-      { type: "h2", text: "What this means" },
-      { type: "p", text: "[PLACEHOLDER — the takeaway for an owner reading this.]" },
+
+      { type: "h3", text: "Delivery proof" },
+      { type: "p", text: "An enquiry counts as delivered only on positive evidence. A submission is stamped delivered when it produces a redirect to a success path, confirmation text inside the submitted form container, or the submitted fields returning empty. Absent all three, the row is not counted as sent." },
+      { type: "p", text: "The default is no proof, no row. A submission that appears to work but produces no evidence is treated as not delivered, not as delivered-and-ignored. This is deliberately conservative: it removes rows from the denominator rather than inflating the non-response rate." },
+      { type: "p", text: "A later reply is itself proof of delivery, since a reply cannot exist without the enquiry arriving." },
+
+      { type: "h3", text: "Censoring" },
+      { type: "p", text: "A business is counted as a non-responder only after 72 hours have elapsed from its own submission time. The window is computed live per row, never against a fixed calendar date, so every business receives the same observation period regardless of when it was contacted." },
+      { type: "p", text: "Rows still inside their first 72 hours are not counted either way. They are unfinished observations, not silence." },
+
+      { type: "h3", text: "Classification" },
+      { type: "p", text: "The rule below was written on 5 August 2026, before the classification pass it governs, and applied unchanged." },
+      { type: "list", ordered: true, items: [
+        { text: "Reply arrives within 5 minutes of submission — automated." },
+        { text: "Reply is one of two or more near-identical messages in the same thread — automated." },
+        { text: "Reply engages something specific to the actual submission — human." },
+        { text: "Otherwise, tie-break on signature: a named individual is human, a generic department address is automated. Every tie-break is flagged as lower confidence." },
+      ] },
+
+      { type: "h3", text: "Definitions" },
+      { type: "list", items: [
+        { lead: "Contacted —", text: "A business in the sample, whether or not an enquiry could be submitted." },
+        { lead: "No web enquiry form —", text: "No form present, a social link substituted for a form, no fillable form found, or a form confirmed non-functional. Assessed against forms only. Direct email links (`mailto:`), telephone numbers, and click-to-call were not assessed and do not count as a form." },
+        { lead: "Delivered —", text: "Submission met the delivery-proof rule above." },
+        { lead: "Response —", text: "Any reply of any kind, on any channel, within 72 hours." },
+        { lead: "Substantive response —", text: "A reply classified as human under the rule above." },
+      ] },
+
+      { type: "h2", id: "finding-1", text: "Finding 1 · One in five businesses had no web enquiry form" },
+      { type: "p", text: "Measured at the point of contact, across all 273 businesses." },
+      { type: "p", text: "**56 of 273 businesses, 20.5%, had no working web enquiry form** — no form present, a social link substituted for one, or a submission container that did not function." },
+      { type: "p", text: "This measures the presence and functionality of web forms only. It does not assess direct email links (`mailto:`), telephone numbers, or click-to-call, and some businesses in this group are reachable by those routes. The finding is that a written web enquiry, the route most customers reach for first, had nowhere to land." },
+      { type: "table", head: ["Sector", "No web form", "Businesses", "Rate"], rows: [
+        ["Dental & aesthetic", 24, 56, "42.9%"],
+        ["Mortgage & lending", 15, 55, "27.3%"],
+        ["Trades", 8, 56, "14.3%"],
+        ["Commercial cleaning", 5, 55, "9.1%"],
+        ["Family law", 4, 51, "7.8%"],
+      ], totalRow: ["All sectors", 56, 273, "20.5%"] },
+      { type: "bar-chart", title: "Businesses with no working web enquiry form, by sector", caption: "Figure 1 · Share of businesses with no working web enquiry form, by sector. n = 273.", unit: "%", bars: [
+        { label: "Dental & aesthetic", value: 42.9, lead: true },
+        { label: "Mortgage & lending", value: 27.3 },
+        { label: "Trades", value: 14.3 },
+        { label: "Commercial cleaning", value: 9.1 },
+        { label: "Family law", value: 7.8 },
+      ] },
+      { type: "p", text: "This is a property of the business, not of the study instrument. It is measured before any enquiry is sent and does not depend on response timing, censoring, or classification." },
+      { type: "p", text: "Dental and aesthetic practices are the outlier. More than two in five had no route by which a prospective patient could submit an enquiry online." },
+
+      { type: "h2", id: "finding-2", text: "Finding 2 · Seven in ten delivered enquiries are never answered" },
+      { type: "p", text: "Of 273 businesses contacted, 217 enquiries were submitted and 211 were provably delivered. Six are excluded because delivery could not be established either way." },
+      { type: "table", head: ["Outcome", "Count", "Rate"], rows: [
+        ["Any response within 72 hours", 63, "29.9%"],
+        ["Response from a person", 45, "21.3%"],
+        ["Automated acknowledgement only", 18, "8.5%"],
+        ["No response of any kind", 148, "70.1%"],
+      ] },
+      { type: "bar-chart", title: "What happened to a delivered enquiry within 72 hours", caption: "Figure 2 · Outcome of a delivered enquiry within 72 hours. n = 211.", unit: "%", bars: [
+        { label: "No response", value: 70.1, lead: true },
+        { label: "Any response", value: 29.9 },
+        { label: "— from a person", value: 21.3, muted: true },
+        { label: "— auto-ack only", value: 8.5, muted: true },
+      ] },
+
+      { type: "h3", text: "By sector" },
+      { type: "table", head: ["Sector", "Delivered", "Any response", "From a person"], rows: [
+        ["Commercial cleaning", 46, "41.3%", "30.4%"],
+        ["Family law", 47, "36.2%", "29.8%"],
+        ["Trades", 47, "29.8%", "23.4%"],
+        ["Dental & aesthetic", 31, "22.6%", "16.1%"],
+        ["Mortgage & lending", 40, "15.0%", "2.5%"],
+      ] },
+      { type: "bar-chart", title: "Response rate by sector", caption: "Figure 3 · Share of delivered enquiries receiving any response within 72 hours, by sector. Sector pools range from 31 to 47 delivered enquiries.", unit: "%", bars: [
+        { label: "Commercial cleaning", value: 41.3, lead: true },
+        { label: "Family law", value: 36.2 },
+        { label: "Trades", value: 29.8 },
+        { label: "Dental & aesthetic", value: 22.6 },
+        { label: "Mortgage & lending", value: 15.0 },
+      ] },
+      { type: "p", text: "Mortgage and lending is the weakest sector by a wide margin. Of 40 delivered enquiries, six drew any reply and exactly one came from a person. The other five were automated acknowledgements." },
+      { type: "p", text: "Dental and aesthetics is weak on both measures. It has the highest rate of missing enquiry forms at 42.9%, and among practices that could receive an enquiry, 22.6% replied. A prospective patient faces two failure points rather than one." },
+
+      { type: "h3", text: "How long a reply takes" },
+      { type: "p", text: "Median time to first response: **5.1 hours**, across 58 timed responses." },
+      { type: "table", head: ["Time to first response", "Responders"], rows: [
+        ["Under 5 minutes", 10], ["5 to 15 minutes", 3], ["15 minutes to 1 hour", 9], ["1 to 4 hours", 6],
+        ["4 to 24 hours", 18], ["24 to 48 hours", 9], ["48 to 72 hours", 1], ["After 72 hours", 2],
+      ] },
+      { type: "bar-chart", title: "Time to first response, responders only", caption: "Figure 4 · Time to first response, responders only. n = 58 timed responses. Median 5.1 hours.", bars: [
+        { label: "Under 5 min", value: 10, muted: true },
+        { label: "5–15 min", value: 3 },
+        { label: "15 min–1 hr", value: 9 },
+        { label: "1–4 hrs", value: 6 },
+        { label: "4–24 hrs", value: 18, lead: true },
+        { label: "24–48 hrs", value: 9 },
+        { label: "48–72 hrs", value: 1 },
+        { label: "After 72 hrs", value: 2 },
+      ] },
+      { type: "p", text: "Ten replies arrived within five minutes. Almost all were automated acknowledgements rather than a person, and under the classification rule a reply inside five minutes is recorded as automated." },
+      { type: "p", text: "Counting only replies from a person, the median rises to 8.8 hours. The fastest was 7 minutes and the slowest 56 hours." },
+      { type: "p", text: "Two replies arrived after the 72-hour window closed and are shown above for completeness. One was an automated missed-call text sent 16 days later by a phone system, which is reported in the data but excluded from any claim about how long businesses take to reply." },
+
+      { type: "h3", text: "When the enquiry was sent" },
+      { type: "p", text: "Each submission was assessed against the receiving business's own local opening hours." },
+      { type: "table", head: ["Enquiry sent", "Delivered", "Any response"], rows: [
+        ["Outside business hours", 121, "19.8%"],
+        ["During business hours", 46, "34.8%"],
+      ] },
+      { type: "bar-chart", title: "Response rate by when the enquiry was sent", caption: "Figure 5 · Response rate by whether the enquiry arrived inside or outside the business's own opening hours. n = 167 of 211 delivered enquiries.", unit: "%", bars: [
+        { label: "During business hours", value: 34.8, lead: true },
+        { label: "Outside business hours", value: 19.8 },
+      ] },
+      { type: "p", text: "An enquiry arriving outside opening hours was answered at a little over half the rate of one arriving during them, measured over the same 72-hour window in both cases." },
+      { type: "p", text: "This is the finding that matters most to a customer, because a customer does not wait for opening hours. Evenings and weekends are when people research a service, and they are when an enquiry is least likely to reach anyone." },
+      { type: "p", text: "Opening hours were recorded for 167 of the 211 delivered enquiries. The remaining 44 are not included in this comparison." },
+
+      { type: "h2", id: "takeaways", text: "Key takeaways" },
+      { type: "p", text: "Every figure below is from this study. No external benchmark is used." },
+      { type: "list", items: [
+        { lead: "A written web enquiry has nowhere to land at one business in five.", text: "20.5% had no working form. Those customers never reach the queue, so no amount of follow-up discipline recovers them." },
+        { lead: "Seven in ten delivered enquiries get nothing back.", text: "148 of 211 received no reply of any kind within 72 hours." },
+        { lead: "A reply from a person is rarer still.", text: "21.3% of delivered enquiries were answered by a human being." },
+        { lead: "The median reply takes 5.1 hours, and 8.8 hours if it comes from a person.", text: "Half of all people who did reply took longer than a working day to do it." },
+        { lead: "Fast replies are mostly machines.", text: "Ten replies arrived within five minutes. Almost all were automated acknowledgements." },
+        { lead: "Out-of-hours enquiries go unanswered.", text: "19.8% against 34.8% for enquiries arriving during opening hours, on the same 72-hour window. Customers research in the evening. Businesses respond in the morning, if at all." },
+        { lead: "Some sectors are much worse than others.", text: "Mortgage and lending answered 15.0% of delivered enquiries and only 2.5% with a human reply. Dental and aesthetics combines the worst form coverage with a low response rate." },
+        { lead: "The gap is capture, not generation.", text: "Every business in this sample already had demand arriving. What varied was whether anything happened to it." },
+      ] },
+
+      { type: "h2", text: "What this means for a business spending on demand" },
+      { type: "p", text: "A business paying for enquiries is paying for the top of a funnel whose entry point may not work and whose response may not come. This study measures how often that is true. It does not measure what it costs, because that depends on the business." },
+      { type: "p", text: "Rosebud Solutions operates the layer between an enquiry arriving and a booking being made: capture and response on every channel, qualification against the business's own rules, booking into a live calendar, reminders, and reactivation of leads that went cold. It is operated by Rosebud rather than configured by the client, and it stops at the booking, where the client's team takes over." },
+      { type: "p", text: "The study was run on the same platform Rosebud operates for that work, which is why the question was worth asking and why the method is published in full above. [Pricing and plans](/pricing) · [How it works](/)" },
+
+      { type: "h2", id: "limitations", text: "Limitations" },
+      { type: "list", items: [
+        { lead: "Sector pools are small.", text: "Delivered enquiries per sector range from 31 to 47. Sector rates carry a wide confidence interval and the ordering between adjacent sectors should not be treated as established. The gap between the highest and lowest sectors is large enough to be meaningful; the gap between neighbours is not." },
+        { lead: "Sends were concentrated on five days.", text: "26 July, 28 July, 4 August, 7 August and 10 August. Day-of-week effects are not separable from batch effects, which is why the timing comparison is reported against each business's own opening hours rather than by calendar day." },
+        { lead: "Opening hours were recorded for 167 of 211 delivered enquiries.", text: "The out-of-hours comparison uses that subset." },
+        { lead: "Five responses could not be timed", text: "and are excluded from the time-to-response figures while remaining in the response counts." },
+        { lead: "Six businesses are excluded", text: "because delivery could not be established either way. Four had a manual resubmission that could not be independently confirmed. Two returned a blank form with no error and no confirmation. All six are excluded rather than assumed in either direction." },
+        { lead: "Response is not conversion.", text: "This study stops at first response. It does not measure whether a reply led to a booking, a quote, or a customer." },
+        { lead: "Single enquiry per business.", text: "Each business received one enquiry. A business that missed one enquiry might answer the next, and a single test cannot separate a systemic failure from an owner on holiday or a short-staffed week." },
+        { lead: "Spam filtering is unobservable.", text: "A form submission that reaches the business but is filtered before a person sees it is indistinguishable, from outside, from one that was seen and ignored. Both are recorded as no response. This applies to all form-submission research and cannot be measured from the sending side." },
+        { lead: "Alternative contact routes were not assessed.", text: "Finding 1 measures the presence and functionality of web forms. Direct email links (`mailto:`), telephone numbers, and click-to-call were outside scope. A business counted as having no form may still be reachable by other means." },
+      ] },
+
+      { type: "h2", id: "data-availability", text: "Data availability" },
+      { type: "p", text: "Aggregate figures are published here in full and as a machine-readable file: [response-study-2026-aggregate.csv](/data/response-study-2026-aggregate.csv), covering every metric in this report broken out by sector." },
+      { type: "p", text: "Per-business records are held internally and are not published, since the study identifies named businesses that did not respond." },
+      { type: "p", text: "Method, definitions, classification rule and exclusion criteria are published above in full so the figures can be independently assessed." },
+
+      { type: "h2", id: "sector-findings", text: "Sector findings" },
+      { type: "p", text: "Each sector's figures are set out on the industry page for that sector. Insurance and real estate were not in the study and carry no figure." },
+      { type: "related", items: [
+        { href: "/industries/dental-aesthetic", title: "Dental, aesthetic and private healthcare", desc: "42.9% had no working form, 22.6% responded" },
+        { href: "/industries/mortgage-lending", title: "Mortgage and lending", desc: "15.0% responded, one reply from a person in 40" },
+        { href: "/industries/family-law", title: "Family law and consumer legal", desc: "36.2% responded, slowest median reply" },
+        { href: "/industries/commercial-cleaning", title: "Commercial cleaning and janitorial", desc: "41.3% responded, highest of the five" },
+        { href: "/industries/trades-home-services", title: "Trades and home services", desc: "29.8% responded" },
+      ] },
+
+      { type: "h2", id: "citation", text: "Citation" },
+      { type: "quote", text: "Rosebud Solutions (2026). The 2026 US Service Business Response Study: what happens when you send a US service business a web enquiry. Rosebud Global Ltd. Available at rosebud.global/resources/2026-us-service-business-response-study" },
+      { type: "p", text: "Published under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). Reuse is permitted with attribution." },
+      { type: "p", text: "Fieldwork 26 July to 10 August 2026. Response logging closed 13 August 2026. All figures final." },
+      { type: "p", text: "Rosebud Solutions is a Rosebud Global Ltd company (Co. No. 16623472). Rosebud Solutions operates enquiry handling for service businesses, which is why this question was worth measuring. The study was self-funded and no business in the sample is a client." },
+
+      {
+        type: "faq", items: [
+          { q: "How many US service businesses respond to a web enquiry?", a: "In a 2026 study of 273 US owner-operated service businesses, 29.9% of the 211 provably delivered enquiries received any response within 72 hours, and 21.3% received a response from a person. 70.1% received nothing at all." },
+          { q: "How long does a service business take to respond to an enquiry?", a: "The median time to first response was 5.1 hours, rising to 8.8 hours counting only replies from a person. Ten of 211 delivered enquiries were answered within five minutes, and almost all of those were automated acknowledgements." },
+          { q: "How many small businesses have a working contact form?", a: "20.5% of the 273 US service businesses studied had no working web enquiry form. The figure was highest in dental and aesthetics at 42.9%, and lowest in family law at 7.8%." },
+          { q: "Do businesses respond to weekend enquiries?", a: "Less often. Enquiries arriving outside a business's own opening hours received a response 19.8% of the time, against 34.8% for enquiries arriving during opening hours, measured over identical 72-hour windows." },
+          { q: "Which service businesses are worst at responding to enquiries?", a: "Of the five sectors studied, mortgage and lending was weakest: 15.0% of delivered enquiries drew any reply and only 2.5% drew a reply from a person. Commercial cleaning was strongest at 41.3%. Dental and aesthetics combined the highest rate of missing enquiry forms, 42.9%, with a 22.6% response rate." },
+        ],
+      },
     ],
   },
 
