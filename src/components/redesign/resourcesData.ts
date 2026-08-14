@@ -25,6 +25,13 @@ export type ResourceBody =
 export type ResourceItem = {
   slug: string;
   title: string;
+  // Overrides the <title> tag only (search-intent phrasing) — H1, og:title,
+  // twitter:title, citation and schema `name` all keep using `title`.
+  metaTitle?: string;
+  // Question-shaped subhead rendered between the H1 and the dek — matches
+  // how someone actually phrases the search, which "Summary" as the first
+  // H2 does not.
+  deck?: string;
   dek: string;
   stage: string;
   sector: string;
@@ -86,6 +93,8 @@ export const RESOURCES: Record<string, ResourceItem> = {
   "2026-us-service-business-response-study": {
     slug: "2026-us-service-business-response-study",
     title: "The 2026 US Service Business Response Study",
+    metaTitle: "Lead Response Time Statistics 2026 | 273 US Businesses Tested",
+    deck: "What happens when you send a US service business a web enquiry?",
     dek: "We sent a real enquiry to 273 US service businesses. 20.5% had no working web enquiry form. Of the 211 that were delivered, 70.1% were never answered.",
     stage: "capture",
     sector: "all",
@@ -178,7 +187,7 @@ export const RESOURCES: Record<string, ResourceItem> = {
       },
     ],
     body: [
-      { type: "p", text: "We submitted a real enquiry to 273 US owner-operated service businesses across commercial cleaning, dental and aesthetics, family law, mortgage and lending, and trades. We recorded whether the business had a working web enquiry route, whether a reply arrived, how long it took, on which channel, and whether it came from a person or a system." },
+      { type: "p", text: "We submitted a real enquiry to 273 US owner-operated service businesses across commercial cleaning, dental and aesthetics, family law, mortgage and lending, and trades. We recorded whether the business had a working web enquiry form, whether a reply arrived, how long it took, on which channel, and whether it came from a person or a system." },
       { type: "p", text: "Two findings." },
 
       { type: "h2", id: "summary", text: "Summary" },

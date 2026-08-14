@@ -181,6 +181,11 @@ export default function ResourceArticlePage({ data }: { data: ResourceItem }) {
           <h1 style={{ fontFamily: SERIF, fontWeight: 400, fontSize: "clamp(32px,4.6vw,50px)", lineHeight: 1.1, letterSpacing: "-0.015em", margin: 0 }}>
             {data.title}
           </h1>
+          {data.deck && (
+            <h2 style={{ fontFamily: SERIF, fontWeight: 400, fontStyle: "italic", fontSize: "clamp(19px,2.2vw,24px)", lineHeight: 1.32, color: "rgba(23,19,31,0.65)", margin: "16px 0 0" }}>
+              {data.deck}
+            </h2>
+          )}
           <p style={{ ...bodyText, marginTop: 24, fontSize: 18 }}>{data.dek}</p>
           <div style={{ display: "flex", flexWrap: "wrap", gap: 14, alignItems: "center", marginTop: 28, fontSize: 13, color: "rgba(23,19,31,0.5)" }}>
             {data.author && (

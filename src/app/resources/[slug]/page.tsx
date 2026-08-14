@@ -13,7 +13,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   if (!data) return {};
   const url = `https://rosebud.global/resources/${slug}`;
   return {
-    title: { absolute: `${data.title} | Rosebud Solutions` },
+    title: { absolute: data.metaTitle ?? `${data.title} | Rosebud Solutions` },
     description: data.dek,
     alternates: { canonical: `/resources/${slug}` },
     openGraph: {
