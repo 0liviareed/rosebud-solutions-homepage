@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, type CSSProperties, type ReactNode } from "react";
+import { useEffect, useState, type CSSProperties, type ReactNode } from "react";
 import RedesignNav from "./RedesignNav";
 import RedesignFooter from "./RedesignFooter";
 import RedesignReveal from "./RedesignReveal";
@@ -22,6 +22,8 @@ const bodyText: CSSProperties = { fontSize: 17, lineHeight: 1.72, color: "rgba(2
 const CSS = `
 .rb-art-pad { padding-left: 48px; padding-right: 48px; }
 @media (max-width: 900px){ .rb-art-pad { padding-left: 20px !important; padding-right: 20px !important; } }
+@keyframes rbModalIn { from { opacity:0; transform:translateY(14px) scale(0.985); } to { opacity:1; transform:translateY(0) scale(1); } }
+@keyframes rbScrimIn { from { opacity:0; } to { opacity:1; } }
 `;
 
 function formatDate(iso: string) {
@@ -77,17 +79,12 @@ function InlineGatedLink({ resourceKey, label, sourceSlug }: { resourceKey: stri
   const [status, setStatus] = useState<"idle" | "loading" | "done" | "error">("idle");
   const [error, setError] = useState<string | null>(null);
 
-  if (!open) {
-    return (
-      <a
-        href="#"
-        onClick={(e) => { e.preventDefault(); setOpen(true); }}
-        style={{ color: A, textDecoration: "underline", textUnderlineOffset: 2, cursor: "pointer" }}
-      >
-        {label}
-      </a>
-    );
-  }
+  useEffect(() => {
+    if (!open) return;
+    const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") setOpen(false); };
+    document.addEventListener("keydown", onKey);
+    return () => document.removeEventListener("keydown", onKey);
+  }, [open]);
 
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -108,23 +105,61 @@ function InlineGatedLink({ resourceKey, label, sourceSlug }: { resourceKey: stri
     }
   };
 
-  if (status === "done") {
-    return <span style={{ fontWeight: 600, color: A }}>Sent — check your inbox for the download link.</span>;
-  }
-
   return (
-    <span style={{ display: "inline-block", verticalAlign: "top", background: "#F1EDE6", borderRadius: 14, padding: "16px 18px", margin: "6px 0" }}>
-      <form onSubmit={submit} style={{ display: "flex", flexWrap: "wrap", gap: 8, alignItems: "center" }}>
-        <input type="text" required value={firstName} onChange={(e) => setFirstName(e.target.value)} placeholder="First name" aria-label="First name" style={{ flex: "1 1 110px", border: "1px solid rgba(23,19,31,0.16)", background: "#fff", borderRadius: 20, padding: "9px 14px", fontSize: 13, color: "#17131F", outline: "none" }} />
-        <input type="text" required value={lastName} onChange={(e) => setLastName(e.target.value)} placeholder="Last name" aria-label="Last name" style={{ flex: "1 1 110px", border: "1px solid rgba(23,19,31,0.16)", background: "#fff", borderRadius: 20, padding: "9px 14px", fontSize: 13, color: "#17131F", outline: "none" }} />
-        <input type="text" required value={company} onChange={(e) => setCompany(e.target.value)} placeholder="Company" aria-label="Company" style={{ flex: "1 1 130px", border: "1px solid rgba(23,19,31,0.16)", background: "#fff", borderRadius: 20, padding: "9px 14px", fontSize: 13, color: "#17131F", outline: "none" }} />
-        <input type="email" required value={email} onChange={(e) => setEmail(e.target.value)} placeholder="you@company.com" aria-label="Email address" style={{ flex: "1 1 160px", border: "1px solid rgba(23,19,31,0.16)", background: "#fff", borderRadius: 20, padding: "9px 14px", fontSize: 13, color: "#17131F", outline: "none" }} />
-        <button type="submit" disabled={status === "loading"} style={{ display: "inline-flex", alignItems: "center", gap: 8, background: "#17131F", color: "#fff", fontSize: 12.5, fontWeight: 600, padding: "10px 18px", border: 0, borderRadius: 20, cursor: status === "loading" ? "default" : "pointer", opacity: status === "loading" ? 0.6 : 1, whiteSpace: "nowrap" }}>
-          {status === "loading" ? "Sending…" : "Get the CSV"}
-        </button>
-      </form>
-      {status === "error" && <span style={{ display: "block", marginTop: 8, fontSize: 12.5, color: "#B15A28" }}>{error}</span>}
-    </span>
+    <>
+      <a
+        href="#"
+        onClick={(e) => { e.preventDefault(); setOpen(true); }}
+        style={{ color: A, textDecoration: "underline", textUnderlineOffset: 2, cursor: "pointer" }}
+      >
+        {label}
+      </a>
+      {open && (
+        <span
+          onClick={(e) => { if (e.target === e.currentTarget) setOpen(false); }}
+          style={{ position: "fixed", inset: 0, zIndex: 200, background: "rgba(23,19,31,0.5)", backdropFilter: "blur(6px)", WebkitBackdropFilter: "blur(6px)", display: "grid", placeItems: "center", padding: 20, animation: "rbScrimIn .18s ease" }}
+        >
+          <span
+            role="dialog"
+            aria-modal="true"
+            aria-label={label}
+            style={{ display: "block", position: "relative", background: "#F1EDE6", borderRadius: 20, padding: "34px 32px 30px", maxWidth: 440, width: "100%", boxShadow: "0 40px 100px -24px rgba(23,19,31,0.55)", animation: "rbModalIn .2s cubic-bezier(.2,.8,.2,1)" }}
+          >
+            <button
+              type="button"
+              onClick={() => setOpen(false)}
+              aria-label="Close"
+              style={{ position: "absolute", top: 16, right: 16, width: 32, height: 32, borderRadius: 999, border: "none", background: "rgba(23,19,31,0.08)", color: "rgba(23,19,31,0.55)", fontSize: 15, cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center" }}
+            >
+              ✕
+            </button>
+            {status === "done" ? (
+              <>
+                <h3 style={{ fontFamily: SERIF, fontWeight: 500, fontSize: 22, lineHeight: 1.2, color: "#17131F", margin: "0 0 10px" }}>Sent</h3>
+                <p style={{ margin: 0, fontSize: 14.5, lineHeight: 1.6, color: "rgba(23,19,31,0.6)" }}>Check your inbox for the download link.</p>
+              </>
+            ) : (
+              <>
+                <h3 style={{ fontFamily: SERIF, fontWeight: 500, fontSize: 22, lineHeight: 1.2, color: "#17131F", margin: "0 26px 8px 0" }}>Get the CSV</h3>
+                <p style={{ margin: "0 0 20px", fontSize: 13.5, lineHeight: 1.55, color: "rgba(23,19,31,0.55)" }}>Every metric in this report, broken out by sector.</p>
+                <form onSubmit={submit} style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+                  <div style={{ display: "flex", gap: 10 }}>
+                    <input type="text" required value={firstName} onChange={(e) => setFirstName(e.target.value)} placeholder="First name" aria-label="First name" style={{ flex: 1, border: "1px solid rgba(23,19,31,0.16)", background: "#fff", borderRadius: 12, padding: "11px 14px", fontSize: 14, color: "#17131F", outline: "none" }} />
+                    <input type="text" required value={lastName} onChange={(e) => setLastName(e.target.value)} placeholder="Last name" aria-label="Last name" style={{ flex: 1, border: "1px solid rgba(23,19,31,0.16)", background: "#fff", borderRadius: 12, padding: "11px 14px", fontSize: 14, color: "#17131F", outline: "none" }} />
+                  </div>
+                  <input type="text" required value={company} onChange={(e) => setCompany(e.target.value)} placeholder="Company" aria-label="Company" style={{ border: "1px solid rgba(23,19,31,0.16)", background: "#fff", borderRadius: 12, padding: "11px 14px", fontSize: 14, color: "#17131F", outline: "none" }} />
+                  <input type="email" required value={email} onChange={(e) => setEmail(e.target.value)} placeholder="you@company.com" aria-label="Email address" style={{ border: "1px solid rgba(23,19,31,0.16)", background: "#fff", borderRadius: 12, padding: "11px 14px", fontSize: 14, color: "#17131F", outline: "none" }} />
+                  <button type="submit" disabled={status === "loading"} style={{ marginTop: 6, display: "inline-flex", alignItems: "center", justifyContent: "center", gap: 8, background: "#17131F", color: "#fff", fontSize: 13.5, fontWeight: 600, padding: "13px 20px", border: 0, borderRadius: 12, cursor: status === "loading" ? "default" : "pointer", opacity: status === "loading" ? 0.6 : 1 }}>
+                    {status === "loading" ? "Sending…" : "Get the CSV"}
+                  </button>
+                </form>
+                {status === "error" && <p style={{ margin: "10px 0 0", fontSize: 12.5, color: "#B15A28" }}>{error}</p>}
+              </>
+            )}
+          </span>
+        </span>
+      )}
+    </>
   );
 }
 
