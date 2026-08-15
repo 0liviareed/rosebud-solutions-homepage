@@ -28,6 +28,12 @@ const FILES: Record<string, { title: string; files: { label: string; url: string
       { label: "Download the bid document (.docx)", url: "/downloads/cleaning-bid-template/janitorial-bid-document.docx" },
     ],
   },
+  "response-study-csv": {
+    title: "The 2026 US Service Business Response Study — aggregate data",
+    files: [
+      { label: "Download the aggregate CSV", url: "/data/response-study-2026-aggregate.csv" },
+    ],
+  },
 };
 
 type Body = { firstName?: string; lastName?: string; company?: string; email?: string; resourceKey?: string; sourceSlug?: string };

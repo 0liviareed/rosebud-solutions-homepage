@@ -32,8 +32,11 @@ function formatDate(iso: string) {
 // Minimal **bold** / [text](url) inline parser — keeps authoring in
 // resourcesData.ts close to the source markdown instead of needing a
 // rich-text schema. Internal links (starting with "#" or "/") stay in-tab;
-// external links open in a new tab with rel=noopener.
-function renderInline(text: string): ReactNode[] {
+// external links open in a new tab with rel=noopener. A "gate:resourceKey"
+// href renders an InlineGatedLink instead of a normal <a> — looks like any
+// other inline link until clicked, then swaps in a compact capture form in
+// place. sourceSlug is threaded through for the dialler sync's source_slug.
+function renderInline(text: string, sourceSlug?: string): ReactNode[] {
   const parts = text.split(/(\*\*[^*]+\*\*|\[[^\]]+\]\([^)]+\))/g);
   return parts.map((part, i) => {
     if (part.startsWith("**") && part.endsWith("**")) {
@@ -42,6 +45,9 @@ function renderInline(text: string): ReactNode[] {
     const link = part.match(/^\[([^\]]+)\]\(([^)]+)\)$/);
     if (link) {
       const [, label, href] = link;
+      if (href.startsWith("gate:")) {
+        return <InlineGatedLink key={i} resourceKey={href.slice(5)} label={label} sourceSlug={sourceSlug ?? ""} />;
+      }
       const internal = href.startsWith("#") || href.startsWith("/");
       return (
         <a
@@ -56,6 +62,70 @@ function renderInline(text: string): ReactNode[] {
     }
     return part ? <span key={i}>{part}</span> : null;
   });
+}
+
+// Renders as a plain inline link — page looks identical to an ungated one
+// until clicked. Click swaps the link for a compact capture form right
+// there, no layout shift elsewhere on the page. Reuses the same capture
+// endpoint/dialler-sync path as the full DownloadCta block below.
+function InlineGatedLink({ resourceKey, label, sourceSlug }: { resourceKey: string; label: string; sourceSlug: string }) {
+  const [open, setOpen] = useState(false);
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [company, setCompany] = useState("");
+  const [email, setEmail] = useState("");
+  const [status, setStatus] = useState<"idle" | "loading" | "done" | "error">("idle");
+  const [error, setError] = useState<string | null>(null);
+
+  if (!open) {
+    return (
+      <a
+        href="#"
+        onClick={(e) => { e.preventDefault(); setOpen(true); }}
+        style={{ color: A, textDecoration: "underline", textUnderlineOffset: 2, cursor: "pointer" }}
+      >
+        {label}
+      </a>
+    );
+  }
+
+  const submit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setStatus("loading");
+    setError(null);
+    try {
+      const r = await fetch("/api/resources/bid-template", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ firstName, lastName, company, email, resourceKey, sourceSlug }),
+      });
+      const j = await r.json().catch(() => ({}));
+      if (!r.ok) { setStatus("error"); setError(j.error || "Something went wrong. Please try again."); return; }
+      setStatus("done");
+    } catch {
+      setStatus("error");
+      setError("Something went wrong. Please try again.");
+    }
+  };
+
+  if (status === "done") {
+    return <span style={{ fontWeight: 600, color: A }}>Sent — check your inbox for the download link.</span>;
+  }
+
+  return (
+    <span style={{ display: "inline-block", verticalAlign: "top", background: "#F1EDE6", borderRadius: 14, padding: "16px 18px", margin: "6px 0" }}>
+      <form onSubmit={submit} style={{ display: "flex", flexWrap: "wrap", gap: 8, alignItems: "center" }}>
+        <input type="text" required value={firstName} onChange={(e) => setFirstName(e.target.value)} placeholder="First name" aria-label="First name" style={{ flex: "1 1 110px", border: "1px solid rgba(23,19,31,0.16)", background: "#fff", borderRadius: 20, padding: "9px 14px", fontSize: 13, color: "#17131F", outline: "none" }} />
+        <input type="text" required value={lastName} onChange={(e) => setLastName(e.target.value)} placeholder="Last name" aria-label="Last name" style={{ flex: "1 1 110px", border: "1px solid rgba(23,19,31,0.16)", background: "#fff", borderRadius: 20, padding: "9px 14px", fontSize: 13, color: "#17131F", outline: "none" }} />
+        <input type="text" required value={company} onChange={(e) => setCompany(e.target.value)} placeholder="Company" aria-label="Company" style={{ flex: "1 1 130px", border: "1px solid rgba(23,19,31,0.16)", background: "#fff", borderRadius: 20, padding: "9px 14px", fontSize: 13, color: "#17131F", outline: "none" }} />
+        <input type="email" required value={email} onChange={(e) => setEmail(e.target.value)} placeholder="you@company.com" aria-label="Email address" style={{ flex: "1 1 160px", border: "1px solid rgba(23,19,31,0.16)", background: "#fff", borderRadius: 20, padding: "9px 14px", fontSize: 13, color: "#17131F", outline: "none" }} />
+        <button type="submit" disabled={status === "loading"} style={{ display: "inline-flex", alignItems: "center", gap: 8, background: "#17131F", color: "#fff", fontSize: 12.5, fontWeight: 600, padding: "10px 18px", border: 0, borderRadius: 20, cursor: status === "loading" ? "default" : "pointer", opacity: status === "loading" ? 0.6 : 1, whiteSpace: "nowrap" }}>
+          {status === "loading" ? "Sending…" : "Get the CSV"}
+        </button>
+      </form>
+      {status === "error" && <span style={{ display: "block", marginTop: 8, fontSize: 12.5, color: "#B15A28" }}>{error}</span>}
+    </span>
+  );
 }
 
 function ArticleFaqItem({ q, a, open, onToggle }: { q: string; a: string; open: boolean; onToggle: () => void }) {
@@ -244,7 +314,7 @@ export default function ResourceArticlePage({ data }: { data: ResourceItem }) {
                   </h3>
                 );
               case "p":
-                return <p key={i} style={bodyText}>{renderInline(block.text)}</p>;
+                return <p key={i} style={bodyText}>{renderInline(block.text, data.slug)}</p>;
               case "list":
                 return (
                   <ol key={i} style={{ margin: 0, padding: 0, listStyle: "none", display: "flex", flexDirection: "column", gap: 14, borderTop: "1px solid rgba(23,19,31,0.1)", paddingTop: 18 }}>
@@ -261,8 +331,8 @@ export default function ResourceArticlePage({ data }: { data: ResourceItem }) {
                             Entity ID..." with no separator. Confirmed 2026-08-13. */}
                         {" "}
                         <span style={bodyText}>
-                          {it.lead && <strong style={{ color: "#17131F", fontWeight: 700 }}>{renderInline(it.lead)} </strong>}
-                          {renderInline(it.text)}
+                          {it.lead && <strong style={{ color: "#17131F", fontWeight: 700 }}>{renderInline(it.lead, data.slug)} </strong>}
+                          {renderInline(it.text, data.slug)}
                         </span>
                       </li>
                     ))}

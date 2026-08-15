@@ -366,7 +366,7 @@ export const RESOURCES: Record<string, ResourceItem> = {
       ] },
 
       { type: "h2", id: "data-availability", text: "Data availability" },
-      { type: "p", text: "Aggregate figures are published here in full and as a machine-readable file: [response-study-2026-aggregate.csv](/data/response-study-2026-aggregate.csv), covering every metric in this report broken out by sector." },
+      { type: "p", text: "Aggregate figures are published here in full and as a machine-readable file: [response-study-2026-aggregate.csv](gate:response-study-csv), covering every metric in this report broken out by sector." },
       { type: "p", text: "Per-business records are held internally and are not published, since the study identifies named businesses that did not respond." },
       { type: "p", text: "Method, definitions, classification rule and exclusion criteria are published above in full so the figures can be independently assessed." },
 
