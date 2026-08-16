@@ -3,12 +3,12 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Privacy Notice",
   description:
-    "How Rosebud Global Ltd collects, uses, and safeguards personal information under UK GDPR.",
+    "How Rosebud Global Ltd collects, uses, stores, and safeguards personal information under UK GDPR — for site visitors, platform users, and the contact data processed on our clients' behalf.",
   alternates: { canonical: "/privacy" },
   openGraph: {
     title: "Privacy Notice | Rosebud Global",
     description:
-      "How Rosebud Global Ltd collects, uses, and safeguards personal information under UK GDPR.",
+      "How Rosebud Global Ltd collects, uses, stores, and safeguards personal information under UK GDPR — for site visitors, platform users, and the contact data processed on our clients' behalf.",
     url: "https://rosebud.global/privacy",
     type: "website",
   },

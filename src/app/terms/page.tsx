@@ -3,12 +3,12 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Terms of Service",
   description:
-    "Terms of Service governing use of the Rosebud Global Ltd website and services.",
+    "The terms governing use of the Rosebud Global Ltd website, the Rosebud Solutions platform, and the inquiry-handling services run on your behalf — acceptable use, service levels, and liability.",
   alternates: { canonical: "/terms" },
   openGraph: {
     title: "Terms of Service | Rosebud Global",
     description:
-      "Terms of Service governing use of the Rosebud Global Ltd website and services.",
+      "The terms governing use of the Rosebud Global Ltd website, the Rosebud Solutions platform, and the inquiry-handling services run on your behalf — acceptable use, service levels, and liability.",
     url: "https://rosebud.global/terms",
     type: "website",
   },

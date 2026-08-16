@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import PricingV2 from "@/components/redesign/PricingV2";
 
 export const metadata: Metadata = {
-  title: "Pricing — Rosebud Solutions",
+  title: { absolute: "Pricing | Rosebud Solutions" },
   description:
     "Pricing that scales with the leads you already pay for. Every plan runs all six flows end to end; closed-loop attribution is an optional add-on, on by default for Expand & Scale.",
   alternates: { canonical: "/pricing" },

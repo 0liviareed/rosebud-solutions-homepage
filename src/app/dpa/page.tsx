@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Data Processing Agreement",
   description:
-    "Data Processing Agreement governing Rosebud Solutions' processing of Contact Data on behalf of its customers.",
+    "The Data Processing Agreement governing how Rosebud Solutions processes Contact Data on behalf of its customers — roles, security measures, sub-processors, and breach notification.",
   alternates: { canonical: "/dpa" },
 };
 
