@@ -28,11 +28,11 @@ export default function Footer() {
           <ul className="rb-footer-social" aria-label="Social channels">
             <li>
               <a
-                href="https://www.linkedin.com/company/rosebudglobal/"
+                href="https://www.linkedin.com/company/rosebud-solution/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="rb-footer-social-link"
-                aria-label="Rosebud Global on LinkedIn"
+                aria-label="Rosebud Solutions on LinkedIn"
               >
                 <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true">
                   <path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.95v5.66H9.36V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.38-1.85 3.61 0 4.28 2.38 4.28 5.48v6.26zM5.34 7.44a2.06 2.06 0 11.001-4.12 2.06 2.06 0 01-.001 4.12zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.72v20.56C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.72V1.72C24 .77 23.2 0 22.22 0z" />
@@ -51,6 +51,32 @@ export default function Footer() {
                   <rect x="3" y="3" width="18" height="18" rx="5" />
                   <circle cx="12" cy="12" r="4" />
                   <circle cx="17.5" cy="6.5" r="0.6" fill="currentColor" stroke="none" />
+                </svg>
+              </a>
+            </li>
+            <li>
+              <a
+                href="https://x.com/rosebudsolution"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="rb-footer-social-link"
+                aria-label="Rosebud Solutions on X"
+              >
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true">
+                  <path d="M18.9 2h3.68l-8.04 9.19L24 22h-7.4l-5.8-7.58L4.16 22H.47l8.6-9.83L0 2h7.59l5.24 6.93zm-1.3 18h2.04L6.5 3.88H4.3z" />
+                </svg>
+              </a>
+            </li>
+            <li>
+              <a
+                href="https://www.tiktok.com/@rosebudglobal"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="rb-footer-social-link"
+                aria-label="Rosebud Global on TikTok"
+              >
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true">
+                  <path d="M16.6 5.82c-.9-.98-1.4-2.26-1.4-3.57h-3.09v13.44c0 1.62-1.32 2.94-2.95 2.94a2.95 2.95 0 0 1-2.95-2.94c0-1.95 1.88-3.42 3.82-2.82V9.66c-3.45-.46-6.47 2.22-6.47 5.63a5.95 5.95 0 0 0 5.95 5.94c3.29 0 5.95-2.66 5.95-5.94V9c1.25.9 2.76 1.38 4.3 1.38V7.3c-.88 0-1.75-.26-2.48-.75a4.28 4.28 0 0 1-.68-.73Z" />
                 </svg>
               </a>
             </li>

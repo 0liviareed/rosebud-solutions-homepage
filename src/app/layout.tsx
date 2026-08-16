@@ -140,8 +140,10 @@ const ORGANIZATION_SCHEMA = {
     email: "contact@rosebud.global",
   },
   sameAs: [
-    "https://www.linkedin.com/company/rosebudglobal/",
+    "https://www.linkedin.com/company/rosebud-solution/",
+    "https://www.linkedin.com/company/rosebud-global/",
     "https://www.instagram.com/rosebudglobal/",
+    "https://x.com/rosebudsolution",
     "https://www.tiktok.com/@rosebudglobal",
     "https://find-and-update.company-information.service.gov.uk/company/16623472",
   ],
