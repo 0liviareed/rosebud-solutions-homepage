@@ -11,6 +11,32 @@ const nextConfig: NextConfig = {
         source: "/_next/static/:path*",
         headers: [{ key: "X-Robots-Tag", value: "noindex" }],
       },
+      {
+        // Sitewide security headers — confirmed missing 2026-08-16 (external
+        // scan). HSTS is already set at the platform level (Vercel), not
+        // duplicated here. CSP deliberately not included: needs a careful
+        // allowlist (Stripe, PostHog, Google Fonts, Resend, Cal.com embed,
+        // etc.) or it breaks the site — treat as its own follow-up, not
+        // bundled into this low-risk batch.
+        source: "/:path*",
+        headers: [
+          // Blocks framing by any other origin (clickjacking). SAMEORIGIN,
+          // not DENY, since nothing on the site needs to self-embed but
+          // there's no reason to rule it out either.
+          { key: "X-Frame-Options", value: "SAMEORIGIN" },
+          // Stops the browser guessing a response's MIME type from content
+          // rather than trusting the declared Content-Type.
+          { key: "X-Content-Type-Options", value: "nosniff" },
+          // Full URL sent same-origin (analytics, internal links); only the
+          // origin sent cross-origin over HTTPS; nothing sent on a downgrade
+          // to HTTP. Avoids leaking full URLs (any query params included) to
+          // third-party sites a visitor clicks through to.
+          { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
+          // Explicitly denies browser APIs this site has no use for. Leaves
+          // `payment` untouched — Stripe Checkout may rely on it.
+          { key: "Permissions-Policy", value: "camera=(), microphone=(), geolocation=(), interest-cohort=()" },
+        ],
+      },
     ];
   },
   async redirects() {
