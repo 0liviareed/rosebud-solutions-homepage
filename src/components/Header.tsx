@@ -3,6 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
+import { DEMO as DEMO_URL } from "./redesign/industryData";
 
 /**
  * Sticky site navigation (legacy global chrome — shown only on pages not on
@@ -185,11 +186,12 @@ export default function Header() {
             </div>
 
             {/* Get a demo — direct link beside Resources (no dropdown).
-                Plain /see-it-run with no UTM, so nav/direct traffic is
-                attributed as direct, not to the email campaign. */}
-            <Link href="/see-it-run" className="rb-nav-trigger rb-nav-demo">
+                Straight to the Cal.com booking link, matching the redesign's
+                own "book a consultation" CTA (/see-it-run was removed
+                2026-08-16). */}
+            <a href={DEMO_URL} target="_blank" rel="noopener noreferrer" className="rb-nav-trigger rb-nav-demo">
               Get a demo
-            </Link>
+            </a>
           </nav>
 
           {/* Mobile hamburger trigger */}
@@ -214,11 +216,11 @@ export default function Header() {
         aria-hidden={!mobileOpen}
       >
         <div className="rb-mobile-menu-inner">
-          {/* Get a demo — level 1, direct link (no children). Plain
-              /see-it-run, no UTM (direct attribution). */}
-          <Link href="/see-it-run" className="rb-macc-link" onClick={closeMobile}>
+          {/* Get a demo — level 1, direct link (no children). Straight to
+              the Cal.com booking link (/see-it-run was removed 2026-08-16). */}
+          <a href={DEMO_URL} target="_blank" rel="noopener noreferrer" className="rb-macc-link" onClick={closeMobile}>
             Get a demo
-          </Link>
+          </a>
 
           {/* Resources — level 1, collapsible → About / Pricing (level 2) */}
           <div className="rb-macc-section">

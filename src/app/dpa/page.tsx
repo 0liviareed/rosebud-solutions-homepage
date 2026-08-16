@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import LegalPage from "@/components/redesign/LegalPage";
 
 export const metadata: Metadata = {
   title: "Data Processing Agreement",
@@ -23,27 +24,16 @@ export default function DpaPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(BREADCRUMBS) }}
       />
-      {/* ========== PAGE HERO ========== */}
-      <section className="rb-page-hero">
-        <div className="rb-page-hero-inner">
-          <p className="rb-page-hero-eyebrow">Rosebud Solutions</p>
-          <p className="rb-page-hero-crumb">
-            <span className="rb-num">&mdash;</span>Home &middot; Data Processing Agreement
-          </p>
-          <h1 className="rb-page-hero-h1">
-            Data Processing <em>Agreement.</em>
-          </h1>
-          <p className="rb-page-hero-caption">Last update: July 22, 2026</p>
-        </div>
-      </section>
-
-      <main className="rb-policy">
-        <div className="rb-policy-wrap">
+      <LegalPage
+        title={<>Data Processing <em>Agreement.</em></>}
+        crumbLabel="Data Processing Agreement"
+        lastUpdated="July 22, 2026"
+      >
           {/* Intro */}
-          <p className="rb-policy-intro">
+          <p className="rb-legal-intro">
             This Data Processing Agreement (&ldquo;DPA&rdquo;) forms part of, and
             is incorporated into, the{" "}
-            <a href="/terms" className="rb-policy-link">
+            <a href="/terms" className="rb-legal-link">
               Terms of Service
             </a>{" "}
             between Rosebud Global Ltd (company number 16623472, trading as
@@ -53,19 +43,19 @@ export default function DpaPage() {
             agree to this DPA in respect of the personal data we process on your
             behalf.
           </p>
-          <p className="rb-policy-intro">
+          <p className="rb-legal-intro">
             This DPA reflects the requirements of Article 28 of the UK GDPR and
             applies where we process Contact Data as your processor. It does not
             govern data for which we are the controller, which is covered by our{" "}
-            <a href="/privacy" className="rb-policy-link">
+            <a href="/privacy" className="rb-legal-link">
               Privacy Policy
             </a>
             .
           </p>
 
-          <section className="rb-policy-section">
-            <h2 className="rb-policy-h2">1. Definitions</h2>
-            <ul className="rb-policy-list">
+          <section className="rb-legal-section">
+            <h2 className="rb-legal-h2">1. Definitions</h2>
+            <ul className="rb-legal-list">
               <li>
                 <strong>&ldquo;Contact Data&rdquo;</strong> means personal data
                 about your leads, inquirers, prospects, and customers that the
@@ -90,8 +80,8 @@ export default function DpaPage() {
             </ul>
           </section>
 
-          <section className="rb-policy-section">
-            <h2 className="rb-policy-h2">2. Roles of the Parties</h2>
+          <section className="rb-legal-section">
+            <h2 className="rb-legal-h2">2. Roles of the Parties</h2>
             <p>
               For Contact Data, you are the Controller and we are your Processor.
               You are responsible for the lawfulness of the Contact Data and for
@@ -103,8 +93,8 @@ export default function DpaPage() {
             </p>
           </section>
 
-          <section className="rb-policy-section">
-            <h2 className="rb-policy-h2">3. Details of the Processing</h2>
+          <section className="rb-legal-section">
+            <h2 className="rb-legal-h2">3. Details of the Processing</h2>
             <p>
               <strong>Subject matter and duration.</strong> Provision of the
               Rosebud Solutions Service for the duration of your subscription and
@@ -114,7 +104,7 @@ export default function DpaPage() {
               <strong>Nature and purpose.</strong> As Processor, and only to
               provide the Service on your instructions, we:
             </p>
-            <ul className="rb-policy-list">
+            <ul className="rb-legal-list">
               <li>
                 capture inquiries across your active channels &mdash; web form,
                 email, SMS, WhatsApp and Instagram &mdash; into a single record;
@@ -156,9 +146,9 @@ export default function DpaPage() {
             </p>
           </section>
 
-          <section className="rb-policy-section">
-            <h2 className="rb-policy-h2">4. Our Obligations</h2>
-            <ul className="rb-policy-list">
+          <section className="rb-legal-section">
+            <h2 className="rb-legal-h2">4. Our Obligations</h2>
+            <ul className="rb-legal-list">
               <li>
                 process Contact Data only on your documented instructions;
               </li>
@@ -187,8 +177,8 @@ export default function DpaPage() {
             </ul>
           </section>
 
-          <section className="rb-policy-section">
-            <h2 className="rb-policy-h2">5. Subprocessors</h2>
+          <section className="rb-legal-section">
+            <h2 className="rb-legal-h2">5. Subprocessors</h2>
             <p>
               You give general authorisation for us to engage Subprocessors to
               provide the Service, across these categories: hosting and database
@@ -208,8 +198,8 @@ export default function DpaPage() {
             </p>
           </section>
 
-          <section className="rb-policy-section">
-            <h2 className="rb-policy-h2">6. Data Subject Requests</h2>
+          <section className="rb-legal-section">
+            <h2 className="rb-legal-h2">6. Data Subject Requests</h2>
             <p>
               Taking into account the nature of the processing, we will assist you
               by appropriate technical and organizational measures, insofar as
@@ -220,8 +210,8 @@ export default function DpaPage() {
             </p>
           </section>
 
-          <section className="rb-policy-section">
-            <h2 className="rb-policy-h2">7. Personal Data Breaches</h2>
+          <section className="rb-legal-section">
+            <h2 className="rb-legal-h2">7. Personal Data Breaches</h2>
             <p>
               We will notify you without undue delay after becoming aware of a
               Personal Data Breach affecting Contact Data, and will provide
@@ -230,8 +220,8 @@ export default function DpaPage() {
             </p>
           </section>
 
-          <section className="rb-policy-section">
-            <h2 className="rb-policy-h2">8. International Transfers</h2>
+          <section className="rb-legal-section">
+            <h2 className="rb-legal-h2">8. International Transfers</h2>
             <p>
               Where processing of Contact Data involves a transfer outside the
               United Kingdom, we will ensure an appropriate transfer mechanism is
@@ -242,8 +232,8 @@ export default function DpaPage() {
             </p>
           </section>
 
-          <section className="rb-policy-section">
-            <h2 className="rb-policy-h2">9. Return and Deletion</h2>
+          <section className="rb-legal-section">
+            <h2 className="rb-legal-h2">9. Return and Deletion</h2>
             <p>
               On termination or expiry of the Service, we will make Contact Data
               available to you for export for a period of [export window &mdash;
@@ -255,8 +245,8 @@ export default function DpaPage() {
             </p>
           </section>
 
-          <section className="rb-policy-section">
-            <h2 className="rb-policy-h2">10. Audits</h2>
+          <section className="rb-legal-section">
+            <h2 className="rb-legal-h2">10. Audits</h2>
             <p>
               We will make available to you information necessary to demonstrate
               compliance with this DPA and allow for and contribute to audits,
@@ -266,8 +256,8 @@ export default function DpaPage() {
             </p>
           </section>
 
-          <section className="rb-policy-section">
-            <h2 className="rb-policy-h2">11. Relationship to the Terms</h2>
+          <section className="rb-legal-section">
+            <h2 className="rb-legal-h2">11. Relationship to the Terms</h2>
             <p>
               This DPA supplements the Terms of Service. In the event of a
               conflict between this DPA and the Terms in respect of the processing
@@ -276,8 +266,8 @@ export default function DpaPage() {
             </p>
           </section>
 
-          <section className="rb-policy-section">
-            <h2 className="rb-policy-h2">12. Governing Law</h2>
+          <section className="rb-legal-section">
+            <h2 className="rb-legal-h2">12. Governing Law</h2>
             <p>
               This DPA is governed by the laws of England and Wales, and the
               courts of England and Wales have exclusive jurisdiction, consistent
@@ -285,21 +275,20 @@ export default function DpaPage() {
             </p>
           </section>
 
-          <section className="rb-policy-section">
-            <h2 className="rb-policy-h2">Contact</h2>
-            <div className="rb-policy-contact">
+          <section className="rb-legal-section">
+            <h2 className="rb-legal-h2">Contact</h2>
+            <div className="rb-legal-contact">
               <p>Rosebud Global Ltd</p>
               <p>Company number: 16623472</p>
               <p>
                 Email:{" "}
-                <a href="mailto:contact@rosebud.global" className="rb-policy-link">
+                <a href="mailto:contact@rosebud.global" className="rb-legal-link">
                   contact@rosebud.global
                 </a>
               </p>
             </div>
           </section>
-        </div>
-      </main>
+      </LegalPage>
     </>
   );
 }

@@ -23,6 +23,11 @@ const BARE_ROUTES: readonly string[] = [
   "/onboarding",
   "/app",
   "/resources",
+  // Legal pages ported to the redesign's LegalPage template 2026-08-16 —
+  // ship their own RedesignNav/Footer, same as the other bare routes above.
+  "/terms",
+  "/privacy",
+  "/dpa",
   // Industry pages ported to the redesign template ship their own RedesignNav/Footer
   // — add each slug here as it ports (switch to bare "/industries" once all are on
   // the new template). Un-ported pages still rely on the global chrome.

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import LegalPage from "@/components/redesign/LegalPage";
 
 export const metadata: Metadata = {
   title: "Terms of Service",
@@ -30,29 +31,18 @@ export default function TermsPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(BREADCRUMBS) }}
       />
-      {/* ========== PAGE HERO ========== */}
-      <section className="rb-page-hero">
-        <div className="rb-page-hero-inner">
-          <p className="rb-page-hero-eyebrow">Rosebud Solutions</p>
-          <p className="rb-page-hero-crumb">
-            <span className="rb-num">&mdash;</span>Home &middot; Terms of Service
-          </p>
-          <h1 className="rb-page-hero-h1">
-            Terms of <em>Service.</em>
-          </h1>
-          <p className="rb-page-hero-caption">Last update: July 22, 2026</p>
-        </div>
-      </section>
-
-      <main className="rb-policy">
-        <div className="rb-policy-wrap">
+      <LegalPage
+        title={<>Terms of <em>Service.</em></>}
+        crumbLabel="Terms of Service"
+        lastUpdated="July 22, 2026"
+      >
           {/* Intro */}
-          <p className="rb-policy-intro">
+          <p className="rb-legal-intro">
             These Terms of Service (&ldquo;Terms&rdquo;) govern your use of the
             website located at{" "}
             <a
               href="https://rosebud.global"
-              className="rb-policy-link"
+              className="rb-legal-link"
             >
               https://rosebud.global
             </a>{" "}
@@ -62,14 +52,14 @@ export default function TermsPage() {
             &ldquo;Rosebud,&rdquo; &ldquo;we,&rdquo; &ldquo;us,&rdquo; or
             &ldquo;our&rdquo;).
           </p>
-          <p className="rb-policy-intro">
+          <p className="rb-legal-intro">
             By accessing our website, submitting your information, or engaging
             with our services, you agree to be bound by these Terms.
           </p>
 
-          <section className="rb-policy-section">
-            <h2 className="rb-policy-h2">Company Information</h2>
-            <div className="rb-policy-contact">
+          <section className="rb-legal-section">
+            <h2 className="rb-legal-h2">Company Information</h2>
+            <div className="rb-legal-contact">
               <p>Rosebud Global Ltd</p>
               <p>Trading as: Rosebud Solutions</p>
               <p>Company number: 16623472</p>
@@ -78,7 +68,7 @@ export default function TermsPage() {
                 Email:{" "}
                 <a
                   href="mailto:contact@rosebud.global"
-                  className="rb-policy-link"
+                  className="rb-legal-link"
                 >
                   contact@rosebud.global
                 </a>
@@ -86,8 +76,8 @@ export default function TermsPage() {
             </div>
           </section>
 
-          <section className="rb-policy-section">
-            <h2 className="rb-policy-h2">Use of Our Website and Services</h2>
+          <section className="rb-legal-section">
+            <h2 className="rb-legal-h2">Use of Our Website and Services</h2>
             <p>
               Rosebud Solutions provides AI systems consultation, automation
               strategy, AI agent implementation, and related advisory services.
@@ -103,8 +93,8 @@ export default function TermsPage() {
             </p>
           </section>
 
-          <section className="rb-policy-section">
-            <h2 className="rb-policy-h2">Consultations and Services</h2>
+          <section className="rb-legal-section">
+            <h2 className="rb-legal-h2">Consultations and Services</h2>
             <p>
               Consultations are provided for informational and commercial
               planning purposes. Any recommendations made during consultations
@@ -121,8 +111,8 @@ export default function TermsPage() {
             </p>
           </section>
 
-          <section className="rb-policy-section">
-            <h2 className="rb-policy-h2">The Rosebud Solutions Platform</h2>
+          <section className="rb-legal-section">
+            <h2 className="rb-legal-h2">The Rosebud Solutions Platform</h2>
             <p>
               In addition to consultation and advisory services, Rosebud
               Solutions offers a subscription-based demand-capture and
@@ -140,8 +130,8 @@ export default function TermsPage() {
             </p>
           </section>
 
-          <section className="rb-policy-section">
-            <h2 className="rb-policy-h2">Your Account</h2>
+          <section className="rb-legal-section">
+            <h2 className="rb-legal-h2">Your Account</h2>
             <p>
               To purchase a subscription you must create an account with a valid
               email address, a password, and accurate business details. You are
@@ -157,9 +147,9 @@ export default function TermsPage() {
             </p>
           </section>
 
-          <section className="rb-policy-section">
-            <h2 className="rb-policy-h2">Plans, Fees and Billing</h2>
-            <ul className="rb-policy-list">
+          <section className="rb-legal-section">
+            <h2 className="rb-legal-h2">Plans, Fees and Billing</h2>
+            <ul className="rb-legal-list">
               <li>
                 Subscriptions are offered on tiered plans, billed either monthly
                 or annually, in the currency (GBP or USD) shown at checkout.
@@ -191,8 +181,8 @@ export default function TermsPage() {
             </ul>
           </section>
 
-          <section className="rb-policy-section">
-            <h2 className="rb-policy-h2">Onboarding</h2>
+          <section className="rb-legal-section">
+            <h2 className="rb-legal-h2">Onboarding</h2>
             <p>
               Each subscription includes an onboarding session, which you can
               book using a private link provided to you after purchase. The
@@ -203,12 +193,12 @@ export default function TermsPage() {
             </p>
           </section>
 
-          <section className="rb-policy-section">
-            <h2 className="rb-policy-h2">Cancellation and Refunds</h2>
+          <section className="rb-legal-section">
+            <h2 className="rb-legal-h2">Cancellation and Refunds</h2>
             <p>
               You may cancel your subscription at any time from your account or
               by contacting us at{" "}
-              <a href="mailto:contact@rosebud.global" className="rb-policy-link">
+              <a href="mailto:contact@rosebud.global" className="rb-legal-link">
                 contact@rosebud.global
               </a>
               . When you cancel, your subscription remains active until the end
@@ -224,8 +214,8 @@ export default function TermsPage() {
             </p>
           </section>
 
-          <section className="rb-policy-section">
-            <h2 className="rb-policy-h2">Consumer Cancellation Rights</h2>
+          <section className="rb-legal-section">
+            <h2 className="rb-legal-h2">Consumer Cancellation Rights</h2>
             <p>
               Our services are intended for businesses. If you are a
               &ldquo;consumer&rdquo; under UK law (for example, a sole trader
@@ -245,8 +235,8 @@ export default function TermsPage() {
             </p>
           </section>
 
-          <section className="rb-policy-section">
-            <h2 className="rb-policy-h2">
+          <section className="rb-legal-section">
+            <h2 className="rb-legal-h2">
               Your Responsibilities for Data You Process
             </h2>
             <p>
@@ -259,7 +249,7 @@ export default function TermsPage() {
             </p>
             <p>
               Our processing of that data on your behalf is governed by our{" "}
-              <a href="/dpa" className="rb-policy-link">
+              <a href="/dpa" className="rb-legal-link">
                 Data Processing Agreement
               </a>
               , which forms part of these Terms.
@@ -271,14 +261,14 @@ export default function TermsPage() {
             </p>
           </section>
 
-          <section className="rb-policy-section">
-            <h2 className="rb-policy-h2">SMS Communications</h2>
+          <section className="rb-legal-section">
+            <h2 className="rb-legal-h2">SMS Communications</h2>
             <p>
               By providing your mobile number and opting in via our website
               form, you consent to receive SMS messages from Rosebud Global Ltd
               (trading as Rosebud Solutions). These messages may include:
             </p>
-            <ul className="rb-policy-list">
+            <ul className="rb-legal-list">
               <li>Responses to inquiries</li>
               <li>Consultation scheduling and confirmations</li>
               <li>Appointment reminders</li>
@@ -295,7 +285,7 @@ export default function TermsPage() {
               For assistance, reply HELP or contact us at{" "}
               <a
                 href="mailto:contact@rosebud.global"
-                className="rb-policy-link"
+                className="rb-legal-link"
               >
                 contact@rosebud.global
               </a>
@@ -309,8 +299,8 @@ export default function TermsPage() {
             </p>
           </section>
 
-          <section className="rb-policy-section">
-            <h2 className="rb-policy-h2">Eligibility</h2>
+          <section className="rb-legal-section">
+            <h2 className="rb-legal-h2">Eligibility</h2>
             <p>
               You must be at least 18 years old to use our website or services.
             </p>
@@ -320,8 +310,8 @@ export default function TermsPage() {
             </p>
           </section>
 
-          <section className="rb-policy-section">
-            <h2 className="rb-policy-h2">Intellectual Property</h2>
+          <section className="rb-legal-section">
+            <h2 className="rb-legal-h2">Intellectual Property</h2>
             <p>
               All content on this website, including text, graphics, logos,
               systems frameworks, methodologies, and materials, is the
@@ -333,13 +323,13 @@ export default function TermsPage() {
             </p>
           </section>
 
-          <section className="rb-policy-section">
-            <h2 className="rb-policy-h2">Limitation of Liability</h2>
+          <section className="rb-legal-section">
+            <h2 className="rb-legal-h2">Limitation of Liability</h2>
             <p>
               To the fullest extent permitted by law, Rosebud shall not be
               liable for:
             </p>
-            <ul className="rb-policy-list">
+            <ul className="rb-legal-list">
               <li>Indirect or consequential losses</li>
               <li>Loss of revenue or profits</li>
               <li>Business interruption</li>
@@ -354,8 +344,8 @@ export default function TermsPage() {
             </p>
           </section>
 
-          <section className="rb-policy-section">
-            <h2 className="rb-policy-h2">Third-Party Services</h2>
+          <section className="rb-legal-section">
+            <h2 className="rb-legal-h2">Third-Party Services</h2>
             <p>
               Our website and services integrate with third-party providers,
               including Stripe for payment processing, and analytics platforms,
@@ -371,21 +361,21 @@ export default function TermsPage() {
             </p>
           </section>
 
-          <section className="rb-policy-section">
-            <h2 className="rb-policy-h2">Data Protection and Privacy</h2>
+          <section className="rb-legal-section">
+            <h2 className="rb-legal-h2">Data Protection and Privacy</h2>
             <p>
               Your personal data is handled in accordance with our Privacy
               Policy. Please review our Privacy Policy here:
             </p>
             <p>
-              <a href="/privacy" className="rb-policy-link">
+              <a href="/privacy" className="rb-legal-link">
                 rosebud.global/privacy
               </a>
             </p>
           </section>
 
-          <section className="rb-policy-section">
-            <h2 className="rb-policy-h2">Modifications</h2>
+          <section className="rb-legal-section">
+            <h2 className="rb-legal-h2">Modifications</h2>
             <p>
               We may update these Terms at any time to reflect changes in law,
               regulation, or business operations. Updated Terms will be posted
@@ -394,8 +384,8 @@ export default function TermsPage() {
             </p>
           </section>
 
-          <section className="rb-policy-section">
-            <h2 className="rb-policy-h2">Governing Law</h2>
+          <section className="rb-legal-section">
+            <h2 className="rb-legal-h2">Governing Law</h2>
             <p>
               These Terms shall be governed by and interpreted in accordance
               with the laws of England and Wales. Any disputes arising under
@@ -404,8 +394,8 @@ export default function TermsPage() {
             </p>
           </section>
 
-          <section className="rb-policy-section">
-            <h2 className="rb-policy-h2">Complaints</h2>
+          <section className="rb-legal-section">
+            <h2 className="rb-legal-h2">Complaints</h2>
             <p>
               We encourage you to contact us first so we can address your
               concerns but if you are dissatisfied with how your data has been
@@ -417,26 +407,26 @@ export default function TermsPage() {
                 href="https://ico.org.uk"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="rb-policy-link"
+                className="rb-legal-link"
               >
                 www.ico.org.uk
               </a>
             </p>
           </section>
 
-          <section className="rb-policy-section">
-            <h2 className="rb-policy-h2">Contact Us</h2>
+          <section className="rb-legal-section">
+            <h2 className="rb-legal-h2">Contact Us</h2>
             <p>
               If you have any questions or concerns about these Terms, please
               contact:
             </p>
-            <div className="rb-policy-contact">
+            <div className="rb-legal-contact">
               <p>Rosebud Global Ltd</p>
               <p>
                 Email:{" "}
                 <a
                   href="mailto:contact@rosebud.global"
-                  className="rb-policy-link"
+                  className="rb-legal-link"
                 >
                   contact@rosebud.global
                 </a>
@@ -444,8 +434,7 @@ export default function TermsPage() {
               <p>London, United Kingdom</p>
             </div>
           </section>
-        </div>
-      </main>
+      </LegalPage>
     </>
   );
 }

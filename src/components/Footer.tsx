@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import CookieSettingsLink from "@/components/CookieSettingsLink";
+import { DEMO as DEMO_URL } from "@/components/redesign/industryData";
 
 /**
  * Footer — global, appears below every page via layout.tsx.
@@ -69,7 +70,7 @@ export default function Footer() {
             </li>
             <li>
               <a
-                href="https://www.tiktok.com/@rosebudglobal"
+                href="https://www.tiktok.com/@rosebudsolutions"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="rb-footer-social-link"
@@ -97,10 +98,12 @@ export default function Footer() {
                 </a>
               </li>
               <li>
-                {/* Internal link to the demo/booking page — plain /see-it-run,
-                    no UTM so footer/direct traffic isn't attributed to email. */}
-                <Link
-                  href="/see-it-run"
+                {/* Cal.com booking link directly (/see-it-run was removed
+                    2026-08-16) — matches the redesign's own booking CTA. */}
+                <a
+                  href={DEMO_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="rb-footer-link rb-footer-link-editorial"
                 >
                   <span>Book a consultation</span>
@@ -126,7 +129,7 @@ export default function Footer() {
                     </svg>
                   </span>
                   <span className="rb-footer-link-underline" aria-hidden="true" />
-                </Link>
+                </a>
               </li>
             </ul>
           </div>

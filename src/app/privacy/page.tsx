@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import LegalPage from "@/components/redesign/LegalPage";
 
 export const metadata: Metadata = {
   title: "Privacy Notice",
@@ -30,24 +31,13 @@ export default function PrivacyPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(BREADCRUMBS) }}
       />
-      {/* ========== PAGE HERO ========== */}
-      <section className="rb-page-hero">
-        <div className="rb-page-hero-inner">
-          <p className="rb-page-hero-eyebrow">Rosebud Solutions</p>
-          <p className="rb-page-hero-crumb">
-            <span className="rb-num">&mdash;</span>Home &middot; Privacy Notice
-          </p>
-          <h1 className="rb-page-hero-h1">
-            Privacy <em>Notice.</em>
-          </h1>
-          <p className="rb-page-hero-caption">Last update: July 22, 2026</p>
-        </div>
-      </section>
-
-      <main className="rb-policy">
-        <div className="rb-policy-wrap">
+      <LegalPage
+        title={<>Privacy <em>Notice.</em></>}
+        crumbLabel="Privacy Notice"
+        lastUpdated="July 22, 2026"
+      >
           {/* Intro */}
-          <p className="rb-policy-intro">
+          <p className="rb-legal-intro">
             Rosebud Global Ltd (company number 16623472, trading as
             &ldquo;Rosebud Solutions&rdquo;, &ldquo;Rosebud Global&rdquo;,
             &ldquo;Rosebud&rdquo;, &ldquo;we,&rdquo;
@@ -59,20 +49,20 @@ export default function PrivacyPage() {
             digital platforms, and other channels owned or controlled by
             Rosebud (collectively, the &ldquo;Website&rdquo;).
           </p>
-          <p className="rb-policy-intro">
+          <p className="rb-legal-intro">
             This Policy describes the categories of personal information we
             obtain, the ways in which we use such information, the legal bases
             on which we rely, the circumstances under which we may share it,
             and the rights available to you under applicable law.
           </p>
 
-          <section className="rb-policy-section">
-            <h2 className="rb-policy-h2">Information We Collect</h2>
+          <section className="rb-legal-section">
+            <h2 className="rb-legal-h2">Information We Collect</h2>
             <p>
               Rosebud may collect personal information in the following
               categories:
             </p>
-            <ul className="rb-policy-list">
+            <ul className="rb-legal-list">
               <li>
                 <strong>Contact information</strong> &mdash; name, postal
                 address, email address, and telephone number.
@@ -133,10 +123,10 @@ export default function PrivacyPage() {
             </p>
           </section>
 
-          <section className="rb-policy-section">
-            <h2 className="rb-policy-h2">How We Use Personal Information</h2>
+          <section className="rb-legal-section">
+            <h2 className="rb-legal-h2">How We Use Personal Information</h2>
             <p>We may process personal information for the following purposes:</p>
-            <ul className="rb-policy-list">
+            <ul className="rb-legal-list">
               <li>To provide educational resources, tools, and services.</li>
               <li>
                 To create and manage your account, take payment, and administer
@@ -177,8 +167,8 @@ export default function PrivacyPage() {
             </ul>
           </section>
 
-          <section className="rb-policy-section">
-            <h2 className="rb-policy-h2">
+          <section className="rb-legal-section">
+            <h2 className="rb-legal-h2">
               The Rosebud Solutions Service &mdash; Our Two Roles
             </h2>
             <p>
@@ -199,14 +189,14 @@ export default function PrivacyPage() {
               as controller; we assist the client as that agreement requires.
             </p>
 
-            <h3 className="rb-policy-h3">
+            <h3 className="rb-legal-h3">
               What the Service does with Contact Data
             </h3>
             <p>
               As processor, and only to provide the Service on the
               client&rsquo;s instructions, we:
             </p>
-            <ul className="rb-policy-list">
+            <ul className="rb-legal-list">
               <li>
                 capture inquiries across the client&rsquo;s active channels
                 &mdash; web form, email, SMS, WhatsApp and Instagram &mdash; into
@@ -244,7 +234,7 @@ export default function PrivacyPage() {
               Service.
             </p>
 
-            <h3 className="rb-policy-h3">Online payment data</h3>
+            <h3 className="rb-legal-h3">Online payment data</h3>
             <p>
               Payments are processed by Stripe as our payment processor. We do
               not receive or store full card numbers; we receive confirmation of
@@ -252,7 +242,7 @@ export default function PrivacyPage() {
               processes payment data as its own controller under its terms.
             </p>
 
-            <h3 className="rb-policy-h3">
+            <h3 className="rb-legal-h3">
               Advertising outcome signal (attribution add-on)
             </h3>
             <p>
@@ -267,7 +257,7 @@ export default function PrivacyPage() {
               relationship with the advertising platform sits with the client.
             </p>
 
-            <h3 className="rb-policy-h3">AI processing</h3>
+            <h3 className="rb-legal-h3">AI processing</h3>
             <p>
               To provide the Service we use third-party AI model providers as
               subprocessors to qualify records and generate response and
@@ -276,7 +266,7 @@ export default function PrivacyPage() {
               instructions.
             </p>
 
-            <h3 className="rb-policy-h3">Subprocessors</h3>
+            <h3 className="rb-legal-h3">Subprocessors</h3>
             <p>
               We use subprocessors across these categories to operate the Service:
               hosting and database infrastructure; the client&rsquo;s CRM and
@@ -287,7 +277,7 @@ export default function PrivacyPage() {
               &mdash; is maintained and available to clients on request.
             </p>
 
-            <h3 className="rb-policy-h3">Retention of operated data</h3>
+            <h3 className="rb-legal-h3">Retention of operated data</h3>
             <p>
               Contact Data held within the Service is retained for as long as
               needed to provide the Service and in line with the client&rsquo;s
@@ -299,8 +289,8 @@ export default function PrivacyPage() {
             </p>
           </section>
 
-          <section className="rb-policy-section">
-            <h2 className="rb-policy-h2">Job Applicants and Recruitment Data</h2>
+          <section className="rb-legal-section">
+            <h2 className="rb-legal-h2">Job Applicants and Recruitment Data</h2>
             <p>
               When you apply for a role at Rosebud Solutions via our website
               (including the Sales Development Representative application form), we collect
@@ -361,13 +351,13 @@ export default function PrivacyPage() {
             </p>
           </section>
 
-          <section className="rb-policy-section">
-            <h2 id="cookies" className="rb-policy-h2" style={{ scrollMarginTop: "90px" }}>Cookies, Tracking, and Analytics</h2>
+          <section className="rb-legal-section">
+            <h2 id="cookies" className="rb-legal-h2" style={{ scrollMarginTop: "90px" }}>Cookies, Tracking, and Analytics</h2>
             <p>
               We use cookies, tracking pixels, and analytics tools to collect
               technical and usage data. This helps us:
             </p>
-            <ol className="rb-policy-list rb-policy-list-ordered">
+            <ol className="rb-legal-list rb-legal-list-ordered">
               <li>Recognise your device and remember preferences.</li>
               <li>Analyse traffic and user interaction with our Website.</li>
               <li>Improve usability and optimize communications.</li>
@@ -378,7 +368,7 @@ export default function PrivacyPage() {
               providers include (but are not limited to): Google Analytics,
               Klaviyo, ManyChat, FX Blue, MyFXBook, Telegram, and Vantage.
             </p>
-            <h3 className="rb-policy-h3">
+            <h3 className="rb-legal-h3">
               Cookie Banner (GDPR + PECR Compliance)
             </h3>
             <p>
@@ -393,7 +383,7 @@ export default function PrivacyPage() {
               properly.
             </p>
 
-            <h3 className="rb-policy-h3">Product Analytics (PostHog)</h3>
+            <h3 className="rb-legal-h3">Product Analytics (PostHog)</h3>
             <p>
               We use PostHog, a product analytics platform, to understand how
               visitors interact with our Website and improve our services.
@@ -428,14 +418,14 @@ export default function PrivacyPage() {
                 href="https://posthog.com/privacy"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="rb-policy-link"
+                className="rb-legal-link"
               >
                 https://posthog.com/privacy
               </a>
               .
             </p>
 
-            <h3 className="rb-policy-h3">Booking and Scheduling (Cal.com)</h3>
+            <h3 className="rb-legal-h3">Booking and Scheduling (Cal.com)</h3>
             <p>
               When you book a consultation with us, scheduling is handled
               through Cal.com &mdash; specifically the EU-hosted instance at
@@ -457,7 +447,7 @@ export default function PrivacyPage() {
                 href="https://cal.com/privacy"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="rb-policy-link"
+                className="rb-legal-link"
               >
                 https://cal.com/privacy
               </a>
@@ -465,10 +455,10 @@ export default function PrivacyPage() {
             </p>
           </section>
 
-          <section className="rb-policy-section">
-            <h2 className="rb-policy-h2">Lawful Basis for Processing</h2>
+          <section className="rb-legal-section">
+            <h2 className="rb-legal-h2">Lawful Basis for Processing</h2>
             <p>Under the UK GDPR, our lawful bases for processing include:</p>
-            <ul className="rb-policy-list">
+            <ul className="rb-legal-list">
               <li>
                 <strong>Contract</strong> &mdash; to deliver services or
                 resources you request.
@@ -488,8 +478,8 @@ export default function PrivacyPage() {
             </ul>
           </section>
 
-          <section className="rb-policy-section">
-            <h2 className="rb-policy-h2">SMS Communication</h2>
+          <section className="rb-legal-section">
+            <h2 className="rb-legal-h2">SMS Communication</h2>
             <p>
               If you provide your mobile number and opt in to receive SMS
               communications from Rosebud Global Ltd (trading as Rosebud
@@ -502,7 +492,7 @@ export default function PrivacyPage() {
               message received. For assistance, reply HELP or contact us at{" "}
               <a
                 href="mailto:contact@rosebud.global"
-                className="rb-policy-link"
+                className="rb-legal-link"
               >
                 contact@rosebud.global
               </a>
@@ -519,8 +509,8 @@ export default function PrivacyPage() {
             </p>
           </section>
 
-          <section className="rb-policy-section">
-            <h2 className="rb-policy-h2">International Data Transfers</h2>
+          <section className="rb-legal-section">
+            <h2 className="rb-legal-h2">International Data Transfers</h2>
             <p>
               Some of our partners and service providers (e.g., Google,
               Klaviyo, Telegram, Vantage) are based outside the UK/EEA. Where
@@ -531,8 +521,8 @@ export default function PrivacyPage() {
             </p>
           </section>
 
-          <section className="rb-policy-section">
-            <h2 className="rb-policy-h2">
+          <section className="rb-legal-section">
+            <h2 className="rb-legal-h2">
               Automated Decision-Making and Profiling
             </h2>
             <p>
@@ -545,13 +535,13 @@ export default function PrivacyPage() {
             </p>
           </section>
 
-          <section className="rb-policy-section">
-            <h2 className="rb-policy-h2">Sharing of Information</h2>
+          <section className="rb-legal-section">
+            <h2 className="rb-legal-h2">Sharing of Information</h2>
             <p>
               We do not sell personal data. We may disclose it in the following
               circumstances:
             </p>
-            <ul className="rb-policy-list">
+            <ul className="rb-legal-list">
               <li>
                 To service providers and partners who support our operations
                 &mdash; including our payment processor (Stripe) and providers of
@@ -580,8 +570,8 @@ export default function PrivacyPage() {
             </p>
           </section>
 
-          <section className="rb-policy-section">
-            <h2 className="rb-policy-h2">Data Retention</h2>
+          <section className="rb-legal-section">
+            <h2 className="rb-legal-h2">Data Retention</h2>
             <p>
               We retain personal information only for as long as necessary to
               fulfil the purposes outlined in this Policy, or as required by
@@ -590,8 +580,8 @@ export default function PrivacyPage() {
             </p>
           </section>
 
-          <section className="rb-policy-section">
-            <h2 className="rb-policy-h2">Security</h2>
+          <section className="rb-legal-section">
+            <h2 className="rb-legal-h2">Security</h2>
             <p>
               We maintain appropriate administrative, technical, and physical
               safeguards to protect personal data against unauthorised access,
@@ -599,8 +589,8 @@ export default function PrivacyPage() {
             </p>
           </section>
 
-          <section className="rb-policy-section">
-            <h2 className="rb-policy-h2">Children&rsquo;s Data</h2>
+          <section className="rb-legal-section">
+            <h2 className="rb-legal-h2">Children&rsquo;s Data</h2>
             <p>
               Our services are not directed to, and are not intended for,
               individuals under the age of 18. We do not knowingly collect
@@ -608,10 +598,10 @@ export default function PrivacyPage() {
             </p>
           </section>
 
-          <section className="rb-policy-section">
-            <h2 className="rb-policy-h2">Your Rights Under UK GDPR</h2>
+          <section className="rb-legal-section">
+            <h2 className="rb-legal-h2">Your Rights Under UK GDPR</h2>
             <p>You have the right to:</p>
-            <ul className="rb-policy-list">
+            <ul className="rb-legal-list">
               <li>
                 <strong>Access</strong> &mdash; request a copy of your personal
                 data.
@@ -645,7 +635,7 @@ export default function PrivacyPage() {
               To exercise these rights, please contact us at{" "}
               <a
                 href="mailto:contact@rosebud.global"
-                className="rb-policy-link"
+                className="rb-legal-link"
               >
                 contact@rosebud.global
               </a>
@@ -654,8 +644,8 @@ export default function PrivacyPage() {
             </p>
           </section>
 
-          <section className="rb-policy-section">
-            <h2 className="rb-policy-h2">Complaints</h2>
+          <section className="rb-legal-section">
+            <h2 className="rb-legal-h2">Complaints</h2>
             <p>
               We encourage you to contact us first so we can address your
               concerns but if you are dissatisfied with how your data has been
@@ -667,15 +657,15 @@ export default function PrivacyPage() {
                 href="https://ico.org.uk"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="rb-policy-link"
+                className="rb-legal-link"
               >
                 ico.org.uk
               </a>
             </p>
           </section>
 
-          <section className="rb-policy-section">
-            <h2 className="rb-policy-h2">Third-Party Links and Services</h2>
+          <section className="rb-legal-section">
+            <h2 className="rb-legal-h2">Third-Party Links and Services</h2>
             <p>
               Our Website may include links to third-party websites, apps, or
               plug-ins. These are operated independently and governed by their
@@ -684,8 +674,8 @@ export default function PrivacyPage() {
             </p>
           </section>
 
-          <section className="rb-policy-section">
-            <h2 className="rb-policy-h2">Updates to This Policy</h2>
+          <section className="rb-legal-section">
+            <h2 className="rb-legal-h2">Updates to This Policy</h2>
             <p>
               We may update this Policy from time to time to reflect changes in
               practices, law, or technology. Updates will be posted here with a
@@ -693,19 +683,19 @@ export default function PrivacyPage() {
             </p>
           </section>
 
-          <section className="rb-policy-section">
-            <h2 className="rb-policy-h2">Contact Us</h2>
+          <section className="rb-legal-section">
+            <h2 className="rb-legal-h2">Contact Us</h2>
             <p>
               If you have any questions or concerns about this Privacy Policy,
               please contact:
             </p>
-            <div className="rb-policy-contact">
+            <div className="rb-legal-contact">
               <p>Rosebud Global Ltd</p>
               <p>
                 Email:{" "}
                 <a
                   href="mailto:contact@rosebud.global"
-                  className="rb-policy-link"
+                  className="rb-legal-link"
                 >
                   contact@rosebud.global
                 </a>
@@ -713,8 +703,7 @@ export default function PrivacyPage() {
               <p>London, United Kingdom</p>
             </div>
           </section>
-        </div>
-      </main>
+      </LegalPage>
     </>
   );
 }

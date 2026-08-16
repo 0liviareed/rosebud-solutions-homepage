@@ -41,8 +41,8 @@ const nextConfig: NextConfig = {
           //  - 'unsafe-inline' style-src: the codebase uses React inline
           //    `style={{...}}` extensively; blocking it breaks layout
           //    everywhere, not just one page.
-          //  - app.cal.eu / cal.eu: the Cal.com booking embed (CalEmbed.tsx,
-          //    CalOnboarding.tsx) dynamically injects a <script src> from
+          //  - app.cal.eu / cal.eu: the Cal.com booking embed
+          //    (CalOnboarding.tsx) dynamically injects a <script src> from
           //    app.cal.eu and renders its calendar in an iframe on cal.eu.
           //  - eu.i.posthog.com / eu-assets.i.posthog.com: PostHog capture +
           //    session-recording ingestion and its lazily-loaded recorder
@@ -95,6 +95,15 @@ const nextConfig: NextConfig = {
       {
         source: "/careers/appointment-setter/apply",
         destination: "/careers/sdr/apply",
+        permanent: true,
+      },
+      // /see-it-run was removed 2026-08-16 — the new design's own CTAs
+      // (footer/nav "Get started" → /pricing, mobile menu "Book a
+      // consultation" → the Cal.com link directly) replaced it. Redirect
+      // any indexed/bookmarked links to the nearest live equivalent.
+      {
+        source: "/see-it-run",
+        destination: "/pricing",
         permanent: true,
       },
       // NOTE: the launch redirects (/agents/insurance, /solutions,

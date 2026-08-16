@@ -144,7 +144,7 @@ const ORGANIZATION_SCHEMA = {
     "https://www.linkedin.com/company/rosebud-global/",
     "https://www.instagram.com/rosebudglobal/",
     "https://x.com/rosebudsolution",
-    "https://www.tiktok.com/@rosebudglobal",
+    "https://www.tiktok.com/@rosebudsolutions",
     "https://find-and-update.company-information.service.gov.uk/company/16623472",
   ],
 };

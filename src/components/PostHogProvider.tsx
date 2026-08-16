@@ -16,7 +16,7 @@ function hasStatisticsConsent(): boolean {
 }
 
 // First-touch UTM capture. The moment a visitor lands with UTMs (e.g. an email
-// CTA → /see-it-run), persist them so they survive navigation and attach to a
+// CTA → /pricing), persist them so they survive navigation and attach to a
 // later conversion. register_once = first-touch wins (never overwritten by a
 // later visit); the localStorage copy is for any non-PostHog use (forms etc.).
 function persistFirstTouchUtm() {
