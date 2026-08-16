@@ -14,6 +14,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   return {
     title: `Rosebud for ${data.name}`,
     description: data.hero.subhead,
+    alternates: { canonical: `/capabilities/${slug}` },
   };
 }
 

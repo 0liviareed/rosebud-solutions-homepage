@@ -5,6 +5,7 @@ export const metadata: Metadata = {
   title: { absolute: "The Founder's Financial Stack | Jay Okojie" },
   description:
     "Stop guessing where your money went. A Google Sheets tracker built for founders managing personal and business finances in one place — income, wealth allocation, net worth, and more. £27, instant access.",
+  alternates: { canonical: "/founders-stack" },
   openGraph: {
     title: "The Founder's Financial Stack | Jay Okojie",
     description:
