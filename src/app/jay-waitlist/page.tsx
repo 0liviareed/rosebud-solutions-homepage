@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import JayWaitlist from "./JayWaitlist";
 
 export const metadata: Metadata = {
-  title: "Join the Waitlist | Jay Okojie",
+  title: { absolute: "Join the Waitlist | Jay Okojie" },
   description:
     "Reserved for founders who are done figuring it out alone. Tell us where you're at and secure your spot before we open the doors in 2026.",
   openGraph: {

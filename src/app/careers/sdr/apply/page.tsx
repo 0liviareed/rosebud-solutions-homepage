@@ -3,9 +3,9 @@ import Link from "next/link";
 import CareersApplicationForm from "./CareersApplicationForm";
 
 export const metadata: Metadata = {
-  title: "Apply — Sales Development Representative — Rosebud Solutions",
+  title: { absolute: "Apply — Sales Development Representative — Rosebud Solutions" },
   description:
-    "Submit your application for the Sales Development Representative role at Rosebud Solutions.",
+    "Apply for the Sales Development Representative role at Rosebud Solutions — remote, commission-only, outbound. Qualify prospects from a routed ICP list and hand sales-ready opportunities to a closer.",
   alternates: { canonical: "/careers/sdr/apply" },
   robots: { index: false, follow: true },
 };

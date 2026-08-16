@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "Sales Development Representative — Rosebud Solutions",
+  title: { absolute: "Sales Development Representative — Rosebud Solutions" },
   description:
     "Remote · Independent contractor · Commission-only · Outbound. High-volume cold calling from a routed ICP list across the UK and US. You qualify prospects and hand sales-ready opportunities to a BDE who closes. No base salary.",
   alternates: { canonical: "/careers/sdr" },

@@ -401,6 +401,7 @@ export const RESOURCES: Record<string, ResourceItem> = {
   "how-to-get-cleaning-contracts": {
     slug: "how-to-get-cleaning-contracts",
     title: "How to Get Cleaning Contracts: Where to Find Them & How to Bid",
+    metaTitle: "How to Get Cleaning Contracts | Rosebud Solutions",
     dek: "Where cleaning contracts are posted, how to bid on them, and how to win the office, government, post-construction and apartment work that never reaches a bid board.",
     stage: "capture",
     sector: "cleaning",

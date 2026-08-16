@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "Account Executive — Rosebud Solutions",
+  title: { absolute: "Account Executive — Rosebud Solutions" },
   description:
     "Remote · Independent contractor · Commission-only · Closing. You run the demo, close in the same session, and manage the client after they sign. Recurring commission on every client's monthly retainer. No base salary.",
   alternates: { canonical: "/careers/ae" },
