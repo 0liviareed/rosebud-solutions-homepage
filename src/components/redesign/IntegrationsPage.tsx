@@ -10,15 +10,16 @@ const SERIF = "var(--font-cormorant), 'Cormorant Garamond', serif";
 
 // ── Catalogue ─────────────────────────────────────────────────────────
 // Matches the existing homepage integrations marquee. Category + description
-// per system; favicon logo with a lettermark fallback (same as the mockup).
-const DOMAINS: Record<string, string> = {
-  HubSpot: "hubspot.com", Pipedrive: "pipedrive.com", Zoho: "zoho.com", Close: "close.com",
-  Capsule: "capsulecrm.com", Copper: "copper.com", Salesforce: "salesforce.com",
-  "Microsoft Dynamics 365": "dynamics.microsoft.com", "Google Calendar": "calendar.google.com",
-  Outlook: "outlook.live.com", "Cal.com": "cal.com", Calendly: "calendly.com",
-  "WhatsApp Business": "whatsapp.com", Clio: "clio.com", ServiceM8: "servicem8.com",
-  Pabau: "pabau.com", Dentally: "dentally.co", "Google Ads": "ads.google.com",
-};
+// per system; local hosted logo with a lettermark fallback (same as the
+// mockup). Used to route through Google's favicon-scraping service
+// (google.com/s2/favicons?domain=...) instead — confirmed unreliable in
+// production 2026-08-17: it 503'd under nothing more than normal repeated
+// page loads during testing, on top of needing its own CSP img-src
+// allowance. Every name below already had a real logo file sitting in
+// this same assets folder (used by INT_LOGOS / the homepage marquee, both
+// unaffected by this incident) — just not wired up here. Only Copper has
+// no local asset; it falls through to its MARKS lettermark, which has no
+// network dependency at all.
 const MARKS: Record<string, [string, string, string]> = {
   HubSpot: ["#ffe8e1", "#e8674f", "Hu"], Pipedrive: ["#e3efe6", "#26714a", "Pd"],
   Zoho: ["#fdeaea", "#c94b3f", "Zo"], Close: ["#e5f0fb", "#3468c0", "Cl"],
@@ -33,15 +34,20 @@ const MARKS: Record<string, [string, string, string]> = {
   Webhooks: ["#eceef2", "#3a3d5c", "Wh"], API: ["#eceef2", "#3a3d5c", "{}"],
 };
 // Real hosted logo assets take priority over the favicon-service lookup —
-// used for brands where the actual mark matters more than a generic 16px
-// favicon (e.g. Mailgun's wordmark, supplied directly rather than scraped).
+const BASE = "/assets/integrations/";
 const LOCAL_LOGOS: Record<string, string> = {
-  Mailgun: "/assets/integrations/mailgun.svg",
+  HubSpot: BASE + "hubspot.webp", Pipedrive: BASE + "pipedrive.webp", Zoho: BASE + "zoho.png",
+  Close: BASE + "close.png", Capsule: BASE + "capsule.png", Salesforce: BASE + "salesforce.png",
+  "Microsoft Dynamics 365": BASE + "microsoft-dynamics-365.webp", "Google Calendar": BASE + "google-calendar.png",
+  Outlook: BASE + "outlook.png", "Cal.com": BASE + "cal-com.png", Calendly: BASE + "calendly.webp",
+  "WhatsApp Business": BASE + "whatsapp.png", Clio: BASE + "clio.png", ServiceM8: BASE + "servicem8.png",
+  Pabau: BASE + "pabau.png", Dentally: BASE + "dentally.png", "Google Ads": BASE + "google-ads.png",
+  Mailgun: BASE + "mailgun.svg",
 };
-const favicon = (name: string) => LOCAL_LOGOS[name] ?? (DOMAINS[name] ? `https://www.google.com/s2/favicons?domain=${DOMAINS[name]}&sz=128` : null);
+const favicon = (name: string) => LOCAL_LOGOS[name] ?? null;
 
-type Entry = { name: string; desc: string };
-const CATALOGUE: { cat: string; items: Entry[] }[] = [
+export type Entry = { name: string; desc: string };
+export const CATALOGUE: { cat: string; items: Entry[] }[] = [
   { cat: "CRM", items: [
     { name: "HubSpot", desc: "Connect Rosebud straight to HubSpot. Every inquiry, qualification and booking syncs both ways, so your pipeline is current without anyone typing it in." },
     { name: "Pipedrive", desc: "Send every new lead directly into Pipedrive. Stages, owners and notes update themselves as the system works the lead." },
@@ -103,7 +109,7 @@ const ARC_NODES = [
   { t: 0.02, s: 34 }, { t: 0.14, s: 42 }, { t: 0.26, s: 50 }, { t: 0.38, s: 58 },
   { t: 0.62, s: 58 }, { t: 0.74, s: 50 }, { t: 0.86, s: 42 }, { t: 0.98, s: 34 },
 ];
-const ARC_ROTATION = [...Object.keys(DOMAINS), ...Object.keys(LOCAL_LOGOS)];
+const ARC_ROTATION = Object.keys(LOCAL_LOGOS);
 const arcPt = (t: number): [number, number] => {
   const x = (1 - t) * (1 - t) * 20 + 2 * (1 - t) * t * 430 + t * t * 840;
   const y = (1 - t) * (1 - t) * 158 + 2 * (1 - t) * t * -18 + t * t * 158;

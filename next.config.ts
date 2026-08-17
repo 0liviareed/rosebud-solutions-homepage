@@ -61,6 +61,15 @@ const nextConfig: NextConfig = {
           //    navigation, so this is correct, not an oversight.
           //  - Resend has no entry: it's called only from server routes
           //    (src/lib/email.ts), never loaded in the browser.
+          //  - No img-src allowance for Google's favicon-scraping service:
+          //    IntegrationsPage.tsx used to pull most /integrations logos
+          //    from it (google.com/s2/favicons?domain=...), which this CSP
+          //    silently broke — then, once briefly allowed here to fix
+          //    that, the endpoint itself 503'd under nothing more than
+          //    normal repeated page loads (2026-08-17). Fixed at the
+          //    source instead: every one of those logos now uses a local
+          //    asset already sitting in public/assets/integrations/, so
+          //    there's no external image dependency left to allow.
           {
             key: "Content-Security-Policy",
             value: [
