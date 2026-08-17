@@ -21,6 +21,7 @@ const LOGOS: Logo[] = [
   { name: "WhatsApp", src: "whatsapp.png", h: 52 },
   { name: "Twilio", src: "twilio.png", h: 40 },
   { name: "Brevo", src: "brevo.png", h: 36 },
+  { name: "Mailgun", src: "mailgun.svg", h: 38 },
   { name: "Google Ads", src: "google-ads.png", h: 46 },
   { name: "Clio", src: "clio.png", h: 44 },
   { name: "ServiceM8", src: "servicem8.png", h: 50 },

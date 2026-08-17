@@ -32,7 +32,13 @@ const MARKS: Record<string, [string, string, string]> = {
   Dentally: ["#e0f2f0", "#1f8a7d", "De"], "Google Ads": ["#fdf1e1", "#d0913a", "GA"],
   Webhooks: ["#eceef2", "#3a3d5c", "Wh"], API: ["#eceef2", "#3a3d5c", "{}"],
 };
-const favicon = (name: string) => (DOMAINS[name] ? `https://www.google.com/s2/favicons?domain=${DOMAINS[name]}&sz=128` : null);
+// Real hosted logo assets take priority over the favicon-service lookup —
+// used for brands where the actual mark matters more than a generic 16px
+// favicon (e.g. Mailgun's wordmark, supplied directly rather than scraped).
+const LOCAL_LOGOS: Record<string, string> = {
+  Mailgun: "/assets/integrations/mailgun.svg",
+};
+const favicon = (name: string) => LOCAL_LOGOS[name] ?? (DOMAINS[name] ? `https://www.google.com/s2/favicons?domain=${DOMAINS[name]}&sz=128` : null);
 
 type Entry = { name: string; desc: string };
 const CATALOGUE: { cat: string; items: Entry[] }[] = [
@@ -56,6 +62,7 @@ const CATALOGUE: { cat: string; items: Entry[] }[] = [
     { name: "WhatsApp Business", desc: "Answer inquiries where most of them now arrive. Rosebud replies in seconds in your brand voice, and the whole thread stays on the record." },
     { name: "SMS", desc: "Reach people on the channel they actually read. Confirmations, reminders and no-show recovery all go out automatically." },
     { name: "Email", desc: "Every sequence, from the first reply to long-term nurture. Sent from your domain and matched to your tone." },
+    { name: "Mailgun", desc: "Transactional and sequence email routed through Mailgun's delivery infrastructure, so replies, confirmations and nurture messages land in the inbox, not the spam folder." },
   ] },
   { cat: "Industry", items: [
     { name: "Clio", desc: "Matter management for law firms, connected end to end. New inquiries arrive as matters with their details already attached." },
@@ -96,7 +103,7 @@ const ARC_NODES = [
   { t: 0.02, s: 34 }, { t: 0.14, s: 42 }, { t: 0.26, s: 50 }, { t: 0.38, s: 58 },
   { t: 0.62, s: 58 }, { t: 0.74, s: 50 }, { t: 0.86, s: 42 }, { t: 0.98, s: 34 },
 ];
-const ARC_ROTATION = Object.keys(DOMAINS);
+const ARC_ROTATION = [...Object.keys(DOMAINS), ...Object.keys(LOCAL_LOGOS)];
 const arcPt = (t: number): [number, number] => {
   const x = (1 - t) * (1 - t) * 20 + 2 * (1 - t) * t * 430 + t * t * 840;
   const y = (1 - t) * (1 - t) * 158 + 2 * (1 - t) * t * -18 + t * t * 158;
