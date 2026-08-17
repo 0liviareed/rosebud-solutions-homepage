@@ -15,6 +15,13 @@ export const metadata: Metadata = {
     description: TRADES_STAGE.seo.ogDescription,
     url: "https://rosebud.global/industries/trades-home-services",
     type: "website",
+    images: ["/opengraph-image"],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: TRADES_STAGE.seo.ogTitle,
+    description: TRADES_STAGE.seo.ogDescription,
+    images: ["/opengraph-image"],
   },
 };
 

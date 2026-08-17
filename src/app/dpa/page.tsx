@@ -13,11 +13,13 @@ export const metadata: Metadata = {
     description: DPA_DESCRIPTION,
     url: "https://rosebud.global/dpa",
     type: "website",
+    images: ["/opengraph-image"],
   },
   twitter: {
     card: "summary_large_image",
     title: "Data Processing Agreement | Rosebud Global",
     description: DPA_DESCRIPTION,
+    images: ["/opengraph-image"],
   },
 };
 

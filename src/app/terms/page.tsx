@@ -13,11 +13,13 @@ export const metadata: Metadata = {
     description: TERMS_DESCRIPTION,
     url: "https://rosebud.global/terms",
     type: "website",
+    images: ["/opengraph-image"],
   },
   twitter: {
     card: "summary_large_image",
     title: "Terms of Service | Rosebud Global",
     description: TERMS_DESCRIPTION,
+    images: ["/opengraph-image"],
   },
 };
 

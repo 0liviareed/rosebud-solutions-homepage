@@ -301,7 +301,7 @@ export default function CapabilityPage({ data }: { data: CapabilityData }) {
 
           {/* hero visual — Capture uses its supplied hero scene; others use the generic mock */}
           <div style={{ position: "relative" }}>
-            {data.slug === "capture" ? capImg("capture", "hero-banner.png") : heroMock(data)}
+            {data.slug === "capture" ? capImg("capture", "hero-banner.png", "Screenshot of inquiries from web, WhatsApp, SMS, email and social arriving in one inbox as a single lead record.") : heroMock(data)}
           </div>
         </div>
       </section>
@@ -492,5 +492,12 @@ function genericMock(accent: string, label: string): ReactNode {
 // with white cards in the design's visual language.
 function captureDeepMock(i: number): ReactNode {
   // Full-square supplied scenes (2× PNGs) — 01 routes, 02 response, 03 record.
-  return capImg("capture", ["capture-01-routes.png", "capture-02-response.png", "capture-03-record.png"][i] ?? "capture-01-routes.png");
+  const files = ["capture-01-routes.png", "capture-02-response.png", "capture-03-record.png"];
+  const alts = [
+    "Screenshot of an inquiry arriving at midnight and getting the same instant answer as one at midday.",
+    "Screenshot of an instant branded reply sent the moment an inquiry arrives, with no queue.",
+    "Screenshot of a clean lead record created automatically, capturing contact, channel and source.",
+  ];
+  const idx = i in files ? i : 0;
+  return capImg("capture", files[idx], alts[idx]);
 }

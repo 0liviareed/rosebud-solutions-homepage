@@ -14,6 +14,13 @@ export const metadata: Metadata = {
     description: MORTGAGE_STAGE.seo.ogDescription,
     url: "https://rosebud.global/industries/mortgage-lending",
     type: "website",
+    images: ["/opengraph-image"],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: MORTGAGE_STAGE.seo.ogTitle,
+    description: MORTGAGE_STAGE.seo.ogDescription,
+    images: ["/opengraph-image"],
   },
 };
 

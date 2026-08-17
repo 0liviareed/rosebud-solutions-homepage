@@ -12,12 +12,14 @@ export const metadata: Metadata = {
       "Remote · Commission-only · Full-cycle closing. Demos are fed to you by SDRs. You close, you retain, and you earn 15–20% of every client's monthly retainer, every month.",
     type: "website",
     url: "https://rosebud.global/careers/ae",
+    images: ["/opengraph-image"],
   },
   twitter: {
-    card: "summary",
+    card: "summary_large_image",
     title: "Account Executive — Rosebud Solutions",
     description:
       "Remote · Commission-only · Full-cycle closing. Demos are fed to you by SDRs. You close, you retain, and you earn 15–20% of every client's monthly retainer, every month.",
+    images: ["/opengraph-image"],
   },
 };
 

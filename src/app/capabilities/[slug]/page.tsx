@@ -21,11 +21,13 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
       description: data.metaDescription,
       url: `https://rosebud.global/capabilities/${slug}`,
       type: "website",
+      images: ["/opengraph-image"],
     },
     twitter: {
       card: "summary_large_image",
       title,
       description: data.metaDescription,
+      images: ["/opengraph-image"],
     },
   };
 }

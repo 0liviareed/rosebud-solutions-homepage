@@ -14,6 +14,13 @@ export const metadata: Metadata = {
     description: INSURANCE_STAGE.seo.ogDescription,
     url: "https://rosebud.global/industries/insurance",
     type: "website",
+    images: ["/opengraph-image"],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: INSURANCE_STAGE.seo.ogTitle,
+    description: INSURANCE_STAGE.seo.ogDescription,
+    images: ["/opengraph-image"],
   },
 };
 

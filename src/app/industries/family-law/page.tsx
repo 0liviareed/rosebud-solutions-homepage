@@ -15,6 +15,13 @@ export const metadata: Metadata = {
     description: FAMILY_LAW_STAGE.seo.ogDescription,
     url: "https://rosebud.global/industries/family-law",
     type: "website",
+    images: ["/opengraph-image"],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: FAMILY_LAW_STAGE.seo.ogTitle,
+    description: FAMILY_LAW_STAGE.seo.ogDescription,
+    images: ["/opengraph-image"],
   },
 };
 

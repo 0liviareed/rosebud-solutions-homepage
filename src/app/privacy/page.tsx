@@ -13,11 +13,13 @@ export const metadata: Metadata = {
     description: PRIVACY_DESCRIPTION,
     url: "https://rosebud.global/privacy",
     type: "website",
+    images: ["/opengraph-image"],
   },
   twitter: {
     card: "summary_large_image",
     title: "Privacy Notice | Rosebud Global",
     description: PRIVACY_DESCRIPTION,
+    images: ["/opengraph-image"],
   },
 };
 

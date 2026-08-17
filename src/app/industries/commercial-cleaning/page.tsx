@@ -15,6 +15,13 @@ export const metadata: Metadata = {
     description: CLEANING_STAGE.seo.ogDescription,
     url: "https://rosebud.global/industries/commercial-cleaning",
     type: "website",
+    images: ["/opengraph-image"],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: CLEANING_STAGE.seo.ogTitle,
+    description: CLEANING_STAGE.seo.ogDescription,
+    images: ["/opengraph-image"],
   },
 };
 

@@ -82,7 +82,7 @@ function Logo({ name, size = 42 }: { name: string; size?: number }) {
     return (
       <span style={{ width: size, height: size, borderRadius: 12, background: "#fff", border: "1px solid #eceef2", boxShadow: "0 4px 12px -6px rgba(60,66,120,.35)", display: "grid", placeItems: "center", flex: "none" }}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={src} alt="" width={24} height={24} style={{ width: 24, height: 24, objectFit: "contain" }} />
+        <img src={src} alt={`${name} logo`} width={24} height={24} style={{ width: 24, height: 24, objectFit: "contain" }} />
       </span>
     );
   }
@@ -125,7 +125,7 @@ function HeroArc() {
         return (
           <span key={i} style={{ position: "absolute", left: `${(x / 860) * 100}%`, top: `${(y / 190) * 100}%`, transform: "translate(-50%,-50%)", width: n.s, height: n.s, borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center", background: "#fff", boxShadow: `0 ${Math.round(n.s * 0.3)}px ${Math.round(n.s * 0.6)}px -${Math.round(n.s * 0.24)}px rgba(44,47,74,.5), 0 0 0 6px rgba(255,255,255,.5)`, zIndex: 1 }}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={favicon(name) || ""} alt="" style={{ width: Math.round(n.s * 0.52), height: Math.round(n.s * 0.52), objectFit: "contain", transition: "opacity .35s ease, transform .35s ease", opacity: fade ? 0 : 1, transform: `scale(${fade ? 0.6 : 1})` }} />
+            <img src={favicon(name) || ""} alt={`${name} logo`} style={{ width: Math.round(n.s * 0.52), height: Math.round(n.s * 0.52), objectFit: "contain", transition: "opacity .35s ease, transform .35s ease", opacity: fade ? 0 : 1, transform: `scale(${fade ? 0.6 : 1})` }} />
           </span>
         );
       })}

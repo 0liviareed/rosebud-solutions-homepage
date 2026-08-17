@@ -12,6 +12,14 @@ export const metadata: Metadata = {
       "Every plan runs all six flows end to end. Closed-loop attribution is an optional add-on. Four self-serve tiers plus Enterprise.",
     url: "https://rosebud.global/pricing",
     type: "website",
+    images: ["/opengraph-image"],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Pricing — Rosebud Solutions",
+    description:
+      "Every plan runs all six flows end to end. Closed-loop attribution is an optional add-on. Four self-serve tiers plus Enterprise.",
+    images: ["/opengraph-image"],
   },
 };
 

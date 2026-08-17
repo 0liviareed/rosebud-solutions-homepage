@@ -14,6 +14,13 @@ export const metadata: Metadata = {
     description: HEALTHCARE_STAGE.seo.ogDescription,
     url: "https://rosebud.global/industries/dental-aesthetic",
     type: "website",
+    images: ["/opengraph-image"],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: HEALTHCARE_STAGE.seo.ogTitle,
+    description: HEALTHCARE_STAGE.seo.ogDescription,
+    images: ["/opengraph-image"],
   },
 };
 

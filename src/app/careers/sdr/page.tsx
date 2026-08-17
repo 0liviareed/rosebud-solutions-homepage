@@ -12,12 +12,14 @@ export const metadata: Metadata = {
       "Remote · Commission-only · Outbound dialling. Around 250 dials a week; you qualify prospects and hand sales-ready opportunities to a BDE. UK or US, weekday local hours.",
     type: "website",
     url: "https://rosebud.global/careers/sdr",
+    images: ["/opengraph-image"],
   },
   twitter: {
-    card: "summary",
+    card: "summary_large_image",
     title: "Sales Development Representative — Rosebud Solutions",
     description:
       "Remote · Commission-only · Outbound dialling. Around 250 dials a week; you qualify prospects and hand sales-ready opportunities to a BDE. UK or US, weekday local hours.",
+    images: ["/opengraph-image"],
   },
 };
 

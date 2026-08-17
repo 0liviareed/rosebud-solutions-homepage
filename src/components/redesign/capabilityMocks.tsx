@@ -1,4 +1,7 @@
 import type { CSSProperties, ReactNode } from "react";
+import { INT_LOGOS } from "./capabilityData";
+
+const LOGO_NAME_BY_SRC = new Map(INT_LOGOS.map((l) => [l.src, l.name]));
 
 // Bespoke hero + deep-dive graphic mocks per capability, matched to the copy.
 // Same visual language as the Capture page: white glass cards on a tinted
@@ -105,10 +108,11 @@ function qualifyDeep(i: number, a: string): ReactNode {
 
 // ── BOOK (reference style: provider node-flow + floating card + live table) ────
 function bLogo(src: string, w = 13): ReactNode {
+  const name = LOGO_NAME_BY_SRC.get(src) ?? src.replace(/\.(png|webp|jpg|jpeg)$/i, "").replace(/-/g, " ");
   return (
     <div style={{ width: `${w}cqw`, height: `${w * 0.72}cqw`, borderRadius: `${w * 0.16}cqw`, background: "#fff", boxShadow: "0 2cqw 3.4cqw -1.4cqw rgba(23,19,31,.4)", display: "grid", placeItems: "center", padding: `${w * 0.16}cqw`, flexShrink: 0 }}>
       {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img src={`/assets/integrations/${src}`} alt="" style={{ maxWidth: "100%", maxHeight: "100%", objectFit: "contain" }} />
+      <img src={`/assets/integrations/${src}`} alt={`${name} logo`} style={{ maxWidth: "100%", maxHeight: "100%", objectFit: "contain" }} />
     </div>
   );
 }
@@ -128,19 +132,26 @@ function avatar(initials: string, bg: string, fg: string, size = 3.4): ReactNode
 }
 // Shared image scene for capability pages whose hero + deep-dive visuals are
 // supplied as artwork rather than code-drawn mocks (book, reactivate, …).
-export function capImg(folder: string, file: string): ReactNode {
+export function capImg(folder: string, file: string, alt: string): ReactNode {
   return (
     <div style={{ width: "100%", borderRadius: 22, overflow: "hidden", boxShadow: "0 34px 70px -30px rgba(30,25,60,0.5)" }}>
       {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img src={`/assets/capabilities/${folder}/${file}`} alt="" style={{ display: "block", width: "100%", height: "auto" }} />
+      <img src={`/assets/capabilities/${folder}/${file}`} alt={alt} style={{ display: "block", width: "100%", height: "auto" }} />
     </div>
   );
 }
 function bookHero(_a: string): ReactNode {
-  return capImg("book", "scene-hero-book.png");
+  return capImg("book", "scene-hero-book.png", "Screenshot of a booking confirmed on the calendar, synced live from a WhatsApp conversation.");
 }
 function bookDeep(i: number, _a: string): ReactNode {
-  return capImg("book", ["scene-01-live.png", "scene-02-buffers.png", "scene-03-logs.png"][i] ?? "scene-01-live.png");
+  const files = ["scene-01-live.png", "scene-02-buffers.png", "scene-03-logs.png"];
+  const alts = [
+    "Screenshot of an appointment booked live against the calendar as the conversation happens.",
+    "Screenshot of buffer time automatically applied around a booked appointment.",
+    "Screenshot of a booking activity log showing confirmations, reminders and reschedules.",
+  ];
+  const idx = i in files ? i : 0;
+  return capImg("book", files[idx], alts[idx]);
 }
 
 // ── RETAIN ────────────────────────────────────────────────────────────────────
@@ -198,10 +209,17 @@ function retainDeep(i: number, a: string): ReactNode {
 
 // ── REACTIVATE ────────────────────────────────────────────────────────────────
 function reactivateHero(_a: string): ReactNode {
-  return capImg("reactivate", "reactivate-hero.png");
+  return capImg("reactivate", "reactivate-hero.png", "Screenshot of dormant leads being pulled from the CRM and worked back into the pipeline.");
 }
 function reactivateDeep(i: number, _a: string): ReactNode {
-  return capImg("reactivate", ["reactivate-01.png", "reactivate-02.png", "reactivate-03.png"][i] ?? "reactivate-01.png");
+  const files = ["reactivate-01.png", "reactivate-02.png", "reactivate-03.png"];
+  const alts = [
+    "Screenshot of cold and dormant leads found in the CRM and queued for re-engagement.",
+    "Screenshot of an individual re-engagement sequence tracking one lead across email, SMS and WhatsApp.",
+    "Screenshot of a missed appointment automatically routed into a recovery sequence to rebook.",
+  ];
+  const idx = i in files ? i : 0;
+  return capImg("reactivate", files[idx], alts[idx]);
 }
 
 // ── FOLLOW THROUGH ────────────────────────────────────────────────────────────
@@ -433,11 +451,11 @@ export function bespokeDeep(slug: string, i: number, accent: string): ReactNode 
 // Mini-mock shown at the top of each "How it works" panel (fixed px, not cqw).
 // Panel visual = a 1.62:1 image filling the card's top slot; the head/body copy
 // stays live HTML underneath (never baked into the image).
-function panelImg(folder: string, file: string): ReactNode {
+function panelImg(folder: string, file: string, alt: string): ReactNode {
   return (
     <div style={{ width: "100%", borderRadius: 12, overflow: "hidden" }}>
       {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img src={`/assets/capabilities/${folder}/${file}`} alt="" style={{ display: "block", width: "100%", height: "auto" }} />
+      <img src={`/assets/capabilities/${folder}/${file}`} alt={alt} style={{ display: "block", width: "100%", height: "auto" }} />
     </div>
   );
 }
@@ -445,7 +463,16 @@ export function bespokePanel(slug: string, i: number, accent: string): ReactNode
   // Capture's "how it works" panels stay as clean number-badge cards — the
   // supplied panel PNGs bake their own headings in and stacked awkwardly over
   // the live copy. Book keeps its panel images.
-  if (slug === "book") return panelImg("book", ["book-how-01-calendar-sync.png", "book-how-02-buffer-logic.png", "book-how-03-slot-lock.png"][i] ?? "book-how-01-calendar-sync.png");
+  if (slug === "book") {
+    const files = ["book-how-01-calendar-sync.png", "book-how-02-buffer-logic.png", "book-how-03-slot-lock.png"];
+    const alts = [
+      "Screenshot of the calendar link reading live availability from Google, Outlook, Calendly or Cal.com.",
+      "Screenshot of automated travel and prep-time buffers applied around a booking.",
+      "Screenshot of a calendar slot locking instantly the moment a lead picks it.",
+    ];
+    const idx = i in files ? i : 0;
+    return panelImg("book", files[idx], alts[idx]);
+  }
   if (slug !== "closed-loop-attribution") return null;
   const chip: React.CSSProperties = { display: "inline-flex", alignItems: "center", gap: 8, background: "#fff", borderRadius: 12, padding: "9px 13px", boxShadow: "0 12px 26px -16px rgba(0,0,0,.55)" };
   if (i === 0) return (
@@ -458,7 +485,7 @@ export function bespokePanel(slug: string, i: number, accent: string): ReactNode
   if (i === 1) return (
     <div style={{ display: "inline-flex", alignItems: "center", gap: 10 }}>
       {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img src="/assets/integrations/google-ads.png" alt="" width={34} height={34} style={{ display: "block", background: "#fff", borderRadius: 9, padding: 5, boxShadow: "0 12px 26px -16px rgba(0,0,0,.55)" }} />
+      <img src="/assets/integrations/google-ads.png" alt="Google Ads logo" width={34} height={34} style={{ display: "block", background: "#fff", borderRadius: 9, padding: 5, boxShadow: "0 12px 26px -16px rgba(0,0,0,.55)" }} />
       <span style={{ background: accent, color: "#fff", borderRadius: 999, padding: "7px 14px", fontSize: 12.5, fontWeight: 700 }}>Qualified ✓</span>
     </div>
   );

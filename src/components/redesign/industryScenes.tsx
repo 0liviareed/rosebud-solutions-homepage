@@ -33,11 +33,11 @@ const GRAD: Record<SceneTone, { bg: string; ar: string; shadow: string; noise: n
 export type SceneTone = "lilac" | "peach";
 
 /** Supplied 2× PNG for a stage scene: /assets/industries/<slug>/<file> */
-export function sceneImg(slug: string, file: string): ReactNode {
+export function sceneImg(slug: string, file: string, alt: string): ReactNode {
   return (
     <div style={{ width: "100%", borderRadius: 26, overflow: "hidden", boxShadow: "0 30px 60px -28px rgba(60,66,120,.5)" }}>
       {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img src={`/assets/industries/${slug}/${file}`} alt="" style={{ display: "block", width: "100%", height: "auto" }} />
+      <img src={`/assets/industries/${slug}/${file}`} alt={alt} style={{ display: "block", width: "100%", height: "auto" }} />
     </div>
   );
 }

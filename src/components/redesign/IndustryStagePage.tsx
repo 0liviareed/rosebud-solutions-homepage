@@ -37,8 +37,35 @@ function PricingCTA() {
   );
 }
 
+// Alt text for the supplied scene screenshots, keyed by industry slug and
+// stage id ("intake" = inquiry answered + qualified; "record" = written into
+// the industry's system of record) — matches what the code-drawn fallback
+// scenes for the same ids actually depict.
+const SCENE_SUBJECT: Record<string, string> = {
+  "dental-aesthetic": "patient inquiry",
+  insurance: "insurance quote request",
+  "mortgage-lending": "mortgage inquiry",
+  "real-estate": "real estate inquiry",
+};
+const SCENE_SYSTEM: Record<string, string> = {
+  "dental-aesthetic": "practice management software",
+  insurance: "agency management software",
+  "mortgage-lending": "the loan officer's CRM or LOS",
+  "real-estate": "the agent's CRM",
+};
+function sceneAlt(slug: string, sceneId: string): string {
+  if (sceneId === "legal-intake") return "Screenshot of a custody inquiry answered instantly via WhatsApp, with matter type and jurisdiction captured for conflict-check review.";
+  if (sceneId === "legal-record") return "Screenshot of a new family-law matter record synced into case management software, showing conflict inputs and a booked consult.";
+  const subject = SCENE_SUBJECT[slug] ?? "inquiry";
+  const article = /^[aeiou]/i.test(subject) ? "an" : "a";
+  const system = SCENE_SYSTEM[slug] ?? "the CRM you already run";
+  if (sceneId === "generic-intake") return `Screenshot of ${article} ${subject} answered instantly and qualified for review.`;
+  if (sceneId === "generic-record") return `Screenshot of a new record synced automatically into ${system}.`;
+  return `Screenshot illustrating how Rosebud handles a ${subject}.`;
+}
+
 function Scene({ slug, scene }: { slug: string; scene: StageScene }) {
-  return scene.img ? sceneImg(slug, scene.img) : industryScene(scene.id);
+  return scene.img ? sceneImg(slug, scene.img, sceneAlt(slug, scene.id)) : industryScene(scene.id);
 }
 
 function FaqItem({ q, a }: { q: string; a: string }) {
