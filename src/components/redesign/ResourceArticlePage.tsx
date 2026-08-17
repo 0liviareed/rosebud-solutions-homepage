@@ -483,7 +483,7 @@ export default function ResourceArticlePage({ data }: { data: ResourceItem }) {
               case "faq":
                 return (
                   <div key={i} style={{ marginTop: 20 }}>
-                    <h2 style={{ fontFamily: SERIF, fontWeight: 500, fontSize: "clamp(24px,2.6vw,32px)", lineHeight: 1.16, letterSpacing: "-0.01em", margin: "0 0 18px" }}>Frequently asked questions</h2>
+                    <h2 id={block.id} style={{ fontFamily: SERIF, fontWeight: 500, fontSize: "clamp(24px,2.6vw,32px)", lineHeight: 1.16, letterSpacing: "-0.01em", margin: "0 0 18px", scrollMarginTop: 24 }}>Frequently asked questions</h2>
                     <div>
                       {block.items.map((f, j) => (
                         <ArticleFaqItem key={f.q} q={f.q} a={f.a} open={faqOpen === j} onToggle={() => setFaqOpen((o) => (o === j ? null : j))} />

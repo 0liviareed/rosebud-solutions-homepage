@@ -16,7 +16,7 @@ export type ResourceBody =
   | { type: "callout"; lines: string[] }
   | { type: "quote"; text: string }
   | { type: "stat-row"; stats: { value: string; label: string }[] }
-  | { type: "faq"; items: { q: string; a: string }[] }
+  | { type: "faq"; id?: string; items: { q: string; a: string }[] }
   | { type: "related"; items: { href: string; title: string; desc?: string }[] }
   | { type: "cta-download"; heading: string; body: string; buttonLabel: string; resourceKey: string }
   | { type: "table"; head: string[]; rows: (string | number)[][]; totalRow?: (string | number)[] }
@@ -33,6 +33,11 @@ export type ResourceItem = {
   // Overrides <meta name="description"> only — dek renders on-page and can
   // run past the ~160-char limit a meta description needs.
   metaDescription?: string;
+  // Overrides the sitewide default og:image/twitter:image (see
+  // app/opengraph-image.tsx) — set when the article has its own purpose-
+  // built share image (e.g. a diagram), since that outperforms the
+  // generic brand card on link previews, especially LinkedIn.
+  ogImage?: string;
   // Question-shaped subhead rendered between the H1 and the dek — matches
   // how someone actually phrases the search, which "Summary" as the first
   // H2 does not.
@@ -55,6 +60,7 @@ export type ResourceItem = {
 };
 
 export const STAGES: { key: string; name: string }[] = [
+  { key: "all", name: "Every stage" },
   { key: "capture", name: "Capture" },
   { key: "qualify", name: "Qualify" },
   { key: "book", name: "Book" },
@@ -392,7 +398,7 @@ export const RESOURCES: Record<string, ResourceItem> = {
       { type: "p", text: "Rosebud Solutions is a Rosebud Global Ltd company (Co. No. 16623472). Rosebud Solutions operates inquiry handling for service businesses, which is why this question was worth measuring. The study was self-funded and no business in the sample is a client." },
 
       {
-        type: "faq", items: [
+        type: "faq", id: "frequently-asked-questions", items: [
           { q: "How many US service businesses respond to a web inquiry?", a: "In a 2026 study of 273 US owner-operated service businesses, 29.9% of the 211 provably delivered inquiries received any response within 72 hours, and 21.3% received a response from a person. 70.1% received nothing at all." },
           { q: "How long does a service business take to respond to an inquiry?", a: "The median time to first response was 5.1 hours, rising to 8.8 hours counting only replies from a person. Ten of 211 delivered inquiries were answered within five minutes, and almost all of those were automated acknowledgments." },
           { q: "How many small businesses have a working contact form?", a: "20.5% of the 273 US service businesses studied had no working web inquiry form. The figure was highest in dental and aesthetics at 42.9%, and lowest in family law at 7.8%." },
@@ -538,7 +544,7 @@ export const RESOURCES: Record<string, ResourceItem> = {
       { type: "p", text: "Then test your own inquiry form. The published bids are competitive by design. The private inquiry that lands on your website is not, unless you make it so by taking a day to answer it." },
 
       {
-        type: "faq", items: [
+        type: "faq", id: "frequently-asked-questions", items: [
           { q: "How do you bid on cleaning contracts?", a: "Walk the building, measure the cleanable square footage, and divide it by your production rate to get hours per visit. Multiply by visits per month and your fully loaded labor rate, add supplies, drive time and supervision, then divide the total by one minus your target margin. Present a single monthly figure with a complete scope rather than a breakdown of hours." },
           { q: "How do you find commercial cleaning contracts?", a: "Published work is on SAM.gov for federal contracts and on city, county and state purchasing portals for local ones. Private work is not published anywhere, so it comes from property management firms, direct approach to buildings you can service, and subcontracting under national facility services companies." },
           { q: "How do you get your first cleaning contract?", a: "Set the business up properly first: registration, general liability and workers' compensation insurance, because no commercial buyer will sign without them. Then pick a small area you can service reliably and work it three ways: walk into local commercial buildings and get the facility manager's name, call that name and offer a free walkthrough and estimate, and register on your city and county purchasing portals for published bids. The first contract almost always comes from direct outreach rather than a bid board, and a small building you service well becomes the reference that wins the next one." },
@@ -565,12 +571,13 @@ export const RESOURCES: Record<string, ResourceItem> = {
     title: "B2B lead management: the process, & the part that actually breaks",
     metaTitle: "B2B Lead Management: The Process & the Part That Breaks | Rosebud Solutions",
     metaDescription: "What B2B lead management is, the stages every model agrees on, and why the standard framework assumes a marketing team most companies do not have.",
+    ogImage: "/assets/b2b-lead-management-diagram.png",
     dek: "Every guide lists the same six or seven stages. What actually breaks sits upstream of the stage diagram, in two places most frameworks never mention.",
-    stage: "capture",
+    stage: "all",
     sector: "all",
     kind: "guide",
     mins: 14,
-    date: "2026-08-16",
+    date: "2026-08-17",
     author: { name: "Sajni Richardson", role: "COO, Rosebud Solutions" },
     toc: [
       { id: "what-is-b2b-lead-management", label: "What is B2B lead management?" },
@@ -587,7 +594,7 @@ export const RESOURCES: Record<string, ResourceItem> = {
     ],
     body: [
       { type: "p", text: "Every guide to B2B lead management describes the same thing: a lead is captured, enriched, scored, routed, nurtured, and handed to sales. The stage counts differ, six here, seven there, ten somewhere else, but the shape is agreed." },
-      { type: "p", text: "Nobody much argues about the shape, and what goes wrong sits in two places that get almost no attention, and both of them are upstream of anything a stage diagram can show you." },
+      { type: "p", text: "Nobody much argues about the shape, and what goes wrong sits in two places that get almost no attention, both of which are upstream of anything a stage diagram can show you." },
       { type: "p", text: "One is that the whole framework assumes an organization with a marketing team, a sales team, and a negotiated boundary between them, which most companies buying lead management do not have." },
       { type: "p", text: "The other is that the industry's own evidence about response speed is more than a decade old and nobody has replaced it, so we measured it ourselves and found something worse than the received wisdom suggests." },
 
@@ -692,9 +699,8 @@ export const RESOURCES: Record<string, ResourceItem> = {
         ],
       },
 
-      { type: "h2", id: "frequently-asked-questions", text: "Frequently asked questions" },
       {
-        type: "faq", items: [
+        type: "faq", id: "frequently-asked-questions", items: [
           { q: "What are the core stages of lead management?", a: "Most published models list six: generation, capture, scoring, qualification, routing and nurturing, with conversion following the handoff to sales. Generation is better understood as a separate discipline, since it creates the lead rather than managing one that already exists. The stages before the handoff are rule-based and can be operated by a system or a third party. The stages after it depend on judgment about a specific buyer." },
           { q: "What is B2B lead management?", a: "B2B lead management is the process a business uses to handle a lead between the moment it arrives and the moment a salesperson decides what to do with it. It covers capture, enrichment, qualification, scoring, routing and nurture, ending at the handoff to sales. It is distinct from lead generation, which creates the lead, and from selling, which happens after the handoff." },
           { q: "What are the stages of the lead management process?", a: "Published models list between six and ten stages and agree on the substance: capture, enrichment, qualification, scoring, routing, nurture, handoff, then conversion. The stages before the handoff are rule-based and repeatable. The stages after it depend on judgment about a specific buyer and cannot be automated or delegated." },

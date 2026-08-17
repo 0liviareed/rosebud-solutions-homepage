@@ -58,7 +58,7 @@ export default function ResourcesLibraryPage() {
     const q = query.trim().toLowerCase();
     return all
       .filter((i) => {
-        if (stage && i.stage !== stage) return false;
+        if (stage && i.stage !== stage && i.stage !== "all") return false;
         if (sector !== "all" && i.sector !== sector && i.sector !== "all") return false;
         if (q) {
           const hay = [i.title, i.dek, nameOf(STAGES, i.stage), nameOf(SECTORS, i.sector)].join(" ").toLowerCase();
@@ -136,9 +136,15 @@ export default function ResourcesLibraryPage() {
             <p style={label}>Stage</p>
             <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
               {STAGES.map((s) => {
-                const n = all.filter((i) => i.stage === s.key).length;
+                // "all" is a display-only reset pill, not a real filter value
+                // (stage's unset state is `null`, unlike sector which
+                // defaults to the literal string "all") — show the full
+                // count and clear the filter on click, same as the implicit
+                // "no stage selected" state.
+                const n = s.key === "all" ? all.length : all.filter((i) => i.stage === s.key || i.stage === "all").length;
+                const isActive = s.key === "all" ? stage === null : stage === s.key;
                 return (
-                  <button key={s.key} type="button" className="rb-lib-pill" aria-pressed={stage === s.key} onClick={() => setStage(stage === s.key ? null : s.key)}>
+                  <button key={s.key} type="button" className="rb-lib-pill" aria-pressed={isActive} onClick={() => setStage(s.key === "all" ? null : stage === s.key ? null : s.key)}>
                     {s.name}<span className="n">{n}</span>
                   </button>
                 );
