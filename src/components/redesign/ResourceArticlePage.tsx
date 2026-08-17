@@ -414,6 +414,35 @@ export default function ResourceArticlePage({ data }: { data: ResourceItem }) {
                     )}
                   </div>
                 );
+              case "prose-table":
+                return (
+                  <div key={i} style={{ background: "#fff", borderRadius: 16, padding: "8px 26px", boxShadow: "0 24px 60px -44px rgba(23,19,31,0.35)", overflowX: "auto" }}>
+                    <div style={{ display: "grid", gridTemplateColumns: `repeat(${block.head.length}, minmax(140px,1fr))`, gap: 16, padding: "14px 2px", borderBottom: "1px solid rgba(23,19,31,0.16)" }}>
+                      {block.head.map((h, j) => (
+                        <span key={j} style={{ fontSize: 10.5, fontWeight: 700, letterSpacing: "1.2px", textTransform: "uppercase", color: "rgba(23,19,31,0.4)" }}>{h}</span>
+                      ))}
+                    </div>
+                    {block.rows.map((row, j) => (
+                      <div key={j} style={{ display: "grid", gridTemplateColumns: `repeat(${block.head.length}, minmax(140px,1fr))`, gap: 16, padding: "14px 2px", borderBottom: j < block.rows.length - 1 ? "1px solid rgba(23,19,31,0.08)" : "none" }}>
+                        {row.cells.map((v, k) => (
+                          <span key={k} style={{ fontSize: 14, lineHeight: 1.5, color: row.muted ? "rgba(23,19,31,0.4)" : k === 0 ? "#17131F" : "rgba(23,19,31,0.68)", fontWeight: k === 0 ? 700 : 400, fontStyle: row.muted ? "italic" : "normal" }}>{v}</span>
+                        ))}
+                      </div>
+                    ))}
+                  </div>
+                );
+              case "image":
+                return (
+                  <figure key={i} style={{ margin: 0, display: "flex", flexDirection: "column", gap: 12 }}>
+                    <div style={{ borderRadius: 16, overflow: "hidden", boxShadow: "0 24px 60px -44px rgba(23,19,31,0.35)" }}>
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img src={block.src} alt={block.alt} style={{ display: "block", width: "100%", height: "auto" }} />
+                    </div>
+                    {block.caption && (
+                      <figcaption style={{ fontSize: 13, lineHeight: 1.5, color: "rgba(23,19,31,0.5)", fontStyle: "italic" }}>{block.caption}</figcaption>
+                    )}
+                  </figure>
+                );
               case "bar-chart": {
                 const max = Math.max(...block.bars.map((b) => b.value));
                 return (

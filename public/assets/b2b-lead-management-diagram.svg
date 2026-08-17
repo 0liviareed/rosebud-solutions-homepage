@@ -1,0 +1,86 @@
+<svg viewBox="0 0 1200 660" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Diagram comparing the standard B2B lead management model with the stages a service business needs">
+<rect width="1200" height="660" fill="#FBFAFF"/>
+<text x="60" y="62" font-family="DM Sans, Inter, Helvetica, Arial, sans-serif" font-size="27" font-weight="700" fill="#07060F">The lead management process, and where it stops</text>
+<text x="60" y="90" font-family="DM Sans, Inter, Helvetica, Arial, sans-serif" font-size="14.5" fill="#6B6880">Published models end the managed portion at a handoff to a sales rep. Service businesses need two stages none of them contain.</text>
+<line x1="60" y1="110" x2="1140" y2="110" stroke="#D9D5F2" stroke-width="1"/>
+<text x="60" y="150" font-family="DM Mono, ui-monospace, monospace" font-size="11.5" letter-spacing="1.4" fill="#6B6880">THE STANDARD MODEL</text>
+<rect x="60" y="170" width="132" height="62" rx="9" fill="#EDEBFA" stroke="#D9D5F2" stroke-width="1.25"/>
+<text x="72" y="189" font-family="DM Mono, ui-monospace, monospace" font-size="11" fill="#6B6880">01</text>
+<text x="126.0" y="207.0" text-anchor="middle" font-family="DM Sans, Inter, Helvetica, Arial, sans-serif" font-size="15.5" font-weight="600" fill="#271F8A">Generate</text>
+<line x1="192" y1="201.0" x2="202" y2="201.0" stroke="#D9D5F2" stroke-width="1.5"/><path d="M 202 197.0 L 208 201.0 L 202 205.0 Z" fill="#D9D5F2"/>
+<rect x="208" y="170" width="132" height="62" rx="9" fill="#EDEBFA" stroke="#D9D5F2" stroke-width="1.25"/>
+<text x="220" y="189" font-family="DM Mono, ui-monospace, monospace" font-size="11" fill="#6B6880">02</text>
+<text x="274.0" y="207.0" text-anchor="middle" font-family="DM Sans, Inter, Helvetica, Arial, sans-serif" font-size="15.5" font-weight="600" fill="#271F8A">Capture</text>
+<line x1="340" y1="201.0" x2="350" y2="201.0" stroke="#D9D5F2" stroke-width="1.5"/><path d="M 350 197.0 L 356 201.0 L 350 205.0 Z" fill="#D9D5F2"/>
+<rect x="356" y="170" width="132" height="62" rx="9" fill="#EDEBFA" stroke="#D9D5F2" stroke-width="1.25"/>
+<text x="368" y="189" font-family="DM Mono, ui-monospace, monospace" font-size="11" fill="#6B6880">03</text>
+<text x="422.0" y="207.0" text-anchor="middle" font-family="DM Sans, Inter, Helvetica, Arial, sans-serif" font-size="15.5" font-weight="600" fill="#271F8A">Qualify</text>
+<line x1="488" y1="201.0" x2="498" y2="201.0" stroke="#D9D5F2" stroke-width="1.5"/><path d="M 498 197.0 L 504 201.0 L 498 205.0 Z" fill="#D9D5F2"/>
+<rect x="504" y="170" width="132" height="62" rx="9" fill="#EDEBFA" stroke="#D9D5F2" stroke-width="1.25"/>
+<text x="516" y="189" font-family="DM Mono, ui-monospace, monospace" font-size="11" fill="#6B6880">04</text>
+<text x="570.0" y="207.0" text-anchor="middle" font-family="DM Sans, Inter, Helvetica, Arial, sans-serif" font-size="15.5" font-weight="600" fill="#271F8A">Score</text>
+<line x1="636" y1="201.0" x2="646" y2="201.0" stroke="#D9D5F2" stroke-width="1.5"/><path d="M 646 197.0 L 652 201.0 L 646 205.0 Z" fill="#D9D5F2"/>
+<rect x="652" y="170" width="132" height="62" rx="9" fill="#EDEBFA" stroke="#D9D5F2" stroke-width="1.25"/>
+<text x="664" y="189" font-family="DM Mono, ui-monospace, monospace" font-size="11" fill="#6B6880">05</text>
+<text x="718.0" y="207.0" text-anchor="middle" font-family="DM Sans, Inter, Helvetica, Arial, sans-serif" font-size="15.5" font-weight="600" fill="#271F8A">Route</text>
+<line x1="784" y1="201.0" x2="794" y2="201.0" stroke="#D9D5F2" stroke-width="1.5"/><path d="M 794 197.0 L 800 201.0 L 794 205.0 Z" fill="#D9D5F2"/>
+<rect x="800" y="170" width="132" height="62" rx="9" fill="#EDEBFA" stroke="#D9D5F2" stroke-width="1.25"/>
+<text x="812" y="189" font-family="DM Mono, ui-monospace, monospace" font-size="11" fill="#6B6880">06</text>
+<text x="866.0" y="207.0" text-anchor="middle" font-family="DM Sans, Inter, Helvetica, Arial, sans-serif" font-size="15.5" font-weight="600" fill="#271F8A">Nurture</text>
+<line x1="932" y1="201.0" x2="942" y2="201.0" stroke="#D9D5F2" stroke-width="1.5"/><path d="M 942 197.0 L 948 201.0 L 942 205.0 Z" fill="#D9D5F2"/>
+<line x1="956" y1="152" x2="956" y2="250" stroke="#271F8A" stroke-width="1.5" stroke-dasharray="4 4"/>
+<text x="964" y="146" font-family="DM Mono, ui-monospace, monospace" font-size="11" letter-spacing="0.8" fill="#271F8A">HANDOFF</text>
+<rect x="978" y="170" width="132" height="62" rx="9" fill="#FFFFFF" stroke="#BFBBD6" stroke-width="1.25"/>
+<text x="990" y="189" font-family="DM Mono, ui-monospace, monospace" font-size="11" fill="#6B6880">07</text>
+<text x="1044.0" y="200.0" text-anchor="middle" font-family="DM Sans, Inter, Helvetica, Arial, sans-serif" font-size="15.5" font-weight="600" fill="#6B6880">Convert</text>
+<text x="1044.0" y="219.0" text-anchor="middle" font-family="DM Sans, Inter, Helvetica, Arial, sans-serif" font-size="11.5" fill="#6B6880">sales stage</text>
+<line x1="60" y1="296" x2="1140" y2="296" stroke="#D9D5F2" stroke-width="1"/>
+<text x="60" y="335" font-family="DM Mono, ui-monospace, monospace" font-size="11.5" letter-spacing="1.4" fill="#5A3FE0">WHAT A SERVICE BUSINESS ACTUALLY NEEDS</text>
+<rect x="60" y="360" width="132" height="82" rx="9" fill="#5A3FE0" stroke="#5A3FE0" stroke-width="1.25"/>
+<text x="72" y="379" font-family="DM Mono, ui-monospace, monospace" font-size="11" fill="#DCD6FF">01</text>
+<text x="126.0" y="400.0" text-anchor="middle" font-family="DM Sans, Inter, Helvetica, Arial, sans-serif" font-size="15.5" font-weight="600" fill="#FFFFFF">Capture</text>
+<text x="126.0" y="419.0" text-anchor="middle" font-family="DM Sans, Inter, Helvetica, Arial, sans-serif" font-size="11.5" fill="#DCD6FF">Answered in seconds</text>
+<line x1="192" y1="401.0" x2="202" y2="401.0" stroke="#5A3FE0" stroke-width="1.5"/><path d="M 202 397.0 L 208 401.0 L 202 405.0 Z" fill="#5A3FE0"/>
+<rect x="208" y="360" width="132" height="82" rx="9" fill="#5A3FE0" stroke="#5A3FE0" stroke-width="1.25"/>
+<text x="220" y="379" font-family="DM Mono, ui-monospace, monospace" font-size="11" fill="#DCD6FF">02</text>
+<text x="274.0" y="400.0" text-anchor="middle" font-family="DM Sans, Inter, Helvetica, Arial, sans-serif" font-size="15.5" font-weight="600" fill="#FFFFFF">Qualify</text>
+<text x="274.0" y="419.0" text-anchor="middle" font-family="DM Sans, Inter, Helvetica, Arial, sans-serif" font-size="11.5" fill="#DCD6FF">Against your rules</text>
+<line x1="340" y1="401.0" x2="350" y2="401.0" stroke="#5A3FE0" stroke-width="1.5"/><path d="M 350 397.0 L 356 401.0 L 350 405.0 Z" fill="#5A3FE0"/>
+<rect x="356" y="360" width="132" height="82" rx="9" fill="#FFFFFF" stroke="#5A3FE0" stroke-width="2" stroke-dasharray="5 4"/>
+<text x="368" y="379" font-family="DM Mono, ui-monospace, monospace" font-size="11" fill="#5A3FE0">03</text>
+<text x="422.0" y="400.0" text-anchor="middle" font-family="DM Sans, Inter, Helvetica, Arial, sans-serif" font-size="15.5" font-weight="600" fill="#271F8A">Book</text>
+<text x="422.0" y="419.0" text-anchor="middle" font-family="DM Sans, Inter, Helvetica, Arial, sans-serif" font-size="11.5" fill="#5A3FE0">Into a live calendar</text>
+<line x1="488" y1="401.0" x2="498" y2="401.0" stroke="#5A3FE0" stroke-width="1.5"/><path d="M 498 397.0 L 504 401.0 L 498 405.0 Z" fill="#5A3FE0"/>
+<rect x="504" y="360" width="132" height="82" rx="9" fill="#FFFFFF" stroke="#5A3FE0" stroke-width="2" stroke-dasharray="5 4"/>
+<text x="516" y="379" font-family="DM Mono, ui-monospace, monospace" font-size="11" fill="#5A3FE0">04</text>
+<text x="570.0" y="400.0" text-anchor="middle" font-family="DM Sans, Inter, Helvetica, Arial, sans-serif" font-size="15.5" font-weight="600" fill="#271F8A">Retain</text>
+<text x="570.0" y="419.0" text-anchor="middle" font-family="DM Sans, Inter, Helvetica, Arial, sans-serif" font-size="11.5" fill="#5A3FE0">Reminders, no-shows</text>
+<line x1="636" y1="401.0" x2="646" y2="401.0" stroke="#5A3FE0" stroke-width="1.5"/><path d="M 646 397.0 L 652 401.0 L 646 405.0 Z" fill="#5A3FE0"/>
+<rect x="652" y="360" width="132" height="82" rx="9" fill="#5A3FE0" stroke="#5A3FE0" stroke-width="1.25"/>
+<text x="664" y="379" font-family="DM Mono, ui-monospace, monospace" font-size="11" fill="#DCD6FF">05</text>
+<text x="718.0" y="400.0" text-anchor="middle" font-family="DM Sans, Inter, Helvetica, Arial, sans-serif" font-size="15.5" font-weight="600" fill="#FFFFFF">Reactivate</text>
+<text x="718.0" y="419.0" text-anchor="middle" font-family="DM Sans, Inter, Helvetica, Arial, sans-serif" font-size="11.5" fill="#DCD6FF">Until they act</text>
+<line x1="784" y1="401.0" x2="794" y2="401.0" stroke="#5A3FE0" stroke-width="1.5"/><path d="M 794 397.0 L 800 401.0 L 794 405.0 Z" fill="#5A3FE0"/>
+<rect x="800" y="360" width="132" height="82" rx="9" fill="#5A3FE0" stroke="#5A3FE0" stroke-width="1.25"/>
+<text x="812" y="379" font-family="DM Mono, ui-monospace, monospace" font-size="11" fill="#DCD6FF">06</text>
+<text x="866.0" y="400.0" text-anchor="middle" font-family="DM Sans, Inter, Helvetica, Arial, sans-serif" font-size="13.5" font-weight="600" fill="#FFFFFF">Follow through</text>
+<text x="866.0" y="419.0" text-anchor="middle" font-family="DM Sans, Inter, Helvetica, Arial, sans-serif" font-size="11.5" fill="#DCD6FF">Docs, quotes, invoices</text>
+<line x1="932" y1="401.0" x2="942" y2="401.0" stroke="#5A3FE0" stroke-width="1.5"/><path d="M 942 397.0 L 948 401.0 L 942 405.0 Z" fill="#5A3FE0"/>
+<line x1="956" y1="342" x2="956" y2="460" stroke="#271F8A" stroke-width="1.5" stroke-dasharray="4 4"/>
+<text x="964" y="336" font-family="DM Mono, ui-monospace, monospace" font-size="11" letter-spacing="0.8" fill="#271F8A">HANDOFF</text>
+<rect x="978" y="360" width="132" height="82" rx="9" fill="#FFFFFF" stroke="#BFBBD6" stroke-width="1.25"/>
+<text x="990" y="379" font-family="DM Mono, ui-monospace, monospace" font-size="11" fill="#6B6880">07</text>
+<text x="1044.0" y="400.0" text-anchor="middle" font-family="DM Sans, Inter, Helvetica, Arial, sans-serif" font-size="15.5" font-weight="600" fill="#6B6880">Close</text>
+<text x="1044.0" y="419.0" text-anchor="middle" font-family="DM Sans, Inter, Helvetica, Arial, sans-serif" font-size="11.5" fill="#6B6880">Your team</text>
+<path d="M 60 464 L 60 473 L 948 473 L 948 464" fill="none" stroke="#5A3FE0" stroke-width="1.25"/>
+<text x="504.0" y="494" text-anchor="middle" font-family="DM Sans, Inter, Helvetica, Arial, sans-serif" font-size="13.5" font-weight="600" fill="#5A3FE0">Rule-based. Runs the same way every time. Can be operated for you.</text>
+<text x="1044.0" y="494" text-anchor="middle" font-family="DM Sans, Inter, Helvetica, Arial, sans-serif" font-size="13.5" font-weight="600" fill="#6B6880">Judgment. Cannot.</text>
+<line x1="60" y1="564" x2="1140" y2="564" stroke="#D9D5F2" stroke-width="1"/>
+<rect x="60" y="581" width="15" height="15" rx="3.5" fill="#5A3FE0" stroke="#5A3FE0" stroke-width="1.75"/>
+<text x="84" y="593" font-family="DM Sans, Inter, Helvetica, Arial, sans-serif" font-size="13" fill="#6B6880">Operated stages</text>
+<rect x="205.0" y="581" width="15" height="15" rx="3.5" fill="#FFFFFF" stroke="#5A3FE0" stroke-width="1.75" stroke-dasharray="4 3"/>
+<text x="229.0" y="593" font-family="DM Sans, Inter, Helvetica, Arial, sans-serif" font-size="13" fill="#6B6880">Missing from every standard model</text>
+<rect x="483.20000000000005" y="581" width="15" height="15" rx="3.5" fill="#FFFFFF" stroke="#BFBBD6" stroke-width="1.75"/>
+<text x="507.20000000000005" y="593" font-family="DM Sans, Inter, Helvetica, Arial, sans-serif" font-size="13" fill="#6B6880">Handled by your team</text>
+<text x="60" y="622" font-family="DM Sans, Inter, Helvetica, Arial, sans-serif" font-size="12" fill="#6B6880">Rosebud Solutions · rosebud.global/resources/b2b-lead-management</text>
+</svg>

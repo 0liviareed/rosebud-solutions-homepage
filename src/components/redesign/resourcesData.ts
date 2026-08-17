@@ -20,7 +20,9 @@ export type ResourceBody =
   | { type: "related"; items: { href: string; title: string; desc?: string }[] }
   | { type: "cta-download"; heading: string; body: string; buttonLabel: string; resourceKey: string }
   | { type: "table"; head: string[]; rows: (string | number)[][]; totalRow?: (string | number)[] }
-  | { type: "bar-chart"; title: string; caption: string; unit?: "%"; bars: { label: string; value: number; lead?: boolean; muted?: boolean }[] };
+  | { type: "bar-chart"; title: string; caption: string; unit?: "%"; bars: { label: string; value: number; lead?: boolean; muted?: boolean }[] }
+  | { type: "image"; src: string; alt: string; caption?: string }
+  | { type: "prose-table"; head: string[]; rows: { cells: string[]; muted?: boolean }[] };
 
 export type ResourceItem = {
   slug: string;
@@ -553,6 +555,155 @@ export const RESOURCES: Record<string, ResourceItem> = {
         type: "related", items: [
           { href: "/industries/commercial-cleaning", title: "Commercial cleaning inquiry handling", desc: "How Rosebud answers and books every inquiry that lands" },
           { href: "/pricing", title: "Pricing" },
+        ],
+      },
+    ],
+  },
+
+  "b2b-lead-management": {
+    slug: "b2b-lead-management",
+    title: "B2B lead management: the process, & the part that actually breaks",
+    metaTitle: "B2B Lead Management: The Process & the Part That Breaks | Rosebud Solutions",
+    metaDescription: "What B2B lead management is, the stages every model agrees on, and why the standard framework assumes a marketing team most companies do not have.",
+    dek: "Every guide lists the same six or seven stages. What actually breaks sits upstream of the stage diagram, in two places most frameworks never mention.",
+    stage: "capture",
+    sector: "all",
+    kind: "guide",
+    mins: 14,
+    date: "2026-08-16",
+    author: { name: "Sajni Richardson", role: "COO, Rosebud Solutions" },
+    toc: [
+      { id: "what-is-b2b-lead-management", label: "What is B2B lead management?" },
+      { id: "the-b2b-lead-management-process", label: "The B2B lead management process" },
+      { id: "why-the-standard-model-assumes-a-company-you-may-not-be", label: "Why the standard model assumes a company you may not be" },
+      { id: "where-leads-actually-leak", label: "Where leads actually leak" },
+      { id: "what-we-found-when-we-tested-it", label: "What we found when we tested it" },
+      { id: "lead-management-software-systems--services", label: "Lead management software, systems & services" },
+      { id: "the-line-between-lead-management-and-selling", label: "The line between lead management and selling" },
+      { id: "how-rosebud-maps-to-the-lead-management-process", label: "How Rosebud maps to the lead management process" },
+      { id: "lead-management-best-practices", label: "Lead management best practices" },
+      { id: "how-to-build-a-lead-management-process", label: "How to build a lead management process" },
+      { id: "frequently-asked-questions", label: "Frequently asked questions" },
+    ],
+    body: [
+      { type: "p", text: "Every guide to B2B lead management describes the same thing: a lead is captured, enriched, scored, routed, nurtured, and handed to sales. The stage counts differ, six here, seven there, ten somewhere else, but the shape is agreed." },
+      { type: "p", text: "Nobody much argues about the shape, and what goes wrong sits in two places that get almost no attention, and both of them are upstream of anything a stage diagram can show you." },
+      { type: "p", text: "One is that the whole framework assumes an organization with a marketing team, a sales team, and a negotiated boundary between them, which most companies buying lead management do not have." },
+      { type: "p", text: "The other is that the industry's own evidence about response speed is more than a decade old and nobody has replaced it, so we measured it ourselves and found something worse than the received wisdom suggests." },
+
+      { type: "h2", id: "what-is-b2b-lead-management", text: "What is B2B lead management?" },
+      { type: "p", text: "B2B lead management is what happens to a lead between the moment it exists and the moment a person decides what to do with it." },
+      { type: "p", text: "Most definitions are broader than that. [MarketOne](https://www.marketone.com/what-is-b2b-lead-management) describes it as capturing leads, tracking touchpoints, and qualifying and engaging them until they are sales ready. [Highspot](https://www.highspot.com/blog/lead-management/) calls it capturing, tracking and nurturing from first contact through conversion. [Monday](https://monday.com/blog/crm-and-sales/lead-management-process/) extends it to closed deal." },
+      { type: "p", text: "Drawing the boundary at the handoff is more useful, because that is where ownership actually changes. Everything before it is rule-based and repeatable: it happens the same way every time, it can be written down, and it can be run by a system or by somebody who is not a salesperson. Everything after it is judgment, relationship and negotiation, which is why blurring the two is how companies end up buying software for a problem that was never a software problem." },
+      { type: "p", text: "Lead generation is a separate discipline again, since it creates the lead in the first place, while lead management is what the business does with it afterwards and remains the part with the least written about it, largely because it is the least interesting thing to sell." },
+
+      { type: "h2", id: "the-b2b-lead-management-process", text: "The B2B lead management process" },
+      { type: "p", text: "Published models disagree on the count and agree on the substance. [ZoomInfo](https://pipeline.zoominfo.com/marketing/lead-management-process) lists seven stages, [Default](https://www.default.com/post/leads-management-process-flow) lists ten, [B2B Marketing World](https://www.b2bmarketingworld.com/sales/lead-management/process/) six. Reduced to what they share:" },
+      { type: "prose-table", head: ["Stage", "What happens", "Owner"], rows: [
+        { muted: true, cells: ["Generation", "Attracting the lead through content, search, paid ads or outbound. Listed by most models. Excluded here: it creates the lead rather than managing it", "Marketing"] },
+        { cells: ["Capture", "The lead arrives and becomes a record: contact, channel, source", "System"] },
+        { cells: ["Enrichment", "Firmographic and contact data is appended", "System"] },
+        { cells: ["Qualification", "The lead is assessed against your definition of a good lead, commonly expressed as MQL and SQL thresholds", "Rules, then a person for edge cases"] },
+        { cells: ["Scoring", "A numeric fit and intent value is attached", "System"] },
+        { cells: ["Routing", "The lead reaches the right person or sequence", "Rules"] },
+        { cells: ["Nurture", "Leads not ready now are sequenced until they act", "System"] },
+        { cells: ["Handoff", "A qualified lead reaches a human who will sell to it", "The boundary"] },
+        { cells: ["Conversion", "Discovery, proposal, negotiation, close", "Sales"] },
+      ] },
+      { type: "p", text: "**MQL and SQL, defined.** A Marketing Qualified Lead has met engagement criteria set by marketing, such as a content download or webinar attendance, but has not been validated by sales. A Sales Qualified Lead has been validated by sales on both fit and intent. The gap between the two is where most of the published literature lives, and the next section explains why that gap may not exist in your business." },
+      { type: "p", text: "Two distinctions worth keeping straight because they are constantly conflated. Lead scoring is the numeric output, while lead qualification is the wider workflow that decides which criteria feed the score, who owns each stage, and what happens once a lead crosses the threshold. Scoring is a tactic; qualification is the system it sits inside." },
+      { type: "p", text: "Choosing between qualification frameworks is a fit question rather than a quality one. BANT suits high-velocity SMB deals, while MEDDIC is the standard for enterprise deals with large buying committees, and neither is better than the other because they answer different questions." },
+
+      { type: "h2", id: "why-the-standard-model-assumes-a-company-you-may-not-be", text: "Why the standard model assumes a company you may not be" },
+      { type: "p", text: "Read those models closely and they share an unstated premise: that you have a marketing team producing leads, a sales team receiving them, and a disagreement between the two that needs governing." },
+      { type: "p", text: "It explains why so much of the literature concerns MQL and SQL definitions, service level agreements between departments, and stopping leads falling through the gap at handoff, all of which are real problems in a company with two teams." },
+      { type: "p", text: "Most businesses buying lead management run with a lean team, or none at all. A dental practice, a law firm, a mortgage broker, a commercial cleaning company. The person responsible for fielding an inquiry is usually the same person delivering the service, and more often than not they are in front of a client when it arrives." },
+      { type: "p", text: "For those businesses the standard model misdiagnoses the failure. There is no marketing-to-sales gap because there is no marketing team, and the gap that does exist sits between the lead arriving and anyone seeing it at all. A company with two teams needs shared definitions and an agreed handoff; a company with one team needs the first six stages to run without anyone remembering to run them, which is a different problem with a different remedy and considerably less written about it." },
+
+      { type: "h2", id: "where-leads-actually-leak", text: "Where leads actually leak" },
+      { type: "p", text: "Published figures put the leak in specific places. [B2B Marketing World](https://www.b2bmarketingworld.com/sales/lead-management/process/) reports that 30% to 40% of leads are lost immediately after form submission through slow routing, poor qualification, or no follow-up at all, and that 80% of new leads never convert without nurturing." },
+      { type: "p", text: "Both deserve caution. Neither carries a citation to primary research anywhere we could find it, and they circulate in this field the way the five-minute rule does: quoted often, sourced rarely. They are directionally useful and should not be planned against." },
+      { type: "p", text: "Above all of it sits the five-minute rule: respond within five minutes and you are far more likely to qualify a lead than if you wait thirty, usually quoted as a 21x multiplier." },
+      { type: "p", text: "It is also very old, tracing to a Lead Response Management study and a Harvard Business Review piece from 2011 and 2012, both conducted on B2B sales pipelines at a particular moment in a particular kind of company. Fifteen years later it remains the number everyone reaches for, largely because nobody has bothered to replace it." },
+
+      { type: "h2", id: "what-we-found-when-we-tested-it", text: "What we found when we tested it" },
+      { type: "p", text: "We ran a current study rather than citing the old one." },
+      { type: "p", text: "In the [2026 US Service Business Response Study](/resources/2026-us-service-business-response-study) we sent a real inquiry to 273 US owner-operated service businesses across five sectors and recorded what happened to it. Two of the findings bear directly on lead management." },
+      { type: "p", text: "**One in five had no working web inquiry form.** 20.5% had no form present, a social link in place of one, or a submission container that did not function. Those leads were never lost at routing or at handoff. They never entered the process at all, and no amount of qualification discipline recovers a lead that had nowhere to land." },
+      { type: "p", text: "**Seven in ten delivered inquiries got nothing back.** Of 211 inquiries provably delivered, 29.9% drew any reply within 72 hours and 21.3% drew a reply from a person, leaving 70.1% that received nothing at all." },
+      { type: "p", text: "Median time to a first reply was 5.1 hours, rising to 8.8 hours counting only replies from a person. Inquiries arriving outside the business's own opening hours were answered 19.8% of the time against 34.8% during them." },
+      { type: "p", text: "Set that against the five-minute rule and the two are barely discussing the same thing. Whether five minutes beats thirty is a question for a business that replies at all." },
+      { type: "p", text: "None of that is a scoring failure, and no amount of qualification discipline touches it. Every business in that sample already had demand arriving; what varied was whether anything happened to it once it did." },
+
+      { type: "h2", id: "lead-management-software-systems--services", text: "Lead management software, systems & services" },
+      { type: "p", text: "Three things get used interchangeably and are not the same." },
+      { type: "p", text: "**Lead management software** is a product you configure and operate. Most of what ranks under that term is CRM: Salesforce, HubSpot, Pipedrive, Zoho. A CRM is a system of record: it stores the lead, tracks the stages and reports on the pipeline. It does not work the lead. If nobody opens it, nothing happens." },
+      { type: "p", text: "**A lead management system** is the process, whether or not software runs it. The same seven stages exist in a marketing automation platform, in a CRM, or in a spreadsheet with a person following rules. Buying software does not create the system; it gives the system somewhere to live." },
+      { type: "p", text: "**Lead management services** are the process operated for you by someone else. This is the least discussed of the three and the right answer for a business without a team to run the first six stages." },
+      { type: "p", text: "When you are choosing between them, the question a system of record answers is what happened to that lead, and the question an operated service answers is who is doing this on Friday at 7pm. Companies routinely buy the first and then discover they still need the second." },
+
+      { type: "h2", id: "the-line-between-lead-management-and-selling", text: "The line between lead management and selling" },
+      { type: "p", text: "Every model in this space runs the process through to closed deal, which is where the honesty runs out." },
+      { type: "p", text: "Stages before the handoff are operational: they follow rules, they are the same every time, and they can be automated or delegated without loss. Stages after it are nothing of the kind, because discovery, proposal and negotiation depend on judgment about a specific buyer, and nobody outside the business can do them credibly." },
+      { type: "p", text: "Which means the useful question is not how to automate lead management. It is where the line falls, and then getting everything before the line to run reliably so that the person who does sell only ever sees leads worth their time." },
+      { type: "p", text: "There is a second problem with the standard model, and it follows from the same place. Every published stage list ends the managed portion at a handoff to a sales representative, because the models were written for enterprise sales cycles. Not one of them contains a booking stage. None contains a no-show stage." },
+      { type: "image", src: "/assets/b2b-lead-management-diagram.svg", alt: "Diagram comparing the standard B2B lead management model, which ends at a handoff to sales, with the stages a service business needs: capture, qualify, book, retain, reactivate and follow through, with book and retain missing from every standard model", caption: "The stages before the handoff are rule-based and can be operated. Book and Retain appear in no published model." },
+      { type: "p", text: "For most service businesses the object of lead management is not an opportunity record in a CRM. It is a confirmed appointment in the diary that the customer actually turns up to. A model with no booking stage cannot describe that, which is why the process fails between \"qualified\" and \"in the calendar\", in precisely the businesses the model was never written for." },
+
+      { type: "h2", id: "how-rosebud-maps-to-the-lead-management-process", text: "How Rosebud maps to the lead management process" },
+      { type: "p", text: "We built the seven capabilities against the stages above, including the two the standard model leaves out." },
+      { type: "prose-table", head: ["Process stage", "Rosebud capability", "What runs"], rows: [
+        { cells: ["Capture", "Capture", "Any new inquiry on email, SMS, WhatsApp or Instagram is answered in seconds and becomes a single lead record with contact, channel and source"] },
+        { cells: ["Qualification, scoring, routing", "Qualify", "Every lead scored against the client's own good-lead definition, with three exits: continue, escalate to a person, or not qualified"] },
+        { cells: ["Missing from the standard model", "Book", "Live availability offered and confirmed in real time, straight into the existing calendar"] },
+        { cells: ["Missing from the standard model", "Retain", "Confirmations, reminders, reschedules and no-show recovery, so the appointment is kept rather than merely made"] },
+        { cells: ["Nurture", "Reactivate", "Leads that went cold sequenced until they act, re-entering qualification when they respond"] },
+        { cells: ["After the booking", "Follow through", "Documents chased, stakeholders updated, quotes run to a decision, invoices issued and chased"] },
+        { cells: ["Reporting back to ad spend", "Closed-loop attribution (add-on)", "The qualified-or-not outcome matched back to the original ad click and delivered to the client's media team"] },
+      ] },
+      { type: "p", text: "Two things about how that runs are worth stating plainly. It is operated by us rather than configured by you, so nobody on your side maintains a workflow, and it stops at the booking. What happens inside that meeting is your expertise, and any provider promising to run lead management all the way through to close is selling something they cannot deliver." },
+
+      { type: "h2", id: "lead-management-best-practices", text: "Lead management best practices" },
+      { type: "p", text: "Standard advice here comes down to three things, of which two are right and one is written for a company you may not be." },
+      { type: "p", text: "**Align teams on shared definitions.** Agree exactly what qualifies a lead and what triggers a handoff, so marketing and sales stop arguing about lead quality. That is sound advice in a company with two teams. With one team, replace it with a definition written down once so it survives the person who wrote it being on holiday." },
+      { type: "p", text: "**Prioritize fit over volume.** Score against an ideal customer profile rather than chasing contact count. This one holds at every size, because more leads entering a process that does not answer them simply produces more unanswered leads." },
+      { type: "p", text: "**Automate the repetitive steps.** The usual recommendation is a centralized platform such as Salesforce or Monday to hold data, triggers and tasks, which is fine as far as it goes. A platform holds the record and fires the trigger; it does not do the work at the other end. An immaculately automated CRM with nobody watching it on a Friday evening just produces a very well documented lost lead." },
+      { type: "p", text: "**The rule most guides skip: audit your own intake.** Submit a real inquiry through every channel you publish, from a phone on cellular data rather than the office network, on a schedule. It costs nothing to run, and one business in five has a web form that would fail it." },
+
+      { type: "h2", id: "how-to-build-a-lead-management-process", text: "How to build a lead management process" },
+      { type: "p", text: "Four steps, in this order, whatever tooling you end up with." },
+      { type: "p", text: "**1. Audit every channel leads arrive on.** Web form, email, phone, WhatsApp, social message, referral. Then test each one from outside your own network, sending a real inquiry from a phone on cellular data to confirm it lands. Most people are surprised by what breaks." },
+      { type: "p", text: "**2. Write down what a good lead is.** In plain terms, before any scoring model: what budget, what timeline, what service, what geography. If two people in the business would answer differently, the definition is not written down yet." },
+      { type: "p", text: "**3. Decide the three exits.** A qualified lead continues to booking. Some leads must reach a person immediately, and you should name which: a clinical concern, an emergency, a decision only a licensed professional can take. The rest are not qualified, and you decide now whether they are dropped, nurtured or suppressed." },
+      { type: "p", text: "**4. Set a response time and make it survive a busy week.** Not an aspiration. A rule that holds at 7pm on a Friday when everyone is with a client, which means it cannot depend on anyone remembering." },
+      { type: "p", text: "Only then does the tooling question make sense, because by that point you know what the tool is for." },
+
+      { type: "h2", text: "If the first six stages are not running" },
+      { type: "p", text: "Most businesses do not need better lead management software. They need the process they already have to work reliably on a Friday evening, in a busy week, when the person who would answer is tied up with a client." },
+      { type: "p", text: "Running exactly that is what Rosebud does, with seven capabilities on one engine, carrying every inquiry from the moment it lands to a booked appointment, run by us and reporting into your existing CRM and calendar." },
+      { type: "p", text: "[See pricing and plans](/pricing) · [Book a consultation](https://cal.eu/rosebudsolutions/demo)" },
+
+      {
+        type: "related", items: [
+          { href: "/resources/2026-us-service-business-response-study", title: "The 2026 US Service Business Response Study", desc: "What happened when we sent a real inquiry to 273 US service businesses" },
+          { href: "/resources/how-to-get-cleaning-contracts", title: "How to get cleaning contracts", desc: "Lead management applied in one sector" },
+          { href: "/industries/commercial-cleaning", title: "Commercial cleaning inquiry handling" },
+          { href: "/pricing", title: "Pricing" },
+        ],
+      },
+
+      { type: "h2", id: "frequently-asked-questions", text: "Frequently asked questions" },
+      {
+        type: "faq", items: [
+          { q: "What are the core stages of lead management?", a: "Most published models list six: generation, capture, scoring, qualification, routing and nurturing, with conversion following the handoff to sales. Generation is better understood as a separate discipline, since it creates the lead rather than managing one that already exists. The stages before the handoff are rule-based and can be operated by a system or a third party. The stages after it depend on judgment about a specific buyer." },
+          { q: "What is B2B lead management?", a: "B2B lead management is the process a business uses to handle a lead between the moment it arrives and the moment a salesperson decides what to do with it. It covers capture, enrichment, qualification, scoring, routing and nurture, ending at the handoff to sales. It is distinct from lead generation, which creates the lead, and from selling, which happens after the handoff." },
+          { q: "What are the stages of the lead management process?", a: "Published models list between six and ten stages and agree on the substance: capture, enrichment, qualification, scoring, routing, nurture, handoff, then conversion. The stages before the handoff are rule-based and repeatable. The stages after it depend on judgment about a specific buyer and cannot be automated or delegated." },
+          { q: "What is the difference between lead management and lead generation?", a: "Lead generation creates the lead through marketing, advertising or outbound activity. Lead management is what happens to that lead afterwards. A business can have excellent lead generation and lose most of its leads to poor management, which is common, because generation is visible and measured while management usually is not." },
+          { q: "What is the difference between lead management software and a CRM?", a: "A CRM is a system of record: it stores the lead, tracks stage changes and reports on the pipeline. Lead management is the process that moves the lead through those stages. The CRM holds the record of what happened; it does not do the work. A business can have an immaculate CRM and still never answer an inquiry." },
+          { q: "Is lead scoring the same as lead qualification?", a: "No. Lead scoring is the numeric output, typically a fit and intent value. Lead qualification is the wider workflow that decides which criteria feed the score, who owns each stage, what the handoff looks like, and what happens when a lead crosses the threshold. Scoring is a tactic inside the qualification system." },
+          { q: "How fast should you respond to a B2B lead?", a: "The widely cited benchmark is five minutes, drawn from research published in 2011 and 2012. Current measurement suggests the benchmark is academic for most businesses: in a 2026 study of 273 US service businesses, the median first reply took 5.1 hours and 70.1% of delivered inquiries received no reply at all within 72 hours." },
+          { q: "What is the most common lead management mistake?", a: "Treating it as a software problem. Published figures put 30% to 40% of lead loss immediately after form submission, from slow routing, poor qualification or no follow-up. Measurement of small service businesses finds a more basic failure still: one in five had no working web inquiry form, so the lead never entered any system to be mismanaged." },
+          { q: "Can lead management be outsourced?", a: "The stages before the handoff can, because they follow rules and run the same way every time: capture, response, qualification, booking, reminders and nurture. The stages after the handoff cannot be outsourced credibly, because discovery, proposal and negotiation depend on judgment about a specific buyer. Any provider claiming to run the whole process through to close is describing something different from what they will deliver." },
         ],
       },
     ],
