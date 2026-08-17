@@ -62,7 +62,7 @@ export const TRADES_STAGE: IndustryStageData = {
   seo: {
     title: "Plumbing & HVAC CRM for Trades Teams | Rosebud",
     description:
-      "A plumbing and HVAC CRM layer that answers every inquiry in under a minute, qualifies and books the job against your live diary, chases quotes and runs follow-up — built around the job management system you already run.",
+      "A plumbing and HVAC CRM that answers every inquiry in under a minute, qualifies and books the job against your live diary, then chases quotes and follow-up.",
     ogTitle: "Plumbing & HVAC CRM — Rosebud for Trades & Home Services",
     ogDescription:
       "Answer every inquiry in under a minute, book the job against the live diary, chase the quote and follow up — a CRM layer for plumbing, HVAC and contractor teams, built around the system you already run.",
@@ -159,7 +159,7 @@ export const FAMILY_LAW_STAGE: IndustryStageData = {
   seo: {
     title: "Legal Intake Software & Law Firm CRM | Rosebud",
     description:
-      "Legal intake software that answers in seconds, captures the matter for your conflict-check review, books the consult and writes it into your case management system. It never accepts a matter — that's always the attorney's.",
+      "Legal intake software that answers in seconds, captures the matter for conflict-check review, and books the consult into your case management system.",
     ogTitle: "Legal intake software — Rosebud for Family Law & Consumer Legal",
     ogDescription:
       "The layer between a new inquiry and a booked consultation: answers in seconds, captures the matter for conflict review, books the consult and writes the record into the case management system you already run.",
@@ -260,7 +260,7 @@ export const HEALTHCARE_STAGE: IndustryStageData = {
   seo: {
     title: "Patient Intake Software & Dental CRM | Rosebud",
     description:
-      "Patient intake that answers in seconds, captures the reason for the visit, books against your live diary and writes the record into your practice management system. It never gives clinical advice — that's always the clinician's.",
+      "Patient intake that answers in seconds, captures the reason for the visit, and books against your live diary into your practice management system.",
     ogTitle: "Patient intake software — Rosebud for Dental, Aesthetic & Private Healthcare",
     ogDescription:
       "The layer between a new patient inquiry and a booked appointment: answers in seconds, captures the reason for the visit, books the appointment and writes the record into the practice management system you already run.",
@@ -370,7 +370,7 @@ export const INSURANCE_STAGE: IndustryStageData = {
   seo: {
     title: "Insurance Agency CRM & Lead Management Software | Rosebud",
     description:
-      "Insurance CRM software that qualifies every inquiry, runs the fact-find, prepares carrier-ready submissions and diarises renewals, writing everything into the agency management system you already run.",
+      "Insurance CRM software that qualifies every inquiry, runs the fact-find, and prepares carrier-ready submissions into the agency system you already run.",
     ogTitle: "Insurance agency CRM & lead management — Rosebud for Insurance",
     ogDescription:
       "Answer every quote request in seconds, capture the risk details, book the producer call and write the record into the agency management system you already run. It never binds coverage — that's the agent's.",
@@ -468,7 +468,7 @@ export const REAL_ESTATE_STAGE: IndustryStageData = {
   seo: {
     title: "Real Estate Transaction Management & Lead Intake Software | Rosebud Solutions",
     description:
-      "Real estate transaction management and lead intake that answers every inquiry in seconds, captures the buyer or seller's details, books the showing and writes the record into your CRM. It never negotiates or advises on price — that's the agent's.",
+      "Real estate transaction management that answers every inquiry in seconds, captures buyer or seller details, and books the showing into your CRM.",
     ogTitle: "Real estate transaction management & lead intake — Rosebud for Real Estate",
     ogDescription:
       "Answer every inquiry in seconds, capture the details, book the showing and keep a worked pipeline with document chase in the CRM you already run. It never negotiates — that's the agent's.",
@@ -566,7 +566,7 @@ export const MORTGAGE_STAGE: IndustryStageData = {
   seo: {
     title: "Mortgage CRM & Lead Management for Loan Officers | Rosebud",
     description:
-      "A mortgage CRM layer that answers every borrower inquiry in seconds, pre-qualifies, collects documentation and chases conditions, writing everything into the LOS and CRM you already run.",
+      "A mortgage CRM layer that answers every borrower inquiry in seconds, pre-qualifies, and chases documentation into the LOS or CRM you already run.",
     ogTitle: "Mortgage CRM & lead management — Rosebud for Mortgage & Lending",
     ogDescription:
       "Answer every borrower inquiry in seconds, pre-qualify, collect documentation and chase conditions, writing everything into the LOS and CRM you already run. It never makes a credit decision — that's the loan officer's.",
@@ -664,7 +664,7 @@ export const CLEANING_STAGE: IndustryStageData = {
   seo: {
     title: "Janitorial CRM for Commercial Cleaning Companies | Rosebud",
     description:
-      "A cleaning company CRM that works commercial cleaning leads end to end. Answers every inquiry in seconds, captures site type, size and frequency, books the walkthrough and chases the bid to a decision. Pricing the contract stays yours.",
+      "A cleaning company CRM that answers every inquiry in seconds, captures site type and frequency, books the walkthrough, and chases the bid to a decision.",
     ogTitle: "Cleaning Company CRM & Inquiry Software | Rosebud",
     ogDescription:
       "The layer between a new cleaning inquiry and a booked site walkthrough: answers in seconds, captures site type, size and frequency, books the survey and chases the bid until there is a decision.",

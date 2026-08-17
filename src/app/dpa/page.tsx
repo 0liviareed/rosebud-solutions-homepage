@@ -1,11 +1,24 @@
 import type { Metadata } from "next";
 import LegalPage from "@/components/redesign/LegalPage";
 
+const DPA_DESCRIPTION =
+  "How Rosebud Solutions processes Contact Data on your behalf under UK GDPR Article 28 — roles, security measures, subprocessors, and breach notification.";
+
 export const metadata: Metadata = {
   title: "Data Processing Agreement",
-  description:
-    "The Data Processing Agreement governing how Rosebud Solutions processes Contact Data on behalf of its customers — roles, security measures, sub-processors, and breach notification.",
+  description: DPA_DESCRIPTION,
   alternates: { canonical: "/dpa" },
+  openGraph: {
+    title: "Data Processing Agreement | Rosebud Global",
+    description: DPA_DESCRIPTION,
+    url: "https://rosebud.global/dpa",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Data Processing Agreement | Rosebud Global",
+    description: DPA_DESCRIPTION,
+  },
 };
 
 const BREADCRUMBS = {

@@ -28,6 +28,9 @@ export type ResourceItem = {
   // Overrides the <title> tag only (search-intent phrasing) — H1, og:title,
   // twitter:title, citation and schema `name` all keep using `title`.
   metaTitle?: string;
+  // Overrides <meta name="description"> only — dek renders on-page and can
+  // run past the ~160-char limit a meta description needs.
+  metaDescription?: string;
   // Question-shaped subhead rendered between the H1 and the dek — matches
   // how someone actually phrases the search, which "Summary" as the first
   // H2 does not.
@@ -402,6 +405,7 @@ export const RESOURCES: Record<string, ResourceItem> = {
     slug: "how-to-get-cleaning-contracts",
     title: "How to Get Cleaning Contracts: Where to Find Them & How to Bid",
     metaTitle: "How to Get Cleaning Contracts | Rosebud Solutions",
+    metaDescription: "Where cleaning contracts are posted, how to bid, and how to win office, government, post-construction and apartment work that never reaches a bid board.",
     dek: "Where cleaning contracts are posted, how to bid on them, and how to win the office, government, post-construction and apartment work that never reaches a bid board.",
     stage: "capture",
     sector: "cleaning",

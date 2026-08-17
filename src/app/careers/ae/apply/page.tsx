@@ -5,7 +5,7 @@ import CareersApplicationForm from "./CareersApplicationForm";
 export const metadata: Metadata = {
   title: { absolute: "Apply — Account Executive — Rosebud Solutions" },
   description:
-    "Apply for the Account Executive role at Rosebud Solutions — remote, commission-only, full-cycle closing. Run the demo, close in the same session, and retain the client after they sign.",
+    "Apply for the Account Executive role at Rosebud Solutions — remote, commission-only, full-cycle closing, no base salary.",
   alternates: { canonical: "/careers/ae/apply" },
   robots: { index: false, follow: true },
 };

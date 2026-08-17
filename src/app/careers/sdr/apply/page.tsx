@@ -5,7 +5,7 @@ import CareersApplicationForm from "./CareersApplicationForm";
 export const metadata: Metadata = {
   title: { absolute: "Apply — Sales Development Representative — Rosebud Solutions" },
   description:
-    "Apply for the Sales Development Representative role at Rosebud Solutions — remote, commission-only, outbound. Qualify prospects from a routed ICP list and hand sales-ready opportunities to a closer.",
+    "Apply for the Sales Development Representative role at Rosebud Solutions — remote, commission-only, outbound, no base salary.",
   alternates: { canonical: "/careers/sdr/apply" },
   robots: { index: false, follow: true },
 };

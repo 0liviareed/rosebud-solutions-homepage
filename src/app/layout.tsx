@@ -88,12 +88,12 @@ export const metadata: Metadata = {
     template: "%s | Rosebud Global",
   },
   description:
-    "Rosebud Solutions is a customer communication platform that carries every inquiry through to a booked appointment — seven capabilities on one engine, run for you and connected to the CRM and calendars you already use.",
+    "Rosebud Solutions carries every inquiry through to a booked appointment — seven capabilities on one engine, connected to the CRM and calendars you already use.",
   alternates: { canonical: "/" },
   openGraph: {
     title: "Customer Communication Platform for SMEs | Rosebud Solutions",
     description:
-      "Rosebud Solutions is a customer communication platform that carries every inquiry through to a booked appointment — seven capabilities on one engine, run for you and connected to the CRM and calendars you already use.",
+      "Rosebud Solutions carries every inquiry through to a booked appointment — seven capabilities on one engine, connected to the CRM and calendars you already use.",
     url: "https://rosebud.global",
     siteName: "Rosebud Global",
     locale: "en_US",
@@ -103,7 +103,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Customer Communication Platform for SMEs | Rosebud Solutions",
     description:
-      "Rosebud Solutions is a customer communication platform that carries every inquiry through to a booked appointment — seven capabilities on one engine, run for you and connected to the CRM and calendars you already use.",
+      "Rosebud Solutions carries every inquiry through to a booked appointment — seven capabilities on one engine, connected to the CRM and calendars you already use.",
   },
 };
 

@@ -8,6 +8,7 @@ export type CapabilityData = {
   slug: string;
   name: string;
   accent: string; // hero/deep-dive mock tint
+  metaDescription: string; // <160 chars — hero.subhead is marketing copy, too long for a meta tag
   hero: { headlinePre: string; headlineEm: string; subhead: string };
   works: { headlinePre: string; headlineEm: string; panels?: string[]; panelsText?: WorksPanelText[] };
   integrationsSub: string;
@@ -83,6 +84,7 @@ export const INT_INDUSTRIES = [
 export const CAPABILITIES: Record<string, CapabilityData> = {
   capture: {
     slug: "capture", name: "Capture", accent: "#8B7DD8",
+    metaDescription: "Answer every inquiry in seconds across website, WhatsApp, SMS, email or social — in your brand voice, logged straight into your CRM. No queue, no missed leads.",
     hero: {
       headlinePre: "Answer every inquiry in seconds & catch leads before they go elsewhere", headlineEm: "",
       subhead: "Stop losing inquiries to slow replies. The second someone messages you through your website, WhatsApp, SMS, email or social, the platform answers in your brand voice and writes the lead straight into your CRM. No queue, no opening hours, nobody dropping what they are doing to reply.",
@@ -106,6 +108,7 @@ export const CAPABILITIES: Record<string, CapabilityData> = {
 
   qualify: {
     slug: "qualify", name: "Qualify", accent: "#6B5CC4",
+    metaDescription: "Every inquiry is checked against your rules on arrival. High-value leads go straight to your calendar, urgent cases escalate, the rest are nurtured or dropped.",
     hero: {
       headlinePre: "Automatically filter out bad leads & only talk to the ones that matter", headlineEm: "",
       subhead: "Stop wasting time on bad data. The platform checks every new inquiry against your operational rules the second it arrives. High-value leads go straight to your calendar, urgent cases jump to your team, and the rest are dropped, nurtured, or suppressed exactly how you want.",
@@ -129,6 +132,7 @@ export const CAPABILITIES: Record<string, CapabilityData> = {
 
   book: {
     slug: "book", name: "Book", accent: "#3B9EFF",
+    metaDescription: "Books appointments straight into your calendar while the lead is still engaged — chat handled in your brand voice, no slow callbacks, no lost bookings.",
     hero: {
       headlinePre: "Book qualified leads into your diary at the peak of their intent", headlineEm: "",
       subhead: "Stop losing leads to slow callbacks. The platform links directly to your calendar to spot real openings, handles the chat using your brand voice, and books the appointment while the lead is active and paying attention.",
@@ -152,6 +156,7 @@ export const CAPABILITIES: Record<string, CapabilityData> = {
 
   retain: {
     slug: "retain", name: "Retain", accent: "#2E9E5B",
+    metaDescription: "Automated reminders over WhatsApp, SMS and email from the moment a slot is booked. Handles changes and rebooks cancellations automatically, no manual tracking.",
     hero: {
       headlinePre: "Protect your schedule & keep more of the appointments you book", headlineEm: "",
       subhead: "Stop losing revenue to empty seats. The platform kicks off an automated reminder chain over WhatsApp, SMS & email using your exact brand tone the moment a slot is booked. It automatically handles changes and rebooks cancellations without you touching a thing.",
@@ -175,6 +180,7 @@ export const CAPABILITIES: Record<string, CapabilityData> = {
 
   reactivate: {
     slug: "reactivate", name: "Reactivate", accent: "#C77DFF",
+    metaDescription: "Works your cold inquiries and past customers due a check-in, sending the right message at the right time until they come back — no lead left behind.",
     hero: {
       headlinePre: "Turn the leads you gave up on into booked appointments", headlineEm: "",
       subhead: "Stop writing off leads that never actually said no. The platform works your cold inquiries, the ones who were not ready yet, and past customers due a check-in, sending the right message at the right time over email, SMS & WhatsApp until they come back to you.",
@@ -198,6 +204,7 @@ export const CAPABILITIES: Record<string, CapabilityData> = {
 
   "follow-through": {
     slug: "follow-through", name: "Follow through", accent: "#E8814A",
+    metaDescription: "Chases missing documents, sends project updates, tracks quotes to a yes, and follows up unpaid invoices until they clear — the admin taken off your desk.",
     hero: {
       headlinePre: "Drive files, updates, quotes & invoices to completion", headlineEm: "",
       subhead: "Clear the paperwork bottleneck off your desk. Turn on the exact modules your business needs: chase missing customer documents, send automated project updates, track sent quotes to a firm yes, or follow up on unpaid invoices until they clear.",
@@ -221,6 +228,7 @@ export const CAPABILITIES: Record<string, CapabilityData> = {
 
   "closed-loop-attribution": {
     slug: "closed-loop-attribution", name: "Closed-loop attribution", accent: "#8B7DD8",
+    metaDescription: "Sends real booked-business outcomes back to your ad platform instead of form fills, so your bidding optimizes for customers, not clicks.",
     hero: {
       headlinePre: "Show Google which ads bring real customers & let it find you ", headlineEm: "more",
       subhead: "Your ad account cannot tell a buyer from a browser. It sees a form submitted, so it goes and buys more forms. Because Rosebud handles the inquiry from first message to booked appointment, we know which ones were real, and we send that verdict back against the exact click that produced it. Your bidding stops optimizing for web forms and starts optimizing for booked business.",

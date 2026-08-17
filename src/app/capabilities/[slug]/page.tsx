@@ -11,10 +11,22 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const { slug } = await params;
   const data = CAPABILITIES[slug];
   if (!data) return {};
+  const title = `Rosebud for ${data.name}`;
   return {
-    title: `Rosebud for ${data.name}`,
-    description: data.hero.subhead,
+    title,
+    description: data.metaDescription,
     alternates: { canonical: `/capabilities/${slug}` },
+    openGraph: {
+      title,
+      description: data.metaDescription,
+      url: `https://rosebud.global/capabilities/${slug}`,
+      type: "website",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description: data.metaDescription,
+    },
   };
 }
 

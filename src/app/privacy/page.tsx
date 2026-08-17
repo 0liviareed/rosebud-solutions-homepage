@@ -1,17 +1,23 @@
 import type { Metadata } from "next";
 import LegalPage from "@/components/redesign/LegalPage";
 
+const PRIVACY_DESCRIPTION =
+  "How Rosebud Global Ltd collects, uses, and safeguards personal information under UK GDPR — for site visitors, platform users, and clients' contact data.";
+
 export const metadata: Metadata = {
   title: "Privacy Notice",
-  description:
-    "How Rosebud Global Ltd collects, uses, stores, and safeguards personal information under UK GDPR — for site visitors, platform users, and the contact data processed on our clients' behalf.",
+  description: PRIVACY_DESCRIPTION,
   alternates: { canonical: "/privacy" },
   openGraph: {
     title: "Privacy Notice | Rosebud Global",
-    description:
-      "How Rosebud Global Ltd collects, uses, stores, and safeguards personal information under UK GDPR — for site visitors, platform users, and the contact data processed on our clients' behalf.",
+    description: PRIVACY_DESCRIPTION,
     url: "https://rosebud.global/privacy",
     type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Privacy Notice | Rosebud Global",
+    description: PRIVACY_DESCRIPTION,
   },
 };
 

@@ -12,13 +12,14 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const data = RESOURCES[slug];
   if (!data) return {};
   const url = `https://rosebud.global/resources/${slug}`;
+  const description = data.metaDescription ?? data.dek;
   return {
     title: { absolute: data.metaTitle ?? `${data.title} | Rosebud Solutions` },
-    description: data.dek,
+    description,
     alternates: { canonical: `/resources/${slug}` },
     openGraph: {
       title: data.title,
-      description: data.dek,
+      description,
       url,
       type: "article",
       locale: "en_US",
@@ -26,7 +27,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     twitter: {
       card: "summary_large_image",
       title: data.title,
-      description: data.dek,
+      description,
     },
   };
 }

@@ -4,7 +4,7 @@ import Link from "next/link";
 export const metadata: Metadata = {
   title: { absolute: "Sales Development Representative — Rosebud Solutions" },
   description:
-    "Remote · Independent contractor · Commission-only · Outbound. High-volume cold calling from a routed ICP list across the UK and US. You qualify prospects and hand sales-ready opportunities to a BDE who closes. No base salary.",
+    "Remote · Independent contractor · Commission-only · Outbound. High-volume cold calling from a routed ICP list; qualify prospects and hand off to a closer.",
   alternates: { canonical: "/careers/sdr" },
   openGraph: {
     title: "Sales Development Representative — Rosebud Solutions",

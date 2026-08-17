@@ -1,17 +1,23 @@
 import type { Metadata } from "next";
 import LegalPage from "@/components/redesign/LegalPage";
 
+const TERMS_DESCRIPTION =
+  "Terms governing use of the Rosebud Global Ltd website and the Rosebud Solutions platform — acceptable use, billing, service levels, and liability.";
+
 export const metadata: Metadata = {
   title: "Terms of Service",
-  description:
-    "The terms governing use of the Rosebud Global Ltd website, the Rosebud Solutions platform, and the inquiry-handling services run on your behalf — acceptable use, service levels, and liability.",
+  description: TERMS_DESCRIPTION,
   alternates: { canonical: "/terms" },
   openGraph: {
     title: "Terms of Service | Rosebud Global",
-    description:
-      "The terms governing use of the Rosebud Global Ltd website, the Rosebud Solutions platform, and the inquiry-handling services run on your behalf — acceptable use, service levels, and liability.",
+    description: TERMS_DESCRIPTION,
     url: "https://rosebud.global/terms",
     type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Terms of Service | Rosebud Global",
+    description: TERMS_DESCRIPTION,
   },
 };
 
