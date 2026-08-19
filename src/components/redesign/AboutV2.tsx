@@ -11,10 +11,10 @@ const eyebrow: CSSProperties = { fontSize: 12, letterSpacing: ".3em", textTransf
 const bodyText: CSSProperties = { fontSize: 17, lineHeight: 1.66, color: "rgba(23,19,31,0.66)" };
 
 const PRINCIPLES: { num: string; head: string; body: string }[] = [
-  { num: "01", head: "Speed is the product", body: "The first business to answer usually wins the work. Everything we built starts from that one fact." },
-  { num: "02", head: "People still get people", body: "We take the chasing, scheduling and re-keying. We never take the conversation that decides whether somebody trusts you." },
-  { num: "03", head: "It gets sharper every month", body: "The system learns what converts in your business by working it. Every month it runs, it knows more than the month before." },
-  { num: "04", head: "Built right, from the first line", body: "Isolation, access control and monitoring were designed into the architecture, not bolted on when somebody asked." },
+  { num: "01", head: "Speed is the product", body: "The first business to respond usually wins the contract. Everything we build starts from that single, unshakeable fact." },
+  { num: "02", head: "People still get people", body: "Our AI takes care of the chasing, scheduling, qualifying, and re-keying. We never replace the human conversations that build real trust." },
+  { num: "03", head: "It gets sharper every month", body: "The system learns what actually converts in your specific business by running it. Every month Rosebud operates, it gets smarter than the month before." },
+  { num: "04", head: "Built right, from line one", body: "Data isolation, strict access controls, and active monitoring were architected into our foundation, never bolted on as an afterthought." },
 ];
 
 const TEAM: { name: string; role: string; ini: string; photo?: string; linkedin: string; email: string }[] = [
@@ -55,11 +55,11 @@ export default function AboutV2() {
         <div aria-hidden style={{ position: "absolute", inset: 0, background: "radial-gradient(120% 90% at 84% 0%, rgba(139,125,216,0.12) 0%, transparent 52%), radial-gradient(80% 70% at 0% 100%, rgba(232,129,74,0.06) 0%, transparent 55%)" }} />
         <div data-reveal style={{ position: "relative", zIndex: 1, maxWidth: 1180, margin: "0 auto" }}>
           <div style={eyebrow}>About Rosebud</div>
-          <h1 style={{ fontFamily: SERIF, fontWeight: 400, fontSize: "clamp(40px,5vw,76px)", lineHeight: 1.03, letterSpacing: "-0.015em", margin: 0, maxWidth: "16ch" }}>
-            The operating system between demand &amp; <em style={{ fontStyle: "italic", color: A }}>revenue</em>
+          <h1 style={{ fontFamily: SERIF, fontWeight: 400, fontSize: "clamp(40px,5vw,76px)", lineHeight: 1.03, letterSpacing: "-0.015em", margin: 0, maxWidth: "18ch" }}>
+            The AI revenue engine between demand &amp; <em style={{ fontStyle: "italic", color: A }}>growth</em>
           </h1>
-          <p style={{ ...bodyText, marginTop: 28, maxWidth: 620, fontSize: 19 }}>
-            Rosebud Solutions is a customer communication platform built on demand capture &amp; conversion infrastructure. We provide seven capabilities on one engine that carry every inquiry through to a booked appointment.
+          <p style={{ ...bodyText, marginTop: 28, maxWidth: 640, fontSize: 19 }}>
+            Rosebud is the intelligent customer communication platform built on demand capture and pipeline infrastructure. Instead of stitching together seven different tools, we run one AI-powered engine that carries every inquiry through to a booked appointment, and works your targeted buyer accounts until they convert.
           </p>
         </div>
       </section>
@@ -68,13 +68,21 @@ export default function AboutV2() {
       <section className="rb-ab-pad" style={{ position: "relative", background: "#F6F3FB", padding: "132px 48px" }}>
         <div data-reveal style={{ maxWidth: 1180, margin: "0 auto" }}>
           <div style={eyebrow}>Our mission</div>
-          <h2 style={{ fontFamily: SERIF, fontWeight: 400, fontSize: "clamp(30px,3.6vw,52px)", lineHeight: 1.1, letterSpacing: "-0.015em", margin: "0 0 44px", maxWidth: "20ch" }}>
-            Most businesses don&apos;t have a lead problem. They have a <em style={{ fontStyle: "italic", color: A }}>follow-up</em> problem, &amp; we exist to close it
+          <h2 style={{ fontFamily: SERIF, fontWeight: 400, fontSize: "clamp(30px,3.6vw,52px)", lineHeight: 1.1, letterSpacing: "-0.015em", margin: "0 0 32px", maxWidth: "20ch" }}>
+            Most businesses don&apos;t have a lead problem. They have a <em style={{ fontStyle: "italic", color: A }}>response and nurture</em> problem
           </h2>
-          <div className="rb-ab-mission-grid">
-            <p style={bodyText}>Money goes out to create demand, then the demand sits in an inbox until the intent has gone cold. We built one system that answers every inquiry within seconds, scores it against your own rules, books it into your diary, and works it again when it goes quiet.</p>
-            <p style={bodyText}>Then we run that system for you, every day, so your people are free for the work only people can do. The rest of this market sells software and wishes you luck. We took the harder route on purpose. That&apos;s work, not licensing, and it&apos;s why an operator can&apos;t simply be swapped out.</p>
+          <p style={{ ...bodyText, maxWidth: 760 }}>Capital goes out to generate demand, only for inbound leads to sit in an inbox until the intent goes cold. Meanwhile, targeted outbound accounts sit stalled in a CRM, going uncontacted because nobody has the time to consistently follow up. We built Rosebud to fix both ends of the revenue equation:</p>
+          <div className="rb-ab-mission-grid" style={{ marginTop: 36 }}>
+            <div>
+              <div style={{ fontSize: 13, fontWeight: 700, letterSpacing: ".06em", textTransform: "uppercase", color: A, marginBottom: 10 }}>Inbound Engine</div>
+              <p style={bodyText}>Our AI instantly converts the leads you already have into booked appointments, answering every inquiry within seconds, scoring it against your rules, and re-engaging when it goes quiet.</p>
+            </div>
+            <div>
+              <div style={{ fontSize: 13, fontWeight: 700, letterSpacing: ".06em", textTransform: "uppercase", color: A, marginBottom: 10 }}>Outbound &amp; Nurture Engine</div>
+              <p style={bodyText}>Just define your ideal customer targets, and Rosebud&apos;s AI agents automatically qualify, contact, and nurture those high-intent buyers through to a meeting.</p>
+            </div>
           </div>
+          <p style={{ ...bodyText, marginTop: 36, maxWidth: 760 }}>Then we run that engine for you, every day, so your team is free to focus on the high-value work only people can do. The rest of the market sells software, hands you the keys, and wishes you luck. We took the harder route on purpose. We deliver operational results, not just software licenses. That is why our platform becomes indispensable from day one.</p>
         </div>
       </section>
 
@@ -83,7 +91,7 @@ export default function AboutV2() {
         <div data-reveal style={{ maxWidth: 1180, margin: "0 auto" }}>
           <div style={eyebrow}>Our values</div>
           <h2 style={{ fontFamily: SERIF, fontWeight: 400, fontSize: "clamp(30px,3.6vw,52px)", lineHeight: 1.05, letterSpacing: "-0.015em", margin: 0 }}>How we build &amp; operate</h2>
-          <p style={{ ...bodyText, marginTop: 18, maxWidth: 560 }}>Four principles that decide every product call and every account we run.</p>
+          <p style={{ ...bodyText, marginTop: 18, maxWidth: 560 }}>Four core principles that guide every product decision we make and every account we manage.</p>
           <div className="rb-ab-principles" style={{ marginTop: 56 }}>
             {PRINCIPLES.map((p) => (
               <div key={p.num} style={{ display: "flex", flexDirection: "column" }}>
