@@ -7,7 +7,7 @@ import BookDemoCTA from "./BookDemoCTA";
 const SERIF = "var(--font-cormorant), 'Cormorant Garamond', serif";
 const A = "#8B7DD8";
 
-const eyebrow: CSSProperties = { fontSize: 12, letterSpacing: ".3em", textTransform: "uppercase", color: A, marginBottom: 22, fontWeight: 600 };
+const eyebrow: CSSProperties = { fontSize: 12, letterSpacing: ".28em", textTransform: "uppercase", color: A, marginBottom: 22 };
 const bodyText: CSSProperties = { fontSize: 17, lineHeight: 1.66, color: "rgba(23,19,31,0.66)" };
 
 const PRINCIPLES: { num: string; head: string; body: string }[] = [
@@ -55,7 +55,7 @@ export default function AboutV2() {
         <div aria-hidden style={{ position: "absolute", inset: 0, background: "radial-gradient(120% 90% at 84% 0%, rgba(139,125,216,0.12) 0%, transparent 52%), radial-gradient(80% 70% at 0% 100%, rgba(232,129,74,0.06) 0%, transparent 55%)" }} />
         <div data-reveal style={{ position: "relative", zIndex: 1, maxWidth: 1180, margin: "0 auto" }}>
           <div style={eyebrow}>About Rosebud</div>
-          <h1 style={{ fontFamily: SERIF, fontWeight: 400, fontSize: "clamp(40px,5vw,76px)", lineHeight: 1.03, letterSpacing: "-0.015em", margin: 0, maxWidth: "18ch" }}>
+          <h1 style={{ fontFamily: SERIF, fontWeight: 500, fontSize: "clamp(40px,5vw,74px)", lineHeight: 1.03, letterSpacing: "-0.01em", margin: 0, maxWidth: "18ch" }}>
             The AI revenue engine between demand &amp; <em style={{ fontStyle: "italic", color: A }}>growth</em>
           </h1>
           <p style={{ ...bodyText, marginTop: 28, maxWidth: 640, fontSize: 19 }}>
@@ -68,7 +68,7 @@ export default function AboutV2() {
       <section className="rb-ab-pad" style={{ position: "relative", background: "#F6F3FB", padding: "132px 48px" }}>
         <div data-reveal style={{ maxWidth: 1180, margin: "0 auto" }}>
           <div style={eyebrow}>Our mission</div>
-          <h2 style={{ fontFamily: SERIF, fontWeight: 400, fontSize: "clamp(30px,3.6vw,52px)", lineHeight: 1.1, letterSpacing: "-0.015em", margin: "0 0 32px", maxWidth: "20ch" }}>
+          <h2 style={{ fontFamily: SERIF, fontWeight: 500, fontSize: "clamp(40px,5vw,74px)", lineHeight: 1.1, letterSpacing: "-0.01em", margin: "0 0 32px", maxWidth: "20ch" }}>
             Most businesses don&apos;t have a lead problem. They have a <em style={{ fontStyle: "italic", color: A }}>response and nurture</em> problem
           </h2>
           <p style={{ ...bodyText, maxWidth: 760 }}>Capital goes out to generate demand, only for inbound leads to sit in an inbox until the intent goes cold. Meanwhile, targeted outbound accounts sit stalled in a CRM, going uncontacted because nobody has the time to consistently follow up. We built Rosebud to fix both ends of the revenue equation:</p>
@@ -90,7 +90,7 @@ export default function AboutV2() {
       <section className="rb-ab-pad" style={{ position: "relative", background: "#ECE7F7", padding: "132px 48px" }}>
         <div data-reveal style={{ maxWidth: 1180, margin: "0 auto" }}>
           <div style={eyebrow}>Our values</div>
-          <h2 style={{ fontFamily: SERIF, fontWeight: 400, fontSize: "clamp(30px,3.6vw,52px)", lineHeight: 1.05, letterSpacing: "-0.015em", margin: 0 }}>How we build &amp; operate</h2>
+          <h2 style={{ fontFamily: SERIF, fontWeight: 500, fontSize: "clamp(40px,5vw,74px)", lineHeight: 1.05, letterSpacing: "-0.01em", margin: 0 }}>How we build &amp; operate</h2>
           <p style={{ ...bodyText, marginTop: 18, maxWidth: 560 }}>Four core principles that guide every product decision we make and every account we manage.</p>
           <div className="rb-ab-principles" style={{ marginTop: 56 }}>
             {PRINCIPLES.map((p) => (
@@ -108,10 +108,10 @@ export default function AboutV2() {
       <section className="rb-ab-pad" style={{ position: "relative", background: "#F6F3FB", padding: "132px 48px" }}>
         <div data-reveal style={{ maxWidth: 1180, margin: "0 auto" }}>
           <div style={eyebrow}>Our team</div>
-          <h2 style={{ fontFamily: SERIF, fontWeight: 400, fontSize: "clamp(30px,3.6vw,52px)", lineHeight: 1.08, letterSpacing: "-0.015em", margin: 0, maxWidth: "18ch" }}>The team that owns the space between demand &amp; revenue</h2>
+          <h2 style={{ fontFamily: SERIF, fontWeight: 500, fontSize: "clamp(40px,5vw,74px)", lineHeight: 1.08, letterSpacing: "-0.01em", margin: 0, maxWidth: "18ch" }}>The team that owns the space between demand &amp; revenue</h2>
           <p style={{ ...bodyText, marginTop: 24, maxWidth: 640 }}>At Rosebud, we&apos;re building the best team to design and operate the layer between what a business spends to win attention &amp; what it actually keeps. If you want to answer every inquiry in seconds, take the chasing off your desk, and see results every day, we&apos;d love to chat.</p>
           <div style={{ display: "flex", alignItems: "center", gap: 20, margin: "52px 0 24px" }}>
-            <span style={{ fontSize: 12, letterSpacing: ".24em", textTransform: "uppercase", color: "rgba(23,19,31,0.45)", whiteSpace: "nowrap" }}>Our leadership team</span>
+            <span style={{ fontSize: 12, letterSpacing: ".28em", textTransform: "uppercase", color: "rgba(23,19,31,0.45)", whiteSpace: "nowrap" }}>Our leadership team</span>
             <span style={{ flex: 1, height: 1, background: "rgba(23,19,31,0.12)" }} />
           </div>
           <div className="rb-ab-team">
@@ -125,7 +125,7 @@ export default function AboutV2() {
                 )}
                 <div style={{ flex: 1, minWidth: 0 }}>
                   <div style={{ fontFamily: SERIF, fontWeight: 500, fontSize: 24, lineHeight: 1.1 }}>{m.name}</div>
-                  <div style={{ fontSize: 12, letterSpacing: ".08em", textTransform: "uppercase", color: "rgba(23,19,31,0.5)", marginTop: 4 }}>{m.role}</div>
+                  <div style={{ fontSize: 12, letterSpacing: ".28em", textTransform: "uppercase", color: "rgba(23,19,31,0.5)", marginTop: 4 }}>{m.role}</div>
                   <div style={{ display: "flex", gap: 10, marginTop: 16 }}>
                     <a href={m.linkedin} target="_blank" rel="noopener noreferrer" aria-label={`${m.name} on LinkedIn`} style={iconBtn}><LinkedIn /></a>
                     <a href={`mailto:${m.email}`} aria-label={`Email ${m.name}`} style={iconBtn}><Email /></a>
@@ -145,7 +145,7 @@ export default function AboutV2() {
           <div style={{ position: "absolute", inset: 0, background: "radial-gradient(120% 90% at 50% 40%, rgba(8,6,10,0.55) 0%, rgba(8,6,10,0.82) 65%, #080609 100%)" }} />
         </div>
         <div data-reveal data-reveal-repeat style={{ position: "relative", zIndex: 1, maxWidth: 760, margin: "0 auto", textAlign: "center" }}>
-          <div style={{ fontSize: 12, letterSpacing: ".32em", textTransform: "uppercase", color: "#B8AEDB", marginBottom: 22 }}>The offer</div>
+          <div style={{ fontSize: 12, letterSpacing: ".28em", textTransform: "uppercase", color: "#B8AEDB", marginBottom: 22 }}>The offer</div>
           <h2 style={{ fontFamily: SERIF, fontWeight: 400, fontSize: "clamp(38px,4.8vw,68px)", lineHeight: 1.03, letterSpacing: "-0.015em", margin: 0 }}>Ready to stabilise your front office?</h2>
           <p style={{ margin: "24px auto 0", maxWidth: 600, fontSize: 17, lineHeight: 1.62, color: "rgba(245,241,234,0.66)" }}>We deploy, manage, and monitor the entire intake layer for you as an operated rental service, connecting directly to your existing CRM and calendars. The system handles the workflow up to the booking using your exact tone; your team closes the sale.</p>
           <div style={{ marginTop: 36, display: "flex", flexWrap: "wrap", alignItems: "center", justifyContent: "center", gap: 16 }}>
