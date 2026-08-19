@@ -81,8 +81,8 @@ export default function Capabilities() {
             {/* LEFT */}
             <div className="rb-uc-left" style={{ display: "flex", flexDirection: "column", justifyContent: "space-between", minHeight: 460 }}>
               <div>
-                <div style={{ marginBottom: 22, maxWidth: "22ch", fontSize: 14, lineHeight: 1.4, color: "rgba(23,19,31,0.55)" }}>Built to capture every buyer and turn instant intent into booked meetings.</div>
-                <div style={{ marginBottom: 14, fontSize: 12, letterSpacing: ".22em", textTransform: "uppercase", color: A, fontWeight: 600 }}>{CASES[active].eyebrow}</div>
+                <div style={{ marginBottom: 24, maxWidth: "23ch", fontFamily: SERIF, fontStyle: "italic", fontWeight: 400, fontSize: 18, lineHeight: 1.35, color: "rgba(23,19,31,0.5)" }}>Built to capture every buyer and turn instant intent into booked meetings.</div>
+                <div style={{ marginBottom: 14, fontSize: 11, letterSpacing: ".18em", textTransform: "uppercase", color: A, fontWeight: 600 }}>{CASES[active].eyebrow}</div>
                 <h2 style={{ fontFamily: SERIF, fontWeight: 500, fontSize: "clamp(40px,5vw,74px)", lineHeight: 0.98, letterSpacing: "-0.02em", maxWidth: "12ch", margin: 0 }}>{CASES[active].title}</h2>
                 <div style={{ marginTop: 30, position: "relative", width: 62, height: 62, flex: "none" }}>
                   <svg width={62} height={62} viewBox="0 0 54 54" style={{ position: "relative", transform: "rotate(-90deg)" }}>
