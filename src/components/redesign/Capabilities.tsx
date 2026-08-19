@@ -82,8 +82,8 @@ export default function Capabilities() {
             <div className="rb-uc-left" style={{ display: "flex", flexDirection: "column", justifyContent: "space-between", minHeight: 460 }}>
               <div>
                 <div style={{ marginBottom: 24, fontFamily: SERIF, fontStyle: "italic", fontWeight: 400, fontSize: 18, lineHeight: 1.35, color: "rgba(23,19,31,0.5)" }}>Built to capture every buyer and turn instant intent into booked meetings.</div>
-                <div style={{ marginBottom: 14, fontSize: 11, letterSpacing: ".18em", textTransform: "uppercase", color: A, fontWeight: 600 }}>{CASES[active].eyebrow}</div>
-                <h2 style={{ fontFamily: SERIF, fontWeight: 500, fontSize: "clamp(40px,5vw,74px)", lineHeight: 0.98, letterSpacing: "-0.02em", maxWidth: "12ch", margin: 0 }}>{CASES[active].title}</h2>
+                <div style={{ marginBottom: 14, fontSize: 12, letterSpacing: ".28em", textTransform: "uppercase", color: A }}>{CASES[active].eyebrow}</div>
+                <h2 style={{ fontFamily: SERIF, fontWeight: 500, fontSize: "clamp(40px,5vw,74px)", lineHeight: 0.98, letterSpacing: "-0.01em", maxWidth: "12ch", margin: 0 }}>{CASES[active].title}</h2>
                 <div style={{ marginTop: 30, position: "relative", width: 62, height: 62, flex: "none" }}>
                   <svg width={62} height={62} viewBox="0 0 54 54" style={{ position: "relative", transform: "rotate(-90deg)" }}>
                     <defs><linearGradient id="ucRingGrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stopColor="#C7BEE8" /><stop offset="100%" stopColor="#8B7DD8" /></linearGradient></defs>
@@ -95,7 +95,7 @@ export default function Capabilities() {
               </div>
               <div style={{ background: "rgba(255,255,255,0.55)", backdropFilter: "blur(16px)", WebkitBackdropFilter: "blur(16px)", border: "1px solid rgba(255,255,255,0.72)", boxShadow: "0 20px 50px -26px rgba(23,19,31,0.2), inset 0 1px 0 rgba(255,255,255,0.6)", borderRadius: 16, padding: "20px 24px", maxWidth: 520, display: "flex", alignItems: "flex-start", gap: 14 }}>
                 <span style={{ color: A, fontSize: 18, lineHeight: 1.4 }}>{CASES[active].icon}</span>
-                <span style={{ fontSize: 16, lineHeight: 1.5, color: "rgba(23,19,31,0.7)" }}>{CASES[active].callout}</span>
+                <span style={{ fontSize: 14.5, lineHeight: 1.6, color: "rgba(23,19,31,0.7)" }}>{CASES[active].callout}</span>
               </div>
             </div>
 

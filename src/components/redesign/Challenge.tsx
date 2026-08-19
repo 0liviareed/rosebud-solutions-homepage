@@ -87,7 +87,7 @@ export default function Challenge() {
 
         <div className="rb-ch-pad2" style={{ position: "relative", zIndex: 2, width: "100%", maxWidth: 1180, margin: "0 auto", padding: "0 48px" }}>
           <div style={{ fontSize: 12, letterSpacing: ".28em", textTransform: "uppercase", color: "#DDD5F5", textShadow: "0 2px 16px rgba(10,7,14,0.85), 0 1px 3px rgba(10,7,14,0.8)" }}>From inquiry to calendar</div>
-          <h2 style={{ fontFamily: SERIF, fontWeight: 500, fontSize: "clamp(30px,3.5vw,50px)", lineHeight: 1.06, letterSpacing: "-0.01em", margin: "14px 0 0", textShadow: "0 3px 26px rgba(10,7,14,0.9), 0 1px 4px rgba(10,7,14,0.75)" }}>Your inbound pipeline, managed to the booking.</h2>
+          <h2 style={{ fontFamily: SERIF, fontWeight: 500, fontSize: "clamp(40px,5vw,74px)", lineHeight: 1.02, letterSpacing: "-0.01em", maxWidth: "17ch", margin: "14px 0 0", textShadow: "0 3px 26px rgba(10,7,14,0.9), 0 1px 4px rgba(10,7,14,0.75)" }}>Your inbound pipeline, managed to the booking.</h2>
           <p style={{ margin: "14px 0 0", fontSize: 16, lineHeight: 1.55, color: "rgba(245,241,234,0.92)", maxWidth: "60ch", textShadow: "0 2px 18px rgba(10,7,14,0.9), 0 1px 3px rgba(10,7,14,0.8)", textWrap: "pretty" }}>Rosebud turns raw inbound demand into qualified, confirmed meetings on your team&apos;s calendar.</p>
 
           <div className="rb-ch-grid2" style={{ marginTop: "clamp(20px,2.4vw,38px)" }}>
@@ -126,9 +126,9 @@ export default function Challenge() {
             <div className="rb-ch-card2" style={{ position: "relative", borderRadius: 22, border: "1px solid rgba(255,255,255,0.13)", background: "rgba(12,9,16,0.52)", backdropFilter: "blur(26px)", WebkitBackdropFilter: "blur(24px)", boxShadow: "0 44px 100px -44px rgba(0,0,0,0.7), inset 0 1px 0 rgba(255,255,255,0.08)", padding: `${CARD_PADDING_TOP}px clamp(26px,3vw,40px) clamp(24px,2.8vw,36px)`, minHeight: "min(300px,34vh)", overflow: "hidden" }}>
               <div aria-hidden className="rb-ch-card-rule2" style={{ position: "absolute", top: CONNECTOR_TOP, left: 0, right: 0, height: 1, background: "linear-gradient(90deg, rgba(184,174,219,0.45) 0%, rgba(184,174,219,0.16) 55%, rgba(184,174,219,0) 100%)" }} />
               <div style={{ transition: "opacity .45s ease, transform .45s ease", opacity: 1 }}>
-                <h3 style={{ fontFamily: SERIF, fontWeight: 500, fontSize: "clamp(25px,2.8vw,36px)", lineHeight: 1.12, letterSpacing: "-0.01em", margin: 0, maxWidth: "26ch", color: "#F5F1EA", textShadow: "0 2px 24px rgba(0,0,0,0.5)" }}>{step.title}</h3>
-                <p style={{ margin: "16px 0 0", fontSize: 16.5, lineHeight: 1.64, color: "rgba(245,241,234,0.8)", maxWidth: "56ch", textWrap: "pretty" }}>{step.body}</p>
-                <p style={{ margin: "18px 0 0", paddingTop: 16, borderTop: "1px solid rgba(255,255,255,0.14)", fontSize: 15, lineHeight: 1.5, color: "rgba(184,174,219,0.92)", maxWidth: "50ch" }}>{step.note}</p>
+                <h3 style={{ fontFamily: SERIF, fontWeight: 500, fontSize: 29, lineHeight: 1.1, letterSpacing: "-0.01em", margin: 0, maxWidth: "26ch", color: "#F5F1EA", textShadow: "0 2px 24px rgba(0,0,0,0.5)" }}>{step.title}</h3>
+                <p style={{ margin: "16px 0 0", fontSize: 14.5, lineHeight: 1.6, color: "rgba(245,241,234,0.8)", maxWidth: "56ch", textWrap: "pretty" }}>{step.body}</p>
+                <p style={{ margin: "18px 0 0", paddingTop: 16, borderTop: "1px solid rgba(255,255,255,0.14)", fontSize: 13.5, lineHeight: 1.5, color: "rgba(184,174,219,0.92)", maxWidth: "50ch" }}>{step.note}</p>
               </div>
             </div>
           </div>
