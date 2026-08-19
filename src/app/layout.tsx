@@ -88,12 +88,12 @@ export const metadata: Metadata = {
     template: "%s | Rosebud Global",
   },
   description:
-    "Rosebud Solutions carries every inquiry through to a booked appointment — seven capabilities on one engine, connected to the CRM and calendars you already use.",
+    "Rosebud instantly converts the leads you already have into booked appointments. Define your ideal customer — Rosebud's AI qualifies, contacts, and nurtures them.",
   alternates: { canonical: "/" },
   openGraph: {
     title: "Customer Communication Platform for SMEs | Rosebud Solutions",
     description:
-      "Rosebud Solutions carries every inquiry through to a booked appointment — seven capabilities on one engine, connected to the CRM and calendars you already use.",
+      "Rosebud instantly converts the leads you already have into booked appointments. Define your ideal customer — Rosebud's AI qualifies, contacts, and nurtures them.",
     url: "https://rosebud.global",
     siteName: "Rosebud Global",
     locale: "en_US",
@@ -103,7 +103,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Customer Communication Platform for SMEs | Rosebud Solutions",
     description:
-      "Rosebud Solutions carries every inquiry through to a booked appointment — seven capabilities on one engine, connected to the CRM and calendars you already use.",
+      "Rosebud instantly converts the leads you already have into booked appointments. Define your ideal customer — Rosebud's AI qualifies, contacts, and nurtures them.",
   },
 };
 
@@ -156,7 +156,7 @@ const WEBSITE_SCHEMA = {
   url: "https://rosebud.global",
   inLanguage: "en-US",
   description:
-    "Rosebud Solutions is the operated intake and inquiry-handling layer for owner-operated businesses: it answers, qualifies, books and follows up every inquiry, run day to day by Rosebud and connected to the tools the business already uses.",
+    "Rosebud instantly converts the leads you already have into booked appointments. Define your ideal customer and Rosebud's AI identifies, qualifies, contacts, and nurtures those high-intent buyers.",
   publisher: { "@type": "Organization", name: "Rosebud Global Ltd" },
 };
 

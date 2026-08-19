@@ -529,6 +529,11 @@ button { font: inherit; color: inherit; }
    16ch so the longer sentence wraps into balanced lines. Scoped to .rb-v2 so
    the live/main "you." hero keeps its own size. */
 .rb-v2 .rb-hero-h1 { font-size: clamp(40px, 5vw, 74px); max-width: 16ch; margin-inline: auto; }
+/* Slightly smaller on desktop so the longer hero sentence settles into ~3
+   lines instead of 5 — mobile keeps the base clamp/width above untouched. */
+@media (min-width: 821px) {
+  .rb-v2 .rb-hero-h1 { font-size: clamp(40px, 4.4vw, 62px); max-width: 30ch; }
+}
 /* Flow the phrase spans as continuous inline text so the sentence wraps
    cleanly (like the design) instead of each inline-block wrapping on its own
    and orphaning words. The staggered opacity reveal still applies. */
