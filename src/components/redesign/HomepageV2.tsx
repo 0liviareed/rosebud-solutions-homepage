@@ -337,14 +337,14 @@ export default function HomepageV2() {
       {/* HERO — live site component, new wording only */}
       <Hero
         headline={<>
-          <span className="rb-l1">We close the gap between</span>{" "}
-          <span className="rb-l2a">what you spend &amp; what you&nbsp;</span>
-          <em className="rb-l2b">keep</em>
+          <span className="rb-l1">Rosebud instantly converts the leads you already have</span>{" "}
+          <span className="rb-l2a">into booked&nbsp;</span>
+          <em className="rb-l2b">appointments.</em>
         </>}
         sub=""
         caption=""
         actions={<>
-          <p className="rb-hero-lead">Rosebud Solutions is a customer communication platform built on demand capture &amp; conversion infrastructure. We provide seven capabilities on one engine that carry every inquiry through to a booked appointment.</p>
+          <p className="rb-hero-lead">Just define your ideal customer, and Rosebud&apos;s AI instantly identifies, qualifies, contacts, and nurtures those high-intent buyers.</p>
           <div className="rb-hero-actions">
             <BookDemoCTA label="Get started" href="/pricing" tone="dark" />
             <a className="rb-hero-contact" href="https://cal.eu/rosebudsolutions/demo" target="_blank" rel="noopener noreferrer">Book free consultation</a>
