@@ -25,8 +25,9 @@ export default async function Image({ params }: { params: Promise<{ slug: string
   let diagramSrc: string | null = null;
   if (data?.ogDiagram) {
     try {
-      const svgData = readFileSync(join(process.cwd(), "public", data.ogDiagram));
-      diagramSrc = `data:image/svg+xml;base64,${svgData.toString("base64")}`;
+      const diagramData = readFileSync(join(process.cwd(), "public", data.ogDiagram));
+      const mime = data.ogDiagram.endsWith(".svg") ? "image/svg+xml" : "image/png";
+      diagramSrc = `data:${mime};base64,${diagramData.toString("base64")}`;
     } catch {
       diagramSrc = null;
     }

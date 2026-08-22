@@ -49,7 +49,20 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
       }
     : null;
 
-  const graph = [...(faqNode ? [faqNode] : []), ...(data.extraSchema ?? [])];
+  // Every resource has a `date`, so this node is unconditional — previously
+  // there was no schema node carrying datePublished/dateModified for any
+  // resource at all. `dateModified` defaults to `date` and only needs
+  // setting explicitly on an entry once real content changes after publish.
+  const webPageNode = {
+    "@type": "WebPage",
+    name: data.metaTitle ?? data.title,
+    description: data.metaDescription ?? data.dek,
+    url: `https://rosebud.global/resources/${slug}`,
+    datePublished: data.date,
+    dateModified: data.dateModified ?? data.date,
+  };
+
+  const graph = [webPageNode, ...(faqNode ? [faqNode] : []), ...(data.extraSchema ?? [])];
   const schema = graph.length > 0 ? { "@context": "https://schema.org", "@graph": graph } : null;
 
   return (

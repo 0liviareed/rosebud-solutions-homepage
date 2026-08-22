@@ -56,6 +56,10 @@ export type ResourceItem = {
   kind: string;
   mins: number;
   date: string; // ISO yyyy-mm-dd
+  // Set only when real content changed after the original publish date —
+  // feeds the WebPage schema's dateModified (see page.tsx). Defaults to
+  // `date` when unset.
+  dateModified?: string;
   author?: { name: string; role: string };
   toc?: { id: string; label: string }[];
   featured?: boolean;
@@ -428,6 +432,7 @@ export const RESOURCES: Record<string, ResourceItem> = {
     kind: "guide",
     mins: 12,
     date: "2026-08-13",
+    dateModified: "2026-08-23",
     author: { name: "Sajni Richardson", role: "COO, Rosebud Solutions" },
     toc: [
       { id: "where-cleaning-contracts-actually-come-from", label: "Where cleaning contracts actually come from" },
@@ -593,6 +598,7 @@ export const RESOURCES: Record<string, ResourceItem> = {
     kind: "guide",
     mins: 14,
     date: "2026-08-17",
+    dateModified: "2026-08-23",
     author: { name: "Sajni Richardson", role: "COO, Rosebud Solutions" },
     toc: [
       { id: "what-is-b2b-lead-management", label: "What is B2B lead management?" },
@@ -708,7 +714,7 @@ export const RESOURCES: Record<string, ResourceItem> = {
       {
         type: "related", items: [
           { href: "/resources/2026-us-service-business-response-study", title: "The 2026 US Service Business Response Study", desc: "What happened when we sent a real inquiry to 273 US service businesses" },
-          { href: "/resources/wasted-lead-spend-calculator", title: "Wasted lead spend calculator", desc: "What your unanswered inquiries cost per month" },
+          { href: "/resources/wasted-lead-spend-calculator", title: "Cost per lead calculator", desc: "What your unanswered inquiries cost per month" },
           { href: "/resources/how-to-get-cleaning-contracts", title: "How to get cleaning contracts", desc: "Lead management applied in one sector" },
           { href: "/resources/commercial-cleaning-prices", title: "Commercial cleaning prices" },
           { href: "/industries/commercial-cleaning", title: "Commercial cleaning inquiry handling" },
@@ -886,7 +892,7 @@ export const RESOURCES: Record<string, ResourceItem> = {
         type: "related", items: [
           { href: "/resources/how-to-get-cleaning-contracts", title: "How to get cleaning contracts", desc: "Where the work comes from and how to bid for it" },
           { href: "/resources/2026-us-service-business-response-study", title: "The 2026 US Service Business Response Study", desc: "What happened when we sent a real inquiry to 273 US service businesses" },
-          { href: "/resources/wasted-lead-spend-calculator", title: "Wasted lead spend calculator", desc: "What your unanswered inquiries cost per month" },
+          { href: "/resources/wasted-lead-spend-calculator", title: "What unanswered inquiries cost", desc: "What your unanswered inquiries cost per month" },
           { href: "/resources/b2b-lead-management", title: "B2B lead management", desc: "The stages before the handoff and the part that breaks" },
           { href: "/industries/commercial-cleaning", title: "Commercial cleaning inquiry handling" },
         ],
@@ -909,16 +915,17 @@ export const RESOURCES: Record<string, ResourceItem> = {
 
   "wasted-lead-spend-calculator": {
     slug: "wasted-lead-spend-calculator",
-    title: "Wasted lead spend calculator",
-    metaTitle: "Wasted Lead Spend Calculator: Your True Cost Per Lead | Rosebud Solutions",
+    title: "Wasted lead spend calculator: your true cost per lead",
+    metaTitle: "Wasted Lead Spend Calculator: Your True Cost Per Lead",
     metaDescription: "Your cost per lead assumes every inquiry was worked. Most were not. Calculate what you spend monthly on inquiries nobody answered, using 2026 study data.",
     dek: "A cost per lead figure assumes every inquiry was worked. Most were not. See what your unanswered inquiries actually cost, using benchmarks from our 2026 study of 273 US service businesses.",
-    ogDiagram: "/assets/wasted-lead-spend-diagram.svg",
+    ogDiagram: "/assets/wasted-lead-spend-diagram.png",
     stage: "capture",
     sector: "all",
     kind: "template",
     mins: 9,
     date: "2026-08-21",
+    dateModified: "2026-08-23",
     author: { name: "Sajni Richardson", role: "COO, Rosebud Solutions" },
     extraSchema: [
       {
@@ -930,6 +937,17 @@ export const RESOURCES: Record<string, ResourceItem> = {
         description: "Calculates true cost per worked inquiry and monthly marketing spend lost to unanswered leads, using benchmarks from the 2026 US Service Business Response Study.",
         offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
         publisher: { "@type": "Organization", name: "Rosebud Solutions", url: "https://rosebud.global" },
+      },
+      {
+        "@type": "HowTo",
+        name: "How to calculate cost per lead properly",
+        description: "Four figures that show the true cost of a lead, not just the headline cost per lead.",
+        step: [
+          { "@type": "HowToStep", name: "Cost per inquiry generated", text: "Divide total monthly marketing and advertising spend by inquiries received. Include agency fees, listing fees and content costs alongside media spend. This is the headline number." },
+          { "@type": "HowToStep", name: "Inquiries actually worked", text: "Multiply inquiries received by your response rate. Response rate here means the share that received a reply, not the share that converted." },
+          { "@type": "HowToStep", name: "True cost per worked inquiry", text: "Divide total spend by inquiries actually worked. On a 30% response rate this is more than three times the headline figure." },
+          { "@type": "HowToStep", name: "Wasted spend", text: "Multiply total spend by (1 minus response rate). This is money that bought an inquiry nobody replied to." },
+        ],
       },
     ],
     toc: [
@@ -999,7 +1017,7 @@ export const RESOURCES: Record<string, ResourceItem> = {
 
       { type: "h2", id: "where-the-money-actually-goes", text: "Where the money actually goes" },
       { type: "p", text: "Four failure points, in the order they occur. Each one sits before anything a salesperson could influence." },
-      { type: "image", src: "/assets/wasted-lead-spend-diagram.svg", alt: "Diagram showing monthly demand generation spend divided into five parts: no working form at 20.5%, inquiries nobody sees, replies that come too late, no second touch, and 29.9% that reach a person. 70.1% of delivered inquiries received no reply within 72 hours", caption: "The 70.1% is not lead quality. Those inquiries arrived and nobody replied." },
+      { type: "image", src: "/assets/wasted-lead-spend-diagram.png", alt: "Diagram showing monthly demand generation spend divided into five parts: no working form at 20.5%, inquiries nobody sees, replies that come too late, no second touch, and 29.9% that reach a person. 70.1% of delivered inquiries received no reply within 72 hours", caption: "The 70.1% is not lead quality. Those inquiries arrived and nobody replied." },
       { type: "p", text: "**The form does not work.** No form present, a social link in place of one, or a submission container that silently fails. One in five businesses in our study. The spend is lost with no record that a lead ever existed, which is why this failure is invisible on every dashboard." },
       { type: "p", text: "**The inquiry arrives and nobody sees it.** It lands in a shared inbox at 6pm, or in a notification nobody has enabled, or in a channel the business publishes but does not monitor. Our study found inquiries arriving outside opening hours drew a response 19.8% of the time against 34.8% during them." },
       { type: "p", text: "**Somebody sees it and does not reply in time.** Median first reply in the study was 5.1 hours, rising to 8.8 hours counting only replies from a person. By then the buyer has usually contacted two or three competitors." },
