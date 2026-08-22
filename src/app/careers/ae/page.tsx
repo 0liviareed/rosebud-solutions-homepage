@@ -62,7 +62,7 @@ export default function AePage() {
       <header className="rb-job-header">
         <div className="rb-job-container">
           <p className="rb-job-crumb">Careers · Rosebud Solutions</p>
-          <h1 className="rb-job-title">Account Executive</h1>
+          <h1 className="rb-job-title">Account Executive at Rosebud Solutions</h1>
           <p className="rb-job-strap">
             Remote · UK or US market · Independent contractor · Commission-only · Full-cycle closing
           </p>

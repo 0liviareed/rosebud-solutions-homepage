@@ -84,16 +84,16 @@ const dmMono = DM_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL("https://rosebud.global"),
   title: {
-    default: "Customer Communication Platform for SMEs | Rosebud Solutions",
+    default: "Customer Communication Platform for Service Businesses | Rosebud",
     template: "%s | Rosebud Global",
   },
   description:
-    "Rosebud instantly converts the leads you already have into booked appointments. Define your ideal customer — Rosebud's AI qualifies, contacts, and nurtures them.",
+    "Rosebud answers every inbound inquiry in seconds, qualifies it against your rules, and books it into your calendar. Operated for you, across every channel.",
   alternates: { canonical: "/" },
   openGraph: {
-    title: "Customer Communication Platform for SMEs | Rosebud Solutions",
+    title: "Customer Communication Platform for Service Businesses | Rosebud",
     description:
-      "Rosebud instantly converts the leads you already have into booked appointments. Define your ideal customer — Rosebud's AI qualifies, contacts, and nurtures them.",
+      "Rosebud answers every inbound inquiry in seconds, qualifies it against your rules, and books it into your calendar. Operated for you, across every channel.",
     url: "https://rosebud.global",
     siteName: "Rosebud Global",
     locale: "en_US",
@@ -101,9 +101,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Customer Communication Platform for SMEs | Rosebud Solutions",
+    title: "Customer Communication Platform for Service Businesses | Rosebud",
     description:
-      "Rosebud instantly converts the leads you already have into booked appointments. Define your ideal customer — Rosebud's AI qualifies, contacts, and nurtures them.",
+      "Rosebud answers every inbound inquiry in seconds, qualifies it against your rules, and books it into your calendar. Operated for you, across every channel.",
   },
 };
 
@@ -156,7 +156,7 @@ const WEBSITE_SCHEMA = {
   url: "https://rosebud.global",
   inLanguage: "en-US",
   description:
-    "Rosebud instantly converts the leads you already have into booked appointments. Define your ideal customer and Rosebud's AI identifies, qualifies, contacts, and nurtures those high-intent buyers.",
+    "Rosebud answers every inbound inquiry in seconds, qualifies it against your rules, and books it into your calendar. Operated for you, across every channel.",
   publisher: { "@type": "Organization", name: "Rosebud Global Ltd" },
 };
 

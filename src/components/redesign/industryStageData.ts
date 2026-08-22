@@ -266,7 +266,7 @@ export const HEALTHCARE_STAGE: IndustryStageData = {
       "The layer between a new patient inquiry and a booked appointment: answers in seconds, captures the reason for the visit, books the appointment and writes the record into the practice management system you already run.",
   },
   hero: {
-    h1: "Patient intake that fills the chair — without touching clinical judgment",
+    h1: "Patient intake that fills the chair",
     intro:
       "The layer between a new patient inquiry and a booked appointment. It answers in seconds, captures the reason for the visit, books against the live diary & writes the record into your practice management system. It never gives clinical advice — that decision is always the clinician's.",
   },
@@ -474,7 +474,7 @@ export const REAL_ESTATE_STAGE: IndustryStageData = {
       "Answer every inquiry in seconds, capture the details, book the showing and keep a worked pipeline with document chase in the CRM you already run. It never negotiates — that's the agent's.",
   },
   hero: {
-    h1: "Lead intake that turns an inquiry into a booked showing — without touching your negotiation",
+    h1: "Lead intake that turns an inquiry into a booked showing",
     intro:
       "The layer between a new inquiry and a booked appointment. It answers in seconds, captures the buyer or seller's details, books the showing or listing appointment & writes the record into your CRM. It never negotiates or advises on price — that decision is always the agent's.",
   },
