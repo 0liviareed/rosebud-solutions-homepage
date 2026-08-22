@@ -424,7 +424,7 @@ export const RESOURCES: Record<string, ResourceItem> = {
   "how-to-get-cleaning-contracts": {
     slug: "how-to-get-cleaning-contracts",
     title: "How to Get Cleaning Contracts: Where to Find Them & How to Bid",
-    metaTitle: "How to Get Cleaning Contracts: Where to Find Them in 2026 | Rosebud Solutions",
+    metaTitle: "How to Get Cleaning Contracts: Where to Find Them in 2026",
     metaDescription: "Where cleaning contracts are posted, how to bid on them, and how to win the office, government and post-construction work that never reaches a bid board.",
     dek: "Where cleaning contracts are posted, how to bid on them, and how to win the office, government, post-construction and apartment work that never reaches a bid board.",
     stage: "capture",
@@ -434,6 +434,21 @@ export const RESOURCES: Record<string, ResourceItem> = {
     date: "2026-08-13",
     dateModified: "2026-08-23",
     author: { name: "Sajni Richardson", role: "COO, Rosebud Solutions" },
+    extraSchema: [
+      {
+        "@type": "HowTo",
+        name: "How to bid on cleaning contracts",
+        description: "A labor calculation with a margin on it, from walking the building to following up.",
+        step: [
+          { "@type": "HowToStep", name: "Walk the building first", text: "A walkthrough on anything above roughly $1,500 a month is not optional. It shows what a floor plan cannot: high ceilings, delicate flooring, furniture density, soil load, restroom count." },
+          { "@type": "HowToStep", name: "Calculate labor from a production rate", text: "Production rate is how many square feet one cleaner covers per hour for a given task. Break the building into area types rather than applying one rate to the whole floor." },
+          { "@type": "HowToStep", name: "Add what people forget", text: "Drive time, supervision and consumables all add up and are commonly left out of the calculation." },
+          { "@type": "HowToStep", name: "Add margin by dividing, not by markup", text: "Monthly bid = total monthly cost divided by (1 minus target margin). Adding a percentage on top instead understates your real margin." },
+          { "@type": "HowToStep", name: "Present a monthly figure", text: "Give the total monthly cost and a complete scope rather than a breakdown of hours, which invites negotiation on your production rate instead of your service." },
+          { "@type": "HowToStep", name: "Follow up", text: "Follow up within 48 hours of submitting, and again about five days later. Most lost bids are lost to silence rather than price." },
+        ],
+      },
+    ],
     toc: [
       { id: "where-cleaning-contracts-actually-come-from", label: "Where cleaning contracts actually come from" },
       { id: "where-open-bids-for-cleaning-contracts-are-posted", label: "Where open bids are posted" },
@@ -576,7 +591,7 @@ export const RESOURCES: Record<string, ResourceItem> = {
       {
         type: "related", items: [
           { href: "/resources/commercial-cleaning-prices", title: "Commercial cleaning prices", desc: "Rates per square foot and per hour, and how to price a job that holds its margin" },
-          { href: "/resources/2026-us-service-business-response-study", title: "The 2026 US Service Business Response Study", desc: "What happened when we sent a real inquiry to 273 US service businesses" },
+          { href: "/resources/2026-us-service-business-response-study", title: "2026 lead response benchmarks", desc: "What happened when we sent a real inquiry to 273 US service businesses" },
           { href: "/resources/wasted-lead-spend-calculator", title: "Wasted lead spend calculator", desc: "What your unanswered inquiries cost per month" },
           { href: "/resources/b2b-lead-management", title: "B2B lead management", desc: "The stages before the handoff and the part that breaks" },
           { href: "/industries/commercial-cleaning", title: "Commercial cleaning inquiry handling", desc: "How Rosebud answers and books every inquiry that lands" },
@@ -589,7 +604,7 @@ export const RESOURCES: Record<string, ResourceItem> = {
   "b2b-lead-management": {
     slug: "b2b-lead-management",
     title: "B2B lead management: the process, & the part that actually breaks",
-    metaTitle: "B2B Lead Management: The Process & the Part That Breaks | Rosebud Solutions",
+    metaTitle: "B2B Lead Management: The Process & the Part That Breaks",
     metaDescription: "What B2B lead management is, the stages every model agrees on, and why the standard framework assumes a marketing team most companies do not have.",
     ogImage: "/assets/b2b-lead-management-diagram.png",
     dek: "Every guide lists the same six or seven stages. What actually breaks sits upstream of the stage diagram, in two places most frameworks never mention.",
@@ -600,6 +615,19 @@ export const RESOURCES: Record<string, ResourceItem> = {
     date: "2026-08-17",
     dateModified: "2026-08-23",
     author: { name: "Sajni Richardson", role: "COO, Rosebud Solutions" },
+    extraSchema: [
+      {
+        "@type": "HowTo",
+        name: "How to build a lead management process",
+        description: "Four steps, in order, that hold regardless of what tooling you end up using.",
+        step: [
+          { "@type": "HowToStep", name: "Audit every channel leads arrive on", text: "Web form, email, phone, WhatsApp, social message, referral. Test each one from outside your own network with a real inquiry from a phone on cellular data to confirm it lands." },
+          { "@type": "HowToStep", name: "Write down what a good lead is", text: "In plain terms, before any scoring model: what budget, what timeline, what service, what geography. If two people in the business would answer differently, it is not written down yet." },
+          { "@type": "HowToStep", name: "Decide the three exits", text: "A qualified lead continues to booking. Some leads must reach a person immediately — name which. The rest are not qualified, and you decide now whether they are dropped, nurtured or suppressed." },
+          { "@type": "HowToStep", name: "Set a response time that survives a busy week", text: "Not an aspiration — a rule that holds at 7pm on a Friday when everyone is with a client, which means it cannot depend on anyone remembering." },
+        ],
+      },
+    ],
     toc: [
       { id: "what-is-b2b-lead-management", label: "What is B2B lead management?" },
       { id: "the-b2b-lead-management-process", label: "The B2B lead management process" },
@@ -675,7 +703,7 @@ export const RESOURCES: Record<string, ResourceItem> = {
       { type: "p", text: "Stages before the handoff are operational: they follow rules, they are the same every time, and they can be automated or delegated without loss. Stages after it are nothing of the kind, because discovery, proposal and negotiation depend on judgment about a specific buyer, and nobody outside the business can do them credibly." },
       { type: "p", text: "Which means the useful question is not how to automate lead management. It is where the line falls, and then getting everything before the line to run reliably so that the person who does sell only ever sees leads worth their time." },
       { type: "p", text: "There is a second problem with the standard model, and it follows from the same place. Every published stage list ends the managed portion at a handoff to a sales representative, because the models were written for enterprise sales cycles. Not one of them contains a booking stage. None contains a no-show stage." },
-      { type: "image", src: "/assets/b2b-lead-management-diagram.svg", alt: "Diagram comparing the standard B2B lead management model, which ends at a handoff to sales, with the stages a service business needs: capture, qualify, book, retain, reactivate and follow through, with book and retain missing from every standard model", caption: "The stages before the handoff are rule-based and can be operated. Book and Retain appear in no published model." },
+      { type: "image", src: "/assets/b2b-lead-management-diagram.png", alt: "Diagram comparing the standard B2B lead management model, which ends at a handoff to sales, with the stages a service business needs: capture, qualify, book, retain, reactivate and follow through, with book and retain missing from every standard model", caption: "The stages before the handoff are rule-based and can be operated. Book and Retain appear in no published model." },
       { type: "p", text: "For most service businesses the object of lead management is not an opportunity record in a CRM. It is a confirmed appointment in the diary that the customer actually turns up to. A model with no booking stage cannot describe that, which is why the process fails between \"qualified\" and \"in the calendar\", in precisely the businesses the model was never written for." },
 
       { type: "h2", id: "how-rosebud-maps-to-the-lead-management-process", text: "How Rosebud maps to the lead management process" },
@@ -715,8 +743,8 @@ export const RESOURCES: Record<string, ResourceItem> = {
         type: "related", items: [
           { href: "/resources/2026-us-service-business-response-study", title: "The 2026 US Service Business Response Study", desc: "What happened when we sent a real inquiry to 273 US service businesses" },
           { href: "/resources/wasted-lead-spend-calculator", title: "Cost per lead calculator", desc: "What your unanswered inquiries cost per month" },
-          { href: "/resources/how-to-get-cleaning-contracts", title: "How to get cleaning contracts", desc: "Lead management applied in one sector" },
-          { href: "/resources/commercial-cleaning-prices", title: "Commercial cleaning prices" },
+          { href: "/resources/how-to-get-cleaning-contracts", title: "Where cleaning contracts come from", desc: "Lead management applied in one sector" },
+          { href: "/resources/commercial-cleaning-prices", title: "What commercial cleaning actually costs" },
           { href: "/industries/commercial-cleaning", title: "Commercial cleaning inquiry handling" },
           { href: "/pricing", title: "Pricing" },
         ],
@@ -741,15 +769,29 @@ export const RESOURCES: Record<string, ResourceItem> = {
   "commercial-cleaning-prices": {
     slug: "commercial-cleaning-prices",
     title: "Commercial cleaning prices: what to charge & what it costs in 2026",
-    metaTitle: "Commercial Cleaning Prices 2026: Rates & How to Bid | Rosebud Solutions",
+    metaTitle: "Commercial Cleaning Prices 2026: Rates & How to Bid",
     metaDescription: "What commercial cleaning costs per square foot and per hour in 2026, why published rate charts break on small buildings, and how to price for margin.",
     dek: "Nobody publishes a rate card in commercial cleaning. Here is what the published ranges actually say, where they agree, and the one place almost all of them go wrong.",
+    ogDiagram: "/assets/small-building-effect.png",
     stage: "capture",
     sector: "cleaning",
     kind: "guide",
     mins: 13,
     date: "2026-08-15",
     author: { name: "Sajni Richardson", role: "COO, Rosebud Solutions" },
+    extraSchema: [
+      {
+        "@type": "HowTo",
+        name: "How to price commercial cleaning jobs",
+        description: "Four steps, in order, since each depends on the one before it.",
+        step: [
+          { "@type": "HowToStep", name: "Measure cleanable square footage, not gross", text: "Exclude storage, server rooms, closets and anything not being cleaned. Gross footage inflates the building and produces a rate that looks competitive and is not." },
+          { "@type": "HowToStep", name: "Convert footage to hours using production rates", text: "A production rate is how many square feet one cleaner covers per hour for a given task. Break the building into area types and rate each separately." },
+          { "@type": "HowToStep", name: "Cost the hours at your fully loaded rate", text: "Not the wage — wage plus payroll taxes, workers' compensation, general liability allocation and any benefits." },
+          { "@type": "HowToStep", name: "Add non-labor costs, then build the margin in by dividing", text: "Monthly bid = total monthly cost divided by (1 minus target margin). Dividing gives you the margin; adding a percentage on top does not." },
+        ],
+      },
+    ],
     toc: [
       { id: "how-much-do-commercial-cleaners-charge-per-hour", label: "How much do cleaners charge per hour?" },
       { id: "commercial-cleaning-prices-per-square-foot", label: "Prices per square foot" },
@@ -811,7 +853,7 @@ export const RESOURCES: Record<string, ResourceItem> = {
       { type: "p", text: "Per-square-foot benchmarks are drawn from large buildings. One provider's published figures show a 50,000 square foot office on overnight cleaning running $6,000 to $9,000 a month, which is $0.12 to $0.18 per square foot. That is a real number for that building." },
       { type: "p", text: "Apply the same rate to a 6,000 square foot office and you get $720 to $1,080 a month, and you will lose money on it." },
       { type: "p", text: "It happens because a large part of your cost does not scale down with the building." },
-      { type: "image", src: "/assets/small-building-effect.svg", alt: "Chart showing the share of monthly cost that does not scale with building size: 54% on a 6,000 square foot account falling to 14% on a 50,000 square foot account" },
+      { type: "image", src: "/assets/small-building-effect.png", alt: "Chart showing the share of monthly cost that does not scale with building size: 54% on a 6,000 square foot account falling to 14% on a 50,000 square foot account" },
       { type: "list", items: [
         { lead: "Drive time is fixed per visit.", text: "Forty-five minutes each way costs you an hour and a half of paid labor whether the building is 6,000 square feet or 60,000." },
         { lead: "Supervision is fixed per account.", text: "Someone inspects the work and takes the client's calls regardless of size." },
@@ -891,9 +933,9 @@ export const RESOURCES: Record<string, ResourceItem> = {
       {
         type: "related", items: [
           { href: "/resources/how-to-get-cleaning-contracts", title: "How to get cleaning contracts", desc: "Where the work comes from and how to bid for it" },
-          { href: "/resources/2026-us-service-business-response-study", title: "The 2026 US Service Business Response Study", desc: "What happened when we sent a real inquiry to 273 US service businesses" },
+          { href: "/resources/2026-us-service-business-response-study", title: "273-business response study", desc: "What happened when we sent a real inquiry to 273 US service businesses" },
           { href: "/resources/wasted-lead-spend-calculator", title: "What unanswered inquiries cost", desc: "What your unanswered inquiries cost per month" },
-          { href: "/resources/b2b-lead-management", title: "B2B lead management", desc: "The stages before the handoff and the part that breaks" },
+          { href: "/resources/b2b-lead-management", title: "The lead management process", desc: "The stages before the handoff and the part that breaks" },
           { href: "/industries/commercial-cleaning", title: "Commercial cleaning inquiry handling" },
         ],
       },
