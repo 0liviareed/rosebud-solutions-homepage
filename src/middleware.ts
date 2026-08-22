@@ -4,9 +4,62 @@ import { createAppSupabaseMiddlewareClient } from '@/lib/appSupabaseSession';
 
 const ENGINE_HOST = 'engine.rosebud.global';
 
+// Hotlink protection — blocks other sites from embedding our images directly
+// (bandwidth theft, unauthorized reuse) by checking the Referer on image
+// requests. Cannot stop someone saving a copy of an image they can already
+// see rendered on the page — no server-side control can. This only stops
+// the img src="https://rosebud.global/assets/..." case where another site's
+// page loads our file straight from our server.
+//
+// No-Referer requests are allowed through, not blocked: direct URL access,
+// most crawlers/bots (including the ones that fetch og:image for link
+// previews — LinkedIn, Slack, etc. — which generally don't send a Referer),
+// email clients, and privacy-focused browsers that strip it all look
+// identical to "no referer" and there is no way to tell them apart from a
+// hotlinker with a stripped referer. This is the standard, accepted
+// trade-off for Referer-based hotlink protection.
+const HOTLINK_IMAGE_RE = /\.(png|jpe?g|gif|webp|avif|svg)$/i;
+const OG_IMAGE_ROUTE_RE = /^\/(opengraph-image|resources\/[^/]+\/opengraph-image)$/;
+
+function isAllowedImageReferer(referer: string): boolean {
+  try {
+    const { hostname } = new URL(referer);
+    if (
+      hostname === 'rosebud.global' ||
+      hostname === 'www.rosebud.global' ||
+      hostname === 'engine.rosebud.global' ||
+      hostname === 'localhost' ||
+      hostname === '127.0.0.1'
+    ) {
+      return true;
+    }
+    // Vercel preview deployments (branch/PR previews the team uses).
+    return hostname.endsWith('.vercel.app');
+  } catch {
+    // Malformed Referer header — fail open rather than risk a false block.
+    return true;
+  }
+}
+
 export async function middleware(request: NextRequest) {
   const host = request.headers.get('host') || '';
   const path = request.nextUrl.pathname;
+
+  // Hotlink check runs first and short-circuits — cheapest possible check,
+  // and image requests never intersect with any of the routing logic below.
+  if (
+    path !== '/favicon.ico' &&
+    HOTLINK_IMAGE_RE.test(path) &&
+    !OG_IMAGE_ROUTE_RE.test(path)
+  ) {
+    const referer = request.headers.get('referer');
+    if (referer && !isAllowedImageReferer(referer)) {
+      return new NextResponse('Hotlinking not permitted. Visit https://rosebud.global', {
+        status: 403,
+        headers: { 'Content-Type': 'text/plain; charset=utf-8', 'Cache-Control': 'no-store' },
+      });
+    }
+  }
 
   // Real per-client auth for /app/* — the authenticated area built on the
   // rosebud-app Supabase project (orgs/profiles/org_members/Auth), separate

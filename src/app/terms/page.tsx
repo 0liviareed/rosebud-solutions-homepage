@@ -42,7 +42,7 @@ export default function TermsPage() {
       <LegalPage
         title={<>Terms of <em>Service.</em></>}
         crumbLabel="Terms of Service"
-        lastUpdated="July 22, 2026"
+        lastUpdated="August 22, 2026"
       >
           {/* Intro */}
           <p className="rb-legal-intro">
@@ -322,12 +322,32 @@ export default function TermsPage() {
             <h2 className="rb-legal-h2">Intellectual Property</h2>
             <p>
               All content on this website, including text, graphics, logos,
-              systems frameworks, methodologies, and materials, is the
-              property of Rosebud Global Ltd unless otherwise stated.
+              diagrams, charts, systems frameworks, methodologies, and
+              materials, is the property of Rosebud Global Ltd unless
+              otherwise stated.
             </p>
             <p>
-              You may not reproduce, distribute, modify, or commercially
-              exploit any material without prior written consent.
+              &copy; {new Date().getFullYear()} Rosebud Global Ltd. All
+              rights reserved. No part of this website, including its
+              images, diagrams and other graphics, may be reproduced,
+              distributed, embedded, modified, or commercially exploited
+              without our prior written consent.
+            </p>
+            <p>
+              We monitor for unauthorized use of our content and images
+              across the web, and we enforce our rights against
+              infringement, including by issuing takedown notices and
+              pursuing legal action where appropriate. If you believe your
+              work has been used on our site without authorization, or you
+              would like to report unauthorized use of our content
+              elsewhere, contact us at{" "}
+              <a
+                href="mailto:contact@rosebud.global"
+                className="rb-legal-link"
+              >
+                contact@rosebud.global
+              </a>
+              .
             </p>
           </section>
 
