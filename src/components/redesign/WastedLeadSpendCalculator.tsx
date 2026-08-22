@@ -11,22 +11,50 @@ import { useEffect, useMemo, useState, type CSSProperties } from "react";
 // palette (#080609 / #F5F1EA / #8B7DD8), not the reference file's light theme — only the
 // interaction logic and copy came from that file.
 //
+// Glass treatment (blur + translucent fill + inset highlight) mirrors the site's own
+// established recipe — see the `glass` token in PricingV2.tsx and the dark-context purple
+// glass button in BookDemoCTA.tsx — adapted to dark/cream instead of their light/white.
+// Primary CTA and the accent number stay fully opaque on purpose: everything else gets the
+// frosted treatment, the one thing you actually click stays unambiguous.
+//
 // The source copy says "enquiries" throughout (UK spelling); normalized to "inquiries"
 // here to match the US spelling used everywhere else on this page and site.
 
 const SERIF = "var(--font-cormorant), 'Cormorant Garamond', serif";
 const A = "#8B7DD8";
 const A_LIGHT = "#B8AEDB";
-const DARK = "#080609";
 const CREAM = "#F5F1EA";
 const LINE = "rgba(245,241,234,0.16)";
 const MUTE = "rgba(245,241,234,0.58)";
+const BLUR = "blur(20px) saturate(160%)";
+const BLUR_WEBKIT = "blur(20px) saturate(160%)";
 
 const labelStyle: CSSProperties = { fontSize: 15, fontWeight: 600, color: CREAM, marginBottom: 8, display: "block", lineHeight: 1.35 };
 const hintStyle: CSSProperties = { fontSize: 11.5, color: MUTE, lineHeight: 1.45, marginTop: 6, fontWeight: 400 };
-const inputStyle: CSSProperties = { width: "100%", border: "1px solid rgba(23,19,31,0.12)", background: CREAM, borderRadius: 9, padding: "12px 13px", fontSize: 15, color: "#17131F", outline: "none", fontFamily: "inherit", boxSizing: "border-box" };
-const cardStyle: CSSProperties = { background: "rgba(245,241,234,0.06)", border: `1px solid ${LINE}`, borderRadius: 12, padding: "16px 18px" };
-const cardHiStyle: CSSProperties = { ...cardStyle, border: `2px solid ${A}`, background: "rgba(139,125,216,0.14)" };
+const inputStyle: CSSProperties = { width: "100%", border: "1px solid rgba(23,19,31,0.1)", background: "rgba(245,241,234,0.94)", backdropFilter: "blur(8px)", WebkitBackdropFilter: "blur(8px)", borderRadius: 10, padding: "12px 13px", fontSize: 15, color: "#17131F", outline: "none", fontFamily: "inherit", boxSizing: "border-box", boxShadow: "inset 0 1px 2px rgba(23,19,31,0.05)" };
+const cardStyle: CSSProperties = {
+  background: "rgba(245,241,234,0.07)",
+  backdropFilter: BLUR,
+  WebkitBackdropFilter: BLUR_WEBKIT,
+  border: `1px solid ${LINE}`,
+  borderRadius: 14,
+  padding: "16px 18px",
+  boxShadow: "0 20px 44px -30px rgba(0,0,0,0.6), inset 0 1px 0 rgba(245,241,234,0.08)",
+};
+const cardHiStyle: CSSProperties = {
+  ...cardStyle,
+  border: "1.5px solid rgba(184,174,219,0.55)",
+  background: "rgba(139,125,216,0.16)",
+  boxShadow: "0 20px 44px -26px rgba(139,125,216,0.4), inset 0 1px 0 rgba(255,255,255,0.14)",
+};
+const glassPanel: CSSProperties = {
+  background: "rgba(245,241,234,0.06)",
+  backdropFilter: BLUR,
+  WebkitBackdropFilter: BLUR_WEBKIT,
+  border: `1px solid ${LINE}`,
+  borderRadius: 14,
+  boxShadow: "0 20px 44px -32px rgba(0,0,0,0.55), inset 0 1px 0 rgba(245,241,234,0.07)",
+};
 
 const money = (cur: string, n: number) => `${cur}${Math.round(n).toLocaleString("en-US")}`;
 const money2 = (cur: string, n: number) => `${cur}${n.toFixed(2)}`;
@@ -58,15 +86,18 @@ function DotGroup({
               height: 42,
               border: `1.5px solid ${LINE}`,
               borderLeftWidth: i === 0 ? 1.5 : 0,
-              borderRadius: i === 0 ? "8px 0 0 8px" : n === 10 ? "0 8px 8px 0" : 0,
-              background: on ? A : "rgba(245,241,234,0.04)",
+              borderRadius: i === 0 ? "10px 0 0 10px" : n === 10 ? "0 10px 10px 0" : 0,
+              background: on ? A : "rgba(245,241,234,0.05)",
+              backdropFilter: on ? undefined : "blur(12px)",
+              WebkitBackdropFilter: on ? undefined : "blur(12px)",
               color: on ? "#17131F" : MUTE,
               fontFamily: "inherit",
               fontSize: 13,
               fontWeight: 700,
               cursor: "pointer",
               padding: 0,
-              transition: "background .12s, color .12s",
+              boxShadow: on ? "0 8px 20px -10px rgba(139,125,216,0.7)" : "none",
+              transition: "background .12s, color .12s, box-shadow .12s",
             }}
           >
             {n}
@@ -153,11 +184,13 @@ export default function WastedLeadSpendCalculator() {
   return (
     <div
       style={{
-        background: `radial-gradient(120% 90% at 50% 0%, rgba(139,125,216,0.14) 0%, transparent 55%), ${DARK}`,
-        border: "1px solid rgba(245,241,234,0.1)",
-        borderRadius: 22,
+        background: `radial-gradient(130% 90% at 12% 0%, rgba(139,125,216,0.24) 0%, transparent 55%), radial-gradient(100% 80% at 100% 100%, rgba(139,125,216,0.12) 0%, transparent 60%), rgba(8,6,9,0.94)`,
+        backdropFilter: "blur(6px)",
+        WebkitBackdropFilter: "blur(6px)",
+        border: "1px solid rgba(245,241,234,0.12)",
+        borderRadius: 26,
         padding: "32px 32px 30px",
-        boxShadow: "0 40px 90px -40px rgba(8,6,9,0.6)",
+        boxShadow: "0 50px 110px -40px rgba(8,6,9,0.65), inset 0 1px 0 rgba(245,241,234,0.07)",
         display: "flex",
         flexDirection: "column",
         gap: 22,
@@ -176,15 +209,18 @@ export default function WastedLeadSpendCalculator() {
             onClick={() => setCurrency(c)}
             aria-pressed={currency === c}
             style={{
-              border: `1px solid ${LINE}`,
-              background: currency === c ? A : "transparent",
+              border: currency === c ? "1px solid rgba(184,174,219,0.6)" : `1px solid ${LINE}`,
+              background: currency === c ? A : "rgba(245,241,234,0.05)",
+              backdropFilter: currency === c ? undefined : "blur(12px)",
+              WebkitBackdropFilter: currency === c ? undefined : "blur(12px)",
               color: currency === c ? "#17131F" : MUTE,
               fontFamily: "inherit",
               fontSize: 12.5,
               fontWeight: 700,
               padding: "6px 13px",
-              borderRadius: 7,
+              borderRadius: 8,
               cursor: "pointer",
+              boxShadow: currency === c ? "0 8px 20px -10px rgba(139,125,216,0.7)" : "none",
             }}
           >
             {c === "$" ? "$ USD" : "£ GBP"}
@@ -252,12 +288,22 @@ export default function WastedLeadSpendCalculator() {
       </div>
 
       <div style={{ borderTop: `1px solid ${LINE}`, paddingTop: 22, display: "flex", flexDirection: "column", gap: 16 }}>
-        <div style={{ background: A, borderRadius: 16, padding: "24px 26px" }}>
-          <div style={{ fontSize: 14, color: "rgba(23,19,31,0.62)", marginBottom: 8, lineHeight: 1.4 }}>
+        <div
+          style={{
+            background: "rgba(139,125,216,0.26)",
+            backdropFilter: "blur(24px) saturate(180%)",
+            WebkitBackdropFilter: "blur(24px) saturate(180%)",
+            border: "1px solid rgba(184,174,219,0.45)",
+            borderRadius: 18,
+            padding: "24px 26px",
+            boxShadow: "0 30px 70px -24px rgba(139,125,216,0.45), inset 0 1px 0 rgba(255,255,255,0.16)",
+          }}
+        >
+          <div style={{ fontSize: 14, color: "rgba(245,241,234,0.75)", marginBottom: 8, lineHeight: 1.4 }}>
             You spend this much a month on inquiries nobody replies to
           </div>
-          <div style={{ fontFamily: SERIF, fontWeight: 500, fontSize: 46, lineHeight: 1.05, color: "#17131F" }}>{money(currency, r.wasted)}</div>
-          <div style={{ fontSize: 13, color: "rgba(23,19,31,0.65)", marginTop: 8 }}>That is {money(currency, r.wasted * 12)} a year.</div>
+          <div style={{ fontFamily: SERIF, fontWeight: 500, fontSize: 46, lineHeight: 1.05, color: CREAM }}>{money(currency, r.wasted)}</div>
+          <div style={{ fontSize: 13, color: "rgba(245,241,234,0.7)", marginTop: 8 }}>That is {money(currency, r.wasted * 12)} a year.</div>
         </div>
 
         <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 12 }} className="rb-calc-cards">
@@ -292,7 +338,7 @@ export default function WastedLeadSpendCalculator() {
           </div>
         )}
 
-        <p style={{ margin: 0, fontSize: 14, lineHeight: 1.65, color: "rgba(245,241,234,0.8)", background: "rgba(245,241,234,0.05)", border: `1px solid ${LINE}`, borderRadius: 10, padding: 16 }}>
+        <p style={{ ...glassPanel, margin: 0, fontSize: 14, lineHeight: 1.65, color: "rgba(245,241,234,0.8)", padding: 16 }}>
           {r.worked > 0 ? (
             <>
               You pay <strong style={{ color: CREAM }}>{money2(currency, r.cpl)}</strong> for an inquiry. Because {10 - reply} in every 10 never get a reply,
@@ -304,7 +350,7 @@ export default function WastedLeadSpendCalculator() {
           )}
         </p>
 
-        <div style={{ background: "rgba(245,241,234,0.05)", border: `1px solid ${LINE}`, borderRadius: 10, padding: 16 }}>
+        <div style={{ ...glassPanel, padding: 16 }}>
           {sendStatus === "done" ? (
             <>
               <div style={{ fontSize: 14.5, fontWeight: 600, color: CREAM, marginBottom: 6 }}>On its way.</div>

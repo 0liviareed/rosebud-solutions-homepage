@@ -20,6 +20,12 @@ const BOTID_PROTECTED = [
   { path: "/api/careers/sdr", method: "POST" },
   { path: "/api/login", method: "POST" },
   { path: "/api/app/login", method: "POST" },
+  // Both call checkBotId() server-side but were missing here — with no
+  // client-side token to verify against, every real submission (not just
+  // bots) got a false "Request blocked." 403 in production. Confirmed live
+  // 2026-08-22: bid-template has been silently broken since it shipped.
+  { path: "/api/resources/bid-template", method: "POST" },
+  { path: "/api/calculator-result", method: "POST" },
 ];
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import PostHogProvider from "@/components/PostHogProvider";
