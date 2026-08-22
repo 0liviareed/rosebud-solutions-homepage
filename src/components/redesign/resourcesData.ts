@@ -910,7 +910,7 @@ export const RESOURCES: Record<string, ResourceItem> = {
     sector: "all",
     kind: "template",
     mins: 9,
-    date: "2026-08-17",
+    date: "2026-08-21",
     author: { name: "Sajni Richardson", role: "COO, Rosebud Solutions" },
     extraSchema: [
       {
