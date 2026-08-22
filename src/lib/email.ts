@@ -187,6 +187,75 @@ export async function sendResourceDownload(opts: { email: string; firstName?: st
   }
 }
 
+/** Wasted lead spend calculator: emails the visitor their own figures on request ("Email it to me"). */
+export async function sendCalculatorResult(opts: {
+  email: string;
+  currency: "$" | "£";
+  spend: number;
+  leads: number;
+  replyOutOfTen: number;
+  customerValue: number | null;
+  closeOutOfTen: number | null;
+}): Promise<EmailResult> {
+  const key = process.env.RESEND_API_KEY;
+  if (!key) { console.warn("RESEND_API_KEY missing — skipping calculator result email"); return { ok: false, error: "RESEND_API_KEY missing" }; }
+
+  const cur = opts.currency;
+  const money = (n: number) => `${cur}${Math.round(n).toLocaleString("en-US")}`;
+  const money2 = (n: number) => `${cur}${n.toFixed(2)}`;
+
+  const rate = opts.replyOutOfTen / 10;
+  const worked = opts.leads * rate;
+  const lost = opts.leads - worked;
+  const cpl = opts.spend / opts.leads;
+  const cplw = worked > 0 ? opts.spend / worked : 0;
+  const wasted = opts.spend * (1 - rate);
+
+  const rows = [
+    ["Monthly spend on enquiries nobody replies to", money(wasted)],
+    ["That is, a year", money(wasted * 12)],
+    ["What each enquiry costs you", money2(cpl)],
+    ["What each enquiry you actually reply to costs you", worked > 0 ? money2(cplw) : "n/a"],
+    ["Enquiries a month nobody replies to", Math.round(lost).toLocaleString("en-US")],
+  ];
+
+  if (opts.closeOutOfTen && opts.closeOutOfTen > 0 && opts.customerValue && opts.customerValue > 0) {
+    const closeRate = opts.closeOutOfTen / 10;
+    const customers = lost * closeRate;
+    rows.push(
+      ["Customers those enquiries would have become, a month", customers.toFixed(1)],
+      ["What that is worth a year, at your figures", money(customers * opts.customerValue * 12)],
+      ["What each customer currently costs you", worked * closeRate > 0 ? money(opts.spend / (worked * closeRate)) : "n/a"],
+    );
+  }
+
+  const table = rows
+    .map(
+      ([label, value]) =>
+        `<tr><td style="padding:10px 0;border-bottom:1px solid #eee;color:#6b6880;font-size:13.5px;">${esc(label)}</td><td style="padding:10px 0;border-bottom:1px solid #eee;text-align:right;font-weight:700;color:#17131F;font-size:15px;">${esc(value)}</td></tr>`
+    )
+    .join("");
+
+  const html = shell(`
+    <h1 style="font-family:'Cormorant Garamond',Georgia,serif;font-weight:500;font-size:24px;margin:8px 0 14px;">Your wasted lead spend breakdown</h1>
+    <p style="margin:0 0 20px;">Here are the figures from the calculator, based on what you entered.</p>
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0">${table}</table>
+    <p style="margin:20px 0 0;color:#8a8698;font-size:13px;">Estimates from your own figures and our 2026 study benchmark — not a forecast. Questions? Just reply to this email.</p>
+    <p style="margin:16px 0 0;">${btn("https://rosebud.global/pricing", "See how Rosebud handles this")}</p>
+  `);
+
+  try {
+    const resend = new Resend(key);
+    const r = await resend.emails.send({ from: FROM, replyTo: REPLY_TO, to: opts.email, subject: "Your wasted lead spend breakdown", html });
+    if (r.error) { console.error("sendCalculatorResult resend error:", JSON.stringify(r.error)); return { ok: false, error: JSON.stringify(r.error) }; }
+    return { ok: true, id: r.data?.id ?? null };
+  } catch (err) {
+    const msg = err instanceof Error ? err.message : String(err);
+    console.error("sendCalculatorResult failed:", msg);
+    return { ok: false, error: msg };
+  }
+}
+
 /** Abandoned-checkout nudge (copy supplied by Jay/Saj — placeholder body until then). */
 export async function sendAbandonedNudge(opts: { email: string; firstName?: string | null; resumeUrl: string; }): Promise<void> {
   const key = process.env.RESEND_API_KEY;
