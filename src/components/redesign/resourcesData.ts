@@ -28,17 +28,24 @@ export type ResourceBody =
 export type ResourceItem = {
   slug: string;
   title: string;
-  // Overrides the <title> tag only (search-intent phrasing) — H1, og:title,
-  // twitter:title, citation and schema `name` all keep using `title`.
+  // Overrides the <title> tag, and (since it's the fuller search-intent
+  // phrasing) og:title/twitter:title too — H1, citation and schema `name`
+  // keep using `title`.
   metaTitle?: string;
   // Overrides <meta name="description"> only — dek renders on-page and can
   // run past the ~160-char limit a meta description needs.
   metaDescription?: string;
-  // Overrides the sitewide default og:image/twitter:image (see
-  // app/opengraph-image.tsx) — set when the article has its own purpose-
-  // built share image (e.g. a diagram), since that outperforms the
-  // generic brand card on link previews, especially LinkedIn.
+  // Overrides the per-resource generated og:image/twitter:image (see
+  // app/resources/[slug]/opengraph-image.tsx) — set when a pre-made share
+  // image already exists for the article. Leave unset and the per-slug
+  // route builds one automatically (title/dek, plus the article's own
+  // diagram via `ogDiagram` if it has one) instead of falling back to the
+  // generic sitewide brand card.
   ogImage?: string;
+  // Path (under /public) to a diagram SVG the auto-generated OG image
+  // should embed alongside the title/dek — the actual chart is what does
+  // the work on a LinkedIn share, not a text-only brand card.
+  ogDiagram?: string;
   // Question-shaped subhead rendered between the H1 and the dek — matches
   // how someone actually phrases the search, which "Summary" as the first
   // H2 does not.
@@ -906,6 +913,7 @@ export const RESOURCES: Record<string, ResourceItem> = {
     metaTitle: "Wasted Lead Spend Calculator: Your True Cost Per Lead | Rosebud Solutions",
     metaDescription: "Your cost per lead assumes every inquiry was worked. Most were not. Calculate what you spend monthly on inquiries nobody answered, using 2026 study data.",
     dek: "A cost per lead figure assumes every inquiry was worked. Most were not. See what your unanswered inquiries actually cost, using benchmarks from our 2026 study of 273 US service businesses.",
+    ogDiagram: "/assets/wasted-lead-spend-diagram.svg",
     stage: "capture",
     sector: "all",
     kind: "template",

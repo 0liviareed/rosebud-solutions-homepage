@@ -29,10 +29,10 @@ const cardHiStyle: CSSProperties = { ...cardStyle, border: `2px solid ${A}`, bac
 const SECTORS = [
   { key: "all", label: "All sectors (29.9% answered)", rate: 29.9 },
   { key: "cleaning", label: "Commercial cleaning (41.3%)", rate: 41.3 },
-  { key: "dental", label: "Dental & aesthetics", rate: 29.9 },
-  { key: "mortgage", label: "Mortgage & lending", rate: 29.9 },
-  { key: "trades", label: "Trades", rate: 29.9 },
-  { key: "law", label: "Family law", rate: 29.9 },
+  { key: "dental", label: "Dental & aesthetics (uses all-sector average)", rate: 29.9 },
+  { key: "mortgage", label: "Mortgage & lending (uses all-sector average)", rate: 29.9 },
+  { key: "trades", label: "Trades (uses all-sector average)", rate: 29.9 },
+  { key: "law", label: "Family law (uses all-sector average)", rate: 29.9 },
 ];
 
 const fmt = (n: number) => `$${Math.round(n).toLocaleString("en-US")}`;
@@ -78,16 +78,6 @@ export default function WastedLeadSpendCalculator() {
         gap: 26,
       }}
     >
-      <div>
-        <div style={{ fontFamily: "ui-monospace, SFMono-Regular, Menlo, monospace", fontSize: 11, fontWeight: 700, letterSpacing: "1.6px", textTransform: "uppercase", color: A_LIGHT, marginBottom: 10 }}>
-          Wasted lead spend calculator
-        </div>
-        <p style={{ margin: 0, fontSize: 14.5, lineHeight: 1.6, color: "rgba(245,241,234,0.78)" }}>
-          A cost-per-lead figure assumes every inquiry was worked. Most were not. Enter your numbers below —
-          defaults come from our 2026 study of 273 US service businesses.
-        </p>
-      </div>
-
       <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 20 }} className="rb-calc-grid">
         <style>{`
           @media (max-width: 640px) { .rb-calc-grid { grid-template-columns: 1fr !important; } .rb-calc-cards { grid-template-columns: 1fr !important; } }
