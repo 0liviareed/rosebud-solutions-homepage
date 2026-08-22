@@ -22,7 +22,8 @@ export type ResourceBody =
   | { type: "table"; head: string[]; rows: (string | number)[][]; totalRow?: (string | number)[] }
   | { type: "bar-chart"; title: string; caption: string; unit?: "%"; bars: { label: string; value: number; lead?: boolean; muted?: boolean }[] }
   | { type: "image"; src: string; alt: string; caption?: string }
-  | { type: "prose-table"; head: string[]; rows: { cells: string[]; muted?: boolean }[] };
+  | { type: "prose-table"; head: string[]; rows: { cells: string[]; muted?: boolean }[] }
+  | { type: "embed"; component: "wasted-lead-spend-calculator" };
 
 export type ResourceItem = {
   slug: string;
@@ -412,8 +413,8 @@ export const RESOURCES: Record<string, ResourceItem> = {
   "how-to-get-cleaning-contracts": {
     slug: "how-to-get-cleaning-contracts",
     title: "How to Get Cleaning Contracts: Where to Find Them & How to Bid",
-    metaTitle: "How to Get Cleaning Contracts | Rosebud Solutions",
-    metaDescription: "Where cleaning contracts are posted, how to bid, and how to win office, government, post-construction and apartment work that never reaches a bid board.",
+    metaTitle: "How to Get Cleaning Contracts: Where to Find Them in 2026 | Rosebud Solutions",
+    metaDescription: "Where cleaning contracts are posted, how to bid on them, and how to win the office, government and post-construction work that never reaches a bid board.",
     dek: "Where cleaning contracts are posted, how to bid on them, and how to win the office, government, post-construction and apartment work that never reaches a bid board.",
     stage: "capture",
     sector: "cleaning",
@@ -507,7 +508,7 @@ export const RESOURCES: Record<string, ResourceItem> = {
       { type: "callout", lines: ["Cleanable square footage ÷ production rate = hours per visit", "Hours per visit × visits per month × fully loaded labor rate = monthly labor cost"] },
       { type: "p", text: "Fully loaded means wage plus payroll taxes, workers' compensation and insurance, not the hourly wage." },
       { type: "p", text: "**Add what people forget.** Drive time, because a crew driving 45 minutes each way costs you an hour and a half of unpaid labor per visit. Supervision, because somebody has to check the work and take the client's calls. Consumables, because trash liners and paper products add up faster than chemicals do." },
-      { type: "p", text: "**Then add margin, do not hope for it.** Monthly bid = total monthly cost ÷ (1 − target margin). Pricing off what you think the client wants to pay is how companies win contracts that cost them money every month." },
+      { type: "p", text: "**Then add margin, do not hope for it.** Monthly bid = total monthly cost ÷ (1 − target margin). Pricing off what you think the client wants to pay is how companies win contracts that cost them money every month, and our guide to [commercial cleaning prices](/resources/commercial-cleaning-prices) covers what the market actually charges per square foot and per hour." },
       { type: "p", text: "**Present a monthly figure.** Give the total monthly cost and a complete scope. Buyers do not want to audit your labor hours, and showing them invites a negotiation on your production rate rather than on your service." },
       { type: "p", text: "**Then follow up.** Follow up within 48 hours of submitting, and again about five days later. A large share of bids are lost to silence rather than to price." },
 
@@ -516,14 +517,17 @@ export const RESOURCES: Record<string, ResourceItem> = {
       { type: "list", items: [
         { lead: "Is it real work, or market research?", text: "Sources sought means the agency is finding out who exists. Answer it briefly. Do not build a proposal against it." },
         { lead: "Who held it before?", text: "Incumbent information is often published, and SAM.gov holds historical award data including previous winning amounts. If the same contractor has held it three cycles with no complaint on record, your odds are poor and your time is better spent on a building whose manager is already unhappy." },
+        { lead: "Is the price achievable?", text: "Check the building against [what commercial cleaning actually costs](/resources/commercial-cleaning-prices) before you build a proposal. A solicitation whose budget sits below the market rate for that facility type is a contract you win and regret." },
         { lead: "Can you staff it on day one?", text: "Winning a building you cannot crew costs more than losing it. Check required hours, clearances, the wage determination if it is federal, and whether the specification requires a supervisor on site." },
       ] },
 
       { type: "h2", id: "the-part-most-cleaning-companies-lose-on", text: "The part most cleaning companies lose on" },
       { type: "p", text: "Everything above finds the opportunity. The opportunity then arrives as an inquiry, and that is where most of them are lost." },
       { type: "p", text: "A property manager fills in the contact form on your site at 4pm on a Friday because their contractor missed two nights. A facilities coordinator emails asking whether you can walk the building next week. A general contractor sends a post-construction request with a Monday deadline. None of them announce themselves as a contract worth six figures over three years, and all of them go to whoever answers first." },
-      { type: "quote", text: "We tested this. We submitted inquiries to hundreds of US service businesses, commercial cleaning companies among them, and a striking share had no working web inquiry form at all. Of the inquiries that did arrive, most got no reply inside three days." },
-      { type: "p", text: "That is the real gap. The bid boards are public and available to everyone equally. What happens in the hours after somebody decides to contact you is not." },
+      { type: "p", text: "We measured this. In the [2026 US Service Business Response Study](/resources/2026-us-service-business-response-study) we sent a real inquiry to 273 US service businesses, 55 of them commercial cleaning companies, and recorded what happened." },
+      { type: "p", text: "Commercial cleaning came out best of the five sectors tested, and it is still not close to good. 41.3% of delivered inquiries drew any reply within 72 hours and 30.4% drew a reply from a person, which means roughly six in ten went unanswered entirely. 9.1% of cleaning companies had no working web inquiry form at all, so the inquiry had nowhere to land before anyone could ignore it. Across all five sectors the picture is worse: 20.5% had no working form and 70.1% of delivered inquiries received nothing." },
+      { type: "p", text: "The median reply took 5.1 hours, and 8.8 hours counting only replies from a person. Inquiries arriving outside opening hours were answered 19.8% of the time against 34.8% during them." },
+      { type: "p", text: "That is the real gap, and it is a [lead management](/resources/b2b-lead-management) problem rather than a lead generation one. The bid boards are public and available to everyone equally. What happens in the hours after somebody decides to contact you is not." },
       { type: "p", text: "Three things close it, and none require new software:" },
       { type: "list", items: [
         { lead: "Test your own form from outside your network.", text: "Send yourself an inquiry from a phone on cellular data, not office wifi, and confirm it arrives." },
@@ -559,6 +563,10 @@ export const RESOURCES: Record<string, ResourceItem> = {
 
       {
         type: "related", items: [
+          { href: "/resources/commercial-cleaning-prices", title: "Commercial cleaning prices", desc: "Rates per square foot and per hour, and how to price a job that holds its margin" },
+          { href: "/resources/2026-us-service-business-response-study", title: "The 2026 US Service Business Response Study", desc: "What happened when we sent a real inquiry to 273 US service businesses" },
+          { href: "/resources/wasted-lead-spend-calculator", title: "Wasted lead spend calculator", desc: "What your unanswered inquiries cost per month" },
+          { href: "/resources/b2b-lead-management", title: "B2B lead management", desc: "The stages before the handoff and the part that breaks" },
           { href: "/industries/commercial-cleaning", title: "Commercial cleaning inquiry handling", desc: "How Rosebud answers and books every inquiry that lands" },
           { href: "/pricing", title: "Pricing" },
         ],
@@ -639,7 +647,7 @@ export const RESOURCES: Record<string, ResourceItem> = {
       { type: "p", text: "**One in five had no working web inquiry form.** 20.5% had no form present, a social link in place of one, or a submission container that did not function. Those leads were never lost at routing or at handoff. They never entered the process at all, and no amount of qualification discipline recovers a lead that had nowhere to land." },
       { type: "p", text: "**Seven in ten delivered inquiries got nothing back.** Of 211 inquiries provably delivered, 29.9% drew any reply within 72 hours and 21.3% drew a reply from a person, leaving 70.1% that received nothing at all." },
       { type: "p", text: "Median time to a first reply was 5.1 hours, rising to 8.8 hours counting only replies from a person. Inquiries arriving outside the business's own opening hours were answered 19.8% of the time against 34.8% during them." },
-      { type: "p", text: "Set that against the five-minute rule and the two are barely discussing the same thing. Whether five minutes beats thirty is a question for a business that replies at all." },
+      { type: "p", text: "You can put your own numbers against that with the [wasted lead spend calculator](/resources/wasted-lead-spend-calculator). Set that against the five-minute rule and the two are barely discussing the same thing. Whether five minutes beats thirty is a question for a business that replies at all." },
       { type: "p", text: "None of that is a scoring failure, and no amount of qualification discipline touches it. Every business in that sample already had demand arriving; what varied was whether anything happened to it once it did." },
 
       { type: "h2", id: "lead-management-software-systems--services", text: "Lead management software, systems & services" },
@@ -693,7 +701,9 @@ export const RESOURCES: Record<string, ResourceItem> = {
       {
         type: "related", items: [
           { href: "/resources/2026-us-service-business-response-study", title: "The 2026 US Service Business Response Study", desc: "What happened when we sent a real inquiry to 273 US service businesses" },
+          { href: "/resources/wasted-lead-spend-calculator", title: "Wasted lead spend calculator", desc: "What your unanswered inquiries cost per month" },
           { href: "/resources/how-to-get-cleaning-contracts", title: "How to get cleaning contracts", desc: "Lead management applied in one sector" },
+          { href: "/resources/commercial-cleaning-prices", title: "Commercial cleaning prices" },
           { href: "/industries/commercial-cleaning", title: "Commercial cleaning inquiry handling" },
           { href: "/pricing", title: "Pricing" },
         ],
@@ -710,6 +720,310 @@ export const RESOURCES: Record<string, ResourceItem> = {
           { q: "How fast should you respond to a B2B lead?", a: "The widely cited benchmark is five minutes, drawn from research published in 2011 and 2012. Current measurement suggests the benchmark is academic for most businesses: in a 2026 study of 273 US service businesses, the median first reply took 5.1 hours and 70.1% of delivered inquiries received no reply at all within 72 hours." },
           { q: "What is the most common lead management mistake?", a: "Treating it as a software problem. Published figures put 30% to 40% of lead loss immediately after form submission, from slow routing, poor qualification or no follow-up. Measurement of small service businesses finds a more basic failure still: one in five had no working web inquiry form, so the lead never entered any system to be mismanaged." },
           { q: "Can lead management be outsourced?", a: "The stages before the handoff can, because they follow rules and run the same way every time: capture, response, qualification, booking, reminders and nurture. The stages after the handoff cannot be outsourced credibly, because discovery, proposal and negotiation depend on judgment about a specific buyer. Any provider claiming to run the whole process through to close is describing something different from what they will deliver." },
+        ],
+      },
+    ],
+  },
+
+  "commercial-cleaning-prices": {
+    slug: "commercial-cleaning-prices",
+    title: "Commercial cleaning prices: what to charge & what it costs in 2026",
+    metaTitle: "Commercial Cleaning Prices 2026: Rates & How to Bid | Rosebud Solutions",
+    metaDescription: "What commercial cleaning costs per square foot and per hour in 2026, why published rate charts break on small buildings, and how to price for margin.",
+    dek: "Nobody publishes a rate card in commercial cleaning. Here is what the published ranges actually say, where they agree, and the one place almost all of them go wrong.",
+    stage: "capture",
+    sector: "cleaning",
+    kind: "guide",
+    mins: 13,
+    date: "2026-08-15",
+    author: { name: "Sajni Richardson", role: "COO, Rosebud Solutions" },
+    toc: [
+      { id: "how-much-do-commercial-cleaners-charge-per-hour", label: "How much do cleaners charge per hour?" },
+      { id: "commercial-cleaning-prices-per-square-foot", label: "Prices per square foot" },
+      { id: "commercial-cleaning-cost-per-square-foot-by-facility-type", label: "Cost by facility type" },
+      { id: "why-per-square-foot-rates-break-on-small-buildings", label: "Why rates break on small buildings" },
+      { id: "how-much-to-charge-for-office-cleaning", label: "How much to charge for office cleaning" },
+      { id: "how-to-price-commercial-cleaning-jobs", label: "How to price a cleaning job" },
+      { id: "what-your-labor-actually-costs", label: "What your labor actually costs" },
+      { id: "how-to-tell-whether-your-price-is-right", label: "Is your price right?" },
+      { id: "where-these-numbers-come-from", label: "Where these numbers come from" },
+      { id: "what-a-good-price-is-worth-if-the-inquiry-never-reaches-you", label: "What a good price is worth if the inquiry never reaches you" },
+      { id: "frequently-asked-questions", label: "Frequently asked questions" },
+    ],
+    body: [
+      { type: "p", text: "Nobody publishes a rate card in commercial cleaning. Providers do not say what they charge, buyers rarely say what they paid, and every guide you find quotes a different range from the last one." },
+      { type: "p", text: "What follows is what the published ranges actually say, where they agree, and the one place almost all of them go wrong in a way that costs small operators money." },
+
+      { type: "h2", id: "how-much-do-commercial-cleaners-charge-per-hour", text: "How much do commercial cleaners charge per hour?" },
+      { type: "p", text: "Published 2026 ranges cluster between **$30 and $50 an hour per cleaner**, with high-cost metros reaching $75." },
+      { type: "prose-table", head: ["Source type", "Published hourly range"], rows: [
+        { cells: ["Field service software guides", "$30 to $75"] },
+        { cells: ["National franchise operators", "$25 to $50"] },
+        { cells: ["Consumer quote marketplaces", "$35 to $75"] },
+      ] },
+      { type: "p", text: "That spread is wide because it mixes markets. A cleaner in Mississippi and a cleaner in Massachusetts are not really in the same business, and the wage difference between them runs to more than 60%." },
+      { type: "p", text: "Hourly pricing suits small jobs, unpredictable scopes, one-off cleans and post-construction work, and it is simpler to quote when a lead qualification call has not yet established the full scope. For recurring contracts it works against you, because it caps your upside the moment you get faster at the building. Square footage pricing rewards efficiency; hourly pricing quietly punishes it." },
+
+      { type: "h2", id: "commercial-cleaning-prices-per-square-foot", text: "Commercial cleaning prices per square foot" },
+      { type: "p", text: "For standard recurring office cleaning, published 2026 ranges converge on **$0.07 to $0.20 per square foot per month**, with most sources placing the middle at $0.10 to $0.18." },
+      { type: "p", text: "**Per month, not per visit.** Nothing else on this page matters as much as that distinction. Several published guides state a per-square-foot rate \"per visit\" and then give a worked example that only makes sense monthly. Run the arithmetic and it settles immediately: a 10,000 square foot office at $0.12 per square foot is $1,200 a month, which matches every published monthly example. Priced per visit at three visits a week it would be over $15,000 a month, which matches nothing." },
+      { type: "p", text: "If you have been comparing your rate against a per-visit figure, you have been comparing against a number roughly thirteen times too large." },
+      { type: "p", text: "**Frequency is baked into the published range and almost never stated.** Most rate charts are built on a three-visits-a-week program. If you clean the same building five nights a week you are doing 21 visits a month instead of 13, and the monthly rate has to move with it." },
+      { type: "p", text: "It does not scale in a straight line, and this catches people out in both directions. Doubling the visits does not double the monthly price, because a building cleaned more often is less dirty each time. [ISSA](https://www.issa.com/articles/how-to-calculate-cleaning-times/) states plainly that more frequent cleaning tends to lower the per-square-foot rate, because efficiency improves with routine service. Buildingstars puts the same point in operator terms: four times a week does not cost twice what twice a week costs." },
+      { type: "p", text: "Working from a $0.15 per square foot per month figure at three visits a week, the direction looks roughly like this:" },
+      { type: "table", head: ["Frequency", "Visits/month", "Approx $/sq ft/month"], rows: [
+        ["Once a week", "4.3", "$0.07"],
+        ["Twice a week", "8.7", "$0.11"],
+        ["Three times a week", "13", "$0.15"],
+        ["Five nights a week", "21.7", "$0.21"],
+      ] },
+      { type: "p", text: "Read these as direction, not precision. The monthly figure rises with frequency, and it rises by less than the visit count does. Seven days a week is the exception that breaks the pattern, because staffing every day is harder and costs more." },
+      { type: "p", text: "The practical consequence for a low-frequency account: a building cleaned once a week costs more per visit than the same building cleaned nightly, and quoting it off a three-times-a-week rate card will leave you short." },
+
+      { type: "h2", id: "commercial-cleaning-cost-per-square-foot-by-facility-type", text: "Commercial cleaning cost per square foot by facility type" },
+      { type: "p", text: "Per square foot per month, at roughly three visits a week:" },
+      { type: "prose-table", head: ["Facility type", "Typical range", "Why it sits there"], rows: [
+        { cells: ["Standard office", "$0.10 to $0.18", "The baseline every other rate is compared against"] },
+        { cells: ["Open plan office", "$0.08 to $0.15", "Fewer walls, fewer obstacles, faster per square foot"] },
+        { cells: ["Segmented or cubicle office", "$0.14 to $0.20", "Same footage, far more edges and touchpoints"] },
+        { cells: ["Warehouse and industrial", "$0.10 to $0.20", "Large open areas are fast, but compliance and safety documentation add cost"] },
+        { cells: ["Medical and dental", "$0.18 to $0.30", "Disinfection protocols, regulated waste, slower production rates"] },
+        { cells: ["Retail", "$0.12 to $0.22", "High traffic, glass and floors, hours often restricted"] },
+        { cells: ["Class A office", "Upper end of any range", "Premium finishes and daily restroom service"] },
+      ] },
+      { type: "p", text: "Two adjustments apply on top. Compliance documentation, multi-shift coverage and full scope push toward the top of every range. Reduced frequency and lighter scope pull toward the bottom." },
+
+      { type: "h2", id: "why-per-square-foot-rates-break-on-small-buildings", text: "Why per square foot rates break on small buildings" },
+      { type: "p", text: "Most published rate charts leave this out of the number itself, and it is where small operators quietly lose money. The industry acknowledges it in prose and then publishes a single size-neutral range anyway." },
+      { type: "p", text: "Per-square-foot benchmarks are drawn from large buildings. One provider's published figures show a 50,000 square foot office on overnight cleaning running $6,000 to $9,000 a month, which is $0.12 to $0.18 per square foot. That is a real number for that building." },
+      { type: "p", text: "Apply the same rate to a 6,000 square foot office and you get $720 to $1,080 a month, and you will lose money on it." },
+      { type: "p", text: "It happens because a large part of your cost does not scale down with the building." },
+      { type: "image", src: "/assets/small-building-effect.svg", alt: "Chart showing the share of monthly cost that does not scale with building size: 54% on a 6,000 square foot account falling to 14% on a 50,000 square foot account" },
+      { type: "list", items: [
+        { lead: "Drive time is fixed per visit.", text: "Forty-five minutes each way costs you an hour and a half of paid labor whether the building is 6,000 square feet or 60,000." },
+        { lead: "Supervision is fixed per account.", text: "Someone inspects the work and takes the client's calls regardless of size." },
+        { lead: "Minimum crew is fixed.", text: "You cannot send half a cleaner. A building needing 1.5 hours still occupies someone for a full shift once travel is counted." },
+        { lead: "Account administration is fixed.", text: "Invoicing, scheduling and the client relationship cost the same on a small account as a large one." },
+      ] },
+      { type: "p", text: "Spread across 50,000 square feet those costs disappear into the rate. Spread across 6,000 they dominate it." },
+      { type: "p", text: "**The practical consequence:** small buildings carry a materially higher rate per square foot than the published charts suggest, and there is nothing wrong with that. A 5,000 to 10,000 square foot account priced at $0.25 to $0.35 per square foot per month at higher frequency is not overpriced. It is priced for what it costs to serve." },
+      { type: "p", text: "This is not a fringe view. Nilfisk states that smaller sites carry higher rates per square foot because setup time and overhead stay the same, and that larger buildings cost less per square foot through scale. Angi notes that small offices often carry a minimum service charge. Buildingstars confirms that cleaning companies maintain minimum pricing thresholds specifically to cover travel, commuting and administrative cost." },
+      { type: "p", text: "Most cleaning companies learn this by winning a small building at chart rate and quietly losing money on it for a year. Set a minimum monthly figure below which you decline an account, and hold it." },
+
+      { type: "h2", id: "how-much-to-charge-for-office-cleaning", text: "How much to charge for office cleaning" },
+      { type: "p", text: "Working figures for a standard office at three visits a week, before adjusting for your own costs:" },
+      { type: "prose-table", head: ["Building size", "Approximate monthly range"], rows: [
+        { cells: ["Under 1,000 sq ft", "$200 to $400, usually against a minimum rather than a rate"] },
+        { cells: ["1,000 to 5,000 sq ft", "$400 to $900"] },
+        { cells: ["5,000 to 10,000 sq ft", "$800 to $1,800"] },
+        { cells: ["10,000 to 20,000 sq ft", "$1,500 to $3,200"] },
+        { cells: ["20,000 sq ft and above", "$2,500 upward, rate per square foot falling as size rises"] },
+      ] },
+      { type: "p", text: "Notice how the rate per square foot falls as the building grows, which is the small-building effect above expressed the other way round." },
+      { type: "p", text: "Treat these as a starting position for a conversation rather than a quote, since the quote comes out of the calculation below." },
+
+      { type: "h2", id: "how-to-price-commercial-cleaning-jobs", text: "How to price commercial cleaning jobs" },
+      { type: "p", text: "Four steps, and the order matters, because every one of them depends on the step before it." },
+      { type: "p", text: "**1. Measure cleanable square footage, not gross.** Exclude storage, server rooms, closets and anything not being cleaned. Gross footage inflates the building and produces a rate that looks competitive and is not." },
+      { type: "p", text: "**2. Convert footage to hours using production rates.** A production rate is how many square feet one cleaner covers per hour for a given task. The [ISSA 612 cleaning times standard](https://www.issa.com/articles/how-to-calculate-cleaning-times/) is the industry reference. Published general-office figures vary by source, roughly 2,500 to 4,200 square feet per hour, and slower spaces run far below it." },
+      { type: "p", text: "Break the building into area types and rate each separately. Restrooms are the slowest area in any building and applying an open-office rate to them is the commonest reason a bid comes in short." },
+      { type: "callout", lines: ["Cleanable square feet ÷ production rate = hours per visit"] },
+      { type: "p", text: "**3. Cost the hours at your fully loaded rate.** Not the wage, for the reasons set out in the next section." },
+      { type: "p", text: "**4. Add the costs that are not labor, then build the margin in by dividing.**" },
+      { type: "callout", lines: ["Monthly bid = total monthly cost ÷ (1 − target margin)"] },
+      { type: "p", text: "Dividing gives you the margin. Adding a percentage on top does not. On $2,000 of cost, a 30% target priced by division is $2,857. Priced by markup it is $2,600, and your actual margin is 23%." },
+
+      { type: "h2", id: "what-your-labor-actually-costs", text: "What your labor actually costs" },
+      { type: "p", text: "Quoting from the wage rather than the fully loaded rate is the single most common pricing error in this trade." },
+      { type: "p", text: "The [US Bureau of Labor Statistics](https://www.bls.gov/ooh/building-and-grounds-cleaning/janitors-and-building-cleaners.htm) puts the median hourly wage for janitors and building cleaners at $17.27 as of May 2024, with the lowest 10% under $13.26 and the highest 10% above $23.58. That is the wage, and it is the smallest component of what an hour actually costs you." },
+      { type: "p", text: "On top of it sit payroll taxes, workers' compensation, general liability allocation, and any benefits. Together these commonly add 15% to 25%. A $17 wage is realistically $20 to $21 an hour before a single supply cost." },
+      { type: "p", text: "Then the non-labor monthly costs: drive time, vehicle and fuel, supervision, chemicals, consumables you are billed for, equipment depreciation, uniforms, and a share of your overhead. Insurance alone, general liability plus a janitorial bond, runs around $700 a year for a small operation, and it belongs in your overhead rather than coming out of your profit." },
+
+      { type: "h2", id: "how-to-tell-whether-your-price-is-right", text: "How to tell whether your price is right" },
+      { type: "p", text: "Price per square foot is the number everyone quotes and the weakest check available, because it moves with frequency, building size and facility type all at once, which means two perfectly correct bids on similar buildings can differ by a factor of three." },
+      { type: "p", text: "**The check that travels is effective hourly revenue.** Divide your monthly bid by the total labor hours in the month and compare the result to your fully loaded hourly rate." },
+      { type: "prose-table", head: ["Ratio to fully loaded rate", "What it means"], rows: [
+        { cells: ["Below 1.5x", "You are covering wages and little else"] },
+        { cells: ["1.5x to 2x", "Thin. Overhead is barely covered and there is no room for a bad month"] },
+        { cells: ["2x to 3x", "The working range for most recurring commercial accounts"] },
+        { cells: ["Above 3x", "Either specialist work, a genuinely premium account, or you are about to be outbid"] },
+      ] },
+      { type: "p", text: "This ratio holds regardless of building size, frequency or market, which is exactly what a per-square-foot figure cannot do." },
+      { type: "p", text: "Two more checks sit alongside it: your break-even monthly figure, which you never bid below, and the minimum account size below which you decline outright, which is the discipline the small-building problem demands." },
+
+      {
+        type: "cta-download",
+        heading: "Get the bid template",
+        body: "Two parts. Part one is a pricing worksheet you keep: production rates by area type, fully loaded labor rate, the costs most bids forget, and a margin formula you cannot get wrong. Part two is the bid document you send, with scope, exclusions, insurance, references and a follow-up schedule.",
+        buttonLabel: "Send me the bid template",
+        resourceKey: "cleaning-bid-template",
+      },
+
+      { type: "h2", id: "where-these-numbers-come-from", text: "Where these numbers come from" },
+      { type: "p", text: "The rate ranges on this page are drawn from published 2026 pricing guides from field service software companies, national franchise operators and consumer quote marketplaces, cross-checked against each other and against their own worked examples. Where sources disagreed, the arithmetic decided, which is how the per-visit versus per-month question above was settled." },
+      { type: "p", text: "Wage figures are from the [US Bureau of Labor Statistics](https://www.bls.gov/ooh/building-and-grounds-cleaning/janitors-and-building-cleaners.htm). Production rate guidance references the ISSA 612 cleaning times standard, and the frequency and building size effects are corroborated by ISSA, Nilfisk, Angi and Buildingstars." },
+      { type: "p", text: "Two honest caveats. Published ranges are what providers say they charge, not audited transaction data, and no such dataset exists publicly for this industry. And every range on this page is a national figure, in an industry where the wage gap between the highest and lowest paying states is over 60%. Use them to orient, then price from your own measured costs." },
+
+      { type: "h2", id: "what-a-good-price-is-worth-if-the-inquiry-never-reaches-you", text: "What a good price is worth if the inquiry never reaches you" },
+      { type: "p", text: "All of this pricing discipline only pays if the quote request arrives and somebody answers it." },
+      { type: "p", text: "In the [2026 US Service Business Response Study](/resources/2026-us-service-business-response-study) we sent a real inquiry to 273 US service businesses, 55 of them commercial cleaning companies. Cleaning was the strongest of the five sectors tested and still only 41.3% of delivered inquiries drew any reply within 72 hours, with 30.4% answered by a person. 9.1% of cleaning companies had no working web inquiry form at all. The median reply took 5.1 hours." },
+      { type: "p", text: "A quote request that sits unanswered for five hours is priced at zero, whatever your rate card says. The [wasted lead spend calculator](/resources/wasted-lead-spend-calculator) puts a monthly figure on that. Three checks worth running on your own business this week:" },
+      { type: "list", items: [
+        { text: "Submit a test inquiry through your own website from a phone on cellular data and confirm it arrives." },
+        { text: "Time how long a quote request actually waits before somebody replies." },
+        { text: "Check what happens to a request that arrives at 7pm on a Friday." },
+      ] },
+      { type: "p", text: "That is [lead management](/resources/b2b-lead-management) rather than lead generation, and it is usually the cheapest margin available to a cleaning company, because the demand has already been paid for." },
+
+      {
+        type: "related", items: [
+          { href: "/resources/how-to-get-cleaning-contracts", title: "How to get cleaning contracts", desc: "Where the work comes from and how to bid for it" },
+          { href: "/resources/2026-us-service-business-response-study", title: "The 2026 US Service Business Response Study", desc: "What happened when we sent a real inquiry to 273 US service businesses" },
+          { href: "/resources/wasted-lead-spend-calculator", title: "Wasted lead spend calculator", desc: "What your unanswered inquiries cost per month" },
+          { href: "/resources/b2b-lead-management", title: "B2B lead management", desc: "The stages before the handoff and the part that breaks" },
+          { href: "/industries/commercial-cleaning", title: "Commercial cleaning inquiry handling" },
+        ],
+      },
+
+      {
+        type: "faq", id: "frequently-asked-questions", items: [
+          { q: "How much do commercial cleaners charge per hour?", a: "Published 2026 ranges run from about $30 to $50 an hour per cleaner in most markets, reaching $75 in high-cost metros. The spread reflects local labor costs more than anything else, since janitorial wages vary by over 60% between the highest and lowest paying states. Hourly pricing suits one-off and unpredictable work; recurring contracts are usually better priced by square footage." },
+          { q: "How much does commercial cleaning cost per square foot?", a: "Standard recurring office cleaning is commonly quoted between $0.07 and $0.20 per square foot per month, with most sources placing the middle at $0.10 to $0.18. Medical and dental space runs higher at $0.18 to $0.30 because of disinfection protocols and slower cleaning rates. These figures are per month, not per visit, and they assume roughly three visits a week." },
+          { q: "Is commercial cleaning priced per square foot per visit or per month?", a: "Per month. Some published guides state a per-visit rate, but their own worked examples only make sense monthly. A 10,000 square foot office at $0.12 per square foot is $1,200 a month, which matches the published monthly examples; the same figure applied per visit at three visits a week would exceed $15,000 a month, which matches nothing." },
+          { q: "How much should I charge for office cleaning?", a: "For a standard office at three visits a week, working ranges are roughly $400 to $900 a month for 1,000 to 5,000 square feet, $800 to $1,800 for 5,000 to 10,000, and $1,500 to $3,200 for 10,000 to 20,000. Treat these as an orientation only. The actual number comes from your cleanable square footage, your production rates, your fully loaded labor cost and your target margin." },
+          { q: "Why is my price per square foot higher than the published rates?", a: "Because published rates are drawn from large buildings. Drive time, supervision, minimum crew and account administration are fixed costs that do not scale down, so on a 6,000 square foot building they dominate the rate, while on a 50,000 square foot building they disappear into it. A small account priced at $0.25 to $0.35 per square foot per month is not overpriced, it is priced for what it costs to serve." },
+          { q: "How do I calculate a commercial cleaning bid?", a: "Measure cleanable square footage, divide by your production rate for each area type to get hours per visit, multiply by visits per month and your fully loaded hourly rate, add drive time, supervision, supplies and overhead, then divide the total by one minus your target margin. Dividing builds the margin in; adding a percentage on top does not." },
+          { q: "What is a fully loaded labor rate?", a: "The true hourly cost of putting a cleaner in a building: the wage plus payroll taxes, workers' compensation, general liability allocation and any benefits. It commonly runs 15% to 25% above the base wage, so a $17 wage costs you $20 to $21 an hour. Quoting from the wage rather than the loaded rate is the most common way a cleaning bid loses money." },
+          { q: "How do I know if my cleaning bid is profitable?", a: "Divide the monthly bid by the total labor hours it contains and compare the result to your fully loaded hourly rate. Most profitable recurring commercial accounts sit between two and three times that rate. Below 1.5 times you are covering wages and little else. This check works regardless of building size, frequency or market, which is why it is more reliable than comparing your price per square foot." },
+        ],
+      },
+    ],
+  },
+
+  "wasted-lead-spend-calculator": {
+    slug: "wasted-lead-spend-calculator",
+    title: "Wasted lead spend calculator",
+    metaTitle: "Wasted Lead Spend Calculator: Your True Cost Per Lead | Rosebud Solutions",
+    metaDescription: "Your cost per lead assumes every inquiry was worked. Most were not. Calculate what you spend monthly on inquiries nobody answered, using 2026 study data.",
+    dek: "A cost per lead figure assumes every inquiry was worked. Most were not. See what your unanswered inquiries actually cost, using benchmarks from our 2026 study of 273 US service businesses.",
+    stage: "capture",
+    sector: "all",
+    kind: "template",
+    mins: 9,
+    date: "2026-08-17",
+    author: { name: "Sajni Richardson", role: "COO, Rosebud Solutions" },
+    extraSchema: [
+      {
+        "@type": "SoftwareApplication",
+        name: "Wasted Lead Spend Calculator",
+        applicationCategory: "BusinessApplication",
+        operatingSystem: "Web",
+        url: "https://rosebud.global/resources/wasted-lead-spend-calculator",
+        description: "Calculates true cost per worked inquiry and monthly marketing spend lost to unanswered leads, using benchmarks from the 2026 US Service Business Response Study.",
+        offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+        publisher: { "@type": "Organization", name: "Rosebud Solutions", url: "https://rosebud.global" },
+      },
+    ],
+    toc: [
+      { id: "what-this-calculates-and-why-it-differs-from-a-standard-cpl-calculator", label: "What this calculates" },
+      { id: "where-the-benchmark-numbers-come-from", label: "Where the benchmark numbers come from" },
+      { id: "how-to-calculate-cost-per-lead-properly", label: "How to calculate cost per lead properly" },
+      { id: "worked-examples-at-three-spend-levels", label: "Worked examples at three spend levels" },
+      { id: "what-wasted-lead-spend-looks-like-by-sector", label: "Wasted lead spend by sector" },
+      { id: "why-this-is-not-a-lead-quality-problem", label: "Why this is not a lead quality problem" },
+      { id: "where-the-money-actually-goes", label: "Where the money actually goes" },
+      { id: "what-to-do-with-the-number", label: "What to do with the number" },
+      { id: "frequently-asked-questions", label: "Frequently asked questions" },
+    ],
+    body: [
+      { type: "p", text: "Every cost per lead calculator makes the same assumption: divide what you spent by the leads it produced and you have your number. That number only holds if somebody worked every lead, and almost nobody does." },
+
+      { type: "embed", component: "wasted-lead-spend-calculator" },
+
+      { type: "h2", id: "what-this-calculates-and-why-it-differs-from-a-standard-cpl-calculator", text: "What this calculates, and why it differs from a standard CPL calculator" },
+      { type: "p", text: "A conventional cost per lead calculation divides total spend by total leads, which tells you what it costs to make the phone ring and nothing about what happens next. A business paying $41 a lead at a 30% response rate is not paying $41 a lead. It is paying $139 for every lead a human being actually touched, and burning the rest. This is a [lead management](/resources/b2b-lead-management) problem rather than a lead generation one." },
+      { type: "p", text: "The calculator above splits those two figures apart: cost per inquiry generated is the number your agency reports, and cost per inquiry worked is the number your business actually operates on." },
+
+      { type: "h2", id: "where-the-benchmark-numbers-come-from", text: "Where the benchmark numbers come from" },
+      { type: "p", text: "The default response rate is not an estimate. In the [2026 US Service Business Response Study](/resources/2026-us-service-business-response-study) we sent a real inquiry to 273 US owner-operated service businesses across five sectors and recorded what came back." },
+      { type: "p", text: "Of 211 inquiries provably delivered, 29.9% drew any reply within 72 hours and 21.3% drew a reply from a person. **70.1% received nothing at all.** A further 20.5% of businesses had no working web inquiry form, so an inquiry could not be submitted in the first place." },
+      { type: "p", text: "Median time to a first reply was 5.1 hours, rising to 8.8 hours counting only replies from a person. Inquiries arriving outside opening hours drew a response 19.8% of the time against 34.8% during them." },
+      { type: "p", text: "That is the benchmark the calculator uses when you do not know your own rate. If you think yours is better, use your own figure. Most businesses guess high, which is itself worth knowing." },
+
+      { type: "h2", id: "how-to-calculate-cost-per-lead-properly", text: "How to calculate cost per lead properly" },
+      { type: "p", text: "Four figures, and the first two are the ones everybody already has." },
+      { type: "p", text: "**Cost per inquiry generated** = total monthly marketing and advertising spend ÷ inquiries received. Include agency fees, listing fees and content costs alongside media spend. This is the headline number." },
+      { type: "p", text: "**Inquiries actually worked** = inquiries received × your response rate. Response rate here means the share that received a reply, not the share that converted." },
+      { type: "p", text: "**True cost per worked inquiry** = total spend ÷ inquiries actually worked. On a 30% response rate this is more than three times the headline figure." },
+      { type: "p", text: "**Wasted spend** = total spend × (1 − response rate). This is money that bought an inquiry nobody replied to, which is not a marketing failure, because the marketing did its job and the inquiry arrived." },
+
+      { type: "h2", id: "worked-examples-at-three-spend-levels", text: "Worked examples at three spend levels" },
+      { type: "p", text: "Same response rate, three different businesses. The proportion lost is identical; the amount is not." },
+      { type: "prose-table", head: ["", "Small", "Mid", "Larger"], rows: [
+        { cells: ["Monthly spend", "$2,000", "$8,000", "$25,000"] },
+        { cells: ["Inquiries per month", "40", "200", "700"] },
+        { cells: ["Cost per inquiry generated", "$50.00", "$40.00", "$35.71"] },
+        { muted: true, cells: ["At a 30% response rate", "", "", ""] },
+        { cells: ["True cost per worked inquiry", "$166.67", "$133.33", "$119.05"] },
+        { cells: ["Inquiries unanswered", "28", "140", "490"] },
+        { cells: ["Wasted monthly", "$1,400", "$5,600", "$17,500"] },
+        { cells: ["Wasted annually", "$16,800", "$67,200", "$210,000"] },
+      ] },
+      { type: "p", text: "Notice the headline cost per lead improves as spend rises, from $50 to $35.71, which is what a media buyer optimises for and reports on. The true cost per worked inquiry improves at the same rate, and the wasted amount grows in absolute terms. Better acquisition does not fix a response problem; it enlarges it." },
+      { type: "p", text: "At a 60% response rate rather than 30%, the mid-sized business wastes $3,200 a month instead of $5,600. Doubling the response rate halves the waste, and it costs nothing in media spend to do." },
+
+      { type: "h2", id: "what-wasted-lead-spend-looks-like-by-sector", text: "What wasted lead spend looks like by sector" },
+      { type: "p", text: "Our 2026 study measured two failures separately, and they compound. An inquiry cannot be answered if there was no working form to submit it through." },
+      { type: "prose-table", head: ["Sector", "No working inquiry form", "What that means for spend"], rows: [
+        { cells: ["Dental & aesthetics", "42.9%", "Four in ten practices cannot receive a web inquiry at all"] },
+        { cells: ["Mortgage & lending", "27.3%", "More than a quarter"] },
+        { cells: ["Trades", "14.3%", "One in seven"] },
+        { cells: ["Commercial cleaning", "9.1%", "Best of the five sectors tested"] },
+        { cells: ["Family law", "7.8%", "Lowest measured"] },
+        { muted: true, cells: ["All sectors", "20.5%", "One business in five"] },
+      ] },
+      { type: "p", text: "For a business in that 20.5%, the calculation above understates the problem. Every dollar of demand generation spend that produced a web inquiry produced nothing at all, because the inquiry never arrived." },
+
+      { type: "h2", id: "why-this-is-not-a-lead-quality-problem", text: "Why this is not a lead quality problem" },
+      { type: "p", text: "Almost every treatment of wasted marketing spend blames the leads themselves: unqualified prospects, poor targeting, junk form fills, bots. Those are real problems, and calculators exist for them." },
+      { type: "p", text: "This is the other kind of waste, and it is less discussed because it is less comfortable. These leads were fine. They found you, they contacted you, and the money that produced them was already spent, and then nobody replied." },
+      { type: "p", text: "The distinction matters because the remedies are opposite. A lead quality problem is fixed upstream, by changing targeting or channel. A response problem is fixed downstream, by changing what happens in the hours after an inquiry lands. Spending more on targeting will not fix a form nobody checks on a Friday evening." },
+
+      { type: "h2", id: "where-the-money-actually-goes", text: "Where the money actually goes" },
+      { type: "p", text: "Four failure points, in the order they occur. Each one sits before anything a salesperson could influence." },
+      { type: "image", src: "/assets/wasted-lead-spend-diagram.svg", alt: "Diagram showing monthly demand generation spend divided into five parts: no working form at 20.5%, inquiries nobody sees, replies that come too late, no second touch, and 29.9% that reach a person. 70.1% of delivered inquiries received no reply within 72 hours", caption: "The 70.1% is not lead quality. Those inquiries arrived and nobody replied." },
+      { type: "p", text: "**The form does not work.** No form present, a social link in place of one, or a submission container that silently fails. One in five businesses in our study. The spend is lost with no record that a lead ever existed, which is why this failure is invisible on every dashboard." },
+      { type: "p", text: "**The inquiry arrives and nobody sees it.** It lands in a shared inbox at 6pm, or in a notification nobody has enabled, or in a channel the business publishes but does not monitor. Our study found inquiries arriving outside opening hours drew a response 19.8% of the time against 34.8% during them." },
+      { type: "p", text: "**Somebody sees it and does not reply in time.** Median first reply in the study was 5.1 hours, rising to 8.8 hours counting only replies from a person. By then the buyer has usually contacted two or three competitors." },
+      { type: "p", text: "**A reply goes out and there is no second touch.** Most inquiries do not convert on the first exchange. Without a follow-up sequence that runs on its own, the ones that did not reply immediately are simply gone." },
+      { type: "p", text: "Only the last of those four is visible in a CRM, which is why the total is almost always larger than a business expects." },
+
+      { type: "h2", id: "what-to-do-with-the-number", text: "What to do with the number" },
+      { type: "p", text: "**Test your own intake first.** Submit a real inquiry through every channel you publish, including the ones you rarely check, from a phone on cellular data rather than the office network, since one business in five finds something broken at this step." },
+      { type: "p", text: "**Measure your actual response rate rather than estimating it.** Take last month's inquiries and count how many received a reply and how long each took, because the gap between what people assume and what the log shows is usually large." },
+      { type: "p", text: "**Then decide where the fix belongs.** If most of your spend is buying inquiries nobody answers, the cheapest improvement available is answering them rather than buying more, which is [lead management rather than lead generation](/resources/b2b-lead-management)." },
+
+      {
+        type: "related", items: [
+          { href: "/resources/2026-us-service-business-response-study", title: "The 2026 US Service Business Response Study", desc: "The primary data behind every benchmark on this page" },
+          { href: "/resources/b2b-lead-management", title: "B2B lead management", desc: "The stages before the handoff and the part that breaks" },
+          { href: "/resources/how-to-get-cleaning-contracts", title: "How to get cleaning contracts", desc: "The same argument applied in one sector" },
+          { href: "/resources/commercial-cleaning-prices", title: "Commercial cleaning prices" },
+          { href: "/pricing", title: "Pricing" },
+        ],
+      },
+
+      {
+        type: "faq", id: "frequently-asked-questions", items: [
+          { q: "Why do so many leads go unanswered?", a: "Four failure points account for most of it, and only the last is visible in a CRM. The web form does not work, which our 2026 study found in one business in five. The inquiry arrives in a channel nobody monitors. Somebody sees it and replies too late. Or a first reply goes out and no second touch ever follows. None of them are sales problems, which is why sales dashboards do not show them." },
+          { q: "Should I spend more on ads or fix my response rate first?", a: "Fix the response rate first, because it costs nothing in media spend and the improvement is proportional. Doubling your response rate from 30% to 60% halves your wasted spend without buying a single extra lead. Increasing ad spend at a 30% response rate increases the wasted amount in absolute terms even as your headline cost per lead improves." },
+          { q: "Does this calculator store my data?", a: "No. Every calculation runs in your browser. Nothing is submitted, stored or sent anywhere, and there is no signup." },
+          { q: "How do you calculate cost per lead?", a: "Divide total marketing and advertising spend for the period by the number of inquiries it produced. Include agency fees, listing fees and content costs alongside media spend, since all of it was spent to create demand. The result tells you what it costs to make the phone ring, which is useful but incomplete, because it assumes every inquiry was worked." },
+          { q: "What is a good cost per lead?", a: "It varies so widely by industry, channel and deal size that a benchmark figure is close to meaningless on its own. A more useful test is the ratio between your cost per inquiry generated and your true cost per inquiry worked. If the second is more than double the first, your constraint is response rather than acquisition, whatever the headline number says." },
+          { q: "What is the difference between cost per lead and customer acquisition cost?", a: "Cost per lead measures what you pay for an inquiry. Customer acquisition cost measures what you pay for a customer, which requires a close rate. Most published CAC calculators quietly assume every lead reached a salesperson. Where a large share of inquiries go unanswered, the reported CAC describes only the portion of spend somebody worked." },
+          { q: "How much marketing spend is wasted on unanswered leads?", a: "It depends entirely on your response rate. At the all-sector benchmark from our 2026 study, where 70.1% of delivered inquiries received no reply within 72 hours, roughly seven in every ten dollars of demand generation spend produced an inquiry nobody replied to. A business that answers half its inquiries wastes half." },
+          { q: "How do I find my actual lead response rate?", a: "Take one month of inquiries across every channel, then count how many received a reply and how long each took. Measure from arrival rather than from when somebody noticed. Include the ones that arrived at the weekend or after hours, because those are where the gap is widest: our study found 19.8% answered outside opening hours against 34.8% during them." },
+          { q: "Does a faster response actually matter?", a: "The widely quoted benchmark is five minutes, from research published by Harvard Business Review in 2011, and it is still the number most of the industry cites. Current measurement suggests the debate is academic for most businesses: with a median first reply of 5.1 hours and 70.1% receiving no reply at all, the question is not whether five minutes beats thirty." },
         ],
       },
     ],

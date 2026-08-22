@@ -1,0 +1,31 @@
+<svg viewBox="0 0 1200 680" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Chart showing that fixed costs such as drive time and supervision dominate the rate on small buildings and disappear into the rate on large ones">
+<rect width="1200" height="680" fill="#FBFAFF"/>
+<text x="60" y="58" font-family="DM Sans, Inter, Helvetica, Arial, sans-serif" font-size="27" font-weight="700" fill="#07060F">Why per square foot rates break on small buildings</text>
+<text x="60" y="86" font-family="DM Sans, Inter, Helvetica, Arial, sans-serif" font-size="14.5" fill="#6B6880">Drive time, supervision, minimum crew and account admin do not scale down. On a small building they dominate the rate.</text>
+<line x1="60" y1="106" x2="1140" y2="106" stroke="#D9D5F2" stroke-width="1"/>
+<rect x="90" y="165" width="210" height="113" rx="6" fill="#C98A78"/>
+<rect x="90" y="278" width="210" height="97" rx="6" fill="#271F8A"/>
+<text x="195" y="227" text-anchor="middle" font-family="DM Sans, Inter, Helvetica, Arial, sans-serif" font-size="15" font-weight="700" fill="#FFFFFF">54%</text>
+<text x="195" y="401" text-anchor="middle" font-family="DM Sans, Inter, Helvetica, Arial, sans-serif" font-size="14" font-weight="600" fill="#271F8A">6,000 sq ft</text>
+<rect x="340" y="165" width="210" height="76" rx="6" fill="#C98A78"/>
+<rect x="340" y="241" width="210" height="134" rx="6" fill="#271F8A"/>
+<text x="445" y="208" text-anchor="middle" font-family="DM Sans, Inter, Helvetica, Arial, sans-serif" font-size="15" font-weight="700" fill="#FFFFFF">36%</text>
+<text x="445" y="401" text-anchor="middle" font-family="DM Sans, Inter, Helvetica, Arial, sans-serif" font-size="14" font-weight="600" fill="#271F8A">12,000 sq ft</text>
+<rect x="590" y="165" width="210" height="48" rx="6" fill="#C98A78"/>
+<rect x="590" y="213" width="210" height="162" rx="6" fill="#271F8A"/>
+<text x="695" y="194" text-anchor="middle" font-family="DM Sans, Inter, Helvetica, Arial, sans-serif" font-size="15" font-weight="700" fill="#FFFFFF">23%</text>
+<text x="695" y="401" text-anchor="middle" font-family="DM Sans, Inter, Helvetica, Arial, sans-serif" font-size="14" font-weight="600" fill="#271F8A">25,000 sq ft</text>
+<rect x="840" y="165" width="210" height="29" rx="6" fill="#C98A78"/>
+<rect x="840" y="194" width="210" height="181" rx="6" fill="#271F8A"/>
+<text x="945" y="185" text-anchor="middle" font-family="DM Sans, Inter, Helvetica, Arial, sans-serif" font-size="15" font-weight="700" fill="#FFFFFF">14%</text>
+<text x="945" y="401" text-anchor="middle" font-family="DM Sans, Inter, Helvetica, Arial, sans-serif" font-size="14" font-weight="600" fill="#271F8A">50,000 sq ft</text>
+<text x="90" y="149" font-family="DM Mono, ui-monospace, monospace" font-size="11.5" letter-spacing="1.3" fill="#6B6880">SHARE OF MONTHLY COST THAT DOES NOT SCALE WITH THE BUILDING</text>
+<rect x="90" y="440" width="15" height="15" rx="3.5" fill="#C98A78"/>
+<text x="114" y="452" font-family="DM Sans, Inter, Helvetica, Arial, sans-serif" font-size="13" fill="#6B6880">Fixed per account: drive time, supervision, minimum crew, invoicing and scheduling</text>
+<rect x="90" y="466" width="15" height="15" rx="3.5" fill="#271F8A"/>
+<text x="114" y="478" font-family="DM Sans, Inter, Helvetica, Arial, sans-serif" font-size="13" fill="#6B6880">Scales with the building: cleaning labor, consumables</text>
+<rect x="90" y="506" width="1050" height="52" rx="9" fill="#FFFFFF" stroke="#5A3FE0" stroke-width="1.5"/>
+<text x="108" y="529" font-family="DM Sans, Inter, Helvetica, Arial, sans-serif" font-size="14" font-weight="600" fill="#271F8A">A 6,000 sq ft account priced from a chart built on 50,000 sq ft buildings loses money every month.</text>
+<text x="108" y="548" font-family="DM Sans, Inter, Helvetica, Arial, sans-serif" font-size="12.5" fill="#6B6880">Set a minimum monthly figure below which you decline, and hold it.</text>
+<text x="60" y="656" font-family="DM Sans, Inter, Helvetica, Arial, sans-serif" font-size="12" fill="#6B6880">Illustrative proportions · Rosebud Solutions · rosebud.global/resources/commercial-cleaning-prices</text>
+</svg>

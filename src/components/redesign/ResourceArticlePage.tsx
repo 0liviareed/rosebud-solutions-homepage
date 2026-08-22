@@ -5,6 +5,7 @@ import RedesignNav from "./RedesignNav";
 import RedesignFooter from "./RedesignFooter";
 import RedesignReveal from "./RedesignReveal";
 import BookDemoCTA from "./BookDemoCTA";
+import WastedLeadSpendCalculator from "./WastedLeadSpendCalculator";
 import { STAGES, SECTORS, nameOf, type ResourceItem } from "./resourcesData";
 
 // /resources/[slug] article template. Same design language as AboutV2 —
@@ -480,6 +481,8 @@ export default function ResourceArticlePage({ data }: { data: ResourceItem }) {
                 );
               case "cta-download":
                 return <DownloadCta key={i} heading={block.heading} body={block.body} buttonLabel={block.buttonLabel} resourceKey={block.resourceKey} sourceSlug={data.slug} />;
+              case "embed":
+                return block.component === "wasted-lead-spend-calculator" ? <WastedLeadSpendCalculator key={i} /> : null;
               case "faq":
                 return (
                   <div key={i} style={{ marginTop: 20 }}>

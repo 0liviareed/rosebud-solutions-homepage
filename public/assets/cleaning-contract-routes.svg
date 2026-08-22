@@ -1,0 +1,46 @@
+<svg viewBox="0 0 1200 540" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Diagram of the three routes to a commercial cleaning contract: published bids, direct approach to private buildings, and subcontracting under a prime">
+<rect width="1200" height="540" fill="#FBFAFF"/>
+<text x="60" y="58" font-family="DM Sans, Inter, Helvetica, Arial, sans-serif" font-size="27" font-weight="700" fill="#07060F">Three routes to a cleaning contract</text>
+<text x="60" y="86" font-family="DM Sans, Inter, Helvetica, Arial, sans-serif" font-size="14.5" fill="#6B6880">Only one of them is published. Most companies work a single route; the ones that grow work all three.</text>
+<line x1="60" y1="106" x2="1140" y2="106" stroke="#D9D5F2" stroke-width="1"/>
+<rect x="60" y="140" width="347" height="290" rx="11" fill="#FFFFFF" stroke="#271F8A" stroke-width="1.5"/>
+<rect x="60" y="140" width="347" height="7" rx="3.5" fill="#271F8A"/>
+<text x="80" y="178" font-family="DM Mono, ui-monospace, monospace" font-size="11" fill="#271F8A">01</text>
+<text x="80" y="206" font-family="DM Sans, Inter, Helvetica, Arial, sans-serif" font-size="19" font-weight="700" fill="#271F8A">Published bids</text>
+<text x="80" y="227" font-family="DM Mono, ui-monospace, monospace" font-size="10.5" letter-spacing="1.1" fill="#6B6880">VISIBLE COMPETITION</text>
+<text x="80" y="258" font-family="DM Sans, Inter, Helvetica, Arial, sans-serif" font-size="12.5" fill="#07060F">SAM.gov for federal, city and county</text>
+<text x="80" y="274" font-family="DM Sans, Inter, Helvetica, Arial, sans-serif" font-size="12.5" fill="#07060F">purchasing portals for local, plus</text>
+<text x="80" y="290" font-family="DM Sans, Inter, Helvetica, Arial, sans-serif" font-size="12.5" fill="#07060F">schools, hospitals and housing</text>
+<text x="80" y="306" font-family="DM Sans, Inter, Helvetica, Arial, sans-serif" font-size="12.5" fill="#07060F">authorities.</text>
+<line x1="80" y1="320" x2="387" y2="320" stroke="#D9D5F2" stroke-width="1"/>
+<text x="80" y="344" font-family="DM Sans, Inter, Helvetica, Arial, sans-serif" font-size="12" fill="#6B6880">Predictable calendar. Everyone sees the</text>
+<text x="80" y="360" font-family="DM Sans, Inter, Helvetica, Arial, sans-serif" font-size="12" fill="#6B6880">same solicitation on the same day, so</text>
+<text x="80" y="376" font-family="DM Sans, Inter, Helvetica, Arial, sans-serif" font-size="12" fill="#6B6880">there is little to compete on except</text>
+<text x="80" y="392" font-family="DM Sans, Inter, Helvetica, Arial, sans-serif" font-size="12" fill="#6B6880">price.</text>
+<rect x="427" y="140" width="347" height="290" rx="11" fill="#FFFFFF" stroke="#5A3FE0" stroke-width="1.5"/>
+<rect x="427" y="140" width="347" height="7" rx="3.5" fill="#5A3FE0"/>
+<text x="447" y="178" font-family="DM Mono, ui-monospace, monospace" font-size="11" fill="#5A3FE0">02</text>
+<text x="447" y="206" font-family="DM Sans, Inter, Helvetica, Arial, sans-serif" font-size="19" font-weight="700" fill="#271F8A">Direct approach</text>
+<text x="447" y="227" font-family="DM Mono, ui-monospace, monospace" font-size="10.5" letter-spacing="1.1" fill="#6B6880">NOTHING IS PUBLISHED</text>
+<text x="446.6666666666667" y="258" font-family="DM Sans, Inter, Helvetica, Arial, sans-serif" font-size="12.5" fill="#07060F">Offices, retail, medical suites,</text>
+<text x="446.6666666666667" y="274" font-family="DM Sans, Inter, Helvetica, Arial, sans-serif" font-size="12.5" fill="#07060F">industrial units. Reached through property</text>
+<text x="446.6666666666667" y="290" font-family="DM Sans, Inter, Helvetica, Arial, sans-serif" font-size="12.5" fill="#07060F">managers, walk-ins and broker</text>
+<text x="446.6666666666667" y="306" font-family="DM Sans, Inter, Helvetica, Arial, sans-serif" font-size="12.5" fill="#07060F">relationships.</text>
+<line x1="447" y1="320" x2="753" y2="320" stroke="#D9D5F2" stroke-width="1"/>
+<text x="446.6666666666667" y="344" font-family="DM Sans, Inter, Helvetica, Arial, sans-serif" font-size="12" fill="#6B6880">The largest pool by a distance, and the</text>
+<text x="446.6666666666667" y="360" font-family="DM Sans, Inter, Helvetica, Arial, sans-serif" font-size="12" fill="#6B6880">better margin. Work moves when a manager</text>
+<text x="446.6666666666667" y="376" font-family="DM Sans, Inter, Helvetica, Arial, sans-serif" font-size="12" fill="#6B6880">loses patience with the incumbent.</text>
+<rect x="793" y="140" width="347" height="290" rx="11" fill="#FFFFFF" stroke="#8A79FF" stroke-width="1.5"/>
+<rect x="793" y="140" width="347" height="7" rx="3.5" fill="#8A79FF"/>
+<text x="813" y="178" font-family="DM Mono, ui-monospace, monospace" font-size="11" fill="#8A79FF">03</text>
+<text x="813" y="206" font-family="DM Sans, Inter, Helvetica, Arial, sans-serif" font-size="19" font-weight="700" fill="#271F8A">Subcontracting</text>
+<text x="813" y="227" font-family="DM Mono, ui-monospace, monospace" font-size="10.5" letter-spacing="1.1" fill="#6B6880">UNDER A PRIME</text>
+<text x="813.3333333333334" y="258" font-family="DM Sans, Inter, Helvetica, Arial, sans-serif" font-size="12.5" fill="#07060F">National facility services companies hold</text>
+<text x="813.3333333333334" y="274" font-family="DM Sans, Inter, Helvetica, Arial, sans-serif" font-size="12.5" fill="#07060F">more buildings than they staff directly</text>
+<text x="813.3333333333334" y="290" font-family="DM Sans, Inter, Helvetica, Arial, sans-serif" font-size="12.5" fill="#07060F">and subcontract the overflow.</text>
+<line x1="813" y1="304" x2="1120" y2="304" stroke="#D9D5F2" stroke-width="1"/>
+<text x="813.3333333333334" y="328" font-family="DM Sans, Inter, Helvetica, Arial, sans-serif" font-size="12" fill="#6B6880">Lower margin and no sales cost. Useful</text>
+<text x="813.3333333333334" y="344" font-family="DM Sans, Inter, Helvetica, Arial, sans-serif" font-size="12" fill="#6B6880">volume while you build direct accounts.</text>
+<line x1="60" y1="482" x2="1140" y2="482" stroke="#D9D5F2" stroke-width="1"/>
+<text x="60" y="508" font-family="DM Sans, Inter, Helvetica, Arial, sans-serif" font-size="12" fill="#6B6880">Rosebud Solutions · rosebud.global/resources/how-to-get-cleaning-contracts</text>
+</svg>

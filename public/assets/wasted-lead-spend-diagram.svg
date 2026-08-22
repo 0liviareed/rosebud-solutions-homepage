@@ -1,0 +1,55 @@
+<svg viewBox="0 0 1200 560" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Diagram showing marketing spend entering a funnel and leaking at four points: no working form, nobody sees the inquiry, reply too late, and no second touch">
+<rect width="1200" height="560" fill="#FBFAFF"/>
+<text x="60" y="58" font-family="DM Sans, Inter, Helvetica, Arial, sans-serif" font-size="27" font-weight="700" fill="#07060F">Where lead spend actually leaks</text>
+<text x="60" y="86" font-family="DM Sans, Inter, Helvetica, Arial, sans-serif" font-size="14.5" fill="#6B6880">Four failure points, all of them before a salesperson could influence anything. Only the last is visible in a CRM.</text>
+<line x1="60" y1="106" x2="1140" y2="106" stroke="#D9D5F2" stroke-width="1"/>
+<text x="60" y="150" font-family="DM Mono, ui-monospace, monospace" font-size="11.5" letter-spacing="1.4" fill="#5A3FE0">MONTHLY DEMAND GENERATION SPEND</text>
+<rect x="60.0" y="175" width="221.4" height="66" fill="#C9C3E8"/>
+<text x="170.7" y="209.0" text-anchor="middle" font-family="DM Sans, Inter, Helvetica, Arial, sans-serif" font-size="13" font-weight="600" fill="#FFFFFF">No working form</text>
+<text x="170.7" y="227.0" text-anchor="middle" font-family="DM Mono, ui-monospace, monospace" font-size="11.5" fill="#FFFFFF" opacity="0.85">20.5%</text>
+<rect x="281.4" y="175" width="259.2" height="66" fill="#A79CDA"/>
+<text x="411.0" y="209.0" text-anchor="middle" font-family="DM Sans, Inter, Helvetica, Arial, sans-serif" font-size="13" font-weight="600" fill="#FFFFFF">Nobody sees it</text>
+<rect x="540.6" y="175" width="172.8" height="66" fill="#8A79FF"/>
+<text x="627.0" y="209.0" text-anchor="middle" font-family="DM Sans, Inter, Helvetica, Arial, sans-serif" font-size="13" font-weight="600" fill="#FFFFFF">Reply too late</text>
+<rect x="713.4" y="175" width="99.4" height="66" fill="#6E5AF0"/>
+<rect x="812.8" y="175" width="322.9" height="66" fill="#271F8A"/>
+<text x="974.2" y="209.0" text-anchor="middle" font-family="DM Sans, Inter, Helvetica, Arial, sans-serif" font-size="13" font-weight="600" fill="#FFFFFF">Reaches a person</text>
+<text x="974.2" y="227.0" text-anchor="middle" font-family="DM Mono, ui-monospace, monospace" font-size="11.5" fill="#FFFFFF" opacity="0.85">29.9%</text>
+<rect x="60" y="175" width="1080" height="66" rx="8" fill="none" stroke="#FBFAFF" stroke-width="0"/>
+<path d="M 60 253 L 60 262 L 821.4 262 L 821.4 253" fill="none" stroke="#C98A78" stroke-width="1.5"/>
+<text x="441" y="284" text-anchor="middle" font-family="DM Sans, Inter, Helvetica, Arial, sans-serif" font-size="15" font-weight="700" fill="#C98A78">70.1% of delivered inquiries received no reply within 72 hours</text>
+<path d="M 821.4 253 L 821.4 262 L 1140 262 L 1140 253" fill="none" stroke="#271F8A" stroke-width="1.5"/>
+<text x="981" y="284" text-anchor="middle" font-family="DM Sans, Inter, Helvetica, Arial, sans-serif" font-size="13.5" font-weight="600" fill="#271F8A">Answered</text>
+<rect x="60" y="318" width="258" height="150" rx="10" fill="#FFFFFF" stroke="#D9D5F2" stroke-width="1.25"/>
+<text x="76" y="344" font-family="DM Mono, ui-monospace, monospace" font-size="11" fill="#5A3FE0">01</text>
+<text x="76" y="368" font-family="DM Sans, Inter, Helvetica, Arial, sans-serif" font-size="14.5" font-weight="700" fill="#271F8A">The form does not work</text>
+<text x="76" y="390" font-family="DM Sans, Inter, Helvetica, Arial, sans-serif" font-size="11.5" fill="#6B6880">No form present, a social link</text>
+<text x="76" y="405" font-family="DM Sans, Inter, Helvetica, Arial, sans-serif" font-size="11.5" fill="#6B6880">instead, or a container that</text>
+<text x="76" y="420" font-family="DM Sans, Inter, Helvetica, Arial, sans-serif" font-size="11.5" fill="#6B6880">silently fails. The spend is lost</text>
+<text x="76" y="435" font-family="DM Sans, Inter, Helvetica, Arial, sans-serif" font-size="11.5" fill="#6B6880">with no record a lead existed.</text>
+<rect x="334" y="318" width="258" height="150" rx="10" fill="#FFFFFF" stroke="#D9D5F2" stroke-width="1.25"/>
+<text x="350" y="344" font-family="DM Mono, ui-monospace, monospace" font-size="11" fill="#5A3FE0">02</text>
+<text x="350" y="368" font-family="DM Sans, Inter, Helvetica, Arial, sans-serif" font-size="14.5" font-weight="700" fill="#271F8A">Nobody sees it</text>
+<text x="350" y="390" font-family="DM Sans, Inter, Helvetica, Arial, sans-serif" font-size="11.5" fill="#6B6880">A shared inbox at 6pm, a</text>
+<text x="350" y="405" font-family="DM Sans, Inter, Helvetica, Arial, sans-serif" font-size="11.5" fill="#6B6880">notification nobody enabled, a</text>
+<text x="350" y="420" font-family="DM Sans, Inter, Helvetica, Arial, sans-serif" font-size="11.5" fill="#6B6880">channel published but unmonitored.</text>
+<text x="350" y="435" font-family="DM Sans, Inter, Helvetica, Arial, sans-serif" font-size="11.5" fill="#6B6880">19.8% answered out of hours</text>
+<text x="350" y="450" font-family="DM Sans, Inter, Helvetica, Arial, sans-serif" font-size="11.5" fill="#6B6880">against 34.8% in.</text>
+<rect x="608" y="318" width="258" height="150" rx="10" fill="#FFFFFF" stroke="#D9D5F2" stroke-width="1.25"/>
+<text x="624" y="344" font-family="DM Mono, ui-monospace, monospace" font-size="11" fill="#5A3FE0">03</text>
+<text x="624" y="368" font-family="DM Sans, Inter, Helvetica, Arial, sans-serif" font-size="14.5" font-weight="700" fill="#271F8A">Reply comes too late</text>
+<text x="624" y="390" font-family="DM Sans, Inter, Helvetica, Arial, sans-serif" font-size="11.5" fill="#6B6880">Median first reply 5.1 hours, 8.8</text>
+<text x="624" y="405" font-family="DM Sans, Inter, Helvetica, Arial, sans-serif" font-size="11.5" fill="#6B6880">counting only replies from a</text>
+<text x="624" y="420" font-family="DM Sans, Inter, Helvetica, Arial, sans-serif" font-size="11.5" fill="#6B6880">person. By then the buyer has</text>
+<text x="624" y="435" font-family="DM Sans, Inter, Helvetica, Arial, sans-serif" font-size="11.5" fill="#6B6880">contacted two or three</text>
+<text x="624" y="450" font-family="DM Sans, Inter, Helvetica, Arial, sans-serif" font-size="11.5" fill="#6B6880">competitors.</text>
+<rect x="882" y="318" width="258" height="150" rx="10" fill="#FFFFFF" stroke="#D9D5F2" stroke-width="1.25"/>
+<text x="898" y="344" font-family="DM Mono, ui-monospace, monospace" font-size="11" fill="#5A3FE0">04</text>
+<text x="898" y="368" font-family="DM Sans, Inter, Helvetica, Arial, sans-serif" font-size="14.5" font-weight="700" fill="#271F8A">No second touch</text>
+<text x="898" y="390" font-family="DM Sans, Inter, Helvetica, Arial, sans-serif" font-size="11.5" fill="#6B6880">Most inquiries do not convert on</text>
+<text x="898" y="405" font-family="DM Sans, Inter, Helvetica, Arial, sans-serif" font-size="11.5" fill="#6B6880">the first exchange. Without a</text>
+<text x="898" y="420" font-family="DM Sans, Inter, Helvetica, Arial, sans-serif" font-size="11.5" fill="#6B6880">sequence that runs on its own, the</text>
+<text x="898" y="435" font-family="DM Sans, Inter, Helvetica, Arial, sans-serif" font-size="11.5" fill="#6B6880">rest are simply gone.</text>
+<line x1="60" y1="502" x2="1140" y2="502" stroke="#D9D5F2" stroke-width="1"/>
+<text x="60" y="528" font-family="DM Sans, Inter, Helvetica, Arial, sans-serif" font-size="12" fill="#6B6880">2026 US Service Business Response Study, n=273 · Rosebud Solutions · rosebud.global/resources/wasted-lead-spend-calculator</text>
+</svg>
