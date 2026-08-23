@@ -6,6 +6,7 @@ import RedesignFooter from "./RedesignFooter";
 import RedesignReveal from "./RedesignReveal";
 import BookDemoCTA from "./BookDemoCTA";
 import { RESOURCES, STAGES, SECTORS, SORTS, KINDS, nameOf, type ResourceItem } from "./resourcesData";
+import { trackBookingClick } from "@/lib/trackBooking";
 
 // The Inquiry Library — resources index. Same design language as AboutV2
 // (light lavender sections, Cormorant headings, DM Sans body) with a
@@ -235,7 +236,7 @@ export default function ResourcesLibraryPage() {
           <p style={{ margin: "24px auto 0", maxWidth: 600, fontSize: 17, lineHeight: 1.62, color: "rgba(245,241,234,0.66)" }}>We deploy, manage, and monitor the entire intake layer for you as an operated rental service, connecting directly to your existing CRM and calendars.</p>
           <div style={{ marginTop: 36, display: "flex", flexWrap: "wrap", alignItems: "center", justifyContent: "center", gap: 16 }}>
             <BookDemoCTA label="See pricing & choose your plan" href="/pricing" tone="dark" />
-            <a href="https://cal.eu/rosebudsolutions/demo" target="_blank" rel="noopener noreferrer" style={{ display: "inline-flex", alignItems: "center", gap: 8, padding: "15px 26px", borderRadius: 999, border: "1px solid rgba(245,241,234,0.22)", color: "#F5F1EA", fontSize: 15, fontWeight: 500, textDecoration: "none" }}>Book a consultation</a>
+            <a href="https://cal.eu/rosebudsolutions/demo" target="_blank" rel="noopener noreferrer" onClick={() => trackBookingClick("https://cal.eu/rosebudsolutions/demo")} style={{ display: "inline-flex", alignItems: "center", gap: 8, padding: "15px 26px", borderRadius: 999, border: "1px solid rgba(245,241,234,0.22)", color: "#F5F1EA", fontSize: 15, fontWeight: 500, textDecoration: "none" }}>Book a consultation</a>
           </div>
         </div>
       </section>

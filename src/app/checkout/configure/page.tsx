@@ -6,6 +6,7 @@ import {
   PLANS, CUR, MODULES, MODULE_BUNDLE, planByKey, monthlyTotal, fmt,
   type Cur, type Cycle, type ModuleKey, type Config,
 } from "@/lib/pricing";
+import { trackBookingClick } from "@/lib/trackBooking";
 
 const SERIF = "var(--font-cormorant), 'Cormorant Garamond', serif";
 const A = "#8B7DD8";
@@ -156,7 +157,7 @@ function ConfigureInner() {
             <div style={{ padding: "22px 38px 32px", textAlign: "center" }}>
               <button type="button" onClick={() => { setClaOn(true); setModalOpen(false); }} style={{ width: "100%", maxWidth: 420, background: A, color: "#fff", border: "none", padding: "16px 24px", borderRadius: 14, fontSize: 16, fontWeight: 700, cursor: "pointer", boxShadow: "0 18px 40px -14px rgba(139,125,216,0.9)" }}>Add closed-loop to my plan</button>
               <div style={{ marginTop: 14, display: "flex", gap: 20, justifyContent: "center", flexWrap: "wrap" }}>
-                <a href={CAL} target="_blank" rel="noopener noreferrer" style={{ fontSize: 13, fontWeight: 600, color: "rgba(23,19,31,0.55)", borderBottom: "1px solid rgba(23,19,31,0.22)" }}>Contact sales</a>
+                <a href={CAL} target="_blank" rel="noopener noreferrer" onClick={() => trackBookingClick(CAL)} style={{ fontSize: 13, fontWeight: 600, color: "rgba(23,19,31,0.55)", borderBottom: "1px solid rgba(23,19,31,0.22)" }}>Contact sales</a>
               </div>
             </div>
           </div>

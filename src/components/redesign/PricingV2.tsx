@@ -6,6 +6,7 @@ import RedesignNav from "./RedesignNav";
 import RedesignFooter from "./RedesignFooter";
 import BookDemoCTA from "./BookDemoCTA";
 import { YEARLY, CUR, PLANS, MOD_FROM, type Cur, type PlanKey, type Plan } from "./pricingData";
+import { trackBookingClick } from "@/lib/trackBooking";
 
 // ── Pricing FAQ + JSON-LD ─────────────────────────────────────────────────
 // Lives here (not a separate server component) because /pricing is statically
@@ -346,7 +347,7 @@ export default function PricingV2() {
                 {["Dedicated deployment", "Custom volume", "Priority SLAs", "All add-ons"].map((t) => <span key={t} style={{ display: "flex", gap: 8, alignItems: "center" }}><span style={{ color: "#B8AEDB" }}>✓</span> {t}</span>)}
               </div>
             </div>
-            <a href={CAL} target="_blank" rel="noopener noreferrer" style={{ display: "inline-flex", alignItems: "center", gap: 9, background: "#F5F1EA", color: INK, padding: "15px 28px", borderRadius: 999, fontSize: 15, fontWeight: 600, whiteSpace: "nowrap" }}>Contact sales →</a>
+            <a href={CAL} target="_blank" rel="noopener noreferrer" onClick={() => trackBookingClick(CAL)} style={{ display: "inline-flex", alignItems: "center", gap: 9, background: "#F5F1EA", color: INK, padding: "15px 28px", borderRadius: 999, fontSize: 15, fontWeight: 600, whiteSpace: "nowrap" }}>Contact sales →</a>
           </div>
 
           <div style={{ textAlign: "center", fontSize: 12.5, color: "rgba(23,19,31,0.5)", marginTop: 18 }}>{taxNote}</div>
@@ -442,7 +443,7 @@ export default function PricingV2() {
               <div style={{ marginTop: 12, fontSize: 12.5, color: "rgba(23,19,31,0.55)" }}>+{fmt(cfg.cla)}/mo · on by default for Expand &amp; Scale</div>
               <div style={{ marginTop: 16, display: "flex", gap: 20, justifyContent: "center", flexWrap: "wrap" }}>
                 <a href="#" onClick={(e) => { e.preventDefault(); setModalTier(undefined); setTimeout(() => goToPicker(), 90); }} style={{ fontSize: 13, fontWeight: 600, color: AD, borderBottom: "1px dashed rgba(110,95,184,0.5)" }}>Not sure? See if it moves your numbers →</a>
-                <a href={CAL} target="_blank" rel="noopener noreferrer" style={{ fontSize: 13, fontWeight: 600, color: "rgba(23,19,31,0.55)", borderBottom: "1px solid rgba(23,19,31,0.22)" }}>Contact sales</a>
+                <a href={CAL} target="_blank" rel="noopener noreferrer" onClick={() => trackBookingClick(CAL)} style={{ fontSize: 13, fontWeight: 600, color: "rgba(23,19,31,0.55)", borderBottom: "1px solid rgba(23,19,31,0.22)" }}>Contact sales</a>
               </div>
             </div>
           </div>

@@ -2,6 +2,7 @@
 import { useEffect, useRef, useState, type CSSProperties } from "react";
 import Hero from "@/components/Hero";
 import BookDemoCTA from "./BookDemoCTA";
+import { trackBookingClick } from "@/lib/trackBooking";
 import RedesignMobileMenu from "./RedesignMobileMenu";
 import RedesignFooter from "./RedesignFooter";
 import Capabilities from "./Capabilities";
@@ -330,7 +331,7 @@ export default function HomepageV2() {
           <p className="rb-hero-lead">Just define your ideal customer, and Rosebud&apos;s AI instantly identifies, qualifies, contacts, and nurtures those high-intent buyers.</p>
           <div className="rb-hero-actions">
             <BookDemoCTA label="Get started" href="/pricing" tone="dark" />
-            <a className="rb-hero-contact" href="https://cal.eu/rosebudsolutions/demo" target="_blank" rel="noopener noreferrer">Book free consultation</a>
+            <a className="rb-hero-contact" href="https://cal.eu/rosebudsolutions/demo" target="_blank" rel="noopener noreferrer" onClick={() => trackBookingClick("https://cal.eu/rosebudsolutions/demo")}>Book free consultation</a>
           </div>
         </>}
       />
@@ -499,7 +500,7 @@ export default function HomepageV2() {
               </div>
               <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "center", gap: 14, marginTop: 40 }}>
                 <BookDemoCTA label="Get started" href="/pricing" tone="light" />
-                <a href="https://cal.eu/rosebudsolutions/demo" target="_blank" rel="noopener noreferrer" style={{ display: "inline-flex", alignItems: "center", background: "rgba(36,21,40,0.05)", backdropFilter: "blur(12px)", WebkitBackdropFilter: "blur(12px)", border: "1px solid rgba(36,21,40,0.2)", color: "#241528", padding: "14px 27px", borderRadius: 999, fontSize: 15, fontWeight: 500, textDecoration: "none" }}>Book free consultation</a>
+                <a href="https://cal.eu/rosebudsolutions/demo" target="_blank" rel="noopener noreferrer" onClick={() => trackBookingClick("https://cal.eu/rosebudsolutions/demo")} style={{ display: "inline-flex", alignItems: "center", background: "rgba(36,21,40,0.05)", backdropFilter: "blur(12px)", WebkitBackdropFilter: "blur(12px)", border: "1px solid rgba(36,21,40,0.2)", color: "#241528", padding: "14px 27px", borderRadius: 999, fontSize: 15, fontWeight: 500, textDecoration: "none" }}>Book free consultation</a>
               </div>
             </div>
           </div>

@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import { NAV_CAPABILITIES, NAV_RESOURCES, LIVE_SLUGS } from "./capabilityData";
+import { trackBookingClick } from "@/lib/trackBooking";
 
 // Global mobile nav — hamburger + full-screen accordion, reusing the SAME
 // styling that's live in production (.rb-mobile-menu-inner + .rb-macc-* in
@@ -93,7 +94,7 @@ export default function RedesignMobileMenu() {
       {/* Stacked CTAs — identical size, same sans family */}
       <div style={{ padding: "20px 24px 32px", display: "flex", flexDirection: "column", gap: 12, alignItems: "stretch" }}>
         <a href="/pricing" onClick={close} style={{ ...ctaBase, background: "rgba(139,125,216,0.18)", border: "1px solid rgba(184,174,219,0.42)", color: "#F5F1EA" }}>Get started</a>
-        <a href="https://cal.eu/rosebudsolutions/demo" target="_blank" rel="noopener noreferrer" onClick={close} style={{ ...ctaBase, background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.2)", color: "#F5F1EA" }}>Book free consultation</a>
+        <a href="https://cal.eu/rosebudsolutions/demo" target="_blank" rel="noopener noreferrer" onClick={() => { trackBookingClick("https://cal.eu/rosebudsolutions/demo"); close(); }} style={{ ...ctaBase, background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.2)", color: "#F5F1EA" }}>Book free consultation</a>
       </div>
     </div>
   );

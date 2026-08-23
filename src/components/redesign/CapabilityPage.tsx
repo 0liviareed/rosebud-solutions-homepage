@@ -3,6 +3,7 @@ import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from 
 import BookDemoCTA from "./BookDemoCTA";
 import RedesignMobileMenu from "./RedesignMobileMenu";
 import { bespokeHero, bespokeDeep, bespokePanel, capImg } from "./capabilityMocks";
+import { trackBookingClick } from "@/lib/trackBooking";
 import RedesignFooter from "./RedesignFooter";
 import RedesignReveal from "./RedesignReveal";
 import {
@@ -431,7 +432,7 @@ export default function CapabilityPage({ data }: { data: CapabilityData }) {
               <p style={{ margin: "24px auto 0", maxWidth: 600, fontSize: 17, lineHeight: 1.62, color: "rgba(23,19,31,0.66)" }}>{data.close.subhead}</p>
               <div style={{ marginTop: 36, display: "flex", flexWrap: "wrap", alignItems: "center", justifyContent: "center", gap: 16 }}>
                 <BookDemoCTA label="See pricing & choose your plan" href="/pricing" tone="light" />
-                <a href="https://cal.eu/rosebudsolutions/demo" target="_blank" rel="noopener noreferrer" style={{ display: "inline-flex", alignItems: "center", gap: 8, padding: "15px 26px", borderRadius: 999, border: "1px solid rgba(23,19,31,0.2)", color: "#17131F", fontSize: 15, fontWeight: 500, textDecoration: "none" }}>Book a consultation</a>
+                <a href="https://cal.eu/rosebudsolutions/demo" target="_blank" rel="noopener noreferrer" onClick={() => trackBookingClick("https://cal.eu/rosebudsolutions/demo")} style={{ display: "inline-flex", alignItems: "center", gap: 8, padding: "15px 26px", borderRadius: 999, border: "1px solid rgba(23,19,31,0.2)", color: "#17131F", fontSize: 15, fontWeight: 500, textDecoration: "none" }}>Book a consultation</a>
               </div>
             </div>
           </div>

@@ -1,5 +1,6 @@
 "use client";
 import { useRef, useState, type CSSProperties } from "react";
+import { trackBookingClick } from "@/lib/trackBooking";
 
 /* Magnetic glass CTA — ported from the redesign export (BookDemoCTA.dc).
    Pointer-follow transform on hover, animated arrow, one-shot sheen. */
@@ -53,7 +54,7 @@ export default function BookDemoCTA({
   return (
     <div style={{ display: "inline-flex", flexDirection: "column", alignItems: "center", gap: 12 }}>
       <div onMouseMove={onMove} onMouseEnter={() => setHover(true)} onMouseLeave={() => { setHover(false); setD({ dx: 0, dy: 0 }); }} style={{ position: "relative" }}>
-        <a ref={linkRef} href={href} target={external ? "_blank" : undefined} rel={external ? "noopener noreferrer" : undefined} style={btnStyle}>
+        <a ref={linkRef} href={href} target={external ? "_blank" : undefined} rel={external ? "noopener noreferrer" : undefined} onClick={() => { if (href.includes("cal.eu")) trackBookingClick(href); }} style={btnStyle}>
           <span style={{ position: "relative", zIndex: 2 }}>{label}</span>
           <span aria-hidden style={{ position: "relative", zIndex: 2, display: "inline-flex", alignItems: "center" }}>
             <svg viewBox="0 0 42 12" width="38" height="11" style={{ overflow: "visible" }}>

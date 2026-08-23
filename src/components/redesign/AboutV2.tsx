@@ -1,8 +1,10 @@
+"use client";
 import type { CSSProperties } from "react";
 import RedesignNav from "./RedesignNav";
 import RedesignFooter from "./RedesignFooter";
 import RedesignReveal from "./RedesignReveal";
 import BookDemoCTA from "./BookDemoCTA";
+import { trackBookingClick } from "@/lib/trackBooking";
 
 const SERIF = "var(--font-cormorant), 'Cormorant Garamond', serif";
 const A = "#8B7DD8";
@@ -150,7 +152,7 @@ export default function AboutV2() {
           <p style={{ margin: "24px auto 0", maxWidth: 600, fontSize: 17, lineHeight: 1.62, color: "rgba(245,241,234,0.66)" }}>We deploy, manage, and monitor the entire intake layer for you as an operated rental service, connecting directly to your existing CRM and calendars. The system handles the workflow up to the booking using your exact tone; your team closes the sale.</p>
           <div style={{ marginTop: 36, display: "flex", flexWrap: "wrap", alignItems: "center", justifyContent: "center", gap: 16 }}>
             <BookDemoCTA label="See pricing & choose your plan" href="/pricing" tone="dark" />
-            <a href="https://cal.eu/rosebudsolutions/demo" target="_blank" rel="noopener noreferrer" style={{ display: "inline-flex", alignItems: "center", gap: 8, padding: "15px 26px", borderRadius: 999, border: "1px solid rgba(245,241,234,0.22)", color: "#F5F1EA", fontSize: 15, fontWeight: 500, textDecoration: "none" }}>Book a consultation</a>
+            <a href="https://cal.eu/rosebudsolutions/demo" target="_blank" rel="noopener noreferrer" onClick={() => trackBookingClick("https://cal.eu/rosebudsolutions/demo")} style={{ display: "inline-flex", alignItems: "center", gap: 8, padding: "15px 26px", borderRadius: 999, border: "1px solid rgba(245,241,234,0.22)", color: "#F5F1EA", fontSize: 15, fontWeight: 500, textDecoration: "none" }}>Book a consultation</a>
           </div>
         </div>
       </section>
