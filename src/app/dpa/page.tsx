@@ -207,9 +207,9 @@ export default function DpaPage() {
             <p>
               We will impose data protection terms on each Subprocessor no less
               protective than those in this DPA and remain responsible for their
-              performance. We will give you [notice period &mdash; to be
-              confirmed] notice of any intended addition or replacement of a
-              Subprocessor, during which you may reasonably object.
+              performance. We will give you 30 days&rsquo; prior written notice
+              of any intended addition or replacement of a Subprocessor, during
+              which you may reasonably object on data protection grounds.
             </p>
           </section>
 
@@ -251,12 +251,12 @@ export default function DpaPage() {
             <h2 className="rb-legal-h2">9. Return and Deletion</h2>
             <p>
               On termination or expiry of the Service, we will make Contact Data
-              available to you for export for a period of [export window &mdash;
-              to be confirmed], after which we will delete or anonymise Contact
-              Data held within the Service, save where retention is required by
-              law. Data already written into your own CRM is unaffected and
-              remains under your control. Retention periods stated here must match
-              those in the Terms and Privacy Policy.
+              available to you for export for a period of 30 days, after which we
+              will delete or anonymise Contact Data held within the Service, save
+              where retention is required by law. Data already written into your
+              own CRM is unaffected and remains under your control. Retention
+              periods stated here must match those in the Terms and Privacy
+              Policy.
             </p>
           </section>
 
