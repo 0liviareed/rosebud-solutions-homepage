@@ -3,6 +3,7 @@ Allow: /
 Disallow: /demo
 Disallow: /login
 Disallow: /api/
+Disallow: /_next/static/
 
 # Explicit allow for AI crawlers so Rosebud is discoverable in
 # ChatGPT, Claude, Perplexity, Google AI Overviews, Bing Copilot.
@@ -12,42 +13,49 @@ Allow: /
 Disallow: /demo
 Disallow: /login
 Disallow: /api/
+Disallow: /_next/static/
 
 User-agent: ClaudeBot
 Allow: /
 Disallow: /demo
 Disallow: /login
 Disallow: /api/
+Disallow: /_next/static/
 
 User-agent: anthropic-ai
 Allow: /
 Disallow: /demo
 Disallow: /login
 Disallow: /api/
+Disallow: /_next/static/
 
 User-agent: PerplexityBot
 Allow: /
 Disallow: /demo
 Disallow: /login
 Disallow: /api/
+Disallow: /_next/static/
 
 User-agent: OAI-SearchBot
 Allow: /
 Disallow: /demo
 Disallow: /login
 Disallow: /api/
+Disallow: /_next/static/
 
 User-agent: CCBot
 Allow: /
 Disallow: /demo
 Disallow: /login
 Disallow: /api/
+Disallow: /_next/static/
 
 User-agent: Google-Extended
 Allow: /
 Disallow: /demo
 Disallow: /login
 Disallow: /api/
+Disallow: /_next/static/
 
 # Additional AI / agent crawlers — same access, same exclusions.
 User-agent: Applebot-Extended
@@ -67,5 +75,6 @@ Allow: /
 Disallow: /demo
 Disallow: /login
 Disallow: /api/
+Disallow: /_next/static/
 
 Sitemap: https://rosebud.global/sitemap.xml
