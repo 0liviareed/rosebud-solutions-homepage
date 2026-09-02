@@ -5,12 +5,35 @@
   font-family: var(--sans);
   display: grid;
   grid-template-columns: minmax(420px, 46%) 1fr;
+  position: relative;
 }
 @media (max-width: 960px) {
   .page { grid-template-columns: 1fr; }
 }
 
-/* ── Left: the form ─────────────────────────────────────────────────────── */
+/* Clickable brand mark, top-left of the whole page → marketing homepage. */
+.pageLogo {
+  position: absolute;
+  top: 28px;
+  left: 40px;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  text-decoration: none;
+}
+.pageLogo img {
+  border-radius: 50%;
+  box-shadow: 0 4px 14px -6px rgba(24, 20, 40, 0.35);
+}
+.pageLogo span {
+  font-family: var(--serif);
+  font-size: 19px;
+  letter-spacing: 0.01em;
+  color: var(--ink);
+}
+
+/* ── Left: the form (no container — floats on the canvas) ────────────────── */
 
 .formPane {
   position: relative;
@@ -31,12 +54,7 @@
 
 .card {
   position: relative; z-index: 1;
-  width: 100%; max-width: 420px;
-  padding: 36px 36px 30px;
-  background: var(--panel-2);
-  border: 1px solid var(--line);
-  border-radius: var(--r-card);
-  box-shadow: var(--sh-3);
+  width: 100%; max-width: 380px;
 }
 
 .brand {
@@ -68,11 +86,11 @@
 
 .title {
   font-family: var(--serif);
-  font-size: 28px;
+  font-size: 34px;
   font-weight: 500;
-  letter-spacing: -0.005em;
-  line-height: 1.05;
-  margin-bottom: 10px;
+  letter-spacing: -0.01em;
+  line-height: 1.02;
+  margin-bottom: 12px;
   color: var(--ink);
 }
 .title em {
@@ -83,10 +101,11 @@
 .subtitle {
   font-family: var(--serif);
   font-style: italic;
-  font-size: 14px;
+  font-size: 15px;
   line-height: 1.5;
   color: var(--ink-3);
-  margin-bottom: 28px;
+  margin-bottom: 30px;
+  max-width: 32ch;
 }
 
 .field { margin-bottom: 8px; }
@@ -104,18 +123,18 @@
 .input {
   width: 100%;
   padding: 12px 14px;
-  background: var(--panel);
+  background: var(--panel-2);
   border: 1px solid var(--bd-2);
   border-radius: var(--r-ctl);
   color: var(--ink);
   font-family: var(--sans);
   font-size: 14px;
   outline: none;
-  transition: border-color 0.2s, background 0.2s;
+  transition: border-color 0.2s, box-shadow 0.2s;
 }
 .input:focus {
   border-color: var(--bd-purple);
-  background: var(--panel-2);
+  box-shadow: 0 0 0 3px var(--purple-soft-2);
 }
 .input:disabled { opacity: 0.5; cursor: not-allowed; }
 
@@ -153,45 +172,42 @@
 .button:disabled { opacity: 0.5; cursor: not-allowed; }
 
 .footer {
-  margin-top: 24px;
-  padding-top: 18px;
-  border-top: 1px solid var(--bd);
-  font-family: var(--mono);
-  font-size: 10px;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--ink-4);
-  text-align: center;
+  margin-top: 22px;
+  font-family: var(--sans);
+  font-size: 13px;
+  color: var(--ink-3);
 }
 .footer a {
   color: var(--purple-deep);
   text-decoration: none;
+  font-weight: 500;
 }
-.footer a:hover { color: var(--purple); }
+.footer a:hover { color: var(--purple); text-decoration: underline; }
 
 .legal {
-  margin-top: 14px;
+  margin-top: 16px;
   display: flex;
-  justify-content: center;
   gap: 18px;
   font-family: var(--sans);
-  font-size: 11px;
+  font-size: 12px;
 }
 .legal a {
-  color: var(--ink-4);
+  color: var(--purple-deep);
   text-decoration: none;
 }
-.legal a:hover { color: var(--ink-2); text-decoration: underline; }
+.legal a:hover { text-decoration: underline; }
 
-/* ── Right: product showcase ────────────────────────────────────────────── */
+/* ── Right: product showcase on a dark Rosebud ground ───────────────────── */
 
 .showcase {
   position: relative;
   overflow: hidden;
+  /* Deep Rosebud purple, several steps darker than --ink toward the brand
+     hue — the dark ground the light product board + floating cards pop off. */
   background:
-    radial-gradient(ellipse 900px 600px at 85% 10%, color-mix(in oklab, var(--purple) 10%, transparent), transparent 65%),
-    color-mix(in oklab, var(--purple) 6%, var(--canvas));
-  border-left: 1px solid var(--line);
+    radial-gradient(ellipse 1000px 700px at 80% 8%, color-mix(in oklab, var(--purple) 42%, #0f0b1e), transparent 62%),
+    radial-gradient(ellipse 800px 600px at 10% 100%, color-mix(in oklab, var(--purple) 30%, #0d0a1a), transparent 68%),
+    #100c20;
 }
 @media (max-width: 960px) {
   .showcase { display: none; }
@@ -202,19 +218,19 @@
   inset: 0;
 }
 
-/* The Qualify board — anchored to the lower-left, deliberately cropped at
-   the right/bottom edges like a viewport onto a larger canvas. */
+/* The Qualify board — pushed down and to the right so it bleeds off both
+   the right and bottom edges of the viewport, like the reference comp. */
 .canvasPanel {
   position: absolute;
-  left: 8%;
-  top: 34%;
-  width: 72%;
-  min-width: 460px;
-  bottom: -40px;
+  left: 26%;
+  top: 40%;
+  width: 92%;
+  min-width: 520px;
+  bottom: -70px;
   background: var(--panel-2);
   border: 1px solid var(--line);
-  border-radius: 14px 14px 0 0;
-  box-shadow: 0 24px 70px -30px rgba(24, 20, 40, 0.35);
+  border-radius: 14px 0 0 0;
+  box-shadow: 0 40px 90px -40px rgba(0, 0, 0, 0.6);
   overflow: hidden;
 }
 
@@ -358,7 +374,7 @@
   background: var(--panel-2);
   border: 1px solid var(--line);
   border-radius: 14px;
-  box-shadow: 0 18px 44px -18px rgba(24, 20, 40, 0.35);
+  box-shadow: 0 22px 50px -20px rgba(0, 0, 0, 0.5);
   max-width: 400px;
 }
 .floatCard strong {
@@ -386,24 +402,24 @@
 .floatIconBlue { background: #e8eefb; color: #33549c; }
 .floatIconPurple { background: var(--purple-soft); color: var(--purple-deep); }
 
-.float1 { top: 8%; left: 30%; }
-.float2 { top: 20%; left: 22%; }
-.float3 { top: 32%; left: 44%; z-index: 2; }
+.float1 { top: 12%; left: 34%; }
+.float2 { top: 25%; left: 24%; }
+.float3 { top: 37%; left: 48%; z-index: 2; }
 
 /* Small placeholder notification, echoing the reference composition. */
 .skeletonCard {
   position: absolute;
-  top: 21%;
-  left: 4%;
+  top: 26%;
+  left: 6%;
   display: flex;
   align-items: center;
   gap: 10px;
   padding: 11px 16px 11px 11px;
-  background: var(--panel-2);
-  border: 1px solid var(--line);
+  background: color-mix(in oklab, var(--panel-2) 78%, transparent);
+  border: 1px solid color-mix(in oklab, #fff 22%, transparent);
   border-radius: 12px;
-  box-shadow: 0 14px 34px -16px rgba(24, 20, 40, 0.28);
-  opacity: 0.9;
+  box-shadow: 0 16px 38px -18px rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(3px);
 }
 .skeletonBell {
   flex: none;

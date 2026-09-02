@@ -44,24 +44,19 @@ function LoginForm() {
 
   return (
     <div className={styles.page}>
+      <a
+        href="https://rosebud.global"
+        className={styles.pageLogo}
+        aria-label="Rosebud — back to homepage"
+      >
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src="/rosebud-brand-orb.png" alt="" width={30} height={30} />
+        <span>Rosebud</span>
+      </a>
+
       <div className={styles.formPane}>
         <div className={styles.atmosphere} />
         <form className={styles.card} onSubmit={handleSubmit}>
-          <div className={styles.brand}>
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src="/rosebud-brand-orb.png"
-              alt="Rosebud Solutions"
-              className={styles.brandMark}
-              width={32}
-              height={32}
-            />
-            <div>
-              <div className={styles.brandText}>Rosebud Solutions</div>
-              <div className={styles.brandSub}>Part of Rosebud Global</div>
-            </div>
-          </div>
-
           <h1 className={styles.title}>
             Welcome <em>back!</em>
           </h1>
