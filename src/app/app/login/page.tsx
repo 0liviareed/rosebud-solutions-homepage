@@ -63,10 +63,12 @@ function LoginForm() {
           </div>
 
           <h1 className={styles.title}>
-            Sign in to your <em>console</em>
+            Welcome <em>back!</em>
           </h1>
 
-          <p className={styles.subtitle}>Your operation, running.</p>
+          <p className={styles.subtitle}>
+            Use Rosebud to turn every enquiry into booked work — automatically.
+          </p>
 
           <div className={styles.field}>
             <label className={styles.label} htmlFor="email">Email</label>
@@ -104,7 +106,12 @@ function LoginForm() {
           </button>
 
           <div className={styles.footer}>
-            Not a client yet? <a href="https://rosebud.global/pricing">See plans and pricing</a>
+            Don&rsquo;t have an account? <a href="https://rosebud.global/pricing">Sign up</a>
+          </div>
+
+          <div className={styles.legal}>
+            <a href="https://rosebud.global/terms">Terms of Service</a>
+            <a href="https://rosebud.global/privacy">Privacy Policy</a>
           </div>
         </form>
       </div>
