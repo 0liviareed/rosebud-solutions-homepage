@@ -1,6 +1,6 @@
 "use client";
 
-import { usePathname } from "next/navigation";
+import { usePathname, useSelectedLayoutSegments } from "next/navigation";
 import Header from "./Header";
 import Footer from "./Footer";
 import Runtime from "./Runtime";
@@ -75,6 +75,23 @@ export default function LayoutChrome({
   children: React.ReactNode;
 }) {
   const pathname = usePathname();
+  // The client console is served on app.rosebud.global with the /app prefix
+  // stripped from the browser URL — middleware rewrites /login → /app/login
+  // internally, so usePathname() returns "/login" and the "/app" entry in
+  // BARE_ROUTES above never matches (2026-09-02 subdomain-migration
+  // regression: marketing Header/Footer + Lenis runtime wrapped the app's
+  // login screen). Segments reflect the RESOLVED route tree, rewrites
+  // included, so this catches every app page regardless of which host/URL
+  // shape reached it.
+  const segments = useSelectedLayoutSegments();
+  if (segments[0] === "app") {
+    return (
+      <div id="rb-main" tabIndex={-1}>
+        {children}
+      </div>
+    );
+  }
+
   if (isBareRoute(pathname)) {
     return (
       <div id="rb-main" tabIndex={-1}>
