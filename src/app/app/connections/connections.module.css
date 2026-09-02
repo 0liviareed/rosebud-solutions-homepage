@@ -108,3 +108,25 @@
   font-family: var(--sans); font-size: 12.5px; color: var(--ink-3); background: var(--chrome-2);
   border: 1px solid var(--bd-2); border-radius: var(--r-ctl); padding: 7px 12px; cursor: pointer;
 }
+
+/* Pre-selection from the welcome flow's connection_intent — the card the
+   client told us they use. A quiet purple ring + a "Yours" tag; guidance
+   only, the card behaves identically. */
+.cardRecommended {
+  border-color: var(--purple);
+  box-shadow: 0 0 0 3px color-mix(in oklab, var(--purple) 12%, transparent);
+}
+.recommendBadge {
+  font-family: var(--mono);
+  font-size: 9.5px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--purple-deep);
+  background: var(--purple-soft);
+  border: 1px solid var(--bd-purple);
+  border-radius: 999px;
+  padding: 2px 7px;
+  margin-left: 8px;
+  vertical-align: middle;
+}

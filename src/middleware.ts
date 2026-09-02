@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 import { createAppSupabaseMiddlewareClient } from '@/lib/appSupabaseSession';
+import { appSupabaseAdmin } from '@/lib/appSupabase';
 
 const ENGINE_HOST = 'engine.rosebud.global';
 const APP_HOST = 'app.rosebud.global';
@@ -120,6 +121,45 @@ export async function middleware(request: NextRequest) {
       url.pathname = '/login';
       url.searchParams.set('next', path);
       return NextResponse.redirect(url);
+    }
+
+    // First-login onboarding gate (welcome flow, screen group W —
+    // Rosebud_Engine_Onboarding_Welcome_Build_Doc_v2.md §2). A paid client is
+    // held in /welcome until their profile is complete; once complete they can
+    // never land back on it. Existing orgs were backfilled to complete in
+    // migration 0006, so only orgs created after that hit this. Fails OPEN — a
+    // lookup hiccup must never lock a client out of the product, only skip the
+    // nudge.
+    const onWelcome = path === '/welcome' || path.startsWith('/welcome/');
+    try {
+      const admin = appSupabaseAdmin();
+      const { data: membership } = await admin
+        .from('org_members')
+        .select('org_id')
+        .eq('user_id', user.id)
+        .order('created_at', { ascending: true })
+        .limit(1)
+        .maybeSingle();
+      if (membership) {
+        const { data: tp } = await admin
+          .from('tenant_profile')
+          .select('profile_complete')
+          .eq('tenant_id', membership.org_id)
+          .maybeSingle();
+        const complete = tp?.profile_complete === true;
+        if (!complete && !onWelcome) {
+          const url = request.nextUrl.clone();
+          url.pathname = '/welcome';
+          return NextResponse.redirect(url);
+        }
+        if (complete && onWelcome) {
+          const url = request.nextUrl.clone();
+          url.pathname = '/connections';
+          return NextResponse.redirect(url);
+        }
+      }
+    } catch {
+      // fall through to the normal rewrite — see fail-open note above.
     }
 
     const rewritten = NextResponse.rewrite(new URL(`/app${path}`, request.url));

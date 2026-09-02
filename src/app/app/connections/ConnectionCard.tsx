@@ -46,11 +46,16 @@ export default function ConnectionCard({
   provider,
   connection,
   onChanged,
+  recommended = false,
 }: {
   category: CategoryKey;
   provider: ProviderEntry;
   connection: ConnectionSummary | undefined;
   onChanged: () => void;
+  // Pre-selected from the welcome flow's connection_intent — the client told us
+  // they use this tool (§0 "each selection pre-highlights a card"). Guidance
+  // only; every card stays connectable regardless.
+  recommended?: boolean;
 }) {
   const [region, setRegion] = useState(REGIONS[0].value);
   const [busy, setBusy] = useState(false);
@@ -161,9 +166,14 @@ export default function ConnectionCard({
     );
   }
 
+  const showRecommend = recommended && state === "disconnected";
+
   return (
-    <div className={styles.card}>
-      <div className={styles.cardName}>{provider.label}</div>
+    <div className={`${styles.card} ${showRecommend ? styles.cardRecommended : ""}`}>
+      <div className={styles.cardName}>
+        {provider.label}
+        {showRecommend && <span className={styles.recommendBadge}>Yours</span>}
+      </div>
 
       {state === "disconnected" && (
         <>

@@ -1,0 +1,247 @@
+/* First-login welcome flow (screen group W). Full-screen, one decision per
+   screen — the same layout doubles as the mobile layout (§5). Uses the shared
+   /app theme tokens (appTheme.module.css) so it reads as one product with the
+   Connections screen it hands off to. */
+
+.stage {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 32px 20px;
+  background-color: var(--canvas);
+  background-image:
+    radial-gradient(120% 60% at 12% 0%, color-mix(in oklab, var(--purple) 8%, transparent), transparent 60%),
+    radial-gradient(90% 55% at 100% 8%, color-mix(in oklab, var(--clay) 8%, transparent), transparent 62%);
+  background-repeat: no-repeat;
+}
+
+/* ── Splash + handoff ─────────────────────────────────────────────────────── */
+.splash {
+  width: 100%;
+  max-width: 520px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.rose { font-size: 40px; line-height: 1; margin-bottom: 18px; }
+.check {
+  font-size: 22px;
+  line-height: 1;
+  width: 52px;
+  height: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  color: #2a7a4a;
+  background: color-mix(in oklab, #2a7a4a 12%, #fff);
+  margin-bottom: 20px;
+}
+.splashTitle {
+  font-family: var(--serif);
+  font-size: 32px;
+  line-height: 1.15;
+  color: var(--ink);
+  margin: 0 0 8px;
+  text-wrap: balance;
+}
+.splashLede {
+  font-family: var(--serif);
+  font-size: 22px;
+  color: var(--purple-deep);
+  margin: 0 0 20px;
+}
+.splashBody {
+  font-family: var(--sans);
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--ink-3);
+  margin: 0 0 28px;
+  max-width: 42ch;
+}
+.assist {
+  font-family: var(--sans);
+  font-size: 13px;
+  color: var(--ink-4);
+  margin: 18px 0 0;
+}
+.assistLink { color: var(--purple-deep); text-decoration: none; font-weight: 600; }
+.assistLink:hover { text-decoration: underline; }
+
+/* ── Question card ────────────────────────────────────────────────────────── */
+.card {
+  width: 100%;
+  max-width: 560px;
+  background: var(--panel-2);
+  border: 1px solid var(--bd);
+  border-radius: var(--r-card);
+  box-shadow: var(--sh-2);
+  padding: 28px 32px 32px;
+}
+
+.topBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+.back {
+  font-size: 18px;
+  line-height: 1;
+  color: var(--ink-4);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: var(--r-ctl);
+}
+.back:hover { color: var(--ink); background: var(--chrome); }
+.counter {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-4);
+}
+
+.stepBody { margin-bottom: 24px; }
+.stepTitle {
+  font-family: var(--serif);
+  font-size: 24px;
+  color: var(--ink);
+  margin: 0 0 6px;
+  text-wrap: balance;
+}
+.stepHint {
+  font-family: var(--sans);
+  font-size: 14px;
+  color: var(--ink-3);
+  line-height: 1.5;
+  margin: 0 0 20px;
+}
+
+.field { display: flex; flex-direction: column; gap: 6px; margin-bottom: 16px; }
+.label {
+  font-family: var(--sans);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--ink-2);
+}
+.input {
+  font-family: var(--sans);
+  font-size: 15px;
+  color: var(--ink);
+  background: var(--panel);
+  border: 1px solid var(--bd-2);
+  border-radius: var(--r-ctl);
+  padding: 11px 13px;
+  width: 100%;
+  outline: none;
+}
+.input:focus { border-color: var(--purple); box-shadow: 0 0 0 3px color-mix(in oklab, var(--purple) 16%, transparent); }
+.input:disabled { background: var(--chrome); color: var(--ink-4); }
+
+.checkRow {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font-family: var(--sans);
+  font-size: 13.5px;
+  color: var(--ink-2);
+  cursor: pointer;
+}
+.checkRow input { width: 15px; height: 15px; accent-color: var(--purple); }
+
+.note {
+  font-family: var(--sans);
+  font-size: 12.5px;
+  color: var(--ink-4);
+  margin: 14px 0 0;
+}
+
+/* ── Chips ────────────────────────────────────────────────────────────────── */
+.chips { display: flex; flex-wrap: wrap; gap: 10px; }
+.chip {
+  font-family: var(--sans);
+  font-size: 14px;
+  color: var(--ink-2);
+  background: var(--panel);
+  border: 1px solid var(--bd-2);
+  border-radius: 999px;
+  padding: 9px 16px;
+  cursor: pointer;
+  transition: border-color 0.12s, background 0.12s, color 0.12s;
+}
+.chip:hover { border-color: var(--bd-purple); color: var(--ink); }
+.chipOn {
+  color: var(--purple-deep);
+  background: var(--purple-soft);
+  border-color: var(--purple);
+  font-weight: 600;
+}
+.chipDisabled { opacity: 0.42; cursor: not-allowed; }
+.chipDisabled:hover { border-color: var(--bd-2); color: var(--ink-2); }
+
+.wideOption {
+  display: block;
+  width: 100%;
+  margin-top: 12px;
+  font-family: var(--sans);
+  font-size: 14px;
+  color: var(--ink-2);
+  background: var(--panel);
+  border: 1px solid var(--bd-2);
+  border-radius: var(--r-ctl);
+  padding: 12px 14px;
+  text-align: left;
+  cursor: pointer;
+}
+.wideOption:hover { border-color: var(--bd-purple); }
+.wideOptionOn {
+  color: var(--purple-deep);
+  background: var(--purple-soft);
+  border-color: var(--purple);
+  font-weight: 600;
+}
+
+/* ── Actions ──────────────────────────────────────────────────────────────── */
+.primary {
+  font-family: var(--sans);
+  font-size: 15px;
+  font-weight: 600;
+  color: #fff;
+  background: var(--purple);
+  border: none;
+  border-radius: var(--r-ctl);
+  padding: 12px 22px;
+  cursor: pointer;
+  transition: background 0.12s, opacity 0.12s;
+}
+.primary:hover { background: var(--purple-deep); }
+.primary:disabled { opacity: 0.45; cursor: not-allowed; }
+
+.primaryLink {
+  font-family: var(--sans);
+  font-size: 15px;
+  font-weight: 600;
+  color: #fff;
+  background: var(--purple);
+  border-radius: var(--r-ctl);
+  padding: 12px 22px;
+  text-decoration: none;
+  display: inline-block;
+}
+.primaryLink:hover { background: var(--purple-deep); }
+
+.error {
+  font-family: var(--sans);
+  font-size: 13px;
+  color: #8a2a2a;
+  background: #fdf1f1;
+  border: 1px solid #f0c9c9;
+  border-radius: var(--r-ctl);
+  padding: 9px 12px;
+  margin: 0 0 16px;
+}

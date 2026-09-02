@@ -2,6 +2,7 @@ import { redirect } from "next/navigation";
 import { appSupabaseAdmin } from "@/lib/appSupabase";
 import { createAppSupabaseServerComponentClient } from "@/lib/appSupabaseSession";
 import ConnectionsView from "./ConnectionsView";
+import { intentHighlightKeys, type ConnectionIntent } from "@/lib/onboarding/state";
 import type { ConnectionSummary } from "@/app/api/connections/route";
 
 export const dynamic = "force-dynamic";
@@ -32,11 +33,21 @@ export default async function ConnectionsPage() {
 
   if (!membership) return <NoOrgState />;
 
-  const { data: connections } = await admin
-    .from("connections")
-    .select("id, category, provider, method, status, external_account_ref, region, health_reason")
-    .eq("org_id", membership.org_id)
-    .order("category", { ascending: true });
+  const [{ data: connections }, { data: intent }] = await Promise.all([
+    admin
+      .from("connections")
+      .select("id, category, provider, method, status, external_account_ref, region, health_reason")
+      .eq("org_id", membership.org_id)
+      .order("category", { ascending: true }),
+    admin.from("connection_intent").select("*").eq("tenant_id", membership.org_id).maybeSingle(),
+  ]);
 
-  return <ConnectionsView initialConnections={(connections ?? []) as ConnectionSummary[]} />;
+  const recommended = intent ? intentHighlightKeys(intent as Partial<ConnectionIntent>) : [];
+
+  return (
+    <ConnectionsView
+      initialConnections={(connections ?? []) as ConnectionSummary[]}
+      recommended={recommended}
+    />
+  );
 }

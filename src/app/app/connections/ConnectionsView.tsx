@@ -14,10 +14,15 @@ async function handleSignOut() {
 
 export default function ConnectionsView({
   initialConnections,
+  recommended = [],
 }: {
   initialConnections: ConnectionSummary[];
+  // "category:provider" keys the welcome flow pre-selected from the client's
+  // declared stack (connection_intent). Pre-highlights the matching cards.
+  recommended?: string[];
 }) {
   const [connections, setConnections] = useState(initialConnections);
+  const recommendedSet = new Set(recommended);
   const searchParams = useSearchParams();
   const connectedParam = searchParams.get("connected");
   const errorParam = searchParams.get("error");
@@ -64,6 +69,12 @@ export default function ConnectionsView({
         <p className={styles.intro}>
           Connect the tools you already use. We read and write through your own accounts. You
           need a CRM, a calendar, and at least one channel.
+          {recommendedSet.size > 0 && (
+            <>
+              {" "}
+              We&rsquo;ve marked the ones you told us about as <strong>Yours</strong>.
+            </>
+          )}
         </p>
 
         {connectedParam && (
@@ -85,6 +96,7 @@ export default function ConnectionsView({
                   provider={provider}
                   connection={byCategoryProvider.get(`${section.category}:${provider.key}`)}
                   onChanged={refetch}
+                  recommended={recommendedSet.has(`${section.category}:${provider.key}`)}
                 />
               ))}
             </div>
