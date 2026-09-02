@@ -3,11 +3,21 @@
   background: var(--canvas);
   color: var(--ink-2);
   font-family: var(--sans);
+  display: grid;
+  grid-template-columns: minmax(420px, 46%) 1fr;
+}
+@media (max-width: 960px) {
+  .page { grid-template-columns: 1fr; }
+}
+
+/* ── Left: the form ─────────────────────────────────────────────────────── */
+
+.formPane {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 24px;
-  position: relative;
   overflow: hidden;
 }
 
@@ -158,3 +168,243 @@
   text-decoration: none;
 }
 .footer a:hover { color: var(--purple); }
+
+/* ── Right: product showcase ────────────────────────────────────────────── */
+
+.showcase {
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(ellipse 900px 600px at 85% 10%, color-mix(in oklab, var(--purple) 10%, transparent), transparent 65%),
+    color-mix(in oklab, var(--purple) 6%, var(--canvas));
+  border-left: 1px solid var(--line);
+}
+@media (max-width: 960px) {
+  .showcase { display: none; }
+}
+
+.showcaseInner {
+  position: absolute;
+  inset: 0;
+}
+
+/* The Qualify board — anchored to the lower-left, deliberately cropped at
+   the right/bottom edges like a viewport onto a larger canvas. */
+.canvasPanel {
+  position: absolute;
+  left: 8%;
+  top: 34%;
+  width: 72%;
+  min-width: 460px;
+  bottom: -40px;
+  background: var(--panel-2);
+  border: 1px solid var(--line);
+  border-radius: 14px 14px 0 0;
+  box-shadow: 0 24px 70px -30px rgba(24, 20, 40, 0.35);
+  overflow: hidden;
+}
+
+.canvasBar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--bd);
+  background: var(--panel-2);
+}
+.canvasTitle {
+  font-family: var(--serif);
+  font-size: 17px;
+  color: var(--ink);
+}
+.canvasSub {
+  font-size: 11px;
+  color: var(--ink-3);
+}
+.periodSeg {
+  margin-left: auto;
+  display: flex;
+  gap: 2px;
+  padding: 3px;
+  border-radius: 10px;
+  background: color-mix(in oklab, var(--chrome) 60%, transparent);
+  border: 1px solid var(--bd-2);
+  font-size: 10px;
+  color: var(--ink-3);
+}
+.periodSeg > span { padding: 3px 9px; border-radius: 7px; white-space: nowrap; }
+.periodOn {
+  background: var(--panel-2);
+  color: var(--purple-deep);
+  box-shadow: 0 1px 3px rgba(24, 20, 40, 0.12);
+}
+
+.canvasBody {
+  padding: 16px 18px 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  background-image: radial-gradient(color-mix(in oklab, var(--ink-4) 32%, transparent) 1px, transparent 1px);
+  background-size: 14px 14px;
+}
+
+.flowNode {
+  background: var(--panel-2);
+  border: 1px solid var(--bd-2);
+  border-radius: 10px;
+  padding: 10px 12px;
+  width: 100%;
+  max-width: 340px;
+  box-shadow: 0 2px 8px -4px rgba(24, 20, 40, 0.12);
+}
+.nodeAccent {
+  border-color: var(--bd-purple);
+  box-shadow: 0 4px 14px -6px color-mix(in oklab, var(--purple) 35%, transparent);
+}
+.nodeHead { display: flex; align-items: flex-start; gap: 8px; }
+.nodeIcon {
+  flex: none;
+  width: 20px; height: 20px;
+  border-radius: 6px;
+  display: grid; place-items: center;
+  background: var(--chrome-2);
+  color: var(--ink-3);
+  margin-top: 1px;
+}
+.iconPurple { background: var(--purple-soft); color: var(--purple-deep); }
+.nodeName { font-size: 11.5px; font-weight: 600; color: var(--ink); line-height: 1.3; }
+.nodeDesc { font-size: 10px; color: var(--ink-3); line-height: 1.35; }
+.nodeFoot {
+  margin-top: 7px;
+  padding-top: 6px;
+  border-top: 1px solid var(--bd);
+  font-family: var(--mono);
+  font-size: 9px;
+  color: var(--ink-3);
+}
+
+.ruleChips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-top: 8px;
+}
+.ruleChips > span {
+  font-size: 9px;
+  color: var(--ink-2);
+  background: var(--panel);
+  border: 1px solid var(--bd-2);
+  border-radius: 999px;
+  padding: 2px 8px;
+  white-space: nowrap;
+}
+
+.flowChipRow { display: flex; gap: 26px; }
+.flowChip {
+  font-family: var(--mono);
+  font-size: 8px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--purple-deep);
+  background: var(--purple-soft);
+  border: 1px solid var(--bd-purple);
+  border-radius: 999px;
+  padding: 2px 8px;
+}
+.chipGreen { color: #2a6b46; background: #e9f4ec; border-color: #cbe5d3; }
+.chipAmber { color: #7a5a1a; background: #f8f1e2; border-color: #e8d9b4; }
+.flowChipGhost {
+  font-family: var(--mono);
+  font-size: 8px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-4);
+  border: 1px dashed var(--bd-2);
+  border-radius: 999px;
+  padding: 2px 8px;
+}
+
+.branchRow {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  width: 100%;
+}
+.branchRow .flowNode { max-width: none; }
+
+/* ── Floating outcome cards ─────────────────────────────────────────────── */
+
+.floatCard {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 13px 18px 13px 13px;
+  background: var(--panel-2);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  box-shadow: 0 18px 44px -18px rgba(24, 20, 40, 0.35);
+  max-width: 400px;
+}
+.floatCard strong {
+  display: block;
+  font-size: 14px;
+  font-weight: 650;
+  color: var(--ink);
+  line-height: 1.25;
+  white-space: nowrap;
+}
+.floatCard small {
+  display: block;
+  font-size: 11px;
+  color: var(--ink-3);
+  margin-top: 2px;
+  white-space: nowrap;
+}
+.floatIcon {
+  flex: none;
+  width: 38px; height: 38px;
+  border-radius: 10px;
+  display: grid; place-items: center;
+}
+.floatIconGreen { background: #e9f4ec; color: #2a6b46; }
+.floatIconBlue { background: #e8eefb; color: #33549c; }
+.floatIconPurple { background: var(--purple-soft); color: var(--purple-deep); }
+
+.float1 { top: 8%; left: 30%; }
+.float2 { top: 20%; left: 22%; }
+.float3 { top: 32%; left: 44%; z-index: 2; }
+
+/* Small placeholder notification, echoing the reference composition. */
+.skeletonCard {
+  position: absolute;
+  top: 21%;
+  left: 4%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 11px 16px 11px 11px;
+  background: var(--panel-2);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  box-shadow: 0 14px 34px -16px rgba(24, 20, 40, 0.28);
+  opacity: 0.9;
+}
+.skeletonBell {
+  flex: none;
+  width: 32px; height: 32px;
+  border-radius: 9px;
+  display: grid; place-items: center;
+  background: var(--chrome-2);
+  color: var(--ink-3);
+}
+.skeletonLines { display: flex; flex-direction: column; gap: 6px; }
+.skeletonLines > span {
+  display: block;
+  height: 6px;
+  border-radius: 999px;
+  background: var(--chrome-2);
+}
+.skeletonLines > span:first-child { width: 74px; }
+.skeletonLines > span:last-child { width: 52px; }
