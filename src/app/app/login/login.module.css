@@ -213,13 +213,51 @@
   .showcase { display: none; }
 }
 
+/* Focal light source — a large soft brand-purple orb bleeding in from the
+   upper-right so the dark ground reads as lit space with depth, not flat
+   black. Sits behind everything (showcaseInner has its own stacking). */
+.showcase::before {
+  content: "";
+  position: absolute;
+  top: -18%;
+  right: -12%;
+  width: 62%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(circle at center,
+    color-mix(in oklab, var(--purple) 62%, #fff) 0%,
+    color-mix(in oklab, var(--purple) 48%, transparent) 34%,
+    transparent 68%);
+  filter: blur(30px);
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+/* Fine grain over the whole ground — breaks up the flat gradient banding
+   the way a real rendered/photographed hero would have texture. Inline
+   SVG feTurbulence data URI, CSP-safe (no external request). */
+.showcase::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  opacity: 0.05;
+  mix-blend-mode: overlay;
+  pointer-events: none;
+}
+
+/* perspective wrapper so the board and cards recede into space rather than
+   sitting flat on the glass. */
 .showcaseInner {
   position: absolute;
   inset: 0;
+  perspective: 1800px;
+  perspective-origin: 70% 40%;
 }
 
 /* The Qualify board — pushed down and to the right so it bleeds off both
-   the right and bottom edges of the viewport, like the reference comp. */
+   the right and bottom edges of the viewport, and tilted a few degrees so
+   it reads as a real screenshot angling away, not a flat mockup. */
 .canvasPanel {
   position: absolute;
   left: 26%;
@@ -230,8 +268,10 @@
   background: var(--panel-2);
   border: 1px solid var(--line);
   border-radius: 14px 0 0 0;
-  box-shadow: 0 40px 90px -40px rgba(0, 0, 0, 0.6);
+  box-shadow: -40px 50px 110px -40px rgba(0, 0, 0, 0.7);
   overflow: hidden;
+  transform: rotateY(-9deg) rotateX(3deg) rotateZ(-0.6deg);
+  transform-origin: left center;
 }
 
 .canvasBar {
