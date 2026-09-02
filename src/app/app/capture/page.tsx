@@ -28,7 +28,7 @@ export default async function CapturePage({
   const {
     data: { user },
   } = await supabase.auth.getUser();
-  if (!user) redirect("/app/login");
+  if (!user) redirect("/login");
 
   const admin = appSupabaseAdmin();
   const { data: membership } = await admin

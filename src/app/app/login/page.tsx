@@ -6,7 +6,7 @@ import styles from './login.module.css';
 
 function LoginForm() {
   const searchParams = useSearchParams();
-  const next = searchParams.get('next') || '/app/capture';
+  const next = searchParams.get('next') || '/capture';
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');

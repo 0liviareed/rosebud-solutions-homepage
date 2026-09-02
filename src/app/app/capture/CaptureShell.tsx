@@ -11,7 +11,7 @@ const PERIOD_LABEL: Record<Period, string> = { today: "Today", week: "This week"
 
 async function handleSignOut() {
   await fetch("/api/app/logout", { method: "POST" });
-  window.location.href = "/app/login";
+  window.location.href = "/login";
 }
 
 export default function CaptureShell({
@@ -38,7 +38,7 @@ export default function CaptureShell({
         <div className={styles.navwrap}>
           {CAPABILITY_RAIL.map((cap) =>
             cap.live ? (
-              <Link href="/app/capture" key={cap.id} className={`${styles.nv} ${styles.on}`}>
+              <Link href="/capture" key={cap.id} className={`${styles.nv} ${styles.on}`}>
                 <span className={styles.nvI}>
                   <NodeIcon icon="in" />
                 </span>

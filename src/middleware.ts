@@ -3,6 +3,7 @@ import type { NextRequest } from 'next/server';
 import { createAppSupabaseMiddlewareClient } from '@/lib/appSupabaseSession';
 
 const ENGINE_HOST = 'engine.rosebud.global';
+const APP_HOST = 'app.rosebud.global';
 
 // Hotlink protection — blocks other sites from embedding our images directly
 // (bandwidth theft, unauthorized reuse) by checking the Referer on image
@@ -28,6 +29,7 @@ function isAllowedImageReferer(referer: string): boolean {
       hostname === 'rosebud.global' ||
       hostname === 'www.rosebud.global' ||
       hostname === 'engine.rosebud.global' ||
+      hostname === 'app.rosebud.global' ||
       hostname === 'localhost' ||
       hostname === '127.0.0.1'
     ) {
@@ -61,26 +63,73 @@ export async function middleware(request: NextRequest) {
     }
   }
 
-  // Real per-client auth for /app/* — the authenticated area built on the
-  // rosebud-app Supabase project (orgs/profiles/org_members/Auth), separate
-  // from the engine.rosebud.global demo gate below. Served on the apex
-  // (rosebud.global), not engine.rosebud.global, so it must run here,
-  // ahead of the ENGINE_HOST short-circuit further down — otherwise it
-  // would never fire for this host at all.
-  if (path === '/app' || path.startsWith('/app/')) {
-    if (path !== '/app/login') {
-      const { supabase, getResponse } = createAppSupabaseMiddlewareClient(request);
-      const {
-        data: { user },
-      } = await supabase.auth.getUser();
-      if (!user) {
-        const url = request.nextUrl.clone();
-        url.pathname = '/app/login';
-        url.searchParams.set('next', path);
-        return NextResponse.redirect(url);
-      }
-      return getResponse();
+  // Old rosebud.global/app/* URLs → the real app.rosebud.global subdomain,
+  // dropping the /app prefix (migrated 2026-09-02 — SaaS convention, clean
+  // separation from marketing-site traffic/SEO). Mirrors the /demo →
+  // engine.rosebud.global precedent below. Must run ahead of the APP_HOST
+  // block so a stale bookmark/shared link still lands somewhere real.
+  if (host === 'rosebud.global' && (path === '/app' || path.startsWith('/app/'))) {
+    const url = request.nextUrl.clone();
+    url.host = APP_HOST;
+    url.protocol = 'https:';
+    url.port = '';
+    url.pathname = path === '/app' ? '/' : path.slice('/app'.length);
+    return NextResponse.redirect(url, 301);
+  }
+
+  // Real per-client auth for app.rosebud.global — the authenticated area
+  // built on the rosebud-app Supabase project (orgs/profiles/org_members/
+  // Auth), separate from the engine.rosebud.global demo gate below. Own
+  // subdomain; the underlying pages/routes still live under src/app/app/*
+  // in this same Next.js app (no file move) — every page path gets an
+  // invisible /app prefix rewrite so the folder structure didn't need to
+  // change, only how it's reached.
+  if (host === APP_HOST) {
+    // An authenticated client console is not an SEO target — same
+    // restrictive robots.txt treatment as engine.rosebud.global below.
+    if (path === '/robots.txt') {
+      return new NextResponse('User-agent: *\nDisallow: /\n', {
+        status: 200,
+        headers: { 'Content-Type': 'text/plain; charset=utf-8' },
+      });
     }
+
+    // API routes for this area live at the top-level /api/* (e.g.
+    // /api/connections/*, /api/app/login) — NOT nested under /app/ — so
+    // they must pass through unprefixed. Only page paths get rewritten.
+    if (
+      path.startsWith('/api/') ||
+      path.startsWith('/_next/') ||
+      path === '/favicon.ico' ||
+      path.startsWith('/.well-known/') ||
+      /\.(png|jpe?g|svg|gif|webp|ico|woff2?|ttf|otf|css|js|map)$/i.test(path)
+    ) {
+      return NextResponse.next();
+    }
+
+    if (path === '/login') {
+      return NextResponse.rewrite(new URL('/app/login', request.url));
+    }
+
+    const { supabase, getResponse } = createAppSupabaseMiddlewareClient(request);
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
+    if (!user) {
+      const url = request.nextUrl.clone();
+      url.pathname = '/login';
+      url.searchParams.set('next', path);
+      return NextResponse.redirect(url);
+    }
+
+    const rewritten = NextResponse.rewrite(new URL(`/app${path}`, request.url));
+    // NextResponse.rewrite() starts a fresh response — carry forward any
+    // refreshed session cookies the Supabase client set on getResponse(),
+    // or a silent token refresh mid-session would never reach the browser.
+    for (const cookie of getResponse().cookies.getAll()) {
+      rewritten.cookies.set(cookie);
+    }
+    return rewritten;
   }
 
   // www → apex, 301, site-wide. Canonicalise every www request to the bare
