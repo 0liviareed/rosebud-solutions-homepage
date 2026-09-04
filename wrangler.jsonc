@@ -1,0 +1,25 @@
+{
+  // Cloudflare Workers deploy config for the rosebud-solutions-homepage app
+  // (app 4/4 of the Vercel -> Cloudflare migration). One Worker serves all
+  // three hosts — rosebud.global (marketing), engine.rosebud.global and
+  // app.rosebud.global — split by src/middleware.ts exactly as on Vercel.
+  // Production serves from Vercel until each host's DNS record is replaced by
+  // a Custom Domain on this Worker (zone already on Cloudflare; instant
+  // rollback by re-pointing at Vercel).
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "rosebud-homepage",
+  "main": ".open-next/worker.js",
+  "compatibility_date": "2025-04-01",
+  "compatibility_flags": ["nodejs_compat"],
+  "assets": {
+    "binding": "ASSETS",
+    "directory": ".open-next/assets"
+  },
+  "observability": {
+    "enabled": true
+  }
+  // No committed runtime vars: every NEXT_PUBLIC_* in src is read via DIRECT
+  // process.env access, so they're inlined at build time by Next. All server
+  // secrets (Stripe, Supabase service roles, connections keys, ...) are set as
+  // Worker Secrets via CI `wrangler secret put` — never committed.
+}

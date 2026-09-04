@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { checkBotId } from "botid/server";
+import { checkBotId } from "@/lib/botid-shim";
 import { appSupabaseAdmin } from "@/lib/appSupabase";
 import { isValidPhone } from "@/lib/phone";
 

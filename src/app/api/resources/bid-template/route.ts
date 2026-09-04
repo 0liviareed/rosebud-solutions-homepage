@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { checkBotId } from "botid/server";
+import { checkBotId } from "@/lib/botid-shim";
 import { sendResourceDownload } from "@/lib/email";
 
 export const dynamic = "force-dynamic";

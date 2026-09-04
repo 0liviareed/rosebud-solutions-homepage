@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import Stripe from "stripe";
-import { checkBotId } from "botid/server";
+import { checkBotId } from "@/lib/botid-shim";
 import { appSupabaseAdmin } from "@/lib/appSupabase";
 import { planByKey, extraSeats, MODULES, type Cur, type Cycle, type ModuleKey } from "@/lib/pricing";
 

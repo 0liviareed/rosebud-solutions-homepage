@@ -22,7 +22,15 @@ export async function POST(request: Request) {
   const raw = await request.text(); // raw body required for signature verification
   let event: Stripe.Event;
   try {
-    event = stripe.webhooks.constructEvent(raw, sig ?? "", STRIPE_WEBHOOK_SECRET);
+    // constructEventAsync + SubtleCrypto: the sync constructEvent relies on
+    // Node's synchronous crypto, which isn't available on Cloudflare Workers.
+    event = await stripe.webhooks.constructEventAsync(
+      raw,
+      sig ?? "",
+      STRIPE_WEBHOOK_SECRET,
+      undefined,
+      Stripe.createSubtleCryptoProvider()
+    );
   } catch (err) {
     console.error("stripe webhook signature failed:", err instanceof Error ? err.message : String(err));
     return NextResponse.json({ error: "Bad signature" }, { status: 400 });

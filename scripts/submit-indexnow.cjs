@@ -22,12 +22,15 @@ const KEY_LOCATION = `https://rosebud.global/${INDEXNOW_KEY}.txt`;
 const HOST = "rosebud.global";
 
 async function main() {
-  // Only fire on real production deploys — not local builds (VERCEL_ENV
-  // unset), not preview deployments (VERCEL_ENV=preview). The inverse of
-  // this check (skip only when explicitly non-production) let local test
+  // Only fire on real production deploys — not local builds (both env vars
+  // unset), not Vercel preview deployments (VERCEL_ENV=preview). The inverse
+  // of this check (skip only when explicitly non-production) let local test
   // builds through — caught by actually running this locally, not assumed.
-  if (process.env.VERCEL_ENV !== "production") {
-    console.log(`[indexnow] skipping — VERCEL_ENV=${process.env.VERCEL_ENV ?? "(unset)"}`);
+  // INDEXNOW_ENV is the Cloudflare-era equivalent: the CI workflow sets it to
+  // "production" on deploys of the live branch (VERCEL_ENV never exists there).
+  const deployEnv = process.env.VERCEL_ENV ?? process.env.INDEXNOW_ENV;
+  if (deployEnv !== "production") {
+    console.log(`[indexnow] skipping — deploy env=${deployEnv ?? "(unset)"}`);
     return;
   }
 

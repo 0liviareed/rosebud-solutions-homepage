@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { checkBotId } from "botid/server";
+import { checkBotId } from "@/lib/botid-shim";
 import { createClient } from "@supabase/supabase-js";
 
 export const dynamic = "force-dynamic";

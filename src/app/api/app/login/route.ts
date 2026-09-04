@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { checkBotId } from "botid/server";
+import { checkBotId } from "@/lib/botid-shim";
 import { createAppSupabaseRouteClient } from "@/lib/appSupabaseSession";
 
 export const dynamic = "force-dynamic";

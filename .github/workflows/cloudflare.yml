@@ -1,0 +1,108 @@
+# Build + deploy rosebud-solutions-homepage (rosebud.global + engine.* + app.*)
+# to Cloudflare Workers via OpenNext. App 4/4 of the Vercel -> Cloudflare
+# migration — build compute runs on GitHub Actions free minutes, not Vercel's
+# metered builders.
+#
+# Required GitHub SECRETS:
+#   CLOUDFLARE_API_TOKEN, CLOUDFLARE_ACCOUNT_ID
+#   plus the app env in the "Set Worker runtime env" step below. Any unset
+#   value is skipped with a log line (the deploy still succeeds; the matching
+#   feature is dark until the secret lands and a redeploy runs).
+name: Deploy homepage to Cloudflare
+on:
+  push:
+    branches: [main, cloudflare-migration]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  deploy:
+    name: build + deploy (Cloudflare Workers)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build (OpenNext) and deploy to Cloudflare Workers
+        run: npm run cf:deploy
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          # NEXT_PUBLIC_* are compile-time inlined (all direct process.env
+          # access in this repo — verified no destructuring), so they must be
+          # present at BUILD time.
+          NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
+          NEXT_PUBLIC_APP_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_APP_SUPABASE_URL }}
+          NEXT_PUBLIC_APP_SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_APP_SUPABASE_ANON_KEY }}
+          NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY: ${{ secrets.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY }}
+          NEXT_PUBLIC_POSTHOG_HOST: ${{ secrets.NEXT_PUBLIC_POSTHOG_HOST }}
+          NEXT_PUBLIC_POSTHOG_KEY: ${{ secrets.NEXT_PUBLIC_POSTHOG_KEY }}
+          # Uncomment at cutover (once this Worker serves rosebud.global) so
+          # the postbuild IndexNow submission fires on production deploys:
+          # INDEXNOW_ENV: production
+
+      - name: Set Worker runtime env
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
+          NEXT_PUBLIC_APP_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_APP_SUPABASE_URL }}
+          NEXT_PUBLIC_APP_SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_APP_SUPABASE_ANON_KEY }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+          APP_SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.APP_SUPABASE_SERVICE_ROLE_KEY }}
+          STRIPE_SECRET_KEY: ${{ secrets.STRIPE_SECRET_KEY }}
+          STRIPE_WEBHOOK_SECRET: ${{ secrets.STRIPE_WEBHOOK_SECRET }}
+          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+          CAL_WEBHOOK_SECRET: ${{ secrets.CAL_WEBHOOK_SECRET }}
+          CRON_SECRET: ${{ secrets.CRON_SECRET }}
+          CONNECTIONS_STATE_SECRET: ${{ secrets.CONNECTIONS_STATE_SECRET }}
+          CONNECTIONS_ENCRYPTION_KEY: ${{ secrets.CONNECTIONS_ENCRYPTION_KEY }}
+          DIALLER_CHECKOUT_SYNC_SECRET: ${{ secrets.DIALLER_CHECKOUT_SYNC_SECRET }}
+          GOOGLE_CONNECTIONS_CLIENT_ID: ${{ secrets.GOOGLE_CONNECTIONS_CLIENT_ID }}
+          GOOGLE_CONNECTIONS_CLIENT_SECRET: ${{ secrets.GOOGLE_CONNECTIONS_CLIENT_SECRET }}
+          ZOHO_CONNECTIONS_CLIENT_ID: ${{ secrets.ZOHO_CONNECTIONS_CLIENT_ID }}
+          ZOHO_CONNECTIONS_CLIENT_SECRET: ${{ secrets.ZOHO_CONNECTIONS_CLIENT_SECRET }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_WARROOM_CHAT_IDS: ${{ secrets.TELEGRAM_WARROOM_CHAT_IDS }}
+          DASHBOARD_PASSWORD: ${{ secrets.DASHBOARD_PASSWORD }}
+          DASHBOARD_TOTP_SECRET: ${{ secrets.DASHBOARD_TOTP_SECRET }}
+          DEMO_PASSWORD: ${{ secrets.DEMO_PASSWORD }}
+        run: |
+          put() {
+            if [ -n "$2" ]; then
+              printf '%s' "$2" | tr -d '\r\n' | npx wrangler secret put "$1"
+            else
+              echo "skip $1 (GitHub value unset)"
+            fi
+          }
+          put NEXT_PUBLIC_SUPABASE_URL "$NEXT_PUBLIC_SUPABASE_URL"
+          put NEXT_PUBLIC_APP_SUPABASE_URL "$NEXT_PUBLIC_APP_SUPABASE_URL"
+          put NEXT_PUBLIC_APP_SUPABASE_ANON_KEY "$NEXT_PUBLIC_APP_SUPABASE_ANON_KEY"
+          put SUPABASE_SERVICE_ROLE_KEY "$SUPABASE_SERVICE_ROLE_KEY"
+          put APP_SUPABASE_SERVICE_ROLE_KEY "$APP_SUPABASE_SERVICE_ROLE_KEY"
+          put STRIPE_SECRET_KEY "$STRIPE_SECRET_KEY"
+          put STRIPE_WEBHOOK_SECRET "$STRIPE_WEBHOOK_SECRET"
+          put RESEND_API_KEY "$RESEND_API_KEY"
+          put CAL_WEBHOOK_SECRET "$CAL_WEBHOOK_SECRET"
+          put CRON_SECRET "$CRON_SECRET"
+          put CONNECTIONS_STATE_SECRET "$CONNECTIONS_STATE_SECRET"
+          put CONNECTIONS_ENCRYPTION_KEY "$CONNECTIONS_ENCRYPTION_KEY"
+          put DIALLER_CHECKOUT_SYNC_SECRET "$DIALLER_CHECKOUT_SYNC_SECRET"
+          put GOOGLE_CONNECTIONS_CLIENT_ID "$GOOGLE_CONNECTIONS_CLIENT_ID"
+          put GOOGLE_CONNECTIONS_CLIENT_SECRET "$GOOGLE_CONNECTIONS_CLIENT_SECRET"
+          put ZOHO_CONNECTIONS_CLIENT_ID "$ZOHO_CONNECTIONS_CLIENT_ID"
+          put ZOHO_CONNECTIONS_CLIENT_SECRET "$ZOHO_CONNECTIONS_CLIENT_SECRET"
+          put TELEGRAM_BOT_TOKEN "$TELEGRAM_BOT_TOKEN"
+          put TELEGRAM_WARROOM_CHAT_IDS "$TELEGRAM_WARROOM_CHAT_IDS"
+          put DASHBOARD_PASSWORD "$DASHBOARD_PASSWORD"
+          put DASHBOARD_TOTP_SECRET "$DASHBOARD_TOTP_SECRET"
+          put DEMO_PASSWORD "$DEMO_PASSWORD"

@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import crypto from 'crypto';
-import { checkBotId } from 'botid/server';
+import { checkBotId } from "@/lib/botid-shim";
 
 /*
  * engine.rosebud.global login — mirrors the warroom auth contract.

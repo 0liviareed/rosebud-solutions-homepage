@@ -1,5 +1,4 @@
 import type { NextConfig } from "next";
-import { withBotId } from "botid/next/config";
 
 const nextConfig: NextConfig = {
   async headers() {
@@ -13,10 +12,13 @@ const nextConfig: NextConfig = {
       },
       {
         // Sitewide security headers — confirmed missing 2026-08-16 (external
-        // scan). HSTS is already set at the platform level (Vercel), not
-        // duplicated here.
+        // scan).
         source: "/:path*",
         headers: [
+          // HSTS was previously supplied by the Vercel platform; on Cloudflare
+          // Workers nothing sets it for us, so it lives here now (harmless
+          // duplication anywhere a platform also adds it).
+          { key: "Strict-Transport-Security", value: "max-age=63072000; includeSubDomains" },
           // Blocks framing by any other origin (clickjacking). SAMEORIGIN,
           // not DENY, since nothing on the site needs to self-embed but
           // there's no reason to rule it out either.
@@ -130,4 +132,10 @@ const nextConfig: NextConfig = {
   },
 };
 
-export default withBotId(nextConfig);
+export default nextConfig;
+
+// OpenNext (Cloudflare) — lets `next dev` reach Cloudflare bindings during
+// local development. No-op outside the Next dev server; does not affect a
+// CI build.
+import { initOpenNextCloudflareForDev } from "@opennextjs/cloudflare";
+initOpenNextCloudflareForDev();

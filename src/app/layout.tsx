@@ -8,26 +8,6 @@ import {
   JetBrains_Mono,
 } from "next/font/google";
 import LayoutChrome from "@/components/LayoutChrome";
-import { BotIdClient } from "botid/client";
-import { Analytics } from "@vercel/analytics/next";
-
-// Vercel BotID — invisible bot protection. Instruments the client so the matching
-// server routes can verify with checkBotId(). Protects the abusable POST endpoints.
-const BOTID_PROTECTED = [
-  { path: "/api/signup", method: "POST" },
-  { path: "/api/checkout/session", method: "POST" },
-  { path: "/api/pricing/enquiry", method: "POST" },
-  { path: "/api/careers/sdr", method: "POST" },
-  { path: "/api/login", method: "POST" },
-  { path: "/api/app/login", method: "POST" },
-  // Both call checkBotId() server-side but were missing here — with no
-  // client-side token to verify against, every real submission (not just
-  // bots) got a false "Request blocked." 403 in production. Confirmed live
-  // 2026-08-22: bid-template has been silently broken since it shipped.
-  { path: "/api/resources/bid-template", method: "POST" },
-  { path: "/api/calculator-result", method: "POST" },
-];
-import { SpeedInsights } from "@vercel/speed-insights/next";
 import PostHogProvider from "@/components/PostHogProvider";
 import CookieBanner from "@/components/CookieBanner";
 import { Suspense } from "react";
@@ -174,9 +154,6 @@ export default function RootLayout({
       lang="en-US"
       className={`${cormorant.variable} ${dmSans.variable} ${sora.variable} ${outfit.variable} ${jetbrainsMono.variable} ${dmMono.variable}`}
     >
-      <head>
-        <BotIdClient protect={BOTID_PROTECTED} />
-      </head>
       <body>
         <a href="#rb-main" className="rb-skip-link">
           Skip to content
@@ -197,8 +174,6 @@ export default function RootLayout({
         <Suspense fallback={null}>
           <PostHogProvider />
         </Suspense>
-        <Analytics />
-        <SpeedInsights />
         <CookieBanner />
       </body>
     </html>
