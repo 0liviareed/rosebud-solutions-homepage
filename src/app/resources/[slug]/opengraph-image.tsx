@@ -1,6 +1,5 @@
 import { ImageResponse } from "next/og";
-import { readFileSync } from "fs";
-import { join } from "path";
+import { readPublicAsset } from "@/lib/publicAsset";
 import { RESOURCES } from "@/components/redesign/resourcesData";
 
 // Per-resource OG/Twitter image — used whenever a RESOURCES entry doesn't set
@@ -19,13 +18,13 @@ export const contentType = "image/png";
 export default async function Image({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const data = RESOURCES[slug];
-  const logoData = readFileSync(join(process.cwd(), "public/rosebud-logo.png"));
+  const logoData = await readPublicAsset("rosebud-logo.png");
   const logoSrc = `data:image/png;base64,${logoData.toString("base64")}`;
 
   let diagramSrc: string | null = null;
   if (data?.ogDiagram) {
     try {
-      const diagramData = readFileSync(join(process.cwd(), "public", data.ogDiagram));
+      const diagramData = await readPublicAsset(data.ogDiagram);
       const mime = data.ogDiagram.endsWith(".svg") ? "image/svg+xml" : "image/png";
       diagramSrc = `data:${mime};base64,${diagramData.toString("base64")}`;
     } catch {

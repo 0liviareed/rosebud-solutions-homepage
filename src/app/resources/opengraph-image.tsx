@@ -1,6 +1,5 @@
 import { ImageResponse } from "next/og";
-import { readFileSync } from "fs";
-import { join } from "path";
+import { readPublicAsset } from "@/lib/publicAsset";
 
 // Dedicated OG/Twitter image for the /resources index. Previously this page
 // set `openGraph` explicitly without an `images` field, which suppresses
@@ -13,7 +12,7 @@ export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
 export default async function Image() {
-  const logoData = readFileSync(join(process.cwd(), "public/rosebud-logo.png"));
+  const logoData = await readPublicAsset("rosebud-logo.png");
   const logoSrc = `data:image/png;base64,${logoData.toString("base64")}`;
 
   return new ImageResponse(

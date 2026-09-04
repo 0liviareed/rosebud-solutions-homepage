@@ -1,6 +1,5 @@
 import { ImageResponse } from "next/og";
-import { readFileSync } from "fs";
-import { join } from "path";
+import { readPublicAsset } from "@/lib/publicAsset";
 
 // Sitewide default OG/Twitter image (Next.js file convention — auto-wires
 // og:image + twitter:image on every page that doesn't define its own).
@@ -12,7 +11,7 @@ export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
 export default async function Image() {
-  const logoData = readFileSync(join(process.cwd(), "public/rosebud-logo.png"));
+  const logoData = await readPublicAsset("rosebud-logo.png");
   const logoSrc = `data:image/png;base64,${logoData.toString("base64")}`;
 
   return new ImageResponse(
