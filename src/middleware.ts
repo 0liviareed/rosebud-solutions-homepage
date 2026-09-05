@@ -48,6 +48,15 @@ export async function middleware(request: NextRequest) {
   const host = request.headers.get('host') || '';
   const path = request.nextUrl.pathname;
 
+  // www → apex. On Vercel this 301 happened at the platform layer; on
+  // Cloudflare the Worker owns www.rosebud.global as a custom domain and the
+  // redirect lives here instead. Path + query preserved, permanent.
+  if (host === 'www.rosebud.global') {
+    const url = new URL(request.url);
+    url.hostname = 'rosebud.global';
+    return NextResponse.redirect(url, 301);
+  }
+
   // Hotlink check runs first and short-circuits — cheapest possible check,
   // and image requests never intersect with any of the routing logic below.
   if (
