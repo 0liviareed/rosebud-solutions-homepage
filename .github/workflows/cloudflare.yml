@@ -46,9 +46,9 @@ jobs:
           NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY: ${{ secrets.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY }}
           NEXT_PUBLIC_POSTHOG_HOST: ${{ secrets.NEXT_PUBLIC_POSTHOG_HOST }}
           NEXT_PUBLIC_POSTHOG_KEY: ${{ secrets.NEXT_PUBLIC_POSTHOG_KEY }}
-          # Uncomment at cutover (once this Worker serves rosebud.global) so
-          # the postbuild IndexNow submission fires on production deploys:
-          # INDEXNOW_ENV: production
+          # This Worker serves rosebud.global (cut over 2026-09-05), so the
+          # postbuild IndexNow submission fires on every deploy:
+          INDEXNOW_ENV: production
 
       - name: Set Worker runtime env
         env:
