@@ -25,7 +25,7 @@ export async function POST(request: NextRequest) {
 
   if (state.profile_complete) {
     // Idempotent: a double-submit or a resume after completion just re-hands off.
-    return NextResponse.json({ ok: true, redirect: "/connections" }, { headers: response.headers });
+    return NextResponse.json({ ok: true, redirect: "/dashboard" }, { headers: response.headers });
   }
 
   if (!isProfileAnswered(state)) {
@@ -54,5 +54,5 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: error.message }, { status: 500, headers: response.headers });
   }
 
-  return NextResponse.json({ ok: true, redirect: "/connections" }, { headers: response.headers });
+  return NextResponse.json({ ok: true, redirect: "/dashboard" }, { headers: response.headers });
 }

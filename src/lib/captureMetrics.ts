@@ -1,19 +1,12 @@
 import type { SupabaseClient } from "@supabase/supabase-js";
+import { periodRange, type Period } from "./app/period";
 
-export type Period = "today" | "week" | "month";
+export type { Period } from "./app/period";
 
-// Period boundaries: "today" is the current UTC calendar day; "week"/"month"
-// are rolling windows (last 7 / last 30 days), not calendar week/month — no
-// per-org timezone is stored anywhere yet, so this is the simplest correct
-// thing until that exists (see BUILD_MAP.md §3, "Period windows").
-function periodStart(period: Period): Date {
-  const now = new Date();
-  if (period === "today") {
-    return new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate()));
-  }
-  const days = period === "week" ? 7 : 30;
-  return new Date(now.getTime() - days * 86400000);
-}
+// Period boundaries come from src/lib/app/period.ts — day-aligned windows in
+// the tenant's timezone (tenant_profile.timezone; UTC when unset) so Capture,
+// the Dashboard and Usage all count the same days. Callers that don't know the
+// timezone pass "UTC".
 
 export type CaptureMetrics = {
   period: Period;
@@ -50,9 +43,10 @@ function median(values: number[]): number | null {
 export async function getCaptureMetrics(
   admin: SupabaseClient,
   orgId: string,
-  period: Period
+  period: Period,
+  timeZone: string = "UTC"
 ): Promise<CaptureMetrics> {
-  const since = periodStart(period).toISOString();
+  const since = periodRange(period, timeZone).since.toISOString();
 
   const { data: rows, error } = await admin
     .from("enquiries")

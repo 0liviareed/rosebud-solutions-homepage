@@ -12,7 +12,9 @@ export const dynamic = "force-dynamic";
 // (Rosebud_Engine_SelfServe_Build_Doc_v3.md §5.1).
 
 function redirectToConnections(base: string, query: Record<string, string>): NextResponse {
-  const url = new URL("/app/connections", base);
+  // Connections lives under Settings in the v9 console (the legacy
+  // /app/connections path still forwards, this just saves the hop).
+  const url = new URL("/app/settings/connections", base);
   for (const [k, v] of Object.entries(query)) url.searchParams.set(k, v);
   return NextResponse.redirect(url);
 }

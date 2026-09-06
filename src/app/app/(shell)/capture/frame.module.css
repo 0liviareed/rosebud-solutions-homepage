@@ -1,0 +1,14 @@
+/* Capture page frame (v9 tokens). Replaces the old per-page shell.module.css. */
+.frame { display: flex; flex-direction: column; min-height: 100vh; }
+.tb {
+  display: flex; align-items: center; gap: 12px; padding: 0 22px; height: 60px;
+  background: var(--glass); backdrop-filter: var(--blur); -webkit-backdrop-filter: var(--blur);
+  border-bottom: 1px solid var(--line); flex: none; position: sticky; top: 0; z-index: 10;
+}
+.tbT { font-family: var(--serif); font-size: 24px; font-weight: 500; color: var(--ink); line-height: 1; }
+.sp { flex: 1; }
+.body { display: grid; grid-template-columns: 1fr var(--insp); flex: 1; min-height: 0; }
+.scroll { min-width: 0; padding: 26px; }
+@media (max-width: 980px) {
+  .body { grid-template-columns: 1fr; }
+}

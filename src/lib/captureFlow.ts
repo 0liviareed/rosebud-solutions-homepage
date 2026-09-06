@@ -211,12 +211,3 @@ export function buildCaptureFlow(m: CaptureMetrics): FlowItem[] {
     { kind: "out", title: "Qualify", to: "qualify" },
   ];
 }
-
-export const CAPABILITY_RAIL: Array<{ id: string; code: string; name: string; live: boolean }> = [
-  { id: "capture", code: "CAP", name: "Capture", live: true },
-  { id: "qualify", code: "QAL", name: "Qualify", live: false },
-  { id: "book", code: "BKG", name: "Book", live: false },
-  { id: "retain", code: "RTN", name: "Retain", live: false },
-  { id: "reactivate", code: "RCT", name: "Reactivate", live: false },
-  { id: "follow-through", code: "FLW", name: "Follow through", live: false },
-];

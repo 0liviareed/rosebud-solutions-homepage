@@ -6,6 +6,7 @@ import {
   Sora,
   Outfit,
   JetBrains_Mono,
+  Inter,
 } from "next/font/google";
 import LayoutChrome from "@/components/LayoutChrome";
 import PostHogProvider from "@/components/PostHogProvider";
@@ -16,8 +17,19 @@ import "./globals.css";
 const cormorant = Cormorant_Garamond({
   variable: "--font-cormorant",
   subsets: ["latin"],
-  weight: ["400", "500"],
+  // 600 is the client-console (v9) brand + heading weight.
+  weight: ["400", "500", "600"],
   style: ["normal", "italic"],
+  display: "swap",
+});
+
+/* Client console (app.rosebud.global) body face — the v9 dashboard design.
+   Marketing pages keep DM Sans; only src/app/app/appTheme.module.css maps
+   --sans to this variable. */
+const inter = Inter({
+  variable: "--font-inter",
+  subsets: ["latin"],
+  weight: ["400", "500", "600"],
   display: "swap",
 });
 
@@ -152,7 +164,10 @@ export default function RootLayout({
   return (
     <html
       lang="en-US"
-      className={`${cormorant.variable} ${dmSans.variable} ${sora.variable} ${outfit.variable} ${jetbrainsMono.variable} ${dmMono.variable}`}
+      // The client console restores its collapsed-rail preference by setting
+      // data-rail on <html> before hydration (src/app/app/(shell)/layout.tsx).
+      suppressHydrationWarning
+      className={`${cormorant.variable} ${dmSans.variable} ${sora.variable} ${outfit.variable} ${jetbrainsMono.variable} ${dmMono.variable} ${inter.variable}`}
     >
       <body>
         <a href="#rb-main" className="rb-skip-link">

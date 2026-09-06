@@ -163,7 +163,7 @@ export async function middleware(request: NextRequest) {
         }
         if (complete && onWelcome) {
           const url = request.nextUrl.clone();
-          url.pathname = '/connections';
+          url.pathname = '/dashboard';
           return NextResponse.redirect(url);
         }
       }
