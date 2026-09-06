@@ -65,6 +65,8 @@ real, so whoever builds this knows what tables/APIs to reach for:
 
 ## 2. Dashboard (`viewOperation`, id `operation`)
 
+> **Superseded by §10 (v9 dashboard, 2026-09-06).** The KPI strip, funnel, live feed, last-night panel, sources table and system-status strip no longer render on the Dashboard; their rows below are kept for the capability/Health views that still use the same objects.
+
 | Element | Demo source today | What it needs in production |
 |---|---|---|
 | Greeting ("Good evening, Olivia") | `PROFILE.first` + `new Date().getHours()` | Real logged-in user's name — the time-of-day logic itself is fine as-is, no backend needed |
@@ -240,3 +242,34 @@ Roughly in order of "blocks everything else" → "polish":
 7. **Health/Logs against real monitoring** — least urgent, most tolerable to leave partly
    illustrative a little longer, but "99.8% uptime" as a literal string is a claim someone
    could quote back at you.
+
+---
+
+## 10. v9 dashboard + global nav (2026-09-06)
+
+The Dashboard view and the rail were rebuilt to the v9 mockup (`rosebud-dashboard-mockup-v9.html`).
+The same markup/class contract is implemented in React on app.rosebud.global; the two surfaces must
+stay visually identical, so every row here has a counterpart in `src/lib/dashboardMetrics.ts`.
+
+| Element | Demo source today | What it needs in production |
+|---|---|---|
+| Nav items + sections | `ALL` / `RUNNING` (`CAPS` minus `follow`, plus `ADDONS`), `navBtn()` | `src/lib/app/nav.ts` NAV_ITEMS — Follow through is deliberately absent (sold as modules); Write to CRM has no item (nothing to configure) |
+| Inbox badge | `QUEUE.length` via `badges()` | Real open-handover count (`queue_items`, not built) |
+| Attribution "Off" badge | `ADDONS[0].gate` | `subscriptions.cla_on` |
+| Footer user block | `PROFILE.first/last`, `ACCOUNT.company` | `profiles` + `tenant_profile.business_name` |
+| Collapse to icon rail | `setMin()`, `localStorage['rb.rail.min']` | Same key on the app (`AppShell`) |
+| "Welcome {first}" | `PROFILE.first` | `profiles.first_name` |
+| "captured N … booked N since go-live" | `OPERATION.cum` | lifetime `enquiries` count; booked needs a `booked` workflow step (none today); date = `subscriptions.go_live_date ?? onboarding_completed_at` |
+| "6 capabilities running" | `CORE_FLOWS.length` | count of core flows actually live (`nav.ts` CORE_FLOWS live flags — 1 today) |
+| "9 of 9 sources connected" | `HEALTH.items[0].v` | active `connections` / intent-derived expected |
+| Range pills (Today · 7 days · 30 days · This month) | `PERIOD` + `CORE[period]`; `calmonth` scaled from month, pinned to `DAILY` | `period.ts` (`calmonth` in tenant timezone) |
+| Team handover card (6 · 3 now · 3 clinical / 3 admin) | `QUEUE`, `q.now||q.block`, new `q.cat` | `queue_items` with a category (not built) |
+| Captured / Qualified / Booked tiles | `C().captured/qualified/booked` | enquiries count; `workflow_events` step counts (`qualified`, `booked`) — null/"Not live yet" until written |
+| Plan usage (312 of 1,800 · Grow · resets 1 Oct) | `CORE.month.captured`, `ALLOWANCE` (Grow, from `src/lib/pricing.ts`) | calendar-month enquiries vs `plans.lead_cap`; later `src/lib/plans.ts` (paused plan) |
+| Activity Overview chart | `DAILY` (30 × c/q/m/e/b) → `lineChart()` | per-day enquiries + `workflow_events` step counts (`message_sent`, `email_sent`); renderer shared with `src/lib/app/chartPath.ts` |
+| Latest bookings | `BOOKINGS` | no table (enquiries has no names) — "Not live yet" on the app |
+| Latest replies | `REPLIES` | no message store — "Not live yet" on the app |
+| Inbox view | `queueHTML()` + `bindQueue()` full-width | Saj's Inbox design (to follow) + `queue_items` |
+| Help view | `openRequest()`, mailto, capability links | same three links on the app |
+| Overage copy (£0.25 / £12.50 per block) | `OVER` literal, TODO comment | `plans.ts` OVERAGE (paused plan) |
+
